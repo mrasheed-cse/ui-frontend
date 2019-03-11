@@ -1,0 +1,230 @@
+<div class="row">
+	<div class="col-md-1">
+		<div class="card-body"></div>
+	</div>
+	<div class="col-md-10">
+		<div class="card">
+			<div class="card-header">
+				<strong>Provisioning (Active number series table)</strong>
+			</div>
+			<form [formGroup]="mySeriesProvisionForm" novalidate (ngSubmit)="onSeriesProvisionSubmit()">
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group row">
+								<label class="col-md-5 col-form-label">Work Request Name</label>
+								<div class="col-md-7">
+									<p class="form-control-static">{{WR_Name}}</p>
+
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group row">
+								<label class="col-md-5 col-form-label" for="startMSISDN">Start MSISDN</label>
+								<div class="col-md-7">
+									<input type="text" id="startMSISDN" name="startMSISDN" class="form-control" formControlName="startMSISDN" pattern="(017|013)\d*" required
+									 [ngClass]="{
+										'is-invalid': startMSISDN.invalid && (startMSISDN.dirty || startMSISDN.touched),
+										'is-valid': startMSISDN.valid && (startMSISDN.dirty || startMSISDN.touched)
+								   }">
+									<div class="invalid-feedback" *ngIf="startMSISDN.errors && (startMSISDN.dirty || startMSISDN.touched)">
+										<p *ngIf="startMSISDN.errors.required">Start MSISDN is required</p>
+										<p *ngIf="startMSISDN.errors.pattern">MSISDN starts with 017 or 013 and  contains only digits.</p>
+										<p *ngIf="startMSISDN.errors.minlength">MSISDN must be 11 digit long</p>
+										<p *ngIf="startMSISDN.errors.maxlength">MSISDN must be 11 digit long</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group row">
+								<label class="col-md-5 col-form-label" for="endMSISDN">End MSISDN</label>
+								<div class="col-md-7">
+									<input type="text" id="endMSISDN" name="endMSISDN" class="form-control" formControlName="endMSISDN" pattern="(017|013)\d*" required
+									 [ngClass]="{
+										'is-invalid': endMSISDN.invalid && (endMSISDN.dirty || endMSISDN.touched),
+										'is-valid': endMSISDN.valid && (endMSISDN.dirty || endMSISDN.touched)
+								   }">
+									<div class="invalid-feedback" *ngIf="endMSISDN.errors && (endMSISDN.dirty || endMSISDN.touched)">
+										<p *ngIf="endMSISDN.errors.required">End MSISDN is required</p>
+										<p *ngIf="endMSISDN.errors.pattern">MSISDN starts with 017 or 013 and  contains only digits.</p>
+										<p *ngIf="endMSISDN.errors.minlength">MSISDN must be 11 digit long</p>
+										<p *ngIf="endMSISDN.errors.maxlength">MSISDN must be 11 digit long</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group row">
+								<label class="col-md-5 col-form-label" for="IMSI">IMSI</label>
+								<div class="col-md-7">
+									<select class="form-control" id="IMSI" formControlName="IMSI" required [ngClass]="{
+														'is-invalid': IMSI.invalid && (IMSI.dirty || IMSI.touched),
+														'is-valid': IMSI.valid && (IMSI.dirty || IMSI.touched)
+													 }">
+										<option></option>
+										<option *ngFor="let aIMSI of listIMSI" [value]="aIMSI.id">{{aIMSI.group_name}}</option>
+										<!--											<option *ngFor="let cl of clientOptions" [value]="cl.id">{{cl.client_name}}</option> -->
+									</select>
+								</div>
+
+
+								<div class="invalid-feedback" *ngIf="IMSI.errors && (IMSI.dirty || IMSI.touched)">
+									<p *ngIf="IMSI.errors.required">IMSI Name required</p>
+
+								</div>
+
+
+							</div>
+						</div>
+					</div>
+
+
+
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group row">
+								<label class="col-md-5 col-form-label" for="quantity">Quantity</label>
+								<div class="col-md-7">
+									<input type="text" id="quantity" name="quantity" class="form-control" formControlName="quantity">
+
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group row">
+								<label class="col-md-5 col-form-label" for="productType">Product Type</label>
+								<div class="col-md-7">
+									<select class="form-control" id="productType" formControlName="productType" required (change)="onProductTypeSelect($event)"
+									 [ngClass]="{
+														'is-invalid': productType.invalid && (productType.dirty || productType.touched),
+														'is-valid': productType.valid && (productType.dirty || productType.touched)
+													 }">
+										<option></option>
+										<option *ngFor="let aProductType of listProductType" [value]="aProductType.id">{{aProductType.productType_name}}</option>
+									</select>
+								</div>
+								<div class="invalid-feedback" *ngIf="productType.errors && (productType.dirty || productType.touched)">
+									<p *ngIf="productType.errors.required">Product Type Selection required</p>
+
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group row">
+								<label class="col-md-5 col-form-label" for="productName">Product Name</label>
+								<div class="col-md-7">
+									<select class="form-control" id="productName" formControlName="productName" required (change)="onProductNameSelects($event)"
+									 [ngClass]="{
+														'is-invalid': productName.invalid && (productName.dirty || productName.touched),
+														'is-valid': productName.valid && (productName.dirty || productName.touched)
+													 }">
+										<option></option>
+										<option *ngFor="let aProduct of listProduct" [value]="aProduct.id">{{aProduct.productName}}</option>
+
+									</select>
+								</div>
+								<div class="invalid-feedback" *ngIf="productName.errors && (productName.dirty || productName.touched)">
+									<p *ngIf="productName.errors.required">Product Name Selection required</p>
+
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group row">
+								<label class="col-md-5 col-form-label" for="serviceClassName">Service Class Name</label>
+								<div class="col-md-7">
+									<input type="text" id="serviceClassName" name="serviceClassName" class="form-control" formControlName="serviceClassName">
+
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group row">
+								<label class="col-md-5 col-form-label" for="communityID">Community ID</label>
+								<div class="col-md-7">
+									<input type="text" id="communityID" name="communityID" class="form-control" formControlName="communityID">
+
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group row">
+								<label class="col-md-5 col-form-label" for="zone">zone Name</label>
+								<div class="col-md-7">
+									<select class="form-control" id="zone" formControlName="zone" required [ngClass]="{
+															'is-invalid': zone.invalid && (zone.dirty || zone.touched),
+															'is-valid': zone.valid && (zone.dirty || zone.touched)
+														 }">
+
+										<option *ngFor="let aZone of listZone" [value]="aZone.id">{{aZone.name}}</option>
+									</select>
+								</div>
+								<div class="invalid-feedback" *ngIf="zone.errors && (zone.dirty || zone.touched)">
+									<p *ngIf="zone.errors.required">Zone Name Selection required</p>
+
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- ///
+					<div class="row">
+						<div class="col-md-6">
+
+						</div>
+						<div class="col-md-6">
+
+						</div>
+					</div>
+					/// -->
+
+
+
+					<div class="form-group row">
+						<label class="col-md-5 col-form-label" for="srcComment">Comment</label>
+						<div class="col-md-12">
+							<textarea id="srcComment" name="srcComment" class="form-control" formControlName="srcComment" rows="5">
+				</textarea>
+						</div>
+					</div>
+
+				</div>
+				<!-- <div class="card-body"> -->
+				<div class="card-footer text-right">
+					<button type="submit" [disabled]="!mySeriesProvisionForm.valid" class="btn btn-sm btn-primary">
+						<i class="fa fa-dot-circle-o"></i> Submit</button>
+					<button type="reset" class="btn btn-sm btn-danger">
+						<i class="fa fa-ban"></i> Reset</button>
+				</div>
+				<!-- <div class="card-footer"> -->
+			</form>
+
+			<div class="alert alert-success" role="alert" *ngIf="successAlertShow">{{successAlertMessage}}</div>
+			<div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">{{dangerAlertMessage}}</div>
+
+		</div>
+		<!-- <div class="card"> -->
+	</div>
+	<div class="col-md-2">
+		<div class="card-body"></div>
+
+	</div>
+</div>
+<!--
+<pre >{{mySeriesProvisionForm.value | json}}</pre>
+<pre *ngIf="mySeriesProvisionForm.valid">This is Valid form Data.{{mySeriesProvisionForm.value | json}}</pre>
+-->

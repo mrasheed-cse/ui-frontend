@@ -1,0 +1,7 @@
+{
+  "/nsa_api": {
+    "target": "http://localhost:8019/nsa/",
+    "secure": false,
+    "pathRewrite": {"^/nsa_api" : ""}
+  }
+}

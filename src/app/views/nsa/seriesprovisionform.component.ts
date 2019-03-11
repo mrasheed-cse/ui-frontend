@@ -1,0 +1,320 @@
+import {
+  NgModule,
+  Component,
+  Pipe,
+  OnInit
+} from '@angular/core';
+import {ReactiveFormsModule, FormGroup, FormControl, Validators} from '@angular/forms';
+import {BrowserModule} from '@angular/platform-browser';
+import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+import {BsDatepickerConfig} from 'ngx-bootstrap/datepicker';
+
+import {HttpClient} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
+import { environment } from '../../../environments/environment.prod';
+import { DefinitionDataService } from './services/definitiondata.service';
+import { WorkflowsService } from './services/workflows.service';
+import { Observable } from 'rxjs/Observable';
+import { Router } from '@angular/router';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/retry';
+import 'rxjs/add/observable/of';
+
+
+import { AppGlobals } from './../../app.global';
+
+@Component({
+  selector: 'app-seriesprovisionform',
+  templateUrl: './seriesprovisionform.component.html',
+  styles: [],
+  providers: [DefinitionDataService,WorkflowsService,AppGlobals]
+})
+export class SeriesprovisionformComponent implements OnInit {
+
+	
+	WR_Name: string;
+	serverUrl: string;
+	public isSaved:boolean = false;
+	public dangerAlertShow:boolean = false;
+	public dangerAlertMessage:string = "";
+	public successAlertShow:boolean = false;
+	public successAlertMessage:string = "";
+
+	
+	mySeriesProvisionForm: FormGroup;
+	startMSISDN: FormControl;
+	endMSISDN: FormControl;	
+	quantity: FormControl;	
+	IMSI: FormControl;
+	productType: FormControl;
+	productName: FormControl;
+	serviceClassName: FormControl;
+	communityID: FormControl;
+	zone: FormControl;
+	srcComment: FormControl;
+	formFieldData: string;
+	
+
+  public listIMSI = [];
+  public listProductType = [];
+  public listProduct = [];
+  public listServiceClass = [];
+  public listCommunityID = [];
+  public listZone = [];
+  
+  //listZone = [{'id':1, 'name':'Dhaka'}, {'id':2, 'name': 'Ctd'}, {'id':3, 'name': 'Khulna'}];
+
+
+  constructor(private http: HttpClient, private _global: AppGlobals, private definitionDataService: DefinitionDataService, private workFlowsService: WorkflowsService) {
+	
+	//GetWR_Name
+	this.definitionDataService.GetWR_Name(this._global.wrid_NumberSeriesProvisioning).subscribe(
+	data => {
+			//console.log(data);				
+			const dataStr = JSON.stringify(data);
+
+			JSON.parse(dataStr, (key, value) => {
+				if (typeof value === 'string') {
+					this.WR_Name = value;
+					return value;
+				}
+			}); 
+			// console.log(this.WR_Name);
+		},
+		err => console.error(err),
+		()=> console.log('done loading Work Request Name')
+    );
+	
+	//GetAllIMSI
+	this.definitionDataService.GetAllIMSI().subscribe(
+	data => { 
+				//console.log(data);
+				for (let index in data) {
+					//console.log (data[index]);
+					this.listIMSI.push(
+					{
+						id:data[index].id,
+						group_name: data[index].groupName
+					}
+					); 
+				}		
+			},
+    err => console.error(err),
+    () => console.log('done loading IMSI List')
+    );
+	
+	//GetProductTypes
+	this.definitionDataService.GetProductTypes().subscribe(
+	data => { 
+				this.listProductType = [];
+				//console.log("this.listProductType "+this.listProductType.length);
+				for (let index in data) {
+				//console.log (data[index]);			
+				this.listProductType.push(
+					{
+						id:data[index].id,
+						productType_name: data[index].productTypeName
+					}
+					); 
+				}		
+		// return data;
+			},
+		err => console.error(err),
+		() => console.log('done loading ProductTypes List')
+    );
+	
+	//GetZoneNames
+	this.definitionDataService.GetZoneNames().subscribe(
+	data => { 
+				this.listZone = [];
+				//console.log("this.listZone "+this.listZone.length);
+				for (let index in data) {
+				//console.log (data[index]);			
+				this.listZone.push(
+					{
+						id:data[index].id,
+						name: data[index].zoneName
+					}
+					); 
+				}		
+		// return data;
+			},
+		err => console.error(err),
+		() => console.log('done loading ProductTypes List')
+    );
+	
+}
+
+  ngOnInit() {
+    this.createFormControls();
+    this.createForm();
+	this.onMSISDNChanges();
+  }
+
+  createFormControls() {
+    this.startMSISDN = new FormControl('', [
+      Validators.required,
+      Validators.minLength(11) ,
+      Validators.maxLength(11)
+    ]);
+    this.endMSISDN = new FormControl('', [
+      Validators.required,
+      Validators.minLength(11) ,
+      Validators.maxLength(11)
+    ]);
+	this.productType = new FormControl('', [Validators.required]);
+	this.quantity =	new FormControl({value: 0, disabled: true}, Validators.required);
+	this.IMSI= new FormControl('', Validators.required);
+	this.productName= new FormControl('', Validators.required);
+	this.serviceClassName=	new FormControl({value: '', disabled: true}, Validators.required);
+	this.communityID= 	new FormControl({value: '', disabled: true}, Validators.required);
+	this.zone= new FormControl('', Validators.required);
+	this.srcComment= new FormControl('');
+  }
+
+  createForm() {
+    this.mySeriesProvisionForm = new FormGroup({
+		startMSISDN: this.startMSISDN,
+		endMSISDN: this.endMSISDN,
+		quantity: this.quantity,
+		IMSI: this.IMSI,
+		productType: this.productType,
+		productName: this.productName,
+		serviceClassName: this.serviceClassName,
+		communityID: this.communityID,
+		zone: this.zone,
+		srcComment: this.srcComment
+
+    });
+  }
+  
+  onMSISDNChanges() {
+  
+    this.mySeriesProvisionForm.get('startMSISDN').valueChanges
+    .subscribe(selectedMSISDN => {        		
+		const endMSISDNs = this.mySeriesProvisionForm.get('endMSISDN').value;
+		
+		if (selectedMSISDN!=null){			
+			this.mySeriesProvisionForm.get('quantity').setValue(Number(endMSISDNs) - Number(selectedMSISDN));
+		}
+        
+    });
+	
+	this.mySeriesProvisionForm.get('endMSISDN').valueChanges
+    .subscribe(selectedMSISDN => {        		
+		const startMSISDNs = this.mySeriesProvisionForm.get('startMSISDN').value;
+		
+		if (selectedMSISDN!=null){
+			this.mySeriesProvisionForm.get('quantity').setValue(1 + Number(selectedMSISDN) - Number(startMSISDNs));
+		}        
+    });
+}
+
+  
+   // event handler for the select element's change event
+    onProductNameSelects (event: any) {	  
+	
+    // update the ui
+	const selectedProductID = event.target.value;
+	// const selectedProductName = event.target.name;
+	//console.log(selectedProductID);
+	this.mySeriesProvisionForm.get('serviceClassName').setValue(this.listServiceClass[selectedProductID]);
+	this.mySeriesProvisionForm.get('communityID').setValue(this.listCommunityID[selectedProductID]);
+  }
+  
+  
+// event handler for the select element's change event
+  onProductTypeSelect (event: any) {	  
+	
+    // update the ui
+	const selectedProductTypeID: number = event.target.value;
+				
+	this.definitionDataService.GetProducts(selectedProductTypeID).subscribe(
+		data => { 
+				this.listCommunityID = [];
+				this.listServiceClass = [];
+				this.listProduct = [];
+				this.mySeriesProvisionForm.get('serviceClassName').setValue('');
+				this.mySeriesProvisionForm.get('communityID').setValue('');
+				
+				//console.log ("this.listCommunityID.length "+this.listCommunityID.length);
+				//console.log ("this.listServiceClass.length "+this.listServiceClass.length);
+				
+				for (let index in data) {
+					//console.log (data[index]);
+					this.listProduct.push(
+					{
+						id:data[index].id,
+						productName: data[index].productName
+					}
+					
+					); 
+					this.listCommunityID[data[index].id] = data[index].communityID;
+					this.listServiceClass[data[index].id] = data[index].serviceClass.serviceClassName;
+				}		
+		// return data;
+			},
+		err => console.error(err),
+		() => console.log('done loading Product List based on ProductTypes')
+    );	
+  }
+
+  // FORM SUBMISSION
+  onSeriesProvisionSubmit() {
+	 
+  if (this.mySeriesProvisionForm.valid) {
+	
+    console.log('Form Submitted!');
+    console.log(this.mySeriesProvisionForm.value);
+  }
+  this.formFieldData = this.workFlowsService.FormatWorkRequestNameForAPI(this.WR_Name);
+  this.LogKeyValuePairs(this.mySeriesProvisionForm);
+  //console.log(this.formFieldData);
+  //{wr_id}/{userGroup_id}/{user_id}/[{workflowFieldsValueSeqWise}]
+  this.isSaved = this.workFlowsService.CreateNewWorkRequest(this._global.wrid_NumberSeriesProvisioning,2,2,this.formFieldData);
+  if(this.isSaved){
+		this.successAlertShow = true;
+		this.successAlertMessage = "The New Work Request <b>"+this.WR_Name + "</b> has been created successfully.";
+		//console.log ("isSaved " + this.isSaved);
+  }
+  else{
+		this.dangerAlertShow = true;
+		this.dangerAlertMessage = "The New Work Request <b>"+this.WR_Name + "</b> could not be created.";
+		//console.log ("isSaved " + this.isSaved);
+  }
+}
+
+
+LogKeyValuePairs(group: FormGroup): void {
+	
+  // Loop through each control key in the FormGroup
+  Object.keys(group.controls).forEach((key: string) => {
+    // Get the control. The control can be a nested form group
+    const abstractControl = group.get(key);
+    // If the control is nested form group, recursively call
+    // this same method (logKeyValuePairs) passing it
+    // the FormGroup so we can get to the form controls in it
+    if (abstractControl instanceof FormGroup) {
+      this.LogKeyValuePairs(abstractControl);
+      // If the control is a FormControl
+    } else {
+		
+      //console.log("Key : "+key+" , Value : "+abstractControl.value);
+	  if (this.formFieldData){
+		this.formFieldData=this.formFieldData+","+abstractControl.value;
+	  }
+		else {
+			//this.mySeriesProvisionForm.get(key).setValue("TOTOTOTO");
+			//console.log("Key : "+key+" , Value : "+abstractControl.value);
+			this.formFieldData=abstractControl.value;
+		}
+		
+    }
+  });
+}
+
+  
+ 
+  
+}
