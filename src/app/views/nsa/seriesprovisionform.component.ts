@@ -35,7 +35,7 @@ export class SeriesprovisionformComponent implements OnInit {
 	
 	WR_Name: string;
 	serverUrl: string;
-	public isSaved:boolean = false;
+	
 	public dangerAlertShow:boolean = false;
 	public dangerAlertMessage:string = "";
 	public successAlertShow:boolean = false;
@@ -141,7 +141,7 @@ export class SeriesprovisionformComponent implements OnInit {
 		// return data;
 			},
 		err => console.error(err),
-		() => console.log('done loading ProductTypes List')
+		() => console.log('done loading Zone List')
     );
 	
 }
@@ -272,17 +272,22 @@ export class SeriesprovisionformComponent implements OnInit {
   this.LogKeyValuePairs(this.mySeriesProvisionForm);
   //console.log(this.formFieldData);
   //{wr_id}/{userGroup_id}/{user_id}/[{workflowFieldsValueSeqWise}]
-  this.isSaved = this.workFlowsService.CreateNewWorkRequest(this._global.wrid_NumberSeriesProvisioning,2,2,this.formFieldData);
-  if(this.isSaved){
-		this.successAlertShow = true;
-		this.successAlertMessage = "The New Work Request <b>"+this.WR_Name + "</b> has been created successfully.";
-		//console.log ("isSaved " + this.isSaved);
-  }
-  else{
-		this.dangerAlertShow = true;
-		this.dangerAlertMessage = "The New Work Request <b>"+this.WR_Name + "</b> could not be created.";
-		//console.log ("isSaved " + this.isSaved);
-  }
+  this.workFlowsService.CreateNewWorkRequest(this._global.wrid_NumberSeriesProvisioning,2,2,this.formFieldData).subscribe(
+      res  =>  {
+		console.log('response is : '+res);
+		
+		if(res === true){
+			this.successAlertShow = true;
+			this.successAlertMessage = " has been created successfully.";
+		}
+      },
+      err  =>  {		  
+		  console.log("err.status : "+err.status);		  
+		  this.dangerAlertShow = true;
+		this.dangerAlertMessage = " could not be created.";
+      }
+	  
+      );
 }
 
 
@@ -314,7 +319,12 @@ LogKeyValuePairs(group: FormGroup): void {
   });
 }
 
-  
+clearForm(event: any){
+		//console.log(event);
+		this.dangerAlertShow = false;
+		this.successAlertShow = false;	
+		this.mySeriesProvisionForm.reset();		
+	}
  
   
 }

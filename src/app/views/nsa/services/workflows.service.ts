@@ -17,6 +17,7 @@ export class WorkflowsService {
 	serverUrl: string;
 	dataOutput: string = "";
 	isSaved: boolean;		
+	isWF_Saved: boolean;		
 	
 	constructor(private router: Router, private http: HttpClient, private _global: AppGlobals) { 
 		this.serverUrl = environment.apiUrl;  		
@@ -30,32 +31,26 @@ export class WorkflowsService {
   
 	//Create New Work Request
 	//{wr_id}/{userGroup_id}/{user_id}/[{workflowFieldsValueSeqWise}]
-	CreateNewWorkRequest(wr_id: number,userGroup_id: number,user_id: number,workflowFieldsValueSeqWise: string) : boolean {	
+	CreateNewWorkRequest(wr_id: number,userGroup_id: number,user_id: number,workflowFieldsValueSeqWise: string) : any {	
   
 		//console.log("In GetWR_Name() for theWrNumber "+ theWrNumber);	
 		
 	
-	this.http.post(this.serverUrl + 'NewWorkRequest/'+wr_id+'/'+userGroup_id+'/'+user_id+'/['+workflowFieldsValueSeqWise+']', {
+	return this.http.post(this.serverUrl + 'NewWorkRequest/'+wr_id+'/'+userGroup_id+'/'+user_id+'/['+workflowFieldsValueSeqWise+']', {
 			wr_id: wr_id,
 			userGroup_id: userGroup_id,
 			user_id: user_id,
 			workflowFieldsValueSeqWise: workflowFieldsValueSeqWise
-		}).subscribe(
-      res  =>  {
-        //this.errorMsg = '';
-		//console.log('response is : '+res);
-		if(res !== null){
-			this.isSaved = true;        
-		}
-      },
-      err  =>  {
-		  this.isSaved = false;
-		  //console.log("err.status : "+err.status);		  
-		  //console.log("Returning "+ this.isSaved);	
-      }
-      );
-	    return this.isSaved;
+		});
+	  
 	}
-
-
+	//PendingTasks/{wr_id}/{userGroup_id}
+	//http://localhost:8019/nsa/PendingTasks/1/3
+	
+	LoadPendingTask(wr_id: number,userGroup_id: number) : any {
+		return this.http.post(this.serverUrl + 'PendingTasks/'+wr_id+'/'+userGroup_id, {
+			wr_id: wr_id,
+			userGroup_id: userGroup_id
+		});
+	}
 }

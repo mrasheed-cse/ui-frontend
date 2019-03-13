@@ -9,6 +9,7 @@ export const navigation_grpID_CNP = [
     title: true,
     name: 'Work Requests'
   },
+  
   {
     name: 'Series Provision',
     url: '/nsa/seriesprovision',

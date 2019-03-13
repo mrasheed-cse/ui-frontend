@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Router, ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-seriesprovisiondetail',
@@ -7,8 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SeriesprovisiondetailComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private activatedRoute: ActivatedRoute, private router:Router) {
+    this.activatedRoute.queryParams.subscribe(params => {
+        let date = params['wr_ID'];
+        console.log(date); // Print the parameter to the console. 
+    });
+  }
   ngOnInit() {
   }
 

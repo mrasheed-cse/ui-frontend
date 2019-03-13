@@ -64,9 +64,10 @@
 	</div>
 	<button type="submit" class="btn btn-primary" >Submit</button>
 </form>
+<!--
 <pre >{{mySearchForm.value | json}}</pre>
 <pre *ngIf="mySearchForm.valid">This is Valid form Data.{{mySearchForm.value | json}}</pre>
-
+-->
    </div>   	  
 	
     </div>
@@ -75,7 +76,7 @@
     <div class="col-lg-12">
       <div class="card">
         <div class="card-header">
-          <i class="fa fa-align-justify"></i> Combined All Table
+          <i class="fa fa-align-justify"></i> Pending Task Lists
         </div>
         <div class="card-body">
           <table class="table table-bordered table-striped table-sm">
@@ -88,13 +89,13 @@
 				<th>Last Action Date</th>
               </tr>
             </thead>
-           <tbody *ngFor="let aseriesProvision of arrWRs;  index as i">
-						<tr>
-							<td>{{aseriesProvision.wr_name}}</td>
-							<td>{{aseriesProvision.NextAction}}</td>
-							<td>{{aseriesProvision.PendingAt}}</td>
-							<td>{{aseriesProvision.LastAction}}</td>
-							<td>{{aseriesProvision.LastActionDate}}</td>
+           <tbody *ngFor="let aTask of pendingTasksList;  index as i">
+						<tr >
+							<td><a [routerLink]="['/nsa/seriesprovisiondetail',{wr_ID:  aTask.wr_ID}]">{{aTask.wr_Name}}</a></td>
+							<td>{{aTask.nextAction}}</td>
+							<td>{{aTask.pendingAt}}</td>
+							<td>{{aTask.lastAction}}</td>
+							<td>{{aTask.lastActionDate}}</td>
               </tr>
             </tbody>
           </table>
@@ -115,65 +116,5 @@
     </div>
     <!--/.col-->
   </div>
- 
-<div style="margin: auto; max-width: 1200px; margin-bottom: 50px;">
-    <data-table id="seriesProvision-grid"
-        headerTitle="Series Number Provision :: In Progress"
-                [pagination_limit]="true"
-        [items]="items"
-        [itemCount]="itemCount"
-        (reload)="reloadItems($event)"
-
-        (rowClick)="rowClick($event)"
-        (rowDoubleClick)="rowDoubleClick($event)"
-        [rowTooltip]="rowTooltip"
-        >
-        <data-table-column
-            [property]="'wr_name'"
-            [header]="'Work Request Name'"
-            [sortable]="true"
-            [resizable]="true"
-            [searchable]="false">
-        </data-table-column>
-		
-		<data-table-column
-            [property]="'wr_id'"
-            [header]="'Work Request ID'"
-           [visible]="false">
-        </data-table-column>
-        
-        <data-table-column
-            [property]="'NextAction'"
-            [header]="'Next Action'"
-            [visible]="true"
-			[width]="250"
-			[searchable]="false">
-        </data-table-column>
-        <data-table-column
-            [property]="'PendingAt'"
-            [header]="'Pending At'"
-            [visible]="true"
-			
-			[searchable]="false">
-        </data-table-column>
-        <data-table-column
-            [property]="'LastAction'"
-            [header]="'Last Action By'"
-            [visible]="true"
-			[width]="150"
-			[searchable]="false">
-        </data-table-column>
-        <data-table-column
-            [property]="'LastActionDate'"
-            [header]="'Last Action Date'"
-            [visible]="true"
-			[searchable]="false"
-			width="250px">
-			<ng-template #dataTableCell let-item="item">
-                <span>{{item.LastActionDate | date:'yyyy-MM-dd HH:mm'}}</span>
-            </ng-template>
-        </data-table-column>
-    </data-table>
-</div>
-</div>
+ </div>
 </div>

@@ -5,6 +5,7 @@ import { LandingpageComponent } from './landingpage.component';
 import { SeriesprovisionComponent } from './seriesprovision.component';
 import { DiscreteprovisionComponent } from './discreteprovision.component';
 import { SeriesprovisionformComponent } from './seriesprovisionform.component';
+import { SeriesprovisiondetailComponent } from './seriesprovisiondetail.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,13 @@ const routes: Routes = [
     component: SeriesprovisionformComponent,
     data: {
       title: 'Series Provision Form'
+    }
+  },
+  {
+    path: 'seriesprovisiondetail/:wr_ID',
+    component: SeriesprovisiondetailComponent,
+    data: {
+      title: 'Series Provision Workflow'
     }
   },
   {
