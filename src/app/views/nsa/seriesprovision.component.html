@@ -91,10 +91,11 @@
             </thead>
            <tbody *ngFor="let aTask of pendingTasksList;  index as i">
 						<tr >
-							<td><a [routerLink]="['/nsa/seriesprovisiondetail',{wr_ID:  aTask.wr_ID}]">{{aTask.wr_Name}}</a></td>
+							<td><a [routerLink]="['/nsa/seriesprovisiondetail',aTask.wr_BriefName, aTask.wr_BriefId, 4, aTask.hopSequence]">{{aTask.wr_BriefName
+							}}</a></td>
 							<td>{{aTask.nextAction}}</td>
 							<td>{{aTask.pendingAt}}</td>
-							<td>{{aTask.lastAction}}</td>
+							<td>{{aTask.lastActionBy}}</td>
 							<td>{{aTask.lastActionDate}}</td>
               </tr>
             </tbody>

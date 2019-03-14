@@ -2,8 +2,9 @@ export class PendingTasks {
      
 	pendingAt: string; 
     nextAction: string; 
-    lastAction: string; 
+    lastActionBy: string; 
     lastActionDate: string; 
-    wr_ID: string; 
-    wr_Name: string; 
+    wr_BriefID: number; 
+    wr_BriefName: string; 
+	hopSequence: number;
 }

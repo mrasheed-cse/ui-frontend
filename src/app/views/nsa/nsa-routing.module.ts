@@ -30,7 +30,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'seriesprovisiondetail/:wr_ID',
+    path: 'seriesprovisiondetail/:wr_BriefName/:wr_BriefId/:userGroup_id/:hopSequence',
     component: SeriesprovisiondetailComponent,
     data: {
       title: 'Series Provision Workflow'

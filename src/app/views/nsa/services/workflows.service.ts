@@ -53,4 +53,16 @@ export class WorkflowsService {
 			userGroup_id: userGroup_id
 		});
 	}
+	
+	//PreviousHopsField/{wrID}/{wrBriefId}/{userGroup_id}/{current_hop_seq}
+	//http://localhost:8019/nsa/PreviousHopsField/1/1/3/2
+	
+	LoadPreviousHopsField(wrID: number,wrBriefId: number,userGroup_id: number,current_hop_seq: number) : any {
+		return this.http.post(this.serverUrl + 'PreviousHopsField/'+wrID+'/'+wrBriefId+'/'+userGroup_id+'/'+current_hop_seq, {
+			wrID: wrID,
+			wrBriefId: wrBriefId,
+			userGroup_id: userGroup_id,
+			current_hop_seq: current_hop_seq
+		});
+	}
 }

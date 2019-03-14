@@ -29,33 +29,26 @@ export class SeriesprovisionComponent implements OnInit {
 	constructor(private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {	
 
 	 //GetPendingTaskList
-
 	this.workFlowsService.LoadPendingTask(this._global.wrid_NumberSeriesProvisioning,3).subscribe(
       data => { 
 				console.log(data);
 				this.pendingTasksList = data;
-				/*
-				"pendingAt": "CNP",
-    "nextAction": "Update or Action required at CNP end",
-    "lastAction": "Create New Work request and Cancel Work Request",
-    "lastActionDate": "2019-39-11 12:39:14",
-    "wr_ID": "1",
-    "wr_Name": "PROV/001/03/2019"
-				*/
-			
+					
 				for (let index in data) {
 					//console.log (data[index]);
-					console.log('response is : '+index +' ' +this.pendingTasksList[index].pendingAt);
-					console.log('response is : '+index +' ' +this.pendingTasksList[index].nextAction);
-					console.log('response is : '+index +' ' +this.pendingTasksList[index].lastAction);
-					console.log('response is : '+index +' ' +this.pendingTasksList[index].lastActionDate);
-					console.log('response is : '+index +' ' +this.pendingTasksList[index].wr_ID);
-					console.log('response is : '+index +' ' +this.pendingTasksList[index].wr_Name);
-					console.log('response is : '+index);
+					
+					console.log('pendingAt is : '+index +' ' +this.pendingTasksList[index].pendingAt);
+					console.log('nextAction is : '+index +' ' +this.pendingTasksList[index].nextAction);
+					console.log('lastActionBy is : '+index +' ' +this.pendingTasksList[index].lastActionBy);
+					console.log('lastActionDate is : '+index +' ' +this.pendingTasksList[index].lastActionDate);
+					console.log('wr_BriefID is : '+index +' ' +this.pendingTasksList[index].wr_BriefId);
+					console.log('wr_BriefName is : '+index +' ' +this.pendingTasksList[index].wr_BriefName);
+					console.log('hopSequence is : '+index +' ' +this.pendingTasksList[index].hopSequence);
+					console.log('index is : '+index);
 				}		
 			},
 		err => console.error(err),
-		() => console.log('done loading PendingTask List')
+		() => console.log('Error loading PendingTask List')
 		);
     }
 
