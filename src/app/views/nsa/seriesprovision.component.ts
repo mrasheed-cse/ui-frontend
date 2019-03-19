@@ -14,22 +14,44 @@ import { HttpClient } from '@angular/common/http';
 import { HttpErrorResponse } from '@angular/common/http';
 import { WorkflowsService } from './services/workflows.service';
 import { AppGlobals } from './../../app.global';
+import { Router } from '@angular/router';
+
+import { LoginService } from '../pages/LoginService';
+import { LoggedInUser } from '../pages/loggedInUser'; 
+
 
 @Component({
   selector: 'app-seriesprovision',
   templateUrl: './seriesprovision.component.html',
    styleUrls: ['./demo.component.css'],
-  providers: [WorkflowsService,AppGlobals]
+  providers: [WorkflowsService,AppGlobals,LoginService]
 })
 export class SeriesprovisionComponent implements OnInit {
 
 	pendingTasksList: PendingTasks;
+	currentLoggedInUser: LoggedInUser;
+	userName: string;
+	groupID: number;
 	
 	 isCollapsed: boolean = true;
-	constructor(private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {	
+	constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {	
 
-	 //GetPendingTaskList
-	this.workFlowsService.LoadPendingTask(this._global.wrid_NumberSeriesProvisioning,3).subscribe(
+	// Get Current User Profile
+	
+	this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
+	
+	if (this.currentLoggedInUser) {
+		this.userName = this.currentLoggedInUser.userName
+		this.groupID = this.currentLoggedInUser.groupID
+		//console.log('Current user: ' + this.userName);
+		
+	} 
+	else {
+	  //console.log('Current user not found');
+	  this.router.navigate(['pages/login']);
+	}
+	//GetPendingTaskList
+	this.workFlowsService.LoadPendingTask(this._global.wrid_NumberSeriesProvisioning,this.groupID).subscribe(
       data => { 
 				console.log(data);
 				this.pendingTasksList = data;
@@ -48,7 +70,7 @@ export class SeriesprovisionComponent implements OnInit {
 				}		
 			},
 		err => console.error(err),
-		() => console.log('Error loading PendingTask List')
+		() => console.log('Done loading PendingTask List')
 		);
     }
 

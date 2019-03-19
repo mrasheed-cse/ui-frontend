@@ -92,7 +92,7 @@
 								<label class="col-md-5 col-form-label" for="quantity">Quantity</label>
 								<div class="col-md-7">
 									<input type="text" id="quantity" name="quantity" class="form-control" formControlName="quantity">
-
+									
 								</div>
 							</div>
 						</div>
@@ -165,18 +165,11 @@
 							<div class="form-group row">
 								<label class="col-md-5 col-form-label" for="zone">zone Name</label>
 								<div class="col-md-7">
-									<select class="form-control" id="zone" formControlName="zone" required [ngClass]="{
-															'is-invalid': zone.invalid && (zone.dirty || zone.touched),
-															'is-valid': zone.valid && (zone.dirty || zone.touched)
-														 }">
+									<select class="form-control" id="zone" formControlName="zone">
 										<option></option>
 										<option *ngFor="let aZone of listZone" [value]="aZone.id">{{aZone.name}}</option>
 									</select>
-								</div>
-								<div class="invalid-feedback" *ngIf="zone.errors && (zone.dirty || zone.touched)">
-									<p *ngIf="zone.errors.required">Zone Name Selection required</p>
-
-								</div>
+								</div>								
 							</div>
 						</div>
 					</div>
@@ -209,6 +202,8 @@
 						<i class="fa fa-dot-circle-o"></i> Submit</button>
 					<button type="reset" class="btn btn-sm btn-danger"(click)="clearForm($event)">
 						<i class="fa fa-ban"></i> Reset</button>
+					<button type="button" class="btn btn-link" (click)="backButton($event)"><i class="fa fa-link" ></i>&nbsp; Back</button>
+				
 				</div>
 				<!-- <div class="card-footer"> -->
 			</form>

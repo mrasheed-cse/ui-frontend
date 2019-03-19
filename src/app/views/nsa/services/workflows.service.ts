@@ -30,16 +30,16 @@ export class WorkflowsService {
 	}
   
 	//Create New Work Request
-	//{wr_id}/{userGroup_id}/{user_id}/[{workflowFieldsValueSeqWise}]
-	CreateNewWorkRequest(wr_id: number,userGroup_id: number,user_id: number,workflowFieldsValueSeqWise: string) : any {	
+	//{wr_id}/{userGroup_id}/{user_name}/[{workflowFieldsValueSeqWise}]
+	CreateNewWorkRequest(wr_id: number,userGroup_id: number,user_name: string,workflowFieldsValueSeqWise: string) : any {	
   
 		//console.log("In GetWR_Name() for theWrNumber "+ theWrNumber);	
 		
 	
-	return this.http.post(this.serverUrl + 'NewWorkRequest/'+wr_id+'/'+userGroup_id+'/'+user_id+'/['+workflowFieldsValueSeqWise+']', {
+	return this.http.post(this.serverUrl + 'NewWorkRequest/'+wr_id+'/'+userGroup_id+'/'+user_name+'/['+workflowFieldsValueSeqWise+']', {
 			wr_id: wr_id,
 			userGroup_id: userGroup_id,
-			user_id: user_id,
+			user_name: user_name,
 			workflowFieldsValueSeqWise: workflowFieldsValueSeqWise
 		});
 	  
@@ -64,5 +64,24 @@ export class WorkflowsService {
 			userGroup_id: userGroup_id,
 			current_hop_seq: current_hop_seq
 		});
+	}
+	
+	//Update Existing Work Request
+	//{wr_id}/{userGroup_id}/{user_name}/[{workflowFieldsValueSeqWise}]
+	UpdateExistiongWorkRequest(wrBriefName: string,wr_id: number,userGroup_id: number,user_name: string,hopSequence: number,workflowFieldsValueSeqWise: string, isDone: boolean) : any {	
+  
+		//console.log("In GetWR_Name() for theWrNumber "+ theWrNumber);	
+		
+	
+	return this.http.post(this.serverUrl + 'ExistingWorkRequest/'+wrBriefName+'/'+wr_id+'/'+userGroup_id+'/'+user_name+'/'+hopSequence+'/['+workflowFieldsValueSeqWise+']/'+isDone, {
+			wrBriefName: wrBriefName,
+			wr_id: wr_id,
+			userGroup_id: userGroup_id,
+			user_name: user_name,
+			hopSequence: hopSequence,
+			workflowFieldsValueSeqWise: workflowFieldsValueSeqWise,
+			isDone: isDone
+		});
+	  
 	}
 }

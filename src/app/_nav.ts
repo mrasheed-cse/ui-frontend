@@ -1,3 +1,57 @@
+export const navigation_blankdata  = [
+   
+  {
+    name: 'Landing Page',
+    url: '/nsa',
+	icon: 'icon-star'
+  }, 
+{
+    title: true,
+    name: 'Work Requests'
+  }
+
+];
+
+export const navigation_grpID_BSS_Planning = [
+   
+  {
+    name: 'Landing Page',
+    url: '/nsa',
+	icon: 'icon-star'
+  }, 
+{
+    title: true,
+    name: 'Work Requests'
+  },
+  
+  {
+    name: 'Series Provision',
+    url: '/nsa/seriesprovision',
+    icon: 'icon-cursor'
+  }
+
+];
+
+export const navigation_grpID_VDSO = [
+   
+  {
+    name: 'Landing Page',
+    url: '/nsa',
+	icon: 'icon-star'
+  }, 
+{
+    title: true,
+    name: 'Work Requests'
+  },
+  
+  {
+    name: 'Series Provision',
+    url: '/nsa/seriesprovision',
+    icon: 'icon-cursor'
+  }
+
+];
+
 export const navigation_grpID_CNP = [
    
   {

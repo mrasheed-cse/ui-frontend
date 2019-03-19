@@ -16,13 +16,13 @@
 		  </div>
     </div>
 	
-  <!--
+  
     <div class="card-footer"
          (collapsed)="collapsed($event)"
          (expanded)="expanded($event)"
          [collapse]="isCollapsed" >
    <div>
-   -->
+   
        <form [formGroup]="mySearchForm" novalidate (ngSubmit)="onSearchSubmit()">
 	   
 	<div class="form-group"
@@ -91,7 +91,7 @@
             </thead>
            <tbody *ngFor="let aTask of pendingTasksList;  index as i">
 						<tr >
-							<td><a [routerLink]="['/nsa/seriesprovisiondetail',aTask.wr_BriefName, aTask.wr_BriefId, 4, aTask.hopSequence]">{{aTask.wr_BriefName
+							<td><a [routerLink]="['/nsa/seriesprovisiondetail',aTask.wr_BriefName, aTask.wr_BriefId, aTask.hopSequence]">{{aTask.wr_BriefName
 							}}</a></td>
 							<td>{{aTask.nextAction}}</td>
 							<td>{{aTask.pendingAt}}</td>
@@ -117,4 +117,5 @@
     </div>
     <!--/.col-->
   </div>
- 
+ </div>
+</div>

@@ -3,7 +3,7 @@ import { Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 import { LoginService } from '../../views/pages/LoginService';
 import { LoggedInUser } from '../../views/pages/loggedInUser'; 
 // Import navigation elements
-import { navigation, navigation_grpID_Sourcing, navigation_grpID_CNP, navigation_primedata } from './../../_nav';
+import { navigation, navigation_grpID_Sourcing, navigation_grpID_CNP,navigation_grpID_VDSO,navigation_grpID_BSS_Planning, navigation_blankdata } from './../../_nav';
 import { AppGlobals } from './../../app.global';
 @Component({
   selector: 'app-sidebar-nav',
@@ -39,16 +39,24 @@ export class AppSidebarNavComponent {
 		
 		if (this.groupID == this._global.groupID_Sourcing){
 			this.navigation = navigation_grpID_Sourcing;
-			console.log('navigation_grpID_Sourcing');
+//			console.log('navigation_grpID_Sourcing');
 		}
 		else if (this.groupID == this._global.groupID_CNP){
 			this.navigation = navigation_grpID_CNP;
-			console.log('navigation_grpID_CNP');
+		//	console.log('navigation_grpID_CNP');
+		}
+		else if (this.groupID == this._global.groupID_BSS_Planning){
+			this.navigation = navigation_grpID_BSS_Planning;
+			//console.log('navigation_grpID_BSS_Planning');
 		}
 		
+		else if (this.groupID == this._global.groupID_VDSO){
+			this.navigation = navigation_grpID_VDSO;
+			//console.log('navigation_grpID_VDSO');
+		}
 		else {
-			this.navigation = navigation_primedata;
-			console.log('navigation_primedata');
+			this.navigation = navigation_blankdata;
+			//console.log('navigation_blankdata');
 		}
 		
 	}
