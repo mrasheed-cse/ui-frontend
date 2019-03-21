@@ -34,15 +34,16 @@ export class WorkflowsService {
 	CreateNewWorkRequest(wr_id: number,userGroup_id: number,user_name: string,workflowFieldsValueSeqWise: string) : any {	
   
 		//console.log("In GetWR_Name() for theWrNumber "+ theWrNumber);	
-		
+		console.log("In GetWR_Name() for workflowFieldsValueSeqWise "+ workflowFieldsValueSeqWise);	
+		console.log(wr_id+'/'+userGroup_id+'/'+user_name+'/['+workflowFieldsValueSeqWise+']');
 	
-	return this.http.post(this.serverUrl + 'NewWorkRequest/'+wr_id+'/'+userGroup_id+'/'+user_name+'/['+workflowFieldsValueSeqWise+']', {
-			wr_id: wr_id,
-			userGroup_id: userGroup_id,
-			user_name: user_name,
+	
+	return this.http.post(this.serverUrl + 'NewWorkRequest', {
+			wrID: wr_id,
+			userGroupID: userGroup_id,
+			userName: user_name,
 			workflowFieldsValueSeqWise: workflowFieldsValueSeqWise
 		});
-	  
 	}
 	//PendingTasks/{wr_id}/{userGroup_id}
 	//http://localhost:8019/nsa/PendingTasks/1/3

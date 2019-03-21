@@ -18,6 +18,7 @@ import { SeriesprovisionformComponent } from './seriesprovisionform.component';
 import {HttpClient} from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { SeriesprovisiondetailComponent } from './seriesprovisiondetail.component';
+import { TabledemoComponent } from './tabledemo.component';
 
 @NgModule({
   imports: [
@@ -30,6 +31,6 @@ import { SeriesprovisiondetailComponent } from './seriesprovisiondetail.componen
 	BsDatepickerModule.forRoot(),
     NsaRoutingModule
   ],
-  declarations: [LandingpageComponent, SeriesprovisionComponent, DiscreteprovisionComponent, SeriesprovisionformComponent, SeriesprovisiondetailComponent]
+  declarations: [LandingpageComponent, SeriesprovisionComponent, DiscreteprovisionComponent, SeriesprovisionformComponent, SeriesprovisiondetailComponent, TabledemoComponent]
 })
 export class NsaModule { }

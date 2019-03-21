@@ -6,6 +6,7 @@ import { SeriesprovisionComponent } from './seriesprovision.component';
 import { DiscreteprovisionComponent } from './discreteprovision.component';
 import { SeriesprovisionformComponent } from './seriesprovisionform.component';
 import { SeriesprovisiondetailComponent } from './seriesprovisiondetail.component';
+import { TabledemoComponent } from './tabledemo.component';
 
 const routes: Routes = [
   {
@@ -20,6 +21,13 @@ const routes: Routes = [
     component: SeriesprovisionComponent,
     data: {
       title: 'Series Provision'
+    }
+  },
+  {
+    path: 'demotable',
+    component: TabledemoComponent,
+    data: {
+      title: 'Demo Table'
     }
   },
   {

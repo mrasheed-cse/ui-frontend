@@ -69,6 +69,13 @@ export const navigation_grpID_CNP = [
     url: '/nsa/seriesprovision',
     icon: 'icon-cursor'
   },
+/*  
+  {
+    name: 'Demo Table',
+    url: '/nsa/demotable',
+    icon: 'icon-cursor'
+  },
+  */
   {
     name: 'Discrete Provisison',
     url: '/nsa/discreteprovision',
