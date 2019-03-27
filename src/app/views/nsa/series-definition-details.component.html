@@ -19,7 +19,7 @@
 				</table >
 			</div>
 			<div *ngIf="hop_sequence <= 3">
-			<form [formGroup]="mySeriesProvisionForm" novalidate (ngSubmit)="onSeriesProvisionSubmit()" >
+			<form [formGroup]="mySeriesDefinitionForm" novalidate (ngSubmit)="onSeriesProvisionSubmit()" >
 				<div class="card-body">
 					<div class="row" *ngIf="hop_sequence === 2">
 						<div class="col-md-6">
@@ -142,7 +142,7 @@
 				</div>
 				<!-- <div class="card-body"> -->
 				<div class="card-footer text-right">
-					<button type="submit" [disabled]="!mySeriesProvisionForm.valid || isDoneDisable" class="btn btn-sm btn-primary">
+					<button type="submit" [disabled]="!mySeriesDefinitionForm.valid || isDoneDisable" class="btn btn-sm btn-primary">
 						<i class="fa fa-dot-circle-o"></i> Submit</button>
 					<button type="reset" class="btn btn-sm btn-danger"(click)="clearForm($event)">
 						<i class="fa fa-ban"></i> Reset</button>
@@ -173,6 +173,6 @@
 		</div>
 	</div>
 <!--
-<pre >{{mySeriesProvisionForm.value | json}}</pre>
-<pre *ngIf="mySeriesProvisionForm.valid">This is Valid form Data.{{mySeriesProvisionForm.value | json}}</pre>
+<pre >{{mySeriesDefinitionForm.value | json}}</pre>
+<pre *ngIf="mySeriesDefinitionForm.valid">This is Valid form Data.{{mySeriesDefinitionForm.value | json}}</pre>
 -->

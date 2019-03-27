@@ -49,21 +49,23 @@ export class WorkflowsService {
 	//http://localhost:8019/nsa/PendingTasks/1/3
 	
 	LoadPendingTask(wr_id: number,userGroup_id: number) : any {
-		return this.http.post(this.serverUrl + 'PendingTasks/'+wr_id+'/'+userGroup_id, {
-			wr_id: wr_id,
-			userGroup_id: userGroup_id
+		//return this.http.post(this.serverUrl + 'PendingTasks/'+wr_id+'/'+userGroup_id, {
+		return this.http.post(this.serverUrl + 'PendingTasks', {
+			wrID: wr_id,
+			userGroupID: userGroup_id
 		});
 	}
 	
 	//PreviousHopsField/{wrID}/{wrBriefId}/{userGroup_id}/{current_hop_seq}
 	//http://localhost:8019/nsa/PreviousHopsField/1/1/3/2
 	
-	LoadPreviousHopsField(wrID: number,wrBriefId: number,userGroup_id: number,current_hop_seq: number) : any {
-		return this.http.post(this.serverUrl + 'PreviousHopsField/'+wrID+'/'+wrBriefId+'/'+userGroup_id+'/'+current_hop_seq, {
+	LoadPreviousHopsField(wrID: number,wrBriefID: number,userGroup_id: number,current_hop_seq: number) : any {
+		console.log('PreviousHopsField/'+wrID+'/'+wrBriefID+'/'+userGroup_id+'/'+current_hop_seq);
+		return this.http.post(this.serverUrl + 'PreviousHopsField', {
 			wrID: wrID,
-			wrBriefId: wrBriefId,
-			userGroup_id: userGroup_id,
-			current_hop_seq: current_hop_seq
+			wrBriefID: wrBriefID,
+			userGroupID: userGroup_id,
+			hopSequence: current_hop_seq
 		});
 	}
 	
@@ -74,13 +76,14 @@ export class WorkflowsService {
 		//console.log("In GetWR_Name() for theWrNumber "+ theWrNumber);	
 		
 	
-	return this.http.post(this.serverUrl + 'ExistingWorkRequest/'+wrBriefName+'/'+wr_id+'/'+userGroup_id+'/'+user_name+'/'+hopSequence+'/['+workflowFieldsValueSeqWise+']/'+isDone, {
+	console.log(this.serverUrl + 'ExistingWorkRequest/'+wrBriefName+'/'+wr_id+'/'+userGroup_id+'/'+user_name+'/'+hopSequence+'/['+workflowFieldsValueSeqWise+']/'+isDone);
+	return this.http.post(this.serverUrl + 'ExistingWorkRequest', {
 			wrBriefName: wrBriefName,
-			wr_id: wr_id,
-			userGroup_id: userGroup_id,
-			user_name: user_name,
-			hopSequence: hopSequence,
+			wrID: wr_id,
+			userGroupID: userGroup_id,
+			userName: user_name,			
 			workflowFieldsValueSeqWise: workflowFieldsValueSeqWise,
+			hopSequence: hopSequence,
 			isDone: isDone
 		});
 	  

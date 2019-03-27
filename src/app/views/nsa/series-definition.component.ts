@@ -21,12 +21,12 @@ import { LoggedInUser } from '../pages/loggedInUser';
 
 
 @Component({
-  selector: 'app-seriesprovision',
-  templateUrl: './seriesprovision.component.html',
-   styleUrls: ['./demo.component.css'],
+  selector: 'app-series-definition',
+  templateUrl: './series-definition.component.html',
+  styles: ['./nsa_styles.css'],
   providers: [WorkflowsService,AppGlobals,LoginService]
 })
-export class SeriesprovisionComponent implements OnInit {
+export class SeriesDefinitionComponent implements OnInit {
 
 	pendingTasksList: PendingTasks;
 	currentLoggedInUser: LoggedInUser;
@@ -52,7 +52,7 @@ export class SeriesprovisionComponent implements OnInit {
 	  this.router.navigate(['pages/login']);
 	}
 	//GetPendingTaskList
-	this.workFlowsService.LoadPendingTask(this._global.wrid_NumberSeriesProvisioning,this.groupID).subscribe(
+	this.workFlowsService.LoadPendingTask(this._global.wrid_NumberSeriesDefinition,this.groupID).subscribe(
       data => { 				
 				if(data !=null){
 					console.log(data);
@@ -135,7 +135,7 @@ datepickerConfig: Partial<BsDatepickerConfig>;
   
    onTaskSelect(aTask) {
         //this.selectedContactId = aTask.wr_ID;
-		//this.router.navigateByUrl('/nsa/seriesprovisiondetail');
+		//this.router.navigateByUrl('/nsa/seriesdefinitiondetail');
     }
 	
 }

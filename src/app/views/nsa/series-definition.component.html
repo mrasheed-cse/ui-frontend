@@ -11,7 +11,7 @@
 		  </button>
          
           <!--
-		  <button type="button" class="btn btn-link" ><i class="fa fa-link"></i><a [routerLink]="[ '/nsa/seriesprovisionform' ]"> Create a Work Request </a></button>
+		  <button type="button" class="btn btn-link" ><i class="fa fa-link"></i><a [routerLink]="[ '/nsa/seriesdefinitionform' ]"> Create a Work Request </a></button>
 		  -->
 		  </div>
     </div>
@@ -89,7 +89,7 @@
             </thead>
            <tbody *ngFor="let aTask of pendingTasksList;  index as i">
 						<tr >
-							<td><a [routerLink]="['/nsa/seriesprovisiondetail',aTask.wr_BriefName, aTask.wr_BriefId, aTask.hopSequence]">{{aTask.wr_BriefName
+							<td><a [routerLink]="['/nsa/seriesdefinitiondetail',aTask.wr_BriefName, aTask.wr_BriefId, aTask.hopSequence]">{{aTask.wr_BriefName
 							}}</a></td>
 							<td>{{aTask.nextAction}}</td>
 							<td>{{aTask.pendingAt}}</td>

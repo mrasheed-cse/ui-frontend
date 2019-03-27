@@ -6,7 +6,10 @@ import { SeriesprovisionComponent } from './seriesprovision.component';
 import { DiscreteprovisionComponent } from './discreteprovision.component';
 import { SeriesprovisionformComponent } from './seriesprovisionform.component';
 import { SeriesprovisiondetailComponent } from './seriesprovisiondetail.component';
-import { TabledemoComponent } from './tabledemo.component';
+import { SeriesDefinitionComponent } from './series-definition.component';
+import { SeriesDefinitionFormComponent } from './series-definition-form.component';
+import { SeriesDefinitionDetailsComponent } from './series-definition-details.component';
+
 
 const routes: Routes = [
   {
@@ -17,17 +20,31 @@ const routes: Routes = [
     }
   },
   {
+    path: 'seriesdefinition',
+    component: SeriesDefinitionComponent,
+    data: {
+      title: 'Series Definition'
+    }
+  },
+  {
+    path: 'seriesdefintionform',
+    component: SeriesDefinitionFormComponent,
+    data: {
+      title: 'Series Definition Form'
+    }
+  },
+  {
+    path: 'seriesdefinitiondetail/:wr_BriefName/:wr_BriefId/:hopSequence',
+    component: SeriesDefinitionDetailsComponent,
+    data: {
+      title: 'Series Definition Workflow'
+    }
+  },
+  {
     path: 'seriesprovision',
     component: SeriesprovisionComponent,
     data: {
       title: 'Series Provision'
-    }
-  },
-  {
-    path: 'demotable',
-    component: TabledemoComponent,
-    data: {
-      title: 'Demo Table'
     }
   },
   {

@@ -26,13 +26,12 @@ import { LoginService } from '../pages/LoginService';
 import { LoggedInUser } from '../pages/loggedInUser'; 
 
 @Component({
-  selector: 'app-seriesprovisiondetail',
-  templateUrl: './seriesprovisiondetail.component.html',
+  selector: 'app-series-definition-details',
+  templateUrl: './series-definition-details.component.html',
   styles: [],
   providers: [WorkflowsService,AppGlobals,LoginService]
 })
-export class SeriesprovisiondetailComponent implements OnInit {
-
+export class SeriesDefinitionDetailsComponent implements OnInit {
 	wr_BriefId : number;
 	hop_sequence : number;
 	wrBriefName : string;
@@ -47,7 +46,7 @@ export class SeriesprovisiondetailComponent implements OnInit {
 	groupID: number;
 		
 	
-	mySeriesProvisionForm: FormGroup;
+	mySeriesDefinitionForm: FormGroup;
 	HLR: FormControl;
 	SAPC: FormControl;	
 	
@@ -124,7 +123,7 @@ export class SeriesprovisiondetailComponent implements OnInit {
 LoadPreviousHopsData(){
 			//LOAD PREVIOUS HOPS DATA
 		//LoadPreviousHopsField(wrID: number,wrBriefId: number,groupID: number,current_hop_seq: number) : any {
-		this.workFlowsService.LoadPreviousHopsField(this._global.wrid_NumberSeriesProvisioning,this.wr_BriefId,this.groupID,this.hop_sequence).subscribe(
+		this.workFlowsService.LoadPreviousHopsField(this._global.wrid_NumberSeriesDefinition,this.wr_BriefId,this.groupID,this.hop_sequence).subscribe(
 			data => { 
 					//console.log(data);
 					this.fieldNameValueList = data;
@@ -188,7 +187,7 @@ LoadPreviousHopsData(){
   createForm() {
 	
 	if(this.hop_sequence == 2){
-		this.mySeriesProvisionForm = new FormGroup({		
+		this.mySeriesDefinitionForm = new FormGroup({		
 			HLR: this.HLR,
 			SAPC: this.SAPC,
 			cnpComment: this.cnpComment
@@ -196,7 +195,7 @@ LoadPreviousHopsData(){
 	}
 
 	else if(this.hop_sequence == 3){
-		this.mySeriesProvisionForm = new FormGroup({
+		this.mySeriesDefinitionForm = new FormGroup({
 			SDP: this.SDP,
 			CSP: this.CSP,
 			EOICK: this.EOICK,
@@ -212,23 +211,23 @@ LoadPreviousHopsData(){
     // update the ui
 	const selectedSDPID = event.target.value;
 	console.log(selectedSDPID);
-	this.mySeriesProvisionForm.get('CSP').setValue(selectedSDPID);
-	this.mySeriesProvisionForm.get('EOICK').setValue(selectedSDPID);
+	this.mySeriesDefinitionForm.get('CSP').setValue(selectedSDPID);
+	this.mySeriesDefinitionForm.get('EOICK').setValue(selectedSDPID);
   }
 
   onSeriesProvisionSubmit() {
 	 
-   if (this.mySeriesProvisionForm.valid) {
+   if (this.mySeriesDefinitionForm.valid) {
 	   this.isLoading = true;
 	
     //console.log('Form Submitted!');
-    //console.log(this.mySeriesProvisionForm.value);
+    //console.log(this.mySeriesDefinitionForm.value);
   
   this.formFieldData = "";
-  this.LogKeyValuePairs(this.mySeriesProvisionForm);
+  this.LogKeyValuePairs(this.mySeriesDefinitionForm);
   console.log(this.formFieldData);
   //{wr_id}/{userGroup_id}/{user_id}/[{workflowFieldsValueSeqWise}]
-  this.workFlowsService.UpdateExistiongWorkRequest(this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName),this._global.wrid_NumberSeriesProvisioning, this.groupID,this.userName,this.hop_sequence,this.formFieldData,this.isDone).subscribe(
+  this.workFlowsService.UpdateExistiongWorkRequest(this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName),this._global.wrid_NumberSeriesDefinition, this.groupID,this.userName,this.hop_sequence,this.formFieldData,this.isDone).subscribe(
       res  =>  {
 		console.log('response is : '+res);
 		
@@ -268,7 +267,7 @@ LogKeyValuePairs(group: FormGroup): void {
 		this.formFieldData=this.formFieldData+","+abstractControl.value;
 	  }
 		else {
-			//this.mySeriesProvisionForm.get(key).setValue("TOTOTOTO");
+			//this.mySeriesDefinitionForm.get(key).setValue("TOTOTOTO");
 			//console.log("Key : "+key+" , Value : "+abstractControl.value);
 			this.formFieldData=abstractControl.value;
 		}
@@ -281,7 +280,7 @@ clearForm(event: any){
 		//console.log(event);
 		this.dangerAlertShow = false;
 		this.successAlertShow = false;	
-		this.mySeriesProvisionForm.reset();		
+		this.mySeriesDefinitionForm.reset();		
 	}  
 	backButton(event: any){
 		//console.log(event);
@@ -294,7 +293,7 @@ onDoneClick(event: any){
 		 this.isDoneDisable = true;
 		 if(this.hop_sequence==5) // LAST HOP IN SERIES PROVISION
 			this.isDone = true;
-		  this.workFlowsService.UpdateExistiongWorkRequest(this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName),this._global.wrid_NumberSeriesProvisioning, this.groupID,this.userName,this.hop_sequence,this.formFieldData,this.isDone).subscribe(
+		  this.workFlowsService.UpdateExistiongWorkRequest(this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName),this._global.wrid_NumberSeriesDefinition, this.groupID,this.userName,this.hop_sequence,this.formFieldData,this.isDone).subscribe(
       res  =>  {
 		console.log('response is : '+res);
 		

@@ -26,14 +26,13 @@ import { LoggedInUser } from '../pages/loggedInUser';
 
 
 import { AppGlobals } from './../../app.global';
-
 @Component({
-  selector: 'app-seriesprovisionform',
-  templateUrl: './seriesprovisionform.component.html',
+  selector: 'app-series-definition-form',
+  templateUrl: './series-definition-form.component.html',
   styles: [],
   providers: [DefinitionDataService,WorkflowsService,AppGlobals,LoginService]
 })
-export class SeriesprovisionformComponent implements OnInit {
+export class SeriesDefinitionFormComponent implements OnInit {
 
 	
 	WR_Name: string;
@@ -50,7 +49,7 @@ export class SeriesprovisionformComponent implements OnInit {
 	public isLoading:boolean = false;
 
 	
-	mySeriesProvisionForm: FormGroup;
+	mySeriesDefinitionForm: FormGroup;
 	startMSISDN: FormControl;
 	endMSISDN: FormControl;	
 	quantity: FormControl;	
@@ -92,7 +91,7 @@ export class SeriesprovisionformComponent implements OnInit {
 	}
 	
 	//GetWR_Name
-	this.definitionDataService.GetWR_Name(this._global.wrid_NumberSeriesProvisioning).subscribe(
+	this.definitionDataService.GetWR_Name(this._global.wrid_NumberSeriesDefinition).subscribe(
 	data => {
 			//console.log(data);				
 			const dataStr = JSON.stringify(data);
@@ -197,7 +196,7 @@ export class SeriesprovisionformComponent implements OnInit {
   }
 
   createForm() {
-    this.mySeriesProvisionForm = new FormGroup({
+    this.mySeriesDefinitionForm = new FormGroup({
 		startMSISDN: this.startMSISDN,
 		endMSISDN: this.endMSISDN,
 		quantity: this.quantity,
@@ -214,22 +213,22 @@ export class SeriesprovisionformComponent implements OnInit {
   
   onMSISDNChanges() {
   
-    this.mySeriesProvisionForm.get('startMSISDN').valueChanges
+    this.mySeriesDefinitionForm.get('startMSISDN').valueChanges
     .subscribe(selectedMSISDN => {        		
-		const endMSISDNs = this.mySeriesProvisionForm.get('endMSISDN').value;
+		const endMSISDNs = this.mySeriesDefinitionForm.get('endMSISDN').value;
 		
 		if (selectedMSISDN!=null){			
-			this.mySeriesProvisionForm.get('quantity').setValue(Number(endMSISDNs) - Number(selectedMSISDN));
+			this.mySeriesDefinitionForm.get('quantity').setValue(Number(endMSISDNs) - Number(selectedMSISDN));
 		}
         
     });
 	
-	this.mySeriesProvisionForm.get('endMSISDN').valueChanges
+	this.mySeriesDefinitionForm.get('endMSISDN').valueChanges
     .subscribe(selectedMSISDN => {        		
-		const startMSISDNs = this.mySeriesProvisionForm.get('startMSISDN').value;
+		const startMSISDNs = this.mySeriesDefinitionForm.get('startMSISDN').value;
 		
 		if (selectedMSISDN!=null){
-			this.mySeriesProvisionForm.get('quantity').setValue(1 + Number(selectedMSISDN) - Number(startMSISDNs));
+			this.mySeriesDefinitionForm.get('quantity').setValue(1 + Number(selectedMSISDN) - Number(startMSISDNs));
 		}        
     });
 }
@@ -242,8 +241,8 @@ export class SeriesprovisionformComponent implements OnInit {
 	const selectedProductID = event.target.value;
 	// const selectedProductName = event.target.name;
 	//console.log(selectedProductID);
-	this.mySeriesProvisionForm.get('serviceClassName').setValue(this.listServiceClass[selectedProductID]);
-	this.mySeriesProvisionForm.get('communityID').setValue(this.listCommunityID[selectedProductID]);
+	this.mySeriesDefinitionForm.get('serviceClassName').setValue(this.listServiceClass[selectedProductID]);
+	this.mySeriesDefinitionForm.get('communityID').setValue(this.listCommunityID[selectedProductID]);
   }
   
   
@@ -258,8 +257,8 @@ export class SeriesprovisionformComponent implements OnInit {
 				this.listCommunityID = [];
 				this.listServiceClass = [];
 				this.listProduct = [];
-				this.mySeriesProvisionForm.get('serviceClassName').setValue('');
-				this.mySeriesProvisionForm.get('communityID').setValue('');
+				this.mySeriesDefinitionForm.get('serviceClassName').setValue('');
+				this.mySeriesDefinitionForm.get('communityID').setValue('');
 				
 				//console.log ("this.listCommunityID.length "+this.listCommunityID.length);
 				//console.log ("this.listServiceClass.length "+this.listServiceClass.length);
@@ -286,17 +285,17 @@ export class SeriesprovisionformComponent implements OnInit {
   // FORM SUBMISSION
   onSeriesProvisionSubmit() {
 	 
-  if (this.mySeriesProvisionForm.valid) {
+  if (this.mySeriesDefinitionForm.valid) {
 	this.isLoading = true;
     console.log('Form Submitted!');
-    console.log(this.mySeriesProvisionForm.value);
+    console.log(this.mySeriesDefinitionForm.value);
 	console.log("this.isLoading "+this.isLoading); 
   }
   this.formFieldData = this.workFlowsService.FormatWorkRequestNameForAPI(this.WR_Name);
-  this.LogKeyValuePairs(this.mySeriesProvisionForm);
+  this.LogKeyValuePairs(this.mySeriesDefinitionForm);
   //console.log(this.formFieldData);
   //{wr_id}/{userGroup_id}/{user_id}/[{workflowFieldsValueSeqWise}]
-  this.workFlowsService.CreateNewWorkRequest(this._global.wrid_NumberSeriesProvisioning, this.groupID,this.userName,this.formFieldData).subscribe(
+  this.workFlowsService.CreateNewWorkRequest(this._global.wrid_NumberSeriesDefinition, this.groupID,this.userName,this.formFieldData).subscribe(
       res  =>  {
 		console.log('response is : '+res);
 		
@@ -337,7 +336,7 @@ LogKeyValuePairs(group: FormGroup): void {
 		this.formFieldData=this.formFieldData+","+abstractControl.value;
 	  }
 		else {
-			//this.mySeriesProvisionForm.get(key).setValue("TOTOTOTO");
+			//this.mySeriesDefinitionForm.get(key).setValue("TOTOTOTO");
 			//console.log("Key : "+key+" , Value : "+abstractControl.value);
 			this.formFieldData=abstractControl.value;
 		}
@@ -350,7 +349,7 @@ clearForm(event: any){
 		//console.log(event);
 		this.dangerAlertShow = false;
 		this.successAlertShow = false;	
-		this.mySeriesProvisionForm.reset();		
+		this.mySeriesDefinitionForm.reset();		
 	}
  backButton(event: any){
 		//console.log(event);

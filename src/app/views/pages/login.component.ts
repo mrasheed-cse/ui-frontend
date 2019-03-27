@@ -23,6 +23,7 @@ export class LoginComponent {
   password : string ;
   
   isValidUser : boolean = true;
+  public isLoading:boolean = false;
    
   
   
@@ -30,9 +31,10 @@ export class LoginComponent {
 	  //isValidUser : this.loginService.ValidateUser(this.username, this.password)
 	  console.log(this.username);
 	  console.log(this.password);
-	  
+	this.isLoading = true;
 	this.isValidUser = this.loginService.ValidateUser(this.username, this.password);
 	console.log(this.isValidUser);
+	this.isLoading = false;
   }
   
 }

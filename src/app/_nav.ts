@@ -25,6 +25,11 @@ export const navigation_grpID_BSS_Planning = [
   },
   
   {
+    name: 'Series Definition',
+    url: '/nsa/seriesdefinition',
+    icon: 'icon-cursor'
+  },
+  {
     name: 'Series Provision',
     url: '/nsa/seriesprovision',
     icon: 'icon-cursor'
@@ -44,6 +49,11 @@ export const navigation_grpID_VDSO = [
     name: 'Work Requests'
   },
   
+  {
+    name: 'Series Definition',
+    url: '/nsa/seriesdefinition',
+    icon: 'icon-cursor'
+  },
   {
     name: 'Series Provision',
     url: '/nsa/seriesprovision',
@@ -65,17 +75,15 @@ export const navigation_grpID_CNP = [
   },
   
   {
+    name: 'Series Definition',
+    url: '/nsa/seriesdefinition',
+    icon: 'icon-cursor'
+  },
+{
     name: 'Series Provision',
     url: '/nsa/seriesprovision',
     icon: 'icon-cursor'
   },
-/*  
-  {
-    name: 'Demo Table',
-    url: '/nsa/demotable',
-    icon: 'icon-cursor'
-  },
-  */
   {
     name: 'Discrete Provisison',
     url: '/nsa/discreteprovision',
@@ -103,6 +111,23 @@ export const navigation_grpID_Sourcing = [
     title: true,
     name: 'Work Requests'
   },   
+  {
+    name: 'Series Definition',
+    url: '/seriesdefinition',
+    icon: 'icon-cursor',
+    children: [	
+      {
+        name: 'Ongoing List',
+        url: '/nsa/seriesdefinition',
+        icon: 'icon-puzzle'
+      },
+      {
+        name: 'New Creation',
+        url: '/nsa/seriesdefintionform',
+        icon: 'icon-puzzle'
+      }
+    ]
+  },
   {
     name: 'Series Provision',
     url: '/seriesprovision',

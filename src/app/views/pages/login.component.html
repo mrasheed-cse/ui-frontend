@@ -1,5 +1,7 @@
 <div class="app flex-row align-items-center">
   <div class="container">
+  
+  
     <div class="row justify-content-center">
       <div class="col-md-6">
         <div class="card-group">
@@ -25,16 +27,18 @@
                   <button type="button" class="btn btn-primary px-4" (click)= "ValidateUser()">Login</button>
                 </div>
                 <div class="col-6 text-right">
-                  <button type="button" class="btn btn-link px-0">Forgot password?</button>
+                 <!-- <button type="button" class="btn btn-link px-0">Forgot password?</button>-->
                 </div>
               </div>
-			
 				<div *ngIf="!isValidUser">
 				<div class="alert alert-danger">
 				  Please provide correct username and password.
 				</div>
 			  </div>
 				</form>
+				
+				
+				
 			</div>
           </div>
         </div>
