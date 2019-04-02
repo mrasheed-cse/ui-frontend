@@ -12,6 +12,75 @@ export const navigation_blankdata  = [
 
 ];
 
+export const navigation_grpID_RAFM = [
+   
+  {
+    name: 'Landing Page',
+    url: '/nsa',
+	icon: 'icon-star'
+  }, 
+{
+    title: true,
+    name: 'Work Requests'
+  },
+  
+{
+    name: 'Series Provision',
+    url: '/nsa/seriesprovision',
+    icon: 'icon-cursor'
+  },
+  {
+        name: 'DeProvision',
+        url: '/nsa/deprovision',
+        icon: 'icon-cursor'
+      }
+	  ,
+  {
+        name: 'ReProvision',
+        url: '/nsa/reprovision',
+        icon: 'icon-cursor'
+      },
+  {
+        name: 'MNP ReProvision',
+        url: '/nsa/mnpreprovision',
+        icon: 'icon-cursor'
+      }
+];
+
+export const navigation_grpID_Wipro_Billing = [
+   
+  {
+    name: 'Landing Page',
+    url: '/nsa',
+	icon: 'icon-star'
+  }, 
+{
+    title: true,
+    name: 'Work Requests'
+  },
+  {
+    name: 'Series Provision',
+    url: '/nsa/seriesprovision',
+    icon: 'icon-cursor'
+  },
+  {
+        name: 'DeProvision',
+        url: '/nsa/deprovision',
+        icon: 'icon-cursor'
+      },
+  {
+        name: 'ReProvision',
+        url: '/nsa/reprovision',
+        icon: 'icon-cursor'
+      },
+	  {
+        name: 'MNP ReProvision',
+        url: '/nsa/mnpreprovision',
+        icon: 'icon-cursor'
+      }
+];
+
+
 export const navigation_grpID_BSS_Planning = [
    
   {
@@ -28,13 +97,7 @@ export const navigation_grpID_BSS_Planning = [
     name: 'Series Definition',
     url: '/nsa/seriesdefinition',
     icon: 'icon-cursor'
-  },
-  {
-    name: 'Series Provision',
-    url: '/nsa/seriesprovision',
-    icon: 'icon-cursor'
   }
-
 ];
 
 export const navigation_grpID_VDSO = [
@@ -53,13 +116,7 @@ export const navigation_grpID_VDSO = [
     name: 'Series Definition',
     url: '/nsa/seriesdefinition',
     icon: 'icon-cursor'
-  },
-  {
-    name: 'Series Provision',
-    url: '/nsa/seriesprovision',
-    icon: 'icon-cursor'
   }
-
 ];
 
 export const navigation_grpID_CNP = [
@@ -85,9 +142,55 @@ export const navigation_grpID_CNP = [
     icon: 'icon-cursor'
   },
   {
-    name: 'Discrete Provisison',
-    url: '/nsa/discreteprovision',
-    icon: 'icon-cursor'
+    name: 'DeProvision',    
+	 url: '/deprovision',
+    icon: 'icon-cursor',
+    children: [	
+      {
+        name: 'Ongoing List',
+        url: '/nsa/deprovision',
+        icon: 'icon-puzzle'
+      },
+      {
+        name: 'New Creation',
+        url: '/nsa/deprovisionform',
+        icon: 'icon-puzzle'
+      }
+    ]
+  },
+  {
+    name: 'ReProvision',    
+	 url: '/reprovision',
+    icon: 'icon-cursor',
+    children: [	
+      {
+        name: 'Ongoing List',
+        url: '/nsa/reprovision',
+        icon: 'icon-puzzle'
+      },
+      {
+        name: 'New Creation',
+        url: '/nsa/reprovisionform',
+        icon: 'icon-puzzle'
+      }
+    ]
+  },
+  {
+    name: 'MNP ReProvision',    
+	 url: '/mnpreprovision',
+    icon: 'icon-cursor',
+    children: [	
+      {
+        name: 'Ongoing List',
+        url: '/nsa/mnpreprovision',
+        icon: 'icon-puzzle'
+      },
+      {
+        name: 'New Creation',
+        url: '/nsa/mnpreprovisionform',
+        icon: 'icon-puzzle'
+      }
+    ]
   }, 
 
      {
@@ -145,23 +248,14 @@ export const navigation_grpID_Sourcing = [
       }
     ]
   },
+  /*
   {
     name: 'Discrete Provisison',
     url: '/nsa/discreteprovision',
     icon: 'icon-cursor'
   }, 
-  {
-    name: 'De-Provisioning',
-    url: '/nsa/seriesprovision',
-    icon: 'icon-cursor'
-   },
-  {
-    name: 'Re-Provisioning',
-    url: '/nsa/discreteprovision',
-    icon: 'icon-cursor'
-   },
-
-     {
+      */
+	  {
 		 title: true,
 	 name: 'Report Module'},{
 		 name: 'Report',

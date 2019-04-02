@@ -21,6 +21,15 @@ import { SeriesprovisiondetailComponent } from './seriesprovisiondetail.componen
 import { SeriesDefinitionComponent } from './series-definition.component';
 import { SeriesDefinitionFormComponent } from './series-definition-form.component';
 import { SeriesDefinitionDetailsComponent } from './series-definition-details.component';
+import { DeProvisionComponent } from './de-provision.component';
+import { DeProvisionFormComponent } from './de-provision-form.component';
+import { DeProvisionDetailsComponent } from './de-provision-details.component';
+import { ReProvisionComponent } from './re-provision.component';
+import { ReProvisionFormComponent } from './re-provision-form.component';
+import { ReProvisionDetailsComponent } from './re-provision-details.component';
+import { MnpreProvisionComponent } from './mnpre-provision.component';
+import { MnpreProvisionFormComponent } from './mnpre-provision-form.component';
+import { MnpreProvisionDetailsComponent } from './mnpre-provision-details.component';
 
 
 @NgModule({
@@ -34,6 +43,6 @@ import { SeriesDefinitionDetailsComponent } from './series-definition-details.co
 	BsDatepickerModule.forRoot(),
     NsaRoutingModule
   ],
-  declarations: [LandingpageComponent, SeriesprovisionComponent, DiscreteprovisionComponent, SeriesprovisionformComponent, SeriesprovisiondetailComponent, SeriesDefinitionComponent, SeriesDefinitionFormComponent, SeriesDefinitionDetailsComponent]
+  declarations: [LandingpageComponent, SeriesprovisionComponent, DiscreteprovisionComponent, SeriesprovisionformComponent, SeriesprovisiondetailComponent, SeriesDefinitionComponent, SeriesDefinitionFormComponent, SeriesDefinitionDetailsComponent, DeProvisionComponent, DeProvisionFormComponent, DeProvisionDetailsComponent, ReProvisionComponent, ReProvisionFormComponent, ReProvisionDetailsComponent, MnpreProvisionComponent, MnpreProvisionFormComponent, MnpreProvisionDetailsComponent]
 })
 export class NsaModule { }

@@ -1,0 +1,116 @@
+<p>
+  de-provision-form works!
+</p>
+<!--
+<input type = "file" (change)="onFileSelected($event)"/>
+<button type = "button" (click) = "onUpload()">Upload</button>
+-->
+<div class="row">
+	<div class="col-md-1">
+		<div class="card-body"></div>
+	</div>
+	<div class="col-md-10">
+		<div class="card">
+			<div class="card-header">
+				<strong>DE provisioning</strong>
+			</div>
+			
+			<div class="alert alert-danger" role="alert" *ngIf="infoAlertShow"><b>{{infoAlertMessage}}</b></div>
+			
+			<form [formGroup]="myDeProvisionForm" novalidate (ngSubmit)="onDeProvisionSubmit()">
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group row">
+								<label class="col-md-5 col-form-label">Work Request Name</label>
+								<div class="col-md-7">
+									<p class="form-control-static">{{WR_Name}}</p>
+
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group row">
+								<label class="col-md-5 col-form-label" for="batchID">Batch ID</label>
+								<div class="col-md-7">
+									<input type="text" id="batchID" name="batchID" class="form-control" formControlName="batchID" required
+									 [ngClass]="{
+										'is-invalid': batchID.invalid && (batchID.dirty || batchID.touched),
+										'is-valid': batchID.valid && (batchID.dirty || batchID.touched)
+								   }">
+									<div class="invalid-feedback" *ngIf="batchID.errors && (batchID.dirty || batchID.touched)">
+										<p *ngIf="batchID.errors.required">Batch ID is required</p>										
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group row">
+								<label class="col-md-2 col-form-label" for="deProvisionFile">De Provision File</label>
+								<div class="col-md-10">
+								
+									<input type="file" id="deProvisionFile" name="deProvisionFile" class="form-control" formControlName="deProvisionFile" required
+									 [ngClass]="{
+										'is-invalid': deProvisionFile.invalid && (deProvisionFile.dirty || deProvisionFile.touched),
+										'is-valid': deProvisionFile.valid && (deProvisionFile.dirty || deProvisionFile.touched)
+								   }" (change)="onFileChange($event)" >
+									<div class="invalid-feedback" *ngIf="deProvisionFile.errors && (deProvisionFile.dirty || deProvisionFile.touched)">
+										<p *ngIf="deProvisionFile.errors.required">De Provision File is required</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+							
+						
+					</div>
+
+					<!-- ///
+					<div class="row">
+						<div class="col-md-6">
+
+						</div>
+						<div class="col-md-6">
+
+						</div>
+					</div>
+					/// -->
+
+
+
+					<div class="form-group row">
+						<label class="col-md-5 col-form-label" for="cnpComment">Comment</label>
+						<div class="col-md-12">
+							<textarea id="cnpComment" name="cnpComment" class="form-control" formControlName="cnpComment" rows="5">
+				</textarea>
+						</div>
+					</div>
+
+				</div>
+				<!-- <div class="card-body"> -->
+				<div class="card-footer text-right">
+					<button type="submit" [disabled]="!myDeProvisionForm.valid" class="btn btn-sm btn-primary">
+						<i class="fa fa-dot-circle-o"></i> Submit</button>
+					<button type="reset" class="btn btn-sm btn-danger"(click)="clearForm($event)">
+						<i class="fa fa-ban"></i> Reset</button>
+					<button type="button" class="btn btn-link" (click)="backButton($event)"><i class="fa fa-link" ></i>&nbsp; Back</button>
+				
+				</div>
+				<!-- <div class="card-footer"> -->
+			</form>
+
+			<div *ngIf="isLoading" class="spinner-border text-primary" role="status">
+					<span class="sr-only">Loading...</span>
+				</div>
+			<div class="alert alert-success" role="alert" *ngIf="successAlertShow">The New Work Request <b>{{WR_Name}}</b> {{successAlertMessage}}</div>
+			<div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">The New Work Request <b>{{WR_Name}}</b> {{dangerAlertMessage}}</div>
+
+		</div>
+		<!-- <div class="card"> -->
+	</div>
+</div>
+

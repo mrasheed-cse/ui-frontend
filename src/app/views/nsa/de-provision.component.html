@@ -1,0 +1,124 @@
+<div class="animated fadeIn">
+  <div class="card">
+  
+  <div class="card-header">
+     
+      
+	  
+	   <div class="card-body">
+             <button type="button" class="btn btn-primary" (click)="isCollapsed = !isCollapsed"><i class="fa fa-star"></i>&nbsp; 
+		  {{isCollapsed === true ? 'Search for Work Request' : 'Hide Searching'}}
+		  </button>
+         
+          <!--
+		  <button type="button" class="btn btn-link" ><i class="fa fa-link"></i><a [routerLink]="[ '/nsa/seriesprovisionform' ]"> Create a Work Request </a></button>
+		  -->
+		  </div>
+    </div>
+	
+  
+    <div class="card-footer" [collapse]="isCollapsed" >
+	
+   <div>
+   
+       <form [formGroup]="mySearchForm" novalidate (ngSubmit)="onSearchSubmit()">
+	   
+	<div class="form-group"
+		[ngClass]="{
+        'has-danger': mySearchForm.controls.wrname.invalid && (mySearchForm.controls.wrname.dirty || mySearchForm.controls.wrname.touched),
+        'has-success': mySearchForm.controls.wrname.valid && (wrname.dirty || mySearchForm.controls.wrname.touched)
+   }">
+		<label>Work Request Name</label> <input type="text" class="form-control"
+			formControlName="wrname" required>
+		<div class="form-control-feedback"
+			*ngIf="mySearchForm.controls.wrname.errors && (mySearchForm.controls.wrname.dirty || mySearchForm.controls.wrname.touched)">
+			<p *ngIf="mySearchForm.controls.wrname.errors.required">Work Request Name
+				is required</p>			
+		</div>
+	</div>
+
+	
+  <div class="col-xs-12 col-12 col-md-4 form-group " >
+		<label>Start Date</label> 
+	<input type="text" class="form-control calendar-container" id="startDate" formControlName="startDate" name="startDate"  required bsDatepicker [bsConfig]="datepickerConfig"
+					placement="right" > 
+	</div>
+  
+  <div class="col-xs-12 col-12 col-md-4 form-group " >
+		<label>End Date</label> 
+	<input type="text" class="form-control calendar-container" id="endDate" formControlName="endDate" name="endDate"  required bsDatepicker [bsConfig]="datepickerConfig"
+					placement="right" > 
+	</div>
+  
+	<div class="form-group" [ngClass]="{
+        'has-danger': mySearchForm.controls.wrstatus.invalid && (mySearchForm.controls.wrstatus.dirty || mySearchForm.controls.wrstatus.touched),
+        'has-success': mySearchForm.controls.wrstatus.valid && (mySearchForm.controls.wrstatus.dirty || mySearchForm.controls.wrstatus.touched)
+      }">
+		<label>Status</label> <select class="form-control"
+			formControlName="wrstatus">
+			<option value="">Please select a status</option>
+			<option *ngFor="let astatus of wrstatuses" [value]="astatus">{{astatus}}</option>
+		</select>
+	</div>
+	<button type="submit" class="btn btn-primary" >Submit</button>
+</form>
+<!--
+<pre >{{mySearchForm.value | json}}</pre>
+<pre *ngIf="mySearchForm.valid">This is Valid form Data.{{mySearchForm.value | json}}</pre>
+-->
+   </div>   	  
+	
+    </div>
+	
+	<div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-align-justify"></i> Pending Task Lists
+        </div>
+        <div class="card-body" *ngIf="isDataFound">
+          <table class="table table-bordered table-striped table-sm">
+            <thead>
+              <tr>
+                <th>Work Request Name</th>
+                <th>Next Action</th>
+                <th>Pending At</th>
+                <th>Last Action By</th>
+				<th>Last Action Date</th>
+              </tr>
+            </thead>
+           <tbody *ngFor="let aTask of pendingTasksList;  index as i">
+						<tr >
+							<td><a [routerLink]="['/nsa/deprovisiondetail',aTask.wr_BriefName, aTask.wr_BriefId, aTask.hopSequence]">{{aTask.wr_BriefName
+							}}</a></td>
+							<td>{{aTask.nextAction}}</td>
+							<td>{{aTask.pendingAt}}</td>
+							<td>{{aTask.lastActionBy}}</td>
+							<td>{{aTask.lastActionDate}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <!--
+		  <nav>
+            <ul class="pagination">
+              <li class="page-item"><a class="page-link" href="#">Prev</a></li>
+              <li class="page-item active">
+                <a class="page-link" href="#">1</a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item"><a class="page-link" href="#">4</a></li>
+              <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+          </nav>
+		  -->
+        </div>
+		<div class="card-body" *ngIf="!isDataFound">
+			<div class="alert alert-primary" role="alert" ><b>No Pending Tasks</b></div>			
+		</div>
+      </div>
+    </div>
+    <!--/.col-->
+  </div>
+ </div>
+</div>

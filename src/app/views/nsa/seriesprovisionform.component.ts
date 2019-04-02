@@ -30,7 +30,7 @@ import { AppGlobals } from './../../app.global';
 @Component({
   selector: 'app-seriesprovisionform',
   templateUrl: './seriesprovisionform.component.html',
-  styles: [],
+  styles: ['./nsa_styles.css'],
   providers: [DefinitionDataService,WorkflowsService,AppGlobals,LoginService]
 })
 export class SeriesprovisionformComponent implements OnInit {
@@ -41,12 +41,17 @@ export class SeriesprovisionformComponent implements OnInit {
 	currentLoggedInUser: LoggedInUser;
 	userName: string;
 	groupID: number;	
+	totalQuantity: number = 0;
 	
+	//datepickerConfig: Partial<BsDatepickerConfig>;	
 	
 	public dangerAlertShow:boolean = false;
 	public dangerAlertMessage:string = "";
 	public successAlertShow:boolean = false;
 	public successAlertMessage:string = "";
+	public infoAlertShow:boolean = false;
+	public infoAlertMessage:string = "";
+	
 	public isLoading:boolean = false;
 
 	
@@ -54,24 +59,21 @@ export class SeriesprovisionformComponent implements OnInit {
 	startMSISDN: FormControl;
 	endMSISDN: FormControl;	
 	quantity: FormControl;	
-	IMSI: FormControl;
 	productType: FormControl;
 	productName: FormControl;
 	serviceClassName: FormControl;
 	communityID: FormControl;
-	zone: FormControl;
+	hlr: FormControl;
+	sdp: FormControl;
+	startICCID: FormControl;
+	startICCID19: FormControl;	
+	endICCID: FormControl;
+	startIMSI: FormControl;
+	endIMSI: FormControl;
+	needByDate: FormControl;
 	srcComment: FormControl;
 	formFieldData: string;
 	
-
-  public listIMSI = [];
-  public listProductType = [];
-  public listProduct = [];
-  public listServiceClass = [];
-  public listCommunityID = [];
-  public listZone = [];
-  
-  //listZone = [{'id':1, 'name':'Dhaka'}, {'id':2, 'name': 'Ctd'}, {'id':3, 'name': 'Khulna'}];
 
 
   constructor(private router: Router,private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private definitionDataService: DefinitionDataService, private workFlowsService: WorkflowsService) {
@@ -107,72 +109,14 @@ export class SeriesprovisionformComponent implements OnInit {
 		},
 		err => console.error(err),
 		()=> console.log('done loading Work Request Name')
-    );
-	
-	//GetAllIMSI
-	this.definitionDataService.GetAllIMSI().subscribe(
-	data => { 
-				//console.log(data);
-				for (let index in data) {
-					//console.log (data[index]);
-					this.listIMSI.push(
-					{
-						id:data[index].id,
-						group_name: data[index].groupName
-					}
-					); 
-				}		
-			},
-    err => console.error(err),
-    () => console.log('done loading IMSI List')
-    );
-	
-	//GetProductTypes
-	this.definitionDataService.GetProductTypes().subscribe(
-	data => { 
-				this.listProductType = [];
-				//console.log("this.listProductType "+this.listProductType.length);
-				for (let index in data) {
-				//console.log (data[index]);			
-				this.listProductType.push(
-					{
-						id:data[index].id,
-						productType_name: data[index].productTypeName
-					}
-					); 
-				}		
-		// return data;
-			},
-		err => console.error(err),
-		() => console.log('done loading ProductTypes List')
-    );
-	
-	//GetZoneNames
-	this.definitionDataService.GetZoneNames().subscribe(
-	data => { 
-				this.listZone = [];
-				//console.log("this.listZone "+this.listZone.length);
-				for (let index in data) {
-				//console.log (data[index]);			
-				this.listZone.push(
-					{
-						id:data[index].id,
-						name: data[index].zoneName
-					}
-					); 
-				}		
-		// return data;
-			},
-		err => console.error(err),
-		() => console.log('done loading Zone List')
-    );
-	
+    );	
 }
 
   ngOnInit() {
     this.createFormControls();
     this.createForm();
 	this.onMSISDNChanges();
+	this.onStartICCIDChanges();
   }
 
   createFormControls() {
@@ -186,27 +130,39 @@ export class SeriesprovisionformComponent implements OnInit {
       Validators.minLength(11) ,
       Validators.maxLength(11)
     ]);
-	this.productType = new FormControl('', [Validators.required]);
 	this.quantity =	new FormControl({value: 0, disabled: true}, Validators.required);
-	this.IMSI= new FormControl('', Validators.required);
-	this.productName= new FormControl('', Validators.required);
-	this.serviceClassName=	new FormControl({value: '', disabled: true}, Validators.required);
-	this.communityID= 	new FormControl({value: '', disabled: true}, Validators.required);
-	this.zone= new FormControl('');
-	this.srcComment= new FormControl('');
+	this.productType = new FormControl({value: '', disabled: true}, Validators.required);	
+	this.productName = new FormControl({value: '', disabled: true}, Validators.required);
+	this.serviceClassName =	new FormControl({value: '', disabled: true}, Validators.required);
+	this.communityID = 	new FormControl({value: '', disabled: true}, Validators.required);	
+	this.hlr =	new FormControl({value: '', disabled: true}, Validators.required);
+	this.sdp = 	new FormControl({value: '', disabled: true}, Validators.required);	
+	this.startICCID = new FormControl('', Validators.required);
+	this.startICCID19 = 	new FormControl({value: '', disabled: true}, Validators.required);	
+	this.endICCID = 	new FormControl({value: '', disabled: true}, Validators.required);	
+	this.startIMSI = 	new FormControl({value: '', disabled: true}, Validators.required);	
+	this.endIMSI = 	new FormControl({value: '', disabled: true}, Validators.required);	
+	this.needByDate = new FormControl('');
+	this.srcComment = new FormControl('');
   }
 
   createForm() {
     this.mySeriesProvisionForm = new FormGroup({
 		startMSISDN: this.startMSISDN,
 		endMSISDN: this.endMSISDN,
-		quantity: this.quantity,
-		IMSI: this.IMSI,
+		quantity: this.quantity,		
 		productType: this.productType,
 		productName: this.productName,
 		serviceClassName: this.serviceClassName,
-		communityID: this.communityID,
-		zone: this.zone,
+		communityID: this.communityID,		
+		hlr: this.hlr,
+		sdp: this.sdp,	
+		startICCID: this.startICCID,
+		startICCID19: this.startICCID19,
+		endICCID: this.endICCID,
+		startIMSI: this.startIMSI,
+		endIMSI: this.endIMSI,
+		needByDate: this.needByDate,
 		srcComment: this.srcComment
 
     });
@@ -214,12 +170,15 @@ export class SeriesprovisionformComponent implements OnInit {
   
   onMSISDNChanges() {
   
+	
     this.mySeriesProvisionForm.get('startMSISDN').valueChanges
     .subscribe(selectedMSISDN => {        		
 		const endMSISDNs = this.mySeriesProvisionForm.get('endMSISDN').value;
 		
 		if (selectedMSISDN!=null){			
-			this.mySeriesProvisionForm.get('quantity').setValue(Number(endMSISDNs) - Number(selectedMSISDN));
+			this.totalQuantity = 1+ Number(endMSISDNs) - Number(selectedMSISDN);
+			this.mySeriesProvisionForm.get('quantity').setValue(this.totalQuantity);
+			this.LoadDetailData(selectedMSISDN,endMSISDNs);
 		}
         
     });
@@ -229,66 +188,96 @@ export class SeriesprovisionformComponent implements OnInit {
 		const startMSISDNs = this.mySeriesProvisionForm.get('startMSISDN').value;
 		
 		if (selectedMSISDN!=null){
-			this.mySeriesProvisionForm.get('quantity').setValue(1 + Number(selectedMSISDN) - Number(startMSISDNs));
+			this.totalQuantity = 1 + Number(selectedMSISDN) - Number(startMSISDNs);
+			this.mySeriesProvisionForm.get('quantity').setValue(this.totalQuantity);
+			this.LoadDetailData(startMSISDNs, selectedMSISDN);
 		}        
     });
+  }
+	  LoadDetailData (startMSISDNs, endMSISDNs) {	  	
+	
+		console.log("Quantity Now "+ this.totalQuantity);
+		if (this.totalQuantity>0){
+		this.definitionDataService.GetDefinitionDetails(startMSISDNs,endMSISDNs).subscribe(
+			data => { 
+					console.log(data);
+				for (let index in data) {
+					console.log (data[index]);					     
+					console.log('fieldName is : '+index +' ' +data[index].fieldName);
+					console.log('fieldValue is : '+index +' ' +data[index].fieldValue);
+					console.log('index is : '+index);
+					
+					if(data[index].fieldName == 'Product type'){
+						this.mySeriesProvisionForm.get('productType').setValue(data[index].fieldValue);
+					}
+					else if(data[index].fieldName == 'Product name'){
+						this.mySeriesProvisionForm.get('productName').setValue(data[index].fieldValue);
+					}
+					else if(data[index].fieldName == 'Service Class Name'){
+						this.mySeriesProvisionForm.get('serviceClassName').setValue(data[index].fieldValue);
+					}
+					else if(data[index].fieldName == 'Community ID'){
+						this.mySeriesProvisionForm.get('communityID').setValue(data[index].fieldValue);
+					}
+					else if(data[index].fieldName == 'HLR'){
+						this.mySeriesProvisionForm.get('hlr').setValue(data[index].fieldValue);
+					}
+					else if(data[index].fieldName == 'SDP'){
+						this.mySeriesProvisionForm.get('sdp').setValue(data[index].fieldValue);
+					}
+				}
+				this.infoAlertShow = false;
+				
+			},
+			err => {
+				console.error(err);
+				 this.infoAlertShow = true;
+				this.infoAlertMessage = "All numbers from "+startMSISDNs +" and "+ endMSISDNs +" do not have Definition Work Request";
+			},
+			() => console.log('Done loading Detail Data')
+			);  
+		}
+	}
+
+
+	
+onStartICCIDChanges() {
+  
+	var lastDigit: string;
+	
+    this.mySeriesProvisionForm.get('startICCID').valueChanges
+    .subscribe(selectedStartICCID => {        		
+		lastDigit = this.definitionDataService.LuhnAlgorithmFor19thDigit(selectedStartICCID);
+			
+			
+			var startICCIDval = selectedStartICCID +lastDigit;
+			var totalQuantity = this.mySeriesProvisionForm.get('quantity').value;			
+			var endICCIDval = (Number(startICCIDval)+totalQuantity).toString();
+			
+			var startIMSIval = '47001'+selectedStartICCID.substr(8,10);
+			var endIMSIval = (Number(startIMSIval)+totalQuantity).toString();
+			
+			this.mySeriesProvisionForm.get('startICCID19').setValue(startICCIDval);
+			this.mySeriesProvisionForm.get('endICCID').setValue(endICCIDval);
+			
+			this.mySeriesProvisionForm.get('startIMSI').setValue(startIMSIval);
+			this.mySeriesProvisionForm.get('endIMSI').setValue(endIMSIval);
+        
+    });
+	
+	
 }
 
-  
-   // event handler for the select element's change event
-    onProductNameSelects (event: any) {	  
 	
-    // update the ui
-	const selectedProductID = event.target.value;
-	// const selectedProductName = event.target.name;
-	//console.log(selectedProductID);
-	this.mySeriesProvisionForm.get('serviceClassName').setValue(this.listServiceClass[selectedProductID]);
-	this.mySeriesProvisionForm.get('communityID').setValue(this.listCommunityID[selectedProductID]);
-  }
-  
-  
-// event handler for the select element's change event
-  onProductTypeSelect (event: any) {	  
-	
-    // update the ui
-	const selectedProductTypeID: number = event.target.value;
-				
-	this.definitionDataService.GetProducts(selectedProductTypeID).subscribe(
-		data => { 
-				this.listCommunityID = [];
-				this.listServiceClass = [];
-				this.listProduct = [];
-				this.mySeriesProvisionForm.get('serviceClassName').setValue('');
-				this.mySeriesProvisionForm.get('communityID').setValue('');
-				
-				//console.log ("this.listCommunityID.length "+this.listCommunityID.length);
-				//console.log ("this.listServiceClass.length "+this.listServiceClass.length);
-				
-				for (let index in data) {
-					//console.log (data[index]);
-					this.listProduct.push(
-					{
-						id:data[index].id,
-						productName: data[index].productName
-					}
-					
-					); 
-					this.listCommunityID[data[index].id] = data[index].communityID;
-					this.listServiceClass[data[index].id] = data[index].serviceClass.serviceClassName;
-				}		
-		// return data;
-			},
-		err => console.error(err),
-		() => console.log('done loading Product List based on ProductTypes')
-    );	
-  }
-
   // FORM SUBMISSION
   onSeriesProvisionSubmit() {
 	 
   if (this.mySeriesProvisionForm.valid) {
 	this.isLoading = true;
     console.log('Form Submitted!');
+	console.log(this.needByDate.value);
+	const date = new Date(this.needByDate.value);
+	
     console.log(this.mySeriesProvisionForm.value);
 	console.log("this.isLoading "+this.isLoading); 
   }
@@ -332,9 +321,14 @@ LogKeyValuePairs(group: FormGroup): void {
       // If the control is a FormControl
     } else {
 		
-      //console.log("Key : "+key+" , Value : "+abstractControl.value);
+      console.log("Key : "+key+" , Value : "+abstractControl.value);
+	  
 	  if (this.formFieldData){
-		this.formFieldData=this.formFieldData+","+abstractControl.value;
+		  if (key == 'needByDate'){
+			  this.formFieldData=this.formFieldData+","+this.FormatTheDate(abstractControl.value);
+		  }
+		  else
+			this.formFieldData=this.formFieldData+","+abstractControl.value;
 	  }
 		else {
 			//this.mySeriesProvisionForm.get(key).setValue("TOTOTOTO");
@@ -344,6 +338,18 @@ LogKeyValuePairs(group: FormGroup): void {
 		
     }
   });
+}
+
+FormatTheDate(selectedNeedByDate:any):string {
+	
+	console.log("selectedNeedByDate : "+selectedNeedByDate);	
+		var date = new Date(selectedNeedByDate);
+    var month = ("0" + (date.getMonth()+1)).slice(-2);
+    var day  = ("0" + date.getDate()).slice(-2);
+    var formattedDate=[day,month,date.getFullYear()].join("/");
+	console.log("formattedDate : "+formattedDate);
+	return formattedDate;
+	
 }
 
 clearForm(event: any){

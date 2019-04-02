@@ -60,6 +60,51 @@ export class DefinitionDataService {
 		return this.http.get(this.serverUrl + 'GpZones/');
 	}
 
+	// GetDetails from Definition Work Request
+	GetDefinitionDetails(startMSISDN: string, endMSISDN: string): any {
+		//console.log("In GetProducts() for type " + selectedProductTypeID); 
+		return this.http.post(this.serverUrl + 'DefinedNumberDataRequest' , {
+			startMSISDN: startMSISDN,
+			endMSISDN: endMSISDN
+			}
+		)
+	}
+	
+	LuhnAlgorithmFor19thDigit(inputString: string): string{		
+		
+		console.log(inputString);
+		var sumResult: number = 0;
+		var securityDigit: number = 0;
+		var tempVar: string;
+		var tempVarNum: number;
+		var i: number = 0;
+		
+		for (i = 1; i <= inputString.length; i++) {
+			if(i%2==0){
+				tempVar= (Number(inputString.charAt(i-1))*2).toString();
+				
+				if(tempVar.length>1){
+					tempVarNum= Number(tempVar.charAt(0))+Number(tempVar.charAt(1));
+				}else{
+					tempVarNum= Number(tempVar);
+				}
+				
+				//alert(tempVar);
+				
+				sumResult+= tempVarNum;
+			}else{
+				sumResult+= (Number(inputString.charAt(i-1))*1);
+			}
+		}
+		
+		sumResult= sumResult % 10;
+		if(sumResult!=0){
+			securityDigit= 10- sumResult;
+		}
+    
+    return securityDigit.toString();
+  
+	}
 	
 	
 }

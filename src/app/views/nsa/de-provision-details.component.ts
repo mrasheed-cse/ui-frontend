@@ -25,15 +25,15 @@ import PreviousHopFieldNameValue from './models/PreviousHopFieldNameValue';
 import { LoginService } from '../pages/LoginService';
 import { LoggedInUser } from '../pages/loggedInUser'; 
 
+
 @Component({
-  selector: 'app-seriesprovisiondetail',
-  templateUrl: './seriesprovisiondetail.component.html',
-  styles: [],
+  selector: 'app-de-provision-details',
+  templateUrl: './de-provision-details.component.html',
+	styles: [],
   providers: [WorkflowsService,AppGlobals,LoginService]
 })
-export class SeriesprovisiondetailComponent implements OnInit {
-
-	wr_BriefId : number;
+export class DeProvisionDetailsComponent implements OnInit {
+wr_BriefId : number;
 	hop_sequence : number;
 	wrBriefName : string;
 	userGroup_id : number;
@@ -104,7 +104,7 @@ export class SeriesprovisiondetailComponent implements OnInit {
 LoadPreviousHopsData(){
 			//LOAD PREVIOUS HOPS DATA
 		//LoadPreviousHopsField(wrID: number,wrBriefId: number,groupID: number,current_hop_seq: number) : any {
-		this.workFlowsService.LoadPreviousHopsField(this._global.wrid_NumberSeriesProvisioning,this.wr_BriefId,this.groupID,this.hop_sequence).subscribe(
+		this.workFlowsService.LoadPreviousHopsField(this._global.wrid_DeProvisioning,this.wr_BriefId,this.groupID,this.hop_sequence).subscribe(
 			data => { 
 					//console.log(data);
 					this.fieldNameValueList = data;
@@ -137,15 +137,15 @@ LoadPreviousHopsData(){
 
 backButton(event: any){
 		//console.log(event);
-		this.router.navigateByUrl('/nsa/seriesprovision');	
+		this.router.navigateByUrl('/nsa/deprovision');	
 	}
 onDoneClick(event: any){
 		//console.log(event);
 		this.isLoading = true;		 
 		 this.isDoneDisable = true;
-		 if(this.hop_sequence==3) // LAST HOP IN SERIES PROVISION
+		 if(this.hop_sequence==3) // LAST HOP IN De-PROVISION
 			this.isDone = true;
-		  this.workFlowsService.UpdateExistiongWorkRequest(this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName),this._global.wrid_NumberSeriesProvisioning, this.groupID,this.userName,this.hop_sequence,"",this.isDone).subscribe(
+		  this.workFlowsService.UpdateExistiongWorkRequest(this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName),this._global.wrid_DeProvisioning, this.groupID,this.userName,this.hop_sequence,"",this.isDone).subscribe(
       res  =>  {
 		console.log('response is : '+res);
 		

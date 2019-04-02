@@ -218,7 +218,7 @@ export class SeriesDefinitionFormComponent implements OnInit {
 		const endMSISDNs = this.mySeriesDefinitionForm.get('endMSISDN').value;
 		
 		if (selectedMSISDN!=null){			
-			this.mySeriesDefinitionForm.get('quantity').setValue(Number(endMSISDNs) - Number(selectedMSISDN));
+			this.mySeriesDefinitionForm.get('quantity').setValue(1 + Number(endMSISDNs) - Number(selectedMSISDN));
 		}
         
     });

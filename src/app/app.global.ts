@@ -12,5 +12,9 @@ export class AppGlobals {
 	
 	readonly wrid_NumberSeriesDefinition: number = 1;
 	readonly wrid_NumberSeriesProvisioning: number = 2;
+	readonly wrid_DeProvisioning: number = 3;
+	readonly wrid_ReProvisioning: number = 4;
+	readonly wrid_MnpReProvisioning: number = 5;
+	
 	
 }
