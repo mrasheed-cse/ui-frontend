@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { environment } from '../../../environments/environment.prod';
 import { DefinitionDataService } from './services/definitiondata.service';
 import { WorkflowsService } from './services/workflows.service';
+import { FileoperationService } from './services/fileoperation.service';
 import { Observable } from 'rxjs/Observable';
 
 import 'rxjs/add/operator/map';
@@ -33,7 +34,7 @@ import { AppGlobals } from './../../app.global';
   selector: 'app-de-provision-form',
   templateUrl: './de-provision-form.component.html',
   styles: [],
-  providers: [DefinitionDataService,WorkflowsService,AppGlobals,LoginService]
+  providers: [DefinitionDataService,WorkflowsService,AppGlobals,LoginService,FileoperationService]
 })
 export class DeProvisionFormComponent implements OnInit {
 
@@ -56,10 +57,11 @@ WR_Name: string;
 	cnpComment: FormControl;
 	
 	selectedFile: File = null;
+	fileName: string = "";
   
 	formFieldData: string;
 
-  constructor(private router: Router,private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private definitionDataService: DefinitionDataService, private workFlowsService: WorkflowsService,  private cd: ChangeDetectorRef) {
+  constructor(private router: Router,private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private definitionDataService: DefinitionDataService, private workFlowsService: WorkflowsService,  private cd: ChangeDetectorRef, private fileoperationService: FileoperationService) {
 	  
 	// Get Current User Profile
 	
@@ -124,18 +126,22 @@ WR_Name: string;
 	 
   }
   this.formFieldData = this.workFlowsService.FormatWorkRequestNameForAPI(this.WR_Name);
+  this.fileName = this.formFieldData;
   console.log(this.formFieldData);
   const fd = new FormData();
-  fd.append('nsa-file',this.selectedFile,this.formFieldData+".csv");// File Name will be the WR_Name in server
+  fd.append('nsa-file',this.selectedFile,this.fileName+".csv");// File Name will be the WR_Name in server
   console.log(this.selectedFile.name);
   
   this.LogKeyValuePairs(this.myDeProvisionForm);
   console.log(this.formFieldData);
   
-	this.http.post('http://localhost:8019/nsa'+'/NsaFileUpload', fd)
+   var result = this.fileoperationService.uploadCSV(fd);
+		console.log(result);
+        result
 		.subscribe(res => {
 			console.log(res);
 		});
+	
   //{wr_id}/{userGroup_id}/{user_id}/[{workflowFieldsValueSeqWise}]
   
   this.workFlowsService.CreateNewWorkRequest(this._global.wrid_DeProvisioning, this.groupID,this.userName,this.formFieldData).subscribe(
@@ -175,10 +181,13 @@ LogKeyValuePairs(group: FormGroup): void {
       // If the control is a FormControl
     } else {
 		
-      console.log("Key : "+key+" , Value : "+abstractControl.value);
+      //console.log("Key : "+key+" , Value : "+abstractControl.value);
 	  
 	  if (this.formFieldData){
-		 
+		  if (key == 'deProvisionFile'){
+			  this.formFieldData=this.formFieldData+","+this._global.wrid_FileUploadPath+this.fileName+".csv";
+		  }
+		  else
 			this.formFieldData=this.formFieldData+","+abstractControl.value;
 	  }
 		else {
@@ -195,17 +204,6 @@ onFileChange(event) {
     this.selectedFile = <File>event.target.files[0];
   }
   
-onUpload(){
-	console.log(this.serverUrl);
-	const fd = new FormData();
-	fd.append('user-file',this.selectedFile,this.selectedFile.name);
-	this.http.post(this.serverUrl+'/DeProvisionFileUpload', fd)
-		.subscribe(res => {
-			console.log(res);
-		});
-		
-		
-}	
 
 clearForm(event: any){
 		//console.log(event);

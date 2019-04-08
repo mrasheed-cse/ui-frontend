@@ -4,6 +4,9 @@
 	</div>
 	<div class="col-md-10">
 		<div class="card">
+		<div class="alert alert-success" role="alert" *ngIf="successAlertShow">The Work Request <b>{{wrBriefName}}</b> {{successAlertMessage}}</div>
+			<div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">The Work Request <b>{{wrBriefName}}</b> {{dangerAlertMessage}}</div>
+
 			<div class="card-header">
 				<strong>Provisioning (Active number series) :: {{wrBriefName}}</strong>
 			</div>
@@ -130,6 +133,40 @@
 							</div>
 						</div>
 					</div>
+					
+					
+				<div class="row" *ngIf="hop_sequence === 3">
+						<div class="col-md-6">
+							<div class="form-group row">
+								<label class="col-md-5 col-form-label" for="SK">SK(8000 + SDP – 1) </label>
+								<div class="col-md-7">
+									<input type="text" id="SK" name="SK" class="form-control" formControlName="SK">
+
+								</div>
+							</div>
+						
+						</div>
+						<div class="col-md-6">
+							<!--<div class="form-group row">
+								<label class="col-md-5 col-form-label" for="emaPort">EMA Port </label>
+								<div class="col-md-7">
+									<select class="form-control" id="emaPort" formControlName="emaPort" required
+									 [ngClass]="{
+														'is-invalid': emaPort.invalid && (emaPort.dirty || emaPort.touched),
+														'is-valid': emaPort.valid && (emaPort.dirty || emaPort.touched)
+													 }">
+										<option></option>
+										<option *ngFor="let aEmaPort of listEmaPort" [value]="aEmaPort.id">{{aEmaPort.name}}</option>
+									</select>
+								</div>
+								<div class="invalid-feedback" *ngIf="emaPort.errors && (emaPort.dirty || emaPort.touched)">
+									<p *ngIf="emaPort.errors.required">Ema Port Selection required</p>
+
+								</div>
+							</div>-->
+						</div>
+					</div>
+					
 					<div class="form-group row"  *ngIf="hop_sequence === 3">
 						<label class="col-md-5 col-form-label" for="bssComment">Comment</label>
 						<div class="col-md-12">
@@ -165,9 +202,7 @@
 				<span class="sr-only">Loading...</span>
 			</div>
 			
-			<div class="alert alert-success" role="alert" *ngIf="successAlertShow">The Work Request <b>{{wrBriefName}}</b> {{successAlertMessage}}</div>
-			<div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">The Work Request <b>{{wrBriefName}}</b> {{dangerAlertMessage}}</div>
-
+			
 			
 			</div>
 		</div>

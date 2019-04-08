@@ -33,8 +33,41 @@ export class SeriesprovisionComponent implements OnInit {
 	userName: string;
 	groupID: number;
 	
+		public dangerAlertShow:boolean = false;
+	public dangerAlertMessage:string = "";
+	public successSearchShow:boolean = false;
+	public successAlertMessage:string = "";
+	
+
+	
 	isDataFound: boolean = false;
 	isCollapsed: boolean = true;
+	
+	
+	mySearchForm: FormGroup;  
+   wrname: FormControl;
+   wrstatus: FormControl;
+   startDate: FormControl;
+   endDate: FormControl;
+
+  wrstatuses: string[] = [
+    'In Progress',
+    'Complete'
+  ];
+
+	wrNamePattern:string = "(PROV).\*";
+	searchWR: string;
+	searchWRNumber: string;
+	searchWrCreatedBy: string;
+	searchWrCreationDate: string;
+	searchLastApprover: string;
+	searchLextApprover: string;
+	searchStatus: string;
+	searchPendingGroupID: number;
+	searchHopSequence: number;
+	
+	
+	
 	constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {	
 
 	// Get Current User Profile
@@ -94,31 +127,57 @@ export class SeriesprovisionComponent implements OnInit {
 	
 datepickerConfig: Partial<BsDatepickerConfig>;
 	
-   mySearchForm: FormGroup;  
-   wrname: FormControl;
-   wrstatus: FormControl;
-   startDate: FormControl;
-   endDate: FormControl;
-
-  wrstatuses: string[] = [
-    'In Progress',
-    'Complete'
-  ];
 
    
 	
 
   onSearchSubmit() {
-  if (this.mySearchForm.valid) {
+	  
+  if (this.wrname.value || this.startDate.value || this.endDate.value || this.wrstatus.value) {
     console.log('Form Submitted!');
     console.log(this.mySearchForm.value);
-    //this.myModelForm.reset();
+	this.successSearchShow = false;
+	this.dangerAlertShow = false;
+	
+	this.workFlowsService.SearchWorkRequest(this.wrname.value, this.startDate.value,this.endDate.value,this.wrstatus.value).subscribe(
+      res  =>  {
+		console.log('response is : '+res);
+		this.successSearchShow = true;
+		/*
+		{"wrNumber":"DEF/001/04/2019","createdBy":"nsa_src","wrCreateDate":"2019-04-02 16:24:36.979","lastApprover":"VDSO","currentApprover":"CNP","status":"Completed"}
+		*/
+		this.searchWR=this.wrname.value;
+		this.searchWRNumber=res["wrNumber"];
+		this.searchWrCreatedBy=res["createdBy"];
+		this.searchWrCreationDate=res["wrCreateDate"];
+		this.searchLastApprover=res["lastApprover"];
+		this.searchLextApprover=res["currentApprover"];
+		this.searchStatus=res["status"];
+		this.searchPendingGroupID = res["currentApproverGroup"];
+		this.searchHopSequence = res["currentHopSeq"];
+		
+      },
+      err  =>  {		  
+		  console.log("err.status : "+err.status);		  
+		  this.dangerAlertShow = true;
+		  if(err.status==404)
+				this.dangerAlertMessage = "No data found for this search.";
+			else
+				this.dangerAlertMessage = "An error occured while showing the search result.";
+		
+      }
+	  
+		);	  
+  }
+  else{
+	  this.dangerAlertShow = true;
+	  this.dangerAlertMessage = "Please select any input to search.";
   }
 }
 
   createFormControls() {
     
-    this.wrname = new FormControl('', Validators.required);
+    this.wrname = new FormControl('',Validators.pattern(this.wrNamePattern));
     this.wrstatus = new FormControl('');
 	this.startDate = new FormControl('');
 	this.endDate = new FormControl('');

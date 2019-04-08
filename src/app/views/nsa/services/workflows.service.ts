@@ -88,4 +88,19 @@ export class WorkflowsService {
 		});
 	  
 	}
+	
+	SearchWorkRequest(wrBriefName: string,startDate: string,endDate: string,status: string) : any {	
+  
+		console.log("In SearchWorkRequest() for wrBriefName "+ wrBriefName);	
+		
+	
+	
+	return this.http.post(this.serverUrl + 'search/single', {
+			workRequestName: wrBriefName,
+			starDate: startDate,
+			endDate: endDate,
+			status: status			
+		});
+	  
+	}
 }

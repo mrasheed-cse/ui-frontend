@@ -16,5 +16,7 @@ export class AppGlobals {
 	readonly wrid_ReProvisioning: number = 4;
 	readonly wrid_MnpReProvisioning: number = 5;
 	
+	readonly wrid_FileUploadPath: string = '/app/nsa_files/';
+	
 	
 }

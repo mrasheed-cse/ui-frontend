@@ -14,23 +14,26 @@ import { HttpClientModule } from '@angular/common/http';
 import { environment } from '../../../environments/environment.prod';
 import { DefinitionDataService } from './services/definitiondata.service';
 import { WorkflowsService } from './services/workflows.service';
+import { FileoperationService } from './services/fileoperation.service';
 import { Observable } from 'rxjs/Observable';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/retry';
 import 'rxjs/add/observable/of';
+//import { Observable, Subscription } from 'rxjs/Rx';
+//import { Subject } from 'rxjs/Rx';
 import { AppGlobals } from './../../app.global';
 import PreviousHopFieldNameValue from './models/PreviousHopFieldNameValue';
 import { LoginService } from '../pages/LoginService';
 import { LoggedInUser } from '../pages/loggedInUser'; 
-
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-de-provision-details',
   templateUrl: './de-provision-details.component.html',
 	styles: [],
-  providers: [WorkflowsService,AppGlobals,LoginService]
+  providers: [WorkflowsService,AppGlobals,LoginService,FileoperationService]
 })
 export class DeProvisionDetailsComponent implements OnInit {
 wr_BriefId : number;
@@ -60,7 +63,7 @@ wr_BriefId : number;
 
 	
 	
-  constructor(private loginService: LoginService,private activatedRoute: ActivatedRoute, private router:Router, private _global: AppGlobals, private workFlowsService: WorkflowsService) {
+  constructor(private loginService: LoginService,private activatedRoute: ActivatedRoute, private router:Router, private _global: AppGlobals, private workFlowsService: WorkflowsService, private fileoperationService: FileoperationService) {
 	  
 	// Get Current User Profile
 	
@@ -171,5 +174,39 @@ onDoneClick(event: any){
 		
 	}  
 	
+  
+downloadSampleCSVFiles() {
+        var nameOfFileToDownload = this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName)+".csv";
+		console.log("nameOfFileToDownload : "+nameOfFileToDownload);
+  
+        var result = this.fileoperationService.downloadCSV(nameOfFileToDownload);
+		console.log(result);
+        result.subscribe(
+            data => {
+				//saveAs(data, nameOfFileToDownload);
+				
+				console.log("ToTOOO");
+				console.log(data);
+                
+				var blob = new Blob([data], { type: 'text/csv' });
+ 
+                if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+                    window.navigator.msSaveOrOpenBlob(blob, nameOfFileToDownload);
+                } else {
+                    var a = document.createElement('a');
+                    a.href = URL.createObjectURL(blob);
+                    a.download = nameOfFileToDownload;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                }
+				
+            },
+            err => {
+                alert("Server error while downloading file.");
+            }
+        );
+    }
+
   
 }

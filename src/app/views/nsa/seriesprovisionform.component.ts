@@ -51,6 +51,7 @@ export class SeriesprovisionformComponent implements OnInit {
 	public successAlertMessage:string = "";
 	public infoAlertShow:boolean = false;
 	public infoAlertMessage:string = "";
+	public defFlowFound:boolean = false;
 	
 	public isLoading:boolean = false;
 
@@ -198,40 +199,56 @@ export class SeriesprovisionformComponent implements OnInit {
 	
 		console.log("Quantity Now "+ this.totalQuantity);
 		if (this.totalQuantity>0){
+		console.log("Start for GetDefinitionDetails");	
 		this.definitionDataService.GetDefinitionDetails(startMSISDNs,endMSISDNs).subscribe(
 			data => { 
 					console.log(data);
-				for (let index in data) {
-					console.log (data[index]);					     
-					console.log('fieldName is : '+index +' ' +data[index].fieldName);
-					console.log('fieldValue is : '+index +' ' +data[index].fieldValue);
-					console.log('index is : '+index);
 					
-					if(data[index].fieldName == 'Product type'){
-						this.mySeriesProvisionForm.get('productType').setValue(data[index].fieldValue);
+					if(data.length>0){
+					
+						for (let index in data) {
+							console.log (data[index]);					     
+							console.log('fieldName is : '+index +' ' +data[index].fieldName);
+							console.log('fieldValue is : '+index +' ' +data[index].fieldValue);
+							console.log('index is : '+index);
+							
+							if(data[index].fieldName == 'Product type'){
+								this.mySeriesProvisionForm.get('productType').setValue(data[index].fieldValue);
+							}
+							else if(data[index].fieldName == 'Product name'){
+								this.mySeriesProvisionForm.get('productName').setValue(data[index].fieldValue);
+							}
+							else if(data[index].fieldName == 'Service Class Name'){
+								this.mySeriesProvisionForm.get('serviceClassName').setValue(data[index].fieldValue);
+							}
+							else if(data[index].fieldName == 'Community ID'){
+								this.mySeriesProvisionForm.get('communityID').setValue(data[index].fieldValue);
+							}
+							else if(data[index].fieldName == 'HLR'){
+								this.mySeriesProvisionForm.get('hlr').setValue(data[index].fieldValue);
+							}
+							else if(data[index].fieldName == 'SDP'){
+								this.mySeriesProvisionForm.get('sdp').setValue(data[index].fieldValue);
+							}
+						}
+						this.infoAlertShow = false;
+						this.defFlowFound = true;
 					}
-					else if(data[index].fieldName == 'Product name'){
-						this.mySeriesProvisionForm.get('productName').setValue(data[index].fieldValue);
+					
+					else{
+					
+						this.infoAlertShow = true;
+						this.defFlowFound=false;
+						this.infoAlertMessage = "All numbers from "+startMSISDNs +" and "+ endMSISDNs +" do not have Definition Work Request";
+					
 					}
-					else if(data[index].fieldName == 'Service Class Name'){
-						this.mySeriesProvisionForm.get('serviceClassName').setValue(data[index].fieldValue);
-					}
-					else if(data[index].fieldName == 'Community ID'){
-						this.mySeriesProvisionForm.get('communityID').setValue(data[index].fieldValue);
-					}
-					else if(data[index].fieldName == 'HLR'){
-						this.mySeriesProvisionForm.get('hlr').setValue(data[index].fieldValue);
-					}
-					else if(data[index].fieldName == 'SDP'){
-						this.mySeriesProvisionForm.get('sdp').setValue(data[index].fieldValue);
-					}
-				}
-				this.infoAlertShow = false;
+				
 				
 			},
 			err => {
 				console.error(err);
 				 this.infoAlertShow = true;
+				 this.defFlowFound=false;
 				this.infoAlertMessage = "All numbers from "+startMSISDNs +" and "+ endMSISDNs +" do not have Definition Work Request";
 			},
 			() => console.log('Done loading Detail Data')
@@ -271,8 +288,8 @@ onStartICCIDChanges() {
 	
   // FORM SUBMISSION
   onSeriesProvisionSubmit() {
-	 
-  if (this.mySeriesProvisionForm.valid) {
+	 console.log("this.defFlowFound is "+this.defFlowFound);
+  if (this.mySeriesProvisionForm.valid && this.defFlowFound) {
 	this.isLoading = true;
     console.log('Form Submitted!');
 	console.log(this.needByDate.value);

@@ -55,6 +55,7 @@ export class SeriesDefinitionDetailsComponent implements OnInit {
 	CSP: FormControl;
 	EOICK: FormControl;
 	emaPort: FormControl;
+	SK: FormControl;
 	bssComment: FormControl;
 	
 	formFieldData: string;
@@ -179,6 +180,7 @@ LoadPreviousHopsData(){
 		this.CSP =	new FormControl({value: 0, disabled: true}, Validators.required);
 		this.EOICK =	new FormControl({value: 0, disabled: true}, Validators.required);
 		this.emaPort= new FormControl('', Validators.required);
+		this.SK =	new FormControl({value: 0, disabled: true}, Validators.required);
 		this.bssComment= new FormControl('');	
 	}
 
@@ -200,6 +202,7 @@ LoadPreviousHopsData(){
 			CSP: this.CSP,
 			EOICK: this.EOICK,
 			emaPort: this.emaPort,
+			SK: this.SK,
 			bssComment: this.bssComment
 		});
 	}   
@@ -213,6 +216,7 @@ LoadPreviousHopsData(){
 	console.log(selectedSDPID);
 	this.mySeriesDefinitionForm.get('CSP').setValue(selectedSDPID);
 	this.mySeriesDefinitionForm.get('EOICK').setValue(selectedSDPID);
+	this.mySeriesDefinitionForm.get('SK').setValue(selectedSDPID);
   }
 
   onSeriesProvisionSubmit() {
@@ -289,6 +293,8 @@ clearForm(event: any){
 onDoneClick(event: any){
 		//console.log(event);
 		this.isLoading = true;
+		this.successAlertShow = false;
+		this.dangerAlertShow = false;
 		 this.formFieldData = "";
 		 this.isDoneDisable = true;
 		 if(this.hop_sequence==5) // LAST HOP IN SERIES PROVISION
