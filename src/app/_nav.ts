@@ -12,6 +12,26 @@ export const navigation_blankdata  = [
 
 ];
 
+export const navigation_grpID_Wipro_CIM = [
+   
+  {
+    name: 'Landing Page',
+    url: '/nsa',
+	icon: 'icon-star'
+  }, 
+{
+    title: true,
+    name: 'Work Requests'
+  },
+  {
+        name: 'ReProvision',
+        url: '/nsa/reprovision',
+        icon: 'icon-cursor'
+      }
+];
+
+
+
 export const navigation_grpID_RAFM = [
    
   {
@@ -157,40 +177,6 @@ export const navigation_grpID_CNP = [
         icon: 'icon-puzzle'
       }
     ]
-  },
-  {
-    name: 'ReProvision',    
-	 url: '/reprovision',
-    icon: 'icon-cursor',
-    children: [	
-      {
-        name: 'Ongoing List',
-        url: '/nsa/reprovision',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'New Creation',
-        url: '/nsa/reprovisionform',
-        icon: 'icon-puzzle'
-      }
-    ]
-  },
-  {
-    name: 'MNP ReProvision',    
-	 url: '/mnpreprovision',
-    icon: 'icon-cursor',
-    children: [	
-      {
-        name: 'Ongoing List',
-        url: '/nsa/mnpreprovision',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'New Creation',
-        url: '/nsa/mnpreprovisionform',
-        icon: 'icon-puzzle'
-      }
-    ]
   }, 
 
      {
@@ -248,13 +234,45 @@ export const navigation_grpID_Sourcing = [
       }
     ]
   },
-  /*
   {
-    name: 'Discrete Provisison',
-    url: '/nsa/discreteprovision',
-    icon: 'icon-cursor'
-  }, 
-      */
+    name: 'ReProvision',    
+	 url: '/reprovision',
+    icon: 'icon-cursor',
+    children: [	
+      {
+        name: 'Ongoing List',
+        url: '/nsa/reprovision',
+        icon: 'icon-puzzle'
+      },
+      {
+        name: 'ReProvision Eligibility',
+        url: '/nsa/reprovisionsearch',
+        icon: 'icon-puzzle'
+      },
+      {
+        name: 'New Creation',
+        url: '/nsa/reprovisionform',
+        icon: 'icon-puzzle'
+      }
+    ]
+  },
+  {
+    name: 'MNP ReProvision',    
+	 url: '/mnpreprovision',
+    icon: 'icon-cursor',
+    children: [	
+      {
+        name: 'Ongoing List',
+        url: '/nsa/mnpreprovision',
+        icon: 'icon-puzzle'
+      },
+      {
+        name: 'New Creation',
+        url: '/nsa/mnpreprovisionform',
+        icon: 'icon-puzzle'
+      }
+    ]
+  },
 	  {
 		 title: true,
 	 name: 'Report Module'},{

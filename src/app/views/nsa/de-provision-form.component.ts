@@ -2,8 +2,7 @@ import {
   NgModule,
   Component,
   Pipe,
-  OnInit,
-  ChangeDetectorRef 
+  OnInit
 } from '@angular/core';
 import {ReactiveFormsModule, FormGroup, FormControl, Validators} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
@@ -61,7 +60,7 @@ WR_Name: string;
   
 	formFieldData: string;
 
-  constructor(private router: Router,private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private definitionDataService: DefinitionDataService, private workFlowsService: WorkflowsService,  private cd: ChangeDetectorRef, private fileoperationService: FileoperationService) {
+  constructor(private router: Router,private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private definitionDataService: DefinitionDataService, private workFlowsService: WorkflowsService, private fileoperationService: FileoperationService) {
 	  
 	// Get Current User Profile
 	
@@ -104,7 +103,7 @@ WR_Name: string;
 
   createFormControls() {	 
     
-	this.batchID = new FormControl('', Validators.required);
+	this.batchID = new FormControl('');
 	this.deProvisionFile = new FormControl('', Validators.required);
 	this.cnpComment = new FormControl('');
   }

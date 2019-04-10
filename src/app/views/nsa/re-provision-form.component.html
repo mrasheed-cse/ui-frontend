@@ -1,3 +1,257 @@
-<p>
-  re-provision-form works!
-</p>
+<div class="row">
+	<div class="col-md-1">
+		<div class="card-body"></div>
+	</div>
+	<div class="col-md-10">
+		<div class="card">
+		
+		<div class="alert alert-success" role="alert" *ngIf="successAlertShow">The New Work Request <b>{{WR_Name}}</b> {{successAlertMessage}}</div>
+			<div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">The New Work Request <b>{{WR_Name}}</b> {{dangerAlertMessage}}</div>
+
+			<div class="card-header">
+				<strong>Re Provisioning</strong>
+			</div>
+			<form [formGroup]="myReProvisionForm" novalidate (ngSubmit)="onReProvisionSubmit()">
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group row">
+								<label class="col-md-5 col-form-label">Work Request Name</label>
+								<div class="col-md-7">
+									<p class="form-control-static">{{WR_Name}}</p>
+
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group row">
+								<label class="col-md-5 col-form-label" for="reProvisionFile">Re Provision File</label>
+								<div class="col-md-7">
+								
+									<input type="file" id="reProvisionFile" name="reProvisionFile" class="form-control" formControlName="reProvisionFile" required
+									 [ngClass]="{
+										'is-invalid': reProvisionFile.invalid && (reProvisionFile.dirty || reProvisionFile.touched),
+										'is-valid': reProvisionFile.valid && (reProvisionFile.dirty || reProvisionFile.touched)
+								   }" (change)="onFileChange($event)" >
+									<div class="invalid-feedback" *ngIf="reProvisionFile.errors && (reProvisionFile.dirty || reProvisionFile.touched)">
+										<p *ngIf="reProvisionFile.errors.required">Re Provision File is required</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group row">
+								<label class="col-md-5 col-form-label" for="quantity">Quantity</label>
+								<div class="col-md-7">
+									<input type="text" id="quantity" name="quantity" class="form-control" formControlName="quantity">
+									
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group row">
+								<label class="col-md-5 col-form-label" for="startICCID">Start ICCID</label>
+								<div class="col-md-7">
+									<input type="text" id="startICCID" name="startICCID" class="form-control" formControlName="startICCID">
+
+								</div>
+							</div>
+
+						</div>
+					</div>
+					
+					
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group row">
+								<label class="col-md-5 col-form-label" for="startICCID19">Start ICCID 19</label>
+								<div class="col-md-7">
+									<input type="text" id="startICCID19" name="startICCID19" class="form-control" formControlName="startICCID19">
+
+								</div>
+							</div>
+
+						</div>					
+						<div class="col-md-6">
+							<div class="form-group row">
+								<label class="col-md-5 col-form-label" for="endICCID">End ICCID</label>
+								<div class="col-md-7">
+									<input type="text" id="endICCID" name="endICCID" class="form-control" formControlName="endICCID">
+
+								</div>
+							</div>
+
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group row">
+								<label class="col-md-5 col-form-label" for="startIMSI">Start IMSI</label>
+								<div class="col-md-7">
+									<input type="text" id="startIMSI" name="startIMSI" class="form-control" formControlName="startIMSI">
+
+								</div>
+							</div>
+
+						</div>
+						<div class="col-md-6">
+							<div class="form-group row">
+								<label class="col-md-5 col-form-label" for="endIMSI">End IMSI</label>
+								<div class="col-md-7">
+									<input type="text" id="endIMSI" name="endIMSI" class="form-control" formControlName="endIMSI">
+
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					
+
+					
+					
+					<div class="row">
+						
+						<div class="col-md-6">
+							<div class="form-group row">
+								<label class="col-md-5 col-form-label" for="productType">Product Type</label>
+								<div class="col-md-7">
+									<select class="form-control" id="productType" formControlName="productType" required (change)="onProductTypeSelect($event)"
+									 [ngClass]="{
+														'is-invalid': productType.invalid && (productType.dirty || productType.touched),
+														'is-valid': productType.valid && (productType.dirty || productType.touched)
+													 }">
+										<option></option>
+										<option *ngFor="let aProductType of listProductType" [value]="aProductType.id">{{aProductType.productType_name}}</option>
+									</select>
+								</div>
+								<div class="invalid-feedback" *ngIf="productType.errors && (productType.dirty || productType.touched)">
+									<p *ngIf="productType.errors.required">Product Type Selection required</p>
+
+								</div>
+							</div>
+						</div>
+					
+						<div class="col-md-6">
+							<div class="form-group row">
+								<label class="col-md-5 col-form-label" for="productName">Product Name</label>
+								<div class="col-md-7">
+									<select class="form-control" id="productName" formControlName="productName" required (change)="onProductNameSelects($event)"
+									 [ngClass]="{
+														'is-invalid': productName.invalid && (productName.dirty || productName.touched),
+														'is-valid': productName.valid && (productName.dirty || productName.touched)
+													 }">
+										<option></option>
+										<option *ngFor="let aProduct of listProduct" [value]="aProduct.id">{{aProduct.productName}}</option>
+
+									</select>
+								</div>
+								<div class="invalid-feedback" *ngIf="productName.errors && (productName.dirty || productName.touched)">
+									<p *ngIf="productName.errors.required">Product Name Selection required</p>
+
+								</div>
+							</div>
+						</div>
+					</div>	
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group row">
+								<label class="col-md-5 col-form-label" for="serviceClassName">Service Class Name</label>
+								<div class="col-md-7">
+									<input type="text" id="serviceClassName" name="serviceClassName" class="form-control" formControlName="serviceClassName">
+
+								</div>
+							</div>
+						</div>
+					
+						<div class="col-md-6">
+							<div class="form-group row">
+								<label class="col-md-5 col-form-label" for="communityID">Community ID</label>
+								<div class="col-md-7">
+									<input type="text" id="communityID" name="communityID" class="form-control" formControlName="communityID">
+
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group row">
+								<label class="col-md-5 col-form-label" for="zone">Zone Name</label>
+								<div class="col-md-7">
+									<select class="form-control" id="zone" formControlName="zone">
+										<option></option>
+										<option *ngFor="let aZone of listZone" [value]="aZone.id">{{aZone.name}}</option>
+									</select>
+								</div>								
+							</div>
+						</div>
+						
+						<div class="col-md-6">
+							<div class="form-group row">
+								<label class="col-md-5 col-form-label" for="needByDate">Need By Date</label>
+								<div class="col-md-7">									
+									<input type="text" class="form-control calendar-container" id="needByDate" formControlName="needByDate" name="needByDate" 
+									required bsDatepicker  placement="left"  
+									 [bsConfig]="{ dateInputFormat: 'dd-MM-yyyy', containerClass: 'theme-green' }"
+									 value="{{ needByDate.value | date: 'dd-MM-yyyy' }}"
+									> 
+									<!-- [bsConfig]="datepickerConfig" -->
+								</div>
+							</div>
+
+						</div>
+						
+					</div>
+
+					<!-- ///
+					<div class="row">
+						<div class="col-md-6">
+
+						</div>
+						<div class="col-md-6">
+
+						</div>
+					</div>
+					/// -->
+
+
+
+					<div class="form-group row">
+						<label class="col-md-5 col-form-label" for="srcComment">Comment</label>
+						<div class="col-md-12">
+							<textarea id="srcComment" name="srcComment" class="form-control" formControlName="srcComment" rows="5">
+				</textarea>
+						</div>
+					</div>
+
+				</div>
+				<!-- <div class="card-body"> -->
+				<div class="card-footer text-right">
+					<button type="submit" [disabled]="!myReProvisionForm.valid" class="btn btn-sm btn-primary">
+						<i class="fa fa-dot-circle-o"></i> Submit</button>
+					<button type="reset" class="btn btn-sm btn-danger"(click)="clearForm($event)">
+						<i class="fa fa-ban"></i> Reset</button>
+					<button type="button" class="btn btn-link" (click)="backButton($event)"><i class="fa fa-link" ></i>&nbsp; Back</button>
+				
+				</div>
+				<!-- <div class="card-footer"> -->
+			</form>
+
+			
+		</div>
+		<!-- <div class="card"> -->
+	</div>
+	<div class="col-md-2">
+		<div class="card-body"></div>
+
+	</div>
+</div>
+<!--
+<pre >{{myReProvisionForm.value | json}}</pre>
+<pre *ngIf="myReProvisionForm.valid">This is Valid form Data.{{myReProvisionForm.value | json}}</pre>
+-->

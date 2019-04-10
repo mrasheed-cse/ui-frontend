@@ -1,10 +1,4 @@
-<p>
-  de-provision-form works!
-</p>
-<!--
-<input type = "file" (change)="onFileSelected($event)"/>
-<button type = "button" (click) = "onUpload()">Upload</button>
--->
+
 <div class="row">
 	<div class="col-md-1">
 		<div class="card-body"></div>
@@ -38,14 +32,9 @@
 							<div class="form-group row">
 								<label class="col-md-5 col-form-label" for="batchID">Batch ID</label>
 								<div class="col-md-7">
-									<input type="text" id="batchID" name="batchID" class="form-control" formControlName="batchID" required
-									 [ngClass]="{
-										'is-invalid': batchID.invalid && (batchID.dirty || batchID.touched),
-										'is-valid': batchID.valid && (batchID.dirty || batchID.touched)
-								   }">
-									<div class="invalid-feedback" *ngIf="batchID.errors && (batchID.dirty || batchID.touched)">
-										<p *ngIf="batchID.errors.required">Batch ID is required</p>										
-									</div>
+									<input type="text" id="batchID" name="batchID" class="form-control" formControlName="batchID" 
+									 >
+									
 								</div>
 							</div>
 						</div>

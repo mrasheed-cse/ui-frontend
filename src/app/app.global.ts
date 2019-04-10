@@ -8,6 +8,7 @@ export class AppGlobals {
     readonly groupID_VDSO: number = 5;
 	readonly groupID_Wipro_Billing: number = 6;
     readonly groupID_RAFM: number = 7;
+	readonly groupID_CIM: number = 8;
 	
 	
 	readonly wrid_NumberSeriesDefinition: number = 1;

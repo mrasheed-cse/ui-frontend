@@ -36,7 +36,7 @@ import { saveAs } from 'file-saver';
   providers: [WorkflowsService,AppGlobals,LoginService,FileoperationService]
 })
 export class DeProvisionDetailsComponent implements OnInit {
-wr_BriefId : number;
+	wr_BriefId : number;
 	hop_sequence : number;
 	wrBriefName : string;
 	userGroup_id : number;
@@ -175,7 +175,7 @@ onDoneClick(event: any){
 	}  
 	
   
-downloadSampleCSVFiles() {
+downloadCSVFiles() {
         var nameOfFileToDownload = this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName)+".csv";
 		console.log("nameOfFileToDownload : "+nameOfFileToDownload);
   

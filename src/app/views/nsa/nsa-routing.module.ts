@@ -18,7 +18,7 @@ import { ReProvisionDetailsComponent } from './re-provision-details.component';
 import { MnpreProvisionComponent } from './mnpre-provision.component';
 import { MnpreProvisionFormComponent } from './mnpre-provision-form.component';
 import { MnpreProvisionDetailsComponent } from './mnpre-provision-details.component';
-
+import { ReprovisionsearchComponent } from './reprovisionsearch.component';
 
 const routes: Routes = [
   {
@@ -84,6 +84,14 @@ const routes: Routes = [
       title: 'Re-Provision Form'
     }
   },
+  {
+    path: 'reprovisionsearch',
+    component: ReprovisionsearchComponent,
+    data: {
+      title: 'Re-Provision Search Form'
+    }
+  },
+  
   {
     path: 'reprovisiondetail/:wr_BriefName/:wr_BriefId/:hopSequence',
     component: ReProvisionDetailsComponent,
