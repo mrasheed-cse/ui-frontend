@@ -27,15 +27,13 @@ import { AppGlobals } from './../../app.global';
 import PreviousHopFieldNameValue from './models/PreviousHopFieldNameValue';
 import { LoginService } from '../pages/LoginService';
 import { LoggedInUser } from '../pages/loggedInUser'; 
-import { saveAs } from 'file-saver';
-
 @Component({
-  selector: 'app-de-provision-details',
-  templateUrl: './de-provision-details.component.html',
-	styles: [],
+  selector: 'app-apndetails',
+  templateUrl: './apndetails.component.html',
+  styles: [],
   providers: [WorkflowsService,AppGlobals,LoginService,FileoperationService]
 })
-export class ReProvisionDetailsComponent implements OnInit {
+export class ApndetailsComponent implements OnInit {
 	wr_BriefId : number;
 	hop_sequence : number;
 	wrBriefName : string;
@@ -107,7 +105,7 @@ export class ReProvisionDetailsComponent implements OnInit {
 LoadPreviousHopsData(){
 			//LOAD PREVIOUS HOPS DATA
 		//LoadPreviousHopsField(wrID: number,wrBriefId: number,groupID: number,current_hop_seq: number) : any {
-		this.workFlowsService.LoadPreviousHopsField(this._global.wrid_ReProvisioning,this.wr_BriefId,this.groupID,this.hop_sequence).subscribe(
+		this.workFlowsService.LoadPreviousHopsField(this._global.wrid_ApnCreation,this.wr_BriefId,this.groupID,this.hop_sequence).subscribe(
 			data => { 
 					//console.log(data);
 					this.fieldNameValueList = data;
@@ -146,16 +144,16 @@ onDoneClick(event: any){
 		//console.log(event);
 		this.isLoading = true;		 
 		 this.isDoneDisable = true;
-		 if(this.hop_sequence==3) // LAST HOP IN Re-PROVISION
+		 if(this.hop_sequence==2) // LAST HOP IN APN Creation
 			this.isDone = true;
-		  this.workFlowsService.UpdateExistiongWorkRequest(this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName),this._global.wrid_ReProvisioning, this.groupID,this.userName,this.hop_sequence,"",this.isDone).subscribe(
+		  this.workFlowsService.UpdateExistiongWorkRequest(this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName),this._global.wrid_ApnCreation, this.groupID,this.userName,this.hop_sequence,"Done",this.isDone).subscribe(
       res  =>  {
 		console.log('response is : '+res);
 		
 		if(res === true){
 			this.isLoading = false;
 			this.successAlertShow = true;
-			if(this.hop_sequence==3)
+			if(this.hop_sequence==2)
 				this.successAlertMessage = " has been completed successfully.";
 			else
 				this.successAlertMessage = " has been saved successfully.";
@@ -174,39 +172,6 @@ onDoneClick(event: any){
 		
 	}  
 	
-  
-downloadCSVFiles() {
-        var nameOfFileToDownload = this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName)+".csv";
-		console.log("nameOfFileToDownload : "+nameOfFileToDownload);
-  
-        var result = this.fileoperationService.downloadCSV(nameOfFileToDownload);
-		console.log(result);
-        result.subscribe(
-            data => {
-				//saveAs(data, nameOfFileToDownload);
-				
-				console.log("ToTOOO");
-				console.log(data);
-                
-				var blob = new Blob([data], { type: 'text/csv' });
- 
-                if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-                    window.navigator.msSaveOrOpenBlob(blob, nameOfFileToDownload);
-                } else {
-                    var a = document.createElement('a');
-                    a.href = URL.createObjectURL(blob);
-                    a.download = nameOfFileToDownload;
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                }
-				
-            },
-            err => {
-                alert("Server error while downloading file.");
-            }
-        );
-    }
 
   
 }

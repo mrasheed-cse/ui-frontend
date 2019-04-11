@@ -103,4 +103,19 @@ export class WorkflowsService {
 		});
 	  
 	}
+	
+	APNSearchWorkRequest(wrID:number, apnName: string) : any {	
+  
+		console.log("In APNSearchWorkRequest() for apnName "+ apnName);	
+		
+	
+		return this.http.post(this.serverUrl + 'APNSearch', {
+			wrID: wrID,
+			wrName: "",
+			apnName: apnName,
+			apnID: "",
+			productType: "",
+			isVDSODone: ""
+		});	  
+	}
 }

@@ -137,6 +137,13 @@ export const navigation_grpID_VDSO = [
     url: '/nsa/seriesdefinition',
     icon: 'icon-cursor'
   }
+  ,
+  
+  {
+    name: 'APN Creation',
+    url: '/nsa/apn',
+    icon: 'icon-cursor'
+  }
 ];
 
 export const navigation_grpID_CNP = [
@@ -174,6 +181,23 @@ export const navigation_grpID_CNP = [
       {
         name: 'New Creation',
         url: '/nsa/deprovisionform',
+        icon: 'icon-puzzle'
+      }
+    ]
+  },
+  {
+    name: 'APN',    
+	 url: '/apn',
+    icon: 'icon-cursor',
+    children: [	
+      {
+        name: 'Ongoing List',
+        url: '/nsa/apn',
+        icon: 'icon-puzzle'
+      },
+      {
+        name: 'New Creation',
+        url: '/nsa/apnform',
         icon: 'icon-puzzle'
       }
     ]
@@ -264,6 +288,11 @@ export const navigation_grpID_Sourcing = [
       {
         name: 'Ongoing List',
         url: '/nsa/mnpreprovision',
+        icon: 'icon-puzzle'
+      },
+      {
+        name: 'MNP ReProvision Eligibility',
+        url: '/nsa/mnpreprovisionsearch',
         icon: 'icon-puzzle'
       },
       {

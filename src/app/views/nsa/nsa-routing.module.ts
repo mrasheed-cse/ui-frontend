@@ -19,6 +19,11 @@ import { MnpreProvisionComponent } from './mnpre-provision.component';
 import { MnpreProvisionFormComponent } from './mnpre-provision-form.component';
 import { MnpreProvisionDetailsComponent } from './mnpre-provision-details.component';
 import { ReprovisionsearchComponent } from './reprovisionsearch.component';
+import { ApnformComponent } from './apnform.component';
+import { ApnComponent } from './apn.component';
+import { ApndetailsComponent } from './apndetails.component';
+import { MnpreprovsearchComponent } from './mnpreprovsearch.component';
+
 
 const routes: Routes = [
   {
@@ -116,6 +121,13 @@ const routes: Routes = [
     }
   },
   {
+    path: 'mnpreprovisionsearch',
+    component: MnpreprovsearchComponent,
+    data: {
+      title: 'MNP Re-Provision Search Form'
+    }
+  },
+  {
     path: 'mnpreprovisiondetail/:wr_BriefName/:wr_BriefId/:hopSequence',
     component: MnpreProvisionDetailsComponent,
     data: {
@@ -150,6 +162,27 @@ const routes: Routes = [
     component: DiscreteprovisionComponent,
     data: {
       title: 'Discrete Provision'
+    }
+  },
+  {
+    path: 'apn',
+    component: ApnComponent,
+    data: {
+      title: 'APN'
+    }
+  },
+  {
+    path: 'apnform',
+    component: ApnformComponent,
+    data: {
+      title: 'Apn Form'
+    }
+  },
+  {
+    path: 'apndetails/:wr_BriefName/:wr_BriefId/:hopSequence',
+    component: ApndetailsComponent,
+    data: {
+      title: 'APN Creation Workflow'
     }
   }
 ];

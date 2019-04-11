@@ -1,0 +1,108 @@
+<div class="animated fadeIn">
+  <div class="card">
+  
+  <div class="card-header">
+     
+      
+	  
+	 <h3>APN Search</h3>
+    </div>
+	
+  
+    <div class="card-body">
+	
+	
+			<div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">{{dangerAlertMessage}}</div>
+
+	
+   
+   <div class="row">
+						<div class="col-md-6">
+   
+       <form [formGroup]="mySearchForm" novalidate (ngSubmit)="onSearchSubmit()">
+	   
+	<div class="col-xs-12 col-12 col-md-8 form-group"
+		>
+		
+		<label> APN Name</label> <input type="text" class="form-control"
+			formControlName="apnName" >
+											
+	</div>
+
+	<button type="submit" class="btn btn-primary" >Submit</button>
+	<div>
+
+	</div>
+	
+</form>
+<!--
+<pre >{{mySearchForm.value | json}}</pre>
+<pre *ngIf="mySearchForm.valid">This is Valid form Data.{{mySearchForm.value | json}}</pre>
+-->
+<br/>
+   </div>   
+<div class="col-md-6" *ngIf="successSearchShow">
+
+<h3><div *ngIf="_global.groupID_VDSO==groupID">Search Result of 
+
+<a [routerLink]="['/nsa/apndetails', searchWrID, searchWRNumber, 2]">
+							{{searchWrName}}</a></div></h3>
+<h3><div *ngIf="_global.groupID_VDSO!=groupID" >Search Result of {{searchWrName}}</div></h3>
+							
+<hr/>
+   <div class="row"><div class="col-md-3">Created By</div><div class="col-md-9">{{searchWrName}}</div></div><hr/>
+   <div class="row"><div class="col-md-3">Creation Date</div><div class="col-md-9">{{searchApnName}}</div></div><hr/>
+      
+   <div class="row" ><div class="col-md-3">Last Approver</div><div class="col-md-9">{{searchApnID}}</div></div>
+ <hr/>
+   <div class="row" ><div class="col-md-3">Next Approver</div><div class="col-md-9">{{searchProductType}}</div></div><hr/>
+  
+  
+   <div class="row" ><div class="col-md-3">Completed By</div><div class="col-md-9">{{searchIsDoneByVDSO}}</div></div><hr/>
+   
+   
+	</div>   	  
+		</div>   	  
+    </div>
+	
+		
+	<div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-align-justify"></i> Pending Task Lists
+        </div>
+        <div class="card-body" *ngIf="isDataFound">
+          <table class="table table-bordered table-striped table-sm">
+            <thead>
+              <tr>
+                <th>Work Request Name</th>
+                <th>Next Action</th>
+                <th>Pending At</th>
+                <th>Last Action By</th>
+				<th>Last Action Date</th>
+              </tr>
+            </thead>
+           <tbody *ngFor="let aTask of pendingTasksList;  index as i">
+						<tr >
+							<td><a [routerLink]="['/nsa/apndetails',aTask.wr_BriefName, aTask.wr_BriefId, aTask.hopSequence]">{{aTask.wr_BriefName
+							}}</a></td>
+							<td>{{aTask.nextAction}}</td>
+							<td>{{aTask.pendingAt}}</td>
+							<td>{{aTask.lastActionBy}}</td>
+							<td>{{aTask.lastActionDate}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+		<div class="card-body" *ngIf="!isDataFound">
+			<div class="alert alert-primary" role="alert" ><b>No Pending Tasks</b></div>			
+		</div>
+      </div>
+    </div>
+    <!--/.col-->
+  </div>
+ 
+	
+	  </div>
+    </div>
