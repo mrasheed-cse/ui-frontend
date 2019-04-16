@@ -297,7 +297,9 @@ LoadPreviousHopsData(){
 	
     // update the ui
 	const selectedSDPID = event.target.value;
-	const selectedSDPName = event.target;
+	console.log(selectedSDPID);
+	console.log(Number(selectedSDPID)-1);
+	const selectedSDPName = this.listSDP[Number(selectedSDPID)-1].name;
 	console.log(selectedSDPName);
 	this.mySeriesDefinitionForm.get('CSP').setValue(selectedSDPID);
 	this.mySeriesDefinitionForm.get('EOICK').setValue(selectedSDPID);

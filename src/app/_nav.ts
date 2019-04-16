@@ -203,11 +203,17 @@ export const navigation_grpID_CNP = [
     ]
   }, 
 
+  {
+    name: 'SDP Migration',    
+	 url: '/nsa/sdpmigration',
+    icon: 'icon-cursor',
+    
+  }, 
      {
 		 title: true,
 	 name: 'Report Module'},{
 		 name: 'Report',
-    url: '/nsa',
+    url: '/nsa/nsareport',
     icon: 'icon-speedometer'
       }
 
@@ -306,7 +312,7 @@ export const navigation_grpID_Sourcing = [
 		 title: true,
 	 name: 'Report Module'},{
 		 name: 'Report',
-    url: '/nsa',
+    url: '/nsa/nsareport',
     icon: 'icon-speedometer'
       }
 

@@ -23,6 +23,8 @@ import { ApnformComponent } from './apnform.component';
 import { ApnComponent } from './apn.component';
 import { ApndetailsComponent } from './apndetails.component';
 import { MnpreprovsearchComponent } from './mnpreprovsearch.component';
+import { NsareportComponent } from './nsareport.component';
+import { SdpmigrationComponent } from './sdpmigration.component';
 
 
 const routes: Routes = [
@@ -31,6 +33,20 @@ const routes: Routes = [
     component: LandingpageComponent,
     data: {
       title: 'Landing page'
+    }
+  },
+  {
+    path: 'nsareport',
+    component: NsareportComponent,
+    data: {
+      title: 'Report Module'
+    }
+  },
+  {
+    path: 'sdpmigration',
+    component: SdpmigrationComponent,
+    data: {
+      title: 'Sdp Migration'
     }
   },
   {

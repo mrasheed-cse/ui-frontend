@@ -124,7 +124,7 @@ export class SeriesprovisionformComponent implements OnInit {
 						this.listSimType.push(
 						{
 							id:data[index].id,
-							group_name: data[index].simTypeName
+							simTypeName: data[index].simTypeName
 						}
 						); 
 					}		

@@ -35,6 +35,8 @@ import { ApnformComponent } from './apnform.component';
 import { ApnComponent } from './apn.component';
 import { ApndetailsComponent } from './apndetails.component';
 import { MnpreprovsearchComponent } from './mnpreprovsearch.component';
+import { NsareportComponent } from './nsareport.component';
+import { SdpmigrationComponent } from './sdpmigration.component';
 
 
 @NgModule({
@@ -48,6 +50,6 @@ import { MnpreprovsearchComponent } from './mnpreprovsearch.component';
 	BsDatepickerModule.forRoot(),
     NsaRoutingModule
   ],
-  declarations: [LandingpageComponent, SeriesprovisionComponent, DiscreteprovisionComponent, SeriesprovisionformComponent, SeriesprovisiondetailComponent, SeriesDefinitionComponent, SeriesDefinitionFormComponent, SeriesDefinitionDetailsComponent, DeProvisionComponent, DeProvisionFormComponent, DeProvisionDetailsComponent, ReProvisionComponent, ReProvisionFormComponent, ReProvisionDetailsComponent, MnpreProvisionComponent, MnpreProvisionFormComponent, MnpreProvisionDetailsComponent, ReprovisionsearchComponent, ApnformComponent, ApnComponent, ApndetailsComponent, MnpreprovsearchComponent]
+  declarations: [LandingpageComponent, SeriesprovisionComponent, DiscreteprovisionComponent, SeriesprovisionformComponent, SeriesprovisiondetailComponent, SeriesDefinitionComponent, SeriesDefinitionFormComponent, SeriesDefinitionDetailsComponent, DeProvisionComponent, DeProvisionFormComponent, DeProvisionDetailsComponent, ReProvisionComponent, ReProvisionFormComponent, ReProvisionDetailsComponent, MnpreProvisionComponent, MnpreProvisionFormComponent, MnpreProvisionDetailsComponent, ReprovisionsearchComponent, ApnformComponent, ApnComponent, ApndetailsComponent, MnpreprovsearchComponent, NsareportComponent, SdpmigrationComponent]
 })
 export class NsaModule { }
