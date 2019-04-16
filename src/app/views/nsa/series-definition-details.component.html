@@ -82,7 +82,7 @@
 														'is-valid': SDP.valid && (SDP.dirty || SDP.touched)
 													 }">
 										<option></option>
-										<option *ngFor="let aSDP of listSDP" [value]="aSDP.name">{{aSDP.name}}</option>
+										<option *ngFor="let aSDP of listSDP" [value]="aSDP.id" >{{aSDP.name}}</option>
 									</select>
 								</div>
 								<div class="invalid-feedback" *ngIf="SDP.errors && (SDP.dirty || SDP.touched)">

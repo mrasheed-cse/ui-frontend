@@ -71,10 +71,13 @@ export class SeriesprovisionformComponent implements OnInit {
 	endICCID: FormControl;
 	startIMSI: FormControl;
 	endIMSI: FormControl;
+	simType: FormControl;
 	needByDate: FormControl;
 	srcComment: FormControl;
 	formFieldData: string;
 	
+	public listSimType = [];
+  
 
 
   constructor(private router: Router,private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private definitionDataService: DefinitionDataService, private workFlowsService: WorkflowsService) {
@@ -110,7 +113,25 @@ export class SeriesprovisionformComponent implements OnInit {
 		},
 		err => console.error(err),
 		()=> console.log('done loading Work Request Name')
-    );	
+		);	
+		
+	//GetSimType
+	this.definitionDataService.GetSimTypes().subscribe(
+		data => { 
+					//console.log(data);
+					for (let index in data) {
+						//console.log (data[index]);
+						this.listSimType.push(
+						{
+							id:data[index].id,
+							group_name: data[index].simTypeName
+						}
+						); 
+					}		
+				},
+			err => console.error(err),
+			() => console.log('done loading sim Type Name List')
+			);
 }
 
   ngOnInit() {
@@ -143,6 +164,7 @@ export class SeriesprovisionformComponent implements OnInit {
 	this.endICCID = 	new FormControl({value: '', disabled: true}, Validators.required);	
 	this.startIMSI = 	new FormControl({value: '', disabled: true}, Validators.required);	
 	this.endIMSI = 	new FormControl({value: '', disabled: true}, Validators.required);	
+	this.simType = new  FormControl('');
 	this.needByDate = new FormControl('');
 	this.srcComment = new FormControl('');
   }
@@ -163,6 +185,7 @@ export class SeriesprovisionformComponent implements OnInit {
 		endICCID: this.endICCID,
 		startIMSI: this.startIMSI,
 		endIMSI: this.endIMSI,
+		simType: this.simType,
 		needByDate: this.needByDate,
 		srcComment: this.srcComment
 

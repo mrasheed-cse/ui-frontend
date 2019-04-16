@@ -29,7 +29,7 @@ import { LoggedInUser } from '../pages/loggedInUser';
   selector: 'app-series-definition-details',
   templateUrl: './series-definition-details.component.html',
   styles: [],
-  providers: [WorkflowsService,AppGlobals,LoginService]
+  providers: [DefinitionDataService,WorkflowsService,AppGlobals,LoginService]
 })
 export class SeriesDefinitionDetailsComponent implements OnInit {
 	wr_BriefId : number;
@@ -76,7 +76,7 @@ export class SeriesDefinitionDetailsComponent implements OnInit {
 
 	
 	
-  constructor(private loginService: LoginService,private activatedRoute: ActivatedRoute, private router:Router, private _global: AppGlobals, private workFlowsService: WorkflowsService) {
+  constructor(private loginService: LoginService,private activatedRoute: ActivatedRoute, private router:Router, private _global: AppGlobals, private workFlowsService: WorkflowsService, private definitionDataService: DefinitionDataService) {
 	  
 	// Get Current User Profile
 	
@@ -156,12 +156,96 @@ LoadPreviousHopsData(){
 				// LOAD DROPDOWNS DATA
 			
 	if(this.hop_sequence == 2){
-		this.listHLR = [{'id':1, 'name':'HLR1'}, {'id':2, 'name': 'HLR2'}, {'id':3, 'name': 'HLR3'}];
-		this.listSAPC = [{'id':1, 'name':'SYUPCC01'}];
+		//this.listHLR = [{'id':1, 'name':'HLR1'}, {'id':2, 'name': 'HLR2'}, {'id':3, 'name': 'HLR3'}];
+		//this.listSAPC = [{'id':1, 'name':'SYUPCC01'}];
+
+		//GetHLRNames
+	this.definitionDataService.GetHLRNames().subscribe(
+		data => { 
+					this.listHLR = [];
+					
+					for (let index in data) {
+					//console.log (data[index]);			
+					this.listHLR.push(
+						{
+							id:data[index].id,
+							name: data[index].hlrName
+						}
+						); 
+					}		
+			// return data;
+				},
+			err => console.error(err),
+			() => console.log('done loading HLR List')
+			);
+		
+			//GetSAPCNames
+	this.definitionDataService.GetSAPCNames().subscribe(
+		data => { 
+					this.listSAPC = [];
+					
+					for (let index in data) {
+					//console.log (data[index]);			
+					this.listSAPC.push(
+						{
+							id:data[index].id,
+							name: data[index].sapcName
+						}
+						); 
+					}		
+			// return data;
+				},
+			err => console.error(err),
+			() => console.log('done loading SAPC List')
+			);
+		
+
+
 	}
 	else if(this.hop_sequence == 3){
-	this.listSDP = [{'id':1, 'name':'SDP1'}, {'id':2, 'name': 'SDP2'}, {'id':3, 'name': 'SDP3'}];
-	this.listEmaPort = [{'id':1, 'name':'3001'}, {'id':2, 'name': '3002'}];
+	//this.listSDP = [{'id':1, 'name':'SDP1'}, {'id':2, 'name': 'SDP2'}, {'id':3, 'name': 'SDP3'}];
+	//this.listEmaPort = [{'id':1, 'name':'3001'}, {'id':2, 'name': '3002'}];
+
+			//GetSDPNames
+			this.definitionDataService.GetSDPNames().subscribe(
+				data => { 
+							this.listSDP = [];
+							
+							for (let index in data) {
+							//console.log (data[index]);			
+							this.listSDP.push(
+								{
+									id:data[index].id,
+									name: data[index].sdpName
+								}
+								); 
+							}		
+					// return data;
+						},
+					err => console.error(err),
+					() => console.log('done loading SDP List')
+					);
+		
+							//GetEmaPortNames
+			this.definitionDataService.GetEmaPortNames().subscribe(
+				data => { 
+							this.listEmaPort = [];
+							
+							for (let index in data) {
+							//console.log (data[index]);			
+							this.listEmaPort.push(
+								{
+									id:data[index].id,
+									name: data[index].emaportName
+								}
+								); 
+							}		
+					// return data;
+						},
+					err => console.error(err),
+					() => console.log('done loading EmaPort Names List')
+					);
+				
 	}
 		
 	}
@@ -213,7 +297,8 @@ LoadPreviousHopsData(){
 	
     // update the ui
 	const selectedSDPID = event.target.value;
-	console.log(selectedSDPID);
+	const selectedSDPName = event.target;
+	console.log(selectedSDPName);
 	this.mySeriesDefinitionForm.get('CSP').setValue(selectedSDPID);
 	this.mySeriesDefinitionForm.get('EOICK').setValue(selectedSDPID);
 	this.mySeriesDefinitionForm.get('SK').setValue(selectedSDPID);

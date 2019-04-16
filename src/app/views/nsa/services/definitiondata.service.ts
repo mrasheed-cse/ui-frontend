@@ -60,6 +60,30 @@ export class DefinitionDataService {
 		return this.http.get(this.serverUrl + 'GpZones/');
 	}
 
+	//GetHLRNames
+	GetHLRNames(): any {	
+		//console.log("In GetHLRNames()"); 		
+		return this.http.get(this.serverUrl + 'GpHLRs/');
+	}
+
+	//GetSDPNames
+	GetSDPNames(): any {	
+		//console.log("In GetSDPNames()"); 		
+		return this.http.get(this.serverUrl + 'GpSDPs/');
+	}
+
+	//GetSAPCNames
+	GetSAPCNames(): any {	
+		//console.log("In GetSAPCNames()"); 		
+		return this.http.get(this.serverUrl + 'GpSAPCs/');
+	}
+
+	//GetEmaPortNames
+	GetEmaPortNames(): any {	
+		//console.log("In GetEmaPortNames()"); 		
+		return this.http.get(this.serverUrl + 'GpEmaPorts/');
+	}
+
 	// GetDetails from Definition Work Request
 	GetDefinitionDetails(startMSISDN: string, endMSISDN: string): any {
 		//console.log("In GetProducts() for type " + selectedProductTypeID); 
@@ -70,6 +94,14 @@ export class DefinitionDataService {
 		)
 	}
 	
+	//GetSimTypes
+	GetSimTypes(): any {	
+		//console.log("In GetSimTypes()"); 		
+		return this.http.get(this.serverUrl + 'GetSimType/');
+	}
+
+	
+
 	LuhnAlgorithmFor19thDigit(inputString: string): string{		
 		
 		console.log(inputString);
