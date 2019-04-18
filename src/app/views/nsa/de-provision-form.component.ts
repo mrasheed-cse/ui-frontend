@@ -54,6 +54,9 @@ WR_Name: string;
 	batchID: FormControl;
 	deProvisionFile: FormControl;
 	cnpComment: FormControl;
+	simType: FormControl;
+
+	public listSimType = [];
 	
 	selectedFile: File = null;
 	fileName: string = "";
@@ -93,7 +96,25 @@ WR_Name: string;
 		},
 		err => console.error(err),
 		()=> console.log('done loading Work Request Name')
-    );	
+		);
+		
+		//GetSimType
+	this.definitionDataService.GetSimTypes().subscribe(
+		data => { 
+					//console.log(data);
+					for (let index in data) {
+						//console.log (data[index]);
+						this.listSimType.push(
+						{
+							id:data[index].id,
+							simTypeName: data[index].simTypeName
+						}
+						); 
+					}		
+				},
+			err => console.error(err),
+			() => console.log('done loading sim Type Name List')
+			);
 }
 
   ngOnInit() {
@@ -106,12 +127,14 @@ WR_Name: string;
 	this.batchID = new FormControl('');
 	this.deProvisionFile = new FormControl('', Validators.required);
 	this.cnpComment = new FormControl('');
+	this.simType = new  FormControl('');
   }
 
   createForm() {
     this.myDeProvisionForm = new FormGroup({			
 		batchID: this.batchID,
 		deProvisionFile: this.deProvisionFile,
+		simType: this.simType,
 		cnpComment: this.cnpComment
     });
   }

@@ -20,8 +20,8 @@
 							<div class="form-group row">
 								<label class="col-md-5 col-form-label">Work Request Name</label>
 								<div class="col-md-7">
-									<p class="form-control-static">{{WR_Name}}</p>
-
+									<input disabled type="text" class="form-control calendar-container"
+									value="{{WR_Name}}">
 								</div>
 							</div>
 						</div>
@@ -231,11 +231,11 @@
 											<label class="col-md-5 col-form-label" for="needByDate">Need By Date</label>
 											<div class="col-md-7">									
 												<input type="text" class="form-control calendar-container" id="needByDate" formControlName="needByDate" name="needByDate" 
-												required bsDatepicker  placement="left"  
+												required bsDatepicker  placement="right"  
 												 [bsConfig]="{ dateInputFormat: 'dd-MM-yyyy', containerClass: 'theme-green' }"
+												 [minDate]="todayDate"
 												 value="{{ needByDate.value | date: 'dd-MM-yyyy' }}"
-												> 
-												<!-- [bsConfig]="datepickerConfig" -->
+												>
 											</div>
 										</div>
 			

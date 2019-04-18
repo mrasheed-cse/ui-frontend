@@ -78,7 +78,7 @@ export class SeriesprovisionformComponent implements OnInit {
 	
 	public listSimType = [];
   
-
+	todayDate: Date;
 
   constructor(private router: Router,private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private definitionDataService: DefinitionDataService, private workFlowsService: WorkflowsService) {
 	  
@@ -132,6 +132,9 @@ export class SeriesprovisionformComponent implements OnInit {
 			err => console.error(err),
 			() => console.log('done loading sim Type Name List')
 			);
+
+		//Get Today Date
+		this.todayDate = new Date();
 }
 
   ngOnInit() {

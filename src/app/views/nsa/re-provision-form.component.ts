@@ -63,6 +63,7 @@ export class ReProvisionFormComponent implements OnInit {
 	serviceClassName: FormControl;
 	communityID: FormControl;
 	zone: FormControl;	
+	simType: FormControl;
 	needByDate: FormControl;
 	srcComment: FormControl;	
 	formFieldData: string;
@@ -70,9 +71,10 @@ export class ReProvisionFormComponent implements OnInit {
 	selectedFile: File = null;
 	fileName: string = "";
 	
-
+	todayDate: Date;
   
-  public listProductType = [];
+	public listSimType = [];
+	public listProductType = [];
   public listProduct = [];
   public listServiceClass = [];
   public listCommunityID = [];
@@ -155,7 +157,28 @@ constructor(private router: Router,private loginService: LoginService, private h
 			},
 		err => console.error(err),
 		() => console.log('done loading Zone List')
-    );
+		);
+		
+	//GetSimType
+	this.definitionDataService.GetSimTypes().subscribe(
+		data => { 
+					//console.log(data);
+					for (let index in data) {
+						//console.log (data[index]);
+						this.listSimType.push(
+						{
+							id:data[index].id,
+							simTypeName: data[index].simTypeName
+						}
+						); 
+					}		
+				},
+			err => console.error(err),
+			() => console.log('done loading sim Type Name List')
+			);
+
+		//Get Today Date
+		this.todayDate = new Date();
 	
 }
 
@@ -178,6 +201,7 @@ constructor(private router: Router,private loginService: LoginService, private h
 	this.serviceClassName=	new FormControl({value: '', disabled: true}, Validators.required);
 	this.communityID= 	new FormControl({value: '', disabled: true}, Validators.required);
 	this.zone= new FormControl('');
+	this.simType = new  FormControl('');
 	this.needByDate = new FormControl('');
 	this.srcComment= new FormControl('');
   }
@@ -196,6 +220,7 @@ constructor(private router: Router,private loginService: LoginService, private h
 		serviceClassName: this.serviceClassName,
 		communityID: this.communityID,
 		zone: this.zone,
+		simType: this.simType,
 		needByDate: this.needByDate,
 		srcComment: this.srcComment
 

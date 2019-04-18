@@ -18,8 +18,8 @@
 							<div class="form-group row">
 								<label class="col-md-5 col-form-label">Work Request Name</label>
 								<div class="col-md-7">
-									<p class="form-control-static">{{WR_Name}}</p>
-
+									<input disabled type="text" class="form-control calendar-container"
+									value="{{WR_Name}}">
 								</div>
 							</div>
 						</div>
@@ -193,33 +193,49 @@
 						
 						<div class="col-md-6">
 							<div class="form-group row">
-								<label class="col-md-5 col-form-label" for="needByDate">Need By Date</label>
-								<div class="col-md-7">									
-									<input type="text" class="form-control calendar-container" id="needByDate" formControlName="needByDate" name="needByDate" 
-									required bsDatepicker  placement="left"  
-									 [bsConfig]="{ dateInputFormat: 'dd-MM-yyyy', containerClass: 'theme-green' }"
-									 value="{{ needByDate.value | date: 'dd-MM-yyyy' }}"
-									> 
-									<!-- [bsConfig]="datepickerConfig" -->
+								<label class="col-md-5 col-form-label" for="simType">Sim Type</label>
+								<div class="col-md-7">
+									<select class="form-control" id="simType" formControlName="simType" required [ngClass]="{
+														'is-invalid': simType.invalid && (simType.dirty || simType.touched),
+														'is-valid': simType.valid && (simType.dirty || simType.touched)
+													 }">
+										<option></option>
+										<option *ngFor="let aSimType of listSimType" [value]="aSimType.id">{{aSimType.simTypeName}}</option>
+										<!--											<option *ngFor="let cl of clientOptions" [value]="cl.id">{{cl.client_name}}</option> -->
+									</select>
 								</div>
-							</div>
 
-						</div>
+
+								<div class="invalid-feedback" *ngIf="simType.errors && (simType.dirty || simType.touched)">
+									<p *ngIf="simType.errors.required">Sim Type required</p>
+
+								</div>
+
+
+							</div>
+					</div>
 						
 					</div>
 
-					<!-- ///
 					<div class="row">
 						<div class="col-md-6">
-
-						</div>
-						<div class="col-md-6">
-
-						</div>
-					</div>
-					/// -->
-
-
+				
+								<div class="form-group row">
+									<label class="col-md-5 col-form-label" for="needByDate">Need By Date</label>
+									<div class="col-md-7">									
+										<input type="text" class="form-control calendar-container" id="needByDate" formControlName="needByDate" name="needByDate" 
+										required bsDatepicker  placement="right"  
+										 [bsConfig]="{ dateInputFormat: 'dd-MM-yyyy', containerClass: 'theme-green' }"
+										 [minDate]="todayDate"
+										 value="{{ needByDate.value | date: 'dd-MM-yyyy' }}"
+										>
+									</div>
+								</div>
+	
+							</div>
+							<div class="col-md-6">
+								</div>
+				</div>
 
 					<div class="form-group row">
 						<label class="col-md-5 col-form-label" for="srcComment">Comment</label>

@@ -64,7 +64,7 @@ export class ReProvisionComponent implements OnInit {
 	searchPendingGroupID: number;
 	searchHopSequence: number;
 	
-	
+	todayDate: Date;
 	
 	constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {	
 
@@ -110,7 +110,11 @@ export class ReProvisionComponent implements OnInit {
 		err => console.error(err),
 		() => console.log('Done loading PendingTask List')
 		);
-    }
+
+	//Get Today Date
+	this.todayDate = new Date();
+
+  }
 
 
 

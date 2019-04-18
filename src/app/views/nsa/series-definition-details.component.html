@@ -12,14 +12,28 @@
 			</div>
 			<!--Current Hop Sequence {{hop_sequence}}-->
 			<div class="card-body">
-				<table *ngFor="let aFnvPair of fieldNameValueList;  index as idx" class="table table-bordered table-striped table-sm">
-					<tr *ngIf="idx % 2 == 0" >
-						<td style ="width:25%">{{fieldNameValueList[idx].fieldName}}</td>
-						<td style ="width:25%">{{fieldNameValueList[idx].fieldValue}}</td>
-						<td style ="width:25%">{{fieldNameValueList[idx+1].fieldName}}</td>
-						<td style ="width:25%">{{fieldNameValueList[idx+1].fieldValue}}</td>
-					</tr>					
-				</table >
+				<div *ngFor="let aFnvPair of fieldNameValueList;  index as idx">
+					<div class="row" *ngIf="idx % 2 == 0">
+						<div class="col-md-6">
+							<div class="form-group row">
+								<div class="col-md-5 col-form-label">
+									{{fieldNameValueList[idx].fieldName}}</div>
+								<div class="col-md-7">
+									<input disabled type="text" class="form-control calendar-container"
+									value="{{fieldNameValueList[idx].fieldValue}}"></div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group row">
+								<div class="col-md-5 col-form-label">
+									{{fieldNameValueList[idx+1].fieldName}}</div>
+								<div class="col-md-7">
+									<input disabled type="text" class="form-control calendar-container"
+									value="{{fieldNameValueList[idx+1].fieldValue}}"></div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 			<div *ngIf="hop_sequence <= 3">
 			<form [formGroup]="mySeriesDefinitionForm" novalidate (ngSubmit)="onSeriesProvisionSubmit()" >

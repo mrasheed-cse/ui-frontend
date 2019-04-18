@@ -19,13 +19,13 @@ import { Router } from '@angular/router';
 import { LoginService } from '../pages/LoginService';
 import { LoggedInUser } from '../pages/loggedInUser'; 
 
-
 @Component({
   selector: 'app-seriesprovision',
   templateUrl: './seriesprovision.component.html',
    styleUrls: ['./demo.component.css'],
   providers: [WorkflowsService,AppGlobals,LoginService]
 })
+
 export class SeriesprovisionComponent implements OnInit {
 
 	pendingTasksList: PendingTasks;
@@ -33,22 +33,19 @@ export class SeriesprovisionComponent implements OnInit {
 	userName: string;
 	groupID: number;
 	
-		public dangerAlertShow:boolean = false;
+	public dangerAlertShow:boolean = false;
 	public dangerAlertMessage:string = "";
 	public successSearchShow:boolean = false;
 	public successAlertMessage:string = "";
-	
 
-	
 	isDataFound: boolean = false;
 	isCollapsed: boolean = true;
 	
-	
 	mySearchForm: FormGroup;  
-   wrname: FormControl;
-   wrstatus: FormControl;
-   startDate: FormControl;
-   endDate: FormControl;
+  wrname: FormControl;
+  wrstatus: FormControl;
+  startDate: FormControl;
+  endDate: FormControl;
 
   wrstatuses: string[] = [
     'In Progress',
@@ -65,10 +62,10 @@ export class SeriesprovisionComponent implements OnInit {
 	searchStatus: string;
 	searchPendingGroupID: number;
 	searchHopSequence: number;
-	
-	
-	
-	constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {	
+
+	todayDate: Date;
+
+constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {	
 
 	// Get Current User Profile
 	
@@ -112,26 +109,22 @@ export class SeriesprovisionComponent implements OnInit {
 		err => console.error(err),
 		() => console.log('Done loading PendingTask List')
 		);
+
+	//Get Today Date
+	this.todayDate = new Date();
+
     }
 
-
-
-  ngOnInit () {
+ngOnInit () {
 
 	this.createFormControls();
     this.createForm();
   
   }
 
-  
-	
 datepickerConfig: Partial<BsDatepickerConfig>;
 	
-
-   
-	
-
-  onSearchSubmit() {
+onSearchSubmit() {
 	  
   if (this.wrname.value || this.startDate.value || this.endDate.value || this.wrstatus.value) {
     console.log('Form Submitted!');
@@ -177,8 +170,8 @@ datepickerConfig: Partial<BsDatepickerConfig>;
 
   createFormControls() {
     
-    this.wrname = new FormControl('',Validators.pattern(this.wrNamePattern));
-    this.wrstatus = new FormControl('');
+  this.wrname = new FormControl('',Validators.pattern(this.wrNamePattern));
+  this.wrstatus = new FormControl('');
 	this.startDate = new FormControl('');
 	this.endDate = new FormControl('');
   }

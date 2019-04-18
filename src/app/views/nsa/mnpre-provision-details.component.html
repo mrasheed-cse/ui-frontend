@@ -1,3 +1,55 @@
-<p>
-  mnpre-provision-details works!
-</p>
+<div class="row">
+	<div class="col-md-1">
+		<div class="card-body"></div>
+	</div>
+	<div class="col-md-10">
+		<div class="card">
+		<div class="alert alert-success" role="alert" *ngIf="successAlertShow">The Work Request <b>{{wrBriefName}}</b> {{successAlertMessage}}</div>
+			<div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">The Work Request <b>{{wrBriefName}}</b> {{dangerAlertMessage}}</div>
+		
+			<div class="card-header">
+				<strong>MNP Re-Provision:: {{wrBriefName}}</strong>
+			</div>
+			<div class="card-body">
+				<div *ngFor="let aFnvPair of fieldNameValueList;  index as idx">
+					<div class="row" *ngIf="idx % 2 == 0">
+						<div class="col-md-6">
+							<div class="form-group row">
+								<div class="col-md-5 col-form-label">
+									{{fieldNameValueList[idx].fieldName}}</div>
+								<div class="col-md-7">
+									<input disabled type="text" class="form-control calendar-container"
+									value="{{fieldNameValueList[idx].fieldValue}}"></div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group row">
+								<div class="col-md-5 col-form-label">
+									{{fieldNameValueList[idx+1].fieldName}}</div>
+								<div class="col-md-7">
+									<input disabled type="text" class="form-control calendar-container"
+									value="{{fieldNameValueList[idx+1].fieldValue}}"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<button type="button" class="btn btn-link" (click)="downloadCSVFiles()">
+				<i class="fa fa-link" ></i>Download File</button>
+			
+			<div>
+				<div class="card-footer text-right">
+					<button type="submit" [disabled]="isDoneDisable" class="btn btn-sm btn-primary" (click)="onDoneClick($event)">
+						<i class="fa fa-dot-circle-o"></i> Done</button>
+					<button type="button" class="btn btn-link" (click)="backButton($event)">
+						<i class="fa fa-link" ></i>&nbsp; Back</button>
+				</div>
+			</div>
+			
+			<div *ngIf="isLoading" class="spinner-border text-primary" role="status">
+				<span class="sr-only">Loading...</span>
+			</div>
+		</div>
+	</div>
+</div>
