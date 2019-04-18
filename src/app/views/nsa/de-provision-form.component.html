@@ -41,7 +41,30 @@
 
 
 					<div class="row">
-								<div class="col-md-6">
+						<div class="col-md-6">
+							<div class="form-group row">
+								<label class="col-md-5 col-form-label" for="simType">Sim Type</label>
+								<div class="col-md-7">
+									<select class="form-control" id="simType" formControlName="simType" required [ngClass]="{
+														'is-invalid': simType.invalid && (simType.dirty || simType.touched),
+														'is-valid': simType.valid && (simType.dirty || simType.touched)
+													 }">
+										<option></option>
+										<option *ngFor="let aSimType of listSimType" [value]="aSimType.id">{{aSimType.simTypeName}}</option>
+										<!--											<option *ngFor="let cl of clientOptions" [value]="cl.id">{{cl.client_name}}</option> -->
+									</select>
+								</div>
+
+
+								<div class="invalid-feedback" *ngIf="simType.errors && (simType.dirty || simType.touched)">
+									<p *ngIf="simType.errors.required">Sim Type required</p>
+
+								</div>
+
+
+							</div>
+					</div>
+						<div class="col-md-6">
 										<div class="form-group row">
 										<label class="col-md-5 col-form-label" for="deProvisionFile">De Provision File</label>
 										<div class="col-md-7">
@@ -56,29 +79,6 @@
 										</div>
 										</div>
 								</div>
-								<div class="col-md-6">
-									<div class="form-group row">
-										<label class="col-md-5 col-form-label" for="simType">Sim Type</label>
-										<div class="col-md-7">
-											<select class="form-control" id="simType" formControlName="simType" required [ngClass]="{
-																'is-invalid': simType.invalid && (simType.dirty || simType.touched),
-																'is-valid': simType.valid && (simType.dirty || simType.touched)
-															 }">
-												<option></option>
-												<option *ngFor="let aSimType of listSimType" [value]="aSimType.id">{{aSimType.simTypeName}}</option>
-												<!--											<option *ngFor="let cl of clientOptions" [value]="cl.id">{{cl.client_name}}</option> -->
-											</select>
-										</div>
-		
-		
-										<div class="invalid-feedback" *ngIf="simType.errors && (simType.dirty || simType.touched)">
-											<p *ngIf="simType.errors.required">Sim Type required</p>
-		
-										</div>
-		
-		
-									</div>
-							</div>
 					</div>
 
 					<!-- ///
