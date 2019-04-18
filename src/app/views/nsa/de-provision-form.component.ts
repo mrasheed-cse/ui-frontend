@@ -133,8 +133,8 @@ WR_Name: string;
   createForm() {
     this.myDeProvisionForm = new FormGroup({			
 		batchID: this.batchID,
-		deProvisionFile: this.deProvisionFile,
 		simType: this.simType,
+		deProvisionFile: this.deProvisionFile,
 		cnpComment: this.cnpComment
     });
   }
