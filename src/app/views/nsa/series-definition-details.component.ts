@@ -301,9 +301,10 @@ LoadPreviousHopsData(){
 	console.log(Number(selectedSDPID)-1);
 	const selectedSDPName = this.listSDP[Number(selectedSDPID)-1].name;
 	console.log(selectedSDPName);
-	this.mySeriesDefinitionForm.get('CSP').setValue(selectedSDPID);
-	this.mySeriesDefinitionForm.get('EOICK').setValue(selectedSDPID);
-	this.mySeriesDefinitionForm.get('SK').setValue(selectedSDPID);
+	//this.mySeriesDefinitionForm.get('quantity').setValue(1 + Number(selectedMSISDN) - Number(startMSISDNs));
+	this.mySeriesDefinitionForm.get('CSP').setValue(selectedSDPName);
+	this.mySeriesDefinitionForm.get('EOICK').setValue(Number(selectedSDPName)*10);
+	this.mySeriesDefinitionForm.get('SK').setValue(Number(selectedSDPName)+8000-1);
   }
 
   onSeriesProvisionSubmit() {

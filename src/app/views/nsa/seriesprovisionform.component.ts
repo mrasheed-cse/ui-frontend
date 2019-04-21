@@ -294,11 +294,12 @@ onStartICCIDChanges() {
 			
 			
 			var startICCIDval = selectedStartICCID +lastDigit;
-			var totalQuantity = this.mySeriesProvisionForm.get('quantity').value;			
-			var endICCIDval = (Number(startICCIDval)+totalQuantity).toString();
+			var totalQuantity = this.mySeriesProvisionForm.get('quantity').value;		
+			
+			var endICCIDval = this.definitionDataService.LongNumberAddition(startICCIDval,totalQuantity+"");
 			
 			var startIMSIval = '47001'+selectedStartICCID.substr(8,10);
-			var endIMSIval = (Number(startIMSIval)+totalQuantity).toString();
+			var endIMSIval = this.definitionDataService.LongNumberAddition(startIMSIval,totalQuantity+"");
 			
 			this.mySeriesProvisionForm.get('startICCID19').setValue(startICCIDval);
 			this.mySeriesProvisionForm.get('endICCID').setValue(endICCIDval);

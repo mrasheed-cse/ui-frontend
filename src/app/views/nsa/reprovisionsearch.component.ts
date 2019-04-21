@@ -190,6 +190,8 @@ export class ReprovisionsearchComponent implements OnInit {
     console.log('Form Submitted!');
     console.log(this.myReProvisionSearchForm.value);
 	this.successSearchShow = true;
+	this.workFlowsService.ReprovisonEligibilitySearch("","","","","");
+	
   }
   }
   
@@ -201,7 +203,7 @@ export class ReprovisionsearchComponent implements OnInit {
 	}
   
   downloadCSVFiles() {
-        var nameOfFileToDownload = "TEST"+".csv";
+        var nameOfFileToDownload = "ReProvEligibile.csv";
 		console.log("nameOfFileToDownload : "+nameOfFileToDownload);
   
         var result = this.fileoperationService.downloadCSV(nameOfFileToDownload);

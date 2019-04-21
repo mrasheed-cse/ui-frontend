@@ -118,4 +118,21 @@ export class WorkflowsService {
 			isVDSODone: ""
 		});	  
 	}
+
+	ReprovisonEligibilitySearch(productType: string,productName: string,hlr: string,	imsiClub: string,batchID: string) : any {	
+		
+		console.log("In ReprovisonEligibilitySearch()");	
+		
+	
+		return this.http.post(this.serverUrl + 'ReProvEligibilitySearch', {
+			msisdn: "",
+			productType: productType,
+			productName: productName,
+			hlr: hlr,
+			imsiClub: imsiClub,
+			batchID: batchID,
+			sdp: "",
+			sapc: ""
+		});	 
+	}
 }

@@ -54,7 +54,7 @@ WR_Name: string;
 	batchID: FormControl;
 	deProvisionFile: FormControl;
 	cnpComment: FormControl;
-	simType: FormControl;
+	//simType: FormControl;
 
 	public listSimType = [];
 	
@@ -97,7 +97,7 @@ WR_Name: string;
 		err => console.error(err),
 		()=> console.log('done loading Work Request Name')
 		);
-		
+	/*	
 		//GetSimType
 	this.definitionDataService.GetSimTypes().subscribe(
 		data => { 
@@ -115,6 +115,7 @@ WR_Name: string;
 			err => console.error(err),
 			() => console.log('done loading sim Type Name List')
 			);
+		*/
 }
 
   ngOnInit() {
@@ -127,13 +128,13 @@ WR_Name: string;
 	this.batchID = new FormControl('');
 	this.deProvisionFile = new FormControl('', Validators.required);
 	this.cnpComment = new FormControl('');
-	this.simType = new  FormControl('');
+	//this.simType = new  FormControl('');
   }
 
   createForm() {
     this.myDeProvisionForm = new FormGroup({			
 		batchID: this.batchID,
-		simType: this.simType,
+		//simType: this.simType,
 		deProvisionFile: this.deProvisionFile,
 		cnpComment: this.cnpComment
     });
