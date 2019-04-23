@@ -124,15 +124,12 @@ export class WorkflowsService {
 		console.log("In ReprovisonEligibilitySearch()");	
 		
 	
-		return this.http.post(this.serverUrl + 'ReProvEligibilitySearch', {
-			msisdn: "",
+		return this.http.post(this.serverUrl + 'ReProvEligibilitySearch', {			
 			productType: productType,
 			productName: productName,
 			hlr: hlr,
 			imsiClub: imsiClub,
-			batchID: batchID,
-			sdp: "",
-			sapc: ""
+			batchID: batchID			
 		});	 
 	}
 }

@@ -53,7 +53,12 @@ export const navigation_grpID_RAFM = [
         name: 'DeProvision',
         url: '/nsa/deprovision',
         icon: 'icon-cursor'
-      }
+      },
+      {
+            name: 'Discrete Provision',
+            url: '/nsa/discprovision',
+            icon: 'icon-cursor'
+          }
 	  ,
   {
         name: 'ReProvision',
@@ -88,6 +93,11 @@ export const navigation_grpID_Wipro_Billing = [
         url: '/nsa/deprovision',
         icon: 'icon-cursor'
       },
+      {
+            name: 'Discrete Provision',
+            url: '/nsa/discprovision',
+            icon: 'icon-cursor'
+          },
   {
         name: 'ReProvision',
         url: '/nsa/reprovision',
@@ -260,6 +270,23 @@ export const navigation_grpID_Sourcing = [
       {
         name: 'New Creation',
         url: '/nsa/seriesprovisionform',
+        icon: 'icon-puzzle'
+      }
+    ]
+  },
+  {
+    name: 'DiscProvision',    
+	 url: '/discprovision',
+    icon: 'icon-cursor',
+    children: [	
+      {
+        name: 'Ongoing List',
+        url: '/nsa/discprovision',
+        icon: 'icon-puzzle'
+      },
+      {
+        name: 'New Creation',
+        url: '/nsa/discprovisionform',
         icon: 'icon-puzzle'
       }
     ]

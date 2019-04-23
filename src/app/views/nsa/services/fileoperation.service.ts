@@ -52,14 +52,7 @@ export class FileoperationService {
 		console.log(error);
         return Observable.throw(error || 'Server error');
     }
-	/*
-	return this.http.post(
-    'http://localhost:8080/order/addtocart', 
-    { dealerId: 13, createdBy: "-1", productId, quantity }, 
-    { headers, responseType: 'text'}
-  ).pipe(catchError(this.errorHandlerService.handleError));
-*/
-  
+	
     
 
 }

@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { LandingpageComponent } from './landingpage.component';
 import { SeriesprovisionComponent } from './seriesprovision.component';
-import { DiscreteprovisionComponent } from './discreteprovision.component';
 import { SeriesprovisionformComponent } from './seriesprovisionform.component';
 import { SeriesprovisiondetailComponent } from './seriesprovisiondetail.component';
 import { SeriesDefinitionComponent } from './series-definition.component';
@@ -25,6 +24,9 @@ import { ApndetailsComponent } from './apndetails.component';
 import { MnpreprovsearchComponent } from './mnpreprovsearch.component';
 import { NsareportComponent } from './nsareport.component';
 import { SdpmigrationComponent } from './sdpmigration.component';
+import { DiscreteprovisionComponent } from './discreteprovision.component';
+import { DiscreteprovisionformComponent } from './discreteprovisionform.component';
+import { DiscreteprovisiondetailsComponent } from './discreteprovisiondetails.component';
 
 
 const routes: Routes = [
@@ -33,6 +35,27 @@ const routes: Routes = [
     component: LandingpageComponent,
     data: {
       title: 'Landing page'
+    }
+  },
+  {
+    path: 'discprovision',
+    component: DiscreteprovisionComponent,
+    data: {
+      title: 'Discreteprovision'
+    }
+  },
+  {
+    path: 'discprovisionform',
+    component: DiscreteprovisionformComponent,
+    data: {
+      title: 'Discreteprovision form'
+    }
+  },
+  {
+    path: 'discprovisiondetail/:wr_BriefName/:wr_BriefId/:hopSequence',
+    component: DiscreteprovisiondetailsComponent,
+    data: {
+      title: 'Discreteprovision details'
     }
   },
   {
