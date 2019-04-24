@@ -23,7 +23,7 @@ import { LoggedInUser } from '../pages/loggedInUser';
 @Component({
   selector: 'app-nsareport',
   templateUrl: './nsareport.component.html',
-  styles: [],
+  styles: ['./demo.component.css'],
   providers: [ReportService,AppGlobals,LoginService]
 })
 export class NsareportComponent implements OnInit {
@@ -158,7 +158,7 @@ export class NsareportComponent implements OnInit {
               console.log(totalData);
               if (totalData%2==1){   
                 console.log("totalData is odd");
-                this.defFieldNameValueList.push({fieldName: " ", fieldValue: " "});
+                this.defFieldNameValueList.push({fieldName: "", fieldValue: ""});
               }
             }
             if(res.provWRName != null){
@@ -169,7 +169,7 @@ export class NsareportComponent implements OnInit {
               console.log(totalData);
               if (totalData%2==1){   
                 console.log("totalData is odd");
-                this.provFieldNameValueList.push({fieldName: " ", fieldValue: " "});
+                this.provFieldNameValueList.push({fieldName: "", fieldValue: ""});
               }
             }
             if(res.deProvWRName != null){
@@ -180,7 +180,7 @@ export class NsareportComponent implements OnInit {
               console.log(totalData);
               if (totalData%2==1){   
                 console.log("totalData is odd");
-                this.deProvFieldNameValueList.push({fieldName: " ", fieldValue: " "});
+                this.deProvFieldNameValueList.push({fieldName: "", fieldValue: ""});
               }
             }
             if(res.reProvWRName != null){
@@ -191,7 +191,7 @@ export class NsareportComponent implements OnInit {
               console.log(totalData);
               if (totalData%2==1){   
                 console.log("totalData is odd");
-                this.reProvFieldNameValueList.push({fieldName: " ", fieldValue: " "});
+                this.reProvFieldNameValueList.push({fieldName: "", fieldValue: ""});
               }
             }
             if(res.mnpReProvWRName != null){
@@ -202,7 +202,7 @@ export class NsareportComponent implements OnInit {
               console.log(totalData);
               if (totalData%2==1){   
                 console.log("totalData is odd");
-                this.mnpReProvFieldNameValueList.push({fieldName: " ", fieldValue: " "});
+                this.mnpReProvFieldNameValueList.push({fieldName: "", fieldValue: ""});
               }
             }
         }
@@ -321,7 +321,7 @@ export class NsareportComponent implements OnInit {
             console.log(totalData);
             if (totalData%2==1){   
               console.log("totalData is odd");
-              this.defFieldNameValueListBulk.push({fieldName: " ", fieldValue: " "});
+              this.defFieldNameValueListBulk.push({fieldName: "", fieldValue: ""});
             }
           }
           if(res.provWRName != null){
@@ -332,7 +332,7 @@ export class NsareportComponent implements OnInit {
             console.log(totalData);
             if (totalData%2==1){   
               console.log("totalData is odd");
-              this.provFieldNameValueListBulk.push({fieldName: " ", fieldValue: " "});
+              this.provFieldNameValueListBulk.push({fieldName: "", fieldValue: ""});
             }
           }
           if(res.deProvWRName != null){
@@ -343,7 +343,7 @@ export class NsareportComponent implements OnInit {
             console.log(totalData);
             if (totalData%2==1){   
               console.log("totalData is odd");
-              this.deProvFieldNameValueListBulk.push({fieldName: " ", fieldValue: " "});
+              this.deProvFieldNameValueListBulk.push({fieldName: "", fieldValue: ""});
             }
           }
           if(res.reProvWRName != null){
@@ -354,7 +354,7 @@ export class NsareportComponent implements OnInit {
             console.log(totalData);
             if (totalData%2==1){   
               console.log("totalData is odd");
-              this.reProvFieldNameValueListBulk.push({fieldName: " ", fieldValue: " "});
+              this.reProvFieldNameValueListBulk.push({fieldName: "", fieldValue: ""});
             }
           }
           if(res.mnpReProvWRName != null){
@@ -365,7 +365,7 @@ export class NsareportComponent implements OnInit {
             console.log(totalData);
             if (totalData%2==1){   
               console.log("totalData is odd");
-              this.mnpReProvFieldNameValueListBulk.push({fieldName: " ", fieldValue: " "});
+              this.mnpReProvFieldNameValueListBulk.push({fieldName: "", fieldValue: ""});
             }
           }
       }
