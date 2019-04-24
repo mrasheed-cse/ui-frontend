@@ -94,7 +94,7 @@ import {
 					  console.log(totalData);
 					  if (totalData%2==1){   
 						  console.log("totalData is odd");
-						  this.fieldNameValueList.push({fieldName: " ", fieldValue: " "});
+						  this.fieldNameValueList.push({fieldName: "", fieldValue: ""});
 					  }
 			  },
 			  err => console.error(err),

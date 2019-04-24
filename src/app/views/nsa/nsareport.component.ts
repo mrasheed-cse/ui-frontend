@@ -80,7 +80,7 @@ export class NsareportComponent implements OnInit {
   myBulkReportForm: FormGroup;
   startMSISDN: FormControl;
   endMSISDN: FormControl;
-
+  
   public dangerAlertShow:boolean = false;
 	public dangerAlertMessage:string = "";
   public dangerAlertShowBulk:boolean = false;
@@ -109,7 +109,6 @@ export class NsareportComponent implements OnInit {
   }
 
   createFormControls() {
-    
     this.msisdn = new FormControl('', [
       Validators.required,
       Validators.minLength(11) ,
@@ -125,7 +124,6 @@ export class NsareportComponent implements OnInit {
       Validators.minLength(11) ,
       Validators.maxLength(11)
     ]);
-    
   }
 
   createForm() {
@@ -305,7 +303,7 @@ export class NsareportComponent implements OnInit {
   }
 
   selectedRow(bulkReport: BulkReports){
-    this.clearDynamicForm();
+    this.clearDynamicFormBulk();
     console.log("Inside selectedRow() : "+bulkReport.msisdn);
     this.ReportService.SingleNumberReport(bulkReport.msisdn).subscribe(
       res  =>  {

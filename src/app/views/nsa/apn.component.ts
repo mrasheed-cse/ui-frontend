@@ -31,7 +31,7 @@ export class ApnComponent implements OnInit {
 	userName: string;
 	groupID: number;
 	
-		public dangerAlertShow:boolean = false;
+	public dangerAlertShow:boolean = false;
 	public dangerAlertMessage:string = "";
 	public successSearchShow:boolean = false;
 	public successAlertMessage:string = "";

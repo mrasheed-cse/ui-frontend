@@ -22,13 +22,13 @@
 									value="{{fieldNameValueList[idx].fieldValue}}"></div>
 							</div>
 						</div>
-						<div class="col-md-6">
+						<div class="col-md-6" *ngIf="fieldNameValueList[idx+1].fieldName">
 							<div class="form-group row">
 								<div class="col-md-5 col-form-label">
 									{{fieldNameValueList[idx+1].fieldName}}</div>
 								<div class="col-md-7">
 									<input disabled type="text" class="form-control calendar-container"
-									value="{{fieldNameValueList[idx+1].fieldValue}}"></div>
+									value="{{fieldNameValueList[idx+1].fieldValue.replace(_global.wrid_FileUploadPath, '')}}"></div>
 							</div>
 						</div>
 					</div>
