@@ -53,7 +53,7 @@ export class DiscreteprovisionComponent implements OnInit {
     'Complete'
   ];
 
-	wrNamePattern:string = "(MNP_PROV).\*";
+	wrNamePattern:string = "(DISC_PROV).\*";
 	searchWR: string;
 	searchWRNumber: string;
 	searchWrCreatedBy: string;
