@@ -229,8 +229,8 @@ constructor(private router: Router,private loginService: LoginService, private h
 	const selectedProductID = event.target.value;
 	// const selectedProductName = event.target.name;
 	//console.log(selectedProductID);
-	this.myDescProvisionForm.get('serviceClassName').setValue(this.listServiceClass[selectedProductID]);
-	this.myDescProvisionForm.get('communityID').setValue(this.listCommunityID[selectedProductID]);
+	//this.myDescProvisionForm.get('serviceClassName').setValue(this.listServiceClass[selectedProductID]);
+	//this.myDescProvisionForm.get('communityID').setValue(this.listCommunityID[selectedProductID]);
   }
   
   
@@ -241,18 +241,9 @@ constructor(private router: Router,private loginService: LoginService, private h
 	const selectedProductTypeID: number = event.target.value;
 				
 	this.definitionDataService.GetProducts(selectedProductTypeID).subscribe(
-		data => { 
-				this.listCommunityID = [];
-				this.listServiceClass = [];
+		data => {
 				this.listProduct = [];
-				this.myDescProvisionForm.get('serviceClassName').setValue('');
-				this.myDescProvisionForm.get('communityID').setValue('');
-				
-				//console.log ("this.listCommunityID.length "+this.listCommunityID.length);
-				//console.log ("this.listServiceClass.length "+this.listServiceClass.length);
-				
 				for (let index in data) {
-					//console.log (data[index]);
 					this.listProduct.push(
 					{
 						id:data[index].id,
@@ -260,10 +251,7 @@ constructor(private router: Router,private loginService: LoginService, private h
 					}
 					
 					); 
-					this.listCommunityID[data[index].id] = data[index].communityID;
-					this.listServiceClass[data[index].id] = data[index].serviceClass.serviceClassName;
 				}		
-		// return data;
 			},
 		err => console.error(err),
 		() => console.log('done loading Product List based on ProductTypes')
