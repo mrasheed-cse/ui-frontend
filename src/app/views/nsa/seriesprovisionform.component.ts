@@ -161,8 +161,12 @@ export class SeriesprovisionformComponent implements OnInit {
 	this.serviceClassName =	new FormControl({value: '', disabled: true}, Validators.required);
 	this.communityID = 	new FormControl({value: '', disabled: true}, Validators.required);	
 	this.hlr =	new FormControl({value: '', disabled: true}, Validators.required);
-	this.sdp = 	new FormControl({value: '', disabled: true}, Validators.required);	
-	this.startICCID = new FormControl('', Validators.required);
+	this.sdp = 	new FormControl({value: '', disabled: true}, Validators.required);
+	this.startICCID = new FormControl('', [
+		Validators.required,
+		Validators.minLength(8) ,
+		Validators.maxLength(8)
+	]);
 	this.startICCID19 = 	new FormControl({value: '', disabled: true}, Validators.required);	
 	this.endICCID = 	new FormControl({value: '', disabled: true}, Validators.required);	
 	this.startIMSI = 	new FormControl({value: '', disabled: true}, Validators.required);	

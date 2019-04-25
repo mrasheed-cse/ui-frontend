@@ -148,9 +148,18 @@
 							<div class="form-group row">
 								<label class="col-md-5 col-form-label" for="startICCID">Start ICCID</label>
 								<div class="col-md-7">
-									<input type="text" id="startICCID" name="startICCID" class="form-control" formControlName="startICCID">
-
-								</div>
+										<input type="text" id="startICCID" name="startICCID" class="form-control" formControlName="startICCID" pattern="\d*" required
+										 [ngClass]="{
+										  'is-invalid': startICCID.invalid && (startICCID.dirty || startICCID.touched),
+										  'is-valid': startICCID.valid && (startICCID.dirty || startICCID.touched)
+										 }">
+										<div class="invalid-feedback" *ngIf="startICCID.errors && (startICCID.dirty || startICCID.touched)">
+										  <p *ngIf="startICCID.errors.required">Start ICCID is required</p>
+										  <p *ngIf="startICCID.errors.pattern">ICCID contains only digits.</p>
+										  <p *ngIf="startICCID.errors.minlength">ICCID must be 8 digit long</p>
+										  <p *ngIf="startICCID.errors.maxlength">ICCID must be 8 digit long</p>
+										</div>
+									  </div>
 							</div>
 
 						</div>

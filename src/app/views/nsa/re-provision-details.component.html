@@ -38,7 +38,29 @@
 							</div>
 						</div>
 					</div>
-			<button type="button" class="btn btn-link" (click)="downloadCSVFiles()"><i class="fa fa-link" ></i>Download File</button>
+					<div class="row">
+							<div *ngIf="hop_sequence==2 || hop_sequence==3">
+								<button type="button" class="btn btn-link" (click)="downloadCSVFiles('ADC_File_')">
+									<i class="fa fa-link" ></i>ADC File Download</button>
+							</div>
+							<div *ngIf="hop_sequence==3">
+								<button type="button" class="btn btn-link" (click)="downloadCSVFiles('BPP_File_')">
+									<i class="fa fa-link" ></i>BPP File Download</button>
+							</div>
+							<div *ngIf="hop_sequence==3">
+								<button type="button" class="btn btn-link" (click)="downloadCSVFiles('MSISDN_Loading_file_')">
+									<i class="fa fa-link" ></i>MSISDN Loading File Download</button>
+							</div>
+							<div *ngIf="hop_sequence==2">
+								<button type="button" class="btn btn-link" (click)="downloadCSVFiles('_in')">
+									<i class="fa fa-link" ></i>Download File</button>
+							</div>
+							<div *ngIf="hop_sequence==4">
+								<button type="button" class="btn btn-link" (click)="downloadCSVFiles('_rafm')">
+									<i class="fa fa-link" ></i>Download File</button>
+							</div>
+						</div>
+			
 				
 			
 			<div >
@@ -52,9 +74,6 @@
 			<div *ngIf="isLoading" class="spinner-border text-primary" role="status">
 				<span class="sr-only">Loading...</span>
 			</div>
-			
-			
-			
-			</div>
+		</div>
 		</div>
 	</div>

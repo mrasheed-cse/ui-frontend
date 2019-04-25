@@ -112,8 +112,7 @@ constructor(private router: Router,private loginService: LoginService,private ht
 
 		//Get Today Date
 	this.todayDate = new Date();
-
-    }
+	}
 
 ngOnInit () {
 
@@ -123,7 +122,7 @@ ngOnInit () {
   }
 
 datepickerConfig: Partial<BsDatepickerConfig>;
-	
+
 onSearchSubmit() {
 	  
   if (this.wrname.value || this.startDate.value || this.endDate.value || this.wrstatus.value) {

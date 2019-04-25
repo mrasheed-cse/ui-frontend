@@ -170,39 +170,43 @@ import {
 		  
 	  }  
 	  
+		downloadCSVFiles(requiredFile: string) {
+
+			var nameOfFileToDownload;
 	
-  downloadCSVFiles() {
-		  var nameOfFileToDownload = this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName)+".csv";
-		  console.log("nameOfFileToDownload : "+nameOfFileToDownload);
+			if(requiredFile.endsWith('_')){
+				nameOfFileToDownload = requiredFile+this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName)+".csv";
 	
-		  var result = this.fileoperationService.downloadCSV(nameOfFileToDownload);
-		  console.log(result);
-		  result.subscribe(
-			  data => {
-				  //saveAs(data, nameOfFileToDownload);
-				  
-				  console.log("ToTOOO");
-				  console.log(data);
-				  
-				  var blob = new Blob([data], { type: 'text/csv' });
-   
-				  if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-					  window.navigator.msSaveOrOpenBlob(blob, nameOfFileToDownload);
-				  } else {
-					  var a = document.createElement('a');
-					  a.href = URL.createObjectURL(blob);
-					  a.download = nameOfFileToDownload;
-					  document.body.appendChild(a);
-					  a.click();
-					  document.body.removeChild(a);
-				  }
-				  
-			  },
-			  err => {
-				  alert("Server error while downloading file.");
-			  }
-		  );
-	  }
+			} else if (requiredFile.startsWith('_')){
+				nameOfFileToDownload = this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName)+requiredFile+".csv";
+			}
+			console.log("Download File Name : "+nameOfFileToDownload);
+		
+			var result = this.fileoperationService.downloadCSV(nameOfFileToDownload);
+			console.log(result);
+			result.subscribe(
+				data => {
+					console.log("ToTOOO");
+					console.log(data);
+						
+					var blob = new Blob([data], { type: 'text/csv' });
+		 
+					if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+						window.navigator.msSaveOrOpenBlob(blob, nameOfFileToDownload);
+					} else {
+							var a = document.createElement('a');
+							a.href = URL.createObjectURL(blob);
+							a.download = nameOfFileToDownload;
+							document.body.appendChild(a);
+							a.click();
+							document.body.removeChild(a);
+						}
+					},
+					err => {
+						alert("Server error while downloading file.");
+					}
+				);
+		}
+	
   
-	
   }
