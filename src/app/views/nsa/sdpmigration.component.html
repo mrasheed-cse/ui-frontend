@@ -16,16 +16,16 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group row">
-								<label class="col-md-5 col-form-label" for="reProvisionFile">SDP Migration File</label>
+								<label class="col-md-5 col-form-label" for="sdpMigrationFile">SDP Migration File</label>
 								<div class="col-md-7">
 								
-									<input type="file" id="reProvisionFile" name="reProvisionFile" class="form-control" formControlName="reProvisionFile" required
+									<input type="file" id="sdpMigrationFile" name="sdpMigrationFile" class="form-control" formControlName="sdpMigrationFile" required
 									 [ngClass]="{
-										'is-invalid': reProvisionFile.invalid && (reProvisionFile.dirty || reProvisionFile.touched),
-										'is-valid': reProvisionFile.valid && (reProvisionFile.dirty || reProvisionFile.touched)
+										'is-invalid': sdpMigrationFile.invalid && (sdpMigrationFile.dirty || sdpMigrationFile.touched),
+										'is-valid': sdpMigrationFile.valid && (sdpMigrationFile.dirty || sdpMigrationFile.touched)
 								   }" (change)="onFileChange($event)" >
-									<div class="invalid-feedback" *ngIf="reProvisionFile.errors && (reProvisionFile.dirty || reProvisionFile.touched)">
-										<p *ngIf="reProvisionFile.errors.required">SDP Migration File is required</p>
+									<div class="invalid-feedback" *ngIf="sdpMigrationFile.errors && (sdpMigrationFile.dirty || sdpMigrationFile.touched)">
+										<p *ngIf="sdpMigrationFile.errors.required">SDP Migration File is required</p>
 									</div>
 								</div>
 							</div>
