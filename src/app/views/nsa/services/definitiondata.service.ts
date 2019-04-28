@@ -84,6 +84,16 @@ export class DefinitionDataService {
 		return this.http.get(this.serverUrl + 'GpEmaPorts/');
 	}
 
+	// Check Validity of Definition Work Request
+	CheckValidityDefinitionWorkRequest(startMSISDN: string, endMSISDN: string): any {
+		//console.log("In GetProducts() for type " + selectedProductTypeID); 
+		return this.http.post(this.serverUrl + 'CheckValidityForDefinition' , {
+			startMSISDN: startMSISDN,
+			endMSISDN: endMSISDN
+			}
+		)
+	}
+
 	// GetDetails from Definition Work Request
 	GetDefinitionDetails(startMSISDN: string, endMSISDN: string): any {
 		//console.log("In GetProducts() for type " + selectedProductTypeID); 

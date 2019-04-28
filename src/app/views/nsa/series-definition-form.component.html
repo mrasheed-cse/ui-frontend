@@ -11,6 +11,8 @@
 			<div class="card-header">
 				<strong>Provisioning (Active number series table)</strong>
 			</div>
+			<div class="alert alert-danger" role="alert" *ngIf="infoAlertShow"><b>{{infoAlertMessage}}</b></div>
+			
 			<form [formGroup]="mySeriesDefinitionForm" novalidate (ngSubmit)="onSeriesProvisionSubmit()">
 				<div class="card-body">
 					<div class="row">

@@ -47,6 +47,8 @@ export class SeriesDefinitionFormComponent implements OnInit {
 	public successAlertShow:boolean = false;
 	public successAlertMessage:string = "";
 	public isLoading:boolean = false;
+	public infoAlertShow:boolean = false;
+	public infoAlertMessage:string = "";
 
 	
 	mySeriesDefinitionForm: FormGroup;
@@ -219,6 +221,7 @@ export class SeriesDefinitionFormComponent implements OnInit {
 		
 		if (selectedMSISDN!=null){			
 			this.mySeriesDefinitionForm.get('quantity').setValue(1 + Number(endMSISDNs) - Number(selectedMSISDN));
+			this.ChaeckDefinitionValidity(selectedMSISDN,endMSISDNs);
 		}
         
     });
@@ -229,9 +232,45 @@ export class SeriesDefinitionFormComponent implements OnInit {
 		
 		if (selectedMSISDN!=null){
 			this.mySeriesDefinitionForm.get('quantity').setValue(1 + Number(selectedMSISDN) - Number(startMSISDNs));
+			this.ChaeckDefinitionValidity(startMSISDNs, selectedMSISDN);
 		}        
     });
 }
+
+ChaeckDefinitionValidity (startMSISDNs, endMSISDNs) {	  		
+
+	console.log("Start for ChaeckDefinitionValidity");	
+	this.definitionDataService.CheckValidityDefinitionWorkRequest(startMSISDNs,endMSISDNs).subscribe(
+		data => { 
+				console.log(data);
+				
+				if(data==true){				
+					
+					this.infoAlertShow = false;
+				
+				}
+				
+				else{
+				
+					this.infoAlertShow = true;
+				
+					this.infoAlertMessage = "All or some numbers from "+startMSISDNs +" and "+ endMSISDNs +" already have Definition Work Request";
+				
+				}
+			
+			
+		},
+		err => {
+			console.error(err);
+			 this.infoAlertShow = true;			 
+			 this.infoAlertMessage = "All or some numbers from "+startMSISDNs +" and "+ endMSISDNs +" already have Definition Work Request";
+				
+		},
+		() => console.log('Done ChaeckDefinitionValidity')
+		);  
+
+}
+
 
   
    // event handler for the select element's change event
