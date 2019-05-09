@@ -188,14 +188,21 @@ export class ReprovisionsearchComponent implements OnInit {
   if (this.myReProvisionSearchForm.valid) {
 	
     console.log('Form Submitted!');
-    console.log(this.myReProvisionSearchForm.value);
-		this.successSearchShow = true;
+    //console.log(this.myReProvisionSearchForm.value);
+		
 		const productTypeVal = this.myReProvisionSearchForm.get('productType').value;
 		const productNameVal =  this.myReProvisionSearchForm.get('productName').value;	
 		const HLRVal = this.myReProvisionSearchForm.get('HLR').value;
 		const IMSIVal = this.myReProvisionSearchForm.get('IMSI').value;
 		const batchIDVal = this.myReProvisionSearchForm.get('batchID').value;
-		this.workFlowsService.ReprovisonEligibilitySearch(productTypeVal,productNameVal,HLRVal,IMSIVal,batchIDVal);
+		this.workFlowsService.ReprovisonEligibilitySearch(productTypeVal,productNameVal,HLRVal,IMSIVal,batchIDVal).subscribe(
+			data => { 
+				//	console.log(data);
+					this.successSearchShow = true;
+				},
+			err => console.error(err),
+			() => console.log('done ReprovisonEligibilitySearch')
+			);	
 	
   }
   }

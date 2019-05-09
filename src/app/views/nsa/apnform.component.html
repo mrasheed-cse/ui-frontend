@@ -6,9 +6,10 @@
 		<div class="card">
 		
 		<div class="alert alert-success" role="alert" *ngIf="successAlertShow">The New Work Request <b>{{WR_Name}}</b> {{successAlertMessage}}</div>
-			<div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">The New Work Request <b>{{WR_Name}}</b> {{dangerAlertMessage}}</div>
+		<div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">An Error occured to create <b>{{WR_Name}}</b> {{dangerAlertMessage}}</div>
 
 			<div class="card-header">
+				
 				<strong>New APN Creation</strong>
 			</div>
 			<form [formGroup]="myApnCreationForm" novalidate (ngSubmit)="onApnCreationSubmit()">

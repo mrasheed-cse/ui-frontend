@@ -7,7 +7,7 @@
 		
 			
 			<div class="alert alert-success" role="alert" *ngIf="successAlertShow">The New Work Request <b>{{WR_Name}}</b> {{successAlertMessage}}</div>
-			<div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">The New Work Request <b>{{WR_Name}}</b> {{dangerAlertMessage}}</div>
+			<div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">An Error occured to create <b>{{WR_Name}}</b> {{dangerAlertMessage}}</div>
 
 			<div class="card-header">
 				<strong>DE provisioning</strong>
@@ -44,7 +44,7 @@
 <!--
 						<div class="col-md-6">
 							<div class="form-group row">
-								<label class="col-md-5 col-form-label" for="simType">Sim Type</label>
+								<label class="col-md-5 col-form-label" for="simType">Provisioning Type</label>
 								<div class="col-md-7">
 									<select class="form-control" id="simType" formControlName="simType" required [ngClass]="{
 														'is-invalid': simType.invalid && (simType.dirty || simType.touched),
@@ -58,7 +58,7 @@
 
 
 								<div class="invalid-feedback" *ngIf="simType.errors && (simType.dirty || simType.touched)">
-									<p *ngIf="simType.errors.required">Sim Type required</p>
+									<p *ngIf="simType.errors.required">Provisioning Type required</p>
 
 								</div>
 

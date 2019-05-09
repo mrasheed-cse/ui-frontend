@@ -6,7 +6,7 @@
 		<div class="card">
 		
 		<div class="alert alert-success" role="alert" *ngIf="successAlertShow">The New Work Request <b>{{WR_Name}}</b> {{successAlertMessage}}</div>
-			<div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">The New Work Request <b>{{WR_Name}}</b> {{dangerAlertMessage}}</div>
+		<div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">An Error occured to create <b>{{WR_Name}}</b> {{dangerAlertMessage}}</div>
 
 			<div class="card-header">
 				<strong>Re Provisioning</strong>
@@ -64,8 +64,8 @@
 										<div class="invalid-feedback" *ngIf="startICCID.errors && (startICCID.dirty || startICCID.touched)">
 										  <p *ngIf="startICCID.errors.required">Start ICCID is required</p>
 										  <p *ngIf="startICCID.errors.pattern">ICCID contains only digits.</p>
-										  <p *ngIf="startICCID.errors.minlength">ICCID must be 8 digit long</p>
-										  <p *ngIf="startICCID.errors.maxlength">ICCID must be 8 digit long</p>
+										  <p *ngIf="startICCID.errors.minlength">ICCID must be 18 digit long</p>
+										  <p *ngIf="startICCID.errors.maxlength">ICCID must be 18 digit long</p>
 										</div>
 									  </div>
 							</div>
@@ -202,7 +202,7 @@
 						
 						<div class="col-md-6">
 							<div class="form-group row">
-								<label class="col-md-5 col-form-label" for="simType">Sim Type</label>
+								<label class="col-md-5 col-form-label" for="simType">Provisioning Type</label>
 								<div class="col-md-7">
 									<select class="form-control" id="simType" formControlName="simType" required [ngClass]="{
 														'is-invalid': simType.invalid && (simType.dirty || simType.touched),
@@ -216,7 +216,7 @@
 
 
 								<div class="invalid-feedback" *ngIf="simType.errors && (simType.dirty || simType.touched)">
-									<p *ngIf="simType.errors.required">Sim Type required</p>
+									<p *ngIf="simType.errors.required">Provisioning Type required</p>
 
 								</div>
 
@@ -234,7 +234,7 @@
 									<div class="col-md-7">									
 										<input type="text" class="form-control calendar-container" id="needByDate" formControlName="needByDate" name="needByDate" 
 										required bsDatepicker  placement="right"  
-										 [bsConfig]="{ dateInputFormat: 'dd-MM-yyyy', containerClass: 'theme-green' }"
+										 [bsConfig]="{ dateInputFormat: 'dd-MM-yyyy', containerClass: 'theme-green' ,  showWeekNumbers:false}"
 										 [minDate]="todayDate"
 										 value="{{ needByDate.value | date: 'dd-MM-yyyy' }}"
 										>

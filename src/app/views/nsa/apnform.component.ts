@@ -149,17 +149,17 @@ export class ApnformComponent implements OnInit {
   //{wr_id}/{userGroup_id}/{user_id}/[{workflowFieldsValueSeqWise}]
   this.workFlowsService.CreateNewWorkRequest(this._global.wrid_ApnCreation, this.groupID,this.userName,this.formFieldData).subscribe(
       res  =>  {
-		console.log('response is : '+res);
+				console.log('response is : '+res.message);
 		
-		if(res === true){
+				if(res !== ""){	
 			this.successAlertShow = true;
-			this.successAlertMessage = " has been created successfully.";			
+			this.successAlertMessage = " has been created successfully and forwarded to "+res.message+" .";
 		}
       },
       err  =>  {		  
 		  console.log("err.status : "+err.status);		  
 		  this.dangerAlertShow = true;
-		this.dangerAlertMessage = " could not be created.";		
+		this.dangerAlertMessage = " .";		
       }
 	  
       );
@@ -204,5 +204,6 @@ clearForm(event: any){
 		//console.log(event);
 		this.router.navigateByUrl('/nsa/apn');	
 	}
+	
   
 }

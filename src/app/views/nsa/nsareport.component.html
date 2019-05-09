@@ -9,7 +9,7 @@
           <div class="card-header">
             <div >
               <button type="button" class="btn btn-primary" (click)="isCollapsedSingle = !isCollapsedSingle"><i class="fa fa-star"></i>&nbsp; 
-              {{isCollapsedSingle === true ? 'Search for Individual MSISDN Report' : 'Hide Searching'}}</button>
+              {{isCollapsedSingle === true ? 'Search for Individual MSISDN Report' : 'Hide Individual Searching'}}</button>
             </div>
           </div>
           <div [collapse]="isCollapsedSingle" class="card-body">
@@ -39,7 +39,7 @@
                   <i class="fa fa-ban"></i> Reset</button>
             </div>
 					</div>
-        </div>
+        
         <div class="row" [hidden]="!defWRShow">
             <div class="col-md-12">
               <div class="card">
@@ -205,13 +205,14 @@
                       </div>
                     </div>
           </div>
+        </div>
       </form>
 
       <form [formGroup]="myBulkReportForm" novalidate (ngSubmit)="onBulkNumberReportSubmit()">
           <div class="card-header">
               <div >
                   <button type="button" class="btn btn-primary" (click)="isCollapsedBulk = !isCollapsedBulk"><i class="fa fa-star"></i>&nbsp; 
-                  {{isCollapsedBulk === true ? 'Search for Bulk MSISDN Report' : 'Hide Searching'}}</button>
+                  {{isCollapsedBulk === true ? 'Search for Bulk MSISDN Report' : 'Hide Bulk Searching'}}</button>
                 </div>
     
           </div>

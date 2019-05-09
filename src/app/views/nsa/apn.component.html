@@ -43,25 +43,19 @@
    </div>   
 <div class="col-md-6" *ngIf="successSearchShow">
 
-<h3><div *ngIf="_global.groupID_VDSO==groupID">Search Result of 
+<h3><div *ngIf="_global.groupID_VDSO==groupID && searchIsDoneByVDSO=='No'">Search Result of 
 
-<a [routerLink]="['/nsa/apndetails', searchWrID, searchWRNumber, 2]">
-							{{searchWrName}}</a></div></h3>
-<h3><div *ngIf="_global.groupID_VDSO!=groupID" >Search Result of {{searchWrName}}</div></h3>
+<a [routerLink]="['/nsa/apndetails', searchWrName,searchWrID, 2]">
+							{{searchWrName}}</a></div></h3><hr/>
+<h3><div *ngIf="_global.groupID_VDSO!=groupID || searchIsDoneByVDSO=='Yes'" >Search Result of {{searchWrName}}</div></h3>
 							
 <hr/>
-   <div class="row"><div class="col-md-3">Created By</div><div class="col-md-9">{{searchWrName}}</div></div><hr/>
-   <div class="row"><div class="col-md-3">Creation Date</div><div class="col-md-9">{{searchApnName}}</div></div><hr/>
-      
-   <div class="row" ><div class="col-md-3">Last Approver</div><div class="col-md-9">{{searchApnID}}</div></div>
- <hr/>
-   <div class="row" ><div class="col-md-3">Next Approver</div><div class="col-md-9">{{searchProductType}}</div></div><hr/>
-  
-  
-   <div class="row" ><div class="col-md-3">Completed By</div><div class="col-md-9">{{searchIsDoneByVDSO}}</div></div><hr/>
-   
-   
-	</div>   	  
+   <div class="row"><div class="col-md-5">Work Request Name</div><div class="col-md-7">{{searchWrName}}</div></div><hr/>
+   <div class="row"><div class="col-md-5">APN Name</div><div class="col-md-7">{{searchApnName}}</div></div><hr/>   
+   <div class="row" ><div class="col-md-5">APN ID</div><div class="col-md-7">{{searchApnID}}</div></div> <hr/>
+   <div class="row" ><div class="col-md-5">Product Type</div><div class="col-md-7">{{searchProductType}}</div></div><hr/>  
+   <div class="row" ><div class="col-md-5">VDSO Approval</div><div class="col-md-7">{{searchIsDoneByVDSO}}</div></div><hr/>
+  </div>   	  
 		</div>   	  
     </div>
 	

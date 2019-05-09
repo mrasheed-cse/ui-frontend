@@ -41,25 +41,24 @@ export class DiscreteprovisionformComponent implements OnInit {
 	currentLoggedInUser: LoggedInUser;
 	userName: string;
 	groupID: number;	
-	
-	
+		
 	public dangerAlertShow:boolean = false;
 	public dangerAlertMessage:string = "";
 	public successAlertShow:boolean = false;
 	public successAlertMessage:string = "";
 
 
-	
-	myDescProvisionForm: FormGroup;
+	myDiscProvisionForm: FormGroup;
 	productType: FormControl;
 	productName: FormControl;
 	quantity: FormControl;		
-	reProvisionFile: FormControl;	
+	discProvisionFile: FormControl;	
 	startICCID: FormControl;
 	startICCID19: FormControl;	
 	endICCID: FormControl;
 	startIMSI: FormControl;
 	endIMSI: FormControl;
+	simType: FormControl;
 	zone: FormControl;	
 	needByDate: FormControl;
 	srcComment: FormControl;	
@@ -76,12 +75,10 @@ export class DiscreteprovisionformComponent implements OnInit {
   public listServiceClass = [];
   public listCommunityID = [];
   public listZone = [];
-  
-  //listZone = [{'id':1, 'name':'Dhaka'}, {'id':2, 'name': 'Ctd'}, {'id':3, 'name': 'Khulna'}];
-
 
 constructor(private router: Router,private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private definitionDataService: DefinitionDataService, private workFlowsService: WorkflowsService, private fileoperationService: FileoperationService) {
-	  
+		
+	//window.location.reload();
 	// Get Current User Profile
 	
 	this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
@@ -171,7 +168,7 @@ constructor(private router: Router,private loginService: LoginService, private h
 					}		
 				},
 			err => console.error(err),
-			() => console.log('done loading sim Type Name List')
+			() => console.log('done loading Provisioning Type Name List')
 			);
 
 		//Get Today Date
@@ -186,40 +183,43 @@ constructor(private router: Router,private loginService: LoginService, private h
   }
 
   createFormControls() {
-    this.reProvisionFile = new FormControl('', Validators.required);
-	this.quantity =	new FormControl('');
-	this.startICCID = new FormControl('', [
-		Validators.required,
-		Validators.minLength(8) ,
-		Validators.maxLength(8)
-	]);
-	this.startICCID19 = 	new FormControl({value: '', disabled: true}, Validators.required);	
-	this.endICCID = 	new FormControl({value: '', disabled: true}, Validators.required);	
-	this.startIMSI = 	new FormControl({value: '', disabled: true}, Validators.required);	
-	this.endIMSI = 	new FormControl({value: '', disabled: true}, Validators.required);	
-	this.productType = new FormControl('', [Validators.required]);
-	this.productName= new FormControl('', Validators.required);
-	this.zone= new FormControl('');
-	this.needByDate = new FormControl('');
-	this.srcComment= new FormControl('');
+    this.discProvisionFile = new FormControl('', Validators.required);
+		this.quantity =	new FormControl('');
+		this.startICCID = new FormControl('', [
+			Validators.required,
+			Validators.minLength(18) ,
+			Validators.maxLength(18)
+		]);
+		this.startICCID19 = 	new FormControl({value: '123', disabled: true}, Validators.required);	
+		this.endICCID = 	new FormControl({value: '', disabled: true}, Validators.required);	
+		this.startIMSI = 	new FormControl({value: '', disabled: true}, Validators.required);	
+		this.endIMSI = 	new FormControl({value: '', disabled: true}, Validators.required);	
+		this.productType = new FormControl('', [Validators.required]);
+		this.productName= new FormControl('', Validators.required);		
+		this.zone= new FormControl('');
+		this.simType = new  FormControl('');
+		this.needByDate = new FormControl('');
+		this.srcComment= new FormControl('');
   }
 
   createForm() {
-    this.myDescProvisionForm = new FormGroup({
-		reProvisionFile: this.reProvisionFile,		
-		quantity: this.quantity,
-		startICCID: this.startICCID,
-		startICCID19: this.startICCID19,
-		endICCID: this.endICCID,
-		startIMSI: this.startIMSI,
-		endIMSI: this.endIMSI,		
-		productType: this.productType,
-		productName: this.productName,
-		zone: this.zone,
-		needByDate: this.needByDate,
-		srcComment: this.srcComment
-
-    });
+    
+		this.myDiscProvisionForm = new FormGroup({
+			productType: this.productType,
+			productName: this.productName,			
+			quantity: this.quantity,
+			discProvisionFile: this.discProvisionFile,		
+			startICCID: this.startICCID,
+			startICCID19: this.startICCID19,
+			endICCID: this.endICCID,
+			startIMSI: this.startIMSI,
+			endIMSI: this.endIMSI,	
+			zone: this.zone,
+			simType: this.simType,
+			needByDate: this.needByDate,
+			srcComment: this.srcComment
+	
+			});
   }
   
  // event handler for the select element's change event
@@ -229,8 +229,8 @@ constructor(private router: Router,private loginService: LoginService, private h
 	const selectedProductID = event.target.value;
 	// const selectedProductName = event.target.name;
 	//console.log(selectedProductID);
-	//this.myDescProvisionForm.get('serviceClassName').setValue(this.listServiceClass[selectedProductID]);
-	//this.myDescProvisionForm.get('communityID').setValue(this.listCommunityID[selectedProductID]);
+	//this.myDiscProvisionForm.get('serviceClassName').setValue(this.listServiceClass[selectedProductID]);
+	//this.myDiscProvisionForm.get('communityID').setValue(this.listCommunityID[selectedProductID]);
   }
   
   
@@ -263,24 +263,25 @@ onStartICCIDChanges() {
   
 	var lastDigit: string;
 	
-    this.myDescProvisionForm.get('startICCID').valueChanges
+    this.myDiscProvisionForm.get('startICCID').valueChanges
     .subscribe(selectedStartICCID => {        		
-		lastDigit = this.definitionDataService.LuhnAlgorithmFor19thDigit(selectedStartICCID);
-			
-			
+		
+			lastDigit = this.definitionDataService.LuhnAlgorithmFor19thDigit(selectedStartICCID);
+						
 			var startICCIDval = selectedStartICCID +lastDigit;
-			var totalQuantity = this.myDescProvisionForm.get('quantity').value;			
-			var endICCIDval = (Number(startICCIDval)+totalQuantity).toString();
+			var totalQuantity = this.myDiscProvisionForm.get('quantity').value;		
+			
+			var endICCIDval = this.definitionDataService.LongNumberAddition(startICCIDval,totalQuantity+"");
 			
 			var startIMSIval = '47001'+selectedStartICCID.substr(8,10);
-			var endIMSIval = (Number(startIMSIval)+totalQuantity).toString();
+			var endIMSIval = this.definitionDataService.LongNumberAddition(startIMSIval,totalQuantity+"");
 			
-			this.myDescProvisionForm.get('startICCID19').setValue(startICCIDval);
-			this.myDescProvisionForm.get('endICCID').setValue(endICCIDval);
+			this.myDiscProvisionForm.get('startICCID19').setValue(startICCIDval);
+			this.myDiscProvisionForm.get('endICCID').setValue(endICCIDval);
 			
-			this.myDescProvisionForm.get('startIMSI').setValue(startIMSIval);
-			this.myDescProvisionForm.get('endIMSI').setValue(endIMSIval);
-        
+			this.myDiscProvisionForm.get('startIMSI').setValue(startIMSIval);
+			this.myDiscProvisionForm.get('endIMSI').setValue(endIMSIval);
+			        
     });
 	
 	
@@ -288,11 +289,11 @@ onStartICCIDChanges() {
 
 	
   // FORM SUBMISSION
-  onReProvisionSubmit() {
+  onDiscProvisionSubmit() {
 	 
-  if (this.myDescProvisionForm.valid) {
+  if (this.myDiscProvisionForm.valid) {
     console.log('Form Submitted!');
-    console.log(this.myDescProvisionForm.value);
+    console.log(this.myDiscProvisionForm.value);
 
   }
   
@@ -304,7 +305,7 @@ onStartICCIDChanges() {
   fd.append('nsa-file',this.selectedFile,this.fileName+".csv");// File Name will be the WR_Name in server
   console.log(this.selectedFile.name);
   
-  this.LogKeyValuePairs(this.myDescProvisionForm);
+  this.LogKeyValuePairs(this.myDiscProvisionForm);
   console.log(this.formFieldData);
   
   var result = this.fileoperationService.uploadCSV(fd);
@@ -317,12 +318,12 @@ onStartICCIDChanges() {
   
   this.workFlowsService.CreateNewWorkRequest(this._global.wrid_DescProvisioning, this.groupID,this.userName,this.formFieldData).subscribe(
       res  =>  {
-		console.log('response is : '+res);
+				console.log('response is : '+res.message);
 		
-		if(res === true){
-			this.successAlertShow = true;
-			this.successAlertMessage = " has been created successfully.";
-		}
+				if(res !== ""){	
+					this.successAlertShow = true;
+					this.successAlertMessage = " has been created successfully and forwarded to "+res.message+". ";
+				}
       },
       err  =>  {		  
 		  console.log("err.status : "+err.status);		  
@@ -330,7 +331,10 @@ onStartICCIDChanges() {
 		this.dangerAlertMessage = " could not be created.";
       }
 	  
-      );
+			);
+			
+
+
 }
 
 
@@ -355,15 +359,14 @@ LogKeyValuePairs(group: FormGroup): void {
 		  if (key == 'needByDate'){
 			  this.formFieldData=this.formFieldData+","+this.FormatTheDate(abstractControl.value);
 		  }
-		  else if (key == 'reProvisionFile'){
+		  else if (key == 'discProvisionFile'){
 			  this.formFieldData=this.formFieldData+","+this._global.wrid_FileUploadPath+this.fileName+".csv";
 		  }
 		  else
 			this.formFieldData=this.formFieldData+","+abstractControl.value;
 	  }
 		else {
-			//this.myReProvisionForm.get(key).setValue("TOTOTOTO");
-			//console.log("Key : "+key+" , Value : "+abstractControl.value);
+		
 			this.formFieldData=abstractControl.value;
 		}
 		
@@ -390,11 +393,11 @@ clearForm(event: any){
 		//console.log(event);
 		this.dangerAlertShow = false;
 		this.successAlertShow = false;	
-		this.myDescProvisionForm.reset();		
+		this.myDiscProvisionForm.reset();		
 	}
  backButton(event: any){
 		//console.log(event);
-		this.router.navigateByUrl('/nsa/reprovisionsearch');	
+		this.router.navigateByUrl('/nsa/discreteprovision');	
 	}
   
 }

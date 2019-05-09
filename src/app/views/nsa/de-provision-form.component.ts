@@ -113,7 +113,7 @@ WR_Name: string;
 					}		
 				},
 			err => console.error(err),
-			() => console.log('done loading sim Type Name List')
+			() => console.log('done loading Provisioning Type Name List')
 			);
 		*/
 }
@@ -169,18 +169,19 @@ WR_Name: string;
   
   this.workFlowsService.CreateNewWorkRequest(this._global.wrid_DeProvisioning, this.groupID,this.userName,this.formFieldData).subscribe(
       res  =>  {
-		console.log('response is : '+res);
+		console.log('response is : '+res.message);
 		
-		if(res === true){
+
+		if(res !== ""){	
 			this.successAlertShow = true;
-			this.successAlertMessage = " has been created successfully.";
+			this.successAlertMessage = " has been created successfully and forwarded to "+res.message+" .";
 //			this.isLoading = false;
 		}
       },
       err  =>  {		  
 		  console.log("err.status : "+err.status);		  
 		  this.dangerAlertShow = true;
-		this.dangerAlertMessage = " could not be created.";
+		this.dangerAlertMessage = " .";
 //		this.isLoading = false;
       }
 	  

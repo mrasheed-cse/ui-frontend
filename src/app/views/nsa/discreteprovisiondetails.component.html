@@ -7,11 +7,11 @@
     <div class="col-md-10">
       <div class="card">
       <div class="alert alert-success" role="alert" *ngIf="successAlertShow">The Work Request <b>{{wrBriefName}}</b> {{successAlertMessage}}</div>
-        <div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">The Work Request <b>{{wrBriefName}}</b> {{dangerAlertMessage}}</div>
+      <div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">An Error occured to create <b>{{WR_Name}}</b> {{dangerAlertMessage}}</div>
   
       
         <div class="card-header">
-          <strong>Re-Provision:: {{wrBriefName}}</strong>
+          <strong>Discrete-Provision:: {{wrBriefName}}</strong>
         </div>
         <!--Current Hop Sequence {{hop_sequence}} var newstr = str.replace(re, "oranges"); -->
         <div class="card-body">
@@ -23,7 +23,7 @@
                         {{fieldNameValueList[idx].fieldName}}</div>
                       <div class="col-md-7">
                         <input disabled type="text" class="form-control calendar-container"
-                        value="{{fieldNameValueList[idx].fieldValue}}"></div>
+                        value="{{fieldNameValueList[idx].fieldValue.replace(_global.wrid_FileUploadPath, '')}}"></div>
                     </div>
                   </div>
                   <div class="col-md-6" *ngIf="fieldNameValueList[idx+1].fieldName">
@@ -39,25 +39,25 @@
               </div>
             </div>
             <div class="row">
-                <div *ngIf="hop_sequence==2 || hop_sequence==3">
+                <div *ngIf="groupID==_global.groupID_Wipro_Billing || groupID==_global.groupID_CIM">
                   <button type="button" class="btn btn-link" (click)="downloadCSVFiles('ADC_File_')">
                     <i class="fa fa-link" ></i>ADC File Download</button>
                 </div>
-                <div *ngIf="hop_sequence==3">
+                <div *ngIf="groupID==_global.groupID_CIM">
                   <button type="button" class="btn btn-link" (click)="downloadCSVFiles('BPP_File_')">
                     <i class="fa fa-link" ></i>BPP File Download</button>
                 </div>
-                <div *ngIf="hop_sequence==3">
+                <div *ngIf="groupID==_global.groupID_CIM">
                   <button type="button" class="btn btn-link" (click)="downloadCSVFiles('MSISDN_Loading_file_')">
                     <i class="fa fa-link" ></i>MSISDN Loading File Download</button>
                 </div>
-                <div *ngIf="hop_sequence==2">
+                <div *ngIf="groupID==_global.groupID_Wipro_Billing">
                   <button type="button" class="btn btn-link" (click)="downloadCSVFiles('_in')">
-                    <i class="fa fa-link" ></i>Download File</button>
+                    <i class="fa fa-link" ></i>Download IN File</button>
                 </div>
-                <div *ngIf="hop_sequence==4">
+                <div *ngIf="groupID==_global.groupID_RAFM">
                   <button type="button" class="btn btn-link" (click)="downloadCSVFiles('_rafm')">
-                    <i class="fa fa-link" ></i>Download File</button>
+                    <i class="fa fa-link" ></i>Download RAFM File</button>
                 </div>
               </div>
         

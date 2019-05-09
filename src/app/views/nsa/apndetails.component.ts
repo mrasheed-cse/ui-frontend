@@ -138,7 +138,7 @@ LoadPreviousHopsData(){
 
 backButton(event: any){
 		//console.log(event);
-		this.router.navigateByUrl('/nsa/reprovision');	
+		this.router.navigateByUrl('/nsa/apn');	
 	}
 onDoneClick(event: any){
 		//console.log(event);
@@ -148,9 +148,9 @@ onDoneClick(event: any){
 			this.isDone = true;
 		  this.workFlowsService.UpdateExistiongWorkRequest(this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName),this._global.wrid_ApnCreation, this.groupID,this.userName,this.hop_sequence,"Done",this.isDone).subscribe(
       res  =>  {
-		console.log('response is : '+res);
+		console.log('response is : '+res.message);
 		
-		if(res === true){
+		if(res !== ""){	
 			this.isLoading = false;
 			this.successAlertShow = true;
 			if(this.hop_sequence==2)
@@ -162,7 +162,7 @@ onDoneClick(event: any){
       err  =>  {		  
 		  console.log("err.status : "+err.status);		  
 		  this.dangerAlertShow = true;
-		this.dangerAlertMessage = " could not be saved.";
+		this.dangerAlertMessage = " .";
 		this.isLoading = false;
       }
 	  

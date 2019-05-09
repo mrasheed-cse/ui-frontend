@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { environment } from '../../../environments/environment.prod';
 import { DefinitionDataService } from './services/definitiondata.service';
 import { WorkflowsService } from './services/workflows.service';
+import { FileoperationService } from './services/fileoperation.service';
 import { Observable } from 'rxjs/Observable';
 
 import 'rxjs/add/operator/map';
@@ -29,7 +30,7 @@ import { LoggedInUser } from '../pages/loggedInUser';
   selector: 'app-seriesprovisiondetail',
   templateUrl: './seriesprovisiondetail.component.html',
   styles: [],
-  providers: [WorkflowsService,AppGlobals,LoginService]
+  providers: [WorkflowsService,AppGlobals,LoginService,FileoperationService]
 })
 export class SeriesprovisiondetailComponent implements OnInit {
 
@@ -60,7 +61,7 @@ export class SeriesprovisiondetailComponent implements OnInit {
 
 	
 	
-  constructor(private loginService: LoginService,private activatedRoute: ActivatedRoute, private router:Router, private _global: AppGlobals, private workFlowsService: WorkflowsService) {
+  constructor(private loginService: LoginService,private activatedRoute: ActivatedRoute, private router:Router, public _global: AppGlobals, private workFlowsService: WorkflowsService, private fileoperationService: FileoperationService) {
 	  
 	// Get Current User Profile
 	
@@ -147,29 +148,74 @@ onDoneClick(event: any){
 			this.isDone = true;
 		  this.workFlowsService.UpdateExistiongWorkRequest(this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName),this._global.wrid_NumberSeriesProvisioning, this.groupID,this.userName,this.hop_sequence,"",this.isDone).subscribe(
       res  =>  {
-		console.log('response is : '+res);
+		console.log('response is : '+res.message);
 		
-		if(res === true){
+		
+
+		
+
+		if(res !== ""){	
 			this.isLoading = false;
 			this.successAlertShow = true;
 			if(this.hop_sequence==3)
 				this.successAlertMessage = " has been completed successfully.";
 			else
-				this.successAlertMessage = " has been saved successfully.";
+				  this.successAlertMessage = " has been saved successfully ";
+				  
+			  if(res.message!=""){
+				  this.successAlertMessage = this.successAlertMessage +"	and forwarded to "+res.message+" .";
+			  }
 		}
+
       },
       err  =>  {		  
 		  console.log("err.status : "+err.status);		  
 		  this.dangerAlertShow = true;
-		this.dangerAlertMessage = " could not be saved.";
+		this.dangerAlertMessage = " .";
 		this.isLoading = false;
       }
 	  
       );
-	  
-	  
 		
 	}  
+
+	downloadCSVFiles(requiredFile: string) {
+
+		var nameOfFileToDownload;
+
+		if(requiredFile.endsWith('_')){
+			nameOfFileToDownload = requiredFile+this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName)+".csv";
+
+		} else if (requiredFile.startsWith('_')){
+			nameOfFileToDownload = this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName)+requiredFile+".csv";
+		}
+		console.log("Download File Name : "+nameOfFileToDownload);
+	
+		var result = this.fileoperationService.downloadCSV(nameOfFileToDownload);
+		console.log(result);
+		result.subscribe(
+			data => {
+				console.log("ToTOOO");
+				console.log(data);
+					
+				var blob = new Blob([data], { type: 'text/csv' });
+	 
+				if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+					window.navigator.msSaveOrOpenBlob(blob, nameOfFileToDownload);
+				} else {
+						var a = document.createElement('a');
+						a.href = URL.createObjectURL(blob);
+						a.download = nameOfFileToDownload;
+						document.body.appendChild(a);
+						a.click();
+						document.body.removeChild(a);
+					}
+				},
+				err => {
+					alert("Server error while downloading file.");
+				}
+			);
+	}
 	
   
 }

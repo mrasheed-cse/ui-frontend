@@ -174,7 +174,7 @@ constructor(private router: Router,private loginService: LoginService, private h
 					}		
 				},
 			err => console.error(err),
-			() => console.log('done loading sim Type Name List')
+			() => console.log('done loading Provisioning Type Name List')
 			);	
 		//Get Today Date
 		this.todayDate = new Date();
@@ -194,8 +194,8 @@ constructor(private router: Router,private loginService: LoginService, private h
 	this.quantity =	new FormControl('');
 	this.startICCID = new FormControl('', [
 		Validators.required,
-		Validators.minLength(8) ,
-		Validators.maxLength(8)
+		Validators.minLength(18) ,
+		Validators.maxLength(18)
 	]);
 	this.startICCID19 = 	new FormControl({value: '', disabled: true}, Validators.required);	
 	this.endICCID = 	new FormControl({value: '', disabled: true}, Validators.required);	

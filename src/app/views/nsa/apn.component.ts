@@ -125,7 +125,10 @@ datepickerConfig: Partial<BsDatepickerConfig>;
 	
 	this.workFlowsService.APNSearchWorkRequest(this._global.wrid_ApnCreation,this.apnName.value).subscribe(
       res  =>  {
-		console.log('response is : '+res);
+				console.log('response is : '+res.message);
+		
+
+				if(res !== ""){	
 		this.successSearchShow = true;	
 		
 		this.searchWrID=res["wrID"];
@@ -134,7 +137,9 @@ datepickerConfig: Partial<BsDatepickerConfig>;
 		this.searchApnID=res["apnID"];
 		this.searchProductType=res["productType"];
 		this.searchIsDoneByVDSO=res["isVDSODone"];
-		
+		console.log(this.searchWrID);
+		console.log(this.searchWrName);
+				}
       },
       err  =>  {		  
 		  console.log("err.status : "+err.status);		  

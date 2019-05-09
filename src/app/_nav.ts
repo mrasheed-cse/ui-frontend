@@ -24,10 +24,20 @@ export const navigation_grpID_Wipro_CIM = [
     name: 'Work Requests'
   },
   {
-        name: 'ReProvision',
-        url: '/nsa/reprovision',
+        name: 'Provision',
+        url: '/nsa/seriesprovision',
         icon: 'icon-cursor'
-      }
+      },
+      {
+            name: 'ReProvision',
+            url: '/nsa/reprovision',
+            icon: 'icon-cursor'
+          },
+          {
+                name: 'Discrete Provision',
+                url: '/nsa/discprovision',
+                icon: 'icon-cursor'
+              }
 ];
 
 

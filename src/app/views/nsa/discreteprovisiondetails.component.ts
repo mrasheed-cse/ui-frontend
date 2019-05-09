@@ -59,7 +59,7 @@ import {
   
 	  
 	  
-	constructor(private loginService: LoginService,private activatedRoute: ActivatedRoute, private router:Router, private _global: AppGlobals, private workFlowsService: WorkflowsService, private fileoperationService: FileoperationService) {
+	constructor(private loginService: LoginService,private activatedRoute: ActivatedRoute, private router:Router, public _global: AppGlobals, private workFlowsService: WorkflowsService, private fileoperationService: FileoperationService) {
 		
 	  // Get Current User Profile
 	  
@@ -146,21 +146,25 @@ import {
 			  this.isDone = true;
 			this.workFlowsService.UpdateExistiongWorkRequest(this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName),this._global.wrid_DescProvisioning, this.groupID,this.userName,this.hop_sequence,"",this.isDone).subscribe(
 		res  =>  {
-		  console.log('response is : '+res);
+			console.log('response is : '+res.message);
 		  
-		  if(res === true){
+		  if(res !== ""){	
 			  this.isLoading = false;
 			  this.successAlertShow = true;
 			  if(this.hop_sequence==3)
 				  this.successAlertMessage = " has been completed successfully.";
 			  else
-				  this.successAlertMessage = " has been saved successfully.";
+					this.successAlertMessage = " has been saved successfully ";
+					
+				if(res.message!=""){
+					this.successAlertMessage = this.successAlertMessage +"	and forwarded to "+res.message+" .";
+				}
 		  }
 		},
 		err  =>  {		  
 			console.log("err.status : "+err.status);		  
 			this.dangerAlertShow = true;
-		  this.dangerAlertMessage = " could not be saved.";
+		  this.dangerAlertMessage = " .";
 		  this.isLoading = false;
 		}
 		

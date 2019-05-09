@@ -174,7 +174,7 @@ constructor(private router: Router,private loginService: LoginService, private h
 					}		
 				},
 			err => console.error(err),
-			() => console.log('done loading sim Type Name List')
+			() => console.log('done loading Provisioning Type Name List')
 			);
 
 		//Get Today Date
@@ -193,8 +193,8 @@ constructor(private router: Router,private loginService: LoginService, private h
 	this.quantity =	new FormControl('');
 	this.startICCID = new FormControl('', [
 		Validators.required,
-		Validators.minLength(8) ,
-		Validators.maxLength(8)
+		Validators.minLength(18) ,
+		Validators.maxLength(18)
 	]);
 	this.startICCID19 = 	new FormControl({value: '', disabled: true}, Validators.required);	
 	this.endICCID = 	new FormControl({value: '', disabled: true}, Validators.required);	
@@ -286,23 +286,25 @@ onStartICCIDChanges() {
 	
     this.myReProvisionForm.get('startICCID').valueChanges
     .subscribe(selectedStartICCID => {        		
-		lastDigit = this.definitionDataService.LuhnAlgorithmFor19thDigit(selectedStartICCID);
+		 lastDigit = this.definitionDataService.LuhnAlgorithmFor19thDigit(selectedStartICCID);
 			
 			
-			var startICCIDval = selectedStartICCID +lastDigit;
-			var totalQuantity = this.myReProvisionForm.get('quantity').value;			
-			var endICCIDval = (Number(startICCIDval)+totalQuantity).toString();
-			
-			var startIMSIval = '47001'+selectedStartICCID.substr(8,10);
-			var endIMSIval = (Number(startIMSIval)+totalQuantity).toString();
-			
-			this.myReProvisionForm.get('startICCID19').setValue(startICCIDval);
-			this.myReProvisionForm.get('endICCID').setValue(endICCIDval);
-			
-			this.myReProvisionForm.get('startIMSI').setValue(startIMSIval);
-			this.myReProvisionForm.get('endIMSI').setValue(endIMSIval);
-        
-    });
+	 var startICCIDval = selectedStartICCID +lastDigit;
+	 var totalQuantity = this.myReProvisionForm.get('quantity').value;		
+	 
+	 var endICCIDval = this.definitionDataService.LongNumberAddition(startICCIDval,totalQuantity+"");
+	 
+	 var startIMSIval = '47001'+selectedStartICCID.substr(8,10);
+	 var endIMSIval = this.definitionDataService.LongNumberAddition(startIMSIval,totalQuantity+"");
+	 
+	 this.myReProvisionForm.get('startICCID19').setValue(startICCIDval);
+	 this.myReProvisionForm.get('endICCID').setValue(endICCIDval);
+	 
+	 this.myReProvisionForm.get('startIMSI').setValue(startIMSIval);
+	 this.myReProvisionForm.get('endIMSI').setValue(endIMSIval);
+		}
+	
+	);
 	
 	
 }
@@ -338,17 +340,17 @@ onStartICCIDChanges() {
   
   this.workFlowsService.CreateNewWorkRequest(this._global.wrid_ReProvisioning, this.groupID,this.userName,this.formFieldData).subscribe(
       res  =>  {
-		console.log('response is : '+res);
+		console.log('response is : '+res.message);
 		
-		if(res === true){
+		if(res !== ""){	
 			this.successAlertShow = true;
-			this.successAlertMessage = " has been created successfully.";
+			this.successAlertMessage = " has been created successfully and forwarded to "+res.message+". ";
 		}
       },
       err  =>  {		  
 		  console.log("err.status : "+err.status);		  
 		  this.dangerAlertShow = true;
-		this.dangerAlertMessage = " could not be created.";
+		this.dangerAlertMessage = " .";
       }
 	  
       );

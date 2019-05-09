@@ -321,11 +321,11 @@ LoadPreviousHopsData(){
   //{wr_id}/{userGroup_id}/{user_id}/[{workflowFieldsValueSeqWise}]
   this.workFlowsService.UpdateExistiongWorkRequest(this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName),this._global.wrid_NumberSeriesDefinition, this.groupID,this.userName,this.hop_sequence,this.formFieldData,this.isDone).subscribe(
       res  =>  {
-		console.log('response is : '+res);
+		console.log('response is : '+res.message);
 		
-		if(res === true){
+		if(res !== ""){	
 			this.successAlertShow = true;
-			this.successAlertMessage = " has been saved successfully.";
+			this.successAlertMessage = " has been saved successfully and forwarded to "+res.message+" .";
 			this.isDoneDisable = true;
 			this.isLoading = false;
 		}
@@ -333,7 +333,7 @@ LoadPreviousHopsData(){
       err  =>  {		  
 		  console.log("err.status : "+err.status);		  
 		  this.dangerAlertShow = true;
-		this.dangerAlertMessage = " could not be saved.";
+		this.dangerAlertMessage = " .";
 		this.isLoading = false;
       }
 	  
@@ -389,21 +389,21 @@ onDoneClick(event: any){
 			this.isDone = true;
 		  this.workFlowsService.UpdateExistiongWorkRequest(this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName),this._global.wrid_NumberSeriesDefinition, this.groupID,this.userName,this.hop_sequence,this.formFieldData,this.isDone).subscribe(
       res  =>  {
-		console.log('response is : '+res);
+		console.log('response is : '+res.message);
 		
-		if(res === true){
+		if(res !== ""){	
 			this.isLoading = false;
 			this.successAlertShow = true;
 			if(this.hop_sequence==5)
 				this.successAlertMessage = " has been completed successfully.";
 			else
-				this.successAlertMessage = " has been saved successfully.";
+				this.successAlertMessage = " has been saved successfully and forwarded to "+res.message+".";
 		}
       },
       err  =>  {		  
 		  console.log("err.status : "+err.status);		  
 		  this.dangerAlertShow = true;
-		this.dangerAlertMessage = " could not be saved.";
+		this.dangerAlertMessage = " .";
 		this.isLoading = false;
       }
 	  

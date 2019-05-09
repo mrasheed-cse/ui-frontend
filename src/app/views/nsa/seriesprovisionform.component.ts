@@ -130,7 +130,7 @@ export class SeriesprovisionformComponent implements OnInit {
 					}		
 				},
 			err => console.error(err),
-			() => console.log('done loading sim Type Name List')
+			() => console.log('done loading Provisioning Type Name List')
 			);
 
 		//Get Today Date
@@ -164,8 +164,8 @@ export class SeriesprovisionformComponent implements OnInit {
 	this.sdp = 	new FormControl({value: '', disabled: true}, Validators.required);
 	this.startICCID = new FormControl('', [
 		Validators.required,
-		Validators.minLength(8) ,
-		Validators.maxLength(8)
+		Validators.minLength(18) ,
+		Validators.maxLength(18)
 	]);
 	this.startICCID19 = 	new FormControl({value: '', disabled: true}, Validators.required);	
 	this.endICCID = 	new FormControl({value: '', disabled: true}, Validators.required);	
@@ -335,18 +335,18 @@ onStartICCIDChanges() {
   //{wr_id}/{userGroup_id}/{user_id}/[{workflowFieldsValueSeqWise}]
   this.workFlowsService.CreateNewWorkRequest(this._global.wrid_NumberSeriesProvisioning, this.groupID,this.userName,this.formFieldData).subscribe(
       res  =>  {
-		console.log('response is : '+res);
+		console.log('response is : '+res.message);
 		
-		if(res === true){
+		if(res !== ""){	
 			this.successAlertShow = true;
-			this.successAlertMessage = " has been created successfully.";
+			this.successAlertMessage = " has been created successfully and forwarded to "+res.message+". ";
 			this.isLoading = false;
 		}
       },
       err  =>  {		  
 		  console.log("err.status : "+err.status);		  
 		  this.dangerAlertShow = true;
-		this.dangerAlertMessage = " could not be created.";
+		this.dangerAlertMessage = " .";
 		this.isLoading = false;
       }
 	  

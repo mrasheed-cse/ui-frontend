@@ -113,20 +113,24 @@ import {
 			this.isDone = true;
 		this.workFlowsService.UpdateExistiongWorkRequest(this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName),this._global.wrid_MnpReProvisioning, this.groupID,this.userName,this.hop_sequence,"",this.isDone).subscribe(
 		res  =>  {
-		  console.log('response is : '+res);
-		  if(res === true){
+			console.log('response is : '+res);
+			
+			
+
+
+			if(res !== ""){	
 			  this.isLoading = false;
 			  this.successAlertShow = true;
 			  if(this.hop_sequence==3)
 				  this.successAlertMessage = " has been completed successfully.";
 			  else
-				  this.successAlertMessage = " has been saved successfully.";
+				  this.successAlertMessage = " has been saved successfully and forwarded to "+res+" .";
 		  }
 		},
 		err  =>  {		  
 			console.log("err.status : "+err.status);		  
 			this.dangerAlertShow = true;
-		  this.dangerAlertMessage = " could not be saved.";
+		  this.dangerAlertMessage = " .";
 		  this.isLoading = false;
 		}
 		);
