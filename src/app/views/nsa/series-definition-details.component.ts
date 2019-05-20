@@ -307,10 +307,18 @@ LoadPreviousHopsData(){
 	this.mySeriesDefinitionForm.get('SK').setValue(Number(selectedSDPName)+8000-1);
   }
 
-  onSeriesProvisionSubmit() {
-	 
-   if (this.mySeriesDefinitionForm.valid) {
+  topFunction() {
+	document.body.scrollTop = 0; // For Safari
+	document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+}
+
+// FORM SUBMISSION
+onSeriesProvisionSubmit() {
+ 
+if (this.mySeriesDefinitionForm.valid) {
+	this.topFunction();
 	   this.isLoading = true;
+	   this.isDoneDisable = true;
 	
     //console.log('Form Submitted!');
     //console.log(this.mySeriesDefinitionForm.value);
@@ -326,7 +334,7 @@ LoadPreviousHopsData(){
 		if(res !== ""){	
 			this.successAlertShow = true;
 			this.successAlertMessage = " has been saved successfully and forwarded to "+res.message+" .";
-			this.isDoneDisable = true;
+			
 			this.isLoading = false;
 		}
       },
@@ -376,10 +384,11 @@ clearForm(event: any){
 	}  
 	backButton(event: any){
 		//console.log(event);
-		this.router.navigateByUrl('/nsa/seriesprovision');	
+		this.router.navigateByUrl('/nsa/seriesdefinition');	
 	}
 onDoneClick(event: any){
 		//console.log(event);
+		this.topFunction();
 		this.isLoading = true;
 		this.successAlertShow = false;
 		this.dangerAlertShow = false;

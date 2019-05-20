@@ -14,17 +14,21 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="icon-user"></i></span>
                 </div>
-                <input type="text" class="form-control" placeholder="Username" [(ngModel)]="username"  [ngModelOptions]="{standalone: true}">
+                <input type="text" class="form-control" placeholder="Username" [(ngModel)]="username"  [ngModelOptions]="{standalone: true}" (keyup.enter)="ValidateUser()">
               </div>
               <div class="input-group mb-4">
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="icon-lock"></i></span>
                 </div>
-                <input type="password" class="form-control" placeholder="Password" [(ngModel)]="password"  [ngModelOptions]="{standalone: true}">
+                <input type="password" class="form-control" placeholder="Password" [(ngModel)]="password"  [ngModelOptions]="{standalone: true}" (keyup.enter)="ValidateUser()">
               </div>
               <div class="row">
                 <div class="col-6">
-                  <button type="button" class="btn btn-primary px-4" (click)= "ValidateUser()">Login</button>
+                  <button type="button" class="btn btn-primary px-4" (click)= "ValidateUser()" >Login</button>
+                 
+                  <i class="fa fa-spinner fa-pulse fa-3x fa-fw" *ngIf="isLoading"></i>
+
+
                 </div>
                 <div class="col-6 text-right">
                  <!-- <button type="button" class="btn btn-link px-0">Forgot password?</button>-->
@@ -33,7 +37,15 @@
 				<div *ngIf="!isValidUser">
 				<div class="alert alert-danger">
 				  Please provide correct username and password.
-				</div>
+        </div>
+<!--        <div *ngIf="isLoading">
+          <div class="spinner-grow text-success">TESTING</div>
+          
+        </div>
+      -->    
+                  
+        
+
 			  </div>
 				</form>
 				

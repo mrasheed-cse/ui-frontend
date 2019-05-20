@@ -132,17 +132,21 @@ export class ApnformComponent implements OnInit {
 		productType: this.productType
     });
   }
-  
+	topFunction() {
+		document.body.scrollTop = 0; // For Safari
+		document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+	}
+		
 
   // FORM SUBMISSION
   onApnCreationSubmit() {
 	 
   if (this.myApnCreationForm.valid) {
+		this.topFunction();
 	this.isLoading = true;
     console.log('Form Submitted!');
-    console.log(this.myApnCreationForm.value);
-	
-  }
+//    console.log(this.myApnCreationForm.value);
+
   this.formFieldData = this.workFlowsService.FormatWorkRequestNameForAPI(this.WR_Name);
   this.LogKeyValuePairs(this.myApnCreationForm);
   //console.log(this.formFieldData);
@@ -162,7 +166,8 @@ export class ApnformComponent implements OnInit {
 		this.dangerAlertMessage = " .";		
       }
 	  
-      );
+			);
+		}
 }
 
 

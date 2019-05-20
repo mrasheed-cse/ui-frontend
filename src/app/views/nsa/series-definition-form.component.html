@@ -4,7 +4,9 @@
 	</div>
 	<div class="col-md-10">
 		<div class="card">
-		
+				<div style="text-align: center">
+						<i class="fa fa-spinner fa-pulse fa-3x fa-fw" *ngIf="isLoading" ></i>
+					</div>
 		<div class="alert alert-success" role="alert" *ngIf="successAlertShow">The New Work Request <b>{{WR_Name}}</b> {{successAlertMessage}}</div>
 			<div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">An Error occured to create <b>{{WR_Name}}</b> {{dangerAlertMessage}}</div>
 
@@ -206,12 +208,13 @@
 				</div>
 				<!-- <div class="card-body"> -->
 				<div class="card-footer text-right">
-					<button type="submit" [disabled]="!mySeriesDefinitionForm.valid" class="btn btn-sm btn-primary">
+						
+					<button type="submit" class="btn btn-sm btn-primary " [disabled]="!mySeriesDefinitionForm.valid" >
 						<i class="fa fa-dot-circle-o"></i> Submit</button>
 					<button type="reset" class="btn btn-sm btn-danger"(click)="clearForm($event)">
 						<i class="fa fa-ban"></i> Reset</button>
 					<button type="button" class="btn btn-link" (click)="backButton($event)"><i class="fa fa-link" ></i>&nbsp; Back</button>
-				
+					
 				</div>
 				<!-- <div class="card-footer"> -->
 			</form>

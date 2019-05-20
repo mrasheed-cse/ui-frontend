@@ -4,6 +4,9 @@
 	</div>
 	<div class="col-md-10">
 		<div class="card">
+				<div style="text-align: center">
+						<i class="fa fa-spinner fa-pulse fa-3x fa-fw" *ngIf="isLoading" ></i>
+					</div>
 		<div class="alert alert-success" role="alert" *ngIf="successAlertShow">The Work Request <b>{{wrBriefName}}</b> {{successAlertMessage}}</div>
 		<div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">An Error occured to create <b>{{WR_Name}}</b> {{dangerAlertMessage}}</div>
 
@@ -39,23 +42,31 @@
 					
 					</div>
 					<div class="row">
-							<div *ngIf="groupID==_global.groupID_Wipro_Billing || groupID==_global.groupID_CIM">
-								<button type="button" class="btn btn-link" (click)="downloadCSVFiles('ADC_File_')">
-									<i class="fa fa-link" ></i>ADC File Download</button>
+							<div class="col-md-1" style="text-align: center">
+								</div>
+							<div class="col-md-10" style="text-align: center">
+									
+									<div *ngIf="groupID==_global.groupID_Wipro_Billing">
+											<button type="button"  class="btn btn-link"  (click)="downloadCSVFiles('ADC_File_.txt')">
+												<i class="fa fa-download" ></i>ADC File Download</button>
+										</div>
+										<div *ngIf="groupID==_global.groupID_CIM">
+												<button type="button"  class="btn btn-link"  (click)="downloadCSVFiles('ADC_File_.txt')">
+														<i class="fa fa-download" ></i>ADC File Download</button>
+												<button type="button"  class="btn btn-link"  (click)="downloadCSVFiles('BPP_File_.csv')">
+													<i class="fa fa-download" ></i>BPP File Download</button>
+												<button type="button" class="btn btn-link" (click)="downloadCSVFiles('MSISDN_Loading_file_.csv')">
+													<i class="fa fa-download" ></i>MSISDN Loading File Download</button>
+											</div>									
+										
+										<div *ngIf="groupID==_global.groupID_RAFM">
+											<button type="button" class="btn btn-link" (click)="downloadCSVFiles('rafm_.csv')">
+												<i class="fa fa-download" ></i>Download RAFM File</button>
+										</div>
 							</div>
-							<div *ngIf="groupID==_global.groupID_CIM">
-								<button type="button" class="btn btn-link" (click)="downloadCSVFiles('BPP_File_')">
-									<i class="fa fa-link" ></i>BPP File Download</button>
-							</div>
-							<div *ngIf="groupID==_global.groupID_CIM">
-								<button type="button" class="btn btn-link" (click)="downloadCSVFiles('MSISDN_Loading_file_')">
-									<i class="fa fa-link" ></i>MSISDN Loading File Download</button>
-							</div>
+							<div class="col-md-1" style="text-align: center">
+								</div>
 							
-							<div *ngIf="groupID==_global.groupID_RAFM">
-								<button type="button" class="btn btn-link" (click)="downloadCSVFiles('_rafm')">
-									<i class="fa fa-link" ></i>Download RAFM File</button>
-							</div>
 					</div>
 
 

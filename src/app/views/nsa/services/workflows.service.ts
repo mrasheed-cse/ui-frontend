@@ -140,4 +140,26 @@ export class WorkflowsService {
 	
 		
 	}
+
+	MnpProvisonEligibilitySearch(productType: string,productName: string,hlr: string,	imsiClub: string,batchID: string) : any {	
+		
+		console.log("In Mnp ProvisonEligibilitySearch()");	
+		console.log(this.serverUrl + "MnpProvEligibilitySearch, {	"+		
+			"productType: "+productType+","+
+			"productName: "+ productName+","+
+			"hlr: "+ hlr+","+
+			"imsiClub: "+ imsiClub+","+
+			"batchID: "+ batchID+"});") ;
+		
+	
+		return this.http.post(this.serverUrl + 'MnpProvEligibilitySearch', {			
+			productType: productType,
+			productName: productName,
+			hlr: hlr,
+			imsiClub: imsiClub,
+			batchID: batchID			
+		});	
+	
+		
+	}
 }

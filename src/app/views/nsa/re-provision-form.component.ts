@@ -47,6 +47,7 @@ export class ReProvisionFormComponent implements OnInit {
 	public dangerAlertMessage:string = "";
 	public successAlertShow:boolean = false;
 	public successAlertMessage:string = "";
+	public isLoading:boolean = false;
 
 
 	
@@ -309,6 +310,12 @@ onStartICCIDChanges() {
 	
 }
 
+ 
+topFunction() {
+	document.body.scrollTop = 0; // For Safari
+	document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+}
+
 	
   // FORM SUBMISSION
   onReProvisionSubmit() {
@@ -317,8 +324,8 @@ onStartICCIDChanges() {
     console.log('Form Submitted!');
     console.log(this.myReProvisionForm.value);
 
-  }
-  
+	 this.topFunction();
+	 this.isLoading = true;
   
   this.formFieldData = this.workFlowsService.FormatWorkRequestNameForAPI(this.WR_Name);
   this.fileName = this.formFieldData;
@@ -353,7 +360,10 @@ onStartICCIDChanges() {
 		this.dangerAlertMessage = " .";
       }
 	  
-      );
+			);
+			this.isLoading = false;
+  
+		}
 }
 
 
@@ -417,7 +427,7 @@ clearForm(event: any){
 	}
  backButton(event: any){
 		//console.log(event);
-		this.router.navigateByUrl('/nsa/reprovisionsearch');	
+		this.router.navigateByUrl('/nsa/reprovision');	
 	}
   
 }

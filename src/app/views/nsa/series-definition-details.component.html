@@ -3,7 +3,10 @@
 		<div class="card-body"></div>
 	</div>
 	<div class="col-md-10">
-		<div class="card">
+		<div class="card" >
+				<div style="align-items: center;">
+						<i class="fa fa-spinner fa-pulse fa-3x fa-fw" *ngIf="isLoading" ></i>
+					</div>
 		<div class="alert alert-success" role="alert" *ngIf="successAlertShow">The Work Request <b>{{wrBriefName}}</b> {{successAlertMessage}}</div>
 		<div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">An Error occured to create <b>{{WR_Name}}</b> {{dangerAlertMessage}}</div>
 
@@ -195,6 +198,7 @@
 				<div class="card-footer text-right">
 					<button type="submit" [disabled]="!mySeriesDefinitionForm.valid || isDoneDisable" class="btn btn-sm btn-primary">
 						<i class="fa fa-dot-circle-o"></i> Submit</button>
+						
 					<button type="reset" class="btn btn-sm btn-danger"(click)="clearForm($event)">
 						<i class="fa fa-ban"></i> Reset</button>
 					<button type="button" class="btn btn-link" (click)="backButton($event)"><i class="fa fa-link" ></i>&nbsp; Back</button>
@@ -208,6 +212,8 @@
 			<div class="card-footer text-right">
 					<button type="submit" [disabled]="isDoneDisable" class="btn btn-sm btn-primary" (click)="onDoneClick()">
 						<i class="fa fa-dot-circle-o"></i> Done</button>
+						
+						
 						<button type="button" class="btn btn-link" (click)="backButton($event)"><i class="fa fa-link" ></i>&nbsp; Back</button>
 				</div>
 			</div>

@@ -54,7 +54,7 @@ import {
 	  public isDoneDisable:boolean = false;
 	  public isLoading:boolean = false;
   
-	constructor(private loginService: LoginService,private activatedRoute: ActivatedRoute, private router:Router, private _global: AppGlobals, private workFlowsService: WorkflowsService, private fileoperationService: FileoperationService) {
+	constructor(private loginService: LoginService,private activatedRoute: ActivatedRoute, private router:Router, public _global: AppGlobals, private workFlowsService: WorkflowsService, private fileoperationService: FileoperationService) {
 		
 	  // Get Current User Profile
 	  
@@ -113,18 +113,19 @@ import {
 			this.isDone = true;
 		this.workFlowsService.UpdateExistiongWorkRequest(this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName),this._global.wrid_MnpReProvisioning, this.groupID,this.userName,this.hop_sequence,"",this.isDone).subscribe(
 		res  =>  {
-			console.log('response is : '+res);
-			
-			
-
-
-			if(res !== ""){	
+			console.log('response is : '+res.message);
+		  
+		  if(res !== ""){	
 			  this.isLoading = false;
 			  this.successAlertShow = true;
 			  if(this.hop_sequence==3)
 				  this.successAlertMessage = " has been completed successfully.";
 			  else
-				  this.successAlertMessage = " has been saved successfully and forwarded to "+res+" .";
+					this.successAlertMessage = " has been saved successfully ";
+					
+				if(res.message!=""){
+					this.successAlertMessage = this.successAlertMessage +"	and forwarded to "+res.message+" .";
+				}
 		  }
 		},
 		err  =>  {		  
@@ -139,21 +140,15 @@ import {
 	downloadCSVFiles(requiredFile: string) {
 
 		var nameOfFileToDownload;
-
-		if(requiredFile.endsWith('_')){
-			nameOfFileToDownload = requiredFile+this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName)+".csv";
-
-		} else if (requiredFile.startsWith('_')){
-			nameOfFileToDownload = this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName)+requiredFile+".csv";
-		}
+		nameOfFileToDownload = requiredFile.replace(".", this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName)+".");
 		console.log("Download File Name : "+nameOfFileToDownload);
-	
+		
 		var result = this.fileoperationService.downloadCSV(nameOfFileToDownload);
-		console.log(result);
+	//	console.log(result);
 		result.subscribe(
 			data => {
-				console.log("ToTOOO");
-				console.log(data);
+		//		console.log("ToTOOO");
+			//	console.log(data);
 					
 				var blob = new Blob([data], { type: 'text/csv' });
 	 

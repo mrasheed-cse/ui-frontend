@@ -6,6 +6,9 @@
 	</div>
 	<div class="col-md-10">
 		<div class="card">
+				<div style="text-align: center">
+						<i class="fa fa-spinner fa-pulse fa-3x fa-fw" *ngIf="isLoading" ></i>
+					</div>
 		<div class="alert alert-success" role="alert" *ngIf="successAlertShow">The Work Request <b>{{wrBriefName}}</b> {{successAlertMessage}}</div>
 		<div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">An Error occured to create <b>{{WR_Name}}</b> {{dangerAlertMessage}}</div>
 
@@ -46,8 +49,7 @@
 							</tr>					
 						</table >-->
 					</div>
-			<button type="button" class="btn btn-link" (click)="downloadCSVFiles()"><i class="fa fa-link" ></i>Download File</button>
-				
+			<button type="button" class="btn btn-link" (click)="downloadCSVFiles()"><i class="fa fa-download" ></i>Download File</button>
 			
 			<div >
 			<div class="card-footer text-right">

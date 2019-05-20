@@ -168,6 +168,10 @@ export class SeriesDefinitionFormComponent implements OnInit {
 		() => console.log('done loading Zone List')
     );
 	
+
+
+
+
 }
 
   ngOnInit() {
@@ -320,17 +324,23 @@ ChaeckDefinitionValidity (startMSISDNs, endMSISDNs) {
 		err => console.error(err),
 		() => console.log('done loading Product List based on ProductTypes')
     );	
-  }
+	}
+	
+	topFunction() {
+		document.body.scrollTop = 0; // For Safari
+		document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+	}
 
   // FORM SUBMISSION
   onSeriesProvisionSubmit() {
 	 
   if (this.mySeriesDefinitionForm.valid) {
+		this.topFunction();
 	this.isLoading = true;
     console.log('Form Submitted!');
     console.log(this.mySeriesDefinitionForm.value);
 	console.log("this.isLoading "+this.isLoading); 
-  }
+  
   this.formFieldData = this.workFlowsService.FormatWorkRequestNameForAPI(this.WR_Name);
   this.LogKeyValuePairs(this.mySeriesDefinitionForm);
   //console.log(this.formFieldData);
@@ -353,7 +363,8 @@ ChaeckDefinitionValidity (startMSISDNs, endMSISDNs) {
       }
 	  
       );
-	 console.log("this.isLoading "+this.isLoading); 
+	 
+		}
 }
 
 

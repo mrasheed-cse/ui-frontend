@@ -24,7 +24,7 @@ export const navigation_grpID_Wipro_CIM = [
     name: 'Work Requests'
   },
   {
-        name: 'Provision',
+        name: 'Series Provision',
         url: '/nsa/seriesprovision',
         icon: 'icon-cursor'
       },
@@ -37,7 +37,12 @@ export const navigation_grpID_Wipro_CIM = [
                 name: 'Discrete Provision',
                 url: '/nsa/discprovision',
                 icon: 'icon-cursor'
-              }
+              },
+              {
+                  name: 'MNP ReProvision',
+                  url: '/nsa/mnpreprovision',
+                  icon: 'icon-cursor'
+                }
 ];
 
 
@@ -137,6 +142,13 @@ export const navigation_grpID_BSS_Planning = [
     name: 'Series Definition',
     url: '/nsa/seriesdefinition',
     icon: 'icon-cursor'
+  }, 
+
+  {
+    name: 'SDP Migration',    
+	 url: '/nsa/sdpmigration',
+    icon: 'icon-cursor',
+    
   }
 ];
 
@@ -183,11 +195,6 @@ export const navigation_grpID_CNP = [
     url: '/nsa/seriesdefinition',
     icon: 'icon-cursor'
   },
-{
-    name: 'Series Provision',
-    url: '/nsa/seriesprovision',
-    icon: 'icon-cursor'
-  },
   {
     name: 'DeProvision',    
 	 url: '/deprovision',
@@ -221,13 +228,6 @@ export const navigation_grpID_CNP = [
         icon: 'icon-puzzle'
       }
     ]
-  }, 
-
-  {
-    name: 'SDP Migration',    
-	 url: '/nsa/sdpmigration',
-    icon: 'icon-cursor',
-    
   }, 
      {
 		 title: true,

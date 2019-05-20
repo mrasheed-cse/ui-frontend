@@ -48,9 +48,10 @@ export class MnpreprovsearchComponent implements OnInit {
 	public successAlertShow:boolean = false;
 	public successAlertMessage:string = "";
 	public successSearchShow:boolean = false;
+	public isLoading:boolean = false;
 
 	
-	myReProvisionSearchForm: FormGroup;
+	myMnpReProvisionSearchForm: FormGroup;
 	
 	productType: FormControl;
 	productName: FormControl;
@@ -146,7 +147,7 @@ export class MnpreprovsearchComponent implements OnInit {
   }
 
   createForm() {
-    this.myReProvisionSearchForm = new FormGroup({
+    this.myMnpReProvisionSearchForm = new FormGroup({
 		productType: this.productType,
 		productName: this.productName,
 		HLR: this.HLR,
@@ -185,11 +186,27 @@ export class MnpreprovsearchComponent implements OnInit {
   // FORM SUBMISSION
   onReProvisionSearchSubmit() {
 	 
-  if (this.myReProvisionSearchForm.valid) {
-	
+  if (this.myMnpReProvisionSearchForm.valid) {
+		this.isLoading=true;
     console.log('Form Submitted!');
-    console.log(this.myReProvisionSearchForm.value);
-	this.successSearchShow = true;
+    //console.log(this.myMnpReProvisionSearchForm.value);
+		
+		const productTypeVal = this.myMnpReProvisionSearchForm.get('productType').value;
+		const productNameVal =  this.myMnpReProvisionSearchForm.get('productName').value;	
+		const HLRVal = this.myMnpReProvisionSearchForm.get('HLR').value;
+		const IMSIVal = this.myMnpReProvisionSearchForm.get('IMSI').value;
+		const batchIDVal = this.myMnpReProvisionSearchForm.get('batchID').value;
+		this.workFlowsService.MnpProvisonEligibilitySearch(productTypeVal,productNameVal,HLRVal,IMSIVal,batchIDVal).subscribe(
+			data => { 
+				//	console.log(data);
+					this.successSearchShow = true;
+					this.isLoading=false;
+				},
+			err => console.error(err),
+			() => console.log('done Mnp ReprovisonEligibilitySearch')
+			);	
+	
+		
   }
   }
   
@@ -197,21 +214,22 @@ export class MnpreprovsearchComponent implements OnInit {
 		//console.log(event);
 		this.dangerAlertShow = false;
 		this.successAlertShow = false;	
-		this.myReProvisionSearchForm.reset();		
+		this.myMnpReProvisionSearchForm.reset();		
 	}
   
   downloadCSVFiles() {
-        var nameOfFileToDownload = "MNPReProvision"+".csv";
+		this.isLoading=true;
+        var nameOfFileToDownload = "MnpProvEligibile"+".csv";
 		console.log("nameOfFileToDownload : "+nameOfFileToDownload);
   
         var result = this.fileoperationService.downloadCSV(nameOfFileToDownload);
-		console.log(result);
+		//console.log(result);
         result.subscribe(
             data => {
 				//saveAs(data, nameOfFileToDownload);
 				
-				console.log("ToTOOO");
-				console.log(data);
+				//console.log("ToTOOO");
+				//console.log(data);
                 
 				var blob = new Blob([data], { type: 'text/csv' });
  
@@ -224,7 +242,9 @@ export class MnpreprovsearchComponent implements OnInit {
                     document.body.appendChild(a);
                     a.click();
                     document.body.removeChild(a);
-                }
+								}
+								
+								this.isLoading=false;
 				
             },
             err => {

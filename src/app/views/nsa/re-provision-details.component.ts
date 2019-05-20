@@ -132,14 +132,20 @@ import {
   }
   
 	  
-	
+	 
+	topFunction() {
+		document.body.scrollTop = 0; // For Safari
+		document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+	}
+
   
   backButton(event: any){
 		  //console.log(event);
 		  this.router.navigateByUrl('/nsa/reprovision');	
 	  }
   onDoneClick(event: any){
-		  //console.log(event);
+			//console.log(event);
+			this.topFunction();
 		  this.isLoading = true;		 
 		   this.isDoneDisable = true;
 		   if(this.hop_sequence==3) // LAST HOP IN De-PROVISION
@@ -177,21 +183,15 @@ import {
 		downloadCSVFiles(requiredFile: string) {
 
 			var nameOfFileToDownload;
-	
-			if(requiredFile.endsWith('_')){
-				nameOfFileToDownload = requiredFile+this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName)+".csv";
-	
-			} else if (requiredFile.startsWith('_')){
-				nameOfFileToDownload = this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName)+requiredFile+".csv";
-			}
-			console.log("Download File Name : "+nameOfFileToDownload);
+		nameOfFileToDownload = requiredFile.replace(".", this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName)+".");
+		console.log("Download File Name : "+nameOfFileToDownload);
 		
 			var result = this.fileoperationService.downloadCSV(nameOfFileToDownload);
-			console.log(result);
+			//console.log(result);
 			result.subscribe(
 				data => {
-					console.log("ToTOOO");
-					console.log(data);
+				//	console.log("ToTOOO");
+					//console.log(data);
 						
 					var blob = new Blob([data], { type: 'text/csv' });
 		 

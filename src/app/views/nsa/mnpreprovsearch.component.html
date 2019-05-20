@@ -13,7 +13,7 @@
 		<div class="row">
 			<div class="col-md-6">
    
-			<form [formGroup]="myReProvisionSearchForm" novalidate (ngSubmit)="onReProvisionSearchSubmit()">
+			<form [formGroup]="myMnpReProvisionSearchForm" novalidate (ngSubmit)="onReProvisionSearchSubmit()">
 				<div class="card-body">				
 					<div class="row">						
 						<div class="col-md-12">
@@ -90,7 +90,7 @@
 				</div>
 				<!-- <div class="card-body"> -->
 				<div class="card-footer text-right">
-					<button type="submit" [disabled]="!myReProvisionSearchForm.valid" class="btn btn-sm btn-primary">
+					<button type="submit" [disabled]="!myMnpReProvisionSearchForm.valid" class="btn btn-sm btn-primary">
 						<i class="fa fa-dot-circle-o"></i> Submit</button>
 					<button type="reset" class="btn btn-sm btn-danger" (click)="clearForm($event)">
 						<i class="fa fa-ban"></i> Reset</button>
@@ -98,12 +98,18 @@
 				</div>
 				<!-- <div class="card-footer"> -->
 			</form>
-			<!-- <pre>{{myReProvisionSearchForm.value | json}}</pre>
-			<pre *ngIf="myReProvisionSearchForm.valid">This is Valid form Data.{{myReProvisionSearchForm.value | json}}</pre> -->
-			<br/>
+		<!-- <pre>{{myMnpReProvisionSearchForm.value | json}}</pre>
+			<pre *ngIf="myMnpReProvisionSearchForm.valid">This is Valid form Data.{{myMnpReProvisionSearchForm.value | json}}</pre> 
+		-->
+		<br/>
 		</div>   
-		<div class="col-md-6" *ngIf="successSearchShow">
-		TOTO RESULT
+		
+		<div class="col-md-6" >
+				<div style="text-align: center">
+						<i class="fa fa-spinner fa-pulse fa-3x fa-fw" *ngIf="isLoading" ></i>
+					</div>
+					<div *ngIf="successSearchShow">
+	Please Find the Search Reasult here.
 		<button type="button" class="btn btn-link" (click)="downloadCSVFiles()"><i class="fa fa-link" ></i>Download File</button>
 			
 		</div>   	  

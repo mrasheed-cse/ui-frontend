@@ -47,6 +47,7 @@ export class MnpreProvisionFormComponent implements OnInit {
 	public dangerAlertMessage:string = "";
 	public successAlertShow:boolean = false;
 	public successAlertMessage:string = "";
+	public isLoading:boolean = false;
 
 
 	
@@ -287,36 +288,42 @@ onStartICCIDChanges() {
 	
     this.myMNPReProvisionForm.get('startICCID').valueChanges
     .subscribe(selectedStartICCID => {        		
-		lastDigit = this.definitionDataService.LuhnAlgorithmFor19thDigit(selectedStartICCID);
+			lastDigit = this.definitionDataService.LuhnAlgorithmFor19thDigit(selectedStartICCID);
 			
 			
 			var startICCIDval = selectedStartICCID +lastDigit;
-			var totalQuantity = this.myMNPReProvisionForm.get('quantity').value;			
-			var endICCIDval = (Number(startICCIDval)+totalQuantity).toString();
+			var totalQuantity = this.myMNPReProvisionForm.get('quantity').value;		
+			
+			var endICCIDval = this.definitionDataService.LongNumberAddition(startICCIDval,totalQuantity+"");
 			
 			var startIMSIval = '47001'+selectedStartICCID.substr(8,10);
-			var endIMSIval = (Number(startIMSIval)+totalQuantity).toString();
+			var endIMSIval = this.definitionDataService.LongNumberAddition(startIMSIval,totalQuantity+"");
 			
 			this.myMNPReProvisionForm.get('startICCID19').setValue(startICCIDval);
 			this.myMNPReProvisionForm.get('endICCID').setValue(endICCIDval);
 			
 			this.myMNPReProvisionForm.get('startIMSI').setValue(startIMSIval);
 			this.myMNPReProvisionForm.get('endIMSI').setValue(endIMSIval);
-        
-    });
+			 });
 	
 	
 }
 
-	
+topFunction() {
+	document.body.scrollTop = 0; // For Safari
+	document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+}
+
   // FORM SUBMISSION
   onMNPReProvisionSubmit() {
 	 
   if (this.myMNPReProvisionForm.valid) {
+	  this.topFunction();
+	this.isLoading = true;
     console.log('Form Submitted!');
     console.log(this.myMNPReProvisionForm.value);
 
-  }
+  
   
   
   this.formFieldData = this.workFlowsService.FormatWorkRequestNameForAPI(this.WR_Name);
@@ -330,31 +337,33 @@ onStartICCIDChanges() {
   console.log(this.formFieldData);
   
   var result = this.fileoperationService.uploadCSV(fd);
-		console.log(result);
+		//console.log(result);
         result
 		.subscribe(res => {
-			console.log(res);
+			//console.log(res);
 		});
   
   
   this.workFlowsService.CreateNewWorkRequest(this._global.wrid_MnpReProvisioning, this.groupID,this.userName,this.formFieldData).subscribe(
       res  =>  {
-		console.log('response is : '+res);
+				console.log('response is : '+res.message);
 		
-		if(res === true){
-			this.successAlertShow = true;
-			this.successAlertMessage = " has been created successfully.";
+				if(res !== ""){	
+					this.isLoading = false;
+					this.successAlertShow = true;
+					this.successAlertMessage = " has been created successfully and forwarded to "+res.message+". ";
+				}
+					},
+					err  =>  {	
+						this.isLoading = false;	  
+					console.log("err.status : "+err.status);		  
+					this.dangerAlertShow = true;
+				this.dangerAlertMessage = " .";
+					}
+				
+					);
 		}
-      },
-      err  =>  {		  
-		  console.log("err.status : "+err.status);		  
-		  this.dangerAlertShow = true;
-		this.dangerAlertMessage = " could not be created.";
-      }
-	  
-      );
-}
-
+	}		
 
 
 LogKeyValuePairs(group: FormGroup): void {

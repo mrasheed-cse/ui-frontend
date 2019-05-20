@@ -316,19 +316,25 @@ onStartICCIDChanges() {
 	
 }
 
-	
+topFunction() {
+	document.body.scrollTop = 0; // For Safari
+	document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+}
+
+
   // FORM SUBMISSION
   onSeriesProvisionSubmit() {
-	 console.log("this.defFlowFound is "+this.defFlowFound);
+	 //console.log("this.defFlowFound is "+this.defFlowFound);
   if (this.mySeriesProvisionForm.valid && this.defFlowFound) {
+		this.topFunction();
 	this.isLoading = true;
-    console.log('Form Submitted!');
-	console.log(this.needByDate.value);
+    //console.log('Form Submitted!');
+	//console.log(this.needByDate.value);
 	const date = new Date(this.needByDate.value);
 	
-    console.log(this.mySeriesProvisionForm.value);
-	console.log("this.isLoading "+this.isLoading); 
-  }
+    //console.log(this.mySeriesProvisionForm.value);
+	//console.log("this.isLoading "+this.isLoading); 
+  
   this.formFieldData = this.workFlowsService.FormatWorkRequestNameForAPI(this.WR_Name);
   this.LogKeyValuePairs(this.mySeriesProvisionForm);
   //console.log(this.formFieldData);
@@ -351,7 +357,8 @@ onStartICCIDChanges() {
       }
 	  
       );
-	 console.log("this.isLoading "+this.isLoading); 
+	// console.log("this.isLoading "+this.isLoading); 
+		}
 }
 
 

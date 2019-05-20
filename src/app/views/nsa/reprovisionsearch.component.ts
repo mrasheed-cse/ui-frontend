@@ -48,6 +48,7 @@ export class ReprovisionsearchComponent implements OnInit {
 	public successAlertShow:boolean = false;
 	public successAlertMessage:string = "";
 	public successSearchShow:boolean = false;
+	public isLoading:boolean = false;
 
 	
 	myReProvisionSearchForm: FormGroup;
@@ -187,6 +188,7 @@ export class ReprovisionsearchComponent implements OnInit {
 	 
   if (this.myReProvisionSearchForm.valid) {
 	
+		this.isLoading = true;
     console.log('Form Submitted!');
     //console.log(this.myReProvisionSearchForm.value);
 		
@@ -198,12 +200,14 @@ export class ReprovisionsearchComponent implements OnInit {
 		this.workFlowsService.ReprovisonEligibilitySearch(productTypeVal,productNameVal,HLRVal,IMSIVal,batchIDVal).subscribe(
 			data => { 
 				//	console.log(data);
+				this.isLoading = false;
 					this.successSearchShow = true;
+
 				},
 			err => console.error(err),
 			() => console.log('done ReprovisonEligibilitySearch')
 			);	
-	
+			this.isLoading = false;
   }
   }
   
@@ -215,17 +219,18 @@ export class ReprovisionsearchComponent implements OnInit {
 	}
   
   downloadCSVFiles() {
+		this.isLoading = true;
         var nameOfFileToDownload = "ReProvEligibile.csv";
 		console.log("nameOfFileToDownload : "+nameOfFileToDownload);
   
         var result = this.fileoperationService.downloadCSV(nameOfFileToDownload);
-		console.log(result);
+		//console.log(result);
         result.subscribe(
             data => {
 				//saveAs(data, nameOfFileToDownload);
 				
-				console.log("ToTOOO");
-				console.log(data);
+				//console.log("ToTOOO");
+				//console.log(data);
                 
 				var blob = new Blob([data], { type: 'text/csv' });
  
@@ -239,7 +244,7 @@ export class ReprovisionsearchComponent implements OnInit {
                     a.click();
                     document.body.removeChild(a);
                 }
-				
+								this.isLoading = false;
             },
             err => {
                 alert("Server error while downloading file.");

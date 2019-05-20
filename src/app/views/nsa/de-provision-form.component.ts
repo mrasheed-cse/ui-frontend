@@ -49,6 +49,8 @@ WR_Name: string;
 	public successAlertMessage:string = "";
 	public infoAlertShow:boolean = false;
 	public infoAlertMessage:string = "";
+	public isLoading:boolean = false;
+
 	
 	myDeProvisionForm: FormGroup;
 	batchID: FormControl;
@@ -138,16 +140,23 @@ WR_Name: string;
 		deProvisionFile: this.deProvisionFile,
 		cnpComment: this.cnpComment
     });
-  }
+	}
+	
+	topFunction() {
+		document.body.scrollTop = 0; // For Safari
+		document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+	}
+	
 
   // FORM SUBMISSION
   onDeProvisionSubmit() {
 	 
   if (this.myDeProvisionForm.valid) {
-	
+	this.topFunction();
+		this.isLoading = true;
     console.log('Form Submitted!');
 	 
-  }
+  
   this.formFieldData = this.workFlowsService.FormatWorkRequestNameForAPI(this.WR_Name);
   this.fileName = this.formFieldData;
   console.log(this.formFieldData);
@@ -170,7 +179,7 @@ WR_Name: string;
   this.workFlowsService.CreateNewWorkRequest(this._global.wrid_DeProvisioning, this.groupID,this.userName,this.formFieldData).subscribe(
       res  =>  {
 		console.log('response is : '+res.message);
-		
+		this.isLoading=false;
 
 		if(res !== ""){	
 			this.successAlertShow = true;
@@ -179,6 +188,7 @@ WR_Name: string;
 		}
       },
       err  =>  {		  
+				this.isLoading=false;
 		  console.log("err.status : "+err.status);		  
 		  this.dangerAlertShow = true;
 		this.dangerAlertMessage = " .";
@@ -189,6 +199,7 @@ WR_Name: string;
 	// console.log("this.isLoading "+this.isLoading); 
 	
 }
+	}
 
 
 LogKeyValuePairs(group: FormGroup): void {
