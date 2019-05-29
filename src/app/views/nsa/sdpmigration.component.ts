@@ -41,24 +41,31 @@ export class SdpmigrationComponent implements OnInit {
 	userName: string;
 	groupID: number;	
 	
-	
 	public dangerAlertShow:boolean = false;
 	public dangerAlertMessage:string = "";
 	public successAlertShow:boolean = false;
 	public successAlertMessage:string = "";
 
-	mySdpMigrationForm: FormGroup;
+	isCollapsedFile: boolean = true;
+	isCollapsedRange: boolean = true;
+	public isLoading:boolean = false;
+
+	mySdpMigrationFileForm: FormGroup;
 	sdpMigrationFile: FormControl;
 	serviceClassName: FormControl;
-	formFieldData: string;
-	
+	formFieldData: string;	
 	selectedFile: File = null;
 	fileName: string = "";
+
+	mySdpMigrationRangeForm: FormGroup;
+	startMSISDN: FormControl;
+	endMSISDN: FormControl;	
+	SDP: FormControl;
 	
-  public listServiceClass = [];
+  public listSDP = []; 
   
 constructor(private router: Router,private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private definitionDataService: DefinitionDataService, private workFlowsService: WorkflowsService, private fileoperationService: FileoperationService) {
-	  
+		
 	// Get Current User Profile
 	
 	this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
@@ -76,37 +83,90 @@ constructor(private router: Router,private loginService: LoginService, private h
 }
 
   ngOnInit() {
+		this.LoadDDLData();
     this.createFormControls();
     this.createForm();
-  }
+	}
+	
+	LoadDDLData(){
+		//GetSDPNames
+		this.definitionDataService.GetSDPNames().subscribe(
+			data => { 
+						this.listSDP = [];
+						
+						for (let index in data) {
+						//console.log (data[index]);			
+						this.listSDP.push(
+							{
+								id:data[index].id,
+								name: data[index].sdpName
+							}
+							); 
+						}		
+				// return data;
+					},
+				err => console.error(err),
+				() => console.log('done loading SDP List')
+				);
+	
+	}
 
   createFormControls() {
     this.sdpMigrationFile = new FormControl('', Validators.required);
-	this.serviceClassName=	new FormControl({value: '', disabled: true}, Validators.required);
+
+
+	this.startMSISDN = new FormControl('', [
+		Validators.required,
+		Validators.minLength(11) ,
+		Validators.maxLength(11)
+	]);
+	this.endMSISDN = new FormControl('', [
+		Validators.required,
+		Validators.minLength(11) ,
+		Validators.maxLength(11)
+	]);
+
+	this.SDP= new FormControl('', Validators.required);
+
   }
 
   createForm() {
-    this.mySdpMigrationForm = new FormGroup({
-		reProvisionFile: this.sdpMigrationFile,		
-    });
-  }
+    this.mySdpMigrationFileForm = new FormGroup({
+			sdpMigrationFile: this.sdpMigrationFile	
+		});
+		
+		this.mySdpMigrationRangeForm = new FormGroup({
+			startMSISDN: this.startMSISDN,
+			endMSISDN: this.endMSISDN,
+			SDP: this.SDP
+			});
+	}
+	
+	topFunction() {
+		document.body.scrollTop = 0; // For Safari
+		document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+	}
   
-  // FORM SUBMISSION
-  onSdpMigrationSubmit() {
-	 
-  if (this.mySdpMigrationForm.valid) {
-    console.log('Form Submitted!');
-    console.log(this.mySdpMigrationForm.value);
+  // File FORM SUBMISSION
+  onSdpMigrationFileSubmit() {
 
-  }
+		this.dangerAlertShow = false;	
+		this.successAlertShow = false;
+		
+	 
+  if (this.mySdpMigrationFileForm.valid) {
+		this.topFunction();
+		this.isLoading = true;
+    console.log('Form Submitted!');
+    console.log(this.mySdpMigrationFileForm.value);
+
+  
   this.fileName = this.formFieldData;
   console.log(this.formFieldData);
   const fd = new FormData();
-  fd.append('nsa-file',this.selectedFile,this.fileName+".csv");// File Name will be the WR_Name in server
-  console.log(this.selectedFile.name);
+  fd.append('nsa-file',this.selectedFile,"SDP_Migration.csv");
+  console.log(this.selectedFile.name); 
   
-  this.LogKeyValuePairs(this.mySdpMigrationForm);
-  console.log(this.formFieldData);
   
   var result = this.fileoperationService.uploadCSV(fd);
 		console.log(result);
@@ -114,8 +174,74 @@ constructor(private router: Router,private loginService: LoginService, private h
 		.subscribe(res => {
 			console.log(res);
 		});
+	}
+
+
+	this.definitionDataService.SdpMigrationFromFile()
+	.subscribe(
+		res  =>  {
+			console.log('response is : '+res);
+			if(res == true){
+				this.successAlertShow = true;
+				this.successAlertMessage = "SDP Migration Done SUccessfully.";
+				this.isLoading = false;
+			}
+			else{
+				this.dangerAlertShow = true;
+				this.dangerAlertMessage = "SDP Migration could not be done properly.";
+				this.isLoading = false;
+			}
+		},
+		err  =>  {
+		console.log("err.status : "+err.status);		  
+		this.dangerAlertShow = true;
+		this.dangerAlertMessage = "An error occured while doing SDP Migration.";
+		this.isLoading = false;
+		}
+	);
+
 }
 
+ // Range FORM SUBMISSION
+ onSdpMigrationRangeSubmit() {
+
+	this.dangerAlertShow = false;	
+	this.successAlertShow = false;
+	
+	 
+  if (this.mySdpMigrationRangeForm.valid) {
+		this.topFunction();
+		this.isLoading = true;
+    console.log('Form Submitted!');
+//    console.log(this.mySdpMigrationRangeForm.value);
+	
+	this.definitionDataService.SdpMigration(this.mySdpMigrationRangeForm.get('startMSISDN').value,	this.mySdpMigrationRangeForm.get('endMSISDN').value,	this.mySdpMigrationRangeForm.get('SDP').value)
+	.subscribe(
+		res  =>  {
+			console.log('response is : '+res);
+			if(res == true){
+				this.successAlertShow = true;
+				this.successAlertMessage = "SDP for " + this.mySdpMigrationRangeForm.get('startMSISDN').value + " and "+ this.mySdpMigrationRangeForm.get('endMSISDN').value +" has been migrated successfully";
+				this.isLoading = false;
+			}
+			else{
+				this.dangerAlertShow = true;
+				this.dangerAlertMessage = "SDP Migration could not be done properly.";
+				this.isLoading = false;
+			}
+		},
+		err  =>  {
+		console.log("err.status : "+err.status);		  
+		this.dangerAlertShow = true;
+		this.dangerAlertMessage = "An error occured while doing SDP Migration.";
+		this.isLoading = false;
+		}
+	);
+
+
+
+}
+ }
 LogKeyValuePairs(group: FormGroup): void {
 	
   // Loop through each control key in the FormGroup
@@ -171,6 +297,7 @@ clearForm(event: any){
 		//console.log(event);
 		this.dangerAlertShow = false;
 		this.successAlertShow = false;	
-		this.mySdpMigrationForm.reset();		
+		this.mySdpMigrationFileForm.reset();
+		this.mySdpMigrationRangeForm.reset();		
 	}
 }

@@ -269,7 +269,7 @@ export class SeriesprovisionformComponent implements OnInit {
 					
 						this.infoAlertShow = true;
 						this.defFlowFound=false;
-						this.infoAlertMessage = "All numbers from "+startMSISDNs +" and "+ endMSISDNs +" do not have Definition Work Request";
+						this.infoAlertMessage = "All numbers from "+startMSISDNs +" and "+ endMSISDNs +" do not have Definition Work Request OR these numbers already have provisioned.";
 					
 					}
 				
@@ -279,7 +279,7 @@ export class SeriesprovisionformComponent implements OnInit {
 				console.error(err);
 				 this.infoAlertShow = true;
 				 this.defFlowFound=false;
-				this.infoAlertMessage = "All numbers from "+startMSISDNs +" and "+ endMSISDNs +" do not have Definition Work Request";
+				this.infoAlertMessage = "All numbers from "+startMSISDNs +" and "+ endMSISDNs +" do not have Definition Work Request OR these numbers already have provisioned.";
 			},
 			() => console.log('Done loading Detail Data')
 			);  
@@ -298,9 +298,11 @@ onStartICCIDChanges() {
 			
 			
 			var startICCIDval = selectedStartICCID +lastDigit;
-			var totalQuantity = this.mySeriesProvisionForm.get('quantity').value;		
+			var totalQuantity = this.mySeriesProvisionForm.get('quantity').value - 1;		
 			
-			var endICCIDval = this.definitionDataService.LongNumberAddition(startICCIDval,totalQuantity+"");
+			var endICCIDval = this.definitionDataService.LongNumberAddition(selectedStartICCID,totalQuantity+"");
+			lastDigit = this.definitionDataService.LuhnAlgorithmFor19thDigit(endICCIDval);
+			endICCIDval = endICCIDval + lastDigit;
 			
 			var startIMSIval = '47001'+selectedStartICCID.substr(8,10);
 			var endIMSIval = this.definitionDataService.LongNumberAddition(startIMSIval,totalQuantity+"");

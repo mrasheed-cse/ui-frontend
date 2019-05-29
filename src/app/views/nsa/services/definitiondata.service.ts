@@ -110,6 +110,22 @@ export class DefinitionDataService {
 		return this.http.get(this.serverUrl + 'GetSimType/');
 	}
 
+	// SdpMigration
+	SdpMigration(startMSISDN: string, endMSISDN: string, sdpID: number): any {
+		console.log(this.serverUrl + 'SDP_Migration'+	" startMSISDN: "+startMSISDN+",	endMSISDN: "+endMSISDN+",	sdpID: "+sdpID);
+		return this.http.post(this.serverUrl + 'SDP_Migration' , {
+			startMSISDN: startMSISDN,
+			endMSISDN: endMSISDN,
+			sdpID: sdpID
+			}
+		)
+	}
+
+	// SdpMigrationFromFile
+	SdpMigrationFromFile() {
+		console.log(this.serverUrl + 'SDP_MigrationFromFile');
+		return this.http.post(this.serverUrl + 'SDP_MigrationFromFile',{});		
+	}
 	
 
 	LuhnAlgorithmFor19thDigit(inputString: string): string{		
