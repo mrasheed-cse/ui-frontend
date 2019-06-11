@@ -3,7 +3,7 @@ import { Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 import { LoginService } from '../../views/pages/LoginService';
 import { LoggedInUser } from '../../views/pages/loggedInUser'; 
 // Import navigation elements
-import { navigation, navigation_grpID_Sourcing, navigation_grpID_CNP,navigation_grpID_VDSO,navigation_grpID_BSS_Planning, navigation_blankdata, navigation_grpID_Wipro_Billing, navigation_grpID_RAFM, navigation_grpID_Wipro_CIM } from './../../_nav';
+import { navigation, navigation_grpID_Sourcing, navigation_grpID_CNP,navigation_grpID_VDSO,navigation_grpID_BSS_Planning, navigation_blankdata, navigation_grpID_Wipro_Billing, navigation_grpID_RAFM, navigation_grpID_Wipro_CIM, navigation_grpID_Wipro_OSS } from './../../_nav';
 import { AppGlobals } from './../../app.global';
 @Component({
   selector: 'app-sidebar-nav',
@@ -66,6 +66,10 @@ export class AppSidebarNavComponent {
 		
 		else if (this.groupID == this._global.groupID_CIM){
 			this.navigation = navigation_grpID_Wipro_CIM;
+			//console.log('navigation_grpID_Wipro_CIM');
+    }
+    else if (this.groupID == this._global.groupID_OSS){
+			this.navigation = navigation_grpID_Wipro_OSS;
 			//console.log('navigation_grpID_Wipro_CIM');
 		}
 		else {

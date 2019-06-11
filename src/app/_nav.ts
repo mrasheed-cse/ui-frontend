@@ -12,6 +12,26 @@ export const navigation_blankdata  = [
 
 ];
 
+export const navigation_grpID_Wipro_OSS = [
+   
+  {
+    name: 'Landing Page',
+    url: '/nsa',
+	icon: 'icon-star'
+  }, 
+{
+    title: true,
+    name: 'Work Requests'
+  },
+ 
+      {
+            name: 'DeProvision',
+            url: '/nsa/deprovision',
+            icon: 'icon-cursor'
+          }
+];
+
+
 export const navigation_grpID_Wipro_CIM = [
    
   {

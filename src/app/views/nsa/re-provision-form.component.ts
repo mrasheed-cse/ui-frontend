@@ -288,13 +288,15 @@ onStartICCIDChanges() {
     this.myReProvisionForm.get('startICCID').valueChanges
     .subscribe(selectedStartICCID => {        		
 		 lastDigit = this.definitionDataService.LuhnAlgorithmFor19thDigit(selectedStartICCID);
+	
+		 var startICCIDval = selectedStartICCID +lastDigit;
+		 var totalQuantity = this.myReProvisionForm.get('quantity').value - 1;		
+		 
+		 var endICCIDval = this.definitionDataService.LongNumberAddition(selectedStartICCID,totalQuantity+"");
+		 lastDigit = this.definitionDataService.LuhnAlgorithmFor19thDigit(endICCIDval);
+		 endICCIDval = endICCIDval + lastDigit;
 			
-			
-	 var startICCIDval = selectedStartICCID +lastDigit;
-	 var totalQuantity = this.myReProvisionForm.get('quantity').value;		
-	 
-	 var endICCIDval = this.definitionDataService.LongNumberAddition(startICCIDval,totalQuantity+"");
-	 
+	
 	 var startIMSIval = '47001'+selectedStartICCID.substr(8,10);
 	 var endIMSIval = this.definitionDataService.LongNumberAddition(startIMSIval,totalQuantity+"");
 	 

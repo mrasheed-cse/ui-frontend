@@ -169,18 +169,17 @@ constructor(private router: Router,private loginService: LoginService, private h
   
   
   var result = this.fileoperationService.uploadCSV(fd);
-		console.log(result);
+		console.log("SDP_Migration.csv upload DOne "+result);
         result
-		.subscribe(res => {
-			console.log(res);
+		.subscribe(res1 => {
+			console.log(res1);
 		});
 	}
-
 
 	this.definitionDataService.SdpMigrationFromFile()
 	.subscribe(
 		res  =>  {
-			console.log('response is : '+res);
+		//	console.log('response is : '+res);
 			if(res == true){
 				this.successAlertShow = true;
 				this.successAlertMessage = "SDP Migration Done SUccessfully.";
@@ -199,6 +198,9 @@ constructor(private router: Router,private loginService: LoginService, private h
 		this.isLoading = false;
 		}
 	);
+
+
+	
 
 }
 
@@ -300,4 +302,37 @@ clearForm(event: any){
 		this.mySdpMigrationFileForm.reset();
 		this.mySdpMigrationRangeForm.reset();		
 	}
+
+
+	downloadCSVFiles() {
+	var nameOfFileToDownload =	"SDP_Migration.csv";
+
+	console.log("Download File Name : "+nameOfFileToDownload);
+	
+		var result = this.fileoperationService.downloadCSV(nameOfFileToDownload);
+		//console.log(result);
+		result.subscribe(
+			data => {
+			//	console.log("ToTOOO");
+				//console.log(data);
+					
+				var blob = new Blob([data], { type: 'text/csv' });
+	 
+				if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+					window.navigator.msSaveOrOpenBlob(blob, nameOfFileToDownload);
+				} else {
+						var a = document.createElement('a');
+						a.href = URL.createObjectURL(blob);
+						a.download = nameOfFileToDownload;
+						document.body.appendChild(a);
+						a.click();
+						document.body.removeChild(a);
+					}
+				},
+				err => {
+					alert("Server error while downloading file.");
+				}
+			);
+	}
+
 }

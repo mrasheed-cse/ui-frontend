@@ -269,10 +269,15 @@ onStartICCIDChanges() {
 			lastDigit = this.definitionDataService.LuhnAlgorithmFor19thDigit(selectedStartICCID);
 						
 			var startICCIDval = selectedStartICCID +lastDigit;
-			var totalQuantity = this.myDiscProvisionForm.get('quantity').value;		
+			console.log("startICCIDval "+startICCIDval);
+			var totalQuantity = this.myDiscProvisionForm.get('quantity').value - 1;		
 			
-			var endICCIDval = this.definitionDataService.LongNumberAddition(startICCIDval,totalQuantity+"");
-			
+			var endICCIDval = this.definitionDataService.LongNumberAddition(selectedStartICCID,totalQuantity+"");
+			console.log("endICCIDval "+endICCIDval);
+			lastDigit = this.definitionDataService.LuhnAlgorithmFor19thDigit(endICCIDval);
+			endICCIDval = endICCIDval + lastDigit;
+			console.log("endICCIDval2 "+endICCIDval);
+
 			var startIMSIval = '47001'+selectedStartICCID.substr(8,10);
 			var endIMSIval = this.definitionDataService.LongNumberAddition(startIMSIval,totalQuantity+"");
 			
