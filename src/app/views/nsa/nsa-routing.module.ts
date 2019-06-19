@@ -27,7 +27,7 @@ import { SdpmigrationComponent } from './sdpmigration.component';
 import { DiscreteprovisionComponent } from './discreteprovision.component';
 import { DiscreteprovisionformComponent } from './discreteprovisionform.component';
 import { DiscreteprovisiondetailsComponent } from './discreteprovisiondetails.component';
-
+import { MasterdatamgmtComponent } from './masterdatamgmt.component';
 
 const routes: Routes = [
   {
@@ -222,6 +222,13 @@ const routes: Routes = [
     component: ApndetailsComponent,
     data: {
       title: 'APN Creation Workflow'
+    }
+  },
+  {
+    path: 'masterdatamgmt',
+    component: MasterdatamgmtComponent,
+    data: {
+      title: 'Master Data Mgmt'
     }
   }
 ];

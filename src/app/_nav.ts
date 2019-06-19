@@ -12,6 +12,64 @@ export const navigation_blankdata  = [
 
 ];
 
+export const navigation_grpID_SSM  = [
+   
+  {
+    name: 'Master Data Management',
+    url: '/nsa/masterdatamgmt',
+    icon: 'icon-cursor'
+  }
+
+];
+
+export const navigation_grpID_CLC  = [
+   
+  {
+    name: 'Master Data Management',
+    url: '/nsa/masterdatamgmt',
+    icon: 'icon-cursor'
+  }
+
+];
+export const navigation_grpID_HOD  = [
+   
+  {
+    name: 'Master Data Management',
+    url: '/nsa/masterdatamgmt',
+    icon: 'icon-cursor'
+  }
+
+];
+export const navigation_grpID_GENERAL  = [
+   
+  {
+    name: 'Master Data Management',
+    url: '/nsa/masterdatamgmt',
+    icon: 'icon-cursor'
+  }
+
+];
+
+export const navigation_grpID_ADMIN  = [
+  {
+    name: 'Landing Page',
+    url: '/nsa',
+	icon: 'icon-star'
+  }, 
+{
+    title: true,
+    name: 'Work Requests'
+  },
+   
+  {
+    name: 'Master Data Management',
+    url: '/nsa/masterdatamgmt',
+    icon: 'icon-cursor'
+  }
+
+];
+
+
 export const navigation_grpID_Wipro_OSS = [
    
   {
