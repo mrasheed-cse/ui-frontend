@@ -28,6 +28,11 @@ import { DiscreteprovisionComponent } from './discreteprovision.component';
 import { DiscreteprovisionformComponent } from './discreteprovisionform.component';
 import { DiscreteprovisiondetailsComponent } from './discreteprovisiondetails.component';
 import { MasterdatamgmtComponent } from './masterdatamgmt.component';
+import { NewrequisitioninitiateComponent } from './newrequisitioninitiate.component';
+import { NewrequisitionsearchComponent } from './newrequisitionsearch.component';
+import { NewrequisitionComponent } from './newrequisition.component';
+
+
 
 const routes: Routes = [
   {
@@ -229,6 +234,27 @@ const routes: Routes = [
     component: MasterdatamgmtComponent,
     data: {
       title: 'Master Data Mgmt'
+    }
+  },
+  {
+    path: 'newrequisition',
+    component: NewrequisitionComponent,
+    data: {
+      title: 'New Requisition'
+    }
+  },
+  {
+    path: 'newrequisitioninitiation',
+    component: NewrequisitioninitiateComponent,
+    data: {
+      title: 'New requisition initiate'
+    }
+  },
+  {
+    path: 'newrequisitionsearch',
+    component: NewrequisitionsearchComponent,
+    data: {
+      title: 'New requisition search'
     }
   }
 ];

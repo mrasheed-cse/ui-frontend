@@ -15,39 +15,82 @@ export const navigation_blankdata  = [
 export const navigation_grpID_SSM  = [
    
   {
-    name: 'Master Data Management',
-    url: '/nsa/masterdatamgmt',
-    icon: 'icon-cursor'
-  }
+    title: true,
+    name: 'New Sim Requisition'
+  },
+  {
+        name: 'My Tasks',
+        url: '/nsa/newrequisition',
+        icon: 'icon-cursor'
+      },
+      {
+            name: 'Search',
+            url: '/nsa/newrequisitionsearch',
+            icon: 'icon-cursor'
+          }
 
 ];
 
 export const navigation_grpID_CLC  = [
    
+   
   {
-    name: 'Master Data Management',
-    url: '/nsa/masterdatamgmt',
-    icon: 'icon-cursor'
-  }
+    title: true,
+    name: 'New Sim Requisition'
+  },
+  {
+        name: 'My Tasks',
+        url: '/nsa/newrequisition',
+        icon: 'icon-cursor'
+      },
+      {
+            name: 'Search',
+            url: '/nsa/newrequisitionsearch',
+            icon: 'icon-cursor'
+          }
 
 ];
 export const navigation_grpID_HOD  = [
    
+   
   {
-    name: 'Master Data Management',
-    url: '/nsa/masterdatamgmt',
-    icon: 'icon-cursor'
-  }
+    title: true,
+    name: 'New Sim Requisition'
+  },
+  {
+        name: 'My Tasks',
+        url: '/nsa/newrequisition',
+        icon: 'icon-cursor'
+      },
+      {
+            name: 'Search',
+            url: '/nsa/newrequisitionsearch',
+            icon: 'icon-cursor'
+          }
 
 ];
 export const navigation_grpID_GENERAL  = [
    
+    
   {
-    name: 'Master Data Management',
-    url: '/nsa/masterdatamgmt',
+    title: true,
+    name: 'New Sim Requisition'
+  },
+  {
+    name: 'Create New',
+    url: '/nsa/newrequisitioninitiation',
     icon: 'icon-cursor'
-  }
-
+  },
+  {
+        name: 'My Tasks',
+        url: '/nsa/newrequisition',
+        icon: 'icon-cursor'
+      },
+      {
+            name: 'Search',
+            url: '/nsa/newrequisitionsearch',
+            icon: 'icon-cursor'
+          }
 ];
 
 export const navigation_grpID_ADMIN  = [
