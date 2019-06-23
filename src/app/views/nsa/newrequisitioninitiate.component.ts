@@ -25,6 +25,10 @@ export class NewrequisitioninitiateComponent implements OnInit {
 
   employeeID: string;
   mobileNo: string;
+  designation: string;
+  department: string;
+  division: string;
+  emailAddress: string;
   WR_Name: string;
 	serverUrl: string;
   currentLoggedInUser: LoggedInUser;
@@ -49,7 +53,7 @@ export class NewrequisitioninitiateComponent implements OnInit {
       }
       
       	//GetWR_Name
-	this.definitionDataService.GetWR_Name(this._global.wrid_NumberSeriesProvisioning).subscribe(
+	this.definitionDataService.GetWR_Name(this._global.wrid_NewSimRequision).subscribe(
     data => {
         //console.log(data);				
         const dataStr = JSON.stringify(data);
@@ -68,6 +72,10 @@ export class NewrequisitioninitiateComponent implements OnInit {
         
       this.employeeID="3124";
       this.mobileNo= "01711501394";
+      this.designation = "Senior Project Engineer";
+      this.department = "Business Support Service";
+      this.division = "Information Technology";
+      this.emailAddress = "afifa@grameenphone.com";
       
       }
     
