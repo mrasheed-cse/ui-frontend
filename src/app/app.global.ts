@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 
 @Injectable()
+// DATA VALUES OF THIS CLASS MUST BE SYNCHED WITH DATABASE
+
 export class AppGlobals {
     readonly groupID_Sourcing: number = 2;
     readonly groupID_CNP: number = 3;
@@ -27,6 +29,17 @@ export class AppGlobals {
 	readonly wrid_ApnCreation: number = 6;
 	readonly wrid_DescProvisioning: number = 7;
 	readonly wrid_NewSimRequision: number = 8;
+
+	
+	readonly masterData_RequisitionType = 1;
+	readonly masterData_UsageCategory = 2;
+	readonly masterData_Location = 3;
+	readonly masterData_PurposeType = 4;
+	readonly masterData_ProductType = 5;
+	readonly masterData_ProductName = 6;	
+	readonly masterData_ImsiType = 7;	
+	
+
 	
 	readonly wrid_FileUploadPath: string = '/app/nsa_files/';
 	

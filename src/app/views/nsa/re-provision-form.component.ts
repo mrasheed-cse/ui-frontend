@@ -40,6 +40,7 @@ export class ReProvisionFormComponent implements OnInit {
 	serverUrl: string;
 	currentLoggedInUser: LoggedInUser;
 	userName: string;
+	userID: string;	  	  
 	groupID: number;	
 	
 	
@@ -92,6 +93,7 @@ constructor(private router: Router,private loginService: LoginService, private h
 	
 	if (this.currentLoggedInUser) {
 		this.userName = this.currentLoggedInUser.userName
+		this.userID = this.currentLoggedInUser.userID
 		this.groupID = this.currentLoggedInUser.groupID
 		//console.log('Current user: ' + this.userName);
 		
@@ -347,7 +349,7 @@ topFunction() {
 		});
   
   
-  this.workFlowsService.CreateNewWorkRequest(this._global.wrid_ReProvisioning, this.groupID,this.userName,this.formFieldData).subscribe(
+  this.workFlowsService.CreateNewWorkRequest(this._global.wrid_ReProvisioning, this.groupID,this.userID,this.formFieldData).subscribe(
       res  =>  {
 		console.log('response is : '+res.message);
 		

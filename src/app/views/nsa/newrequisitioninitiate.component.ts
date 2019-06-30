@@ -1,41 +1,94 @@
-import { Component, OnInit } from '@angular/core';
-import {BsDatepickerConfig} from 'ngx-bootstrap/datepicker';
+import {
+  NgModule,
+  Component,
+  Pipe,
+  OnInit
+} from '@angular/core';
+import {ReactiveFormsModule, FormGroup, FormControl, Validators, FormArray} from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { Router } from '@angular/router';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { environment } from '../../../environments/environment.prod';
 import { DefinitionDataService } from './services/definitiondata.service';
-import { WorkflowsService } from './services/workflows.service';
+import { IsmsworkflowsService } from './services/Ismsworkflows.service';
 import { Observable } from 'rxjs/Observable';
-import { AppGlobals } from './../../app.global';
+
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/retry';
+import 'rxjs/add/observable/of';
+
 import { LoginService } from '../pages/LoginService';
 import { LoggedInUser } from '../pages/loggedInUser'; 
 
-
-
+import { NewTestSimRequisition, RequisitionLine } from './models/NewTestSimRequisition'
+import { AppGlobals } from './../../app.global';
 
 @Component({
   selector: 'app-newrequisitioninitiate',
   templateUrl: './newrequisitioninitiate.component.html',
-  styles: [],
-  providers: [DefinitionDataService,WorkflowsService,AppGlobals,LoginService]
+  styles: ['./nsa_styles.css'],
+  providers: [DefinitionDataService,IsmsworkflowsService,AppGlobals,LoginService]
 })
 export class NewrequisitioninitiateComponent implements OnInit {
 
 
-  employeeID: string;
+	employeeID: string;
+	employeeName: string;
   mobileNo: string;
   designation: string;
   department: string;
   division: string;
   emailAddress: string;
+
   WR_Name: string;
 	serverUrl: string;
-  currentLoggedInUser: LoggedInUser;
-	  userName: string;
-	  groupID: number;
+	currentLoggedInUser: LoggedInUser;
+	newTestSimRequisition: NewTestSimRequisition;
+	userName: string;
+	groupID: number;
+	userID: string;
 
-    constructor(private loginService: LoginService, private router:Router, public _global: AppGlobals, private workFlowsService: WorkflowsService, private definitionDataService: DefinitionDataService) {
+  public dangerAlertShow:boolean = false;
+	public dangerAlertMessage:string = "";
+	public successAlertShow:boolean = false;
+	public successAlertMessage:string = "";
+	public infoAlertShow:boolean = false;
+	public infoAlertMessage:string = "";
+  public isLoading:boolean = false;
+
+	newSimRequisitionForm: FormGroup;
+	purposeCategory: FormControl;
+	
+
+	location: FormControl;
+	usageCategory: FormControl;
+	startDate: FormControl;
+	endDate: FormControl;
+	purposeDetails: FormControl;	
+	notificationTo: FormControl;
+	requisitionType: FormControl;
+	requisitionDate: FormControl;
+	requisitionLines: FormArray;
+	
+	formFieldData: string;
+	
+	public listRequisitionType = [];
+	public listPurposeCategory = [];
+	public listLocation = [];
+	public listUsageCategory = [];
+	public listProduct = [];
+	public listImsiType = [];
+  
+	todayDate: Date;
+
+
+  
+
+  constructor(private router: Router,private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private definitionDataService: DefinitionDataService, private ismsworkflowsService: IsmsworkflowsService) {
 		
       // Get Current User Profile
       
@@ -43,7 +96,8 @@ export class NewrequisitioninitiateComponent implements OnInit {
       
       if (this.currentLoggedInUser) {
         this.userName = this.currentLoggedInUser.userName
-        this.groupID = this.currentLoggedInUser.groupID
+				this.groupID = this.currentLoggedInUser.groupID
+				this.userID = this.currentLoggedInUser.userID
         //console.log('Current user: ' + this.userName);
         
       } 
@@ -51,7 +105,17 @@ export class NewrequisitioninitiateComponent implements OnInit {
       //console.log('Current user not found');
       this.router.navigate(['pages/login']);
       }
-      
+			
+			
+			// Get Current GP User Information
+			this.employeeID = "3124";
+			this.employeeName = "Afifa Julia";
+			this.mobileNo = "01711501394";
+			this.designation = "Senior Project Engineer";
+			this.department = "Business Support System";
+			this.division = "Information Technology";
+			this.emailAddress = "afifa@grameenphone.com";
+
       	//GetWR_Name
 	this.definitionDataService.GetWR_Name(this._global.wrid_NewSimRequision).subscribe(
     data => {
@@ -70,17 +134,287 @@ export class NewrequisitioninitiateComponent implements OnInit {
       ()=> console.log('done loading Work Request Name')
       );	
         
-      this.employeeID="3124";
-      this.mobileNo= "01711501394";
-      this.designation = "Senior Project Engineer";
-      this.department = "Business Support Service";
-      this.division = "Information Technology";
-      this.emailAddress = "afifa@grameenphone.com";
+
+		
+	//GetRequisitionType
+	this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_RequisitionType).subscribe(
+		data => { 
+					//console.log(data);
+					for (let index in data) {
+						//console.log (data[index]);
+						this.listRequisitionType.push(
+						{
+							id:data[index].id,
+							ismsMasterDataDetailsName: data[index].ismsMasterDataDetailsName
+						}
+						); 
+					}		
+				},
+			err => console.error(err),
+			() => console.log('done loading Provisioning Type Name List')
+			);
+//GetPurposeCategory
+
+this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_PurposeType).subscribe(
+	data => { 
+				//console.log(data);
+				for (let index in data) {
+					//console.log (data[index]);
+					this.listPurposeCategory.push(
+					{
+						id:data[index].id,
+						ismsMasterDataDetailsName: data[index].ismsMasterDataDetailsName
+					}
+					); 
+				}		
+			},
+		err => console.error(err),
+		() => console.log('done loading Provisioning Type Name List')
+		);
+
+		//GetLocation
+
+this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_Location).subscribe(
+	data => { 
+				//console.log(data);
+				for (let index in data) {
+					//console.log (data[index]);
+					this.listLocation.push(
+					{
+						id:data[index].id,
+						ismsMasterDataDetailsName: data[index].ismsMasterDataDetailsName
+					}
+					); 
+				}		
+			},
+		err => console.error(err),
+		() => console.log('done loading Provisioning Type Name List')
+		);
+
+		//GetUsageCategory
+
+this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_UsageCategory).subscribe(
+	data => { 
+				//console.log(data);
+				for (let index in data) {
+					//console.log (data[index]);
+					this.listUsageCategory.push(
+					{
+						id:data[index].id,
+						ismsMasterDataDetailsName: data[index].ismsMasterDataDetailsName
+					}
+					); 
+				}		
+			},
+		err => console.error(err),
+		() => console.log('done loading usage category Name List')
+		);
+
+			//GetProducts
+
+this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_ProductName).subscribe(
+	data => { 
+				//console.log(data);
+				for (let index in data) {
+					//console.log (data[index]);
+					this.listProduct.push(
+					{
+						id:data[index].id,
+						ismsMasterDataDetailsName: data[index].ismsMasterDataDetailsName
+					}
+					); 
+				}		
+			},
+		err => console.error(err),
+		() => console.log('done loading Product Name List')
+		);
+
+		//GetIMSI Type
+
+this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_ImsiType).subscribe(
+	data => { 
+				//console.log(data);
+				for (let index in data) {
+					//console.log (data[index]);
+					this.listImsiType.push(
+					{
+						id:data[index].id,
+						ismsMasterDataDetailsName: data[index].ismsMasterDataDetailsName
+					}
+					); 
+				}		
+			},
+		err => console.error(err),
+		() => console.log('done loading IMSI Type Name List')
+		);
+
+		//Get Today Date
+		this.todayDate = new Date();      
+      }
+    
+      ngOnInit() {
+        this.createFormControls();
+        this.createForm();	
+      }
+      
+      
+      createFormControls() {
+        this.purposeCategory = new FormControl('', Validators.required);
+      this.location =	new FormControl({value: ''}, Validators.required);
+      this.usageCategory = 	new FormControl({value: ''}, Validators.required);	
+      this.startDate =	new FormControl('');
+      this.endDate = 	new FormControl('');
+      this.purposeDetails = new FormControl('', Validators.required);
+      
+      this.notificationTo = 	new FormControl('', Validators.required);	
+      
+      this.requisitionType = new  FormControl('');
+      this.requisitionDate = new FormControl('');
+      this.requisitionLines = new FormArray([  
+        //new FormControl(0)    
+        new FormGroup({
+          product: new FormControl('', Validators.required),
+          creditLimit: new FormControl(0),
+          quantity: new FormControl(0),
+          imsiType: new FormControl('', Validators.required),
+          specialRequirement: new FormControl(''),
+          assignProduct: new FormControl(0),
+          assignQuantity: new FormControl(0)
+      })]);
       
       }
     
+      createForm() {
+        this.newSimRequisitionForm = new FormGroup({
+					requisitionDate: this.requisitionDate,	
+					requisitionType: this.requisitionType,
+        	purposeCategory: this.purposeCategory,
+        	location: this.location,
+        	usageCategory: this.usageCategory,		
+        	startDate: this.startDate,
+        	endDate: this.endDate,	
+        	purposeDetails: this.purposeDetails,        
+        	notificationTo: this.notificationTo,
+        	requisitionLines: this.requisitionLines
+        });
+      }
+      
+    topFunction() {
+      document.body.scrollTop = 0; // For Safari
+      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    }
+    
+    
+    get RequisitionLines(): FormArray { 
+      return this.newSimRequisitionForm.get('requisitionLines') as FormArray; 
+    }
+    
+    
+    addLine() { 
+      //this.RequisitionLines.push(new FormControl()); 
+      
+      this.RequisitionLines.push(new FormGroup(
+        {
+          product: new FormControl('', Validators.required),
+          creditLimit: new FormControl(0),
+          quantity: new FormControl(0),
+          imsiType: new FormControl('', Validators.required),
+          specialRequirement: new FormControl(''),
+          assignProduct: new FormControl(0),
+          assignQuantity: new FormControl(0)
+            }
+      )); 
+      
+    }
+    deleteLine(index: number) {
+      this.requisitionLines.removeAt(index);
+    }
+    
+    
+      // FORM SUBMISSION
+      onNewSimRequisitionSubmit() {
+       //console.log("this.defFlowFound is "+this.defFlowFound);
+      if (this.newSimRequisitionForm.valid) {
+        this.topFunction();
+      this.isLoading = true;
+        console.log('Form Submitted!');
+      
+        const theReqDate = this.FormatTheDate(this.newSimRequisitionForm.get('requisitionDate').value);
+        const theStartDate = this.FormatTheDate(this.newSimRequisitionForm.get('startDate').value);
+        const theEndDate = this.FormatTheDate(this.newSimRequisitionForm.get('endDate').value);
+    
+        this.newSimRequisitionForm.get('requisitionDate').setValue(theReqDate);
+        this.newSimRequisitionForm.get('startDate').setValue(theStartDate);
+        this.newSimRequisitionForm.get('endDate').setValue(theEndDate);
+    
+				let resource = JSON.stringify(this.newSimRequisitionForm.value);
+				
+/*
+				let aNewTestSimRequisition:NewTestSimRequisition = new NewTestSimRequisition(); 
+				aNewTestSimRequisition.requisitionDate = this.FormatTheDate(this.newSimRequisitionForm.get('requisitionDate').value);
+				aNewTestSimRequisition.requisitionType = this.FormatTheDate(this.newSimRequisitionForm.get('requisitionType').value);
+				aNewTestSimRequisition.purposeCategory = this.FormatTheDate(this.newSimRequisitionForm.get('purposeCategory').value);
+				aNewTestSimRequisition.location = this.FormatTheDate(this.newSimRequisitionForm.get('location').value);
+				aNewTestSimRequisition.usageCategory = this.FormatTheDate(this.newSimRequisitionForm.get('usageCategory').value);
+				aNewTestSimRequisition.startDate = this.FormatTheDate(this.newSimRequisitionForm.get('startDate').value);
+				aNewTestSimRequisition.endDate = this.FormatTheDate(this.newSimRequisitionForm.get('endDate').value);
+				aNewTestSimRequisition.purposeDetails = this.FormatTheDate(this.newSimRequisitionForm.get('purposeDetails').value);
+				aNewTestSimRequisition.notificationTo = this.FormatTheDate(this.newSimRequisitionForm.get('notificationTo').value);
+				
+				let requisitionLines:RequisitionLine[];
+				// = new RequisitionLine(); 
+				aRequisitionLine:RequisitionLine;
 
-  ngOnInit() {
-  }
+				//aNewTestSimRequisition.requisitionLines = this.newSimRequisitionForm.get('requisitionLines') as FormArray;
+			*/	
+				console.log('Add Button clicked: ' + resource);			
+				
+				
+				this.ismsworkflowsService.CreateNewTestSimRequest(this._global.wrid_NewSimRequision, this.groupID,this.userID,this.WR_Name,resource).subscribe(
+					res  =>  {
+						console.log('response is : '+res.message);
+				
+						if(res !== ""){	
+							this.isLoading = false;
+							this.successAlertShow = true;
+							this.successAlertMessage = " has been created successfully and forwarded to "+res.message+". ";
+						}
+							},
+							err  =>  {	
+								this.isLoading = false;	  
+							console.log("err.status : "+err.status);		  
+							this.dangerAlertShow = true;
+						this.dangerAlertMessage = " .";
+							}
+						
+							);
+						}
+    }
+
+
+FormatTheDate(selectedrequisitionDate:any):string {
+	
+	console.log("selectedrequisitionDate : "+selectedrequisitionDate);	
+		var date = new Date(selectedrequisitionDate);
+    var month = ("0" + (date.getMonth()+1)).slice(-2);
+    var day  = ("0" + date.getDate()).slice(-2);
+    var formattedDate=[day,month,date.getFullYear()].join("-");
+	console.log("formattedDate : "+formattedDate);
+	return formattedDate;
+	
+}
+
+clearForm(event: any){
+		//console.log(event);
+		this.dangerAlertShow = false;
+		this.successAlertShow = false;	
+		this.newSimRequisitionForm.reset();		
+	}
+ backButton(event: any){
+		//console.log(event);
+		this.router.navigateByUrl('/nsa/newrequisition');	
+	}
+
+      
 
 }

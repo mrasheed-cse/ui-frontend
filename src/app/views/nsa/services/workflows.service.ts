@@ -31,17 +31,17 @@ export class WorkflowsService {
   
 	//Create New Work Request
 	//{wr_id}/{userGroup_id}/{user_name}/[{workflowFieldsValueSeqWise}]
-	CreateNewWorkRequest(wr_id: number,userGroup_id: number,user_name: string,workflowFieldsValueSeqWise: string) : any {	
+	CreateNewWorkRequest(wr_id: number,userGroup_id: number,userID: string,workflowFieldsValueSeqWise: string) : any {	
   
 		//console.log("In GetWR_Name() for theWrNumber "+ theWrNumber);	
 		console.log("In GetWR_Name() for workflowFieldsValueSeqWise "+ workflowFieldsValueSeqWise);	
-		console.log(wr_id+'/'+userGroup_id+'/'+user_name+'/['+workflowFieldsValueSeqWise+']');
+		console.log(wr_id+'/'+userGroup_id+'/'+userID+'/['+workflowFieldsValueSeqWise+']');
 	
 	
 	return this.http.post(this.serverUrl + 'NewWorkRequest', {
 			wrID: wr_id,
 			userGroupID: userGroup_id,
-			userName: user_name,
+			userID: userID,
 			workflowFieldsValueSeqWise: workflowFieldsValueSeqWise
 		});
 	}
@@ -71,17 +71,17 @@ export class WorkflowsService {
 	
 	//Update Existing Work Request
 	//{wr_id}/{userGroup_id}/{user_name}/[{workflowFieldsValueSeqWise}]
-	UpdateExistiongWorkRequest(wrBriefName: string,wr_id: number,userGroup_id: number,user_name: string,hopSequence: number,workflowFieldsValueSeqWise: string, isDone: boolean) : any {	
+	UpdateExistiongWorkRequest(wrBriefName: string,wr_id: number,userGroup_id: number,userID: string,hopSequence: number,workflowFieldsValueSeqWise: string, isDone: boolean) : any {	
   
 		//console.log("In GetWR_Name() for theWrNumber "+ theWrNumber);	
 		
 	
-	console.log(this.serverUrl + 'ExistingWorkRequest/'+wrBriefName+'/'+wr_id+'/'+userGroup_id+'/'+user_name+'/'+hopSequence+'/['+workflowFieldsValueSeqWise+']/'+isDone);
+	console.log(this.serverUrl + 'ExistingWorkRequest/'+wrBriefName+'/'+wr_id+'/'+userGroup_id+'/'+userID+'/'+hopSequence+'/['+workflowFieldsValueSeqWise+']/'+isDone);
 	return this.http.post(this.serverUrl + 'ExistingWorkRequest', {
 			wrBriefName: wrBriefName,
 			wrID: wr_id,
 			userGroupID: userGroup_id,
-			userName: user_name,			
+			userID: userID,			
 			workflowFieldsValueSeqWise: workflowFieldsValueSeqWise,
 			hopSequence: hopSequence,
 			isDone: isDone

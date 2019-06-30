@@ -32,6 +32,7 @@ export class LoginService {
 
 		
 		this.currentLoggedInUser = {
+			userID: "",
 			userName: "",
 			groupName: "",
 			groupID: 0

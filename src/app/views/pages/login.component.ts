@@ -60,6 +60,7 @@ export class LoginComponent {
       
      
       this.currentLoggedInUser = {
+        userID: this.username,
         userName: res.usersName,
         groupName: res.usersGroupName,
         groupID: res.usersGroupId

@@ -5,11 +5,11 @@ import {
   OnInit
 } from '@angular/core';
 import {ReactiveFormsModule, FormGroup, FormControl, Validators} from '@angular/forms';
-import {BrowserModule} from '@angular/platform-browser';
-import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
-import {BsDatepickerConfig} from 'ngx-bootstrap/datepicker';
+import { BrowserModule } from '@angular/platform-browser';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { Router } from '@angular/router';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { environment } from '../../../environments/environment.prod';
 import { DefinitionDataService } from './services/definitiondata.service';
@@ -40,6 +40,7 @@ export class SeriesprovisionformComponent implements OnInit {
 	serverUrl: string;
 	currentLoggedInUser: LoggedInUser;
 	userName: string;
+	userID: string;	  	  
 	groupID: number;	
 	totalQuantity: number = 0;
 	
@@ -88,6 +89,7 @@ export class SeriesprovisionformComponent implements OnInit {
 	
 	if (this.currentLoggedInUser) {
 		this.userName = this.currentLoggedInUser.userName
+		this.userID = this.currentLoggedInUser.userID
 		this.groupID = this.currentLoggedInUser.groupID
 		//console.log('Current user: ' + this.userName);
 		
@@ -341,7 +343,7 @@ topFunction() {
   this.LogKeyValuePairs(this.mySeriesProvisionForm);
   //console.log(this.formFieldData);
   //{wr_id}/{userGroup_id}/{user_id}/[{workflowFieldsValueSeqWise}]
-  this.workFlowsService.CreateNewWorkRequest(this._global.wrid_NumberSeriesProvisioning, this.groupID,this.userName,this.formFieldData).subscribe(
+  this.workFlowsService.CreateNewWorkRequest(this._global.wrid_NumberSeriesProvisioning, this.groupID,this.userID,this.formFieldData).subscribe(
       res  =>  {
 		console.log('response is : '+res.message);
 		

@@ -41,6 +41,7 @@ WR_Name: string;
 	serverUrl: string;
 	currentLoggedInUser: LoggedInUser;
 	userName: string;
+	userID: string;	  	  
 	groupID: number;	
 	
 	public dangerAlertShow:boolean = false;
@@ -73,6 +74,7 @@ WR_Name: string;
 	
 	if (this.currentLoggedInUser) {
 		this.userName = this.currentLoggedInUser.userName
+		this.userID = this.currentLoggedInUser.userID
 		this.groupID = this.currentLoggedInUser.groupID
 		//console.log('Current user: ' + this.userName);
 		
@@ -176,7 +178,7 @@ WR_Name: string;
 	
   //{wr_id}/{userGroup_id}/{user_id}/[{workflowFieldsValueSeqWise}]
   
-  this.workFlowsService.CreateNewWorkRequest(this._global.wrid_DeProvisioning, this.groupID,this.userName,this.formFieldData).subscribe(
+  this.workFlowsService.CreateNewWorkRequest(this._global.wrid_DeProvisioning, this.groupID,this.userID,this.formFieldData).subscribe(
       res  =>  {
 		console.log('response is : '+res.message);
 		this.isLoading=false;

@@ -23,8 +23,7 @@
 							<div class="form-group row">
 								<label class="col-md-5 col-form-label">Work Request Name</label>
 								<div class="col-md-7">
-									<input disabled type="text" class="form-control calendar-container"
-									value="{{WR_Name}}">
+									{{WR_Name}}
 								</div>
 							</div>
 						</div>
@@ -45,18 +44,11 @@
 	
 	
 									<div class="invalid-feedback" *ngIf="simType.errors && (simType.dirty || simType.touched)">
-										<p *ngIf="simType.errors.required">Provisioning Type required</p>
-	
+										<p *ngIf="simType.errors.required">Provisioning Type required</p>	
 									</div>
-	
-	
 								</div>
 						</div>
-					
-						
 					</div>
-
-
 					<div class="row">
 							<div class="col-md-6">
 									<div class="form-group row">

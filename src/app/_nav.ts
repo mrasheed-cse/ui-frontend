@@ -16,17 +16,17 @@ export const navigation_grpID_SSM  = [
    
   {
     title: true,
-    name: 'New Sim Requisition'
+    name: 'My Tasks'
   },
   {
-        name: 'My Tasks',
+        name: 'New Request',
         url: '/nsa/newrequisition',
         icon: 'icon-cursor'
       },
       {
-            name: 'Search',
-            url: '/nsa/newrequisitionsearch',
-            icon: 'icon-cursor'
+        name: 'Approval',
+        url: '/nsa/newrequisitiondetails',
+        icon: 'icon-cursor'
           }
 
 ];
@@ -43,11 +43,7 @@ export const navigation_grpID_CLC  = [
         url: '/nsa/newrequisition',
         icon: 'icon-cursor'
       },
-      {
-            name: 'Search',
-            url: '/nsa/newrequisitionsearch',
-            icon: 'icon-cursor'
-          }
+     
 
 ];
 export const navigation_grpID_HOD  = [
@@ -62,11 +58,7 @@ export const navigation_grpID_HOD  = [
         url: '/nsa/newrequisition',
         icon: 'icon-cursor'
       },
-      {
-            name: 'Search',
-            url: '/nsa/newrequisitionsearch',
-            icon: 'icon-cursor'
-          }
+     
 
 ];
 export const navigation_grpID_GENERAL  = [
@@ -86,11 +78,7 @@ export const navigation_grpID_GENERAL  = [
         url: '/nsa/newrequisition',
         icon: 'icon-cursor'
       },
-      {
-            name: 'Search',
-            url: '/nsa/newrequisitionsearch',
-            icon: 'icon-cursor'
-          }
+      
 ];
 
 export const navigation_grpID_ADMIN  = [

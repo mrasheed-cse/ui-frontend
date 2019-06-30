@@ -39,6 +39,7 @@ export class SeriesDefinitionFormComponent implements OnInit {
 	serverUrl: string;
 	currentLoggedInUser: LoggedInUser;
 	userName: string;
+	userID: string;	  	  
 	groupID: number;	
 	
 	
@@ -83,6 +84,7 @@ export class SeriesDefinitionFormComponent implements OnInit {
 	
 	if (this.currentLoggedInUser) {
 		this.userName = this.currentLoggedInUser.userName
+		this.userID = this.currentLoggedInUser.userID
 		this.groupID = this.currentLoggedInUser.groupID
 		//console.log('Current user: ' + this.userName);
 		
@@ -345,7 +347,7 @@ ChaeckDefinitionValidity (startMSISDNs, endMSISDNs) {
   this.LogKeyValuePairs(this.mySeriesDefinitionForm);
   //console.log(this.formFieldData);
   //{wr_id}/{userGroup_id}/{user_id}/[{workflowFieldsValueSeqWise}]
-  this.workFlowsService.CreateNewWorkRequest(this._global.wrid_NumberSeriesDefinition, this.groupID,this.userName,this.formFieldData).subscribe(
+  this.workFlowsService.CreateNewWorkRequest(this._global.wrid_NumberSeriesDefinition, this.groupID,this.userID,this.formFieldData).subscribe(
       res  =>  {
 		console.log('response is : '+res.message);
 		

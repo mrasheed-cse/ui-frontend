@@ -29,7 +29,7 @@ import { DiscreteprovisionformComponent } from './discreteprovisionform.componen
 import { DiscreteprovisiondetailsComponent } from './discreteprovisiondetails.component';
 import { MasterdatamgmtComponent } from './masterdatamgmt.component';
 import { NewrequisitioninitiateComponent } from './newrequisitioninitiate.component';
-import { NewrequisitionsearchComponent } from './newrequisitionsearch.component';
+import { NewrequisitiondetailsComponent } from './newrequisitiondetails.component';
 import { NewrequisitionComponent } from './newrequisition.component';
 
 
@@ -251,10 +251,10 @@ const routes: Routes = [
     }
   },
   {
-    path: 'newrequisitionsearch',
-    component: NewrequisitionsearchComponent,
+    path: 'newrequisitiondetails/:wr_BriefName/:wr_BriefId/:hopSequence',
+    component: NewrequisitiondetailsComponent,
     data: {
-      title: 'New requisition search'
+      title: 'Approval'
     }
   }
 ];

@@ -47,6 +47,7 @@ import {
 	  
 	  currentLoggedInUser: LoggedInUser;
 	  userName: string;
+	  userID: string;	  
 	  groupID: number;
 	
 	  public dangerAlertShow:boolean = false;
@@ -67,6 +68,7 @@ import {
 	  
 	  if (this.currentLoggedInUser) {
 		  this.userName = this.currentLoggedInUser.userName
+		  this.userID = this.currentLoggedInUser.userID
 		  this.groupID = this.currentLoggedInUser.groupID
 		  //console.log('Current user: ' + this.userName);
 		  

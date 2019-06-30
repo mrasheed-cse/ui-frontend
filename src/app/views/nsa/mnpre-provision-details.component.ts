@@ -44,7 +44,9 @@ import {
 	  
 	  currentLoggedInUser: LoggedInUser;
 	  userName: string;
+	  userID: string;	  	  
 	  groupID: number;
+	  userID: string;	  	  
 	
 	  public dangerAlertShow:boolean = false;
 	  public dangerAlertMessage:string = "";
@@ -62,6 +64,7 @@ import {
 	  
 	  if (this.currentLoggedInUser) {
 		  this.userName = this.currentLoggedInUser.userName
+		  this.userID = this.currentLoggedInUser.userID
 		  this.groupID = this.currentLoggedInUser.groupID
 	  } 
 	  else {
@@ -111,7 +114,7 @@ import {
 		this.isDoneDisable = true;
 		if(this.hop_sequence==3) // LAST HOP IN De-PROVISION
 			this.isDone = true;
-		this.workFlowsService.UpdateExistiongWorkRequest(this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName),this._global.wrid_MnpReProvisioning, this.groupID,this.userName,this.hop_sequence,"",this.isDone).subscribe(
+		this.workFlowsService.UpdateExistiongWorkRequest(this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName),this._global.wrid_MnpReProvisioning, this.groupID,this.userID,this.hop_sequence,"",this.isDone).subscribe(
 		res  =>  {
 			console.log('response is : '+res.message);
 		  

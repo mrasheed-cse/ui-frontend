@@ -126,6 +126,14 @@ export class DefinitionDataService {
 		console.log(this.serverUrl + 'SDP_MigrationFromFile');
 		return this.http.post(this.serverUrl + 'SDP_MigrationFromFile',{});		
 	}
+
+	//GetMasterDataDetailTypes
+	GetMasterDataDetailTypes(masterDataItemID: number): any {
+
+		return this.http.post(this.serverUrl+'IsmsMasterDataDetails/'+masterDataItemID,{});
+	}
+
+	
 	
 
 	LuhnAlgorithmFor19thDigit(inputString: string): string{		

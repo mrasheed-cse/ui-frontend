@@ -43,6 +43,7 @@ export class SeriesDefinitionDetailsComponent implements OnInit {
 	
 	currentLoggedInUser: LoggedInUser;
 	userName: string;
+	userID: string;	  	  
 	groupID: number;
 		
 	
@@ -84,6 +85,7 @@ export class SeriesDefinitionDetailsComponent implements OnInit {
 	
 	if (this.currentLoggedInUser) {
 		this.userName = this.currentLoggedInUser.userName
+		this.userID = this.currentLoggedInUser.userID
 		this.groupID = this.currentLoggedInUser.groupID
 		//console.log('Current user: ' + this.userName);
 		
@@ -327,7 +329,7 @@ if (this.mySeriesDefinitionForm.valid) {
   this.LogKeyValuePairs(this.mySeriesDefinitionForm);
   console.log(this.formFieldData);
   //{wr_id}/{userGroup_id}/{user_id}/[{workflowFieldsValueSeqWise}]
-  this.workFlowsService.UpdateExistiongWorkRequest(this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName),this._global.wrid_NumberSeriesDefinition, this.groupID,this.userName,this.hop_sequence,this.formFieldData,this.isDone).subscribe(
+  this.workFlowsService.UpdateExistiongWorkRequest(this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName),this._global.wrid_NumberSeriesDefinition, this.groupID,this.userID,this.hop_sequence,this.formFieldData,this.isDone).subscribe(
       res  =>  {
 		console.log('response is : '+res.message);
 		
@@ -396,7 +398,7 @@ onDoneClick(event: any){
 		 this.isDoneDisable = true;
 		 if(this.hop_sequence==5) // LAST HOP IN SERIES PROVISION
 			this.isDone = true;
-		  this.workFlowsService.UpdateExistiongWorkRequest(this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName),this._global.wrid_NumberSeriesDefinition, this.groupID,this.userName,this.hop_sequence,this.formFieldData,this.isDone).subscribe(
+		  this.workFlowsService.UpdateExistiongWorkRequest(this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName),this._global.wrid_NumberSeriesDefinition, this.groupID,this.userID,this.hop_sequence,this.formFieldData,this.isDone).subscribe(
       res  =>  {
 		console.log('response is : '+res.message);
 		

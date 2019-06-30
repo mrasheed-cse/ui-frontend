@@ -45,8 +45,9 @@ export class ApndetailsComponent implements OnInit {
 	
 	currentLoggedInUser: LoggedInUser;
 	userName: string;
+	userID: string;
 	groupID: number;
-		
+	
 	
 	
 	
@@ -69,6 +70,7 @@ export class ApndetailsComponent implements OnInit {
 	
 	if (this.currentLoggedInUser) {
 		this.userName = this.currentLoggedInUser.userName
+		this.userID = this.currentLoggedInUser.userID
 		this.groupID = this.currentLoggedInUser.groupID
 		//console.log('Current user: ' + this.userName);
 		
@@ -146,7 +148,7 @@ onDoneClick(event: any){
 		 this.isDoneDisable = true;
 		 if(this.hop_sequence==2) // LAST HOP IN APN Creation
 			this.isDone = true;
-		  this.workFlowsService.UpdateExistiongWorkRequest(this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName),this._global.wrid_ApnCreation, this.groupID,this.userName,this.hop_sequence,"Done",this.isDone).subscribe(
+		  this.workFlowsService.UpdateExistiongWorkRequest(this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName),this._global.wrid_ApnCreation, this.groupID,this.userID,this.hop_sequence,"Done",this.isDone).subscribe(
       res  =>  {
 		console.log('response is : '+res.message);
 		
