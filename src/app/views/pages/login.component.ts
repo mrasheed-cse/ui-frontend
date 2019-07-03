@@ -29,33 +29,18 @@ export class LoginComponent {
   this.currentLoggedInUser = {
     userName: "",
     groupName: "",
-    groupID: 0
+    groupID: 0,
+    userID: ""
   };
   }
-
-  //private username;
-  //private password;
-  
   username : string ;
   password : string ;
   
-  
-  
-  
-  
   ValidateUser(){
-	  //isValidUser : this.loginService.ValidateUser(this.username, this.password)
-	  //console.log(this.username);
-    //console.log(this.password);
-    //console.log("1. isLoading "+this.isLoading);
   this.isLoading = true;
-  //console.log("2. isLoading "+this.isLoading);
-  //this.isValidUser = 
   this.loginService.ValidateUser(this.username, this.password).subscribe(
   res => {
-    //this.errorMsg = '';
-    //console.log('response is : ' + res);
-    if (res !== null) {
+    if (res != null && res) {
       this.isValidUser = true;
       
      
@@ -65,23 +50,15 @@ export class LoginComponent {
         groupName: res.usersGroupName,
         groupID: res.usersGroupId
       };
-
-      //console.log(this.currentLoggedInUser);
       localStorage.setItem('currentLoggedInUser', JSON.stringify(this.currentLoggedInUser));
-      //console.log("2.1 isLoading "+this.isLoading);
-      //console.log("3. isLoading "+this.isLoading);
      
       this.isLoading = false;
-  //console.log("4. isLoading "+this.isLoading);
       this.router.navigateByUrl('/nsa')
     }
   },
   err => {
     this.isValidUser = false;
     this.isLoading = false;
-    //console.log("4. isLoading "+this.isLoading);
-    //console.log("err.status : " + err.status);
-    //console.log("Returning " + this.isValidUser);
     this.router.navigateByUrl('/pages/login');    
   }
 );

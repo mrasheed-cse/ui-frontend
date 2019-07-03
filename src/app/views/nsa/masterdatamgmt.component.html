@@ -1,13 +1,83 @@
-<p>
-  masterdatamgmt works!
-</p>
 
-<div class="animated fadeIn">
-  <div class="card">
-  
-  <div class="card-header">
-    Create New Master Data Item
-  </div>
+<!--<div class = "card">
+    <div class="card-header">		
+      <strong Create New Item></strong>
+    </div>
+      <form [formGroup]="createNewMasterDataForm" novalidate (ngSubmit)="onCreateNewMasterDataSubmit()" (keyup.enter)="onCreateNewMasterDataSubmit()"> 
+          <div class="card-body"> 
+        <input type = "text" name = "newmasterdata"  class="form-control" formControlName="newmasterdata" >                  
+      </div>
+        <div class="card-footer text-right">
+            <button type="submit"  class="btn btn-sm btn-primary"> 
+            <i class="fa fa-dot-circle-o"></i> Submit</button><br/><br/>				   
+    </div>
+      </form>
+    </div>
 
+  <div class="row"> 
+	  <div class="col-md-4">  
+      <form [formGroup]="masterDataDetailForm" novalidate (ngSubmit)="onMasterDataDetailSubmit()" (keyup.enter)="onMasterDataDetailSubmit()">
+        <label for = "selectMasterDataItem"> Create Detail Item</label>    
+        <select class="form-control" id="selectMasterDataItem" formControlName="selectMasterDataItem">
+        <option>select Item</option>
+        <option *ngFor="let aMasterDataItem of listMasterDataItem" [value]="aMasterDataItem.id">{{aMasterDataItem.masterDataItemName}}</option>
+        </select>
+        <label for = "newDetailItem">New Detail</label>  
+        <input type = "text" name = "newDetailItem"  class="form-control" formControlName="newDetailItem" > 
+					<button type="submit"  class="btn btn-sm btn-primary"> 
+						<i class="fa fa-dot-circle-o"></i> Submit</button>	
+      </form>
+    </div>
   </div>
-</div>
+-->
+
+<!--<div class="animated fadeIn">-->
+<div class="row">
+    <div class="col-md-10">
+        <div class="card">
+            <div class="card-header">
+                <button type="button" class="btn btn-primary" (click)="isCollapsedNewItem = !isCollapsedNewItem"><i class="fa fa-star"></i>&nbsp; {{isCollapsedNewItem === true ? 'Click to Create New Master Data Item' : 'Create Master Data Item'}}
+                </button>
+                </div>
+            <div [collapse]="isCollapsedNewItem" class="card-body">
+                <div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">{{dangerAlertMessage}}</div>
+                <div class="alert alert-success" role="alert" *ngIf="successAlertShow">{{successAlertMessage}}</div> 
+                  <form [formGroup]="createNewMasterDataForm" novalidate (ngSubmit)="onCreateNewMasterDataSubmit()">
+                      <div class="col-xs-12 col-12 col-md-8 form-group">
+                        <label for = "newmasterdata">Create New Item</label>
+                        <input type = "text" name = "newmasterdata"  class="form-control" formControlName="newmasterdata" >   
+                      </div>
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                  </form>
+            <div> <!-- collapse div-->
+           </div> <!-- card div-->
+        </div> <!-- col div-->
+        <br /> <br /> <br />
+    <div class="col-md-10">
+            <div class="card">
+                <div class="card-header">
+                <button type="button" class="btn btn-primary" (click)="isCollapseddetailItem = !isCollapseddetailItem"><i class="fa fa-star"></i>&nbsp; {{isCollapseddetailItem === true ? 'Click to Create Detail Master Data Item' : 'Create Detail Master Data Item'}}
+                </button>
+                </div>
+            <div [collapse]="isCollapseddetailItem" class="card-body"> 
+                    <div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">{{dangerAlertMessage}}</div>
+                    <div class="alert alert-success" role="alert" *ngIf="successAlertShow">{{successAlertMessage}}</div>  
+                    <form [formGroup]="masterDataDetailForm" novalidate (ngSubmit)="onMasterDataDetailSubmit()">
+                        <div class="col-xs-12 col-12 col-md-8 form-group">
+                        <label for = "selectMasterDataItem"> Create New Detail Item</label>    
+                        <select class="form-control" id="selectMasterDataItem" formControlName="selectMasterDataItem">
+                        <option>select Item</option>
+                        <option *ngFor="let aMasterDataItem of listMasterDataItem" [value]="aMasterDataItem.id">{{aMasterDataItem.masterDataItemName}}</option>
+                        </select>
+                        <label for = "newDetailItem">New Detail</label>  
+                        <input type = "text" name = "newDetailItem"  class="form-control" formControlName="newDetailItem" > 
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                   </form>
+            <div> <!-- collapse div-->
+           </div> <!-- card div-->  
+        </div> <!-- col div-->
+</div> <!-- closing card-->
+</div> <!-- row div-->
+<!-- closing last div-->
+<!--</div> -->         

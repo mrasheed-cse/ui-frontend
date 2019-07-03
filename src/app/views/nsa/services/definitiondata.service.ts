@@ -21,6 +21,15 @@ export class DefinitionDataService {
 		this.serverUrl = environment.apiUrl;  
 		//console.log("serverUrl "+ this.serverUrl);
 	}
+
+	//GetEmployeeDetails
+	getEmployeeDetails(userId: string):any{
+
+		return this.http.post(this.serverUrl + 'user',{
+           userId: userId
+
+		});
+	}
   
 	//GetWR_Name by wr_number
 	GetWR_Name(theWrNumber: number): any {	
@@ -131,6 +140,25 @@ export class DefinitionDataService {
 	GetMasterDataDetailTypes(masterDataItemID: number): any {
 
 		return this.http.post(this.serverUrl+'IsmsMasterDataDetails/'+masterDataItemID,{});
+	}
+
+	CreateNewMasterDataItem(newItem: String ){
+		return this.http.post(this.serverUrl+'CreateIsmsMasterDataItem/',{
+			ismsMasterDataItemName: newItem
+		});
+	}
+
+	CreateNewMasterDataDetailItem(ismsMasterDataItemID: number, ismsMasterDataItemDetailsName: string, groupName: string ){
+	return this.http.post(this.serverUrl+'CreateIsmsMasterDataItemDetails/',{
+		ismsMasterDataItemDetailsName: ismsMasterDataItemDetailsName,
+		ismsMasterDataItemID: ismsMasterDataItemID,
+		creator: groupName
+		});
+	}
+
+	GetMasterDataItems(): any {	
+		//console.log("In GetSimTypes()"); 		
+		return this.http.get(this.serverUrl + 'IsmsMasterDataItems/');
 	}
 
 	

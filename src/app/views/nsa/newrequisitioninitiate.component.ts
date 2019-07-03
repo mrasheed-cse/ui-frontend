@@ -2,7 +2,8 @@ import {
   NgModule,
   Component,
   Pipe,
-  OnInit
+  OnInit,
+	Injectable
 } from '@angular/core';
 import {ReactiveFormsModule, FormGroup, FormControl, Validators, FormArray} from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -27,11 +28,26 @@ import { LoggedInUser } from '../pages/loggedInUser';
 import { NewTestSimRequisition, RequisitionLine } from './models/NewTestSimRequisition'
 import { AppGlobals } from './../../app.global';
 
+import { PipeTransform} from '@angular/core';
+import { DatePipe } from '@angular/common';
+
+@Pipe({
+    name: 'dateFormat'
+	})
+	@Injectable()
+  export class DateFormatPipe extends DatePipe implements PipeTransform {
+    transform(value: any, args?: any): any {
+       ///MMM/dd/yyyy 
+       return super.transform(value, "MMM/dd/yyyy");
+    }
+  }
+
+
 @Component({
   selector: 'app-newrequisitioninitiate',
   templateUrl: './newrequisitioninitiate.component.html',
   styles: ['./nsa_styles.css'],
-  providers: [DefinitionDataService,IsmsworkflowsService,AppGlobals,LoginService]
+  providers: [DefinitionDataService,IsmsworkflowsService,AppGlobals,LoginService, DateFormatPipe]
 })
 export class NewrequisitioninitiateComponent implements OnInit {
 
@@ -88,7 +104,7 @@ export class NewrequisitioninitiateComponent implements OnInit {
 
   
 
-  constructor(private router: Router,private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private definitionDataService: DefinitionDataService, private ismsworkflowsService: IsmsworkflowsService) {
+  constructor(private router: Router,private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private definitionDataService: DefinitionDataService, private ismsworkflowsService: IsmsworkflowsService, private _dateFormatPipe:DateFormatPipe) {
 		
       // Get Current User Profile
       
@@ -108,18 +124,34 @@ export class NewrequisitioninitiateComponent implements OnInit {
 			
 			
 			// Get Current GP User Information
-			this.employeeID = "3124";
+		/*	this.employeeID = "3124";
 			this.employeeName = "Afifa Julia";
 			this.mobileNo = "01711501394";
 			this.designation = "Senior Project Engineer";
 			this.department = "Business Support System";
 			this.division = "Information Technology";
-			this.emailAddress = "afifa@grameenphone.com";
+			this.emailAddress = "afifa@grameenphone.com";*/
 
-      	//GetWR_Name
+			this.definitionDataService.getEmployeeDetails(this.userID).subscribe(
+				data => {
+					const dataStr = JSON.stringify(data);
+					var parsedString = JSON.parse(dataStr);
+					this.employeeID = parsedString.employeeNo;
+					this.employeeName = parsedString.userName;
+					this.mobileNo = parsedString.mobileNumber;
+					this.designation = parsedString.designation;
+					this.department = parsedString.departmentName;
+					this.division = parsedString.divisionName;
+					this.emailAddress = parsedString.emailAddress;
+				},
+				err => console.error(err),
+				() => console.log('done loading Emplpoyee Details')
+
+			);
+
+  //GetWR_Name
 	this.definitionDataService.GetWR_Name(this._global.wrid_NewSimRequision).subscribe(
-    data => {
-        //console.log(data);				
+    data => {			
         const dataStr = JSON.stringify(data);
   
         JSON.parse(dataStr, (key, value) => {
@@ -128,7 +160,6 @@ export class NewrequisitioninitiateComponent implements OnInit {
             return value;
           }
         }); 
-        // console.log(this.WR_Name);
       },
       err => console.error(err),
       ()=> console.log('done loading Work Request Name')
@@ -395,12 +426,14 @@ this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_Imsi
 FormatTheDate(selectedrequisitionDate:any):string {
 	
 	console.log("selectedrequisitionDate : "+selectedrequisitionDate);	
-		var date = new Date(selectedrequisitionDate);
-    var month = ("0" + (date.getMonth()+1)).slice(-2);
+		var date = this._dateFormatPipe.transform(new Date(selectedrequisitionDate));
+  /*  var month = ("0" + (date.getMonth()+1)).slice(-2);
     var day  = ("0" + date.getDate()).slice(-2);
     var formattedDate=[day,month,date.getFullYear()].join("-");
-	console.log("formattedDate : "+formattedDate);
-	return formattedDate;
+	  console.log("formattedDate : "+formattedDate);*/
+	 var formattedDate = date;
+	 console.log("formattedDate : "+formattedDate);
+	 return formattedDate;
 	
 }
 
