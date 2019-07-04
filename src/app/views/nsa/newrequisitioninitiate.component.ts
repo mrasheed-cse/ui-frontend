@@ -2,8 +2,7 @@ import {
   NgModule,
   Component,
   Pipe,
-  OnInit,
-	Injectable
+  OnInit
 } from '@angular/core';
 import {ReactiveFormsModule, FormGroup, FormControl, Validators, FormArray} from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -27,27 +26,13 @@ import { LoggedInUser } from '../pages/loggedInUser';
 
 import { NewTestSimRequisition, RequisitionLine } from './models/NewTestSimRequisition'
 import { AppGlobals } from './../../app.global';
-
-import { PipeTransform} from '@angular/core';
-import { DatePipe } from '@angular/common';
-
-@Pipe({
-    name: 'dateFormat'
-	})
-	@Injectable()
-  export class DateFormatPipe extends DatePipe implements PipeTransform {
-    transform(value: any, args?: any): any {
-       ///MMM/dd/yyyy 
-       return super.transform(value, "MMM/dd/yyyy");
-    }
-  }
-
+import { moment } from 'ngx-bootstrap/chronos/test/chain';
 
 @Component({
   selector: 'app-newrequisitioninitiate',
   templateUrl: './newrequisitioninitiate.component.html',
   styles: ['./nsa_styles.css'],
-  providers: [DefinitionDataService,IsmsworkflowsService,AppGlobals,LoginService, DateFormatPipe]
+  providers: [DefinitionDataService,IsmsworkflowsService,AppGlobals,LoginService]
 })
 export class NewrequisitioninitiateComponent implements OnInit {
 
@@ -102,10 +87,14 @@ export class NewrequisitioninitiateComponent implements OnInit {
 	todayDate: Date;
 
 
+	headerDateData: any;
+
   
 
-  constructor(private router: Router,private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private definitionDataService: DefinitionDataService, private ismsworkflowsService: IsmsworkflowsService, private _dateFormatPipe:DateFormatPipe) {
+  constructor(private router: Router,private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private definitionDataService: DefinitionDataService, private ismsworkflowsService: IsmsworkflowsService) {
 		
+			this.	headerDateData = {};
+
       // Get Current User Profile
       
       this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
@@ -373,13 +362,27 @@ this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_Imsi
         const theReqDate = this.FormatTheDate(this.newSimRequisitionForm.get('requisitionDate').value);
         const theStartDate = this.FormatTheDate(this.newSimRequisitionForm.get('startDate').value);
         const theEndDate = this.FormatTheDate(this.newSimRequisitionForm.get('endDate').value);
+		
+				console.log("log start");
+				console.log(theReqDate);
+
+				this.headerDateData.requisitionDate = theReqDate;
+				console.log(this.headerDateData);
+				this.headerDateData.theStartDate = theStartDate;
+				this.headerDateData.theEndDate = theEndDate;
+				this.headerDateData.requisitionType = this.newSimRequisitionForm.get('requisitionType').value;
+				this.headerDateData.purposeCategory = this.newSimRequisitionForm.get('purposeCategory').value;
+				this.headerDateData.location = this.newSimRequisitionForm.get('location').value;
+				this.headerDateData.usageCategory = this.newSimRequisitionForm.get('usageCategory').value;
+				this.headerDateData.startDate = this.newSimRequisitionForm.get('startDate').value;
+				this.headerDateData.endDate = this.newSimRequisitionForm.get('endDate').value;
+				this.headerDateData.purposeDetails = this.newSimRequisitionForm.get('purposeDetails').value;
+				this.headerDateData.notificationTo = this.newSimRequisitionForm.get('notificationTo').value;
+				this.headerDateData.requisitionLines = this.newSimRequisitionForm.get('requisitionLines').value;
+				   
     
-        this.newSimRequisitionForm.get('requisitionDate').setValue(theReqDate);
-        this.newSimRequisitionForm.get('startDate').setValue(theStartDate);
-        this.newSimRequisitionForm.get('endDate').setValue(theEndDate);
-    
-				let resource = JSON.stringify(this.newSimRequisitionForm.value);
-				
+				let resource = (this.headerDateData);
+				console.log(resource);
 /*
 				let aNewTestSimRequisition:NewTestSimRequisition = new NewTestSimRequisition(); 
 				aNewTestSimRequisition.requisitionDate = this.FormatTheDate(this.newSimRequisitionForm.get('requisitionDate').value);
@@ -426,14 +429,15 @@ this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_Imsi
 FormatTheDate(selectedrequisitionDate:any):string {
 	
 	console.log("selectedrequisitionDate : "+selectedrequisitionDate);	
-		var date = this._dateFormatPipe.transform(new Date(selectedrequisitionDate));
-  /*  var month = ("0" + (date.getMonth()+1)).slice(-2);
+	/*	var date = new Date(selectedrequisitionDate);
+    var month = ("0" + (date.getMonth()+1)).slice(-2);
     var day  = ("0" + date.getDate()).slice(-2);
-    var formattedDate=[day,month,date.getFullYear()].join("-");
-	  console.log("formattedDate : "+formattedDate);*/
-	 var formattedDate = date;
-	 console.log("formattedDate : "+formattedDate);
-	 return formattedDate;
+		var formattedDate=[day,month,date.getFullYear()].join("-");*/
+		const date = moment(selectedrequisitionDate);
+		console.log('jhhhhhhhhhhhhhhhhhhhhhhhhhh'+date);
+		const formattedDate = moment(date).format('MM-DD-YYYY');
+	  console.log("formattedDate : "+formattedDate);
+  	return formattedDate;
 	
 }
 

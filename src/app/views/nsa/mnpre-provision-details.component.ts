@@ -45,8 +45,7 @@ import {
 	  currentLoggedInUser: LoggedInUser;
 	  userName: string;
 	  userID: string;	  	  
-	  groupID: number;
-	  userID: string;	  	  
+	  groupID: number;	  	  
 	
 	  public dangerAlertShow:boolean = false;
 	  public dangerAlertMessage:string = "";

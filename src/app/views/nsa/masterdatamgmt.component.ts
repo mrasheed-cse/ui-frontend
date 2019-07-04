@@ -147,7 +147,7 @@ export class MasterdatamgmtComponent implements OnInit {
         if(res !== null){
           console.log("res.status : "+res);		
           this.successAlertShow = true;
-          this.successAlertMessage = res.message;
+          //this.successAlertMessage = res.message;
           this.isLoading = false;
           this.clearForm();
         }
@@ -175,7 +175,7 @@ export class MasterdatamgmtComponent implements OnInit {
         if(res !== null){
           console.log("res.status : "+res);		
           this.successAlertShow = true;
-          this.successAlertMessage = res.message;
+         // this.successAlertMessage = res.message;
           this.isLoading = false;
           this.clearForm();
         }
