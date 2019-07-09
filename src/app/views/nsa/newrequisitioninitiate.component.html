@@ -298,7 +298,8 @@
                         </div>
                         <!-- <div class="card-body"> -->
                         <div class="card-footer text-right">
-                                <button type="submit" [disabled]="!newSimRequisitionForm.valid && !this.defFlowFound" class="btn btn-sm btn-primary">
+                                <button type="submit" [disabled]="!newSimRequisitionForm.valid"
+                                 class="btn btn-sm btn-primary">
                                         <i class="fa fa-dot-circle-o"></i> Submit</button>
                                 <button type="reset" class="btn btn-sm btn-danger"(click)="clearForm($event)">
                                         <i class="fa fa-ban"></i> Reset</button>
