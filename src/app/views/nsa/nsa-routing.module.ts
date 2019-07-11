@@ -31,7 +31,10 @@ import { MasterdatamgmtComponent } from './masterdatamgmt.component';
 import { NewrequisitioninitiateComponent } from './newrequisitioninitiate.component';
 import { NewrequisitiondetailsComponent } from './newrequisitiondetails.component';
 import { NewrequisitionComponent } from './newrequisition.component';
-
+import {RequisitiondetailsFormComponent} from './requisitiondetails-form/requisitiondetails-form.component';
+import { RequisitionassignComponent } from './requisitionassign/requisitionassign.component';
+import { RequisitiondetailshodComponent } from './requisitiondetailshod/requisitiondetailshod.component';
+import { RequisitiondetailsdeliveryComponent } from './requisitiondetailsdelivery/requisitiondetailsdelivery.component';
 
 
 const routes: Routes = [
@@ -233,7 +236,7 @@ const routes: Routes = [
     path: 'masterdatamgmt',
     component: MasterdatamgmtComponent,
     data: {
-      title: 'Master Data Mgmt'
+      title: 'Master Data Management'
     }
   },
   {
@@ -255,6 +258,34 @@ const routes: Routes = [
     component: NewrequisitiondetailsComponent,
     data: {
       title: 'Approval'
+    }
+  },
+  {
+    path: 'requisitiondetailsassesment/:requisition_id',
+    component: RequisitiondetailsFormComponent,
+    data: {
+      title: 'Requisition Details (Assessment) - SSM User Group'
+    }
+  },
+  {
+    path: 'requisitionassign/:requisition_id',
+    component: RequisitionassignComponent,
+    data: {
+      title: 'Requisition Details (assignment) - SSM User Group'
+    }
+  },
+  {
+    path: 'requisitiondetailshod/:requisition_id',
+    component: RequisitiondetailshodComponent,
+    data: {
+      title: 'Requisition Details - for HOD User'
+    }
+  },
+  {
+    path: 'requisitiondetailsdelivery/:requisition_id',
+    component: RequisitiondetailsdeliveryComponent,
+    data: {
+      title: 'Requisition Details (Delivery) - CLC User Group'
     }
   }
 ];

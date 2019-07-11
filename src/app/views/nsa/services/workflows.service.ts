@@ -15,6 +15,7 @@ import { AppGlobals } from './../../../app.global';
 export class WorkflowsService {
 
 	serverUrl: string;
+	statusMarker: string;
 	dataOutput: string = "";
 	isSaved: boolean;		
 	isWF_Saved: boolean;		
@@ -22,6 +23,7 @@ export class WorkflowsService {
 	constructor(private router: Router, private http: HttpClient, private _global: AppGlobals) { 
 		this.serverUrl = environment.apiUrl;  		
 		this.isSaved = false;
+		this.statusMarker = environment.pendingRequestMarker;
 	}
   
 	FormatWorkRequestNameForAPI(WorkRequestName: string) : string {
@@ -55,6 +57,16 @@ export class WorkflowsService {
 			userGroupID: userGroup_id
 		});
 	}
+
+	LoadRequisitionList(wr_id: number,userGroup_id: number, user_id: string) : any {
+		return this.http.post(this.serverUrl + 'PendingRequestsForUser', {
+			wrID: wr_id,
+			userGroupID: userGroup_id,
+			userID: user_id,
+			status: this.statusMarker
+		});
+	}
+	
 	
 	//PreviousHopsField/{wrID}/{wrBriefId}/{userGroup_id}/{current_hop_seq}
 	//http://localhost:8019/nsa/PreviousHopsField/1/1/3/2

@@ -42,6 +42,68 @@ export class AppGlobals {
 
 	
 	readonly wrid_FileUploadPath: string = '/app/nsa_files/';
+
+	//for test purpose
+	dataTemp = [
+		{
+		  id: 1,
+		  requisitionNo: "test",
+		  requisitionDt:  "test", 
+		  quantity: "test", 
+		  requisitionType:  "test",
+		  purposeCategory:  "test",
+		  testStartDt:  "test",
+		  testCompletionDt:  "test", 
+		  usageCategory:  "test",
+		  nextHop:  "1",
+		  wrfStatus:  "test"
+	 },
+	 {
+		id: 2,
+		requisitionNo: "test",
+		requisitionDt:  "test", 
+		quantity: "test", 
+		requisitionType:  "test",
+		purposeCategory:  "test",
+		testStartDt:  "test",
+		testCompletionDt:  "test", 
+		usageCategory:  "test",
+		nextHop:  "2",
+		wrfStatus:  "test"
+   },
+   {
+	id: 3,
+	requisitionNo: "test",
+	requisitionDt:  "test", 
+	quantity: "test", 
+	requisitionType:  "test",
+	purposeCategory:  "test",
+	testStartDt:  "test",
+	testCompletionDt:  "test", 
+	usageCategory:  "test",
+	nextHop:  "4",
+	wrfStatus:  "test"
+},
+{
+  id: 4,
+  requisitionNo: "test",
+  requisitionDt:  "test", 
+  quantity: "test", 
+  requisitionType:  "test",
+  purposeCategory:  "test",
+  testStartDt:  "test",
+  testCompletionDt:  "test", 
+  usageCategory:  "test",
+  nextHop:  "3",
+  wrfStatus:  "test"
+}
+
+]
 	
 	
 }
+
+
+
+	
+

@@ -43,6 +43,10 @@ import { MasterdatamgmtComponent } from './masterdatamgmt.component';
 import { NewrequisitioninitiateComponent } from './newrequisitioninitiate.component';
 import { NewrequisitiondetailsComponent } from './newrequisitiondetails.component';
 import { NewrequisitionComponent } from './newrequisition.component';
+import { RequisitiondetailsFormComponent } from './requisitiondetails-form/requisitiondetails-form.component';
+import { RequisitionassignComponent } from './requisitionassign/requisitionassign.component';
+import { RequisitiondetailshodComponent } from './requisitiondetailshod/requisitiondetailshod.component';
+import { RequisitiondetailsdeliveryComponent } from './requisitiondetailsdelivery/requisitiondetailsdelivery.component';
 
 
 @NgModule({
@@ -56,6 +60,6 @@ import { NewrequisitionComponent } from './newrequisition.component';
 	BsDatepickerModule.forRoot(),
     NsaRoutingModule
   ],
-  declarations: [LandingpageComponent, SeriesprovisionComponent, DiscreteprovisionComponent, SeriesprovisionformComponent, SeriesprovisiondetailComponent, SeriesDefinitionComponent, SeriesDefinitionFormComponent, SeriesDefinitionDetailsComponent, DeProvisionComponent, DeProvisionFormComponent, DeProvisionDetailsComponent, ReProvisionComponent, ReProvisionFormComponent, ReProvisionDetailsComponent, MnpreProvisionComponent, MnpreProvisionFormComponent, MnpreProvisionDetailsComponent, ReprovisionsearchComponent, ApnformComponent, ApnComponent, ApndetailsComponent, MnpreprovsearchComponent, NsareportComponent, SdpmigrationComponent, DiscreteprovisionformComponent, DiscreteprovisiondetailsComponent, MasterdatamgmtComponent, NewrequisitioninitiateComponent, NewrequisitiondetailsComponent, NewrequisitionComponent]
+  declarations: [LandingpageComponent, SeriesprovisionComponent, DiscreteprovisionComponent, SeriesprovisionformComponent, SeriesprovisiondetailComponent, SeriesDefinitionComponent, SeriesDefinitionFormComponent, SeriesDefinitionDetailsComponent, DeProvisionComponent, DeProvisionFormComponent, DeProvisionDetailsComponent, ReProvisionComponent, ReProvisionFormComponent, ReProvisionDetailsComponent, MnpreProvisionComponent, MnpreProvisionFormComponent, MnpreProvisionDetailsComponent, ReprovisionsearchComponent, ApnformComponent, ApnComponent, ApndetailsComponent, MnpreprovsearchComponent, NsareportComponent, SdpmigrationComponent, DiscreteprovisionformComponent, DiscreteprovisiondetailsComponent, MasterdatamgmtComponent, NewrequisitioninitiateComponent, NewrequisitiondetailsComponent, NewrequisitionComponent, RequisitiondetailsFormComponent, RequisitionassignComponent, RequisitiondetailshodComponent, RequisitiondetailsdeliveryComponent]
 })
 export class NsaModule { }

@@ -170,20 +170,21 @@ export class MasterdatamgmtComponent implements OnInit {
     console.log('this.Loading '+this.isLoading);
     this.definitionDataService.CreateNewMasterDataDetailItem(this.masterDataDetailForm.get('selectMasterDataItem').value,this.masterDataDetailForm.get('newDetailItem').value,this.groupName).subscribe(
       res  =>  {
-        console.log('response is : '+res.toString);
+        
+      //  console.log('response is : '+res.message);
         
         if(res !== null){
           console.log("res.status : "+res);		
-         // this.successAlertShow = true;
-         // this.successAlertMessage = res.message;
+          this.successAlertShow = true;
+        //  this.successAlertMessage = res.message.toString();
           this.isLoading = false;
           this.clearForm();
         }
           },
           err  =>  {		  
-          console.log("err.status : "+err.status);		  
-        //  this.dangerAlertShow = true;
-       // this.dangerAlertMessage = " Master Data Detail Item Creation got an error";
+        console.log("err.status : "+err.status);		  
+        this.dangerAlertShow = true;
+        this.dangerAlertMessage = " Master Data Detail Item Creation got an error";
         this.isLoading = false;
           }
         
