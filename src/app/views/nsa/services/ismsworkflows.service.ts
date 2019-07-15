@@ -31,8 +31,8 @@ export class IsmsworkflowsService {
   }
   
   CreateNewTestSimRequest(wr_id: number,userGroup_id: number,userID: string,requisitionName: string, reqHeader: any) : any {	
-  	console.log("(this.serverUrl + 'IsmsNewWorkRequest', {userID:"+ userID+",	userGroupID: "+userGroup_id+", wrID: "+wr_id+",	requisitionName: "+requisitionName+",reqHeader: "+reqHeader+"	})");
-	return this.http.post(this.serverUrl + 'IsmsNewWorkRequest', {
+  	console.log("(this.serverUrl + 'requisition/save', {userID:"+ userID+",	userGroupID: "+userGroup_id+", wrID: "+wr_id+",	requisitionName: "+requisitionName+",reqHeader: "+reqHeader+"	})");
+	return this.http.post(this.serverUrl + 'requisition/save', {
 		userID: userID,
 			userGroupID: userGroup_id, 	
 			wrID: wr_id,

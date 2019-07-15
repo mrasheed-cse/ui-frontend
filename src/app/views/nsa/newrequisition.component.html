@@ -136,7 +136,7 @@
                                   <td>{{aTask.testCompletionDt}}</td>
                                   <td>{{aTask.usageCategory}}</td>
                                   <td> <button type="button" class="btn btn-link" ><i class="fa fa-link"></i>
-                                    <a [routerLink]= "aTask.nextHop == "ssm" ? [ '../requisitiondetailsassesment', aTask.id ]: aTask.nextHop ==2? [ '../requisitionassign', aTask.id]: aTask.nextHop ==3? [ '../requisitiondetailshod', aTask.id]: [ '../requisitiondetailsdelivery', aTask.id]  "> Details</a></button> </td>
+                                    <a href="" (click) = "detailsAction(aTask)" > Details</a></button> </td>
   
                     </tr>
                   </tbody>

@@ -57,49 +57,126 @@ export class AppGlobals {
 		  usageCategory:  "test",
 		  nextHop:  "1",
 		  wrfStatus:  "test"
-	 },
-	 {
-		id: 2,
-		requisitionNo: "test",
-		requisitionDt:  "test", 
-		quantity: "test", 
-		requisitionType:  "test",
-		purposeCategory:  "test",
-		testStartDt:  "test",
-		testCompletionDt:  "test", 
-		usageCategory:  "test",
-		nextHop:  "2",
-		wrfStatus:  "test"
-   },
-   {
-	id: 3,
-	requisitionNo: "test",
-	requisitionDt:  "test", 
-	quantity: "test", 
-	requisitionType:  "test",
-	purposeCategory:  "test",
-	testStartDt:  "test",
-	testCompletionDt:  "test", 
-	usageCategory:  "test",
-	nextHop:  "4",
-	wrfStatus:  "test"
-},
-{
-  id: 4,
-  requisitionNo: "test",
-  requisitionDt:  "test", 
-  quantity: "test", 
-  requisitionType:  "test",
-  purposeCategory:  "test",
-  testStartDt:  "test",
-  testCompletionDt:  "test", 
-  usageCategory:  "test",
-  nextHop:  "3",
-  wrfStatus:  "test"
-}
+		},
+		{
+			id: 2,
+			requisitionNo: "test",
+			requisitionDt:  "test", 
+			quantity: "test", 
+			requisitionType:  "test",
+			purposeCategory:  "test",
+			testStartDt:  "test",
+			testCompletionDt:  "test", 
+			usageCategory:  "test",
+			nextHop:  "2",
+			wrfStatus:  "test"
+		},
+		{
+			id: 3,
+			requisitionNo: "test",
+			requisitionDt:  "test", 
+			quantity: "test", 
+			requisitionType:  "test",
+			purposeCategory:  "test",
+			testStartDt:  "test",
+			testCompletionDt:  "test", 
+			usageCategory:  "test",
+			nextHop:  "4",
+			wrfStatus:  "test"
+		},
+		{
+			id: 4,
+			requisitionNo: "test",
+			requisitionDt:  "test", 
+			quantity: "test", 
+			requisitionType:  "test",
+			purposeCategory:  "test",
+			testStartDt:  "test",
+			testCompletionDt:  "test", 
+			usageCategory:  "test",
+			nextHop:  "3",
+			wrfStatus:  "test"
+		}
 
-]
+	]
+
+	/*dataTempForLogin = {
+		usersName : "general",
+    	emailAddress : "gen@wipro.com",
+    	usersGroupName : "general",
+    	usersGroupId : 12,
+    	remarks : "n/a"
+	}*/
 	
+	dataTempForLogin = {
+		usersName : "ssm",
+    	emailAddress : "ssm@wipro.com",
+    	usersGroupName : "SSM",
+    	usersGroupId : 10,
+    	remarks : "n/a"
+	}
+
+	/*dataTempForLogin = {
+		usersName : "hod",
+    	emailAddress : "hod@wipro.com",
+    	usersGroupName : "HOD",
+    	usersGroupId : 13,
+    	remarks : "n/a"
+	}*/
+
+	/*dataTempForLogin = {
+		usersName : "clc",
+    	emailAddress : "clc@wipro.com",
+    	usersGroupName : "CLC",
+    	usersGroupId : 11,
+    	remarks : "n/a"
+	}*/
+
+	dataTempForRequisitionDetail = {
+		employeeDetails : {
+			employeeID : "",
+			mobileNo : "",
+			employeeName : "",
+			designation : "",
+			department : "",
+			division : "",
+			emailAddress : ""
+		},
+		requisitionDetails : {
+			requisitionNo : "",
+			requisitionDate : "",
+			requisitionType : "",
+			purposeCategory : "",
+			purposeDetails : "",
+			expectedStartDate : "",
+			expectedEndDate : "",
+			location : "",
+			usageCategory : "",
+			notificationTo : ""			
+		},
+		requisitionLines : [
+			{
+				productName : "Bondhu",
+				creditLimit : "2000",
+				quantity : "10",
+				instruction : "",
+				imsiTypeName : "Normal",
+				specialRequirement : "",
+				assignedQuantity: "0",
+				assignedLimit: "0"	
+			},
+			{
+				productName : "MyPlan",
+				creditLimit : "5000",
+				quantity : "50",
+				instruction : "",
+				imsiTypeName : "Normal",
+				specialRequirement : "",
+				assignedQuantity: "0",
+				assignedLimit: "0"	
+			}
+		]
+	}
 	
 }
 
