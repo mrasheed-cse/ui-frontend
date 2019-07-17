@@ -49,6 +49,8 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
   }
 
   submit(){
+    alert('THis request has been submitted.');
+
 
   }
 

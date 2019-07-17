@@ -135,10 +135,9 @@
                                   <td>{{aTask.testStartDt}}</td>
                                   <td>{{aTask.testCompletionDt}}</td>
                                   <td>{{aTask.usageCategory}}</td>
-                                  <td> <button type="button" class="btn btn-link" ><i class="fa fa-link"></i>
-                                    <a href="" (click) = "detailsAction(aTask)" > Details</a></button> </td>
-  
-                    </tr>
+                                 <td> <button type="button" class="btn btn-link" ><i class="fa fa-link"></i> 
+                                  <a [routerLink]="[detailsAction(aTask),aTask.id]">Details</a></button> </td>
+                              </tr>
                   </tbody>
                 </table>                
               </div>
@@ -151,3 +150,7 @@
         </div>
        </div>
       </div>
+
+
+         <!--<a href="#" (click) = "detailsAction(aTask)" > Details</a></button> </td>  -->
+                                  <!-- <a [routerLink]="detailsAction(aTask)">Details</a>/button> </td>   -->

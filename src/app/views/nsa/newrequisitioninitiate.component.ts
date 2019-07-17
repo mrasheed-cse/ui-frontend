@@ -111,16 +111,6 @@ export class NewrequisitioninitiateComponent implements OnInit {
       //console.log('Current user not found');
       this.router.navigate(['pages/login']);
       }
-			
-			
-			// Get Current GP User Information
-		/*	this.employeeID = "3124";
-			this.employeeName = "Afifa Julia";
-			this.mobileNo = "01711501394";
-			this.designation = "Senior Project Engineer";
-			this.department = "Business Support System";
-			this.division = "Information Technology";
-			this.emailAddress = "afifa@grameenphone.com";*/
 
 			this.definitionDataService.getEmployeeDetails(this.userID).subscribe(
 				data => {

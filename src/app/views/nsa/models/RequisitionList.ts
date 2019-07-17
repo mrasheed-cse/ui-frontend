@@ -8,6 +8,9 @@ export class RequisitionList {
     testStartDt: string; 
     testCompletionDt: string; 
     usageCategory: string;
+    hop: string;
     nextHop: string;
     wrfStatus: string;
+    workRequestBriefId: number;
+    status: string;
 }

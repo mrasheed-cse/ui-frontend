@@ -58,11 +58,10 @@ export class WorkflowsService {
 		});
 	}
 
-	LoadRequisitionList(wr_id: number,userGroup_id: number, user_id: string) : any {
-		return this.http.post(this.serverUrl + 'PendingRequestsForUser', {
-			wrID: wr_id,
-			userGroupID: userGroup_id,
-			userID: user_id,
+	LoadRequisitionList(wr_id: number, user_id: string) : any {
+		return this.http.post(this.serverUrl + 'workflow/search', {
+			createdBy: user_id,
+			requisitionNo: wr_id,
 			status: this.statusMarker
 		});
 	}

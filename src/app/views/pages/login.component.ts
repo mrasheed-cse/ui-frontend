@@ -39,7 +39,7 @@ export class LoginComponent {
   
   ValidateUser(){
     this.isLoading = true;
-    /*this.loginService.ValidateUser(this.username, this.password).subscribe(
+    this.loginService.ValidateUser(this.username, this.password).subscribe(
     res => {
       if (res != null && res) {
         this.isValidUser = true;
@@ -63,14 +63,14 @@ export class LoginComponent {
       this.router.navigateByUrl('/pages/login');    
     }
 
-    );*/
+    );
 
-    let res : any;
-    res = this._global.dataTempForLogin;
+    //let res : any;
+    //res = this._global.dataTempForLogin;
 
-    this.isValidUser = true;
+    //this.isValidUser = true;
             
-    this.currentLoggedInUser = {
+    /*this.currentLoggedInUser = {
         userID: this.username,
         userName: res.usersName,
         groupName: res.usersGroupName,
@@ -79,7 +79,7 @@ export class LoginComponent {
     localStorage.setItem('currentLoggedInUser', JSON.stringify(this.currentLoggedInUser));
       
     this.isLoading = false;
-    this.router.navigateByUrl('/nsa')
+    this.router.navigateByUrl('/nsa')*/
   } //end of function validateuser()
   
 }

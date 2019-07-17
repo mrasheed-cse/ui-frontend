@@ -22,11 +22,12 @@ export class RequisitiondetailshodComponent implements OnInit {
   }
 
   approve(){
+    alert('THis request has been approved.');
 
   }
 
   reject(){
-
+    alert('THis request has been rejected.');
   }
 
 }

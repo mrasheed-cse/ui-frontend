@@ -1,11 +1,11 @@
 export const environment = {
    production: true,
   //apiUrl: 'http://10.10.23.50:8081/nsa/'
-  apiUrl: 'http://localhost:8085/',
+  apiUrl: 'http://localhost:2222/',
   pendingRequestMarker : 'PENDING',
   approvedRequestMarker : 'APPROVED',
   rejectedRequestMarker : 'REJECTED',
-  ssmAssessmentHopMarker : "1",
-  hodHopMarker : "2",
-  ssmAssignmentHopMarker : "3"
+  ssmAssessmentHopMarker : "SSM",
+  hodHopMarker : "HOD",
+  ssmAssignmentHopMarker : "SSM2"
 };

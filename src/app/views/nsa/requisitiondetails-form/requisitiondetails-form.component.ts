@@ -22,15 +22,16 @@ export class RequisitiondetailsFormComponent implements OnInit {
   }
 
   approve(){
+    alert('THis request has been approved.');
 
   }
 
   reject(){
-
+    alert('THis request has been rejected.');
   }
 
   rfi(){
-
+    alert('THis request has been sent for RFI.');
   }
   
   deleteRequisitionLine(lineItem){

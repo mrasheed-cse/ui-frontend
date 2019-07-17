@@ -33,6 +33,7 @@ export class NewrequisitionComponent implements OnInit {
 	currentLoggedInUser: LoggedInUser;
 	userName: string;
 	groupID: number;
+	userID: string;
 	
 	public dangerAlertShow:boolean = false;
 	public dangerAlertMessage:string = "";
@@ -59,22 +60,26 @@ export class NewrequisitionComponent implements OnInit {
 	searchPendingGroupID: number;
 	searchHopSequence: number;
 	todayDate: Date;
+	routerUrlAndParams: string;
 	
 	constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {	
+		
+			let isValid = true;
 			this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
 			
 			if (this.currentLoggedInUser) {
 				this.userName = this.currentLoggedInUser.userName
 				this.groupID = this.currentLoggedInUser.groupID
+				this.userID = this.currentLoggedInUser.userID
 			} 
 			else {
 				this.router.navigate(['pages/login']);
 			}
-				this.requisitionList = _global.dataTemp;
+				//this.requisitionList = _global.dataTemp;
 			
 
 			//GetPendingTaskList
-			/*this.workFlowsService.LoadRequisitionList(0,this.groupID,this.userName).subscribe(
+			this.workFlowsService.LoadRequisitionList(0,this.userID).subscribe(
 					data => { 				
 						if(data !=null){
 							console.log(data);
@@ -89,7 +94,7 @@ export class NewrequisitionComponent implements OnInit {
 				() => console.log('Done loading PendingTask List')
 				);
 			//Get Today Date
-			this.todayDate = new Date();*/
+			this.todayDate = new Date();
 
   } //end of constructor
 
@@ -166,14 +171,25 @@ export class NewrequisitionComponent implements OnInit {
 	
 	detailsAction(aTask){
 
-				if(aTask.nextHop == environment.ssmAssessmentHopMarker){
-					this.router.navigateByUrl('/nsa/requisitiondetailsassesment/' + aTask['id']);
+				if(aTask.hop == environment.ssmAssessmentHopMarker){
+					//router.navigate(['user', user.id, 'details']);
+					//this.router.navigate(['/nsa/requisitiondetailsassesment/',aTask['id']]);
+				return '../requisitiondetailsassesment/'.toString();
 				}
-				else if(aTask.nextHop == environment.hodHopMarker){
-					this.router.navigateByUrl('/nsa/requisitiondetailshod/' + aTask['id']);
+				else if(aTask.hop == environment.hodHopMarker){
+					//this.router.navigateByUrl('/nsa/requisitiondetailshod/' + aTask['id']);
+					//this.router.navigate(['/nsa/requisitiondetailshod/',aTask['id']]);
+					return '../requisitiondetailshod/'.toString();
+
 				}
-				else if(aTask.nextHop == environment.ssmAssignmentHopMarker){
-					this.router.navigateByUrl('/nsa/requisitionassign/' + aTask['id']);
+				else if(aTask.hop == environment.ssmAssignmentHopMarker){
+					//this.router.navigateByUrl('/nsa/requisitionassign/' + aTask['id']);
+					//this.router.navigate(['/nsa/requisitionassign/',aTask['id']]);
+					return '../requisitionassign/'.toString();
+
+				} else{
+					return 'novalue'.toString();
+					//alert('No Pending Details for '+this.userID+" user");
 				}
 
 	}
