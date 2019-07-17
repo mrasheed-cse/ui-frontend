@@ -134,11 +134,11 @@ export class AppGlobals {
 
 	dataTempForRequisitionDetail = {
 		employeeDetails : {
-			employeeID : "",
+			employeeID : "test",
 			mobileNo : "",
 			employeeName : "",
 			designation : "",
-			department : "",
+			department : "test",
 			division : "",
 			emailAddress : ""
 		},
@@ -147,7 +147,7 @@ export class AppGlobals {
 			requisitionDate : "",
 			requisitionType : "",
 			purposeCategory : "",
-			purposeDetails : "",
+			purposeDetails : "test",
 			expectedStartDate : "",
 			expectedEndDate : "",
 			location : "",

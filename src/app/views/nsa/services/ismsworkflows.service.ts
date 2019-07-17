@@ -41,4 +41,10 @@ export class IsmsworkflowsService {
 		});
 	}
 
+	findRequisitionDetails(id:number) : any{
+		return this.http.post(this.serverUrl+ 'requisition/find',{
+			requisitionId: id
+		});
+	}
+
 }

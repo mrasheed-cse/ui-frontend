@@ -9,25 +9,25 @@
         <table style="width:50%" border="1">        
             <tr>
               <td style="width:25%">Employee ID.</td>
-              <td style="width:25%;" bgcolor="#dcdcdc">{{requisition['employeeDetails']['employeeID']}}</td>
+              <td style="width:25%;" bgcolor="#dcdcdc">{{requisition['employeeDetails']['employeeNo']}}</td>
               <td style="width:25%">Mobile No.</td>
-              <td style="width:25%" bgcolor="#dcdcdc">{{requisition['employeeDetails']['mobileNo']}}</td>
+              <td style="width:25%" bgcolor="#dcdcdc">{{requisition['employeeDetails']['mobileNumber']}}</td>
             </tr>
             <tr>
               <td style="width:25%">Employee Name</td>
-              <td style="width:25%;" bgcolor="#dcdcdc">{{requisition['employeeDetails']['employeeName']}}</td>
+              <td style="width:25%;" bgcolor="#dcdcdc">{{requisition['employeeDetails']['id']}}</td>
               <td style="width:25%">Designation</td>
               <td style="width:25%" bgcolor="#dcdcdc">{{requisition['employeeDetails']['designation']}}</td>
             </tr>
             <tr>
               <td style="width:25%">Department</td>
-              <td style="width:25%;" bgcolor="#dcdcdc">{{requisition['employeeDetails']['department']}}</td>
+              <td style="width:25%;" bgcolor="#dcdcdc">{{requisition['employeeDetails']['departmentName']}}</td>
               <td style="width:25%">Division</td>
-              <td style="width:25%" bgcolor="#dcdcdc">{{requisition['employeeDetails']['division']}}</td>
+              <td style="width:25%" bgcolor="#dcdcdc">{{requisition['employeeDetails']['divisionName']}}</td>
             </tr>
             <tr>
               <td style="width:25%">Email</td>
-              <td style="width:25%;" bgcolor="#dcdcdc">{{requisition['employeeDetails']['{emailAddress']}}</td>
+              <td style="width:25%;" bgcolor="#dcdcdc">{{requisition['employeeDetails']['emailAddress']}}</td>
               <td style="width:25%"></td>
               <td style="width:25%" bgcolor="#dcdcdc"></td>
             </tr>                
@@ -53,7 +53,7 @@
               <td style="width:25%">Requisition No</td>
               <td style="width:25%;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['requisitionNo']}}</td>
               <td style="width:25%">Date of requisition</td>
-              <td style="width:25%" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['requisitionDate']}}</td>
+              <td style="width:25%" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['requisitionDt']}}</td>
             </tr>
             <tr>
               <td style="width:25%">Requisition Type</td>
@@ -65,11 +65,11 @@
               <td style="width:25%">Purpose Details</td>
               <td style="width:25%;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['purposeDetails']}}</td>
               <td style="width:25%">Expected Test Start Date</td>
-              <td style="width:25%" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['expectedStartDate']}}</td>
+              <td style="width:25%" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['testStartDt']}}</td>
             </tr>
             <tr>
               <td style="width:25%">Expected Test End Date</td>
-              <td style="width:25%;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['expectedEndDate']}}</td>
+              <td style="width:25%;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['testCompletionDt']}}</td>
               <td style="width:25%">Location</td>
               <td style="width:25%" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['location']}}</td>
             </tr>
@@ -112,11 +112,11 @@
               
               <tbody>
                     <tr *ngFor="let c of requisition['requisitionLines']">
-                        <td>{{ c.productName }}</td>
+                        <td>{{ c.product }}</td>
                         <td>{{ c.creditLimit }}</td>
                         <td>{{ c.quantity }}</td>
-                        <td>{{ c.instruction }}</td>
-                        <td>{{ c.imsiTypeName }}</td>
+                        <td>{{ c.activationInstruction }}</td>
+                        <td>{{ c.imsiType }}</td>
                         <td>{{ c.specialRequirement }}</td>                         
                         <td>
                             <a style="color:red" (click) = "deleteRequisitionLine(c)"  class=""><i class="fa fa-ban"></i> Delete</a>
