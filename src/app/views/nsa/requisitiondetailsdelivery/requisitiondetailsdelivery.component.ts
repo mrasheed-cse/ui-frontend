@@ -81,6 +81,14 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
 
   }
 
+  approve(){
+    alert('THis request has been approved.');
+  }
+
+  reject(){
+    alert('THis request has been rejected.');
+  }
+
   assignMsisdn(lineItem){
     this.assignmentType = "";
     this.startingKitNumber = "";

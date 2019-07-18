@@ -96,6 +96,8 @@ export class NewrequisitionComponent implements OnInit {
 			//Get Today Date
 			this.todayDate = new Date();
 
+			
+
   } //end of constructor
 
 
@@ -168,30 +170,5 @@ export class NewrequisitionComponent implements OnInit {
         //this.selectedContactId = aTask.wr_ID;
 				//this.router.navigateByUrl('/nsa/seriesprovisiondetail');
   }
-	
-	detailsAction(aTask){
-
-				if(aTask.hop == environment.ssmAssessmentHopMarker){
-					//router.navigate(['user', user.id, 'details']);
-					//this.router.navigate(['/nsa/requisitiondetailsassesment/',aTask['id']]);
-				return '../requisitiondetailsassesment/'.toString();
-				}
-				else if(aTask.hop == environment.hodHopMarker){
-					//this.router.navigateByUrl('/nsa/requisitiondetailshod/' + aTask['id']);
-					//this.router.navigate(['/nsa/requisitiondetailshod/',aTask['id']]);
-					return '../requisitiondetailshod/'.toString();
-
-				}
-				else if(aTask.hop == environment.ssmAssignmentHopMarker){
-					//this.router.navigateByUrl('/nsa/requisitionassign/' + aTask['id']);
-					//this.router.navigate(['/nsa/requisitionassign/',aTask['id']]);
-					return '../requisitionassign/'.toString();
-
-				} else{
-					return 'novalue'.toString();
-					//alert('No Pending Details for '+this.userID+" user");
-				}
-
-	}
 
 }

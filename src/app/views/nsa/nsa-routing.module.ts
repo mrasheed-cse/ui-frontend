@@ -254,7 +254,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'newrequisitiondetails/:wr_BriefName/:wr_BriefId/:hopSequence',
+    path: 'newrequisitiondetails',
     component: NewrequisitiondetailsComponent,
     data: {
       title: 'Approval'
