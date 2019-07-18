@@ -47,4 +47,26 @@ export class IsmsworkflowsService {
 		});
 	}
 
+
+	approveOrRejectRequest(wr_id: number,status: string,userID: string) : any{
+		return this.http.post(this.serverUrl+ 'requisition/update',{
+			userID: userID,
+			wrID: wr_id,
+			status: status
+		});
+	}
+
+	deleteRequisitionLine(lineItemId: number) : any{
+		return this.http.post(this.serverUrl+ 'requisitionline/delete',{
+			userID: "",
+			wrID: lineItemId,
+			status: ""
+		});
+	}
+
+
+	getMsisdnDetailsFromSsm(searchObj: any) : any{
+		return this.http.post(this.serverUrl+ 'requisition/ssm',searchObj);
+	}
+
 }

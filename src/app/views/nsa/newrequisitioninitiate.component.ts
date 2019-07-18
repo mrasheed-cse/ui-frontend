@@ -403,6 +403,8 @@ this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_Imsi
 							this.isLoading = false;
 							this.successAlertShow = true;
 							this.successAlertMessage = " has been created successfully and forwarded to "+res.message+". ";
+							alert(this.successAlertMessage);
+							window.location.reload();
 						}
 							},
 							err  =>  {	

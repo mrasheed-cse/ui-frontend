@@ -61,9 +61,11 @@ export class NewrequisitionComponent implements OnInit {
 	searchHopSequence: number;
 	todayDate: Date;
 	routerUrlAndParams: string;
+	public isLoading:boolean = false;
 	
 	constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {	
 		
+			this.isLoading = false;
 			let isValid = true;
 			this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
 			
@@ -75,36 +77,44 @@ export class NewrequisitionComponent implements OnInit {
 			else {
 				this.router.navigate(['pages/login']);
 			}
-				//this.requisitionList = _global.dataTemp;
-			
-
-			//GetPendingTaskList
-			this.workFlowsService.LoadRequisitionList(0,this.userID).subscribe(
-					data => { 				
-						if(data !=null){
-							console.log(data);
-							this.isDataFound = true;
-							this.requisitionList = data;					
-						}
-						else{
-							this.isDataFound = false;
-						}
-					},
-				err => console.error(err),
-				() => console.log('Done loading PendingTask List')
-				);
-			//Get Today Date
-			this.todayDate = new Date();
+			//this.requisitionList = _global.dataTemp;
 
   } //end of constructor
 
+
+  loadPendingList(){
+		//GetPendingTaskList
+		this.workFlowsService.LoadRequisitionList(0,this.userID).subscribe(
+				data => { 				
+					if(data !=null){
+						console.log(data);
+						this.isDataFound = true;
+						this.requisitionList = data;					
+						this.isLoading = false;
+					}
+					else{
+						this.isDataFound = false;
+					}
+				},
+			err => console.error(err),
+			() => console.log('Done loading PendingTask List')
+			);
+		//Get Today Date
+		this.todayDate = new Date();
+  }
 
 
   ngOnInit () {
 
 	this.createFormControls();
-    this.createForm();
-  
+	this.createForm();
+	this.isLoading = true;
+
+	setTimeout(()=>{    //<<<---    using ()=> syntax
+		this.loadPendingList();
+   	}, 5000);
+
+
   }
 	
 	datepickerConfig: Partial<BsDatepickerConfig>;
@@ -187,7 +197,14 @@ export class NewrequisitionComponent implements OnInit {
 					//this.router.navigate(['/nsa/requisitionassign/',aTask['id']]);
 					return '../requisitionassign/'.toString();
 
-				} else{
+				}
+				else if(aTask.hop == environment.clcHopMarker){
+					//this.router.navigateByUrl('/nsa/requisitionassign/' + aTask['id']);
+					//this.router.navigate(['/nsa/requisitionassign/',aTask['id']]);
+					return '../requisitiondetailsdelivery/'.toString();
+
+				}
+				else{
 					return 'novalue'.toString();
 					//alert('No Pending Details for '+this.userID+" user");
 				}
