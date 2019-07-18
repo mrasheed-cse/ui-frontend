@@ -65,6 +65,14 @@ export class WorkflowsService {
 			status: this.statusMarker
 		});
 	}
+
+	LoadPersonalDetails(wr_id: number, user_id: string) : any {
+		return this.http.post(this.serverUrl + 'workflow/personalrequests', {
+			createdBy: user_id,
+			requisitionNo: wr_id,
+			status: this.statusMarker
+		});
+	}
 	
 	
 	//PreviousHopsField/{wrID}/{wrBriefId}/{userGroup_id}/{current_hop_seq}

@@ -1,3 +1,155 @@
-<p>
-  newrequisitiondetails works!
-</p>
+<div class="animated fadeIn">
+        <div class="card">
+        
+        <div class="card-header">
+           
+            
+            
+             <div >
+                   <button type="button" class="btn btn-primary" (click)="isCollapsed = !isCollapsed"><i class="fa fa-star"></i>&nbsp; 
+                {{isCollapsed === true ? 'Search for Work Request' : 'Hide Searching'}}
+                </button>
+               
+                <!--
+                <button type="button" class="btn btn-link" ><i class="fa fa-link"></i><a [routerLink]="[ '/nsa/seriesprovisionform' ]"> Create a Work Request </a></button>
+                -->
+                </div>
+          </div>
+          
+        
+          <div [collapse]="isCollapsed" class="card-body">
+          
+          
+                  <div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">{{dangerAlertMessage}}</div>
+      
+          
+         
+         <div class="row">
+                              <div class="col-md-6">
+         
+             <form [formGroup]="mySearchForm" novalidate (ngSubmit)="onSearchSubmit()">
+             
+          <div class="col-xs-12 col-12 col-md-8 form-group"
+              >
+              
+              <label> Work Request Name</label> <input type="text" class="form-control"
+                  formControlName="wrname" 
+                  [ngClass]="{
+                                              'is-invalid': wrname.invalid,
+                                              'is-valid': wrname.valid
+                                         }">
+                                          <div class="invalid-feedback"  *ngIf="wrname.errors?.pattern">
+           Work Request Name Starts with REPROV.
+      </div> 
+              
+          </div>
+      
+          
+        <div class="col-xs-12 col-12 col-md-8 form-group " >
+              <label>Start Date</label> 
+          <input type="text" class="form-control calendar-container" id="startDate" formControlName="startDate" name="startDate"   bsDatepicker [bsConfig]="datepickerConfig"
+        [maxDate]="todayDate" placement="right" > 
+          </div>
+        
+        <div class="col-xs-12 col-12 col-md-8 form-group " >
+              <label>End Date</label> 
+          <input type="text" class="form-control calendar-container" id="endDate" formControlName="endDate" name="endDate"   bsDatepicker [bsConfig]="datepickerConfig"
+        [maxDate]="todayDate" placement="right" > 
+          </div>
+        
+          <div class="col-xs-12 col-12 col-md-8 form-group" >
+              <label>Status</label> <select class="form-control"
+                  formControlName="wrstatus">
+                  <option value="">Please select a status</option>
+                  <option *ngFor="let astatus of wrstatus" [value]="astatus">{{astatus}}</option>
+              </select>
+          </div>
+          <button type="submit" class="btn btn-primary" >Submit</button>
+          <div>
+      
+          </div>
+          
+      </form>
+      <!--
+      <pre >{{mySearchForm.value | json}}</pre>
+      <pre *ngIf="mySearchForm.valid">This is Valid form Data.{{mySearchForm.value | json}}</pre>
+      -->
+      <br/>
+         </div>   
+      <div class="col-md-6" *ngIf="successSearchShow">
+      
+      <h3><div *ngIf="searchPendingGroupID==groupID">Search Result of 
+      
+      <a [routerLink]="['/nsa/reprovisiondetail', searchWR, searchWRNumber, searchHopSequence]">
+                                  {{searchWR}}</a></div></h3>
+      <h3><div *ngIf="searchPendingGroupID!=groupID" >Search Result of {{searchWR}}</div></h3>
+                                  
+      <hr/>
+         <div class="row"><div class="col-md-3">Created By</div><div class="col-md-9">{{searchWrCreatedBy}}</div></div><hr/>
+         <div class="row"><div class="col-md-3">Creation Date</div><div class="col-md-9">{{searchWrCreationDate}}</div></div><hr/>
+            <div *ngIf="searchStatus!='Completed'">
+         <div class="row" ><div class="col-md-3">Last Approver</div><div class="col-md-9">{{searchLastApprover}}</div></div>
+       <hr/>
+         <div class="row" ><div class="col-md-3">Next Approver</div><div class="col-md-9">{{searchLextApprover}}</div></div><hr/>
+        </div>
+         <div *ngIf="searchStatus=='Completed'">
+         <div class="row" ><div class="col-md-3">Completed By</div><div class="col-md-9">{{searchLextApprover}}</div></div><hr/>
+         </div>
+         <div class="row"><div class="col-md-3">Status</div><div class="col-md-9">{{searchStatus}}</div></div><hr/>
+      
+         
+          </div>   	  
+              </div>   	  
+          </div>
+          
+          <div class="row">
+          <div class="col-lg-12">
+            <div class="card">
+              <div class="card-header">
+                <i class="fa fa-align-justify"></i> Requisition Details
+              </div>
+              <div class="card-body" *ngIf="isDataFound">
+                <table class="table table-bordered table-striped table-sm">
+                  <thead>
+                    <tr>
+                      <th>Requisition Id</th>
+                      <th>Requisition No</th>
+                      <th>Requisition Date</th>
+                      <th>Quantity</th>
+                      <th>Requisition Type</th>
+                      <th>Purpose Category</th>
+                      <th>Expected Test Start Date</th>
+                      <th>Expected Test Completion Date</th>
+                      <th>Usage Category</th>
+                      <th>Hop</th>
+                    </tr>
+                  </thead>
+                 <tbody *ngFor="let aTask of requisitionList;  index as i">
+                              <tr>
+                                  <td>{{aTask.id}}</td>
+                                  <td>{{aTask.requisitionNo}}</td>
+                                  <td>{{aTask.requisitionDt}}</td>
+                                  <td>{{aTask.quantity}}</td>
+                                  <td>{{aTask.requisitionType}}</td>
+                                  <td>{{aTask.purposeCategory}}</td>
+                                  <td>{{aTask.testStartDt}}</td>
+                                  <td>{{aTask.testCompletionDt}}</td>
+                                  <td>{{aTask.usageCategory}}</td>
+                                  <td>{{aTask.hop}}</td>
+                              </tr>
+                  </tbody>
+                </table>                
+              </div>
+              <div class="card-body" *ngIf="!isDataFound">
+                  <div class="alert alert-primary" role="alert" ><b>No Pending Tasks</b></div>			
+              </div>
+            </div>
+          </div>
+          <!--/.col-->
+        </div>
+       </div>
+      </div>
+
+
+         <!--<a href="#" (click) = "detailsAction(aTask)" > Details</a></button> </td>  -->
+                                  <!-- <a [routerLink]="detailsAction(aTask)">Details</a>/button> </td>   -->

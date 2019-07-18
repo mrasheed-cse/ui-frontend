@@ -32,7 +32,12 @@ export const navigation_grpID_SSM  = [
         name: 'Assessment',
         url: '/nsa/requisitiondetailsassesment',
         icon: 'icon-cursor'
-      }
+      },
+      {
+        name: 'My Tasks',
+        url: '/nsa/newrequisitiondetails',
+        icon: 'icon-cursor'
+      },
 
 ];
 
@@ -45,7 +50,7 @@ export const navigation_grpID_CLC  = [
   },
   {
         name: 'My Tasks',
-        url: '/nsa/newrequisition',
+        url: '/nsa/newrequisitiondetails',
         icon: 'icon-cursor'
   },
   {
@@ -65,7 +70,7 @@ export const navigation_grpID_HOD  = [
   },
   {
         name: 'My Tasks',
-        url: '/nsa/newrequisition',
+        url: '/nsa/newrequisitiondetails',
         icon: 'icon-cursor'
       },
       {
@@ -90,7 +95,7 @@ export const navigation_grpID_GENERAL  = [
   },
   {
         name: 'My Tasks',
-        url: '/nsa/newrequisition',
+        url: '/nsa/newrequisitiondetails',
         icon: 'icon-cursor'
       },
       
