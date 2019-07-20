@@ -96,15 +96,7 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
     alert('THis request has been submitted.');
 
 
-  }
-
-  approve(){
-    alert('THis request has been approved.');
-  }
-
-  reject(){
-    alert('THis request has been rejected.');
-  }
+  }  
 
   assignMsisdn(lineItem){
     this.assignmentType = "";
