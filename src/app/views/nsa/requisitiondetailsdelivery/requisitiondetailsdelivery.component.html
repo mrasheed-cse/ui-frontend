@@ -157,8 +157,19 @@
             </div>
 
             <div class="form-group row" [hidden]="assignmentType != 'Discrete'">
-              <span>Work on discrete series assignment is still in progress. Please use the other option.</span>
+              <div classs="col-md-12">
+
+                <a href="assets/file/kitnumbers.txt" download>Download sample file</a>
+
+              </div>
             </div>
+
+            <div class="form-group row" [hidden]="assignmentType != 'Discrete'">
+                <label class="col-md-3 col-form-label" >Upload file</label>
+                <div class="col-md-9">
+                    <input type="file" #csvReader name="Upload File" id="txtFileUpload" (change)="uploadListener($event)" accept=".txt" />
+                </div>
+              </div>
 
             <div class="form-group row" [hidden]="assignmentType != 'Sequential'">
               <label class="col-md-3 col-form-label" >Starting KIT number</label>

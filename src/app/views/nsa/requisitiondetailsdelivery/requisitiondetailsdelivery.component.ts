@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AppGlobals } from './../../../app.global';
 import { LoginService } from '../../pages/LoginService';
 import { Router,ActivatedRoute, Params } from '@angular/router';
@@ -14,6 +14,9 @@ import { LoggedInUser } from '../../pages/loggedInUser';
 	providers: [AppGlobals,LoginService,IsmsworkflowsService]
 })
 export class RequisitiondetailsdeliveryComponent implements OnInit {
+
+  public recordsFromFile: any[] = [];  
+  @ViewChild('csvReader') csvReader: any;
 
   requisition: any;
   requsitionLines: any;
@@ -100,6 +103,54 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
 
   }
 
+  uploadListener($event: any): void {  
+  
+    let text = [];  
+    let files = $event.srcElement.files;  
+  
+    if (this.isValidTxtFile(files[0])) {  
+  
+      let input = $event.target;  
+      let reader = new FileReader();  
+      reader.readAsText(input.files[0]);  
+  
+      reader.onload = () => {  
+        let csvData = reader.result;  
+        let csvRecordsArray = (<string>csvData).split(/\r\n|\n/);  
+  
+        this.recordsFromFile = this.getDataRecordsArrayFromTxtFile(csvRecordsArray);  
+      };  
+  
+      reader.onerror = function () {  
+        console.log('error is occured while reading file!');  
+      };  
+  
+    } else {  
+      alert("Please import valid .txt file.");  
+      this.fileReset();  
+    }  
+  }  
+  
+  getDataRecordsArrayFromTxtFile(csvRecordsArray: any) {  
+    let csvArr = [];  
+  
+    for (let i = 1; i < csvRecordsArray.length; i++) {  
+      let curruntRecord = (<string>csvRecordsArray[i]).split(',');  
+      let singleKitNumber = curruntRecord[0].trim();  
+      csvArr.push(singleKitNumber);  
+    }  
+    return csvArr;  
+  }  
+  
+  isValidTxtFile(file: any) {  
+    return file.name.endsWith(".txt");  
+  }    
+  
+  fileReset() {  
+    this.csvReader.nativeElement.value = "";  
+    this.recordsFromFile = [];  
+  }  
+
   
 
   assignMsisdn(lineItem){
@@ -117,11 +168,27 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
     responseObj['requisitionLineId'] = this.lineItemBeingConsidered['id'];
     responseObj['searchModel'] = [];
 
-    var arrayObj = {};
-    arrayObj['startingKitNumber'] = this.startingKitNumber;
-    arrayObj['endingKitNumber'] = this.endingKitNumber;
+    if(this.assignmentType == 'Discrete'){
 
-    responseObj['searchModel'].push(arrayObj);
+      for(var i = 0; i < this.recordsFromFile.length; i++){
+        var arrayObj = {};
+        arrayObj['startingKitNumber'] = this.recordsFromFile[i];
+        arrayObj['endingKitNumber'] = this.recordsFromFile[i];
+    
+        responseObj['searchModel'].push(arrayObj);
+      }
+
+    }
+    else{
+
+      var arrayObj = {};
+      arrayObj['startingKitNumber'] = this.startingKitNumber;
+      arrayObj['endingKitNumber'] = this.endingKitNumber;
+  
+      responseObj['searchModel'].push(arrayObj);
+    }
+
+    
 
     //console.log(responseObj);
     //return;
