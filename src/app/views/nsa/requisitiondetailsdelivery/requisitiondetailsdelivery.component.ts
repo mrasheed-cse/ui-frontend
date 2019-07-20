@@ -96,7 +96,9 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
     alert('THis request has been submitted.');
 
 
-  }  
+  }
+
+  
 
   assignMsisdn(lineItem){
     this.assignmentType = "";
@@ -173,23 +175,5 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
 
   }
 
-  approve(){
-
-    this.approveOrRejectRequest(this.requisitionDetails['id'], "ACCEPT", this.userID);
-    alert('This request has been approved.');
-    this.router.navigate(['nsa/newrequisition']);
-  }
-
-  reject(){
-    this.approveOrRejectRequest(this.requisitionDetails['id'], "REJECT", this.userID);
-    alert('This request has been rejected.');
-    this.router.navigate(['nsa/newrequisition']);
-  }
-
-  rfi(){
-    this.approveOrRejectRequest(this.requisitionDetails['id'], "RFI", this.userID);
-    alert('This request has been sent for RFI.');
-    this.router.navigate(['nsa/newrequisition']);
-  }
 
 }
