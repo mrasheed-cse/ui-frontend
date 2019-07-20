@@ -94,12 +94,32 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
   }
 
   clear(){
-
+    window.location.reload();
   }
 
   submit(){
     alert('THis request has been submitted.');
 
+    var dataToSubmit = Object.create(null);
+    dataToSubmit['wrID'] = this.requisitionDetails['id'];
+    dataToSubmit['userID'] = this.userID;
+    dataToSubmit['status'] = "ACCEPT";
+    dataToSubmit['lineWiseMsisdnInfo'] = this.finalArrayToSubmit;
+
+    if(this.finalArrayToSubmit.length <= 0){
+      alert("Please assign MSISDN for each line item before submitting");
+      return;
+    }
+    else if(this.finalArrayToSubmit.length != this.requsitionLines.length){
+      alert("Please assign MSISDN for each line item before submitting");
+      return;
+    }
+
+    console.log(dataToSubmit);
+
+    this.updateForClc(dataToSubmit);
+    alert('This request has been submitted.');
+    this.router.navigate(['nsa/newrequisition']);
 
   }
 
@@ -207,8 +227,8 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
           }
           else if(res.length != this.lineItemBeingConsidered['quantity']){
             let alertMsg = "The requsition line specifies quantity of " + this.lineItemBeingConsidered['quantity'] + ". However, with specified KIT numbers " + res.length + " number of MSISDN found.";
-            alert(alertMsg);
-            return;
+            alert(alertMsg);            
+            //return;    //comment out for demo purpose
           }
 
           //step 1: push to final array
@@ -266,9 +286,9 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
     this.showMsisdnSeriesAssignmentCard = false;
   }
 
-  approveOrRejectRequest(requisitionId, status, userId){
+  updateForClc(dataToSubmit){
 
-    this.ismsworkflowsService.approveOrRejectRequest(requisitionId, status, userId).subscribe(
+    this.ismsworkflowsService.updateForClc(dataToSubmit).subscribe(
       res  =>  {
         console.log('response is : '+res.message);  
         if(res !== ""){

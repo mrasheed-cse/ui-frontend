@@ -69,4 +69,7 @@ export class IsmsworkflowsService {
 		return this.http.post(this.serverUrl+ 'requisition/ssm',searchObj);
 	}
 
+	updateForClc(data : any) : any{
+		return this.http.post(this.serverUrl+ 'requisition/updateforclc',data);
+	}
 }
