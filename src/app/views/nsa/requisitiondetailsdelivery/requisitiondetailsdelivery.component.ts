@@ -26,6 +26,7 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
   endingKitNumber : any;  
   showMsisdnSeriesAssignmentCard: boolean;
   alreadyAssignedMsisdnSeriesDetails : Array<any>;
+  finalArrayToSubmit : Array<any>;
   currentLoggedInUser: LoggedInUser;
 	userName: string;
 	groupID: number;
@@ -82,6 +83,7 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
     this.endingKitNumber = "";
     this.showMsisdnSeriesAssignmentCard = false;
     this.alreadyAssignedMsisdnSeriesDetails = [];
+    this.finalArrayToSubmit = [];
 
    }
 
@@ -109,10 +111,7 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
   }
 
   confirmMsisdnSeriesAssignment(){
-    /*this.assignmentType = "";
-    this.startingKitNumber = "";
-    this.endingKitNumber = "";
-    this.showMsisdnSeriesAssignmentCard = false;*/
+    /**/
 
     var responseObj = {};
     responseObj['requisitionLineId'] = this.lineItemBeingConsidered['id'];
@@ -132,7 +131,49 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
         console.log('response is : '+res.message);  
         console.log(res);
         if(res !== ""){
-          this.alreadyAssignedMsisdnSeriesDetails = res;
+
+          //step 0: validation
+
+          if(res.length <= 0){
+            alert("No MSISDNs found with the given KIT numbers specified. Please try again with different KIT numbers.");
+            return;
+          }
+          else if(res.length != this.lineItemBeingConsidered['quantity']){
+            let alertMsg = "The requsition line specifies quantity of " + this.lineItemBeingConsidered['quantity'] + ". However, with specified KIT numbers " + res.length + " number of MSISDN found.";
+            alert(alertMsg);
+            return;
+          }
+
+          //step 1: push to final array
+
+          let obj = Object.create(null);
+          obj['requisitionLine'] = this.lineItemBeingConsidered['id'];
+          obj['msisdnInfo'] = res;
+
+          this.finalArrayToSubmit.push(obj);
+
+          //step 2: reflection on UI
+
+          obj = Object.create(null);
+          obj['requisitionLine'] = this.lineItemBeingConsidered['id'];
+          obj['startingKitNumber'] = res[0]['kit_No'];
+          obj['endingKitNumber'] = res[res.length - 1]['kit_No'];
+          obj['startingMsisdnNumber'] =res[0]['mobile_No'];
+          obj['endingMsisdnNumber'] = res[res.length - 1]['mobile_No'];                   
+          obj['startingImsiNumber'] = res[0]['imsi_No'];
+          obj['endingImsiNumber'] = res[res.length - 1]['imsi_No'];        
+
+          this.alreadyAssignedMsisdnSeriesDetails.push(obj);
+
+          //step 3: clear
+
+          this.assignmentType = "";
+          this.startingKitNumber = "";
+          this.endingKitNumber = "";
+          this.showMsisdnSeriesAssignmentCard = false;
+        }
+        else{
+          alert("An error occured when fetching MSISDN information. Please try again.");
         }
       },
       err  =>  {	

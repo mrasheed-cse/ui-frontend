@@ -100,6 +100,7 @@
   
               <thead>
                   <tr>
+                      <th>Line item ID</th>
                       <th>Product</th>                        
                       <th>Credit Limit</th>
                       <th>Quantity</th>
@@ -112,6 +113,7 @@
                 
                 <tbody>
                       <tr *ngFor="let c of requisition['requisitionLines']">
+                        <td>{{ c.id }}</td>
                         <td>{{ c.product }}</td>
                         <td>{{ c.creditLimit }}</td>
                         <td>{{ c.quantity }}</td>
@@ -197,17 +199,25 @@
   
               <thead>
                   <tr>
-                      <th>KIT number</th>                        
-                      <th>IMSI number</th>
-                      <th>MSISDN</th>
+                      <th>Requisition Line No</th>
+                      <th>Starting KIT number</th>                        
+                      <th>Ending KIT number</th>
+                      <th>Starting MSISDN number</th>
+                      <th>Ending MSISDN number</th>
+                      <th>Starting IMSI number</th>
+                      <th>Ending IMSI number</th>
                   </tr>
                 </thead>
                 
                 <tbody>
                       <tr *ngFor="let c of alreadyAssignedMsisdnSeriesDetails">
-                          <td>{{ c.kit_No }}</td>
-                          <td>{{ c.imsi_No }}</td>
-                          <td>{{ c.mobile_No }}</td>
+                          <td>{{ c.requisitionLine }}</td>
+                          <td>{{ c.startingKitNumber }}</td>
+                          <td>{{ c.endingKitNumber }}</td>
+                          <td>{{ c.startingMsisdnNumber }}</td>
+                          <td>{{ c.endingMsisdnNumber }}</td>                          
+                          <td>{{ c.startingImsiNumber }}</td>
+                          <td>{{ c.endingImsiNumber }}</td>                          
                       </tr>
                   </tbody>
                           
