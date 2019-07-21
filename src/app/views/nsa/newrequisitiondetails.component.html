@@ -115,13 +115,14 @@
                       <th>Requisition Id</th>
                       <th>Requisition No</th>
                       <th>Requisition Date</th>
-                      <th>Quantity</th>
+                      <!--<th>Quantity</th>-->
                       <th>Requisition Type</th>
                       <th>Purpose Category</th>
                       <th>Expected Test Start Date</th>
                       <th>Expected Test Completion Date</th>
                       <th>Usage Category</th>
-                      <th>Hop</th>
+                      <!--<th>Hop</th>-->
+                      <th>Status</th>
                     </tr>
                   </thead>
                  <tbody *ngFor="let aTask of requisitionList;  index as i">
@@ -129,13 +130,14 @@
                                   <td>{{aTask.id}}</td>
                                   <td>{{aTask.requisitionNo}}</td>
                                   <td>{{aTask.requisitionDt}}</td>
-                                  <td>{{aTask.quantity}}</td>
+                                  <!--<td>{{aTask.quantity}}</td>-->
                                   <td>{{aTask.requisitionType}}</td>
                                   <td>{{aTask.purposeCategory}}</td>
                                   <td>{{aTask.testStartDt}}</td>
                                   <td>{{aTask.testCompletionDt}}</td>
                                   <td>{{aTask.usageCategory}}</td>
-                                  <td>{{aTask.hop}}</td>
+                                  <!--<td>{{aTask.hop}}</td>-->
+                                  <td>{{aTask.rejectionRfiStatus}}</td>
                               </tr>
                   </tbody>
                 </table>                
