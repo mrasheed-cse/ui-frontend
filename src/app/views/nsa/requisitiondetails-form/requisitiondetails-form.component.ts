@@ -101,30 +101,32 @@ export class RequisitiondetailsFormComponent implements OnInit {
   
   deleteRequisitionLine(lineItem){
 
-    let numberOfLines : number;
-    numberOfLines = this.requsitionLines.length;
-
-    if(numberOfLines <= 1){
-      alert("There is only 1 line item. This cannot be deleted");
-      return;
-    }
-
-    /////////////////////////////////// /////////////////
-    this.ismsworkflowsService.deleteRequisitionLine(lineItem['id']).subscribe(
-      res  =>  {
-        console.log('response is : '+res.message);  
-        alert("Requisition line deleted successfully");
-        window.location.reload();
-        if(res !== ""){
-
-        }
-      },
-      err  =>  {	
-           
+    if(confirm("Are you sure?")){
+      let numberOfLines : number;
+      numberOfLines = this.requsitionLines.length;
+  
+      if(numberOfLines <= 1){
+        alert("There is only 1 line item. This cannot be deleted");
+        return;
       }
-        
-    );
-    ////////////// //////////////////////////// /////////
+  
+      /////////////////////////////////// /////////////////
+      this.ismsworkflowsService.deleteRequisitionLine(lineItem['id']).subscribe(
+        res  =>  {
+          console.log('response is : '+res.message);  
+          alert("Requisition line deleted successfully");
+          window.location.reload();
+          if(res !== ""){
+  
+          }
+        },
+        err  =>  {	
+             
+        }
+          
+      );
+      ////////////// //////////////////////////// /////////
+    }
 
   }
 

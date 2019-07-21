@@ -98,8 +98,7 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
   }
 
   submit(){
-    alert('THis request has been submitted.');
-
+    
     var dataToSubmit = Object.create(null);
     dataToSubmit['wrID'] = this.requisitionDetails['id'];
     dataToSubmit['userID'] = this.userID;
@@ -225,8 +224,8 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
             alert("No MSISDNs found with the given KIT numbers specified. Please try again with different KIT numbers.");
             return;
           }
-          else if(res.length != this.lineItemBeingConsidered['quantity']){
-            let alertMsg = "The requsition line specifies quantity of " + this.lineItemBeingConsidered['quantity'] + ". However, with specified KIT numbers " + res.length + " number of MSISDN found.";
+          else if(res.length != this.lineItemBeingConsidered['assignQuantity']){
+            let alertMsg = "The requsition line specifies quantity of " + this.lineItemBeingConsidered['assignQuantity'] + ". However, with specified KIT numbers " + res.length + " number of MSISDN found.";
             alert(alertMsg);            
             //return;    //comment out for demo purpose
           }

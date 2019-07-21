@@ -61,9 +61,20 @@ export class RequisitionassignComponent implements OnInit {
   ngOnInit() {
   }
 
-  approveOrRejectRequest(requisitionId, status, userId){
+  ssmAssignment(requisitionId, status, userId){
 
-    this.ismsworkflowsService.approveOrRejectRequest(requisitionId, status, userId).subscribe(
+    let lineItems : Array<any>;
+    lineItems = [];
+
+    for(var i = 0; i < this.requsitionLines.length; i++){
+      var obj = Object.create(null);
+      obj['requisitionLineId'] = this.requsitionLines[i]['id'];
+      obj['assignedCreditLimit'] = this.requsitionLines[i]['assignedLimit'];
+      obj['assignedQuantity'] = this.requsitionLines[i]['assignedQuantity'];            
+      lineItems.push(obj);
+    }
+
+    this.ismsworkflowsService.ssmAssignment(requisitionId, status, userId, lineItems).subscribe(
       res  =>  {
         console.log('response is : '+res.message);  
         if(res !== ""){
@@ -80,19 +91,19 @@ export class RequisitionassignComponent implements OnInit {
 
   approve(){
 
-    this.approveOrRejectRequest(this.requisitionDetails['id'], "ACCEPT", this.userID);
+    this.ssmAssignment(this.requisitionDetails['id'], "ACCEPT", this.userID);
     alert('This request has been approved.');
     this.router.navigate(['nsa/newrequisition']);
   }
 
   reject(){
-    this.approveOrRejectRequest(this.requisitionDetails['id'], "REJECT", this.userID);
+    this.ssmAssignment(this.requisitionDetails['id'], "REJECT", this.userID);
     alert('This request has been rejected.');
     this.router.navigate(['nsa/newrequisition']);
   }
 
   rfi(){
-    this.approveOrRejectRequest(this.requisitionDetails['id'], "RFI", this.userID);
+    this.ssmAssignment(this.requisitionDetails['id'], "RFI", this.userID);
     alert('This request has been sent for RFI.');
     this.router.navigate(['nsa/newrequisition']);
   }

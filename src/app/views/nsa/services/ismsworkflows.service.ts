@@ -56,6 +56,15 @@ export class IsmsworkflowsService {
 		});
 	}
 
+	ssmAssignment(wr_id: number,status: string,userID: string,lineItems: Array<any>) : any{
+		return this.http.post(this.serverUrl+ 'requisition/ssmassignment',{
+			userID: userID,
+			wrID: wr_id,
+			status: status,
+			lineItems: lineItems
+		});
+	}
+
 	deleteRequisitionLine(lineItemId: number) : any{
 		return this.http.post(this.serverUrl+ 'requisitionline/delete',{
 			userID: "",
