@@ -48,11 +48,29 @@ export class IsmsworkflowsService {
 	}
 
 
-	approveOrRejectRequest(wr_id: number,status: string,userID: string) : any{
+	approveOrRejectRequest(wr_id: number,status: string,userID: string, comment: string) : any{
 		return this.http.post(this.serverUrl+ 'requisition/update',{
 			userID: userID,
 			wrID: wr_id,
-			status: status
+			status: status,
+			comment: comment
+		});
+	}
+
+	commentOnRequest(wr_id: number,comment: string,userID: string) : any{
+		return this.http.post(this.serverUrl+ 'requisition/comment',{
+			userID: userID,
+			wrID: wr_id,
+			comment: comment
+		});
+	}
+
+	getAllComments(wr_id: number,comment: string,userID: string) : any{
+
+		return this.http.post(this.serverUrl+ 'requisition/retrievecomments',{
+			userID: userID,
+			wrID: wr_id,
+			comment: comment
 		});
 	}
 

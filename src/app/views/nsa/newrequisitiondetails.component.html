@@ -123,6 +123,7 @@
                       <th>Usage Category</th>
                       <!--<th>Hop</th>-->
                       <th>Status</th>
+                      <!--<th>Action</th>-->
                     </tr>
                   </thead>
                  <tbody *ngFor="let aTask of requisitionList;  index as i">
@@ -137,7 +138,15 @@
                                   <td>{{aTask.testCompletionDt}}</td>
                                   <td>{{aTask.usageCategory}}</td>
                                   <!--<td>{{aTask.hop}}</td>-->
-                                  <td>{{aTask.rejectionRfiStatus}}</td>
+                                  <td style="text-align:center">
+                                    {{aTask.rejectionRfiStatus}}
+                                    <button style="display:block" *ngIf="aTask.rejectionRfiStatus == 'RFI'"  type="button" class="btn btn-link" ><i class="fa fa-link"></i> 
+                                      <a [routerLink]="[detailsAction(aTask),aTask.id]">Edit</a>
+                                    </button>
+                                  </td>
+                                  <!--<td> 
+                                     
+                                  </td>-->
                               </tr>
                   </tbody>
                 </table>                

@@ -35,6 +35,7 @@ import {RequisitiondetailsFormComponent} from './requisitiondetails-form/requisi
 import { RequisitionassignComponent } from './requisitionassign/requisitionassign.component';
 import { RequisitiondetailshodComponent } from './requisitiondetailshod/requisitiondetailshod.component';
 import { RequisitiondetailsdeliveryComponent } from './requisitiondetailsdelivery/requisitiondetailsdelivery.component';
+import { RequisitioneditComponent } from './requisitionedit/requisitionedit.component';
 
 
 const routes: Routes = [
@@ -260,6 +261,13 @@ const routes: Routes = [
       title: 'Approval'
     }
   },
+  {
+    path: 'requisitionedit/:requisition_id',
+    component: RequisitioneditComponent,
+    data: {
+      title: 'Requisition Details (Revision by end user)'
+    }
+  },  
   {
     path: 'requisitiondetailsassesment/:requisition_id',
     component: RequisitiondetailsFormComponent,

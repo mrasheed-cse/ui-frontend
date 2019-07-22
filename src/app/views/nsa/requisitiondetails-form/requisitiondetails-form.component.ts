@@ -24,10 +24,12 @@ export class RequisitiondetailsFormComponent implements OnInit {
   currentLoggedInUser: LoggedInUser;
 	userName: string;
 	groupID: number;
-	userID: string;
+  userID: string;
+  requisition_comments: string;
 
   constructor(private route:ActivatedRoute,private router: Router,private loginService: LoginService, private http: HttpClient, private _global: AppGlobals,private ismsworkflowsService: IsmsworkflowsService) {
 
+    this.requisition_comments = "";
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
 			
     if (this.currentLoggedInUser) {
@@ -63,7 +65,7 @@ export class RequisitiondetailsFormComponent implements OnInit {
 
   approveOrRejectRequest(requisitionId, status, userId){
 
-    this.ismsworkflowsService.approveOrRejectRequest(requisitionId, status, userId).subscribe(
+    this.ismsworkflowsService.approveOrRejectRequest(requisitionId, status, userId, this.requisition_comments).subscribe(
       res  =>  {
         console.log('response is : '+res.message);  
         if(res !== ""){
