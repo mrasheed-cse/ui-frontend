@@ -41,7 +41,7 @@ export class AppGlobals {
 	
 
 	
-	readonly wrid_FileUploadPath: string = '/app/nsa_files/';
+	readonly wrid_FileUploadPath: string = '/app/nsa_files/';	
 
 	//for test purpose
 	dataTemp = [

@@ -84,6 +84,7 @@ export class NewrequisitioninitiateComponent implements OnInit {
 	public listUsageCategory = [];
 	public listProduct = [];
 	public listImsiType = [];
+	public listSpecialRequirement = [];
   
 	todayDate: Date;
 
@@ -110,7 +111,9 @@ export class NewrequisitioninitiateComponent implements OnInit {
       else {
       //console.log('Current user not found');
       this.router.navigate(['pages/login']);
-      }
+			}
+			
+			this.listSpecialRequirement = environment.dataSpecialRequirementTypes;
 
 			this.definitionDataService.getEmployeeDetails(this.userID).subscribe(
 				data => {
@@ -288,7 +291,8 @@ this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_Imsi
           creditLimit: new FormControl(0),
           quantity: new FormControl(0),
           imsiType: new FormControl('', Validators.required),
-          specialRequirement: new FormControl(''),
+					specialRequirement: new FormControl(''),
+					specialRequirementOther: new FormControl(''),
           assignProduct: new FormControl(0),
           assignQuantity: new FormControl(0)
       })]);
@@ -330,7 +334,8 @@ this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_Imsi
           creditLimit: new FormControl(0),
           quantity: new FormControl(0),
           imsiType: new FormControl('', Validators.required),
-          specialRequirement: new FormControl(''),
+					specialRequirement: new FormControl(''),
+					specialRequirementOther: new FormControl(''),
           assignProduct: new FormControl(0),
           assignQuantity: new FormControl(0)
             }

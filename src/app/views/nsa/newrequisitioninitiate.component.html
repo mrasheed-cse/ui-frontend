@@ -1,8 +1,5 @@
 <div class="row">
-	<div class="col-md-1">
-		<div class="card-body"></div>
-	</div>
-	<div class="col-md-10">
+	<div class="col-md-12">
 		<div class="card">
 			<div style="text-align: center">
         		<i class="fa fa-spinner fa-pulse fa-3x fa-fw" *ngIf="isLoading" ></i>
@@ -264,8 +261,8 @@
                                                                                         
                                                                                         
                                                                                         </td>
-                                                                                        <td><input formControlName="creditLimit" type = "number"></td>
-                                                                                        <td><input formControlName="quantity" type = "number"></td>											  
+                                                                                        <td><input class="form-control" formControlName="creditLimit" type = "number"></td>
+                                                                                        <td><input class="form-control" formControlName="quantity" type = "number"></td>											  
                                                                                         <td>
                                                                                                 <!--<input formControlName="imsiType" >  -->
                                                                                         
@@ -273,7 +270,14 @@
                                                                                                                 <option *ngFor="let aImsiType of listImsiType" [value]="aImsiType.id">{{aImsiType.ismsMasterDataDetailsName}}</option>
                                                                                                         </select>
                                                                                         </td>
-                                                                                        <td><input formControlName="specialRequirement"></td>
+                                                                                        <td>
+                                                                                                <!--<input formControlName="specialRequirement">-->
+                                                                                                <select class="form-control" formControlName="specialRequirement" >
+                                                                                                                <option *ngFor="let singleSpecialRequirement of listSpecialRequirement" [value]="singleSpecialRequirement.value">{{singleSpecialRequirement.name}}</option>
+                                                                                                </select>
+                                                                                                <br /><br />
+                                                                                                <textarea formControlName="specialRequirementOther" style="width:100% !important" placeholder="Put more requirements here..." rows="4"cols="5"></textarea>
+                                                                                        </td>
                                                                                         <td><button type="button" (click)="deleteLine(idx)">Delete</button></td>
                                                                                   
                                                                                  

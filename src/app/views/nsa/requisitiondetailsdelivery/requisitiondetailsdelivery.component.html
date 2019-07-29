@@ -119,7 +119,11 @@
                         <td>{{ c.assignQuantity }}</td>
                         <td>{{ c.activationInstruction }}</td>
                         <td>{{ c.imsiType }}</td>
-                        <td>{{ c.specialRequirement }}</td>                           
+                        <td>
+                            {{ c.specialRequirement }}
+                            <span *ngIf="c.specialRequirementOther != null && c.specialRequirementOther != undefined && c.specialRequirementOther != ''"><br /></span>  
+                            <span *ngIf="c.specialRequirementOther != null && c.specialRequirementOther != undefined && c.specialRequirementOther != ''">{{c.specialRequirementOther}}</span>                              
+                        </td>                                                  
                           <td>
                               <a class="btn btn-primary btn-sm" (click) = "assignMsisdn(c)" style="padding: 2%;margin: 5%;border-radius: 4px;color: white;" >Assign MSISDN</a>
                           </td>

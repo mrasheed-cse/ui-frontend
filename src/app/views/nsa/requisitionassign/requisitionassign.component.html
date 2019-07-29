@@ -106,8 +106,9 @@
                     <th>Instruction</th>
                     <th>IMSI Type</th>
                     <th>Special Requirement</th>
-                    <th>Assigned quantity</th>
                     <th>Assigned limit</th>
+                    <th>Assigned quantity</th>
+                    
                 </tr>
               </thead>
               
@@ -118,13 +119,18 @@
                       <td>{{ c.quantity }}</td>
                       <td>{{ c.activationInstruction }}</td>
                       <td>{{ c.imsiType }}</td>
-                      <td>{{ c.specialRequirement }}</td>   
-                        <td>
+                      <td>
+                          {{ c.specialRequirement }}
+                          <span *ngIf="c.specialRequirementOther != null && c.specialRequirementOther != undefined && c.specialRequirementOther != ''"><br /></span>  
+                          <span *ngIf="c.specialRequirementOther != null && c.specialRequirementOther != undefined && c.specialRequirementOther != ''">{{c.specialRequirementOther}}</span>                              
+                      </td>                         
+                      <td>
+                        <input type="number" [(ngModel)] = "c.assignedLimit" />
+                      </td>
+                      <td>
                           <input type="number" [(ngModel)] = "c.assignedQuantity" />
-                        </td>
-                        <td>
-                          <input type="number" [(ngModel)] = "c.assignedLimit" />
-                        </td>
+                      </td>
+
                     </tr>
                 </tbody>
                          

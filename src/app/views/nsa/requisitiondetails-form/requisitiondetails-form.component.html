@@ -117,7 +117,11 @@
                         <td>{{ c.quantity }}</td>
                         <td>{{ c.activationInstruction }}</td>
                         <td>{{ c.imsiType }}</td>
-                        <td>{{ c.specialRequirement }}</td>                         
+                        <td>
+                            {{ c.specialRequirement }}
+                            <span *ngIf="c.specialRequirementOther != null && c.specialRequirementOther != undefined && c.specialRequirementOther != ''"><br /></span>  
+                            <span *ngIf="c.specialRequirementOther != null && c.specialRequirementOther != undefined && c.specialRequirementOther != ''">{{c.specialRequirementOther}}</span>                              
+                        </td>                         
                         <td>
                             <a style="color:red" (click) = "deleteRequisitionLine(c)"  class=""><i class="fa fa-ban"></i> Delete</a>
                         </td>
