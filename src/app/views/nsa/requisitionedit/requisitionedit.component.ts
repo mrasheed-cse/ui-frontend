@@ -6,12 +6,13 @@ import { HttpClient } from '@angular/common/http';
 import { DefinitionDataService } from '../services/definitiondata.service';
 import { IsmsworkflowsService } from '../services/Ismsworkflows.service';
 import { LoggedInUser } from '../../pages/loggedInUser';
+import { environment } from '../../../../environments/environment.prod';
 
 @Component({
   selector: 'app-requisitionedit',
   templateUrl: './requisitionedit.component.html',
   styleUrls: ['./requisitionedit.component.scss'],
-  providers: [AppGlobals,LoginService,IsmsworkflowsService]
+  providers: [AppGlobals,LoginService,DefinitionDataService,IsmsworkflowsService]
 })
 export class RequisitioneditComponent implements OnInit {
 
@@ -27,8 +28,132 @@ export class RequisitioneditComponent implements OnInit {
   requisition_comments: string;
   requisition_existing_comments: Array<any>;
 
-  constructor(private route:ActivatedRoute,private router: Router,private loginService: LoginService, private http: HttpClient, private _global: AppGlobals,private ismsworkflowsService: IsmsworkflowsService) {
+  public listRequisitionType = [];
+	public listPurposeCategory = [];
+	public listLocation = [];
+	public listUsageCategory = [];
+	public listProduct = [];
+	public listImsiType = [];
+	public listSpecialRequirement = [];
 
+  loadMasterData(){
+    this.listSpecialRequirement = environment.dataSpecialRequirementTypes;
+  
+//GetRequisitionType
+this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_RequisitionType).subscribe(
+  data => { 
+        //console.log(data);
+        for (let index in data) {
+          //console.log (data[index]);
+          this.listRequisitionType.push(
+          {
+            id:data[index].id,
+            ismsMasterDataDetailsName: data[index].ismsMasterDataDetailsName
+          }
+          ); 
+        }		
+      },
+    err => console.error(err),
+    () => console.log('done loading Provisioning Type Name List')
+    );
+//GetPurposeCategory
+
+this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_PurposeType).subscribe(
+data => { 
+      //console.log(data);
+      for (let index in data) {
+        //console.log (data[index]);
+        this.listPurposeCategory.push(
+        {
+          id:data[index].id,
+          ismsMasterDataDetailsName: data[index].ismsMasterDataDetailsName
+        }
+        ); 
+      }		
+    },
+  err => console.error(err),
+  () => console.log('done loading Provisioning Type Name List')
+  );
+
+  //GetLocation
+
+this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_Location).subscribe(
+data => { 
+      //console.log(data);
+      for (let index in data) {
+        //console.log (data[index]);
+        this.listLocation.push(
+        {
+          id:data[index].id,
+          ismsMasterDataDetailsName: data[index].ismsMasterDataDetailsName
+        }
+        ); 
+      }		
+    },
+  err => console.error(err),
+  () => console.log('done loading Provisioning Type Name List')
+  );
+
+  //GetUsageCategory
+
+this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_UsageCategory).subscribe(
+data => { 
+      //console.log(data);
+      for (let index in data) {
+        //console.log (data[index]);
+        this.listUsageCategory.push(
+        {
+          id:data[index].id,
+          ismsMasterDataDetailsName: data[index].ismsMasterDataDetailsName
+        }
+        ); 
+      }		
+    },
+  err => console.error(err),
+  () => console.log('done loading usage category Name List')
+  );
+
+    //GetProducts
+
+this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_ProductName).subscribe(
+data => { 
+      //console.log(data);
+      for (let index in data) {
+        //console.log (data[index]);
+        this.listProduct.push(
+        {
+          id:data[index].id,
+          ismsMasterDataDetailsName: data[index].ismsMasterDataDetailsName
+        }
+        ); 
+      }		
+    },
+  err => console.error(err),
+  () => console.log('done loading Product Name List')
+  );
+
+  //GetIMSI Type
+
+this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_ImsiType).subscribe(
+data => { 
+      //console.log(data);
+      for (let index in data) {
+        //console.log (data[index]);
+        this.listImsiType.push(
+        {
+          id:data[index].id,
+          ismsMasterDataDetailsName: data[index].ismsMasterDataDetailsName
+        }
+        ); 
+      }		
+    },
+  err => console.error(err),
+  () => console.log('done loading IMSI Type Name List')
+  );
+  }
+
+  constructor(private route:ActivatedRoute,private router: Router, private definitionDataService: DefinitionDataService,private loginService: LoginService, private http: HttpClient, private _global: AppGlobals,private ismsworkflowsService: IsmsworkflowsService) {
+    
     this.requisition_comments = "";
     this.requisition_existing_comments = [];
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
@@ -41,6 +166,8 @@ export class RequisitioneditComponent implements OnInit {
     else {
       this.router.navigate(['pages/login']);
     }
+
+    this.loadMasterData();
 
     //call API here to get real data
     this.requisitionId = parseInt(this.route.snapshot.paramMap.get('requisition_id'));

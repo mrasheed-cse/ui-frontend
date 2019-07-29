@@ -96,35 +96,46 @@
     <div class="card-body">			
       <div class="row" >
         <div class="col-md-12">
-          <table style="width:100%" border="1">        
-  
+          
+          <table class="table table-bordered table-sm">
               <thead>
-                  <tr>
-                      <th>Product</th>                        
+                <tr>
+                      <th>Product</th>
                       <th>Credit Limit</th>
                       <th>Quantity</th>
-                      <th>Instruction</th>
                       <th>IMSI Type</th>
                       <th>Special Requirement</th>
-                  </tr>
-                </thead>
-                
-                <tbody>
-                      <tr *ngFor="let c of requisition['requisitionLines']">
-                        <td>{{ c.product }}</td>
-                        <td>{{ c.creditLimit }}</td>
-                        <td>{{ c.quantity }}</td>
-                        <td>{{ c.activationInstruction }}</td>
-                        <td>{{ c.imsiType }}</td>
-                        <td>
-                            {{ c.specialRequirement }}
-                            <span *ngIf="c.specialRequirementOther != null && c.specialRequirementOther != undefined && c.specialRequirementOther != ''"><br /></span>  
-                            <span *ngIf="c.specialRequirementOther != null && c.specialRequirementOther != undefined && c.specialRequirementOther != ''">{{c.specialRequirementOther}}</span>                              
-                        </td>                           
-                      </tr>
-                  </tbody>
-                           
-          </table>						
+                      <th>Action</th>
+                </tr>
+              </thead>
+                                                                                       
+              <tbody>	
+                <tr  *ngFor="let c of requisition['requisitionLines']">
+                  <td>
+                    <select class="form-control" [(ngModel)] = "c.product" >
+                      <option></option>
+                      <option *ngFor="let aproduct of listProduct" [value]="aproduct.id">{{aproduct.ismsMasterDataDetailsName}}</option>              
+                    </select>                                                            
+                  </td>
+                  <td><input class="form-control" [(ngModel)] = "c.creditLimit" type = "number"></td>
+                  <td><input class="form-control" [(ngModel)] = "c.quantity" type = "number"></td>											  
+                  <td>
+                    <select class="form-control" [(ngModel)] = "c.imsiType" >
+                      <option *ngFor="let aImsiType of listImsiType" [value]="aImsiType.id">{{aImsiType.ismsMasterDataDetailsName}}</option>
+                    </select>
+                  </td>
+                  <td>
+                      <select class="form-control" [(ngModel)] = "c.specialRequirement" >
+                        <option *ngFor="let singleSpecialRequirement of listSpecialRequirement" [value]="singleSpecialRequirement.value">{{singleSpecialRequirement.name}}</option>
+                      </select>
+                      <br /><br />
+                      <textarea [(ngModel)] = "c.specialRequirementOther" style="width:100% !important" placeholder="Put more requirements here..." rows="4"cols="5"></textarea>
+                  </td>
+                  <td><button type="button" (click)="deleteLine(idx)">Delete</button></td>                        
+                </tr>							   
+              </tbody>                      
+          </table>
+
         </div>				
       </div>
     </div>
