@@ -209,9 +209,9 @@ data => {
 
   }
 
-  saveComment(requisitionId, comment, userId){
+  respondToRfi(requisitionId, comment, userId, requisitionLines){
 
-    this.ismsworkflowsService.commentOnRequest(requisitionId, comment, userId).subscribe(
+    this.ismsworkflowsService.respondToRfi(requisitionId, comment, userId, requisitionLines).subscribe(
       res  =>  {
         console.log('response is : '+res.message);  
         if(res !== ""){
@@ -228,7 +228,7 @@ data => {
 
   save(){
 
-    this.saveComment(this.requisitionDetails['id'], this.requisition_comments, this.userID);
+    this.respondToRfi(this.requisitionDetails['id'], this.requisition_comments, this.userID, this.requisition['requisitionLines']);
     alert('The changes have been saved.');
     this.router.navigate(['nsa/newrequisitiondetails']);
   }

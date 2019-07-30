@@ -65,6 +65,15 @@ export class IsmsworkflowsService {
 		});
 	}
 
+	respondToRfi(wr_id: number,comment: string,userID: string, requisitionLines: any) : any{
+		return this.http.post(this.serverUrl+ 'requisition/respondtorfi',{
+			userID: userID,
+			wrID: wr_id,
+			comment: comment,
+			requisitionLines : requisitionLines
+		});
+	}
+
 	getAllComments(wr_id: number,comment: string,userID: string) : any{
 
 		return this.http.post(this.serverUrl+ 'requisition/retrievecomments',{
