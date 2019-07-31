@@ -89,7 +89,55 @@ export class RequisitionassignComponent implements OnInit {
 
   }
 
+  formValidation(){
+    let validationPassed : boolean;
+    let validationMessage : any;
+    validationPassed = true;
+    validationMessage = "";
+
+    for(var i = 0; i < this.requisition['requisitionLines'].length; i++){
+
+      var creditLimit = 0;
+      var quantity = 0;
+
+      if(this.requisition['requisitionLines'][i]['assignedLimit'] != null &&
+      this.requisition['requisitionLines'][i]['assignedLimit'] != undefined &&
+      this.requisition['requisitionLines'][i]['assignedLimit'] != ""){
+        creditLimit = parseFloat(this.requisition['requisitionLines'][i]['assignedLimit']);
+      }
+
+      if(creditLimit >= 0) { /* do nothing */ }
+      else{
+        validationMessage = "For line "+ (i+1) +" invalid credit limit amount given.";					
+        validationPassed = false;
+      }
+
+      /////////// ///////////////// ///////////////// ////////////////
+
+      if(this.requisition['requisitionLines'][i]['assignedQuantity'] != null &&
+      this.requisition['requisitionLines'][i]['assignedQuantity'] != undefined &&
+      this.requisition['requisitionLines'][i]['assignedQuantity'] != ""){
+        quantity = parseInt(this.requisition['requisitionLines'][i]['assignedQuantity']);
+      }
+
+      if(quantity > 0) { /* do nothing */ }
+      else{
+        validationMessage = "For line "+ (i+1) +" invalid quantity given.";					
+        validationPassed = false;
+      }
+
+    }
+
+    if(!validationPassed){
+      alert(validationMessage);
+    }
+
+    return validationPassed;
+  }
+
   approve(){
+
+    if(!this.formValidation()) return;
 
     this.ssmAssignment(this.requisitionDetails['id'], "ACCEPT", this.userID);
     alert('This request has been approved.');

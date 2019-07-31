@@ -226,7 +226,55 @@ data => {
 
   }
 
+  formValidation(){
+    let validationPassed : boolean;
+    let validationMessage : any;
+    validationPassed = true;
+    validationMessage = "";
+
+    for(var i = 0; i < this.requisition['requisitionLines'].length; i++){
+
+      var creditLimit = 0;
+      var quantity = 0;
+
+      if(this.requisition['requisitionLines'][i]['creditLimit'] != null &&
+      this.requisition['requisitionLines'][i]['creditLimit'] != undefined &&
+      this.requisition['requisitionLines'][i]['creditLimit'] != ""){
+        creditLimit = parseFloat(this.requisition['requisitionLines'][i]['creditLimit']);
+      }
+
+      if(creditLimit >= 0) { /* do nothing */ }
+      else{
+        validationMessage = "For line "+ (i+1) +" invalid credit limit amount given.";					
+        validationPassed = false;
+      }
+
+      /////////// ///////////////// ///////////////// ////////////////
+
+      if(this.requisition['requisitionLines'][i]['quantity'] != null &&
+      this.requisition['requisitionLines'][i]['quantity'] != undefined &&
+      this.requisition['requisitionLines'][i]['quantity'] != ""){
+        quantity = parseInt(this.requisition['requisitionLines'][i]['quantity']);
+      }
+
+      if(quantity > 0) { /* do nothing */ }
+      else{
+        validationMessage = "For line "+ (i+1) +" invalid quantity given.";					
+        validationPassed = false;
+      }
+
+    }
+
+    if(!validationPassed){
+      alert(validationMessage);
+    }
+
+    return validationPassed;
+  }
+
   save(){
+
+    if(!this.formValidation()) return;
 
     this.respondToRfi(this.requisitionDetails['id'], this.requisition_comments, this.userID, this.requisition['requisitionLines']);
     alert('The changes have been saved.');
