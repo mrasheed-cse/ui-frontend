@@ -146,16 +146,16 @@ export class MasterdatamgmtComponent implements OnInit {
         
         if(res !== null){
           console.log("res.status : "+res);		
-        //  this.successAlertShow = true;
-          //this.successAlertMessage = res.message;
+          this.successAlertShow = true;
+          this.successAlertMessage = "Master data saved successfully";
           this.isLoading = false;
           this.clearForm();
         }
           },
           err  =>  {		  
           console.log("err.status : "+err.status);		  
-         // this.dangerAlertShow = true;
-         // this.dangerAlertMessage = "Master Data New Item Creation got an error";
+         this.dangerAlertShow = true;
+         this.dangerAlertMessage = "There was an error in Master Data New Item Creation";
         this.isLoading = false;
           }
         
@@ -176,7 +176,7 @@ export class MasterdatamgmtComponent implements OnInit {
         if(res !== null){
           console.log("res.status : "+res);		
           this.successAlertShow = true;
-        //  this.successAlertMessage = res.message.toString();
+          this.successAlertMessage = "Master data detail saved successfully";
           this.isLoading = false;
           this.clearForm();
         }
@@ -184,7 +184,7 @@ export class MasterdatamgmtComponent implements OnInit {
           err  =>  {		  
         console.log("err.status : "+err.status);		  
         this.dangerAlertShow = true;
-        this.dangerAlertMessage = " Master Data Detail Item Creation got an error";
+        this.dangerAlertMessage = " There was an error in Master Data Detail Item Creation";
         this.isLoading = false;
           }
         

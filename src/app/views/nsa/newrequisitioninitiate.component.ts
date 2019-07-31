@@ -91,11 +91,150 @@ export class NewrequisitioninitiateComponent implements OnInit {
 
 	headerDateData: any;
 
-  
+	getRequisitionType(){
+		//GetRequisitionType
+		this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_RequisitionType).subscribe(
+		data => { 
+					//console.log(data);
+					for (let index in data) {
+						//console.log (data[index]);
+						this.listRequisitionType.push(
+						{
+							id:data[index].id,
+							ismsMasterDataDetailsName: data[index].ismsMasterDataDetailsName
+						}
+						); 
+					}
+					
+					this.getPurposeCategory();
+				},
+			err => console.error(err),
+			() => console.log('done loading Provisioning Type Name List')
+			);
+	}
+	
+	getPurposeCategory(){
+		//GetPurposeCategory
+
+		this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_PurposeType).subscribe(
+			data => { 
+				//console.log(data);
+				for (let index in data) {
+					//console.log (data[index]);
+					this.listPurposeCategory.push(
+					{
+						id:data[index].id,
+						ismsMasterDataDetailsName: data[index].ismsMasterDataDetailsName
+					}
+					); 
+				}
+				
+				this.getLocation();
+			},
+			err => console.error(err),
+			() => console.log('done loading Provisioning Type Name List')
+			);
+	}
+
+	getLocation(){
+		//GetLocation
+
+		this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_Location).subscribe(
+			data => { 
+						//console.log(data);
+						for (let index in data) {
+							//console.log (data[index]);
+							this.listLocation.push(
+							{
+								id:data[index].id,
+								ismsMasterDataDetailsName: data[index].ismsMasterDataDetailsName
+							}
+							); 
+						}
+						
+						this.getUsageCategory();
+					},
+				err => console.error(err),
+				() => console.log('done loading Provisioning Type Name List')
+				);
+	}
+
+	getUsageCategory(){
+		//GetUsageCategory
+
+		this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_UsageCategory).subscribe(
+			data => { 
+				//console.log(data);
+				for (let index in data) {
+					//console.log (data[index]);
+					this.listUsageCategory.push(
+					{
+						id:data[index].id,
+						ismsMasterDataDetailsName: data[index].ismsMasterDataDetailsName
+					}
+					); 
+				}
+				
+				this.getProduct();
+			},
+		err => console.error(err),
+		() => console.log('done loading usage category Name List')
+		);
+	}
+
+	getProduct(){
+		//GetProducts
+
+		this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_ProductName).subscribe(
+			data => { 
+				//console.log(data);
+				for (let index in data) {
+					//console.log (data[index]);
+					this.listProduct.push(
+					{
+						id:data[index].id,
+						ismsMasterDataDetailsName: data[index].ismsMasterDataDetailsName
+					}
+					); 
+				}
+				
+				this.getImsiType();
+			},
+		err => console.error(err),
+		() => console.log('done loading Product Name List')
+		);
+	}
+
+	getImsiType(){
+		//GetIMSI Type
+
+		this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_ImsiType).subscribe(
+			data => { 
+				//console.log(data);
+				for (let index in data) {
+					//console.log (data[index]);
+					this.listImsiType.push(
+					{
+						id:data[index].id,
+						ismsMasterDataDetailsName: data[index].ismsMasterDataDetailsName
+					}
+					); 
+				}
+				
+				this.isLoading = false;
+				this.purposeCategory.setValue( this.listPurposeCategory[0]['id'] );
+				this.location.setValue( this.listLocation[0]['id']);
+				this.usageCategory.setValue( this.listUsageCategory[0]['id']);
+				this.requisitionType.setValue( this.listRequisitionType[0]['id']);
+			},
+		err => console.error(err),
+		() => console.log('done loading IMSI Type Name List')
+		);
+	}
 
   constructor(private router: Router,private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private definitionDataService: DefinitionDataService, private ismsworkflowsService: IsmsworkflowsService) {
 		
-			this.	headerDateData = {};
+			this.	headerDateData = {};			
 
       // Get Current User Profile
       
@@ -146,127 +285,15 @@ export class NewrequisitioninitiateComponent implements OnInit {
       },
       err => console.error(err),
       ()=> console.log('done loading Work Request Name')
-      );	
-        
-
+      );	        		
+			
 		
-	//GetRequisitionType
-	this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_RequisitionType).subscribe(
-		data => { 
-					//console.log(data);
-					for (let index in data) {
-						//console.log (data[index]);
-						this.listRequisitionType.push(
-						{
-							id:data[index].id,
-							ismsMasterDataDetailsName: data[index].ismsMasterDataDetailsName
-						}
-						); 
-					}		
-				},
-			err => console.error(err),
-			() => console.log('done loading Provisioning Type Name List')
-			);
-//GetPurposeCategory
-
-this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_PurposeType).subscribe(
-	data => { 
-				//console.log(data);
-				for (let index in data) {
-					//console.log (data[index]);
-					this.listPurposeCategory.push(
-					{
-						id:data[index].id,
-						ismsMasterDataDetailsName: data[index].ismsMasterDataDetailsName
-					}
-					); 
-				}		
-			},
-		err => console.error(err),
-		() => console.log('done loading Provisioning Type Name List')
-		);
-
-		//GetLocation
-
-this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_Location).subscribe(
-	data => { 
-				//console.log(data);
-				for (let index in data) {
-					//console.log (data[index]);
-					this.listLocation.push(
-					{
-						id:data[index].id,
-						ismsMasterDataDetailsName: data[index].ismsMasterDataDetailsName
-					}
-					); 
-				}		
-			},
-		err => console.error(err),
-		() => console.log('done loading Provisioning Type Name List')
-		);
-
-		//GetUsageCategory
-
-this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_UsageCategory).subscribe(
-	data => { 
-				//console.log(data);
-				for (let index in data) {
-					//console.log (data[index]);
-					this.listUsageCategory.push(
-					{
-						id:data[index].id,
-						ismsMasterDataDetailsName: data[index].ismsMasterDataDetailsName
-					}
-					); 
-				}		
-			},
-		err => console.error(err),
-		() => console.log('done loading usage category Name List')
-		);
-
-			//GetProducts
-
-this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_ProductName).subscribe(
-	data => { 
-				//console.log(data);
-				for (let index in data) {
-					//console.log (data[index]);
-					this.listProduct.push(
-					{
-						id:data[index].id,
-						ismsMasterDataDetailsName: data[index].ismsMasterDataDetailsName
-					}
-					); 
-				}		
-			},
-		err => console.error(err),
-		() => console.log('done loading Product Name List')
-		);
-
-		//GetIMSI Type
-
-this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_ImsiType).subscribe(
-	data => { 
-				//console.log(data);
-				for (let index in data) {
-					//console.log (data[index]);
-					this.listImsiType.push(
-					{
-						id:data[index].id,
-						ismsMasterDataDetailsName: data[index].ismsMasterDataDetailsName
-					}
-					); 
-				}		
-			},
-		err => console.error(err),
-		() => console.log('done loading IMSI Type Name List')
-		);
-
 		//Get Today Date
 		this.todayDate = new Date();      
-      }
+      } //end of constructor
     
       ngOnInit() {
+				this.isLoading = true;
         this.createFormControls();
         this.createForm();	
       }
@@ -276,14 +303,15 @@ this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_Imsi
         this.purposeCategory = new FormControl('', Validators.required);
       this.location =	new FormControl({value: ''}, Validators.required);
       this.usageCategory = 	new FormControl({value: ''}, Validators.required);	
-      this.startDate =	new FormControl('');
-      this.endDate = 	new FormControl('');
+      this.startDate =	new FormControl('', Validators.required);
+      this.endDate = 	new FormControl('', Validators.required);
       this.purposeDetails = new FormControl('', Validators.required);
       
       this.notificationTo = 	new FormControl('', Validators.required);	
       
-      this.requisitionType = new  FormControl('');
-      this.requisitionDate = new FormControl('');
+      this.requisitionType = new FormControl({value: ''}, Validators.required);
+			this.requisitionDate = new FormControl('');
+			this.requisitionDate.setValue ( moment(new Date()).format('MM-DD-YYYY') );
       this.requisitionLines = new FormArray([  
         //new FormControl(0)    
         new FormGroup({
@@ -311,7 +339,8 @@ this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_Imsi
         	purposeDetails: this.purposeDetails,        
         	notificationTo: this.notificationTo,
         	requisitionLines: this.requisitionLines
-        });
+				});
+				this.getRequisitionType();
       }
       
     topFunction() {
@@ -344,7 +373,86 @@ this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_Imsi
     }
     deleteLine(index: number) {
       this.requisitionLines.removeAt(index);
-    }
+		}
+		
+			formValidation(){
+				let validationPassed : boolean;
+				let validationMessage : any;
+				validationPassed = true;
+				validationMessage = "";
+
+				var currDate = new Date();
+
+				console.log(this.startDate.value);
+				console.log(currDate);
+
+				console.log(this.startDate.value.getTime());
+				console.log(currDate.getTime());
+
+				const diffTime = Math.abs(this.startDate.value.getTime() - currDate.getTime());
+				const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)); 
+
+				console.log(diffDays);
+
+				if(this.startDate.value < currDate && diffDays >= 1){
+					validationMessage = "Start date cannot be a date in the past";				
+					validationPassed = false;	
+				}
+				else if(this.endDate.value < currDate ){
+					validationMessage = "End date must be greater than current date.";					
+					validationPassed = false;	
+				}
+				else if(this.endDate.value <= this.startDate.value ){
+					validationMessage = "End date must be greater than start date";					
+					validationPassed = false;
+				}								
+
+				for(var i = 0; i < this.requisitionLines.length; i++){
+
+					var creditLimit = 0;
+					var quantity = 0;
+
+					if(this.requisitionLines.controls[i]['value'] != null && 
+					this.requisitionLines.controls[i]['value'] != undefined &&
+					this.requisitionLines.controls[i]['value'] != "" &&
+					this.requisitionLines.controls[i]['value']['creditLimit'] != null &&
+					this.requisitionLines.controls[i]['value']['creditLimit'] != undefined &&
+					this.requisitionLines.controls[i]['value']['creditLimit'] != ""){
+						creditLimit = parseFloat(this.requisitionLines.controls[i]['value']['creditLimit']);
+					}
+
+					if(creditLimit >= 0) { /* do nothing */ }
+					else{
+						validationMessage = "For line "+ (i+1) +" invalid credit limit amount given.";					
+						validationPassed = false;
+					}
+
+					/////////// ///////////////// ///////////////// ////////////////
+
+					if(this.requisitionLines.controls[i]['value'] != null && 
+					this.requisitionLines.controls[i]['value'] != undefined &&
+					this.requisitionLines.controls[i]['value'] != "" &&
+					this.requisitionLines.controls[i]['value']['quantity'] != null &&
+					this.requisitionLines.controls[i]['value']['quantity'] != undefined &&
+					this.requisitionLines.controls[i]['value']['quantity'] != ""){
+						quantity = parseInt(this.requisitionLines.controls[i]['value']['quantity']);
+					}
+
+					if(quantity > 0) { /* do nothing */ }
+					else{
+						validationMessage = "For line "+ (i+1) +" invalid quantity given.";					
+						validationPassed = false;
+					}
+
+				}
+
+				if(!validationPassed){
+					this.dangerAlertShow = true;
+					this.dangerAlertMessage = validationMessage;
+				}
+
+				return validationPassed;
+			}
     
     
       // FORM SUBMISSION
@@ -355,12 +463,17 @@ this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_Imsi
       this.isLoading = true;
         console.log('Form Submitted!');
       
-        const theReqDate = this.FormatTheDate(this.newSimRequisitionForm.get('requisitionDate').value);
+        const theReqDate = this.FormatTheDate(new Date());
         const theStartDate = this.FormatTheDate(this.newSimRequisitionForm.get('startDate').value);
         const theEndDate = this.FormatTheDate(this.newSimRequisitionForm.get('endDate').value);
 		
 				console.log("log start");
 				console.log(theReqDate);
+
+				if(!this.formValidation()) {
+					this.isLoading = false;
+					return;
+				}
 
 				this.headerDateData.requisitionDate = theReqDate;
 				console.log(this.headerDateData);
@@ -406,10 +519,13 @@ this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_Imsi
 				
 						if(res !== ""){	
 							this.isLoading = false;
+							this.newSimRequisitionForm.reset();		
 							this.successAlertShow = true;
-							this.successAlertMessage = " has been created successfully and forwarded to "+res.message+". ";
+							this.successAlertMessage = "Requisition no "+ this.WR_Name +" has been submitted successfully and forwarded to "+res.message+". You will be redirected to request listing page momentarily.";
 							alert(this.successAlertMessage);
-							window.location.reload();
+							setTimeout(()=>{
+								this.router.navigate(['nsa/newrequisitiondetails']);
+					 		}, 4000);
 						}
 							},
 							err  =>  {	
@@ -440,10 +556,7 @@ FormatTheDate(selectedrequisitionDate:any):string {
 }
 
 clearForm(event: any){
-		//console.log(event);
-		this.dangerAlertShow = false;
-		this.successAlertShow = false;	
-		this.newSimRequisitionForm.reset();		
+		window.location.reload();
 	}
  backButton(event: any){
 		//console.log(event);

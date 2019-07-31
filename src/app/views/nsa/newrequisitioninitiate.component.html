@@ -77,6 +77,7 @@
                                                                          [minDate]="todayDate" 
                                                                         
                                                                          value="{{ requisitionDate.value | date: 'dd-MM-yyyy' }}"
+                                                                         disabled
                                                                         >
                                                                 </div>
                                                         </div>
@@ -92,7 +93,6 @@
                                                                                                                 'is-invalid': requisitionType.invalid && (requisitionType.dirty || requisitionType.touched),
                                                                                                                 'is-valid': requisitionType.valid && (requisitionType.dirty || requisitionType.touched)
                                                                                                          }">
-                                                                                <option></option>
                                                                                 <option *ngFor="let aRequisitionType of listRequisitionType" [value]="aRequisitionType.id">{{aRequisitionType.ismsMasterDataDetailsName}}</option>                                                                                
                                                                         </select>
                                                                 </div>
@@ -110,7 +110,6 @@
                                                                                                                         'is-invalid': purposeCategory.invalid && (purposeCategory.dirty || purposeCategory.touched),
                                                                                                                         'is-valid': purposeCategory.valid && (purposeCategory.dirty || purposeCategory.touched)
                                                                                                                  }">
-                                                                                        <option></option>
                                                                                         <option *ngFor="let apurposeCategory of listPurposeCategory" [value]="apurposeCategory.id">{{apurposeCategory.ismsMasterDataDetailsName}}</option>
                                                                                         <!--											<option *ngFor="let cl of clientOptions" [value]="cl.id">{{cl.client_name}}</option> -->
                                                                                 </select>
@@ -134,7 +133,6 @@
                                                                                 'is-invalid': location.invalid && (location.dirty || location.touched),
                                                                                 'is-valid': location.valid && (location.dirty || location.touched)
                                                                         }">
-                                                                                <option></option>
                                                                                 <option *ngFor="let alocation of listLocation" [value]="alocation.id">{{alocation.ismsMasterDataDetailsName}}</option>                                                                                
                                                                                 </select>
                                                                         </div>       
@@ -152,7 +150,6 @@
                                                                        'is-invalid': usageCategory.invalid && (usageCategory.dirty || usageCategory.touched),
                                                                        'is-valid': usageCategory.valid && (usageCategory.dirty || usageCategory.touched)
                                                                         }">
-                                                                        <option></option>
                                                                         <option *ngFor="let ausageCategory of listUsageCategory" [value]="ausageCategory.id">{{ausageCategory.ismsMasterDataDetailsName}}</option>                                                
                                                                 </select>
                                                         </div>
@@ -254,7 +251,6 @@
                                                         <tr [formGroupName]="idx">
                                                                                         <td>
                                                                                                 <select class="form-control" formControlName="product" >
-                                                                        <option></option>
                                                                         <option *ngFor="let aproduct of listProduct" [value]="aproduct.id">{{aproduct.ismsMasterDataDetailsName}}</option>
                                                                         
                                                                 </select>
@@ -306,7 +302,6 @@
                                         <i class="fa fa-dot-circle-o"></i> Submit</button>
                                 <button type="reset" class="btn btn-sm btn-danger"(click)="clearForm($event)">
                                         <i class="fa fa-ban"></i> Reset</button>
-                                <button type="button" class="btn btn-link" (click)="backButton($event)"><i class="fa fa-link" ></i>&nbsp; Back</button>
                         
                         </div>
                         <!-- <div class="card-footer"> -->
