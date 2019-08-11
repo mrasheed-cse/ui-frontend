@@ -148,11 +148,11 @@ export class DefinitionDataService {
 		});
 	}
 
-	CreateNewMasterDataDetailItem(ismsMasterDataItemID: number, ismsMasterDataItemDetailsName: string, groupName: string ){
+	CreateNewMasterDataDetailItem(ismsMasterDataItemID: number, ismsMasterDataItemDetailsName: string, userName: string ){
 	return this.http.post(this.serverUrl+'CreateIsmsMasterDataItemDetails/',{
 		ismsMasterDataItemDetailsName: ismsMasterDataItemDetailsName,
 		ismsMasterDataItemID: ismsMasterDataItemID,
-		creator: groupName
+		creator: userName
 		});
 	}
 

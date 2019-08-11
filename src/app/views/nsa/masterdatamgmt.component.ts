@@ -168,7 +168,7 @@ export class MasterdatamgmtComponent implements OnInit {
     this.isLoading = true;
     console.log('Master Data Detail Form submitted!');
     console.log('this.Loading '+this.isLoading);
-    this.definitionDataService.CreateNewMasterDataDetailItem(this.masterDataDetailForm.get('selectMasterDataItem').value,this.masterDataDetailForm.get('newDetailItem').value,this.groupName).subscribe(
+    this.definitionDataService.CreateNewMasterDataDetailItem(this.masterDataDetailForm.get('selectMasterDataItem').value,this.masterDataDetailForm.get('newDetailItem').value,this.userName).subscribe(
       res  =>  {
         
       //  console.log('response is : '+res.message);

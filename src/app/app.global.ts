@@ -13,11 +13,11 @@ export class AppGlobals {
 	readonly groupID_CIM: number = 8;
 	readonly groupID_OSS: number = 9;
 
-	readonly groupID_SSM: number = 10;
-	readonly groupID_CLC: number = 11;
-    readonly groupID_GENERAL: number = 12;
-	readonly groupID_HOD: number = 13;
-	readonly groupID_ADMIN: number = 14;
+	readonly groupID_SSM: number = 12;
+	readonly groupID_CLC: number = 13;
+    readonly groupID_GENERAL: number = 10;
+	readonly groupID_HOD: number = 100;
+	readonly groupID_ADMIN: number = 11;
 	//readonly groupID_VENDOR: number = 15;
 	
 	
