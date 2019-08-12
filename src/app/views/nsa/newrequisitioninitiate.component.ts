@@ -272,7 +272,7 @@ export class NewrequisitioninitiateComponent implements OnInit {
 			);
 
   //GetWR_Name
-	this.definitionDataService.GetWR_Name(this._global.wrid_NewSimRequision).subscribe(
+	this.definitionDataService.GetWR_Name_forIsms(this._global.wrid_NewSimRequision).subscribe(
     data => {			
         const dataStr = JSON.stringify(data);
   

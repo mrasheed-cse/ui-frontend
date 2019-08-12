@@ -40,6 +40,14 @@ export class DefinitionDataService {
 			wr_number: theWrNumber
 		});
 	}
+
+	//GetWR_Name by wr_number
+	GetWR_Name_forIsms(theWrNumber: number): any {	
+  
+		return this.http.post(this.serverUrl + 'IsmsWorkRequestName/'+theWrNumber, {
+			wr_number: theWrNumber
+		});
+	}
 	
 	//GetAllIMSI
 	GetAllIMSI(): any {	
