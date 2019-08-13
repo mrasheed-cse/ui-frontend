@@ -244,7 +244,7 @@ const routes: Routes = [
     path: 'newrequisition',
     component: NewrequisitionComponent,
     data: {
-      title: 'New Requisition'
+      title: 'Pending for Approval'
     }
   },
   {
@@ -258,7 +258,7 @@ const routes: Routes = [
     path: 'newrequisitiondetails',
     component: NewrequisitiondetailsComponent,
     data: {
-      title: 'Approval'
+      title: 'My Requests (Requisition Details)'
     }
   },
   {

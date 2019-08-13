@@ -37,9 +37,7 @@ export class AppSidebarNavComponent {
 	
 	if (this.currentLoggedInUser) {		
 		this.groupID = this.currentLoggedInUser.groupID;
-    console.log("Log in successful");
     console.log('Current user groupID : ' + this.groupID);
-    console.log(this._global.groupID_ADMIN);
     
 		if (this.groupID == this._global.groupID_Sourcing){
 			this.navigation = navigation_grpID_Sourcing;

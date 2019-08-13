@@ -12,32 +12,38 @@ export const navigation_blankdata  = [
 
 ];
 
+
+
+
 export const navigation_grpID_SSM  = [
    
   {
-    title: true,
-    name: 'My Tasks'
+    name: 'Dashboard',
+    url: '/nsa/testsimdashboard',
+	  icon: 'icon-star'
   },
   {
-        name: 'New Request',
-        url: '/nsa/newrequisitioninitiation',
-        icon: 'icon-cursor'
-      },
-      {
-        name: 'Approval',
-        url: '/nsa/newrequisition',
-        icon: 'icon-cursor'
-      },
-      {
-        name: 'Assessment',
-        url: '/nsa/requisitiondetailsassesment',
-        icon: 'icon-cursor'
-      },
-      {
-        name: 'My Tasks',
-        url: '/nsa/newrequisitiondetails',
-        icon: 'icon-cursor'
-      },
+        name: 'Test SIM Requisition',
+        url: '#',
+        icon: 'icon-cursor',
+        children: [	
+          {
+            name: 'Create New',
+            url: '/nsa/newrequisitioninitiation',
+            icon: 'icon-puzzle'
+          },
+          {
+            name: 'My Requests',
+            url: '/nsa/newrequisitiondetails',
+            icon: 'icon-puzzle'
+          },          
+          {
+            name: 'Pending for Approval',
+            url: '/nsa/newrequisition',
+            icon: 'icon-cursor'
+          }
+        ]
+   }
 
 ];
 
@@ -45,78 +51,142 @@ export const navigation_grpID_CLC  = [
    
    
   {
-    title: true,
-    name: 'New Sim Requisition'
+    name: 'Dashboard',
+    url: '/nsa/testsimdashboard',
+	  icon: 'icon-star'
   },
   {
-        name: 'My Tasks',
-        url: '/nsa/newrequisitiondetails',
-        icon: 'icon-cursor'
-  },
-  {
-        name: 'Approval',
-        url: '/nsa/newrequisition',
-        icon: 'icon-cursor'
-  }
+        name: 'Test SIM Requisition',
+        url: '#',
+        icon: 'icon-cursor',
+        children: [	
+          {
+            name: 'Create New',
+            url: '/nsa/newrequisitioninitiation',
+            icon: 'icon-puzzle'
+          },
+          {
+            name: 'My Requests',
+            url: '/nsa/newrequisitiondetails',
+            icon: 'icon-puzzle'
+          },          
+          {
+            name: 'Pending for Approval',
+            url: '/nsa/newrequisition',
+            icon: 'icon-cursor'
+          }
+        ]
+   }
      
 
 ];
 export const navigation_grpID_HOD  = [
    
-   
   {
-    title: true,
-    name: 'New Sim Requisition'
+    name: 'Dashboard',
+    url: '/nsa/testsimdashboard',
+	  icon: 'icon-star'
   },
   {
-        name: 'My Tasks',
-        url: '/nsa/newrequisitiondetails',
-        icon: 'icon-cursor'
-      },
-      {
-        name: 'Approval',
-        url: '/nsa/newrequisition',
-        icon: 'icon-cursor'
-      }
+        name: 'Test SIM Requisition',
+        url: '#',
+        icon: 'icon-cursor',
+        children: [	
+          {
+            name: 'Create New',
+            url: '/nsa/newrequisitioninitiation',
+            icon: 'icon-puzzle'
+          },
+          {
+            name: 'My Requests',
+            url: '/nsa/newrequisitiondetails',
+            icon: 'icon-puzzle'
+          },          
+          {
+            name: 'Pending for Approval',
+            url: '/nsa/newrequisition',
+            icon: 'icon-cursor'
+          }
+        ]
+   }
+
+
+   
+  
      
 
 ];
 export const navigation_grpID_GENERAL  = [
    
     
-  {
+  /*{
     title: true,
     name: 'New Sim Requisition'
+  },*/
+  {
+    name: 'Dashboard',
+    url: '/nsa/testsimdashboard',
+	  icon: 'icon-star'
   },
   {
-    name: 'Create New',
-    url: '/nsa/newrequisitioninitiation',
-    icon: 'icon-cursor'
-  },
-  {
-        name: 'My Tasks',
-        url: '/nsa/newrequisitiondetails',
-        icon: 'icon-cursor'
-      },
+        name: 'Test SIM Requisition',
+        url: '#',
+        icon: 'icon-cursor',
+        children: [	
+          {
+            name: 'Create New',
+            url: '/nsa/newrequisitioninitiation',
+            icon: 'icon-puzzle'
+          },
+          {
+            name: 'My Requests',
+            url: '/nsa/newrequisitiondetails',
+            icon: 'icon-puzzle'
+          },          
+          {
+            name: 'Pending for Approval',
+            url: '/nsa/newrequisition',
+            icon: 'icon-cursor'
+          }
+        ]
+   },
       
 ];
 
 export const navigation_grpID_ADMIN  = [
   {
-    name: 'Landing Page',
-    url: '/nsa',
-	icon: 'icon-star'
-  }, 
-{
-    title: true,
-    name: 'Work Requests'
+    name: 'Dashboard',
+    url: '/nsa/testsimdashboard',
+	  icon: 'icon-star'
   },
-   
   {
-    name: 'Master Data Management',
-    url: '/nsa/masterdatamgmt',
-    icon: 'icon-cursor'
-  }
+        name: 'Test SIM Requisition',
+        url: '#',
+        icon: 'icon-cursor',
+        children: [	
+          {
+            name: 'Create New',
+            url: '/nsa/newrequisitioninitiation',
+            icon: 'icon-puzzle'
+          },
+          {
+            name: 'My Requests',
+            url: '/nsa/newrequisitiondetails',
+            icon: 'icon-puzzle'
+          },          
+          {
+            name: 'Pending for Approval',
+            url: '/nsa/newrequisition',
+            icon: 'icon-cursor'
+          },
+          {
+            name: 'Master Data Management',
+            url: '/nsa/masterdatamgmt',
+            icon: 'icon-cursor'
+          }
+        ]
+   } 
+  
 
 ];
 
