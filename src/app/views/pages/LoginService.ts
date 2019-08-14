@@ -61,6 +61,27 @@ export class LoginService {
 		});
 	}
 
+	ValidateDelegateUser(username: string, delegateusername: string, password: string) : any {
+		var isValidGpUser;
+		var userNameFromEmail = null;
+		var indexOfAt = username.indexOf('@')
+		/*if(indexOfAt!= -1){
+			userNameFromEmail = username.substring(0,indexOfAt -1);
+		}else{
+			isValidGpUser = this.http.post(this.serverUrl + 'is-exist-in-ldap',{
+			userId: username,
+			password: password
+		 });
+		 return isValidGpUser;
+		}*/
+		console.log(" isValidGpUser: "+isValidGpUser," indexOfAt: "+indexOfAt," userNameFromEmail "+userNameFromEmail, );
+		return this.http.post<LoggedInResponse>(this.serverUrl + 'loginAsDelegate', {
+			userId: userNameFromEmail == null? username: userNameFromEmail,
+			delegateUserId: delegateusername,
+			password: password
+		});
+	}
+
 	GetCurrentLoggedInUser() {
 		this.userStr = localStorage.getItem('currentLoggedInUser');
 		try {

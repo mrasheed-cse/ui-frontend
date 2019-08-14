@@ -22,6 +22,7 @@ export class LoginComponent {
 
   currentLoggedInUser: LoggedInUser;
   isValidUser : boolean = true;
+  isDelegateAccess : boolean = false;
   public isLoading:boolean = false;
 
   constructor(private loginService: LoginService, private router: Router, private _global: AppGlobals) { 
@@ -36,34 +37,65 @@ export class LoginComponent {
   }
   username : string ;
   password : string ;
+  delegateusername: string;
   
   ValidateUser(){
     this.isLoading = true;
-    this.loginService.ValidateUser(this.username, this.password).subscribe(
-    res => {
-      if (res != null && res) {
-        this.isValidUser = true;
-        
-      
-        this.currentLoggedInUser = {
-          userID: this.username,
-          userName: res.usersName,
-          groupName: res.usersGroupName,
-          groupID: res.usersGroupId
-        };
-        localStorage.setItem('currentLoggedInUser', JSON.stringify(this.currentLoggedInUser));
-      
-        this.isLoading = false;
-        this.router.navigateByUrl('/nsa')
-      }
-    },
-    err => {
-      this.isValidUser = false;
-      this.isLoading = false;
-      this.router.navigateByUrl('/pages/login');    
+    
+    if(this.isDelegateAccess){
+      this.loginService.ValidateDelegateUser(this.username, this.delegateusername, this.password).subscribe(
+        res => {
+          if (res != null && res) {
+            this.isValidUser = true;
+            
+          
+            this.currentLoggedInUser = {
+              userID: this.username,
+              userName: res.usersName,
+              groupName: res.usersGroupName,
+              groupID: res.usersGroupId
+            };
+            localStorage.setItem('currentLoggedInUser', JSON.stringify(this.currentLoggedInUser));
+          
+            this.isLoading = false;
+            this.router.navigateByUrl('/nsa')
+          }
+        },
+        err => {
+          this.isValidUser = false;
+          this.isLoading = false;
+          this.router.navigateByUrl('/pages/login');    
+        }
+    
+        );
     }
-
-    );
+    else{
+      this.loginService.ValidateUser(this.username, this.password).subscribe(
+        res => {
+          if (res != null && res) {
+            this.isValidUser = true;
+            
+          
+            this.currentLoggedInUser = {
+              userID: this.username,
+              userName: res.usersName,
+              groupName: res.usersGroupName,
+              groupID: res.usersGroupId
+            };
+            localStorage.setItem('currentLoggedInUser', JSON.stringify(this.currentLoggedInUser));
+          
+            this.isLoading = false;
+            this.router.navigateByUrl('/nsa')
+          }
+        },
+        err => {
+          this.isValidUser = false;
+          this.isLoading = false;
+          this.router.navigateByUrl('/pages/login');    
+        }
+    
+        );
+    }
 
     //let res : any;
     //res = this._global.dataTempForLogin;
