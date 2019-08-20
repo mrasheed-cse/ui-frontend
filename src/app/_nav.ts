@@ -43,7 +43,61 @@ export const navigation_grpID_SSM  = [
             icon: 'icon-cursor'
           }
         ]
-   }
+   },
+   {
+         name: 'Test SIM Activation',
+         url: '#',
+         icon: 'icon-cursor',
+         children: [	
+           {
+             name: 'New Activation Request',
+             url: '/nsa/newsimactivationreq',
+             icon: 'icon-puzzle'
+           },
+           {
+             name: 'Activation Request Status',
+             url: '/nsa/activationrequeststatus',
+             icon: 'icon-puzzle'
+           },          
+           {
+             name: 'Pending Registrations',
+             url: '/nsa/activation-pendingregistrations',
+             icon: 'icon-cursor'
+           },          
+           {
+             name: 'Pending Approvals',
+             url: '/nsa/activation-pendingapprovals',
+             icon: 'icon-cursor'
+           }
+         ]
+    },
+    {
+         name: 'Test SIM Reports',
+         url: '#',
+         icon: 'icon-cursor',
+         children: [	
+           {
+             name: 'MSISDN Status',
+             url: '/nsa/testsim-msisdnreport',
+             icon: 'icon-puzzle'
+           },
+           {
+             name: 'MSISDN Status (SSM)',
+             url: '/nsa/testsim-msisdnreport-ssm',
+             icon: 'icon-puzzle'
+           },          
+           {
+             name: 'Requisition History',
+             url: '/nsa/testsim-requisitionhistoryreport',
+             icon: 'icon-cursor'
+           },          
+           {
+             name: 'Request Status',
+             url: '/nsa/testsim-requeststatus',
+             icon: 'icon-cursor'
+           }
+         ]
+    }
 
 ];
 
@@ -150,6 +204,35 @@ export const navigation_grpID_GENERAL  = [
           }
         ]
    },
+   {
+         name: 'Test SIM Activation',
+         url: '#',
+         icon: 'icon-cursor',
+         children: [	
+           {
+             name: 'New Activation Request',
+             url: '/nsa/newsimactivationreq',
+             icon: 'icon-puzzle'
+           },
+           {
+             name: 'Activation Request Status',
+             url: '/nsa/activationrequeststatus',
+             icon: 'icon-puzzle'
+           }
+         ]
+    },
+    {
+         name: 'Test SIM Reports',
+         url: '#',
+         icon: 'icon-cursor',
+         children: [	
+           {
+             name: 'MSISDN Status',
+             url: '/nsa/testsim-msisdnreport',
+             icon: 'icon-puzzle'
+           }
+         ]
+    }
       
 ];
 

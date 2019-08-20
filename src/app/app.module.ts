@@ -88,6 +88,7 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { NgxGaugeModule } from 'ngx-gauge';
 
 
+
 @NgModule({
   imports: [
 	CommonModule,
@@ -109,7 +110,7 @@ import { NgxGaugeModule } from 'ngx-gauge';
     AppComponent,
     ...APP_CONTAINERS,
     ...APP_COMPONENTS,
-    ...APP_DIRECTIVES
+    ...APP_DIRECTIVES,
   ],
   providers: [{
     provide: LocationStrategy,

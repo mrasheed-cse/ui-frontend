@@ -49,6 +49,41 @@ import { RequisitiondetailshodComponent } from './requisitiondetailshod/requisit
 import { RequisitiondetailsdeliveryComponent } from './requisitiondetailsdelivery/requisitiondetailsdelivery.component';
 import { RequisitioneditComponent } from './requisitionedit/requisitionedit.component';
 
+import { TestsimdashboardComponent } from './testsimdashboard/testsimdashboard.component';
+import { NewsimactivationreqComponent } from './newsimactivationreq/newsimactivationreq.component';
+import { ActivationrequeststatusComponent } from './activationrequeststatus/activationrequeststatus.component';
+import { ActivationPendingregistrationsComponent } from './activation-pendingregistrations/activation-pendingregistrations.component';
+import { ActivationPendingapprovalsComponent } from './activation-pendingapprovals/activation-pendingapprovals.component';
+import { TestsimMsisdnreportComponent } from './testsim-msisdnreport/testsim-msisdnreport.component';
+import { TestsimMsisdnreportSsmComponent } from './testsim-msisdnreport-ssm/testsim-msisdnreport-ssm.component';
+import { TestsimRequisitionhistoryreportComponent } from './testsim-requisitionhistoryreport/testsim-requisitionhistoryreport.component';
+import { TestsimMysimsComponent } from './testsim-mysims/testsim-mysims.component';
+import { TestsimTimeextComponent } from './testsim-timeext/testsim-timeext.component';
+import { TestsimTimeextSsmComponent } from './testsim-timeext-ssm/testsim-timeext-ssm.component';
+import { TestsimTimeextHodComponent } from './testsim-timeext-hod/testsim-timeext-hod.component';
+import { TestsimTimeextCreditlimitextComponent } from './testsim-timeext-creditlimitext/testsim-timeext-creditlimitext.component';
+import { TestsimCreditlimitextComponent } from './testsim-creditlimitext/testsim-creditlimitext.component';
+import { TestsimCreditlimitextSsmComponent } from './testsim-creditlimitext-ssm/testsim-creditlimitext-ssm.component';
+import { TestsimCreditlimitextHodComponent } from './testsim-creditlimitext-hod/testsim-creditlimitext-hod.component';
+import { TestsimRechargeComponent } from './testsim-recharge/testsim-recharge.component';
+import { TestsimRechargeSsmComponent } from './testsim-recharge-ssm/testsim-recharge-ssm.component';
+import { TestsimRechargeHodComponent } from './testsim-recharge-hod/testsim-recharge-hod.component';
+import { TestsimSurrenderComponent } from './testsim-surrender/testsim-surrender.component';
+import { TestsimSurrenderHodComponent } from './testsim-surrender-hod/testsim-surrender-hod.component';
+import { TestsimSurrenderSsmComponent } from './testsim-surrender-ssm/testsim-surrender-ssm.component';
+import { TestsimDamagedComponent } from './testsim-damaged/testsim-damaged.component';
+import { TestsimDamagedSsmComponent } from './testsim-damaged-ssm/testsim-damaged-ssm.component';
+import { TestsimDamagedHodComponent } from './testsim-damaged-hod/testsim-damaged-hod.component';
+import { TestsimLostComponent } from './testsim-lost/testsim-lost.component';
+import { TestsimLostSsComponent } from './testsim-lost-ss/testsim-lost-ss.component';
+import { TestsimLostSsmComponent } from './testsim-lost-ssm/testsim-lost-ssm.component';
+import { TestsimLostHodComponent } from './testsim-lost-hod/testsim-lost-hod.component';
+import { TestsimTransferComponent } from './testsim-transfer/testsim-transfer.component';
+import { TestsimTransferHodComponent } from './testsim-transfer-hod/testsim-transfer-hod.component';
+import { TestsimTransferSsmComponent } from './testsim-transfer-ssm/testsim-transfer-ssm.component';
+import { TestsimDeactivationComponent } from './testsim-deactivation/testsim-deactivation.component';
+import { TestsimDeactivationHodComponent } from './testsim-deactivation-hod/testsim-deactivation-hod.component';
+import { TestsimDeactivationSsmComponent } from './testsim-deactivation-ssm/testsim-deactivation-ssm.component';
 
 @NgModule({
   imports: [
@@ -61,6 +96,77 @@ import { RequisitioneditComponent } from './requisitionedit/requisitionedit.comp
 	BsDatepickerModule.forRoot(),
     NsaRoutingModule
   ],
-  declarations: [LandingpageComponent, SeriesprovisionComponent, DiscreteprovisionComponent, SeriesprovisionformComponent, SeriesprovisiondetailComponent, SeriesDefinitionComponent, SeriesDefinitionFormComponent, SeriesDefinitionDetailsComponent, DeProvisionComponent, DeProvisionFormComponent, DeProvisionDetailsComponent, ReProvisionComponent, ReProvisionFormComponent, ReProvisionDetailsComponent, MnpreProvisionComponent, MnpreProvisionFormComponent, MnpreProvisionDetailsComponent, ReprovisionsearchComponent, ApnformComponent, ApnComponent, ApndetailsComponent, MnpreprovsearchComponent, NsareportComponent, SdpmigrationComponent, DiscreteprovisionformComponent, DiscreteprovisiondetailsComponent, MasterdatamgmtComponent, NewrequisitioninitiateComponent, NewrequisitiondetailsComponent, NewrequisitionComponent, RequisitiondetailsFormComponent, RequisitionassignComponent, RequisitiondetailshodComponent, RequisitiondetailsdeliveryComponent, RequisitioneditComponent]
+  declarations: [
+    LandingpageComponent, 
+    SeriesprovisionComponent, 
+    DiscreteprovisionComponent, 
+    SeriesprovisionformComponent, 
+    SeriesprovisiondetailComponent, 
+    SeriesDefinitionComponent, 
+    SeriesDefinitionFormComponent, 
+    SeriesDefinitionDetailsComponent, 
+    DeProvisionComponent, 
+    DeProvisionFormComponent, 
+    DeProvisionDetailsComponent, 
+    ReProvisionComponent, 
+    ReProvisionFormComponent, 
+    ReProvisionDetailsComponent, 
+    MnpreProvisionComponent, 
+    MnpreProvisionFormComponent, 
+    MnpreProvisionDetailsComponent, 
+    ReprovisionsearchComponent, 
+    ApnformComponent, 
+    ApnComponent, 
+    ApndetailsComponent, 
+    MnpreprovsearchComponent, 
+    NsareportComponent, 
+    SdpmigrationComponent, 
+    DiscreteprovisionformComponent, 
+    DiscreteprovisiondetailsComponent, 
+    MasterdatamgmtComponent, 
+    NewrequisitioninitiateComponent, 
+    NewrequisitiondetailsComponent, 
+    NewrequisitionComponent, 
+    RequisitiondetailsFormComponent, 
+    RequisitionassignComponent, 
+    RequisitiondetailshodComponent, 
+    RequisitiondetailsdeliveryComponent, 
+    RequisitioneditComponent,
+    TestsimdashboardComponent,
+    NewsimactivationreqComponent,
+    ActivationrequeststatusComponent,
+    ActivationPendingregistrationsComponent,
+    ActivationPendingapprovalsComponent,
+    TestsimMsisdnreportComponent,
+    TestsimMsisdnreportSsmComponent,
+    TestsimRequisitionhistoryreportComponent,
+    TestsimMysimsComponent,
+    TestsimTimeextComponent,
+    TestsimTimeextSsmComponent,
+    TestsimTimeextHodComponent,
+    TestsimTimeextCreditlimitextComponent,
+    TestsimCreditlimitextComponent,
+    TestsimCreditlimitextSsmComponent,
+    TestsimCreditlimitextHodComponent,
+    TestsimRechargeComponent,
+    TestsimRechargeSsmComponent,
+    TestsimRechargeHodComponent,
+    TestsimSurrenderComponent,
+    TestsimSurrenderHodComponent,
+    TestsimSurrenderSsmComponent,
+    TestsimDamagedComponent,
+    TestsimDamagedSsmComponent,
+    TestsimDamagedHodComponent,
+    TestsimLostComponent,
+    TestsimLostSsComponent,
+    TestsimLostSsmComponent,
+    TestsimLostHodComponent,
+    TestsimTransferComponent,
+    TestsimTransferHodComponent,
+    TestsimTransferSsmComponent,
+    TestsimDeactivationComponent,
+    TestsimDeactivationHodComponent,
+    TestsimDeactivationSsmComponent
+  ]
 })
 export class NsaModule { }
