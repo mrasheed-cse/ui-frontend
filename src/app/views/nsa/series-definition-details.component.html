@@ -1,0 +1,233 @@
+<div class="row">
+	<div class="col-md-1">
+		<div class="card-body"></div>
+	</div>
+	<div class="col-md-10">
+		<div class="card" >
+				<div style="align-items: center;">
+						<i class="fa fa-spinner fa-pulse fa-3x fa-fw" *ngIf="isLoading" ></i>
+					</div>
+		<div class="alert alert-success" role="alert" *ngIf="successAlertShow">The Work Request <b>{{wrBriefName}}</b> {{successAlertMessage}}</div>
+		<div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">An Error occured to create <b>{{WR_Name}}</b> {{dangerAlertMessage}}</div>
+
+			<div class="card-header">
+				<strong>Provisioning (Active number series) :: {{wrBriefName}}</strong>
+			</div>
+			<!--Current Hop Sequence {{hop_sequence}}-->
+			<div class="card-body">
+				<div *ngFor="let aFnvPair of fieldNameValueList;  index as idx">
+					<div class="row" *ngIf="idx % 2 == 0">
+						<div class="col-md-6">
+							<div class="form-group row">
+								<div class="col-md-5 col-form-label">
+									{{fieldNameValueList[idx].fieldName}}</div>
+								<div class="col-md-7">
+									<input disabled type="text" class="form-control calendar-container"
+									value="{{fieldNameValueList[idx].fieldValue}}"></div>
+							</div>
+						</div>
+						<div class="col-md-6" *ngIf="fieldNameValueList[idx+1].fieldName">
+							<div class="form-group row">
+								<div class="col-md-5 col-form-label">
+									{{fieldNameValueList[idx+1].fieldName}}</div>
+								<div class="col-md-7">
+									<input disabled type="text" class="form-control calendar-container"
+									value="{{fieldNameValueList[idx+1].fieldValue}}"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div *ngIf="hop_sequence <= 3">
+			<form [formGroup]="mySeriesDefinitionForm" novalidate (ngSubmit)="onSeriesProvisionSubmit()" >
+				<div class="card-body">
+					<div class="row" *ngIf="hop_sequence === 2">
+						<div class="col-md-6">
+							<div class="form-group row">
+								<label class="col-md-5 col-form-label" for="HLR">HLR</label>
+								<div class="col-md-7">
+									<select class="form-control" id="HLR" formControlName="HLR" required 
+									 [ngClass]="{
+														'is-invalid': HLR.invalid && (HLR.dirty || HLR.touched),
+														'is-valid': HLR.valid && (HLR.dirty || HLR.touched)
+													 }">
+										<option></option>
+										<option *ngFor="let aHLR of listHLR" [value]="aHLR.id">{{aHLR.name}}</option>
+									</select>
+								</div>
+								<div class="invalid-feedback" *ngIf="HLR.errors && (HLR.dirty || HLR.touched)">
+									<p *ngIf="HLR.errors.required">HLR Selection required</p>
+								</div>
+							</div>						
+						</div>
+						<div class="col-md-6">
+							<div class="form-group row">
+								<label class="col-md-5 col-form-label" for="SAPC">SAPC</label>
+								<div class="col-md-7">
+									<select class="form-control" id="SAPC" formControlName="SAPC" required 
+									 [ngClass]="{
+														'is-invalid': SAPC.invalid && (SAPC.dirty || SAPC.touched),
+														'is-valid': SAPC.valid && (SAPC.dirty || SAPC.touched)
+													 }">
+										<option></option>
+										<option *ngFor="let aSAPC of listSAPC" [value]="aSAPC.id">{{aSAPC.name}}</option>
+									</select>
+								</div>
+								<div class="invalid-feedback" *ngIf="SAPC.errors && (SAPC.dirty || SAPC.touched)">
+									<p *ngIf="SAPC.errors.required">SAPC Selection required</p>
+
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-group row" *ngIf="hop_sequence === 2">
+						<label class="col-md-5 col-form-label" for="cnpComment">Comment</label>
+						<div class="col-md-12">
+							<textarea id="cnpComment" name="cnpComment" class="form-control" formControlName="cnpComment" rows="5">
+							</textarea>
+						</div>
+					</div>
+					<!-- BSS Planning Input -->
+				<div class="row" *ngIf="hop_sequence === 3">
+						<div class="col-md-6">
+							<div class="form-group row">
+								<label class="col-md-5 col-form-label" for="SDP">SDP</label>
+								<div class="col-md-7">
+									<select class="form-control" id="SDP" formControlName="SDP" required (change)="onSDPSelect($event)"
+									 [ngClass]="{
+														'is-invalid': SDP.invalid && (SDP.dirty || SDP.touched),
+														'is-valid': SDP.valid && (SDP.dirty || SDP.touched)
+													 }">
+										<option></option>
+										<option *ngFor="let aSDP of listSDP" [value]="aSDP.id" >{{aSDP.name}}</option>
+									</select>
+								</div>
+								<div class="invalid-feedback" *ngIf="SDP.errors && (SDP.dirty || SDP.touched)">
+									<p *ngIf="SDP.errors.required">SDP Selection required</p>
+
+								</div>
+							</div>
+						
+						</div>
+						<div class="col-md-6">
+							<div class="form-group row">
+								<label class="col-md-5 col-form-label" for="CSP">CSP</label>
+								<div class="col-md-7">
+									<input type="text" id="CSP" name="CSP" class="form-control" formControlName="CSP">
+
+								</div>
+							</div>
+						</div>
+				</div>
+				<div class="row" *ngIf="hop_sequence === 3">
+						<div class="col-md-6">
+							<div class="form-group row">
+								<label class="col-md-5 col-form-label" for="EOICK">EOICK(SDP X 10)</label>
+								<div class="col-md-7">
+									<input type="text" id="EOICK" name="EOICK" class="form-control" formControlName="EOICK">
+
+								</div>
+							</div>
+						
+						</div>
+						<div class="col-md-6">
+							<div class="form-group row">
+								<label class="col-md-5 col-form-label" for="emaPort">EMA Port </label>
+								<div class="col-md-7">
+									<select class="form-control" id="emaPort" formControlName="emaPort" required
+									 [ngClass]="{
+														'is-invalid': emaPort.invalid && (emaPort.dirty || emaPort.touched),
+														'is-valid': emaPort.valid && (emaPort.dirty || emaPort.touched)
+													 }">
+										<option></option>
+										<option *ngFor="let aEmaPort of listEmaPort" [value]="aEmaPort.id">{{aEmaPort.name}}</option>
+									</select>
+								</div>
+								<div class="invalid-feedback" *ngIf="emaPort.errors && (emaPort.dirty || emaPort.touched)">
+									<p *ngIf="emaPort.errors.required">Ema Port Selection required</p>
+
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					
+				<div class="row" *ngIf="hop_sequence === 3">
+						<div class="col-md-6">
+							<div class="form-group row">
+								<label class="col-md-5 col-form-label" for="SK">SK(8000 + SDP – 1) </label>
+								<div class="col-md-7">
+									<input type="text" id="SK" name="SK" class="form-control" formControlName="SK">
+									
+								</div>
+							</div>
+						
+						</div>
+						<div class="col-md-6">
+							<!--<div class="form-group row">
+								<label class="col-md-5 col-form-label" for="emaPort">EMA Port </label>
+								<div class="col-md-7">
+									<select class="form-control" id="emaPort" formControlName="emaPort" required
+									 [ngClass]="{
+														'is-invalid': emaPort.invalid && (emaPort.dirty || emaPort.touched),
+														'is-valid': emaPort.valid && (emaPort.dirty || emaPort.touched)
+													 }">
+										<option></option>
+										<option *ngFor="let aEmaPort of listEmaPort" [value]="aEmaPort.id">{{aEmaPort.name}}</option>
+									</select>
+								</div>
+								<div class="invalid-feedback" *ngIf="emaPort.errors && (emaPort.dirty || emaPort.touched)">
+									<p *ngIf="emaPort.errors.required">Ema Port Selection required</p>
+
+								</div>
+							</div>-->
+						</div>
+					</div>
+					
+					<div class="form-group row"  *ngIf="hop_sequence === 3">
+						<label class="col-md-5 col-form-label" for="bssComment">Comment</label>
+						<div class="col-md-12">
+							<textarea id="bssComment" name="bssComment" class="form-control" formControlName="bssComment" rows="5">
+							</textarea>
+						</div>
+					</div>
+				
+				
+				</div>
+				<!-- <div class="card-body"> -->
+				<div class="card-footer text-right">
+					<button type="submit" [disabled]="!mySeriesDefinitionForm.valid || isDoneDisable" class="btn btn-sm btn-primary">
+						<i class="fa fa-dot-circle-o"></i> Submit</button>
+						
+					<button type="reset" class="btn btn-sm btn-danger"(click)="clearForm($event)">
+						<i class="fa fa-ban"></i> Reset</button>
+					<button type="button" class="btn btn-link" (click)="backButton($event)"><i class="fa fa-link" ></i>&nbsp; Back</button>
+				</div>
+				<!-- <div class="card-footer"> -->
+				
+			</form>
+			</div>
+			
+			<div *ngIf="hop_sequence > 3">
+			<div class="card-footer text-right">
+					<button type="submit" [disabled]="isDoneDisable" class="btn btn-sm btn-primary" (click)="onDoneClick()">
+						<i class="fa fa-dot-circle-o"></i> Done</button>
+						
+						
+						<button type="button" class="btn btn-link" (click)="backButton($event)"><i class="fa fa-link" ></i>&nbsp; Back</button>
+				</div>
+			</div>
+			
+			<div *ngIf="isLoading" class="spinner-border text-primary" role="status">
+				<span class="sr-only">Loading...</span>
+			</div>
+			
+			
+			
+			</div>
+		</div>
+	</div>
+<!--
+<pre >{{mySeriesDefinitionForm.value | json}}</pre>
+<pre *ngIf="mySeriesDefinitionForm.valid">This is Valid form Data.{{mySeriesDefinitionForm.value | json}}</pre>
+-->

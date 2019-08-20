@@ -18,6 +18,37 @@ import { SeriesprovisionformComponent } from './seriesprovisionform.component';
 import {HttpClient} from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { SeriesprovisiondetailComponent } from './seriesprovisiondetail.component';
+import { SeriesDefinitionComponent } from './series-definition.component';
+import { SeriesDefinitionFormComponent } from './series-definition-form.component';
+import { SeriesDefinitionDetailsComponent } from './series-definition-details.component';
+import { DeProvisionComponent } from './de-provision.component';
+import { DeProvisionFormComponent } from './de-provision-form.component';
+import { DeProvisionDetailsComponent } from './de-provision-details.component';
+import { ReProvisionComponent } from './re-provision.component';
+import { ReProvisionFormComponent } from './re-provision-form.component';
+import { ReProvisionDetailsComponent } from './re-provision-details.component';
+import { MnpreProvisionComponent } from './mnpre-provision.component';
+import { MnpreProvisionFormComponent } from './mnpre-provision-form.component';
+import { MnpreProvisionDetailsComponent } from './mnpre-provision-details.component';
+import { ReprovisionsearchComponent } from './reprovisionsearch.component';
+import { ApnformComponent } from './apnform.component';
+import { ApnComponent } from './apn.component';
+import { ApndetailsComponent } from './apndetails.component';
+import { MnpreprovsearchComponent } from './mnpreprovsearch.component';
+import { NsareportComponent } from './nsareport.component';
+import { SdpmigrationComponent } from './sdpmigration.component';
+import { DiscreteprovisionformComponent } from './discreteprovisionform.component';
+import { DiscreteprovisiondetailsComponent } from './discreteprovisiondetails.component';
+import { MasterdatamgmtComponent } from './masterdatamgmt.component';
+import { NewrequisitioninitiateComponent } from './newrequisitioninitiate.component';
+import { NewrequisitiondetailsComponent } from './newrequisitiondetails.component';
+import { NewrequisitionComponent } from './newrequisition.component';
+import { RequisitiondetailsFormComponent } from './requisitiondetails-form/requisitiondetails-form.component';
+import { RequisitionassignComponent } from './requisitionassign/requisitionassign.component';
+import { RequisitiondetailshodComponent } from './requisitiondetailshod/requisitiondetailshod.component';
+import { RequisitiondetailsdeliveryComponent } from './requisitiondetailsdelivery/requisitiondetailsdelivery.component';
+import { RequisitioneditComponent } from './requisitionedit/requisitionedit.component';
+
 
 @NgModule({
   imports: [
@@ -30,6 +61,6 @@ import { SeriesprovisiondetailComponent } from './seriesprovisiondetail.componen
 	BsDatepickerModule.forRoot(),
     NsaRoutingModule
   ],
-  declarations: [LandingpageComponent, SeriesprovisionComponent, DiscreteprovisionComponent, SeriesprovisionformComponent, SeriesprovisiondetailComponent]
+  declarations: [LandingpageComponent, SeriesprovisionComponent, DiscreteprovisionComponent, SeriesprovisionformComponent, SeriesprovisiondetailComponent, SeriesDefinitionComponent, SeriesDefinitionFormComponent, SeriesDefinitionDetailsComponent, DeProvisionComponent, DeProvisionFormComponent, DeProvisionDetailsComponent, ReProvisionComponent, ReProvisionFormComponent, ReProvisionDetailsComponent, MnpreProvisionComponent, MnpreProvisionFormComponent, MnpreProvisionDetailsComponent, ReprovisionsearchComponent, ApnformComponent, ApnComponent, ApndetailsComponent, MnpreprovsearchComponent, NsareportComponent, SdpmigrationComponent, DiscreteprovisionformComponent, DiscreteprovisiondetailsComponent, MasterdatamgmtComponent, NewrequisitioninitiateComponent, NewrequisitiondetailsComponent, NewrequisitionComponent, RequisitiondetailsFormComponent, RequisitionassignComponent, RequisitiondetailshodComponent, RequisitiondetailsdeliveryComponent, RequisitioneditComponent]
 })
 export class NsaModule { }

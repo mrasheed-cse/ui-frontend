@@ -1,0 +1,70 @@
+<div class="row">
+	<div class="col-md-1">
+		<div class="card-body">
+		
+		</div>
+	</div>
+	<div class="col-md-10">
+		<div class="card">
+				<div style="text-align: center">
+						<i class="fa fa-spinner fa-pulse fa-3x fa-fw" *ngIf="isLoading" ></i>
+					</div>
+		<div class="alert alert-success" role="alert" *ngIf="successAlertShow">The Work Request <b>{{wrBriefName}}</b> {{successAlertMessage}}</div>
+		<div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">An Error occured to create <b>{{WR_Name}}</b> {{dangerAlertMessage}}</div>
+
+		
+			<div class="card-header">
+				<strong>De-Provision:: {{wrBriefName}}</strong>
+			</div>
+			<!--Current Hop Sequence {{hop_sequence}} var newstr = str.replace(re, "oranges"); -->
+			<div class="card-body">
+					<div *ngFor="let aFnvPair of fieldNameValueList;  index as idx">
+							<div class="row" *ngIf="idx % 2 == 0">
+								<div class="col-md-6">
+									<div class="form-group row">
+										<div class="col-md-5 col-form-label">
+											{{fieldNameValueList[idx].fieldName}}</div>
+										<div class="col-md-7">
+											<input disabled type="text" class="form-control calendar-container"
+											value="{{fieldNameValueList[idx].fieldValue.replace(_global.wrid_FileUploadPath, '')}}"></div>
+									</div>
+								</div>
+								<div class="col-md-6" *ngIf="fieldNameValueList[idx+1].fieldName">
+									<div class="form-group row">
+										<div class="col-md-5 col-form-label">
+											{{fieldNameValueList[idx+1].fieldName}}</div>
+										<div class="col-md-7">
+											<input disabled type="text" class="form-control calendar-container"
+											value="{{fieldNameValueList[idx+1].fieldValue}}"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					<!--<table *ngFor="let aFnvPair of fieldNameValueList;  index as idx" class="table table-bordered table-striped table-sm">
+							<tr *ngIf="idx % 2 == 0" >
+								<td style ="width:25%;">{{fieldNameValueList[idx].fieldName}}</td>
+								<td style ="width:25%">{{fieldNameValueList[idx].fieldValue.replace(_global.wrid_FileUploadPath, "")}}</td>
+								<td style ="width:25%">{{fieldNameValueList[idx+1].fieldName}}</td>
+								<td style ="width:25%">{{fieldNameValueList[idx+1].fieldValue}}</td>
+							</tr>					
+						</table >-->
+					</div>
+			<button type="button" class="btn btn-link" (click)="downloadCSVFiles()"><i class="fa fa-download" ></i>Download File</button>
+			
+			<div >
+			<div class="card-footer text-right">
+					<button type="submit" [disabled]="isDoneDisable" class="btn btn-sm btn-primary" (click)="onDoneClick($event)">
+						<i class="fa fa-dot-circle-o"></i> Done</button>
+						<button type="button" class="btn btn-link" (click)="backButton($event)"><i class="fa fa-link" ></i>&nbsp; Back</button>
+				</div>
+			</div>
+			
+			<div *ngIf="isLoading" class="spinner-border text-primary" role="status">
+				<span class="sr-only">Loading...</span>
+			</div>
+			
+			
+			
+			</div>
+		</div>
+	</div>

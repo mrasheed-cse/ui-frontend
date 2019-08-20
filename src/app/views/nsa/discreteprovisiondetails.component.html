@@ -1,0 +1,92 @@
+<div class="row">
+    <div class="col-md-1">
+      <div class="card-body">
+      
+      </div>
+    </div>
+    <div class="col-md-10">
+      <div class="card">
+          <div style="text-align: center">
+              <i class="fa fa-spinner fa-pulse fa-3x fa-fw" *ngIf="isLoading" ></i>
+            </div>
+      <div class="alert alert-success" role="alert" *ngIf="successAlertShow">The Work Request <b>{{wrBriefName}}</b> {{successAlertMessage}}</div>
+      <div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">An Error occured to create <b>{{WR_Name}}</b> {{dangerAlertMessage}}</div>
+  
+      
+        <div class="card-header">
+          <strong>Discrete-Provision:: {{wrBriefName}}</strong>
+        </div>
+        <!--Current Hop Sequence {{hop_sequence}} var newstr = str.replace(re, "oranges"); -->
+        <div class="card-body">
+            <div *ngFor="let aFnvPair of fieldNameValueList;  index as idx">
+                <div class="row" *ngIf="idx % 2 == 0">
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <div class="col-md-5 col-form-label">
+                        {{fieldNameValueList[idx].fieldName}}</div>
+                      <div class="col-md-7">
+                        <input disabled type="text" class="form-control calendar-container"
+                        value="{{fieldNameValueList[idx].fieldValue.replace(_global.wrid_FileUploadPath, '')}}"></div>
+                    </div>
+                  </div>
+                  <div class="col-md-6" *ngIf="fieldNameValueList[idx+1].fieldName">
+                    <div class="form-group row">
+                      <div class="col-md-5 col-form-label">
+                        {{fieldNameValueList[idx+1].fieldName}}</div>
+                      <div class="col-md-7">
+                        <input disabled type="text" class="form-control calendar-container"
+                        value="{{fieldNameValueList[idx+1].fieldValue.replace(_global.wrid_FileUploadPath, '')}}"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+
+              <div class="row">
+                  <div class="col-md-1" style="text-align: center">
+                    </div>
+                  <div class="col-md-10" style="text-align: center">
+                      
+                      <div *ngIf="groupID==_global.groupID_Wipro_Billing">
+                          <button type="button"  class="btn btn-link"  (click)="downloadCSVFiles('ADC_File_.txt')">
+                            <i class="fa fa-download" ></i>ADC File Download</button>
+                            <button type="button"  class="btn btn-link"  (click)="downloadCSVFiles('in_.csv')">
+                                <i class="fa fa-download" ></i>IN File Download</button>
+                        </div>
+                        <div *ngIf="groupID==_global.groupID_CIM">
+                            <button type="button"  class="btn btn-link"  (click)="downloadCSVFiles('ADC_File_.txt')">
+                                <i class="fa fa-download" ></i>ADC File Download</button>
+                            <button type="button"  class="btn btn-link"  (click)="downloadCSVFiles('BPP_File_.csv')">
+                              <i class="fa fa-download" ></i>BPP File Download</button>
+                            <button type="button" class="btn btn-link" (click)="downloadCSVFiles('MSISDN_Loading_file_.csv')">
+                              <i class="fa fa-download" ></i>MSISDN Loading File Download</button>
+                          </div>									
+                        
+                        <div *ngIf="groupID==_global.groupID_RAFM">
+                          <button type="button" class="btn btn-link" (click)="downloadCSVFiles('rafm_.csv')">
+                            <i class="fa fa-download" ></i>Download RAFM File</button>
+                        </div>
+                  </div>
+                  <div class="col-md-1" style="text-align: center">
+                    </div>
+                  
+              </div>
+    
+        
+          
+        
+        <div >
+        <div class="card-footer text-right">
+            <button type="submit" [disabled]="isDoneDisable" class="btn btn-sm btn-primary" (click)="onDoneClick($event)">
+              <i class="fa fa-dot-circle-o"></i> Done</button>
+              <button type="button" class="btn btn-link" (click)="backButton($event)"><i class="fa fa-link" ></i>&nbsp; Back</button>
+          </div>
+        </div>
+        
+        <div *ngIf="isLoading" class="spinner-border text-primary" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+      </div>
+    </div>

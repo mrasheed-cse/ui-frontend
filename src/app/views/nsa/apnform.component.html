@@ -1,0 +1,105 @@
+<div class="row">
+	<div class="col-md-1">
+		<div class="card-body"></div>
+	</div>
+	<div class="col-md-10">
+		<div class="card">
+		
+		<div class="alert alert-success" role="alert" *ngIf="successAlertShow">The New Work Request <b>{{WR_Name}}</b> {{successAlertMessage}}</div>
+		<div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">An Error occured to create <b>{{WR_Name}}</b> {{dangerAlertMessage}}</div>
+
+			<div class="card-header">
+				
+				<strong>New APN Creation</strong>
+			</div>
+			<form [formGroup]="myApnCreationForm" novalidate (ngSubmit)="onApnCreationSubmit()">
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group row">
+								<label class="col-md-5 col-form-label">Work Request Name</label>
+								<div class="col-md-7">
+									<p class="form-control-static">{{WR_Name}}</p>
+
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group row">
+								<label class="col-md-5 col-form-label" for="apnName">APN Name</label>
+								<div class="col-md-7">
+									<input type="text" id="apnName" name="apnName" class="form-control" formControlName="apnName" required
+									 [ngClass]="{
+										'is-invalid': apnName.invalid && (apnName.dirty || apnName.touched),
+										'is-valid': apnName.valid && (apnName.dirty || apnName.touched)
+								   }">
+									<div class="invalid-feedback" *ngIf="apnName.errors && (apnName.dirty || apnName.touched)">
+										<p *ngIf="apnName.errors.required">APN Name is required</p>										
+									</div>
+								</div>
+							</div>
+						</div>
+						</div>
+
+					<div class="row">	
+						<div class="col-md-6">
+							<div class="form-group row">
+								<label class="col-md-5 col-form-label" for="apnID">APN ID</label>
+								<div class="col-md-7">
+									<input type="text" id="apnID" name="apnID" class="form-control" formControlName="apnID" required
+									 [ngClass]="{
+										'is-invalid': apnID.invalid && (apnID.dirty || apnID.touched),
+										'is-valid': apnID.valid && (apnID.dirty || apnID.touched)
+								   }">
+									<div class="invalid-feedback" *ngIf="apnID.errors && (apnID.dirty || apnID.touched)">
+										<p *ngIf="apnID.errors.required">APN ID is required</p>										
+									</div>
+								</div>
+							</div>
+						</div>
+										
+						<div class="col-md-6">
+							<div class="form-group row">
+								<label class="col-md-5 col-form-label" for="productType">Product Type</label>
+								<div class="col-md-7">
+									<select class="form-control" id="productType" formControlName="productType" required 
+									 [ngClass]="{
+														'is-invalid': productType.invalid && (productType.dirty || productType.touched),
+														'is-valid': productType.valid && (productType.dirty || productType.touched)
+													 }">
+										<option></option>
+										<option *ngFor="let aProductType of listProductType" [value]="aProductType.id">{{aProductType.productType_name}}</option>
+									</select>
+								</div>
+								<div class="invalid-feedback" *ngIf="productType.errors && (productType.dirty || productType.touched)">
+									<p *ngIf="productType.errors.required">Product Type Selection required</p>
+
+								</div>
+							</div>
+						</div>						
+					</div>
+				</div>
+				<!-- <div class="card-body"> -->
+				<div class="card-footer text-right">
+					<button type="submit" [disabled]="!myApnCreationForm.valid" class="btn btn-sm btn-primary">
+						<i class="fa fa-dot-circle-o"></i> Submit</button>
+					<button type="reset" class="btn btn-sm btn-danger"(click)="clearForm($event)">
+						<i class="fa fa-ban"></i> Reset</button>
+					<button type="button" class="btn btn-link" (click)="backButton($event)"><i class="fa fa-link" ></i>&nbsp; Back</button>
+				
+				</div>
+				<!-- <div class="card-footer"> -->
+			</form>
+			
+		</div>
+		<!-- <div class="card"> -->
+	</div>
+	<div class="col-md-2">
+		<div class="card-body"></div>
+
+	</div>
+</div>
+<!--
+<pre >{{myApnCreationForm.value | json}}</pre>
+<pre *ngIf="myApnCreationForm.valid">This is Valid form Data.{{myApnCreationForm.value | json}}</pre>
+-->

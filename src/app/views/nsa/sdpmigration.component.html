@@ -1,0 +1,149 @@
+<div class="row">
+	<div class="col-md-1">
+		<div class="card-body"></div>
+	</div>
+	<div class="col-md-10">
+		<div class="card">
+				<div style="text-align: center">
+						<i class="fa fa-spinner fa-pulse fa-3x fa-fw" *ngIf="isLoading" ></i>
+					</div>
+		<div class="alert alert-success" role="alert" *ngIf="successAlertShow"> {{successAlertMessage}}</div>
+			<div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">{{dangerAlertMessage}}</div>
+
+			<div class="card-header">
+				<strong>SDP Migration</strong>
+			</div>
+			<form [formGroup]="mySdpMigrationFileForm" novalidate (ngSubmit)="onSdpMigrationFileSubmit()">
+					<div class="card-header">
+							<div >
+							  <button type="button" class="btn btn-primary" (click)="isCollapsedFile = !isCollapsedFile"><i class="fa fa-star"></i>&nbsp; 
+							  {{isCollapsedFile === true ? 'Show SDP Migration from File' : 'Hide SDP Migration from File'}}</button>
+							</div>
+						  </div>
+				<div class="card-body" [collapse]="isCollapsedFile" >
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group row">
+								<label class="col-md-5 col-form-label" for="sdpMigrationFile">SDP Migration File</label>
+								<div class="col-md-7">
+								
+									<input type="file" id="sdpMigrationFile" name="sdpMigrationFile" class="form-control" formControlName="sdpMigrationFile" required
+									 [ngClass]="{
+										'is-invalid': sdpMigrationFile.invalid && (sdpMigrationFile.dirty || sdpMigrationFile.touched),
+										'is-valid': sdpMigrationFile.valid && (sdpMigrationFile.dirty || sdpMigrationFile.touched)
+								   }" (change)="onFileChange($event)" >
+									<div class="invalid-feedback" *ngIf="sdpMigrationFile.errors && (sdpMigrationFile.dirty || sdpMigrationFile.touched)">
+										<p *ngIf="sdpMigrationFile.errors.required">SDP Migration File is required</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="card-footer text-right" [collapse]="isCollapsedFile" >
+					<button type="submit" [disabled]="!mySdpMigrationFileForm.valid" class="btn btn-sm btn-primary">
+						<i class="fa fa-dot-circle-o"></i> Submit</button>
+					<button type="reset" class="btn btn-sm btn-danger"(click)="clearForm($event)">
+						<i class="fa fa-ban"></i> Reset</button>
+				</div>
+			</form>
+
+			<form [formGroup]="mySdpMigrationRangeForm" novalidate (ngSubmit)="onSdpMigrationRangeSubmit()">
+					<div class="card-header">
+							<div >
+							  <button type="button" class="btn btn-primary" (click)="isCollapsedRange = !isCollapsedRange"><i class="fa fa-star"></i>&nbsp; 
+							  {{isCollapsedRange === true ? 'Show SDP Migration By Range' : 'Hide SDP Migration By Range'}}</button>
+							</div>
+						  </div>
+				<div class="card-body" [collapse]="isCollapsedRange" >
+						<div class="row">
+								<div class="col-md-6">
+								  <div class="form-group row">
+									<label class="col-md-5 col-form-label" for="startMSISDN">Start MSISDN</label>
+									<div class="col-md-7">
+									  <input type="text" id="startMSISDN" name="startMSISDN" class="form-control" formControlName="startMSISDN" pattern="(017|013)\d*" required
+									   [ngClass]="{
+										'is-invalid': startMSISDN.invalid && (startMSISDN.dirty || startMSISDN.touched),
+										'is-valid': startMSISDN.valid && (startMSISDN.dirty || startMSISDN.touched)
+									   }">
+									  <div class="invalid-feedback" *ngIf="startMSISDN.errors && (startMSISDN.dirty || startMSISDN.touched)">
+										<p *ngIf="startMSISDN.errors.required">Start MSISDN is required</p>
+										<p *ngIf="startMSISDN.errors.pattern">MSISDN starts with 017 or 013 and  contains only digits.</p>
+										<p *ngIf="startMSISDN.errors.minlength">MSISDN must be 11 digit long</p>
+										<p *ngIf="startMSISDN.errors.maxlength">MSISDN must be 11 digit long</p>
+									  </div>
+									</div>
+								  </div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group row">
+									  <label class="col-md-5 col-form-label" for="endMSISDN">End MSISDN</label>
+									  <div class="col-md-7">
+										<input type="text" id="endMSISDN" name="endMSISDN" class="form-control" formControlName="endMSISDN" pattern="(017|013)\d*" required
+										 [ngClass]="{
+										  'is-invalid': endMSISDN.invalid && (endMSISDN.dirty || endMSISDN.touched),
+										  'is-valid': endMSISDN.valid && (endMSISDN.dirty || endMSISDN.touched)
+										 }">
+										<div class="invalid-feedback" *ngIf="endMSISDN.errors && (endMSISDN.dirty || endMSISDN.touched)">
+										  <p *ngIf="endMSISDN.errors.required">End MSISDN is required</p>
+										  <p *ngIf="endMSISDN.errors.pattern">MSISDN starts with 017 or 013 and  contains only digits.</p>
+										  <p *ngIf="endMSISDN.errors.minlength">MSISDN must be 11 digit long</p>
+										  <p *ngIf="endMSISDN.errors.maxlength">MSISDN must be 11 digit long</p>
+										</div>
+									  </div>
+									</div>
+								  </div>
+							  </div>
+							  <div class="row">
+									<div class="col-md-6">
+											<div class="form-group row">
+												<label class="col-md-5 col-form-label" for="SDP">SDP</label>
+												<div class="col-md-7">
+													<select class="form-control" id="SDP" formControlName="SDP" required 
+													 [ngClass]="{
+																		'is-invalid': SDP.invalid && (SDP.dirty || SDP.touched),
+																		'is-valid': SDP.valid && (SDP.dirty || SDP.touched)
+																	 }">
+														<option></option>
+														<option *ngFor="let aSDP of listSDP" [value]="aSDP.id" >{{aSDP.name}}</option>
+													</select>
+												</div>
+												<div class="invalid-feedback" *ngIf="SDP.errors && (SDP.dirty || SDP.touched)">
+													<p *ngIf="SDP.errors.required">SDP Selection required</p>
+				
+												</div>
+											</div>
+										
+										</div>												
+									
+								</div>
+				</div>
+				<div class="card-footer text-right" [collapse]="isCollapsedRange">
+					<button type="submit" [disabled]="!mySdpMigrationRangeForm.valid" class="btn btn-sm btn-primary">
+						<i class="fa fa-dot-circle-o"></i> Submit</button>
+					<button type="reset" class="btn btn-sm btn-danger"(click)="clearForm($event)">
+						<i class="fa fa-ban"></i> Reset</button>
+				</div>
+			</form>
+
+			
+							<div class="row">
+									<div class="col-md-1" style="text-align: center">
+										</div>
+									<div class="col-md-10" style="text-align: center">
+											
+											<div >
+													<button type="button"  class="btn btn-link"  (click)="downloadCSVFiles()">
+														<i class="fa fa-download" ></i>SDP Migration Data</button>
+													
+												</div>
+												
+									</div>
+									<div class="col-md-1" style="text-align: center">
+										</div>
+									
+							</div>
+		</div>
+	</div>
+	
+</div>
