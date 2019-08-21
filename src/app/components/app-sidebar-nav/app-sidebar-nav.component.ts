@@ -3,7 +3,9 @@ import { Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 import { LoginService } from '../../views/pages/LoginService';
 import { LoggedInUser } from '../../views/pages/loggedInUser'; 
 // Import navigation elements
-import { navigation, navigation_grpID_Sourcing, navigation_grpID_CNP, navigation_primedata } from './../../_nav';
+import { navigation, navigation_grpID_Sourcing, navigation_grpID_CNP,navigation_grpID_VDSO,navigation_grpID_BSS_Planning, navigation_blankdata, navigation_grpID_Wipro_Billing, navigation_grpID_RAFM, navigation_grpID_Wipro_CIM, navigation_grpID_Wipro_OSS 
+  , navigation_grpID_SSM, navigation_grpID_CLC,navigation_grpID_HOD,navigation_grpID_GENERAL, navigation_grpID_ADMIN
+} from './../../_nav';
 import { AppGlobals } from './../../app.global';
 @Component({
   selector: 'app-sidebar-nav',
@@ -34,21 +36,69 @@ export class AppSidebarNavComponent {
 	this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
 	
 	if (this.currentLoggedInUser) {		
-		this.groupID = this.currentLoggedInUser.groupID
-		console.log('Current user groupID : ' + this.groupID);
-		
+		this.groupID = this.currentLoggedInUser.groupID;
+    console.log('Current user groupID : ' + this.groupID);
+    
 		if (this.groupID == this._global.groupID_Sourcing){
 			this.navigation = navigation_grpID_Sourcing;
-			console.log('navigation_grpID_Sourcing');
+//			console.log('navigation_grpID_Sourcing');
 		}
 		else if (this.groupID == this._global.groupID_CNP){
 			this.navigation = navigation_grpID_CNP;
-			console.log('navigation_grpID_CNP');
+		//	console.log('navigation_grpID_CNP');
+		}
+		else if (this.groupID == this._global.groupID_BSS_Planning){
+			this.navigation = navigation_grpID_BSS_Planning;
+			//console.log('navigation_grpID_BSS_Planning');
 		}
 		
+		else if (this.groupID == this._global.groupID_VDSO){
+			this.navigation = navigation_grpID_VDSO;
+			//console.log('navigation_grpID_VDSO');
+		}
+		else if (this.groupID == this._global.groupID_Wipro_Billing){
+			this.navigation = navigation_grpID_Wipro_Billing;
+			//console.log('navigation_grpID_Wipro_Billing');
+		}
+		
+		else if (this.groupID == this._global.groupID_RAFM){
+			this.navigation = navigation_grpID_RAFM;
+			//console.log('navigation_grpID_RAFM');
+		}
+		
+		else if (this.groupID == this._global.groupID_CIM){
+			this.navigation = navigation_grpID_Wipro_CIM;
+			//console.log('navigation_grpID_Wipro_CIM');
+    }
+    else if (this.groupID == this._global.groupID_OSS){
+			this.navigation = navigation_grpID_Wipro_OSS;		
+    }
+//  , navigation_grpID_SSM, navigation_grpID_CLC,navigation_grpID_HOD,navigation_grpID_GENERAL, navigation_grpID_ADMIN, navigation_grpID_VENDOR
+
+    else if (this.groupID == this._global.groupID_SSM){
+			this.navigation = navigation_grpID_SSM;
+			
+		}
+    else if (this.groupID == this._global.groupID_CLC){
+			this.navigation = navigation_grpID_CLC;
+			
+    }
+    else if (this.groupID == this._global.groupID_HOD){
+			this.navigation = navigation_grpID_HOD;
+			
+		}
+    else if (this.groupID == this._global.groupID_GENERAL){
+			this.navigation = navigation_grpID_GENERAL;
+			
+    }
+    else if (this.groupID == this._global.groupID_ADMIN){
+			this.navigation = navigation_grpID_ADMIN;
+			
+		}
+    
 		else {
-			this.navigation = navigation_primedata;
-			console.log('navigation_primedata');
+			this.navigation = navigation_blankdata;
+			//console.log('navigation_blankdata');
 		}
 		
 	}

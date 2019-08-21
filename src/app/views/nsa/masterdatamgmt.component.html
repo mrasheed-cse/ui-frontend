@@ -1,0 +1,57 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">{{dangerAlertMessage}}</div>
+        <div class="alert alert-success" role="alert" *ngIf="successAlertShow">{{successAlertMessage}}</div> 
+                
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+               <div class="card-header">
+                  <button style="    
+                            width: 85%;
+                            border-radius: 7px;
+                            box-shadow: #ccc 7px 6px 4px;" 
+                          type="button" class="btn btn-primary" (click)="isCollapsedNewItem = !isCollapsedNewItem"><i class="fa fa-star"></i>&nbsp; {{isCollapsedNewItem === true ? 'Click to Create New Master Data Item' : 'Create Master Data Item'}}
+                  </button>
+               </div>
+                <div [collapse]="isCollapsedNewItem" class="card-body">
+                    <form [formGroup]="createNewMasterDataForm" novalidate (ngSubmit)="onCreateNewMasterDataSubmit()">
+                        <div class="col-xs-12 col-12 col-md-8 form-group">
+                            <label for = "newmasterdata">Create New Item</label>
+                            <input type = "text" name = "newmasterdata"  class="form-control" formControlName="newmasterdata" ><br/>  
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div> 
+          </div>
+    </div> 
+    <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <button style="    
+                    width: 85%;
+                    border-radius: 7px;
+                    box-shadow: #ccc 7px 6px 4px;" 
+                  type="button" class="btn btn-success" (click)="isCollapseddetailItem = !isCollapseddetailItem"><i class="fa fa-star"></i>&nbsp; {{isCollapseddetailItem === true ? 'Click to Create Detail Master Data Item' : 'Create Detail Master Data Item'}}
+                    </button>
+                </div>
+                <div [collapse]="isCollapseddetailItem" class="card-body"> 
+                    <form [formGroup]="masterDataDetailForm" novalidate (ngSubmit)="onMasterDataDetailSubmit()">
+                        <div class="col-xs-12 col-12 col-md-8 form-group">
+                        <label for = "selectMasterDataItem"> Create New Detail Item</label>    
+                        <select class="form-control" id="selectMasterDataItem" formControlName="selectMasterDataItem">
+                            <option *ngFor="let aMasterDataItem of listMasterDataItem" [value]="aMasterDataItem.id">{{aMasterDataItem.masterDataItemName}}</option>
+                        </select>
+                        <label for = "newDetailItem">New Detail</label>  
+                        <input type = "text" name = "newDetailItem"  class="form-control" formControlName="newDetailItem" ><br/>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                   </form>
+              </div>
+           </div>
+    </div>
+</div>
+

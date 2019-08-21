@@ -1,0 +1,116 @@
+<div class="animated fadeIn">
+  <div class="card"> 
+	<div class="card-header">
+		Search for Re-provision Numbers
+    </div>
+	
+	<div class="card-body">
+	
+		<div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">
+		{{dangerAlertMessage}}
+		</div>
+	
+		<div class="row">
+			<div class="col-md-6">
+   
+			<form [formGroup]="myReProvisionSearchForm" novalidate (ngSubmit)="onReProvisionSearchSubmit()">
+				<div class="card-body">				
+					<div class="row">						
+						<div class="col-md-12">
+							<div class="form-group row">
+								<label class="col-md-5 col-form-label" for="productType">Product Type</label>
+								<div class="col-md-7">
+									<select class="form-control" id="productType" formControlName="productType"  (change)="onProductTypeSelect($event)"
+									 >
+										<option></option>
+										<option *ngFor="let aProductType of listProductType" [value]="aProductType.id">{{aProductType.productType_name}}</option>
+									</select>
+								</div>								
+							</div>
+						</div>
+					</div>
+					
+					<div class="row">						
+						<div class="col-md-12">
+							<div class="form-group row">
+								<label class="col-md-5 col-form-label" for="productName">Product Name</label>
+								<div class="col-md-7">
+									<select class="form-control" id="productName" formControlName="productName" 
+									 >
+										<option></option>
+										<option *ngFor="let aProduct of listProduct" [value]="aProduct.id">{{aProduct.productName}}</option>
+
+									</select>
+								</div>								
+							</div>
+						</div>
+						
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group row">
+								<label class="col-md-5 col-form-label" for="HLR">HLR</label>
+								<div class="col-md-7">
+									<select class="form-control" id="HLR" formControlName="HLR"  
+									 >
+										<option></option>
+										<option *ngFor="let aHLR of listHLR" [value]="aHLR.id">{{aHLR.name}}</option>
+									</select>
+								</div>
+								
+							</div>	
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group row">
+								<label class="col-md-5 col-form-label" for="IMSI">IMSI</label>
+								<div class="col-md-7">
+									<select class="form-control" id="IMSI" formControlName="IMSI" >
+										<option></option>
+										<option *ngFor="let aIMSI of listIMSI" [value]="aIMSI.id">{{aIMSI.group_name}}</option>
+										<!--											<option *ngFor="let cl of clientOptions" [value]="cl.id">{{cl.client_name}}</option> -->
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group row">
+								<label class="col-md-5 col-form-label" for="batchID">Batch ID</label>
+								<div class="col-md-7">
+									<input type="text" id="batchID" name="batchID" class="form-control" formControlName="batchID" 
+									 >
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- <div class="card-body"> -->
+				<div class="card-footer text-right">
+					<button type="submit" [disabled]="!myReProvisionSearchForm.valid" class="btn btn-sm btn-primary">
+						<i class="fa fa-dot-circle-o"></i> Submit</button>
+					<button type="reset" class="btn btn-sm btn-danger" (click)="clearForm($event)">
+						<i class="fa fa-ban"></i> Reset</button>
+					
+				</div>
+				<!-- <div class="card-footer"> -->
+			</form>
+			<br/>
+		</div>   
+		
+		<div class="col-md-6" >
+				<div style="text-align: center">
+						<i class="fa fa-spinner fa-pulse fa-3x fa-fw" *ngIf="isLoading" ></i>
+					</div>
+					<div *ngIf="successSearchShow">
+	Please Find the Reprovision Eligible Numbers here.
+		<button type="button" class="btn btn-link" (click)="downloadCSVFiles()"><i class="fa fa-download" ></i>Download File</button>
+		
+		</div>   	  
+	</div>    	  
+	</div>   	  
+	</div>
+</div>
