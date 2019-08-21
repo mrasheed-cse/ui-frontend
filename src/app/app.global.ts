@@ -13,22 +13,22 @@ export class AppGlobals {
 	readonly groupID_CIM: number = 8;
 	readonly groupID_OSS: number = 9;
 
-	/*readonly groupID_SSM: number = 10;
+	readonly groupID_SSM: number = 10;
 	readonly groupID_CLC: number = 11;
     readonly groupID_GENERAL: number = 12;
 	readonly groupID_HOD: number = 100;
-	readonly groupID_ADMIN: number = 14;*/
+	readonly groupID_ADMIN: number = 14;
 	//readonly groupID_VENDOR: number = 15;
 
 
-	readonly groupID_SSM: number = 12;
+	/*readonly groupID_SSM: number = 12;
 	readonly groupID_CLC: number = 13;
     readonly groupID_GENERAL: number = 10;
 	readonly groupID_HOD: number = 100;
-	readonly groupID_ADMIN: number = 11;
+	readonly groupID_ADMIN: number = 11;*/
 
-	
-	
+
+
 	readonly wrid_NumberSeriesDefinition: number = 1;
 	readonly wrid_NumberSeriesProvisioning: number = 2;
 	readonly wrid_DeProvisioning: number = 3;
@@ -38,30 +38,30 @@ export class AppGlobals {
 	readonly wrid_DescProvisioning: number = 7;
 	readonly wrid_NewSimRequision: number = 8;
 
-	
+
 	readonly masterData_RequisitionType = 1;
 	readonly masterData_UsageCategory = 2;
 	readonly masterData_Location = 3;
 	readonly masterData_PurposeType = 4;
 	readonly masterData_ProductType = 5;
-	readonly masterData_ProductName = 6;	
-	readonly masterData_ImsiType = 7;	
-	
+	readonly masterData_ProductName = 6;
+	readonly masterData_ImsiType = 7;
 
-	
-	readonly wrid_FileUploadPath: string = '/app/nsa_files/';	
+
+
+	readonly wrid_FileUploadPath: string = '/app/nsa_files/';
 
 	//for test purpose
 	dataTemp = [
 		{
 		  id: 1,
 		  requisitionNo: "test",
-		  requisitionDt:  "test", 
-		  quantity: "test", 
+		  requisitionDt:  "test",
+		  quantity: "test",
 		  requisitionType:  "test",
 		  purposeCategory:  "test",
 		  testStartDt:  "test",
-		  testCompletionDt:  "test", 
+		  testCompletionDt:  "test",
 		  usageCategory:  "test",
 		  nextHop:  "1",
 		  wrfStatus:  "test"
@@ -69,12 +69,12 @@ export class AppGlobals {
 		{
 			id: 2,
 			requisitionNo: "test",
-			requisitionDt:  "test", 
-			quantity: "test", 
+			requisitionDt:  "test",
+			quantity: "test",
 			requisitionType:  "test",
 			purposeCategory:  "test",
 			testStartDt:  "test",
-			testCompletionDt:  "test", 
+			testCompletionDt:  "test",
 			usageCategory:  "test",
 			nextHop:  "2",
 			wrfStatus:  "test"
@@ -82,12 +82,12 @@ export class AppGlobals {
 		{
 			id: 3,
 			requisitionNo: "test",
-			requisitionDt:  "test", 
-			quantity: "test", 
+			requisitionDt:  "test",
+			quantity: "test",
 			requisitionType:  "test",
 			purposeCategory:  "test",
 			testStartDt:  "test",
-			testCompletionDt:  "test", 
+			testCompletionDt:  "test",
 			usageCategory:  "test",
 			nextHop:  "4",
 			wrfStatus:  "test"
@@ -95,12 +95,12 @@ export class AppGlobals {
 		{
 			id: 4,
 			requisitionNo: "test",
-			requisitionDt:  "test", 
-			quantity: "test", 
+			requisitionDt:  "test",
+			quantity: "test",
 			requisitionType:  "test",
 			purposeCategory:  "test",
 			testStartDt:  "test",
-			testCompletionDt:  "test", 
+			testCompletionDt:  "test",
 			usageCategory:  "test",
 			nextHop:  "3",
 			wrfStatus:  "test"
@@ -115,7 +115,7 @@ export class AppGlobals {
     	usersGroupId : 12,
     	remarks : "n/a"
 	}*/
-	
+
 	dataTempForLogin = {
 		usersName : "ssm",
     	emailAddress : "ssm@wipro.com",
@@ -160,7 +160,7 @@ export class AppGlobals {
 			expectedEndDate : "",
 			location : "",
 			usageCategory : "",
-			notificationTo : ""			
+			notificationTo : ""
 		},
 		requisitionLines : [
 			{
@@ -171,7 +171,7 @@ export class AppGlobals {
 				imsiTypeName : "Normal",
 				specialRequirement : "",
 				assignedQuantity: "0",
-				assignedLimit: "0"	
+				assignedLimit: "0"
 			},
 			{
 				productName : "MyPlan",
@@ -181,14 +181,45 @@ export class AppGlobals {
 				imsiTypeName : "Normal",
 				specialRequirement : "",
 				assignedQuantity: "0",
-				assignedLimit: "0"	
+				assignedLimit: "0"
 			}
 		]
 	}
-	
+
+
+  dataTempForNewActRequest = [
+		{
+		  id: 1,
+		  requisitionNo: "RQN-201808-1001",
+		  declarationStatus:  "Pending",
+		  deliveryStatus: "Delivered",
+		  requisitionType:  "For Internal use",
+		  simStatus:  "Inactive"
+		},
+    {
+		  id: 1,
+		  requisitionNo: "RQN-201808-1002",
+		  declarationStatus:  "Pending",
+		  deliveryStatus: "Delivered",
+		  requisitionType:  "For Internal use",
+		  simStatus:  "Inactive"
+		},
+    {
+		  id: 1,
+		  requisitionNo: "RQN-201808-1003",
+		  declarationStatus:  "Pending",
+		  deliveryStatus: "Delivered",
+		  requisitionType:  "For Internal use",
+		  simStatus:  "Inactive"
+		},
+    {
+		  id: 1,
+		  requisitionNo: "RQN-201808-1004",
+		  declarationStatus:  "Pending",
+		  deliveryStatus: "Delivered",
+		  requisitionType:  "For Internal use",
+		  simStatus:  "Inactive"
+		}
+	]
+
 }
-
-
-
-	
-
