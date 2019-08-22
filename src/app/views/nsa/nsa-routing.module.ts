@@ -68,6 +68,7 @@ import { TestsimRequisitionhistoryreportComponent } from './testsim-requisitionh
 import { TestsimMsisdnreportSsmComponent } from './testsim-msisdnreport-ssm/testsim-msisdnreport-ssm.component';
 import { TestsimMsisdnreportComponent } from './testsim-msisdnreport/testsim-msisdnreport.component';
 import { ActivationPendingapprovalsComponent } from './activation-pendingapprovals/activation-pendingapprovals.component';
+import { NewsimactivationreqDetailsComponent } from './newsimactivationreq-details/newsimactivationreq-details.component';
 
 
 const routes: Routes = [
@@ -331,6 +332,13 @@ const routes: Routes = [
   {
     path: 'newsimactivationreq',
     component: NewsimactivationreqComponent,
+    data: {
+      title: 'New Test SIM Activation Request'
+    }
+  },
+  {
+    path: 'newsimactivationreq_dt/:requisition_id',
+    component: NewsimactivationreqDetailsComponent,
     data: {
       title: 'New Test SIM Activation Request'
     }

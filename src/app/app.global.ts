@@ -191,35 +191,55 @@ export class AppGlobals {
 		{
 		  id: 1,
 		  requisitionNo: "RQN-201808-1001",
-		  declarationStatus:  "Pending",
 		  deliveryStatus: "Delivered",
-		  requisitionType:  "For Internal use",
-		  simStatus:  "Inactive"
+		  requisitionType:  "For Internal use"
 		},
     {
-		  id: 1,
+		  id: 2,
 		  requisitionNo: "RQN-201808-1002",
-		  declarationStatus:  "Pending",
 		  deliveryStatus: "Delivered",
-		  requisitionType:  "For Internal use",
-		  simStatus:  "Inactive"
+		  requisitionType:  "For Internal use"
 		},
     {
-		  id: 1,
+		  id: 3,
 		  requisitionNo: "RQN-201808-1003",
-		  declarationStatus:  "Pending",
 		  deliveryStatus: "Delivered",
-		  requisitionType:  "For Internal use",
-		  simStatus:  "Inactive"
+		  requisitionType:  "For Internal use"
 		},
     {
-		  id: 1,
+		  id: 4,
 		  requisitionNo: "RQN-201808-1004",
-		  declarationStatus:  "Pending",
 		  deliveryStatus: "Delivered",
-		  requisitionType:  "For Internal use",
-		  simStatus:  "Inactive"
+		  requisitionType:  "For Internal use"
 		}
 	]
+
+	dataTempForNewActRequestDetails = {
+		"requisitionDetails" : {
+			requisitionNo: "RQN-201808-1001",
+			requisitionType:  "For Internal use"
+		},
+		"msisdnDetails" : [
+			{
+			  id: 1,
+			  msisdn: "1710823427",
+			  sim: "890091311111",
+			  simType:  "Prepaid",
+			  simStatus:  "Inactive",
+			  deliveryStatus:  "Delivered",
+			  declarationStatus:  "Pending"		  			  			  			  
+			},
+			{
+				id: 2,
+				msisdn: "1710823428",
+				sim: "890091311112",
+				simType:  "Prepaid",
+				simStatus:  "Inactive",
+				deliveryStatus:  "Delivered",
+				declarationStatus:  "Pending"		  			  			  			  
+			  },
+		]
+	}	
+	
 
 }

@@ -89,14 +89,15 @@ import { NgxGaugeModule } from 'ngx-gauge';
 
 
 
+
 @NgModule({
   imports: [
 	CommonModule,
 	DataTableModule,
     BrowserModule,
-    AppRoutingModule,	
-	FormsModule, 
-	ReactiveFormsModule,	
+    AppRoutingModule,
+	FormsModule,
+	ReactiveFormsModule,
 	HttpClientModule,
 	ReactiveFormsModule,
 	CollapseModule.forRoot(),

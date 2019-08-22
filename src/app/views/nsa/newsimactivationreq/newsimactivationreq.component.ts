@@ -74,7 +74,7 @@ export class NewsimactivationreqComponent implements OnInit {
 
   ngOnInit () {
 
-    this.isLoading = true;
+    //this.isLoading = true;
 
     setTimeout(()=>{    //<<<---    using ()=> syntax
       //this.loadPendingList();
