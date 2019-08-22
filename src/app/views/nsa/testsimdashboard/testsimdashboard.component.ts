@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TestsimdashboardComponent implements OnInit {
 
+  numberOfTestSims : number;
+
   constructor() { }
 
   ngOnInit() {
+    this.numberOfTestSims = 0;
   }
 
 }

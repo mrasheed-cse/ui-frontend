@@ -214,6 +214,33 @@ export class AppGlobals {
 		}
 	]
 
+	dataTempForActRequestStatus = [
+		{
+		  id: 1,
+		  requisitionNo: "RQN-201808-1001",
+		  deliveryStatus: "Delivered",
+		  requisitionType:  "For Internal use"
+		},
+    {
+		  id: 2,
+		  requisitionNo: "RQN-201808-1002",
+		  deliveryStatus: "Delivered",
+		  requisitionType:  "For Internal use"
+		},
+    {
+		  id: 3,
+		  requisitionNo: "RQN-201808-1003",
+		  deliveryStatus: "Delivered",
+		  requisitionType:  "For Internal use"
+		},
+    {
+		  id: 4,
+		  requisitionNo: "RQN-201808-1004",
+		  deliveryStatus: "Delivered",
+		  requisitionType:  "For Internal use"
+		}
+	]
+
 	dataTempForNewActRequestDetails = {
 		"requisitionDetails" : {
 			requisitionNo: "RQN-201808-1001",
@@ -241,5 +268,32 @@ export class AppGlobals {
 		]
 	}	
 	
+
+	//// /////////////// ///////////////////// ///////
+
+	dataTempForMySims = [
+		{
+		  id: 1,
+		  msisdn: "1726838059",
+		  requisitionNo: "RQN-201707-001",
+		  requisitionType: "For internal use",
+		  simStatus: "Active",
+		  requisitionDate: "12 June 2017",
+		  testStartDate: "15 June 2017",
+		  testEndDate: "30 August 2019",
+		  assignedCreditLimit: "30000"
+		},
+    	{
+			id: 2,
+			msisdn: "1746838060",
+			requisitionNo: "RQN-201811-022",
+			requisitionType: "For internal use",
+			simStatus: "Active",
+			requisitionDate: "20 November 2018",
+			testStartDate: "15 December 2018",
+			testEndDate: "15 December 2019",
+			assignedCreditLimit: "1500"
+		}
+	]
 
 }

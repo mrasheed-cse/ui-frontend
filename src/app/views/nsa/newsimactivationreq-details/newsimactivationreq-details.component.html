@@ -43,6 +43,12 @@
                       </tr>
           </tbody>
         </table>
+
+        <br /><br />
+
+        <a style="width:140px" class="btn btn-success" (click) = "submit()" >Submit Activation Request</a>
+        <a style="width:140px" class="btn btn-danger" (click) = "cancel()" >Cancel</a>
+
       </div>
       <div class="card-body" *ngIf="!isDataFound">
           <div class="alert alert-primary" role="alert" ><b>Could not get details about selected requisition, please try again.</b></div>
