@@ -91,31 +91,31 @@ export class TestsimMysimsComponent implements OnInit {
   }
 
   timeExtension(){
-
+    this.router.navigate(['nsa/testsim-timeext']);
   }
 
   creditLimitExtension(){
-    
+    this.router.navigate(['nsa/testsim-creditlimitext']);
   }
 
   recharge(){
-    
+    this.router.navigate(['nsa/testsim-recharge']);
   }
 
   surrender(){
-    
+    this.router.navigate(['nsa/testsim-surrender']);
   }
 
   damaged(){
-    
+    this.router.navigate(['nsa/testsim-damaged']);
   }
 
   lost(){
-    
+    this.router.navigate(['nsa/testsim-lost']);
   }
 
   transfer(){
-    
+    this.router.navigate(['nsa/testsim-transfer']);
   }
 
 }

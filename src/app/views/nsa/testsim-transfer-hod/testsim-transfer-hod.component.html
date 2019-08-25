@@ -1,3 +1,57 @@
-<p>
-  testsim-transfer-hod works!
-</p>
+<div class="row">
+
+  <div class="col-md-12">
+
+    <div class="card" style="border:0px !important;background:transparent !important">
+          <div style="text-align: center">
+                <i class="fa fa-spinner fa-pulse fa-3x fa-fw" *ngIf="isLoading" ></i>
+          </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <i class="fa fa-align-justify"></i> Test SIM Transfer / Handover - HOD Approval
+      </div>
+      <div class="card-body" *ngIf="isDataFound">
+        <table class="table table-bordered table-striped table-sm">
+          <thead>
+            <tr>
+              <th>SL</th>
+              <th>MSISDN</th>
+              <th>RQN #</th>
+              <th>SIM Status</th>
+              <th>Test start date</th>
+              <th>Test end date</th>
+              <th>Transfer mode</th>
+              <th>Transfer to</th>
+              <th>Justification</th>                
+            </tr>
+          </thead>
+          <tbody *ngFor="let aTask of requisitionList;  index as i">
+                      <tr>
+                          <td>{{i + 1}}</td>
+                          <td>{{aTask.msisdn}}</td>
+                          <td>{{aTask.requisitionNo}}</td>                          
+                          <td>{{aTask.simStatus}}</td>
+                          <td>{{aTask.testStartDate}}</td>
+                          <td>{{aTask.testEndDate}}</td>
+                          <td>{{aTask.transferMode}}</td>
+                          <td>{{aTask.transferTo}}</td>
+                          <td>{{aTask.justification}}</td>                                                   
+                      </tr>
+          </tbody>
+        </table>
+
+        <br /><br />
+
+        <a style="width:140px" class="btn btn-success" (click) = "approve()" >Approve</a>
+        <a style="width:140px" class="btn btn-danger" (click) = "reject()" >Reject</a>
+      </div>
+      <div class="card-body" *ngIf="!isDataFound">
+          <div class="alert alert-primary" role="alert" ><b>System did not find any data</b></div>
+      </div>
+    </div>
+
+  </div>
+
+
+</div>

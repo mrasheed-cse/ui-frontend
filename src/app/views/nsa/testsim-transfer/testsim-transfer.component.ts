@@ -30,6 +30,8 @@ export class TestsimTransferComponent implements OnInit {
 	routerUrlAndParams: string;
   public isLoading:boolean = false;
   isDataFound: boolean = true;
+  listTransferModes: Array<any>;
+  listUsers: Array<any>;
 
   constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {
 
@@ -46,6 +48,16 @@ export class TestsimTransferComponent implements OnInit {
       this.router.navigate(['pages/login']);
     }
     this.requisitionList = _global.dataTempForMySims;
+    this.listTransferModes = [
+      {
+        "id":"Transfer","name":"Transfer"
+      },
+      {
+        "id":"Handover","name":"Handover"
+      }
+    ];
+    
+    this.listUsers = [];
 
   } //end of constructor
 

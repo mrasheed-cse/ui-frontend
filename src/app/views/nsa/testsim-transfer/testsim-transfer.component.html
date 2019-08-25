@@ -9,7 +9,7 @@
       </div>
       <div class="card">
         <div class="card-header">
-          <i class="fa fa-align-justify"></i> Time Limit Extension
+          <i class="fa fa-align-justify"></i> Test SIM Transfer / Handover
         </div>
         <div class="card-body" *ngIf="isDataFound">
           <table class="table table-bordered table-striped table-sm">
@@ -21,8 +21,9 @@
                 <th>SIM Status</th>
                 <th>Test start date</th>
                 <th>Test end date</th>
-                <th>New end date</th>
-                <th>Justification</th>                
+                <th>Transfer mode</th>
+                <th>Transfer to</th>
+                <th>Comments</th>                
               </tr>
             </thead>
             <tbody *ngFor="let aTask of requisitionList;  index as i">
@@ -34,7 +35,14 @@
                             <td>{{aTask.testStartDate}}</td>
                             <td>{{aTask.testEndDate}}</td>
                             <td>
-                                <input type="text" class="form-control" [(ngModel)] = "aTask.newEndDate" />
+                              <select class="form-control"  [(ngModel)] = "aTask.transferMode">
+                                  <option *ngFor="let singleListItem of listTransferModes" [value]="singleListItem.id">{{singleListItem.name}}</option>
+                              </select>
+                            </td>
+                            <td>
+                              <select class="form-control"  [(ngModel)] = "aTask.transferTo">
+                                  <option *ngFor="let singleUser of listUsers" [value]="singleUser.nsa_users_id">{{singleListItem.nsa_users_name}}</option>
+                              </select>
                             </td>
                             <td>
                                 <input type="text" class="form-control" [(ngModel)] = "aTask.justification" />
