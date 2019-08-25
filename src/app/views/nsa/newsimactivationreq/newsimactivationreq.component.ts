@@ -32,7 +32,7 @@ export class NewsimactivationreqComponent implements OnInit {
   public isLoading:boolean = false;
   isDataFound: boolean = true;
 
-  constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {
+  constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workflowsService: WorkflowsService) {
 
     this.isLoading = false;
     let isValid = true;
@@ -46,13 +46,13 @@ export class NewsimactivationreqComponent implements OnInit {
     else {
       this.router.navigate(['pages/login']);
     }
-    this.requisitionList = _global.dataTempForNewActRequest;
+    //this.requisitionList = _global.dataTempForNewActRequest;
 
   } //end of constructor
 
   loadPendingList(){
     //GetPendingTaskList
-    this.workFlowsService.LoadRequisitionList(0,this.userID).subscribe(
+    this.workflowsService.newSimActivation(0,this.userID).subscribe(
         data => {
           if(data !=null){
             console.log(data);
@@ -74,10 +74,10 @@ export class NewsimactivationreqComponent implements OnInit {
 
   ngOnInit () {
 
-    //this.isLoading = true;
+    this.isLoading = true;
 
     setTimeout(()=>{    //<<<---    using ()=> syntax
-      //this.loadPendingList();
+      this.loadPendingList();
     }, 2000);
 
   }

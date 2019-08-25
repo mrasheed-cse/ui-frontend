@@ -181,4 +181,14 @@ export class WorkflowsService {
 	
 		
 	}
+
+	/* ISMS phase 2 services */
+
+	newSimActivation(wr_id: number, user_id: string) : any {
+		return this.http.post(this.serverUrl + 'workflow/newsimactivation', {
+			createdBy: user_id,
+			requisitionNo: wr_id,
+			status: ""
+		});
+	}
 }

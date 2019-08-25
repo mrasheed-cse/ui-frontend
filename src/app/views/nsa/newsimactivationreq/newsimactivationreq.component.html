@@ -18,6 +18,9 @@
               <th>Requisition No</th>
               <th>Requisition Type</th>
               <th>Delivery Status</th>
+              <th>Total SIMs</th>
+              <th>Activated SIMs</th>
+              <th>Pending for activation</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -26,6 +29,9 @@
                           <td>{{aTask.requisitionNo}}</td>
                           <td>{{aTask.requisitionType}}</td>
                           <td>{{aTask.deliveryStatus}}</td>
+                          <td>{{aTask.totalSims}}</td>
+                          <td>{{aTask.activatedSims}}</td>
+                          <td>{{aTask.pendingForActivation}}</td>
                           <td> <button type="button" class="btn btn-link" ><i class="fa fa-link"></i>
                           <a [routerLink]="[detailsAction(aTask),aTask.id]">Details</a></button> </td>
                       </tr>
