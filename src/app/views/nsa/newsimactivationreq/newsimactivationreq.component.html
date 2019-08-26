@@ -32,7 +32,7 @@
                           <td>{{aTask.totalSims}}</td>
                           <td>{{aTask.activatedSims}}</td>
                           <td>{{aTask.pendingForActivation}}</td>
-                          <td> <button type="button" class="btn btn-link" ><i class="fa fa-link"></i>
+                          <td> <button *ngIf="aTask.pendingForActivation > 0" type="button" class="btn btn-link" ><i class="fa fa-link"></i>
                           <a [routerLink]="[detailsAction(aTask),aTask.id]">Details</a></button> </td>
                       </tr>
           </tbody>

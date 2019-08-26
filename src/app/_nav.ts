@@ -24,7 +24,7 @@ export const navigation_grpID_SSM  = [
   },
   {
         name: 'Test SIM Requisition',
-        url: '#',
+        url: '/test_sim_requisition',
         icon: 'icon-cursor',
         children: [	
           {
@@ -46,7 +46,7 @@ export const navigation_grpID_SSM  = [
    },
    {
          name: 'Test SIM Activation',
-         url: '#',
+         url: '/test_sim_activation',
          icon: 'icon-cursor',
          children: [	
            {
@@ -73,7 +73,7 @@ export const navigation_grpID_SSM  = [
     },
     {
          name: 'Test SIM Reports',
-         url: '#',
+         url: '/test_sim_reports',
          icon: 'icon-cursor',
          children: [	
            {
@@ -111,7 +111,7 @@ export const navigation_grpID_CLC  = [
   },
   {
         name: 'Test SIM Requisition',
-        url: '#',
+        url: '/test_sim_requisition',
         icon: 'icon-cursor',
         children: [	
           {
@@ -143,7 +143,7 @@ export const navigation_grpID_HOD  = [
   },
   {
         name: 'Test SIM Requisition',
-        url: '#',
+        url: '/test_sim_requisition',
         icon: 'icon-cursor',
         children: [	
           {
@@ -184,7 +184,7 @@ export const navigation_grpID_GENERAL  = [
   },
   {
         name: 'Test SIM Requisition',
-        url: '#',
+        url: '/test_sim_requisition',
         icon: 'icon-cursor',
         children: [	
           {
@@ -206,7 +206,7 @@ export const navigation_grpID_GENERAL  = [
    },
    {
          name: 'Test SIM Activation',
-         url: '#',
+         url: '/test_sim_activation',
          icon: 'icon-cursor',
          children: [	
            {
@@ -223,7 +223,7 @@ export const navigation_grpID_GENERAL  = [
     },
     {
          name: 'Test SIM Reports',
-         url: '#',
+         url: '/test_sim_reports',
          icon: 'icon-cursor',
          children: [	
            {
@@ -244,7 +244,7 @@ export const navigation_grpID_ADMIN  = [
   },
   {
         name: 'Test SIM Requisition',
-        url: '#',
+        url: '/test_sim_requisition',
         icon: 'icon-cursor',
         children: [	
           {
