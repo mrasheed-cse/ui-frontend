@@ -365,7 +365,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'activation-pendingapprovals',
+    path: 'activation-pendingapprovals/:requisition_id',
     component: ActivationPendingapprovalsComponent,
     data: {
       title: 'Activation Requests - Pending for Approval'

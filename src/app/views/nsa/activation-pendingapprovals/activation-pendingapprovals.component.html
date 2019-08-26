@@ -1,3 +1,70 @@
-<p>
-  activation-pendingapprovals works!
-</p>
+<!--<div class="row">
+  <div class="col-md-12">
+      <div class="card" style="border:0px !important;background:transparent !important">
+          <div style="text-align: center">
+                <i class="fa fa-spinner fa-pulse fa-3x fa-fw" *ngIf="isLoading" ></i>
+          </div>
+      </div>
+  </div>
+</div>-->
+
+<div>
+
+    <div class="row">
+
+        <div class="col-md-12">
+      
+          <div class="card">
+            <div class="card-body" *ngIf="isDataFound">
+      
+              <div>
+                  <h4>Requisition No: {{requisition['requisitionDetails']['requisitionNo']}}</h4>
+                  <h6>Requisition Type: {{requisition['requisitionDetails']['requisitionType']}}</h6>
+              </div>
+      
+              <hr />
+      
+              <h5>MSISDNs delivered under this requisition:</h5>
+      
+              <table class="table table-bordered table-striped table-sm">
+                <thead>
+                  <tr>
+                    <th>...</th>
+                    <th>MSISDN</th>
+                    <th>SIM Serial #</th>
+                    <th>SIM Type</th>
+                    <th>SIM Status</th>
+                    <th>Delivery Status</th>              
+                    <th>Declaration Status</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let aTask of requisition['msisdnDetails'];  index as i">
+                            <tr>
+                                <td><input type="checkbox" [(ngModel)] = "aTask.selected" /></td>
+                                <td>{{aTask.msisdn}}</td>
+                                <td>{{aTask.simSerial}}</td>
+                                <td>{{aTask.simType}}</td>
+                                <td>{{aTask.simStatus}}</td>
+                                <td>{{aTask.deliveryStatus}}</td>
+                                <td>{{aTask.declarationStatus}}</td>
+                            </tr>
+                </tbody>
+              </table>
+      
+              <br /><br />
+      
+              <a style="width:160px;font-size: 0.8em;height: 34px;" class="btn btn-success" (click) = "approve()" >Approve</a>
+      
+            </div>
+            <div class="card-body" *ngIf="!isDataFound">
+                <div class="alert alert-primary" role="alert" ><b>Could not get details about selected requisition, please try again.</b></div>
+            </div>
+          </div>
+      
+        </div>
+      
+      
+      </div>
+      
+
+</div>

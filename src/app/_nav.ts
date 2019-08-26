@@ -63,12 +63,12 @@ export const navigation_grpID_SSM  = [
              name: 'Pending Registrations',
              url: '/nsa/activation-pendingregistrations',
              icon: 'icon-cursor'
-           },          
+           }/*,          
            {
              name: 'Pending Approvals',
              url: '/nsa/activation-pendingapprovals',
              icon: 'icon-cursor'
-           }
+           }*/
          ]
     },
     {

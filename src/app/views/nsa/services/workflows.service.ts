@@ -214,4 +214,12 @@ export class WorkflowsService {
 			rejectedRqnLineNumbers: rejectedRqnLineNumbers
 		});
 	}
+
+	activationRequestsPendingForApproval(wr_id: number, user_id: string) : any {
+		return this.http.post(this.serverUrl + 'workflow/activationrequestspendingforapproval', {
+			createdBy: user_id,
+			requisitionNo: wr_id,
+			status: "PENDING"
+		});
+	}
 }
