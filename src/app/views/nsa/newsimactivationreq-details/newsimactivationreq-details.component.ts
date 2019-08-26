@@ -71,19 +71,37 @@ export class NewsimactivationreqDetailsComponent implements OnInit {
 
   }
 
+  getMsisdnDetails(){
+    this.workFlowsService.newSimActivationDetails(this.requisitionId, this.userID).subscribe(
+      res  =>  {
+        if(res !== ""){
+          this.requisition['msisdnDetails'] = res;
+
+          for(var i = 0; i < this.requisition['msisdnDetails'].length; i++){
+            this.requisition['msisdnDetails']['selected'] = false;
+          }
+
+          this.isLoading = false;
+        }
+      },
+      err  =>  {	
+           
+      }        
+    );
+  }
+
   getRequisitionDetails(){
 
-    this.requisition = this._global.dataTempForNewActRequestDetails;
-    this.isLoading = false;
-    return;
+    //this.requisition = this._global.dataTempForNewActRequestDetails;
+    this.isLoading = true;
+    //return;
 
     this.ismsworkflowsService.findRequisitionDetails(this.requisitionId).subscribe(
       res  =>  {
         console.log('response is : '+res.message);  
         if(res !== ""){
           this.requisition['requisitionDetails'] = res.requisitionDetails;
-          this.requisition['msisdnDetails'] = res.msisdnDetails;
-          this.isLoading = false;
+          this.getMsisdnDetails();
         }
       },
       err  =>  {	
@@ -92,6 +110,61 @@ export class NewsimactivationreqDetailsComponent implements OnInit {
     );
 
 
+  }
+
+  submit(){
+
+    this.isLoading = true;
+    var allRqnLineNumbers = "";
+
+    for(var i = 0; i < this.requisition['msisdnDetails'].length; i++){
+      if(this.requisition['msisdnDetails'][i]['selected']){
+
+        if(this.requisition['msisdnDetails'][i]['simStatus'] == "Pending activation"){
+          allRqnLineNumbers += this.requisition['msisdnDetails'][i]['requisitionLineMsisdnId'] + ",";
+        }
+        else{
+          var msg = "Only MSISDNs which are pending for activation can be selected. Please deselect MSISDN in row " + (i+1) + ".";
+          alert(msg);
+          return;
+        }
+
+      }
+    }
+
+    //console.log(allRqnLineNumbers);return;
+
+    //// //////////////////// //////////////
+    this.workFlowsService.submitNewSimActivationReq(this.requisition['requisitionDetails']['id'], this.userID, allRqnLineNumbers, "", "NEW").subscribe(
+      res  =>  {        
+        console.log('response is : '+res.message);  
+        if(res !== ""){
+
+        }
+      },
+      err  =>  {	
+           
+      }
+
+    );
+
+    setTimeout(()=>{    //<<<---    using ()=> syntax
+      
+      /////////////////// //////////////////////////
+      this.isLoading = false;
+      alert('This request has been submitted.');
+      this.router.navigate(['nsa/testsimdashboard']);
+      /////////// ////////////// ///////////////////
+
+    }, 5000);
+
+
+    ///////// /////////////// //////////////
+
+  }
+
+  cancel(){
+    this.router.navigate(['nsa/testsimdashboard']);
   }
 
 }

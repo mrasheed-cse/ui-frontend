@@ -191,4 +191,27 @@ export class WorkflowsService {
 			status: ""
 		});
 	}
+
+	newSimActivationDetails(wr_id: number, user_id: string) : any {
+		return this.http.post(this.serverUrl + 'workflow/newsimactivationdetails', {
+			createdBy: user_id,
+			requisitionNo: wr_id,
+			status: ""
+		});
+	}
+
+	submitNewSimActivationReq(
+		wr_id: number, 
+		user_id: string, 
+		approvedRqnLineNumbers: string, 
+		rejectedRqnLineNumbers: string, 
+		actionType: string) : any {
+		return this.http.post(this.serverUrl + 'workflow/submitnewsimactivationreq', {
+			user_id: user_id,
+			wr_id: wr_id,
+			actionType: actionType,
+			approvedRqnLineNumbers: approvedRqnLineNumbers,
+			rejectedRqnLineNumbers: rejectedRqnLineNumbers
+		});
+	}
 }
