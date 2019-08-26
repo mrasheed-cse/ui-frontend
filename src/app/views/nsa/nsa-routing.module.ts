@@ -407,7 +407,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'testsim-timeext',
+    path: 'testsim-timeext/:all_ids',
     component: TestsimTimeextComponent,
     data: {
       title: 'Time Limit Extension'
@@ -428,7 +428,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'testsim-creditlimitext',
+    path: 'testsim-creditlimitext/:all_ids',
     component: TestsimCreditlimitextComponent,
     data: {
       title: 'Credit Limit Extension'
@@ -449,7 +449,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'testsim-recharge',
+    path: 'testsim-recharge/:all_ids',
     component: TestsimRechargeComponent,
     data: {
       title: 'Recharge'
@@ -470,7 +470,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'testsim-surrender',
+    path: 'testsim-surrender/:all_ids',
     component: TestsimSurrenderComponent,
     data: {
       title: 'Surrender'
@@ -491,7 +491,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'testsim-damaged',
+    path: 'testsim-damaged/:all_ids',
     component: TestsimDamagedComponent,
     data: {
       title: 'Damaged Test SIM'
@@ -512,7 +512,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'testsim-lost',
+    path: 'testsim-lost/:all_ids',
     component: TestsimLostComponent,
     data: {
       title: 'Lost Test SIM'
@@ -533,7 +533,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'testsim-transfer',
+    path: 'testsim-transfer/:all_ids',
     component: TestsimTransferComponent,
     data: {
       title: 'Transfer'

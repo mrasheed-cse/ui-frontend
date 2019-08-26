@@ -21,6 +21,7 @@ import { LoggedInUser } from '../../pages/loggedInUser';
 })
 export class TestsimMysimsComponent implements OnInit {
 
+  selectedIds: string;
   requisitionList: Array<Object>;
 	currentLoggedInUser: LoggedInUser;
 	userName: string;
@@ -33,6 +34,7 @@ export class TestsimMysimsComponent implements OnInit {
 
   constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {
 
+    this.selectedIds = "";
     this.isLoading = false;
     let isValid = true;
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
@@ -45,18 +47,21 @@ export class TestsimMysimsComponent implements OnInit {
     else {
       this.router.navigate(['pages/login']);
     }
-    this.requisitionList = _global.dataTempForMySims;
+    //this.requisitionList = _global.dataTempForMySims;
 
   } //end of constructor
 
   loadPendingList(){
     //GetPendingTaskList
-    this.workFlowsService.LoadRequisitionList(0,this.userID).subscribe(
+    this.workFlowsService.loadMySims(this.userID).subscribe(
         data => {
           if(data !=null){
             console.log(data);
             this.isDataFound = true;
             this.requisitionList = data;
+            for(var i = 0; i < this.requisitionList.length; i++){
+              this.requisitionList[i]['selected'] = false;
+            }
             this.isLoading = false;
           }
           else{
@@ -73,10 +78,11 @@ export class TestsimMysimsComponent implements OnInit {
 
   ngOnInit () {
 
-    //this.isLoading = true;
+    this.isLoading = true;
+    this.selectedIds = "";
 
     setTimeout(()=>{    //<<<---    using ()=> syntax
-      //this.loadPendingList();
+      this.loadPendingList();
     }, 2000);
 
   }
@@ -90,32 +96,56 @@ export class TestsimMysimsComponent implements OnInit {
 
   }
 
+  getSelectedIds(){
+
+    this.selectedIds = "";
+
+    for(var i = 0; i < this.requisitionList.length; i++){
+      if(this.requisitionList[i]['selected'] == true){
+        this.selectedIds += this.requisitionList[i]['requisitionLineMsisdnId'] + ",";
+      }
+    }
+
+    if(this.selectedIds != "" && this.selectedIds.length > 0){
+      this.selectedIds = this.selectedIds.substr(0, this.selectedIds.length - 1);
+    }
+
+    console.log(this.selectedIds);
+  }
+
   timeExtension(){
-    this.router.navigate(['nsa/testsim-timeext']);
+    this.getSelectedIds();
+    this.router.navigate(['nsa/testsim-timeext', this.selectedIds]);
   }
 
   creditLimitExtension(){
-    this.router.navigate(['nsa/testsim-creditlimitext']);
+    this.getSelectedIds();
+    this.router.navigate(['nsa/testsim-creditlimitext', this.selectedIds]);
   }
 
   recharge(){
-    this.router.navigate(['nsa/testsim-recharge']);
+    this.getSelectedIds();
+    this.router.navigate(['nsa/testsim-recharge', this.selectedIds]);
   }
 
   surrender(){
-    this.router.navigate(['nsa/testsim-surrender']);
+    this.getSelectedIds();
+    this.router.navigate(['nsa/testsim-surrender', this.selectedIds]);
   }
 
   damaged(){
-    this.router.navigate(['nsa/testsim-damaged']);
+    this.getSelectedIds();
+    this.router.navigate(['nsa/testsim-damaged', this.selectedIds]);
   }
 
   lost(){
-    this.router.navigate(['nsa/testsim-lost']);
+    this.getSelectedIds();
+    this.router.navigate(['nsa/testsim-lost', this.selectedIds]);
   }
 
   transfer(){
-    this.router.navigate(['nsa/testsim-transfer']);
+    this.getSelectedIds();
+    this.router.navigate(['nsa/testsim-transfer', this.selectedIds]);
   }
 
 }

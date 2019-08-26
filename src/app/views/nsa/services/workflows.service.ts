@@ -239,4 +239,12 @@ export class WorkflowsService {
 			status: "PENDING"
 		});
 	}
+
+	loadMySims(user_id: string) : any {
+		return this.http.post(this.serverUrl + 'workflow/mysims', {
+			createdBy: user_id,
+			requisitionNo: 0,
+			status: ""
+		});
+	}
 }
