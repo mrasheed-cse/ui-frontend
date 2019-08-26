@@ -215,6 +215,23 @@ export class WorkflowsService {
 		});
 	}
 
+	updateSimActivationReq(
+		wr_id: number, 
+		user_id: string, 
+		approvedRqnLineNumbers: string, 
+		rejectedRqnLineNumbers: string, 
+		approvedSimActivationIds: string,
+		actionType: string) : any {
+		return this.http.post(this.serverUrl + 'workflow/updatesimactivationreq', {
+			user_id: user_id,
+			wr_id: wr_id,
+			actionType: actionType,
+			approvedRqnLineNumbers: approvedRqnLineNumbers,
+			rejectedRqnLineNumbers: rejectedRqnLineNumbers,
+			approvedSimActivationIds : approvedSimActivationIds
+		});
+	}
+
 	activationRequestsPendingForApproval(wr_id: number, user_id: string) : any {
 		return this.http.post(this.serverUrl + 'workflow/activationrequestspendingforapproval', {
 			createdBy: user_id,

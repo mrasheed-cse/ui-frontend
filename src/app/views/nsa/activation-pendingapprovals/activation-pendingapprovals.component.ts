@@ -114,6 +114,7 @@ export class ActivationPendingapprovalsComponent implements OnInit {
   approve(){
 
     var allRqnLineNumbers = "";
+    var approvedSimActivationIds = "";
 
     for(var i = 0; i < this.requisition['msisdnDetails'].length; i++){
       if(this.requisition['msisdnDetails'][i]['selected']){
@@ -121,6 +122,7 @@ export class ActivationPendingapprovalsComponent implements OnInit {
         if(this.requisition['msisdnDetails'][i]['simStatus'] == "Pending activation" &&
         this.requisition['msisdnDetails'][i]['declarationStatus'] == "Agreed"){
           allRqnLineNumbers += this.requisition['msisdnDetails'][i]['requisitionLineMsisdnId'] + ",";
+          approvedSimActivationIds += this.requisition['msisdnDetails'][i]['simActivationId'] + ",";          
         }
         else{
           var msg = "Only MSISDNs which are pending for activation, and with declaration status 'Agreed', can be selected. Please deselect MSISDN in row " + (i+1) + ".";
@@ -133,8 +135,15 @@ export class ActivationPendingapprovalsComponent implements OnInit {
 
     //console.log(allRqnLineNumbers);return;
 
-    //// //////////////////// //////////////
-    this.workflowsService.submitNewSimActivationReq(this.requisition['requisitionDetails']['id'], this.userID, allRqnLineNumbers, "", "NEW").subscribe(
+    if(confirm("For each MSISDN, please confirm that activation from Bluebox has been completed")){
+      //// //////////////////// //////////////
+      this.workflowsService.updateSimActivationReq(
+        this.requisition['requisitionDetails']['id'], 
+        this.userID, 
+        allRqnLineNumbers, 
+        "", 
+        approvedSimActivationIds, 
+        "UPDATE").subscribe(
       res  =>  {        
         console.log('response is : '+res.message);  
         if(res !== ""){
@@ -142,24 +151,25 @@ export class ActivationPendingapprovalsComponent implements OnInit {
         }
       },
       err  =>  {	
-           
+          
       }
 
-    );
+      );
 
-    setTimeout(()=>{    //<<<---    using ()=> syntax
-      
+      setTimeout(()=>{    //<<<---    using ()=> syntax
+
       /////////////////// //////////////////////////
       this.isLoading = false;
       alert('This request has been submitted.');
       this.router.navigate(['nsa/testsimdashboard']);
       /////////// ////////////// ///////////////////
 
-    }, 5000);
+      }, 5000);
 
 
-    ///////// /////////////// //////////////
-
+      ///////// /////////////// //////////////
+    }
+    
   }
 
 }
