@@ -32,3 +32,18 @@
     background-color: white;
     box-shadow: 5px 2px 5px #f86cff;
 }
+
+.table.table-bordered.table-striped.table-sm th,
+.table.table-bordered.table-striped.table-sm td{
+    border:1px solid #fff !important;
+}
+
+.table.table-bordered.table-striped.table-sm th{
+    background-color:royalblue !important;
+    color:white !important;
+}
+
+.table.table-bordered.table-striped.table-sm{
+    box-shadow: #888888 4px 4px 3px;
+}
+
