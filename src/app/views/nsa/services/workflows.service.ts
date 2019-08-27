@@ -247,4 +247,12 @@ export class WorkflowsService {
 			status: ""
 		});
 	}
+
+	loadMySimsFiltered(user_id: string, requisitionLineMsisdnIds: string) : any {
+		return this.http.post(this.serverUrl + 'workflow/mysims', {
+			createdBy: user_id,
+			requisitionNo: 0,
+			status: requisitionLineMsisdnIds
+		});
+	}
 }
