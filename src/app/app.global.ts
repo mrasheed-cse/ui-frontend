@@ -37,7 +37,15 @@ export class AppGlobals {
 	readonly wrid_ApnCreation: number = 6;
 	readonly wrid_DescProvisioning: number = 7;
 	readonly wrid_NewSimRequision: number = 8;
-
+	readonly wrid_NewSimActivation: number = 9;
+	readonly wrid_testSimTimeLimitExtension: number = 10;
+	readonly wrid_testSimCreditLimitExtension: number = 11;
+	readonly wrid_testSimRecharge: number = 12;
+	readonly wrid_testSimSurrender: number = 13;
+	readonly wrid_testSimDamaged: number = 14;
+	readonly wrid_testSimLost: number = 15;
+	readonly wrid_testSimTransfer: number = 16;
+	readonly wrid_NewSimDeactivation: number = 17;
 
 	readonly masterData_RequisitionType = 1;
 	readonly masterData_UsageCategory = 2;

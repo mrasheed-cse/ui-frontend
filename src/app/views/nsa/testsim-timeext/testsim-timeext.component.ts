@@ -91,6 +91,70 @@ export class TestsimTimeextComponent implements OnInit {
 
   submit(){
 
+    for(var i = 0; i < this.requisitionList.length; i++){
+
+      if(this.requisitionList[i]['newEndDate'] == null ||
+      this.requisitionList[i]['newEndDate'] == undefined ||
+      this.requisitionList[i]['newEndDate'] == ""){
+          var msg = "At row " + (i+1) + " end date is blank.";
+          alert(msg);
+          return;
+      }
+
+      if(this.requisitionList[i]['justification'] == null ||
+      this.requisitionList[i]['justification'] == undefined ||
+      this.requisitionList[i]['justification'] == ""){
+          var msg = "At row " + (i+1) + " justification is blank.";
+          alert(msg);
+          return;
+      }
+
+    }
+
+    ////////////// ////////////////////////
+
+    this.isLoading = true;
+
+    var requestObj = {};
+    requestObj['defWorkRequestId'] = this._global.wrid_testSimTimeLimitExtension;
+    requestObj['initiator'] = this.userName;
+    requestObj['initiateDate'] = "";
+    requestObj['requisitionId'] = 0;
+    requestObj['numberWiseDetails'] = [];
+
+    for(var i = 0; i < this.requisitionList.length; i++){
+
+      var requestDetailObj = {};
+      requestDetailObj['requisitionLineMsisdnId'] = this.requisitionList[i]['requisitionLineMsisdnId'];
+      requestDetailObj['justification'] = this.requisitionList[i]['justification'];
+      requestDetailObj['comments'] = this.requisitionList[i]['justification'];
+      requestDetailObj['newCreditLimit'] = 0;
+      requestDetailObj['newEndDate'] = this.requisitionList[i]['newEndDate'];
+      requestDetailObj['rechargeAmount'] = 0;
+      requestDetailObj['transferMode'] = "";
+      requestDetailObj['transferTo'] = "";
+      requestDetailObj['lostDamageMode'] = "";
+      requestDetailObj['lostDamageDate'] = "";
+
+      requestObj['numberWiseDetails'].push(requestDetailObj);
+
+    } //end of loop over numbers
+
+    ////////////////// /////////////////////////////////
+    this.workFlowsService.submitSimActionRequest(requestObj).subscribe(
+      data => {
+        
+      },
+    err => console.error(err),
+    () => console.log('Done loading PendingTask List')
+    );
+    setTimeout(()=>{    //<<<---    using ()=> syntax
+      this.isLoading = false;
+      alert("The request has been submitted");
+      this.router.navigate(['nsa/testsimdashboard']);
+    }, 4000);
+
+    ////////////// /////////////////////// /////////////
   }
 
   cancel(){

@@ -255,4 +255,8 @@ export class WorkflowsService {
 			status: requisitionLineMsisdnIds
 		});
 	}
+
+	submitSimActionRequest(requestObj: any) : any {
+		return this.http.post(this.serverUrl + 'workflow/submitsimactionrequest', requestObj);
+	}
 }
