@@ -32,8 +32,8 @@
                             <td>{{aTask.msisdn}}</td>
                             <td>{{aTask.requisitionNo}}</td>                          
                             <td>{{aTask.simStatus}}</td>
-                            <td>{{aTask.testStartDate}}</td>
-                            <td>{{aTask.testEndDate}}</td>
+                            <td>{{aTask.testStartDateAsString}}</td>
+                            <td>{{aTask.testEndDateAsString}}</td>
                             <td>
                               <select class="form-control"  [(ngModel)] = "aTask.transferMode">
                                   <option *ngFor="let singleListItem of listTransferModes" [value]="singleListItem.id">{{singleListItem.name}}</option>

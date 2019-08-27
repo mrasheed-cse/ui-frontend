@@ -7,7 +7,7 @@ import {
 import { HttpClient } from '@angular/common/http';
 import { WorkflowsService } from './../services/workflows.service';
 import { AppGlobals } from './../../../app.global';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 import { environment } from '../../../../environments/environment.prod';
 
 import { LoginService } from '../../pages/LoginService';
@@ -21,6 +21,7 @@ import { LoggedInUser } from '../../pages/loggedInUser';
 })
 export class TestsimTransferComponent implements OnInit {
 
+  allRequisitionLineMsisdnIds: string;
   requisitionList: Array<Object>;
 	currentLoggedInUser: LoggedInUser;
 	userName: string;
@@ -33,8 +34,9 @@ export class TestsimTransferComponent implements OnInit {
   listTransferModes: Array<any>;
   listUsers: Array<any>;
 
-  constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {
+  constructor(private route:ActivatedRoute, private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {
 
+    this.allRequisitionLineMsisdnIds = "";
     this.isLoading = false;
     let isValid = true;
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
@@ -47,28 +49,21 @@ export class TestsimTransferComponent implements OnInit {
     else {
       this.router.navigate(['pages/login']);
     }
-    this.requisitionList = _global.dataTempForMySims;
-    this.listTransferModes = [
-      {
-        "id":"Transfer","name":"Transfer"
-      },
-      {
-        "id":"Handover","name":"Handover"
-      }
-    ];
-    
-    this.listUsers = [];
+    this.requisitionList = [];
 
   } //end of constructor
 
   loadPendingList(){
     //GetPendingTaskList
-    this.workFlowsService.LoadRequisitionList(0,this.userID).subscribe(
+    this.workFlowsService.loadMySimsFiltered(this.userID, this.allRequisitionLineMsisdnIds).subscribe(
         data => {
           if(data !=null){
             console.log(data);
             this.isDataFound = true;
             this.requisitionList = data;
+            for(var i = 0; i < this.requisitionList.length; i++){
+              this.requisitionList[i]['selected'] = false;
+            }
             this.isLoading = false;
           }
           else{
@@ -85,10 +80,25 @@ export class TestsimTransferComponent implements OnInit {
 
   ngOnInit () {
 
-    //this.isLoading = true;
+    this.isLoading = true;
+    this.allRequisitionLineMsisdnIds = this.route.snapshot.paramMap.get('all_ids');
+    console.log("sim action page");
+    console.log("this.allRequisitionLineMsisdnIds");
 
     setTimeout(()=>{    //<<<---    using ()=> syntax
-      //this.loadPendingList();
+      this.loadPendingList();
+
+      this.listTransferModes = [
+        {
+          "id":"Transfer","name":"Transfer"
+        },
+        {
+          "id":"Handover","name":"Handover"
+        }
+      ];
+      
+      this.listUsers = [];
+
     }, 2000);
 
   }
@@ -98,7 +108,11 @@ export class TestsimTransferComponent implements OnInit {
   }
 
   cancel(){
-    
-  }
+    this.router.navigate(['nsa/testsimdashboard']);
+  }  
+  
+  //////////// ///////////////////////////// //////////////////////////////////
+  
+  
 
 }
