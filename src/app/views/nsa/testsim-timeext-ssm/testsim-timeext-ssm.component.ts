@@ -22,6 +22,7 @@ import { LoggedInUser } from '../../pages/loggedInUser';
 export class TestsimTimeextSsmComponent implements OnInit {
 
   requisitionList: Array<Object>;
+  msisdnList: Array<Object>;
 	currentLoggedInUser: LoggedInUser;
 	userName: string;
 	groupID: number;
@@ -30,10 +31,12 @@ export class TestsimTimeextSsmComponent implements OnInit {
 	routerUrlAndParams: string;
   public isLoading:boolean = false;
   isDataFound: boolean = true;
+  showDetail: boolean = false;
 
   constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {
 
     this.isLoading = false;
+    this.showDetail = false;
     let isValid = true;
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
 
@@ -45,13 +48,14 @@ export class TestsimTimeextSsmComponent implements OnInit {
     else {
       this.router.navigate(['pages/login']);
     }
-    this.requisitionList = _global.dataTempForMySims;
+    this.requisitionList = [];
+    this.msisdnList = [];
 
   } //end of constructor
 
   loadPendingList(){
     //GetPendingTaskList
-    this.workFlowsService.LoadRequisitionList(0,this.userID).subscribe(
+    this.workFlowsService.simActionRequestsPendingForApproval(this._global.wrid_testSimTimeLimitExtension,this.userID).subscribe(
         data => {
           if(data !=null){
             console.log(data);
@@ -70,23 +74,81 @@ export class TestsimTimeextSsmComponent implements OnInit {
     this.todayDate = new Date();
   }
 
+  initTasks(){
+    this.requisitionList = [];
+    this.msisdnList = [];
+    this.isLoading = true;
+    this.showDetail = false;
+
+    setTimeout(()=>{    //<<<---    using ()=> syntax
+      this.loadPendingList();
+    }, 2000);
+  }
 
   ngOnInit () {
 
-    //this.isLoading = true;
-
-    setTimeout(()=>{    //<<<---    using ()=> syntax
-      //this.loadPendingList();
-    }, 2000);
+    this.initTasks();
 
   }
 
-  approve(){
+  details(aTask){
+
+    this.isLoading = true;
+    this.workFlowsService.simActionRequestDetailsPendingForApproval(aTask['simActionId']).subscribe(
+      res  =>  {
+        if(res !== ""){
+          this.msisdnList = res;
+
+          for(var i = 0; i < this.msisdnList.length; i++){
+            this.msisdnList[i]['selected'] = false;
+            this.msisdnList[i]['isApproved'] = false;
+            this.msisdnList[i]['isRejected'] = false;
+            this.msisdnList[i]['locked'] = false;            
+            if(this.msisdnList[i]['approvalStatus'] == 2){
+              this.msisdnList[i]['isRejected'] = true;
+              this.msisdnList[i]['locked'] = true;
+            }
+          }
+
+          this.isLoading = false;
+          this.showDetail = true;
+        }
+      },
+      err  =>  {	
+           
+      }        
+    );
 
   }
 
-  reject(){
+  approveAll(){
+
+    for(var i = 0; i < this.msisdnList.length; i++){
+      if(!this.msisdnList[i]['locked']){
+        this.msisdnList[i]['isRejected'] = false;
+        this.msisdnList[i]['isApproved'] = true;
+      }
+    }
+
+  }
+
+  rejectAll(){
     
+    for(var i = 0; i < this.msisdnList.length; i++){
+      if(!this.msisdnList[i]['locked']){
+        this.msisdnList[i]['isRejected'] = true;
+        this.msisdnList[i]['isApproved'] = false;
+      }
+    }
+
+  }
+
+  submit(){
+
+  }
+
+  cancel(){
+    this.initTasks();
   }
 
 }

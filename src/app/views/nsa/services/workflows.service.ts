@@ -259,4 +259,22 @@ export class WorkflowsService {
 	submitSimActionRequest(requestObj: any) : any {
 		return this.http.post(this.serverUrl + 'workflow/submitsimactionrequest', requestObj);
 	}
+
+
+	simActionRequestsPendingForApproval(wr_id: number, user_id: string) : any {
+		return this.http.post(this.serverUrl + 'workflow/simactionspendingforapproval', {
+			createdBy: user_id,
+			requisitionNo: wr_id,
+			status: "PENDING"
+		});
+	}
+
+	simActionRequestDetailsPendingForApproval(sim_action_id: number) : any {
+		return this.http.post(this.serverUrl + 'workflow/simactiondetailspendingforapproval', {
+			createdBy: 0,
+			requisitionNo: sim_action_id,
+			status: "PENDING"
+		});
+	}
+
 }
