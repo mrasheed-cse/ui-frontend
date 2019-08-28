@@ -119,7 +119,7 @@ export class ActivationPendingapprovalsComponent implements OnInit {
     for(var i = 0; i < this.requisition['msisdnDetails'].length; i++){
       if(this.requisition['msisdnDetails'][i]['selected']){
 
-        if(this.requisition['msisdnDetails'][i]['simStatus'] == "Pending activation" &&
+        if(this.requisition['msisdnDetails'][i]['simStatus'] == "Inactive" &&
         this.requisition['msisdnDetails'][i]['declarationStatus'] == "Agreed"){
           allRqnLineNumbers += this.requisition['msisdnDetails'][i]['requisitionLineMsisdnId'] + ",";
           approvedSimActivationIds += this.requisition['msisdnDetails'][i]['simActivationId'] + ",";          

@@ -120,7 +120,7 @@ export class NewsimactivationreqDetailsComponent implements OnInit {
     for(var i = 0; i < this.requisition['msisdnDetails'].length; i++){
       if(this.requisition['msisdnDetails'][i]['selected']){
 
-        if(this.requisition['msisdnDetails'][i]['simStatus'] == "Pending activation"){
+        if(this.requisition['msisdnDetails'][i]['simStatus'] == "Inactive"){
           allRqnLineNumbers += this.requisition['msisdnDetails'][i]['requisitionLineMsisdnId'] + ",";
         }
         else{

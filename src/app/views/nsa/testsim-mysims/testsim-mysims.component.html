@@ -9,7 +9,7 @@
     </div>
     <div class="card">
       <div class="card-header">
-        <i class="fa fa-align-justify"></i> Test SIMs assigned to myself
+        <i class="fa fa-align-justify"></i> <b>Active</b> Test SIMs assigned to myself
       </div>
       <div class="card-body" *ngIf="isDataFound">
         <table class="table table-bordered table-striped table-sm">
@@ -56,6 +56,46 @@
       <div class="card-body" *ngIf="!isDataFound">
           <div class="alert alert-primary" role="alert" ><b>System found no active test SIMs</b></div>
       </div>
+    </div>
+    
+
+    <div class="card">
+        <div class="card-header">
+          <i class="fa fa-align-justify"></i> My other Test SIMs (<b>not active SIMs</b>)
+        </div>
+        <div class="card-body" *ngIf="isDataFoundOther">
+          <table class="table table-bordered table-striped table-sm">
+            <thead>
+              <tr>
+                <th>SL</th>
+                <th>MSISDN</th>
+                <th>RQN #</th>
+                <th>RQN Type</th>
+                <th>SIM Status</th>
+                <th>RQN Date</th>
+                <th>Test start date</th>
+                <th>Test end date</th>
+                <th>Credit limit</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let aTask of requisitionListOther;  index as i">
+                        <tr>
+                            <td>{{i + 1}}</td>
+                            <td>{{aTask.msisdn}}</td>
+                            <td>{{aTask.requisitionNo}}</td>                          
+                            <td>{{aTask.requisitionType}}</td>
+                            <td>{{aTask.simStatus}}</td>
+                            <td>{{aTask.requisitionDateAsString}}</td>
+                            <td>{{aTask.testStartDateAsString}}</td>
+                            <td>{{aTask.testEndDateAsString}}</td>
+                            <td>{{aTask.assignedCreditLimit}}</td>                                                                              
+                        </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card-body" *ngIf="!isDataFoundOther">
+            <div class="alert alert-primary" role="alert" ><b>System found no other (non-active) test SIMs</b></div>
+        </div>
     </div>
 
   </div>

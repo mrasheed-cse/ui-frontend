@@ -248,6 +248,14 @@ export class WorkflowsService {
 		});
 	}
 
+	loadMyNonActiveSims(user_id: string) : any {
+		return this.http.post(this.serverUrl + 'workflow/mynonactivesims', {
+			createdBy: user_id,
+			requisitionNo: 0,
+			status: ""
+		});
+	}
+
 	loadMySimsFiltered(user_id: string, requisitionLineMsisdnIds: string) : any {
 		return this.http.post(this.serverUrl + 'workflow/mysims', {
 			createdBy: user_id,

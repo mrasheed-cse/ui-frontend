@@ -23,6 +23,7 @@ export class TestsimMysimsComponent implements OnInit {
 
   selectedIds: string;
   requisitionList: Array<Object>;
+  requisitionListOther: Array<Object>;
 	currentLoggedInUser: LoggedInUser;
 	userName: string;
 	groupID: number;
@@ -31,6 +32,7 @@ export class TestsimMysimsComponent implements OnInit {
 	routerUrlAndParams: string;
   public isLoading:boolean = false;
   isDataFound: boolean = true;
+  isDataFoundOther: boolean = true;
 
   constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {
 
@@ -51,6 +53,27 @@ export class TestsimMysimsComponent implements OnInit {
 
   } //end of constructor
 
+  loadOtherSims(){
+    this.isLoading = true;
+    this.workFlowsService.loadMyNonActiveSims(this.userID).subscribe(
+      data => {
+        if(data !=null){
+          console.log(data);
+          this.isDataFoundOther = true;
+          this.requisitionListOther = data;
+          this.isLoading = false;
+        }
+        else{
+          this.isDataFoundOther = false;
+        }
+      },
+    err => console.error(err),
+    () => console.log('Done loading PendingTask List')
+    );
+    this.isLoading = false;
+  }
+
+
   loadPendingList(){
     //GetPendingTaskList
     this.workFlowsService.loadMySims(this.userID).subscribe(
@@ -62,7 +85,7 @@ export class TestsimMysimsComponent implements OnInit {
             for(var i = 0; i < this.requisitionList.length; i++){
               this.requisitionList[i]['selected'] = false;
             }
-            this.isLoading = false;
+            this.loadOtherSims();
           }
           else{
             this.isDataFound = false;
