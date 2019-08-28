@@ -9,7 +9,8 @@
       </div>
       <div class="card">
         <div class="card-header">
-          <i class="fa fa-align-justify"></i> Recharge - SSM Approval
+          <!-- TODO hardcode -->
+          <i class="fa fa-align-justify"></i> Recharge - <span *ngIf="userName == 'samrine'">HOD</span><span *ngIf="userName != 'samrine'">SSM</span> Approval
         </div>
         <div class="card-body" *ngIf="isDataFound && !showDetail">
           <table class="table table-bordered table-striped table-sm">
