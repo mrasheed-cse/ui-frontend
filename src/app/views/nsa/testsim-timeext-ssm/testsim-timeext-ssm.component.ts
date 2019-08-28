@@ -197,4 +197,11 @@ export class TestsimTimeextSsmComponent implements OnInit {
     this.initTasks();
   }
 
+  checkApproval(event, aTask){
+    console.log(aTask);
+    if(aTask['locked'] == true){
+      aTask['isRejected'] == true;
+      aTask['isApproved'] == false;
+    }
+  }
 }
