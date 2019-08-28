@@ -277,4 +277,8 @@ export class WorkflowsService {
 		});
 	}
 
+	updateSimAction(data: any) : any {
+		return this.http.post(this.serverUrl + 'workflow/updatesimaction', data);
+	}
+
 }

@@ -32,6 +32,7 @@ export class TestsimTimeextSsmComponent implements OnInit {
   public isLoading:boolean = false;
   isDataFound: boolean = true;
   showDetail: boolean = false;
+  selectedSimActionId: number;
 
   constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {
 
@@ -75,6 +76,7 @@ export class TestsimTimeextSsmComponent implements OnInit {
   }
 
   initTasks(){
+    this.selectedSimActionId = 0;
     this.requisitionList = [];
     this.msisdnList = [];
     this.isLoading = true;
@@ -94,6 +96,8 @@ export class TestsimTimeextSsmComponent implements OnInit {
   details(aTask){
 
     this.isLoading = true;
+    this.selectedSimActionId = (aTask['simActionId']);
+
     this.workFlowsService.simActionRequestDetailsPendingForApproval(aTask['simActionId']).subscribe(
       res  =>  {
         if(res !== ""){
@@ -144,6 +148,48 @@ export class TestsimTimeextSsmComponent implements OnInit {
   }
 
   submit(){
+
+    this.isLoading = true;
+
+    var obj = {};
+    obj['simActionId'] = this.selectedSimActionId;
+    obj['userId'] = this.userName;
+    obj['msisdnDetails'] = [];
+
+    for(var i = 0; i < this.msisdnList.length; i++){
+
+      var obj2 = {};
+      obj2['simActionMsisdnId'] = this.msisdnList[i]['simActionMsisdnId'];
+      if(this.msisdnList[i]['isRejected']){
+        obj2['approvalStatus'] = 2;
+      }
+      if(this.msisdnList[i]['isApproved']){
+        obj2['approvalStatus'] = 1;
+      }
+
+      obj['msisdnDetails'].push(obj2);
+    }
+
+    this.workFlowsService.updateSimAction(obj).subscribe(
+      res  =>  {
+        if(res !== ""){
+          
+        }
+      },
+      err  =>  {	
+           
+      }        
+    );
+
+    setTimeout(()=>{    //<<<---    using ()=> syntax
+
+      /////////////////// //////////////////////////
+      this.isLoading = false;
+      alert('This request has been submitted.');
+      this.router.navigate(['nsa/testsimdashboard']);
+      /////////// ////////////// ///////////////////
+
+      }, 5000);
 
   }
 
