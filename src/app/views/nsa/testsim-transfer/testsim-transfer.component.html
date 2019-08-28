@@ -40,9 +40,10 @@
                               </select>
                             </td>
                             <td>
-                              <select class="form-control"  [(ngModel)] = "aTask.transferTo">
+                              <input type="text" [(ngModel)] = "aTask.transferTo" />
+                              <!--<select class="form-control"  >
                                   <option *ngFor="let singleUser of listUsers" [value]="singleUser.nsa_users_id">{{singleListItem.nsa_users_name}}</option>
-                              </select>
+                              </select>-->
                             </td>
                             <td>
                                 <input type="text" class="form-control" [(ngModel)] = "aTask.justification" />
