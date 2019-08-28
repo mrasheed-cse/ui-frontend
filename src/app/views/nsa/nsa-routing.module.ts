@@ -417,14 +417,14 @@ const routes: Routes = [
     path: 'testsim-timeext-ssm',
     component: TestsimTimeextSsmComponent,
     data: {
-      title: 'Time Limit Extension - SSM approval'
+      title: 'Time Limit Extension - Approval'
     }
   },
   {
     path: 'testsim-timeext-hod',
     component: TestsimTimeextHodComponent,
     data: {
-      title: 'Time Limit Extension - HOD approval'
+      title: 'Time Limit Extension - Approval'
     }
   },
   {
@@ -438,14 +438,14 @@ const routes: Routes = [
     path: 'testsim-creditlimitext-ssm',
     component: TestsimCreditlimitextSsmComponent,
     data: {
-      title: 'Credit Limit Extension - SSM Approval'
+      title: 'Credit Limit Extension - Approval'
     }
   },
   {
     path: 'testsim-creditlimitext-hod',
     component: TestsimCreditlimitextHodComponent,
     data: {
-      title: 'Credit Limit Extension - HOD Approval'
+      title: 'Credit Limit Extension - Approval'
     }
   },
   {
@@ -459,14 +459,14 @@ const routes: Routes = [
     path: 'testsim-recharge-ssm',
     component: TestsimRechargeSsmComponent,
     data: {
-      title: 'Recharge - SSM approval'
+      title: 'Recharge - Approval'
     }
   },
   {
     path: 'testsim-recharge-hod',
     component: TestsimRechargeHodComponent,
     data: {
-      title: 'Recharge - HOD approval'
+      title: 'Recharge - Approval'
     }
   },
   {
@@ -480,14 +480,14 @@ const routes: Routes = [
     path: 'testsim-surrender-hod',
     component: TestsimSurrenderHodComponent,
     data: {
-      title: 'Surrender - HOD approval'
+      title: 'Surrender - Approval'
     }
   },
   {
     path: 'testsim-surrender-ssm',
     component: TestsimSurrenderSsmComponent,
     data: {
-      title: 'Surrender - SSM approval'
+      title: 'Surrender - Approval'
     }
   },
   {
@@ -501,14 +501,14 @@ const routes: Routes = [
     path: 'testsim-damaged-ssm',
     component: TestsimDamagedSsmComponent,
     data: {
-      title: 'Damaged Test SIM - SSM approval'
+      title: 'Damaged Test SIM - Approval'
     }
   },
   {
     path: 'testsim-damaged-hod',
     component: TestsimDamagedHodComponent,
     data: {
-      title: 'Damaged Test SIM - HOD approval'
+      title: 'Damaged Test SIM - Approval'
     }
   },
   {
@@ -522,14 +522,14 @@ const routes: Routes = [
     path: 'testsim-lost-ssm',
     component: TestsimLostSsmComponent,
     data: {
-      title: 'Lost Test SIM - SSM approval'
+      title: 'Lost Test SIM - Approval'
     }
   },
   {
     path: 'testsim-lost-hod',
     component: TestsimLostHodComponent,
     data: {
-      title: 'Lost Test SIM - HOD approval'
+      title: 'Lost Test SIM - Approval'
     }
   },
   {
@@ -543,14 +543,14 @@ const routes: Routes = [
     path: 'testsim-transfer-hod',
     component: TestsimTransferHodComponent,
     data: {
-      title: 'Transfer - HOD approval'
+      title: 'Transfer - Approval'
     }
   },
   {
     path: 'testsim-transfer-ssm',
     component: TestsimTransferSsmComponent,
     data: {
-      title: 'Transfer - SSM approval'
+      title: 'Transfer - Approval'
     }
   }
 ];
