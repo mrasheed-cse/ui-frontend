@@ -101,6 +101,12 @@ export class TestsimRechargeComponent implements OnInit {
           return;
       }
 
+      if(parseFloat( this.requisitionList[i]['rechargeAmount'] ) > parseFloat( this.requisitionList[i]['assignedCreditLimit'] )){
+          var msg = "At row " + (i+1) + " recharge amount is more than credit limit. This is invalid entry";
+          alert(msg);
+          return;
+      }
+
       if(this.requisitionList[i]['justification'] == null ||
       this.requisitionList[i]['justification'] == undefined ||
       this.requisitionList[i]['justification'] == ""){
