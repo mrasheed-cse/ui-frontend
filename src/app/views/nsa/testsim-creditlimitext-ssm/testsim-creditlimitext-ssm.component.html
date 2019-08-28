@@ -1,53 +1,97 @@
 <div class="row">
 
-  <div class="col-md-12">
-
-    <div class="card" style="border:0px !important;background:transparent !important">
-          <div style="text-align: center">
-                <i class="fa fa-spinner fa-pulse fa-3x fa-fw" *ngIf="isLoading" ></i>
-          </div>
+    <div class="col-md-12">
+  
+      <div class="card" style="border:0px !important;background:transparent !important">
+            <div style="text-align: center">
+                  <i class="fa fa-spinner fa-pulse fa-3x fa-fw" *ngIf="isLoading" ></i>
+            </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-align-justify"></i> Time Limit Extension - SSM Approval
+        </div>
+        <div class="card-body" *ngIf="isDataFound && !showDetail">
+          <table class="table table-bordered table-striped table-sm">
+            <thead>
+              <tr>
+                <th>SL</th>
+                <th>Work Request #</th>
+                <th>Request Type</th>
+                <th>Requested by</th>
+                <th>Initiate date</th>
+                <th>Action</th>                
+              </tr>
+            </thead>
+            <tbody *ngFor="let aTask of requisitionList;  index as i">
+                        <tr>
+                            <td>{{i + 1}}</td>
+                            <td>{{aTask.workRequestBriefName}}</td>
+                            <td>{{aTask.requestType}}</td>                          
+                            <td>{{aTask.requestedBy}}</td>
+                            <td>{{aTask.requestedOn}}</td>
+                            <td><a style="color:white !important" class="btn btn-primary btn-sm btn-xs" (click) = "details(aTask)" >Details</a></td>                                                   
+                        </tr>
+            </tbody>
+          </table>
+          <!--
+          <br /><br />
+  
+          <a style="width:140px" class="btn btn-success" (click) = "approve()" >Approve</a>
+          <a style="width:140px" class="btn btn-danger" (click) = "reject()" >Reject</a>-->
+        </div>
+        <div class="card-body" *ngIf="!isDataFound">
+            <div class="alert alert-primary" role="alert" ><b>System did not find any data</b></div>
+        </div>
+      </div>
+  
+  
+      <div class="card">
+        <div class="card-body" *ngIf="showDetail">
+          <span style="font-style:italic;text-decoration: underline;display:block">You cannot change the status of MSISDNs rejected by previous user in approval chain</span>
+          <br />
+          <table class="table table-bordered table-striped table-sm">
+            <thead>
+              <tr>
+                <th style="background-color:green !important">SL</th>
+                <th style="background-color:green !important">MSISDN</th>
+                <th style="background-color:green !important">New Credit Limit</th>
+                <th style="background-color:green !important">Justification</th>
+                <th style="background-color:green !important">
+                  <a (click)="approveAll()">Approve all</a>
+                  &nbsp;&nbsp;&nbsp;
+                  <a (click)="rejectAll()">Reject all</a>
+                </th>                
+              </tr>
+            </thead>
+            <tbody *ngFor="let aTask of msisdnList;  index as i">
+                        <tr>
+                            <td>{{i + 1}}</td>
+                            <td>{{aTask.msisdn}}</td>
+                            <td>{{aTask.newCreditLimit}}</td>                          
+                            <td>{{aTask.justification}}</td>
+                            <td>
+                              <input type="checkbox" [(ngModel)] = "aTask.isApproved" [disabled]="aTask.locked" /> Approve
+                              &nbsp;&nbsp;&nbsp;
+                              <input type="checkbox" [(ngModel)] = "aTask.isRejected" [disabled]="aTask.locked" /> Reject                            
+                            </td>                                                   
+                        </tr>
+            </tbody>
+          </table>
+          
+          <br /><br />
+  
+          <a style="width:140px" class="btn btn-success" (click) = "submit()" >Submit</a>
+          <a style="width:140px" class="btn btn-danger" (click) = "cancel()" >Cancel</a>
+        </div>
+        <div class="card-body" *ngIf="!isDataFound">
+            <div class="alert alert-primary" role="alert" ><b>System did not find any data</b></div>
+        </div>
+      </div>
+  
+  
     </div>
-    <div class="card">
-      <div class="card-header">
-        <i class="fa fa-align-justify"></i> Credit Limit Extension - SSM approval
-      </div>
-      <div class="card-body" *ngIf="isDataFound">
-        <table class="table table-bordered table-striped table-sm">
-          <thead>
-            <tr>
-              <th>SL</th>
-              <th>MSISDN</th>
-              <th>RQN #</th>
-              <th>SIM Status</th>
-              <th>Assigned Credit Limit</th>
-              <th>New Credit Limit/th>
-              <th>Justification</th>                
-            </tr>
-          </thead>
-          <tbody *ngFor="let aTask of requisitionList;  index as i">
-                      <tr>
-                          <td>{{i + 1}}</td>
-                          <td>{{aTask.msisdn}}</td>
-                          <td>{{aTask.requisitionNo}}</td>                          
-                          <td>{{aTask.simStatus}}</td>
-                          <td>{{aTask.assignedCreditLimit}}</td>
-                          <td>{{aTask.newCreditLimit}}</td>
-                          <td>{{aTask.justification}}</td>                                                                              
-                      </tr>
-          </tbody>
-        </table>
-
-        <br /><br />
-
-        <a style="width:140px" class="btn btn-success" (click) = "approve()" >Approve</a>
-        <a style="width:140px" class="btn btn-danger" (click) = "reject()" >Reject</a>
-      </div>
-      <div class="card-body" *ngIf="!isDataFound">
-          <div class="alert alert-primary" role="alert" ><b>System did not find any data</b></div>
-      </div>
-    </div>
-
+  
+  
   </div>
-
-
-</div>
+  
