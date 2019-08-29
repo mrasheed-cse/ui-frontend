@@ -21,6 +21,7 @@ import { LoggedInUser } from '../../pages/loggedInUser';
 })
 export class TestsimMysimsComponent implements OnInit {
 
+
   selectedIds: string;
   requisitionList: Array<Object>;
   requisitionListOther: Array<Object>;
@@ -33,6 +34,25 @@ export class TestsimMysimsComponent implements OnInit {
   public isLoading:boolean = false;
   isDataFound: boolean = true;
   isDataFoundOther: boolean = true;
+
+  selectAll:boolean = false;
+
+  handleSelectAll(event: any){
+
+    console.log(event);
+
+    if(event != null && event != "" && event != undefined) event = parseInt(event);
+    else return;
+
+    var status = false;
+    if(event == 1){
+      status = true;
+    }
+
+    for(var i = 0; i < this.requisitionList.length; i++){
+      this.requisitionList[i]['selected'] = status;
+    }
+  }
 
   constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {
 
