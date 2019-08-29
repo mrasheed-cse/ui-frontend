@@ -35,6 +35,24 @@ export class NewsimactivationreqDetailsComponent implements OnInit {
   public isLoading:boolean = false;
   isDataFound: boolean = true;
   routerUrlAndParams: string;
+  selectAll:boolean = false;
+
+  handleSelectAll(event: any){
+
+    console.log(event);
+
+    if(event != null && event != "" && event != undefined) event = parseInt(event);
+    else return;
+
+    var status = false;
+    if(event == 1){
+      status = true;
+    }
+
+    for(var i = 0; i < this.requisition['msisdnDetails'].length; i++){
+      this.requisition['msisdnDetails'][i]['selected'] = status;
+    }
+  }
 
   constructor(private route:ActivatedRoute, private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService, private ismsworkflowsService: IsmsworkflowsService) {
 
@@ -114,52 +132,56 @@ export class NewsimactivationreqDetailsComponent implements OnInit {
 
   submit(){
 
-    this.isLoading = true;
-    var allRqnLineNumbers = "";
-
-    for(var i = 0; i < this.requisition['msisdnDetails'].length; i++){
-      if(this.requisition['msisdnDetails'][i]['selected']){
-
-        if(this.requisition['msisdnDetails'][i]['simStatus'] == "Inactive"){
-          allRqnLineNumbers += this.requisition['msisdnDetails'][i]['requisitionLineMsisdnId'] + ",";
-        }
-        else{
-          var msg = "Only MSISDNs which are pending for activation can be selected. Please deselect MSISDN in row " + (i+1) + ".";
-          alert(msg);
-          return;
-        }
-
-      }
-    }
-
-    //console.log(allRqnLineNumbers);return;
-
-    //// //////////////////// //////////////
-    this.workFlowsService.submitNewSimActivationReq(this.requisition['requisitionDetails']['id'], this.userID, allRqnLineNumbers, "", "NEW").subscribe(
-      res  =>  {        
-        console.log('response is : '+res.message);  
-        if(res !== ""){
-
-        }
-      },
-      err  =>  {	
-           
-      }
-
-    );
-
-    setTimeout(()=>{    //<<<---    using ()=> syntax
+    if(confirm("You are about to submit SIM activation request. Do you agree to the terms and conditions displayed onscreen?")){
       
-      /////////////////// //////////////////////////
-      this.isLoading = false;
-      alert('This request has been submitted.');
-      this.router.navigate(['nsa/testsimdashboard']);
-      /////////// ////////////// ///////////////////
+      var allRqnLineNumbers = "";
+  
+      for(var i = 0; i < this.requisition['msisdnDetails'].length; i++){
+        if(this.requisition['msisdnDetails'][i]['selected']){
+  
+          if(this.requisition['msisdnDetails'][i]['simStatus'] == "Inactive" || this.requisition['msisdnDetails'][i]['simStatus'] == "Declaration not given"){
+            allRqnLineNumbers += this.requisition['msisdnDetails'][i]['requisitionLineMsisdnId'] + ",";
+          }
+          else{
+            var msg = "Only inactive MSISDNs can be selected. Please deselect MSISDN in row " + (i+1) + ".";
+            alert(msg);
+            return;
+          }
+  
+        }
+      }
 
-    }, 5000);
+      //console.log(allRqnLineNumbers);return;
+
+      //// //////////////////// //////////////
+      this.isLoading = true;
+      this.workFlowsService.submitNewSimActivationReq(this.requisition['requisitionDetails']['id'], this.userID, allRqnLineNumbers, "", "NEW").subscribe(
+        res  =>  {        
+          console.log('response is : '+res.message);  
+          if(res !== ""){
+
+          }
+        },
+        err  =>  {	
+            
+        }
+
+      );
+
+      setTimeout(()=>{    //<<<---    using ()=> syntax
+        
+        /////////////////// //////////////////////////
+        this.isLoading = false;
+        alert('This request has been submitted.');
+        this.router.navigate(['nsa/testsimdashboard']);
+        /////////// ////////////// ///////////////////
+
+      }, 5000);
 
 
-    ///////// /////////////// //////////////
+      ///////// /////////////// //////////////
+    
+    }
 
   }
 

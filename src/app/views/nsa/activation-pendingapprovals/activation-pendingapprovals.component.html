@@ -29,7 +29,7 @@
               <table class="table table-bordered table-striped table-sm">
                 <thead>
                   <tr>
-                    <th>...</th>
+                    <th><input type="checkbox" [(ngModel)] = "selectAll" (change)="handleSelectAll(selectAll?'1':'0')"  /></th>
                     <th>MSISDN</th>
                     <th>SIM Serial #</th>
                     <th>SIM Type</th>

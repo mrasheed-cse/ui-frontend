@@ -34,6 +34,24 @@ export class ActivationPendingapprovalsComponent implements OnInit {
   public showDetail:boolean = false;  
   public requisitionIdSelected: number = 0;
   isDataFound: boolean = true;
+  selectAll:boolean = false;
+
+  handleSelectAll(event: any){
+
+    console.log(event);
+
+    if(event != null && event != "" && event != undefined) event = parseInt(event);
+    else return;
+
+    var status = false;
+    if(event == 1){
+      status = true;
+    }
+
+    for(var i = 0; i < this.requisition['msisdnDetails'].length; i++){
+      this.requisition['msisdnDetails'][i]['selected'] = status;
+    }
+  }
 
   constructor(private route:ActivatedRoute, private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workflowsService: WorkflowsService, private ismsworkflowsService: IsmsworkflowsService) {
 
@@ -119,13 +137,13 @@ export class ActivationPendingapprovalsComponent implements OnInit {
     for(var i = 0; i < this.requisition['msisdnDetails'].length; i++){
       if(this.requisition['msisdnDetails'][i]['selected']){
 
-        if(this.requisition['msisdnDetails'][i]['simStatus'] == "Inactive" &&
+        if(this.requisition['msisdnDetails'][i]['simStatus'] == "SSM Processing" &&
         this.requisition['msisdnDetails'][i]['declarationStatus'] == "Agreed"){
           allRqnLineNumbers += this.requisition['msisdnDetails'][i]['requisitionLineMsisdnId'] + ",";
           approvedSimActivationIds += this.requisition['msisdnDetails'][i]['simActivationId'] + ",";          
         }
         else{
-          var msg = "Only MSISDNs which are pending for activation, and with declaration status 'Agreed', can be selected. Please deselect MSISDN in row " + (i+1) + ".";
+          var msg = "Only MSISDNs which are in status 'SSM Processing', and with declaration status 'Agreed', can be selected. Please deselect MSISDN in row " + (i+1) + ".";
           alert(msg);
           return;
         }
