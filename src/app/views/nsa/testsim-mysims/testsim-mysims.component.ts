@@ -32,6 +32,7 @@ export class TestsimMysimsComponent implements OnInit {
   private defaultColGroupDef;
   private columnTypes;
   private rowData: any[];
+  private rowDataTable2: any[];  
 
   selectedIds: string;
   requisitionList: Array<Object>;
@@ -100,26 +101,7 @@ export class TestsimMysimsComponent implements OnInit {
 
   } //end of constructor
 
-  loadOtherSims(){
-    this.isLoading = true;
-    this.workFlowsService.loadMyNonActiveSims(this.userID).subscribe(
-      data => {
-        if(data !=null){
-          console.log(data);
-          this.isDataFoundOther = true;
-          this.requisitionListOther = data;
-          this.isLoading = false;
-        }
-        else{
-          this.isDataFoundOther = false;
-        }
-      },
-    err => console.error(err),
-    () => console.log('Done loading PendingTask List')
-    );
-    this.isLoading = false;
-  }
-
+  
 
   onGridReady(params) {
     this.gridApi = params.api;
@@ -130,6 +112,9 @@ export class TestsimMysimsComponent implements OnInit {
     }, 2000);
   }
 
+  onGridReadyTable2(params) {
+  }
+
   loadPendingList(){
     //GetPendingTaskList
     this.workFlowsService.loadMySims(this.userID).subscribe(
@@ -138,7 +123,7 @@ export class TestsimMysimsComponent implements OnInit {
             console.log(data);
             this.isDataFound = true;
             this.rowData = data;
-            this.loadOtherSims();
+            this.isLoading = false;
           }
           else{
             this.isDataFound = false;

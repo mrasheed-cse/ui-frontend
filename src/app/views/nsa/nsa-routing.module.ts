@@ -80,6 +80,7 @@ import { TestsimLostdamagedNewComponent } from './testsim-lostdamaged-new/testsi
 import { TestsimLostdamagedExistingComponent } from './testsim-lostdamaged-existing/testsim-lostdamaged-existing.component';
 import { TestsimTransferNewComponent } from './testsim-transfer-new/testsim-transfer-new.component';
 import { TestsimTransferExistingComponent } from './testsim-transfer-existing/testsim-transfer-existing.component';
+import { TestsimMyOtherSimsComponent } from './testsim-my-other-sims/testsim-my-other-sims.component';
 
 
 const routes: Routes = [
@@ -414,7 +415,14 @@ const routes: Routes = [
     path: 'testsim-mysims',
     component: TestsimMysimsComponent,
     data: {
-      title: 'My SIMs'
+      title: 'My SIMs (Active)'
+    }
+  },
+  {
+    path: 'testsim-myothersims',
+    component: TestsimMyOtherSimsComponent,
+    data: {
+      title: 'My SIMs (Inactive / Deactive / Suspended)'
     }
   },
   {

@@ -15,72 +15,22 @@
 
         <ag-grid-angular 
           #agGrid
-          style="width: 100%; height: 500px;"
+          style="width: 100%; height: 330px;"
           id="myGrid"
           class="ag-theme-balham"          
           [floatingFilter]="true"
           [columnTypes]="columnTypes"
           [columnDefs]="columnDefs"
           [rowData]="rowData"
-          rowSelection="multiple"
           (gridReady)="onGridReady($event)"
           >
         </ag-grid-angular>
 
-        <br /><br />
-
-        <a style="font-size:0.8em;width:140px;height:32px" class="btn btn-success" (click) = "timeExtension()" >Time Limit Extension</a>
-        <a style="font-size:0.8em;width:140px;height:32px" class="btn btn-primary" (click) = "creditLimitExtension()" >Credit Limit Extension</a>
-        <a style="width:140px;height:32px" class="btn btn-success" (click) = "recharge()" >Recharge</a>
-        <a style="width:140px;height:32px" class="btn btn-primary" (click) = "surrender()" >Surrender</a>
-        <a style="width:140px;height:32px" class="btn btn-success" (click) = "damaged()" >Damaged</a>
-        <a style="width:140px;height:32px" class="btn btn-primary" (click) = "lost()" >Lost</a>
-        <a style="width:140px;height:32px" class="btn btn-success" (click) = "transfer()" >Transfer</a>
       </div>
       <div class="card-body" *ngIf="!isDataFound">
           <div class="alert alert-primary" role="alert" ><b>System found no active test SIMs</b></div>
       </div>
-    </div>
-    
-
-    <div class="card">
-        <div class="card-header">
-          <i class="fa fa-align-justify"></i> My other Test SIMs (<b>not active SIMs</b>)
-        </div>
-        <div class="card-body" *ngIf="isDataFoundOther">
-          <table class="table table-bordered table-striped table-sm">
-            <thead>
-              <tr>
-                <th>SL</th>
-                <th>MSISDN</th>
-                <th>RQN #</th>
-                <th>RQN Type</th>
-                <th>SIM Status</th>
-                <th>RQN Date</th>
-                <th>Test start date</th>
-                <th>Test end date</th>
-                <th>Credit limit</th>
-              </tr>
-            </thead>
-            <tbody *ngFor="let aTask of requisitionListOther;  index as i">
-                        <tr>
-                            <td>{{i + 1}}</td>
-                            <td>{{aTask.msisdn}}</td>
-                            <td>{{aTask.requisitionNo}}</td>                          
-                            <td>{{aTask.requisitionType}}</td>
-                            <td>{{aTask.simStatus}}</td>
-                            <td>{{aTask.requisitionDateAsString}}</td>
-                            <td>{{aTask.testStartDateAsString}}</td>
-                            <td>{{aTask.testEndDateAsString}}</td>
-                            <td>{{aTask.assignedCreditLimit}}</td>                                                                              
-                        </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="card-body" *ngIf="!isDataFoundOther">
-            <div class="alert alert-primary" role="alert" ><b>System found no other (non-active) test SIMs</b></div>
-        </div>
-    </div>
+    </div>    
 
   </div>
 

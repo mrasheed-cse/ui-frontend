@@ -91,6 +91,7 @@ import { NgxGaugeModule } from 'ngx-gauge';
 
 
 
+
 @NgModule({
   imports: [
 	CommonModule,

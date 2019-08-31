@@ -101,6 +101,7 @@ import { TestsimLostdamagedNewComponent } from './testsim-lostdamaged-new/testsi
 import { TestsimLostdamagedExistingComponent } from './testsim-lostdamaged-existing/testsim-lostdamaged-existing.component';
 import { TestsimTransferNewComponent } from './testsim-transfer-new/testsim-transfer-new.component';
 import { TestsimTransferExistingComponent } from './testsim-transfer-existing/testsim-transfer-existing.component';
+import { TestsimMyOtherSimsComponent } from './testsim-my-other-sims/testsim-my-other-sims.component';
 
 @NgModule({
   imports: [
@@ -198,6 +199,7 @@ import { TestsimTransferExistingComponent } from './testsim-transfer-existing/te
     TestsimLostdamagedExistingComponent,
     TestsimTransferNewComponent,
     TestsimTransferExistingComponent,
+    TestsimMyOtherSimsComponent,
   ]
 })
 export class NsaModule { }
