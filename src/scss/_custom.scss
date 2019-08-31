@@ -39,7 +39,8 @@
     padding:8px;
 }
 
-.table.table-bordered.table-striped.table-sm th{
+.table.table-bordered.table-striped.table-sm th, .ag-header-cell,
+.ag-header-cell .ag-icon{
     background-color:royalblue !important;
     color:white !important;
 }

@@ -59,6 +59,45 @@ export class AppGlobals {
 
 	readonly wrid_FileUploadPath: string = '/app/nsa_files/';
 
+
+	//agGrid_1 = 
+	
+	agGrid_defaultColDef = {
+		filter: "agTextColumnFilter"
+	};
+  
+	agGrid_columnTypes = {
+		numberColumn: {
+		  width: 83,
+		  filter: "agNumberColumnFilter"
+		},
+		medalColumn: {
+		  width: 100,
+		  columnGroupShow: "open",
+		  filter: false
+		},
+		nonEditableColumn: { editable: false },
+		dateColumn: {
+		  filter: "agDateColumnFilter",
+		  filterParams: {
+			comparator: function(filterLocalDateAtMidnight, cellValue) {
+			  var dateParts = cellValue.split("-");
+			  var day = Number(dateParts[0]);
+			  var month = Number(dateParts[1]) - 1;
+			  var year = Number(dateParts[2]);
+			  var cellDate = new Date(year, month, day);
+			  if (cellDate < filterLocalDateAtMidnight) {
+				return -1;
+			  } else if (cellDate > filterLocalDateAtMidnight) {
+				return 1;
+			  } else {
+				return 0;
+			  }
+			}
+		  }
+		}
+	};
+
 	//for test purpose
 	dataTemp = [
 		{

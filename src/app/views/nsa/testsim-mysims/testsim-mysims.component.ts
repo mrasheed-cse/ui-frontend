@@ -2,7 +2,8 @@ import {
   NgModule,
   Component,
   Pipe,
-  OnInit
+  OnInit,
+  ViewChild
 } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { WorkflowsService } from './../services/workflows.service';
@@ -12,6 +13,7 @@ import { environment } from '../../../../environments/environment.prod';
 
 import { LoginService } from '../../pages/LoginService';
 import { LoggedInUser } from '../../pages/loggedInUser';
+import { AgGridAngular } from 'ag-grid-angular';
 
 @Component({
   selector: 'app-testsim-mysims',
@@ -20,7 +22,16 @@ import { LoggedInUser } from '../../pages/loggedInUser';
 	providers: [WorkflowsService,AppGlobals,LoginService],
 })
 export class TestsimMysimsComponent implements OnInit {
+  @ViewChild('agGrid') agGrid: AgGridAngular;
 
+  private gridApi;
+  private gridColumnApi;
+
+  private columnDefs;
+  private defaultColDef;
+  private defaultColGroupDef;
+  private columnTypes;
+  private rowData: any[];
 
   selectedIds: string;
   requisitionList: Array<Object>;
@@ -71,6 +82,22 @@ export class TestsimMysimsComponent implements OnInit {
     }
     //this.requisitionList = _global.dataTempForMySims;
 
+    this.columnDefs = _global.agGrid_defaultColDef;
+    this.columnTypes = _global.agGrid_columnTypes;
+
+    this.columnDefs = [
+        {headerName: 'MSISDN', field: 'msisdn', sortable: true, filter: true, checkboxSelection: true, width: 160 },
+        {headerName: 'RQN #', field: 'requisitionNo', sortable: true, filter: true, width: 200 },
+        {headerName: 'RQN Type', field: 'requisitionType', sortable: true, filter: true, width: 200 },
+        {headerName: 'SIM Status', field: 'simStatus', sortable: true, filter: true, width: 100 },
+        {headerName: 'RQN Date', field: 'requisitionDateAsString', sortable: true, filter: true, width: 130, type: ["dateColumn", "nonEditableColumn"] },
+        {headerName: 'Test start date', field: 'testStartDateAsString', sortable: true, filter: true, width: 130, type: ["dateColumn", "nonEditableColumn"] },
+        {headerName: 'Test end date', field: 'testEndDateAsString', sortable: true, filter: true, width: 130, type: ["dateColumn", "nonEditableColumn"] },
+        {headerName: 'Credit limit', field: 'assignedCreditLimit', sortable: false, filter: false, width: 100, type: "numberColumn" } 
+    ];
+
+    this.rowData = [];    
+
   } //end of constructor
 
   loadOtherSims(){
@@ -94,6 +121,15 @@ export class TestsimMysimsComponent implements OnInit {
   }
 
 
+  onGridReady(params) {
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
+
+    setTimeout(()=>{    //<<<---    using ()=> syntax
+      this.loadPendingList();
+    }, 2000);
+  }
+
   loadPendingList(){
     //GetPendingTaskList
     this.workFlowsService.loadMySims(this.userID).subscribe(
@@ -101,10 +137,7 @@ export class TestsimMysimsComponent implements OnInit {
           if(data !=null){
             console.log(data);
             this.isDataFound = true;
-            this.requisitionList = data;
-            for(var i = 0; i < this.requisitionList.length; i++){
-              this.requisitionList[i]['selected'] = false;
-            }
+            this.rowData = data;
             this.loadOtherSims();
           }
           else{
@@ -124,9 +157,7 @@ export class TestsimMysimsComponent implements OnInit {
     this.isLoading = true;
     this.selectedIds = "";
 
-    setTimeout(()=>{    //<<<---    using ()=> syntax
-      this.loadPendingList();
-    }, 2000);
+    
 
   }
 
@@ -143,10 +174,19 @@ export class TestsimMysimsComponent implements OnInit {
 
     this.selectedIds = "";
 
-    for(var i = 0; i < this.requisitionList.length; i++){
-      if(this.requisitionList[i]['selected'] == true){
-        this.selectedIds += this.requisitionList[i]['requisitionLineMsisdnId'] + ",";
-      }
+    const selectedNodes = this.agGrid.api.getSelectedNodes();
+
+    console.log(selectedNodes);
+
+    const selectedData = selectedNodes.map( node => node.data );
+
+    console.log(selectedData);
+
+    //const selectedDataStringPresentation = selectedData.map( node => node.make + ' ' + node.model).join(', ');
+    //console.log(`Selected nodes: ${selectedDataStringPresentation}`);
+
+    for(var i = 0; i < selectedData.length; i++){
+        this.selectedIds += selectedData[i]['requisitionLineMsisdnId'] + ",";      
     }
 
     if(this.selectedIds != "" && this.selectedIds.length > 0){

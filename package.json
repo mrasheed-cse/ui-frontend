@@ -27,6 +27,8 @@
     "@angular/router": "5.2.3",
     "@angular/upgrade": "5.2.3",
     "@types/file-saver": "^2.0.0",
+    "ag-grid-angular": "^21.2.0",
+    "ag-grid-community": "^21.2.0",
     "angular4-smart-table": "^0.6.0",
     "bootstrap": "^4.0.0-beta.2",
     "chart.js": "2.7.1",

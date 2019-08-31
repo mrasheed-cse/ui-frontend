@@ -17,6 +17,9 @@ import { DataTableModule } from 'angular4-smart-table';
 import { SeriesprovisionformComponent } from './seriesprovisionform.component';
 import {HttpClient} from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
+
+import { AgGridModule } from 'ag-grid-angular';
+
 import { SeriesprovisiondetailComponent } from './seriesprovisiondetail.component';
 import { SeriesDefinitionComponent } from './series-definition.component';
 import { SeriesDefinitionFormComponent } from './series-definition-form.component';
@@ -102,12 +105,13 @@ import { TestsimTransferExistingComponent } from './testsim-transfer-existing/te
 @NgModule({
   imports: [
     CommonModule,
-	DataTableModule,
-	ReactiveFormsModule,
-	FormsModule,
-	HttpClientModule,
+    DataTableModule,
+    ReactiveFormsModule,
+    FormsModule,
+    HttpClientModule,
     CollapseModule.forRoot(),
-	BsDatepickerModule.forRoot(),
+    BsDatepickerModule.forRoot(),
+    AgGridModule.withComponents([]),
     NsaRoutingModule
   ],
   declarations: [
