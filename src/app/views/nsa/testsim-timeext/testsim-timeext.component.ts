@@ -12,6 +12,7 @@ import { environment } from '../../../../environments/environment.prod';
 
 import { LoginService } from '../../pages/LoginService';
 import { LoggedInUser } from '../../pages/loggedInUser';
+import { moment } from 'ngx-bootstrap/chronos/test/chain';
 
 @Component({
   selector: 'app-testsim-timeext',
@@ -130,6 +131,7 @@ export class TestsimTimeextComponent implements OnInit {
       requestDetailObj['comments'] = this.requisitionList[i]['justification'];
       requestDetailObj['newCreditLimit'] = 0;
       requestDetailObj['newEndDate'] = this.requisitionList[i]['newEndDate'];
+      requestDetailObj['newEndDate'] = moment(requestDetailObj['newEndDate']).format('DD-MM-YYYY');
       requestDetailObj['rechargeAmount'] = 0;
       requestDetailObj['transferMode'] = "";
       requestDetailObj['transferTo'] = "";
@@ -139,7 +141,7 @@ export class TestsimTimeextComponent implements OnInit {
       requestObj['numberWiseDetails'].push(requestDetailObj);
 
     } //end of loop over numbers
-
+    
     ////////////////// /////////////////////////////////
     this.workFlowsService.submitSimActionRequest(requestObj).subscribe(
       data => {

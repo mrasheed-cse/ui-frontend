@@ -61,6 +61,36 @@ export class TestsimCreditlimitextSsmComponent implements OnInit {
           if(data !=null){
             console.log(data);
             this.isDataFound = true;
+
+            if(data.length > 0){
+              for(var i = 0; i < data.length; i++){
+                this.requisitionList.push(data[i]);
+              }
+            }
+
+            /////////// /////////////////// ///////////// ////////////////////
+            this.workFlowsService.simActionRequestsPendingForApproval(this._global.wrid_testSimTimeLimitExtension,this.userID).subscribe(
+              data => {
+                if(data !=null){
+                  console.log(data);
+
+                  if(data.length > 0){
+                    for(var i = 0; i < data.length; i++){
+                      this.requisitionList.push(data[i]);
+                    }
+                  }
+
+                  this.isLoading = false;
+                }
+                else{
+                  this.isDataFound = false;
+                }
+              },
+            err => console.error(err),
+            () => console.log('Done loading PendingTask List')
+            );
+            ////////// //////////////////// /////////////////// //////////////
+
             this.requisitionList = data;
             this.isLoading = false;
           }
