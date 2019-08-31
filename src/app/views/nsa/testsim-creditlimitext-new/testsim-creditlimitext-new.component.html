@@ -13,18 +13,17 @@
         </div>
         <div class="card-body" *ngIf="isDataFound">
   
-          <ag-grid-angular 
+         <ag-grid-angular 
             #agGrid
-            style="width: 100%; height: 330px;"
+            style="width: 100%; height: 450px;"
             id="myGrid"
             class="ag-theme-balham"          
             [floatingFilter]="true"
             [columnTypes]="columnTypes"
             [columnDefs]="columnDefs"
             [rowData]="rowData"
+            rowSelection="multiple"
             (gridReady)="onGridReady($event)"
-            [rowSelection]="multiple"
-            [rowMultiSelectWithClick]="true"
             >
           </ag-grid-angular>
   
