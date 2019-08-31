@@ -86,6 +86,19 @@ import { TestsimDeactivationHodComponent } from './testsim-deactivation-hod/test
 import { TestsimDeactivationSsmComponent } from './testsim-deactivation-ssm/testsim-deactivation-ssm.component';
 import { NewsimactivationreqDetailsComponent } from './newsimactivationreq-details/newsimactivationreq-details.component';
 
+import { TestsimCreditlimitextNewComponent } from './testsim-creditlimitext-new/testsim-creditlimitext-new.component';
+import { TestsimCreditLimitextExistingComponent } from './testsim-credit-limitext-existing/testsim-credit-limitext-existing.component';
+import { TestsimRechargeNewComponent } from './testsim-recharge-new/testsim-recharge-new.component';
+import { TestsimRechargeExistingComponent } from './testsim-recharge-existing/testsim-recharge-existing.component';
+import { TestsimDeactivationNewComponent } from './testsim-deactivation-new/testsim-deactivation-new.component';
+import { TestsimDeactivationExistingComponent } from './testsim-deactivation-existing/testsim-deactivation-existing.component';
+import { TestsimSurrenderNewComponent } from './testsim-surrender-new/testsim-surrender-new.component';
+import { TestsimSurrenderExistingComponent } from './testsim-surrender-existing/testsim-surrender-existing.component';
+import { TestsimLostdamagedNewComponent } from './testsim-lostdamaged-new/testsim-lostdamaged-new.component';
+import { TestsimLostdamagedExistingComponent } from './testsim-lostdamaged-existing/testsim-lostdamaged-existing.component';
+import { TestsimTransferNewComponent } from './testsim-transfer-new/testsim-transfer-new.component';
+import { TestsimTransferExistingComponent } from './testsim-transfer-existing/testsim-transfer-existing.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -168,7 +181,19 @@ import { NewsimactivationreqDetailsComponent } from './newsimactivationreq-detai
     TestsimDeactivationComponent,
     TestsimDeactivationHodComponent,
     TestsimDeactivationSsmComponent,
-    NewsimactivationreqDetailsComponent,
+    NewsimactivationreqDetailsComponent,    
+    TestsimCreditlimitextNewComponent,
+    TestsimCreditLimitextExistingComponent,
+    TestsimRechargeNewComponent,
+    TestsimRechargeExistingComponent,
+    TestsimDeactivationNewComponent,
+    TestsimDeactivationExistingComponent,
+    TestsimSurrenderNewComponent,
+    TestsimSurrenderExistingComponent,
+    TestsimLostdamagedNewComponent,
+    TestsimLostdamagedExistingComponent,
+    TestsimTransferNewComponent,
+    TestsimTransferExistingComponent,
   ]
 })
 export class NsaModule { }

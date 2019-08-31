@@ -69,6 +69,17 @@ import { TestsimMsisdnreportSsmComponent } from './testsim-msisdnreport-ssm/test
 import { TestsimMsisdnreportComponent } from './testsim-msisdnreport/testsim-msisdnreport.component';
 import { ActivationPendingapprovalsComponent } from './activation-pendingapprovals/activation-pendingapprovals.component';
 import { NewsimactivationreqDetailsComponent } from './newsimactivationreq-details/newsimactivationreq-details.component';
+import { TestsimCreditlimitextNewComponent } from './testsim-creditlimitext-new/testsim-creditlimitext-new.component';
+import { TestsimCreditLimitextExistingComponent } from './testsim-credit-limitext-existing/testsim-credit-limitext-existing.component';
+import { TestsimRechargeNewComponent } from './testsim-recharge-new/testsim-recharge-new.component';
+import { TestsimRechargeExistingComponent } from './testsim-recharge-existing/testsim-recharge-existing.component';
+import { TestsimDeactivationExistingComponent } from './testsim-deactivation-existing/testsim-deactivation-existing.component';
+import { TestsimSurrenderNewComponent } from './testsim-surrender-new/testsim-surrender-new.component';
+import { TestsimSurrenderExistingComponent } from './testsim-surrender-existing/testsim-surrender-existing.component';
+import { TestsimLostdamagedNewComponent } from './testsim-lostdamaged-new/testsim-lostdamaged-new.component';
+import { TestsimLostdamagedExistingComponent } from './testsim-lostdamaged-existing/testsim-lostdamaged-existing.component';
+import { TestsimTransferNewComponent } from './testsim-transfer-new/testsim-transfer-new.component';
+import { TestsimTransferExistingComponent } from './testsim-transfer-existing/testsim-transfer-existing.component';
 
 
 const routes: Routes = [
@@ -552,7 +563,84 @@ const routes: Routes = [
     data: {
       title: 'Transfer - Approval'
     }
-  }
+  },
+  {
+    path: 'testsim-creditlimitext-new',
+    component: TestsimCreditlimitextNewComponent,
+    data: {
+      title: 'New Credit Limit / Time Limit Extension Request'
+    }
+  },
+  {
+    path: 'testsim-creditlimitext-existing',
+    component: TestsimCreditLimitextExistingComponent,
+    data: {
+      title: 'Existing Credit Limit / Time Limit Extension Requests'
+    }
+  },
+  {
+    path: 'testsim-recharge-new',
+    component: TestsimRechargeNewComponent,
+    data: {
+      title: 'New SIM Recharge Request'
+    }
+  },
+  {
+    path: 'testsim-recharge-existing',
+    component: TestsimRechargeExistingComponent,
+    data: {
+      title: 'Existing SIM Recharge Requests'
+    }
+  },
+  {
+    path: 'testsim-deactivation-existing',
+    component: TestsimDeactivationExistingComponent,
+    data: {
+      title: 'Existing SIM Deactivation Requests'
+    }
+  },
+  {
+    path: 'testsim-surrender-new',
+    component: TestsimSurrenderNewComponent,
+    data: {
+      title: 'New SIM Surrender Request'
+    }
+  },
+  {
+    path: 'testsim-surrender-existing',
+    component: TestsimSurrenderExistingComponent,
+    data: {
+      title: 'Existing SIM Surrender Requests'
+    }
+  },
+  {
+    path: 'testsim-lostdamaged-new',
+    component: TestsimLostdamagedNewComponent,
+    data: {
+      title: 'New SIM Lost / Damaged Request'
+    }
+  },
+  {
+    path: 'testsim-lostdamaged-existing',
+    component: TestsimLostdamagedExistingComponent,
+    data: {
+      title: 'Existing SIM Lost / Damaged Requests'
+    }
+  },
+  {
+    path: 'testsim-transfer-new',
+    component: TestsimTransferNewComponent,
+    data: {
+      title: 'New SIM Transfer Request'
+    }
+  },
+  {
+    path: 'testsim-transfer-existing',
+    component: TestsimTransferExistingComponent,
+    data: {
+      title: 'Existing SIM Transfer Requests'
+    }
+  },
 ];
 
 @NgModule({
