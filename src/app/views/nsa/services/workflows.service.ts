@@ -289,4 +289,11 @@ export class WorkflowsService {
 		return this.http.post(this.serverUrl + 'workflow/updatesimaction', data);
 	}
 
+
+	doPendingSimActionExistsForRqnLineMsisdnId(idsPassed: Array<number>) : any {
+		return this.http.post(this.serverUrl + 'workflow/dopendingsimactionexistsforrqnlinemsisdnid', {
+			idsPassed: idsPassed
+		});
+	}
+
 }
