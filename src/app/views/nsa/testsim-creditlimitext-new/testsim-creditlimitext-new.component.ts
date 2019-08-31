@@ -194,7 +194,7 @@ export class TestsimCreditlimitextNewComponent implements OnInit {
     err => {
       console.error(err);
       alert("One or more pending requests exist against selected MSISDNs");
-      this.isLoading = true;
+      this.isLoading = false;
     },
     () => console.log('Done loading PendingTask List')
     );
@@ -219,7 +219,7 @@ export class TestsimCreditlimitextNewComponent implements OnInit {
     err => {
       console.error(err);
       alert("One or more pending requests exist against selected MSISDNs");
-      this.isLoading = true;
+      this.isLoading = false;
     },
     () => console.log('Done loading PendingTask List')
     );
