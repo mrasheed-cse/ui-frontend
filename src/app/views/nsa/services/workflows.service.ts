@@ -305,4 +305,13 @@ export class WorkflowsService {
 		});
 	}
 
+
+	getUserList() : any {
+		return this.http.post(this.serverUrl + 'workflow/userlist', {
+			createdBy: 0,
+			requisitionNo: 0,
+			status: ""
+		});
+	}
+
 }

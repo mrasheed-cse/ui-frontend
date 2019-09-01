@@ -21,6 +21,11 @@ import { LoggedInUser } from '../../pages/loggedInUser';
 })
 export class TestsimTransferComponent implements OnInit {
 
+  userData: any[] = [];
+  userList1: any[] = [];
+  lastkeydown1: number = 0;
+  subscription: any;
+
   allRequisitionLineMsisdnIds: string;
   requisitionList: Array<Object>;
 	currentLoggedInUser: LoggedInUser;
@@ -99,9 +104,46 @@ export class TestsimTransferComponent implements OnInit {
       
       this.listUsers = [];
 
+      this.workFlowsService.getUserList().subscribe(
+        data => {
+          Object.assign(this.userData, data);
+        },
+        error => {
+          console.log("Something wrong here");
+        });    
+
     }, 2000);
 
   }
+
+
+  getUserIdsFirstWay($event) {
+
+    //console.log($event.target.value);
+
+    //let userId = (<HTMLInputElement>document.getElementById('userIdFirstWay')).value;
+
+    let userId = $event.target.value;
+
+    this.userList1 = [];
+
+    if (userId.length > 2) {
+      if ($event.timeStamp - this.lastkeydown1 > 200) {
+        this.userList1 = this.searchFromArray(this.userData, userId);
+      }
+    }
+  }  
+
+  searchFromArray(arr, regex) {
+    let matches = [], i;
+    for (i = 0; i < arr.length; i++) {
+      if (arr[i]['userName'].match(regex)) {
+        matches.push(arr[i]);
+      }
+    }
+    return matches;
+  };
+
 
   submit(){
 

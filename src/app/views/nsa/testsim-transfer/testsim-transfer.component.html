@@ -40,10 +40,12 @@
                               </select>
                             </td>
                             <td>
-                              <input type="text" [(ngModel)] = "aTask.transferTo" />
+                              <!--<input type="text" [(ngModel)] = "aTask.transferTo" />-->
                               <!--<select class="form-control"  >
                                   <option *ngFor="let singleUser of listUsers" [value]="singleUser.nsa_users_id">{{singleListItem.nsa_users_name}}</option>
                               </select>-->
+                              <input type="text" (keyup)="getUserIdsFirstWay($event)" id="userIdFirstWay" list="dynmicUserIds" [(ngModel)] = "aTask.transferTo" />
+                              
                             </td>
                             <td>
                                 <input type="text" class="form-control" [(ngModel)] = "aTask.comments" />
@@ -52,6 +54,10 @@
             </tbody>
           </table>
   
+          <datalist id="dynmicUserIds">
+              <option *ngFor="let item of userList1" [value]="item.userName">{{item.userName}}</option>
+          </datalist>
+
           <br /><br />
   
           <a style="width:140px" class="btn btn-success" (click) = "submit()" >Submit</a>
