@@ -91,6 +91,62 @@ export class TestsimSurrenderComponent implements OnInit {
 
   submit(){
 
+    for(var i = 0; i < this.requisitionList.length; i++){
+
+      if(this.requisitionList[i]['comments'] == null ||
+      this.requisitionList[i]['comments'] == undefined ||
+      this.requisitionList[i]['comments'] == ""){
+          var msg = "At row " + (i+1) + " comments is blank.";
+          alert(msg);
+          return;
+      }
+
+    }
+
+    ////////////// ////////////////////////
+
+    this.isLoading = true;
+
+    var requestObj = {};
+    requestObj['defWorkRequestId'] = this._global.wrid_testSimSurrender;
+    requestObj['initiator'] = this.userName;
+    requestObj['initiateDate'] = "";
+    requestObj['requisitionId'] = 0;
+    requestObj['numberWiseDetails'] = [];
+
+    for(var i = 0; i < this.requisitionList.length; i++){
+
+      var requestDetailObj = {};
+      requestDetailObj['requisitionLineMsisdnId'] = this.requisitionList[i]['requisitionLineMsisdnId'];
+      requestDetailObj['justification'] = this.requisitionList[i]['comments'];
+      requestDetailObj['comments'] = this.requisitionList[i]['comments'];
+      requestDetailObj['newCreditLimit'] = 0;
+      requestDetailObj['newEndDate'] = "";
+      requestDetailObj['rechargeAmount'] = 0;
+      requestDetailObj['transferMode'] = "";
+      requestDetailObj['transferTo'] = "";
+      requestDetailObj['lostDamageMode'] = "";
+      requestDetailObj['lostDamageDate'] = "";
+
+      requestObj['numberWiseDetails'].push(requestDetailObj);
+
+    } //end of loop over numbers
+
+    ////////////////// /////////////////////////////////
+    this.workFlowsService.submitSimActionRequest(requestObj).subscribe(
+      data => {
+        
+      },
+    err => console.error(err),
+    () => console.log('Done loading PendingTask List')
+    );
+    setTimeout(()=>{    //<<<---    using ()=> syntax
+      this.isLoading = false;
+      alert("The request has been submitted");
+      this.router.navigate(['nsa/testsimdashboard']);
+    }, 4000);
+
+    ////////////// /////////////////////// /////////////
   }
 
   cancel(){

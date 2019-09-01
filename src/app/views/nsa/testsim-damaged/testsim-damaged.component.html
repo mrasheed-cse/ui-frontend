@@ -34,7 +34,11 @@
                             <td>{{aTask.testStartDateAsString}}</td>
                             <td>{{aTask.testEndDateAsString}}</td>
                             <td>
-                                <input type="text" class="form-control" [(ngModel)] = "aTask.damagedDate" />
+                                <input type="text" class="form-control calendar-container" [(ngModel)] = "aTask.lostDamageDate" 
+                                bsDatepicker  placement="left"  
+                                [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-green',  showWeekNumbers:false }"
+                                [minDate]="todayDate"
+                                />
                             </td>
                             <td>
                                 <input type="text" class="form-control" [(ngModel)] = "aTask.comments" />

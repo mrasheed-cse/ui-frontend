@@ -12,6 +12,7 @@ import { environment } from '../../../../environments/environment.prod';
 
 import { LoginService } from '../../pages/LoginService';
 import { LoggedInUser } from '../../pages/loggedInUser';
+import { moment } from 'ngx-bootstrap/chronos/test/chain';
 
 @Component({
   selector: 'app-testsim-lost',
@@ -93,18 +94,18 @@ export class TestsimLostComponent implements OnInit {
 
     for(var i = 0; i < this.requisitionList.length; i++){
 
-      if(this.requisitionList[i]['newCreditLimit'] == null ||
-      this.requisitionList[i]['newCreditLimit'] == undefined ||
-      this.requisitionList[i]['newCreditLimit'] == ""){
-          var msg = "At row " + (i+1) + " new credit limit is blank.";
+      if(this.requisitionList[i]['lostDamageDate'] == null ||
+      this.requisitionList[i]['lostDamageDate'] == undefined ||
+      this.requisitionList[i]['lostDamageDate'] == ""){
+          var msg = "At row " + (i+1) + " lost date is blank.";
           alert(msg);
           return;
       }
 
-      if(this.requisitionList[i]['justification'] == null ||
-      this.requisitionList[i]['justification'] == undefined ||
-      this.requisitionList[i]['justification'] == ""){
-          var msg = "At row " + (i+1) + " justification is blank.";
+      if(this.requisitionList[i]['comments'] == null ||
+      this.requisitionList[i]['comments'] == undefined ||
+      this.requisitionList[i]['comments'] == ""){
+          var msg = "At row " + (i+1) + " comments is blank.";
           alert(msg);
           return;
       }
@@ -135,6 +136,7 @@ export class TestsimLostComponent implements OnInit {
       requestDetailObj['transferTo'] = "";
       requestDetailObj['lostDamageMode'] = "Lost";
       requestDetailObj['lostDamageDate'] = this.requisitionList[i]['lostDamageDate'];
+      requestDetailObj['lostDamageDate'] = moment(requestDetailObj['lostDamageDate']).format('DD-MM-YYYY');
 
       requestObj['numberWiseDetails'].push(requestDetailObj);
 
