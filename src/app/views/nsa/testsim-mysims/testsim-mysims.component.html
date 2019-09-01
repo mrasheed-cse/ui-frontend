@@ -13,6 +13,15 @@
       </div>
       <div class="card-body" *ngIf="isDataFound">
 
+          <div style="padding-bottom: 4px;">
+              <label> File Name: <input type="text" id="fileName" value="download.csv" /> </label>
+              <label style="margin-left: 20px;">
+                Separator <input type="text" style="width: 20px;" id="columnSeparator" value="," />
+              </label>
+              <label style="margin-left: 20px;"> <button (click)="onBtExport()">Export to CSV</button> </label>
+            </div>
+            <br />
+
         <ag-grid-angular 
           #agGrid
           style="width: 100%; height: 330px;"

@@ -216,4 +216,10 @@ export class TestsimMysimsComponent implements OnInit {
     this.router.navigate(['nsa/testsim-transfer', this.selectedIds]);
   }
 
+
+
+  onBtExport() {
+    var params = {};
+    this.gridApi.exportDataAsCsv(params);
+  }
 }
