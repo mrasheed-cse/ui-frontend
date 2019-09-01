@@ -1,3 +1,88 @@
-<p>
-  testsim-transfer-existing works!
-</p>
+<div class="row">
+
+    <div class="col-md-12">
+  
+      <div class="card" style="border:0px !important;background:transparent !important">
+            <div style="text-align: center">
+                  <i class="fa fa-spinner fa-pulse fa-3x fa-fw" *ngIf="isLoading" ></i>
+            </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-align-justify"></i> Test SIM Transfer / Handover - Request Log
+        </div>
+        <div class="card-body" *ngIf="isDataFound && !showDetail">
+
+          <ag-grid-angular 
+            #agGrid
+            style="width: 100%; height: 450px;"
+            id="myGrid"
+            class="ag-theme-balham"          
+            [floatingFilter]="true"
+            [columnTypes]="columnTypes"
+            [columnDefs]="columnDefs"
+            [rowData]="rowData"
+            rowSelection="single"
+            (gridReady)="onGridReady($event)"
+            >
+          </ag-grid-angular>
+
+          <br /><br />
+  
+          <a style="width:140px" class="btn btn-success" (click) = "getIdForDetails()" >Details</a>
+          
+        </div>
+        <div class="card-body" *ngIf="!isDataFound">
+            <div class="alert alert-primary" role="alert" ><b>System did not find any data</b></div>
+        </div>
+      </div>
+  
+  
+      <div class="card">
+        <div class="card-body" *ngIf="showDetail">
+          <table class="table table-bordered table-striped table-sm">
+            <thead>
+              <tr>
+                <th style="background-color:green !important">SL</th>
+                <th style="background-color:green !important">MSISDN</th>
+                <th style="background-color:green !important">Test start date</th>      
+                <th style="background-color:green !important">Test end date</th>                          
+                <th style="background-color:green !important">Credit Limit</th>                                
+                <th style="background-color:green !important">Transfer mode</th>                
+                <th style="background-color:green !important">Transfer to</th>
+                <th style="background-color:green !important">Comments</th>
+                <th style="background-color:green !important">Status</th>                
+              </tr>
+            </thead>
+            <tbody *ngFor="let aTask of msisdnList;  index as i">
+                        <tr>
+                            <td>{{i + 1}}</td>
+                            <td>{{aTask.msisdn}}</td>
+                            <td>{{aTask.testStartDate}}</td>                            
+                            <td>{{aTask.testEndDate}}</td>                                                        
+                            <td>{{aTask.creditLimit}}</td>                                 
+                            <td>{{aTask.transferMode}}</td>                          
+                            <td>{{aTask.transferTo}}</td>                                                      
+                            <td>{{aTask.comments}}</td>
+                            <td>
+                              <span *ngIf="aTask.approvalStatus == 0">Pending</span>
+                              <span *ngIf="aTask.approvalStatus == 1">Approved</span>                              
+                              <span *ngIf="aTask.approvalStatus == 2">Rejected</span>
+                            </td>                                                   
+                        </tr>
+            </tbody>
+          </table>
+          
+          <a style="width:140px" class="btn btn-danger" (click) = "cancel()" >Back</a>
+        </div>
+        <div class="card-body" *ngIf="!isDataFound">
+            <div class="alert alert-primary" role="alert" ><b>System did not find any data</b></div>
+        </div>
+      </div>
+  
+  
+    </div>
+  
+  
+  </div>
+  
