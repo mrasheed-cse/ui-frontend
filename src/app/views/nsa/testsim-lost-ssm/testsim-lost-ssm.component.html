@@ -61,6 +61,7 @@
                   <th style="background-color:green !important">Credit Limit</th>   
                   <th style="background-color:green !important">Lost date</th>
                   <th style="background-color:green !important">Lost / Damaged</th>
+                  <th style="background-color:green !important">New SIM Requested</th>                  
                   <th style="background-color:green !important">Comments</th>
                   <th style="background-color:green !important">
                     <a (click)="approveAll()">Approve all</a>
@@ -77,7 +78,11 @@
                               <td>{{aTask.testEndDate}}</td>                                                        
                               <td>{{aTask.creditLimit}}</td>                                                        
                               <td>{{aTask.lostDamageDate}}</td>     
-                              <td>{{aTask.lostDamageMode}}</td>                         
+                              <td>{{aTask.lostDamageMode}}</td>                      
+                              <td>
+                                <span *ngIf="aTask.requestedNewSim == 1">Yes</span>
+                                <span *ngIf="aTask.requestedNewSim != 1">No</span>                                
+                              </td>                                                       
                               <td>{{aTask.comments}}</td>
                               <td>
                                 <input type="checkbox" [(ngModel)] = "aTask.isApproved" [disabled]="aTask.locked" /> Approve

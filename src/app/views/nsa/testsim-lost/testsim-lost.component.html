@@ -22,6 +22,7 @@
                 <th>Test start date</th>
                 <th>Test end date</th>
                 <th>Lost date</th>
+                <th>Request new SIM?</th>
                 <th>Comments</th>                
               </tr>
             </thead>
@@ -39,6 +40,9 @@
                                 [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-green',  showWeekNumbers:false }"
                                 [minDate]="todayDate"
                                 />
+                            </td>
+                            <td>
+                              <input type="checkbox" class="form-control" [(ngModel)] = "aTask.requestedNewSim" />
                             </td>
                             <td>
                                 <input type="text" class="form-control" [(ngModel)] = "aTask.comments" />

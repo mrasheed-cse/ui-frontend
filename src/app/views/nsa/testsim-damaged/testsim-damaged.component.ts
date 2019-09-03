@@ -138,6 +138,13 @@ export class TestsimDamagedComponent implements OnInit {
       requestDetailObj['lostDamageDate'] = this.requisitionList[i]['lostDamageDate'];
       requestDetailObj['lostDamageDate'] = moment(requestDetailObj['lostDamageDate']).format('DD-MM-YYYY');
 
+      if(this.requisitionList[i]['requestedNewSim'] == true){
+        requestDetailObj['requestedNewSim'] = 1;
+      }
+      else{
+        requestDetailObj['requestedNewSim'] = 0;
+      }
+
       requestObj['numberWiseDetails'].push(requestDetailObj);
 
     } //end of loop over numbers

@@ -22,6 +22,7 @@
                 <th>Test start date</th>
                 <th>Test end date</th>
                 <th>Damaged date</th>
+                <th>Request new SIM?</th>
                 <th>Comments</th>                
               </tr>
             </thead>
@@ -41,8 +42,11 @@
                                 />
                             </td>
                             <td>
+                              <input type="checkbox" class="form-control" [(ngModel)] = "aTask.requestedNewSim" />
+                            </td>
+                            <td>
                                 <input type="text" class="form-control" [(ngModel)] = "aTask.comments" />
-                            </td>                                                                              
+                            </td>                                                                                                          
                         </tr>
             </tbody>
           </table>
