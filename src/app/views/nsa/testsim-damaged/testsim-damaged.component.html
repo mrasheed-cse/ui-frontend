@@ -38,7 +38,7 @@
                                 <input type="text" class="form-control calendar-container" [(ngModel)] = "aTask.lostDamageDate" 
                                 bsDatepicker  placement="left"  
                                 [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-green',  showWeekNumbers:false }"
-                                [minDate]="todayDate"
+                                [maxDate]="todayDate"
                                 />
                             </td>
                             <td>
