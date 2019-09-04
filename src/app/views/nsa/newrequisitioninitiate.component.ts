@@ -311,7 +311,7 @@ export class NewrequisitioninitiateComponent implements OnInit {
       
       this.requisitionType = new FormControl({value: ''}, Validators.required);
 			this.requisitionDate = new FormControl('');
-			this.requisitionDate.setValue ( moment(new Date()).format('MM-DD-YYYY') );
+			this.requisitionDate.setValue ( moment(new Date()).format('DD-MM-YYYY') );
       this.requisitionLines = new FormArray([  
         //new FormControl(0)    
         new FormGroup({
@@ -549,7 +549,7 @@ FormatTheDate(selectedrequisitionDate:any):string {
 		var formattedDate=[day,month,date.getFullYear()].join("-");*/
 		const date = moment(selectedrequisitionDate);
 		console.log('jhhhhhhhhhhhhhhhhhhhhhhhhhh'+date);
-		const formattedDate = moment(date).format('MM-DD-YYYY');
+		const formattedDate = moment(date).format('DD-MM-YYYY');
 	  console.log("formattedDate : "+formattedDate);
   	return formattedDate;
 	
