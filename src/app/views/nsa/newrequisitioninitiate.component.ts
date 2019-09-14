@@ -258,7 +258,7 @@ export class NewrequisitioninitiateComponent implements OnInit {
 				data => {
 					const dataStr = JSON.stringify(data);
 					var parsedString = JSON.parse(dataStr);
-					this.employeeID = parsedString.employeeNo;
+					this.employeeID = parsedString.telenorEmployeeId;
 					this.employeeName = parsedString.userName;
 					this.mobileNo = parsedString.mobileNumber;
 					this.designation = parsedString.designation;
@@ -404,6 +404,10 @@ export class NewrequisitioninitiateComponent implements OnInit {
 				}
 				else if(this.endDate.value <= this.startDate.value ){
 					validationMessage = "End date must be greater than start date";					
+					validationPassed = false;
+				}
+				else if(this.purposeDetails.value == null || this.purposeDetails.value == "" || this.purposeDetails.value == undefined || this.purposeDetails.value.length < 120 ){
+					validationMessage = "Purpose details must contain a minimum of 120 characters";					
 					validationPassed = false;
 				}								
 

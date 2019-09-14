@@ -1,7 +1,7 @@
 export const environment = {
    production: true,
-  apiUrl: 'http://10.10.23.51:8081/nsa/', //prod
-  //apiUrl: 'http://10.10.20.87:8081/',  
+  //apiUrl: 'http://10.10.23.51:8081/nsa/', //prod
+  apiUrl: 'http://10.10.20.87:8081/',  
   //apiUrl: 'http://localhost:8080/',
   pendingRequestMarker : 'PENDING',
   approvedRequestMarker : 'APPROVED',

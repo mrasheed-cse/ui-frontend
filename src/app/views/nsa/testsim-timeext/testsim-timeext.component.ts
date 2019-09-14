@@ -110,7 +110,29 @@ export class TestsimTimeextComponent implements OnInit {
           return;
       }
 
+      let a :any;
+      let b :any;
+
+      a = moment( this.requisitionList[i]['testEndDateAsString'], 'DD-MM-YYYY' );
+      b = moment( this.requisitionList[i]['newEndDate'], 'DD-MM-YYYY' );
+
+      console.log(a);
+      console.log(b);
+      //console.log(b - a);    
+      var x = b.diff(a, 'days');   
+      console.log(x);
+
+      if(x != null &&
+      x != undefined &&
+      x > (365*2)){
+          var msg = "At row " + (i+1) + " new test end date exceeds the maximum limit of 2 years.";
+          alert(msg);
+          return;
+      }
+
     }
+
+    //return;
 
     ////////////// ////////////////////////
 
