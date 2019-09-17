@@ -23,7 +23,7 @@
                 </tr>
                 <tr>
                   <td style="width:25%">Employee Name</td>
-                  <td style="width:25%;" bgcolor="#dcdcdc">{{employeeName}}</td>
+                  <td style="width:25%;" bgcolor="#dcdcdc">{{fullName}}</td>
                   <td style="width:25%">Designation</td>
                   <td style="width:25%" bgcolor="#dcdcdc">{{designation}}</td>
                 </tr>
@@ -76,7 +76,7 @@
                                                                          [bsConfig]="{ dateInputFormat: 'dd-MM-yyyy', containerClass: 'theme-green',  showWeekNumbers:false }"
                                                                          [minDate]="todayDate" 
                                                                         
-                                                                         value="{{ requisitionDate.value | date: 'dd-MM-yyyy' }}"
+                                                                         value="{{ requisitionDate.value }}"
                                                                          disabled
                                                                         >
                                                                 </div>

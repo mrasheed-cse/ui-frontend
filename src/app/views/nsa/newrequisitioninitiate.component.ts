@@ -44,6 +44,7 @@ export class NewrequisitioninitiateComponent implements OnInit {
   department: string;
   division: string;
   emailAddress: string;
+  fullName: string;
 
   WR_Name: string;
 	serverUrl: string;
@@ -258,13 +259,14 @@ export class NewrequisitioninitiateComponent implements OnInit {
 				data => {
 					const dataStr = JSON.stringify(data);
 					var parsedString = JSON.parse(dataStr);
-					this.employeeID = parsedString.telenorEmployeeId;
+					this.employeeID = parsedString.employeeNo;
 					this.employeeName = parsedString.userName;
 					this.mobileNo = parsedString.mobileNumber;
 					this.designation = parsedString.designation;
 					this.department = parsedString.departmentName;
 					this.division = parsedString.divisionName;
 					this.emailAddress = parsedString.emailAddress;
+					this.fullName = parsedString.fullName;
 				},
 				err => console.error(err),
 				() => console.log('done loading Emplpoyee Details')
