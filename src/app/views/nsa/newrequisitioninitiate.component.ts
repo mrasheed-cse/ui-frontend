@@ -92,6 +92,13 @@ export class NewrequisitioninitiateComponent implements OnInit {
 
 	headerDateData: any;
 
+
+	/*keyDownHandler(event: Event) {
+		console.log(event);
+		if (event['which'] === 43 || event['which'] === 45)
+			event.preventDefault();
+	}*/
+
 	getRequisitionType(){
 		//GetRequisitionType
 		this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_RequisitionType).subscribe(

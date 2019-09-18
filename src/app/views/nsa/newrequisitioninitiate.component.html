@@ -258,8 +258,8 @@
                                                                                         
                                                                                         
                                                                                         </td>
-                                                                                        <td><input class="form-control" formControlName="creditLimit" type = "number"></td>
-                                                                                        <td><input class="form-control" formControlName="quantity" type = "number"></td>											  
+                                                                                        <td><input class="form-control" formControlName="creditLimit" type = "number"  min="0" [prevent-keys]="[43, 45,189,187]" ></td>
+                                                                                        <td><input class="form-control" formControlName="quantity" type = "number" min="1" [prevent-keys]="[43, 45,189,187]" ></td>											  
                                                                                         <td>
                                                                                                 <!--<input formControlName="imsiType" >  -->
                                                                                         

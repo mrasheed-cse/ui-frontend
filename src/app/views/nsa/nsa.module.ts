@@ -102,6 +102,7 @@ import { TestsimLostdamagedExistingComponent } from './testsim-lostdamaged-exist
 import { TestsimTransferNewComponent } from './testsim-transfer-new/testsim-transfer-new.component';
 import { TestsimTransferExistingComponent } from './testsim-transfer-existing/testsim-transfer-existing.component';
 import { TestsimMyOtherSimsComponent } from './testsim-my-other-sims/testsim-my-other-sims.component';
+import { PreventKeysDirective } from './prevent-keys.directive';
 
 @NgModule({
   imports: [
@@ -199,7 +200,8 @@ import { TestsimMyOtherSimsComponent } from './testsim-my-other-sims/testsim-my-
     TestsimLostdamagedExistingComponent,
     TestsimTransferNewComponent,
     TestsimTransferExistingComponent,
-    TestsimMyOtherSimsComponent,
+    TestsimMyOtherSimsComponent,    
+    PreventKeysDirective,
   ]
 })
 export class NsaModule { }

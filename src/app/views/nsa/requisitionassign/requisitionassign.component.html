@@ -71,13 +71,13 @@
               <td style="width:25%">Expected Test End Date</td>
               <td style="width:25%;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['testCompletionDt']}}</td>
               <td style="width:25%">Location</td>
-              <td style="width:25%" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['location']}}</td>
+              <td style="width:25%" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['locationDetails']}}</td>
             </tr>
             <tr>
               <td style="width:25%">Usage Category</td>
               <td style="width:25%;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['usageCategory']}}</td>
               <td style="width:25%">Notification to</td>
-              <td style="width:25%" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['notificationTo']}}</td>
+              <td style="width:25%" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['notificationToDetails']}}</td>
             </tr>             
         </table>						
       </div>				
@@ -114,21 +114,21 @@
               
               <tbody>
                     <tr *ngFor="let c of requisition['requisitionLines']">
-                      <td>{{ c.product }}</td>
+                      <td>{{ c.productName }}</td>
                       <td>{{ c.creditLimit }}</td>
                       <td>{{ c.quantity }}</td>
                       <td>{{ c.activationInstruction }}</td>
-                      <td>{{ c.imsiType }}</td>
+                      <td>{{ c.imsiTypeName }}</td>
                       <td>
                           {{ c.specialRequirement }}
                           <span *ngIf="c.specialRequirementOther != null && c.specialRequirementOther != undefined && c.specialRequirementOther != ''"><br /></span>  
                           <span *ngIf="c.specialRequirementOther != null && c.specialRequirementOther != undefined && c.specialRequirementOther != ''">{{c.specialRequirementOther}}</span>                              
                       </td>                         
                       <td>
-                        <input type="number" [(ngModel)] = "c.assignedLimit" />
+                        <input type="number" min="0"  [prevent-keys]="[43, 45,189,187]" [(ngModel)] = "c.assignedLimit" />
                       </td>
                       <td>
-                          <input type="number" [(ngModel)] = "c.assignedQuantity" />
+                          <input type="number" min="1"  [prevent-keys]="[43, 45,189,187]" [(ngModel)] = "c.assignedQuantity" />
                       </td>
 
                     </tr>

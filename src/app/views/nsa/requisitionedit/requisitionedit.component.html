@@ -71,13 +71,13 @@
               <td style="width:25%">Expected Test End Date</td>
               <td style="width:25%;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['testCompletionDt']}}</td>
               <td style="width:25%">Location</td>
-              <td style="width:25%" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['location']}}</td>
+              <td style="width:25%" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['locationDetails']}}</td>
             </tr>
             <tr>
               <td style="width:25%">Usage Category</td>
               <td style="width:25%;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['usageCategory']}}</td>
               <td style="width:25%">Notification to</td>
-              <td style="width:25%" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['notificationTo']}}</td>
+              <td style="width:25%" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['notificationToDetails']}}</td>
             </tr>                
           </table>						
         </div>				
@@ -117,8 +117,8 @@
                       <option *ngFor="let aproduct of listProduct" [value]="aproduct.id">{{aproduct.ismsMasterDataDetailsName}}</option>              
                     </select>                                                            
                   </td>
-                  <td><input class="form-control" [(ngModel)] = "c.creditLimit" type = "number"></td>
-                  <td><input class="form-control" [(ngModel)] = "c.quantity" type = "number"></td>											  
+                  <td><input class="form-control" [(ngModel)] = "c.creditLimit" type = "number" min="0"  [prevent-keys]="[43, 45,189,187]"></td>
+                  <td><input class="form-control" [(ngModel)] = "c.quantity" type = "number" min="1"  [prevent-keys]="[43, 45,189,187]"></td>											  
                   <td>
                     <select class="form-control" [(ngModel)] = "c.imsiType" >
                       <option *ngFor="let aImsiType of listImsiType" [value]="aImsiType.id">{{aImsiType.ismsMasterDataDetailsName}}</option>

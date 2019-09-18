@@ -32,7 +32,7 @@
                           <td>{{aTask.simStatus}}</td>
                           <td>{{aTask.assignedCreditLimit}}</td>
                           <td>
-                              <input type="text" class="form-control" [(ngModel)] = "aTask.newCreditLimit" />
+                              <input type="number" class="form-control" [(ngModel)] = "aTask.newCreditLimit"  min="0" [prevent-keys]="[43, 45,189,187]" />
                           </td>
                           <td>
                               <input type="text" class="form-control" [(ngModel)] = "aTask.justification" />
