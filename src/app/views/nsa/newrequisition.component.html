@@ -125,7 +125,7 @@
                       <th>Purpose Category</th>
                       <th>Expected Test Start Date</th>
                       <th>Expected Test Completion Date</th>
-                      <th>Usage Category</th>
+                      <th>Initiated by</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -138,7 +138,7 @@
                                   <td>{{aTask.purposeCategory}}</td>
                                   <td>{{aTask.testStartDt}}</td>
                                   <td>{{aTask.testCompletionDt}}</td>
-                                  <td>{{aTask.usageCategory}}</td>
+                                  <td>{{aTask.initiator}}</td>
                                  <td> <button type="button" class="btn btn-link" ><i class="fa fa-link"></i> 
                                   <a [routerLink]="[detailsAction(aTask),aTask.id]">Details</a></button> </td>
                               </tr>

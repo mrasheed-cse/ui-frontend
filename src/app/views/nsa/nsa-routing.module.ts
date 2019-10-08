@@ -36,6 +36,7 @@ import { RequisitionassignComponent } from './requisitionassign/requisitionassig
 import { RequisitiondetailshodComponent } from './requisitiondetailshod/requisitiondetailshod.component';
 import { RequisitiondetailsdeliveryComponent } from './requisitiondetailsdelivery/requisitiondetailsdelivery.component';
 import { RequisitioneditComponent } from './requisitionedit/requisitionedit.component';
+import { RequisitionviewComponent } from './requisitionview/requisitionview.component';
 import { NewsimactivationreqComponent } from './newsimactivationreq/newsimactivationreq.component';
 import { TestsimdashboardComponent } from './testsimdashboard/testsimdashboard.component';
 import { ActivationrequeststatusComponent } from './activationrequeststatus/activationrequeststatus.component';
@@ -311,6 +312,13 @@ const routes: Routes = [
     component: RequisitioneditComponent,
     data: {
       title: 'Requisition Details (Revision by end user)'
+    }
+  },
+  {
+    path: 'requisitionview/:requisition_id',
+    component: RequisitionviewComponent,
+    data: {
+      title: 'View Requisition Details'
     }
   },
   {

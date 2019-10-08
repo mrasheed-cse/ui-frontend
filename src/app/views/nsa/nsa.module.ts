@@ -51,6 +51,7 @@ import { RequisitionassignComponent } from './requisitionassign/requisitionassig
 import { RequisitiondetailshodComponent } from './requisitiondetailshod/requisitiondetailshod.component';
 import { RequisitiondetailsdeliveryComponent } from './requisitiondetailsdelivery/requisitiondetailsdelivery.component';
 import { RequisitioneditComponent } from './requisitionedit/requisitionedit.component';
+import { RequisitionviewComponent } from './requisitionview/requisitionview.component';
 
 import { TestsimdashboardComponent } from './testsimdashboard/testsimdashboard.component';
 import { NewsimactivationreqComponent } from './newsimactivationreq/newsimactivationreq.component';
@@ -152,6 +153,7 @@ import { PreventKeysDirective } from './prevent-keys.directive';
     RequisitiondetailshodComponent,
     RequisitiondetailsdeliveryComponent,
     RequisitioneditComponent,
+    RequisitionviewComponent,
     TestsimdashboardComponent,
     NewsimactivationreqComponent,
     ActivationrequeststatusComponent,
