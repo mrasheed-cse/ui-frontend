@@ -16,6 +16,7 @@ import { WorkflowsService } from './services/workflows.service';
 import { AppGlobals } from './../../app.global';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment.prod';
+import { moment } from 'ngx-bootstrap/chronos/test/chain';
 
 import { LoginService } from '../pages/LoginService';
 import { LoggedInUser } from '../pages/loggedInUser'; 
@@ -85,6 +86,11 @@ export class NewrequisitiondetailsComponent implements OnInit {
             console.log(data);
             this.isDataFound = true;
             this.requisitionList = data;					
+
+            for(var i = 0; i < this.requisitionList.length; i++){
+              this.requisitionList[i]['show'] = true;
+            }
+
           }
           else{
             this.isDataFound = false;
@@ -111,43 +117,47 @@ this.createFormControls();
 
 datepickerConfig: Partial<BsDatepickerConfig>;
 
+clearSearch(){
+  for(var i = 0; i < this.requisitionList.length; i++){
+    this.requisitionList[i]['show'] = true;    
+  }
+}
+
 onSearchSubmit() {
   
-    if (this.wrname.value || this.startDate.value || this.endDate.value || this.wrstatus.value) {
+  if (this.wrname.value || this.startDate.value || this.endDate.value || this.wrstatus.value) {
       console.log('Form Submitted!');
       console.log(this.mySearchForm.value);
-    this.successSearchShow = false;
-    this.dangerAlertShow = false;
+      this.successSearchShow = false;
+      this.dangerAlertShow = false;
     
-    this.workFlowsService.SearchWorkRequest(this.wrname.value, this.startDate.value,this.endDate.value,this.wrstatus.value).subscribe(
-      res  =>  {
-      console.log('response is : '+res);
-      this.successSearchShow = true;
-      this.searchWR=this.wrname.value;
-      this.searchWRNumber=res["wrNumber"];
-      this.searchWrCreatedBy=res["createdBy"];
-      this.searchWrCreationDate=res["wrCreateDate"];
-      this.searchLastApprover=res["lastApprover"];
-      this.searchLextApprover=res["currentApprover"];
-      this.searchStatus=res["status"];
-      this.searchPendingGroupID = res["currentApproverGroup"];
-      this.searchHopSequence = res["currentHopSeq"];
-        },
-      err  =>  {		  
-      console.log("err.status : "+err.status);		  
-      this.dangerAlertShow = true;
-      if(err.status==404)
-        this.dangerAlertMessage = "No data found for this search.";
-      else
-        this.dangerAlertMessage = "An error occured while showing the search result.";
-    
+      for(var i = 0; i < this.requisitionList.length; i++){
+        this.requisitionList[i]['show'] = false;
+
+        if(this.wrname.value != null && this.wrname.value != undefined && this.wrname.value != "" && this.wrname.value == this.requisitionList[i]['requisitionNo']){
+          this.requisitionList[i]['show'] = true;
+        }
+        if(this.wrstatus.value != null && this.wrstatus.value != undefined && this.wrstatus.value != "" && this.wrstatus.value == this.requisitionList[i]['rejectionRfiStatus']){
+          this.requisitionList[i]['show'] = true;
+        }
+
+        if(this.startDate.value != null && this.startDate.value != undefined && this.startDate.value != "" 
+        &&
+        this.endDate.value != null && this.endDate.value != undefined && this.endDate.value != ""){
+          var sdate = moment(this.requisitionList[i]['requisitionDt']).format('DD-MM-YYYY');
+
+          console.log("sdate");
+          console.log(sdate);
+
+          if(sdate >= this.startDate.value && sdate <= this.endDate.value){
+            this.requisitionList[i]['show'] = true;
+          }
+        }
+
+
       }
-      );	  
-    }
-    else{
-      this.dangerAlertShow = true;
-      this.dangerAlertMessage = "Please select any input to search.";
-    }
+
+  }
 }
 
 createFormControls() {
@@ -171,8 +181,12 @@ onTaskSelect(aTask) {
       //this.router.navigateByUrl('/nsa/seriesprovisiondetail');
 }
 
-detailsAction(aTask){
+editAction(aTask){
   return '../requisitionedit/'.toString();
+}
+
+viewAction(aTask){
+  return '../requisitionview/'.toString();
 }
 
 }

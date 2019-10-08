@@ -194,6 +194,19 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
         arrayObj['startingKitNumber'] = this.recordsFromFile[i];
         arrayObj['endingKitNumber'] = this.recordsFromFile[i];
     
+        if(arrayObj['startingKitNumber'] == null || arrayObj['startingKitNumber'] == undefined || arrayObj['startingKitNumber'] == "" || arrayObj['startingKitNumber'].length != 28){
+          console.log(arrayObj['startingKitNumber']);
+          console.log(arrayObj['startingKitNumber'].length);
+          var alertTxt = "Invalid starting KIT number specified in row "+ (i+1) +" of input file. KIT number must be 28 digits.";
+          alert(alertTxt);
+          return;
+        }
+        if(arrayObj['endingKitNumber'] == null || arrayObj['endingKitNumber'] == undefined || arrayObj['endingKitNumber'] == "" || arrayObj['endingKitNumber'].length != 28){
+          var alertTxt = "Invalid ending KIT number specified in row "+ (i+1) +" of input file. KIT number must be 28 digits.";
+          alert(alertTxt);
+          return;
+        }
+
         responseObj['searchModel'].push(arrayObj);
       }
 
@@ -203,6 +216,15 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
       var arrayObj = {};
       arrayObj['startingKitNumber'] = this.startingKitNumber;
       arrayObj['endingKitNumber'] = this.endingKitNumber;
+
+      if(this.startingKitNumber == null || this.startingKitNumber == undefined || this.startingKitNumber == "" || this.startingKitNumber.length != 28){
+        alert("Invalid starting KIT number specified. KIT number must be 28 digits.");
+        return;
+      }
+      if(this.endingKitNumber == null || this.endingKitNumber == undefined || this.endingKitNumber == "" || this.endingKitNumber.length != 28){
+        alert("Invalid ending KIT number specified. KIT number must be 28 digits.");
+        return;
+      }
   
       responseObj['searchModel'].push(arrayObj);
     }
@@ -227,7 +249,7 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
           else if(res.length != this.lineItemBeingConsidered['assignQuantity']){
             let alertMsg = "The requsition line specifies quantity of " + this.lineItemBeingConsidered['assignQuantity'] + ". However, with specified KIT numbers " + res.length + " number of MSISDN found.";
             alert(alertMsg);            
-            //return;    //comment out for demo purpose
+            return;
           }
 
           //step 1: push to final array

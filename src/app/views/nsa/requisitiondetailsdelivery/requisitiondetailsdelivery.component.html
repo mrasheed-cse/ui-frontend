@@ -6,7 +6,7 @@
     <div class="card-body">			
       <div class="row" >
         <div class="col-md-12">
-          <table style="width:50%" border="1">        
+          <table style="width:100%" border="1">        
             <tr>
               <td style="width:25%">Employee ID.</td>
               <td style="width:25%;" bgcolor="#dcdcdc">{{requisition['employeeDetails']['employeeNo']}}</td>
@@ -15,7 +15,7 @@
             </tr>
             <tr>
               <td style="width:25%">Employee Name</td>
-              <td style="width:25%;" bgcolor="#dcdcdc">{{requisition['employeeDetails']['id']}}</td>
+              <td style="width:25%;" bgcolor="#dcdcdc">{{requisition['employeeDetails']['fullName']}}</td>
               <td style="width:25%">Designation</td>
               <td style="width:25%" bgcolor="#dcdcdc">{{requisition['employeeDetails']['designation']}}</td>
             </tr>
@@ -48,7 +48,7 @@
     <div class="card-body">			
       <div class="row" >
         <div class="col-md-12">
-          <table style="width:50%" border="1">        
+          <table style="width:100%" border="1">        
             <tr>
               <td style="width:25%">Requisition No</td>
               <td style="width:25%;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['requisitionNo']}}</td>
@@ -71,13 +71,11 @@
               <td style="width:25%">Expected Test End Date</td>
               <td style="width:25%;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['testCompletionDt']}}</td>
               <td style="width:25%">Location</td>
-              <td style="width:25%" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['location']}}</td>
+              <td style="width:25%" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['locationDetails']}}</td>
             </tr>
             <tr>
               <td style="width:25%">Usage Category</td>
-              <td style="width:25%;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['usageCategory']}}</td>
-              <td style="width:25%">Notification to</td>
-              <td style="width:25%" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['notificationTo']}}</td>
+              <td style="width:75%;" colspan="3" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['usageCategory']}}</td>
             </tr>           
           </table>						
         </div>				
@@ -114,11 +112,11 @@
                 <tbody>
                       <tr *ngFor="let c of requisition['requisitionLines']">
                         <td>{{ c.id }}</td>
-                        <td>{{ c.product }}</td>
+                        <td>{{ c.productName }}</td>
                         <td>{{ c.assignCreditlimit }}</td>
                         <td>{{ c.assignQuantity }}</td>
                         <td>{{ c.activationInstruction }}</td>
-                        <td>{{ c.imsiType }}</td>
+                        <td>{{ c.imsiTypeName }}</td>
                         <td>
                             {{ c.specialRequirement }}
                             <span *ngIf="c.specialRequirementOther != null && c.specialRequirementOther != undefined && c.specialRequirementOther != ''"><br /></span>  
