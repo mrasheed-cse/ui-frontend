@@ -149,16 +149,16 @@ export class TestsimRechargeComponent implements OnInit {
     ////////////////// /////////////////////////////////
     this.workFlowsService.submitSimActionRequest(requestObj).subscribe(
       data => {
-        
+        if(data != null && data != undefined && data != ""){
+          this.isLoading = false;
+          var msg = "The request has been submitted" + data['name'];
+          alert(msg);
+          this.router.navigate(['nsa/testsimdashboard']);
+        }
       },
     err => console.error(err),
     () => console.log('Done loading PendingTask List')
     );
-    setTimeout(()=>{    //<<<---    using ()=> syntax
-      this.isLoading = false;
-      alert("The request has been submitted");
-      this.router.navigate(['nsa/testsimdashboard']);
-    }, 4000);
 
     ////////////// /////////////////////// /////////////
   }
