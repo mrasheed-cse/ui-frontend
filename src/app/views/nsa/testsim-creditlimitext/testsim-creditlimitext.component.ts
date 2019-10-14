@@ -20,7 +20,7 @@ import { LoggedInUser } from '../../pages/loggedInUser';
   providers: [WorkflowsService,AppGlobals,LoginService],
 })
 export class TestsimCreditlimitextComponent implements OnInit {
-  
+
   allRequisitionLineMsisdnIds: string;
   requisitionList: Array<Object>;
 	currentLoggedInUser: LoggedInUser;
@@ -143,16 +143,19 @@ export class TestsimCreditlimitextComponent implements OnInit {
     ////////////////// /////////////////////////////////
     this.workFlowsService.submitSimActionRequest(requestObj).subscribe(
       data => {
-        
+        if(data != null && data != undefined && data != ""){
+          this.isLoading = false;
+          var msg = "The request has been submitted" + data['name'];
+          alert(msg);
+          this.router.navigate(['nsa/testsimdashboard']);
+        }
+
+        console.log("sim action submitted");
+        console.log(data);
       },
     err => console.error(err),
     () => console.log('Done loading PendingTask List')
     );
-    setTimeout(()=>{    //<<<---    using ()=> syntax
-      this.isLoading = false;
-      alert("The request has been submitted");
-      this.router.navigate(['nsa/testsimdashboard']);
-    }, 4000);
 
     ////////////// /////////////////////// /////////////
   }

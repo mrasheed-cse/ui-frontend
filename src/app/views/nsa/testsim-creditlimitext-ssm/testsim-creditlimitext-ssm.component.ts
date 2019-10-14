@@ -137,7 +137,7 @@ export class TestsimCreditlimitextSsmComponent implements OnInit {
             this.msisdnList[i]['selected'] = false;
             this.msisdnList[i]['isApproved'] = false;
             this.msisdnList[i]['isRejected'] = false;
-            this.msisdnList[i]['locked'] = false;            
+            this.msisdnList[i]['locked'] = false;
             if(this.msisdnList[i]['approvalStatus'] == 2){
               this.msisdnList[i]['isRejected'] = true;
               this.msisdnList[i]['locked'] = true;
@@ -148,9 +148,9 @@ export class TestsimCreditlimitextSsmComponent implements OnInit {
           this.showDetail = true;
         }
       },
-      err  =>  {	
-           
-      }        
+      err  =>  {
+
+      }
     );
 
   }
@@ -167,7 +167,7 @@ export class TestsimCreditlimitextSsmComponent implements OnInit {
   }
 
   rejectAll(){
-    
+
     for(var i = 0; i < this.msisdnList.length; i++){
       if(!this.msisdnList[i]['locked']){
         this.msisdnList[i]['isRejected'] = true;
@@ -202,24 +202,17 @@ export class TestsimCreditlimitextSsmComponent implements OnInit {
 
     this.workFlowsService.updateSimAction(obj).subscribe(
       res  =>  {
-        if(res !== ""){
-          
+        if(res != null && res != undefined && res !== ""){
+          this.isLoading = false;
+          var msg = "The request has been submitted" + res['name'];
+          alert(msg);
+          this.router.navigate(['nsa/testsimdashboard']);
         }
       },
-      err  =>  {	
-           
-      }        
+      err  =>  {
+
+      }
     );
-
-    setTimeout(()=>{    //<<<---    using ()=> syntax
-
-      /////////////////// //////////////////////////
-      this.isLoading = false;
-      alert('This request has been submitted.');
-      this.router.navigate(['nsa/testsimdashboard']);
-      /////////// ////////////// ///////////////////
-
-      }, 5000);
 
   }
 
