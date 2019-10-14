@@ -44,6 +44,7 @@ export class NewrequisitioninitiateComponent implements OnInit {
   department: string;
   division: string;
   emailAddress: string;
+  fullName: string;
 
   WR_Name: string;
 	serverUrl: string;
@@ -70,8 +71,7 @@ export class NewrequisitioninitiateComponent implements OnInit {
 	usageCategory: FormControl;
 	startDate: FormControl;
 	endDate: FormControl;
-	purposeDetails: FormControl;	
-	notificationTo: FormControl;
+	purposeDetails: FormControl;
 	requisitionType: FormControl;
 	requisitionDate: FormControl;
 	requisitionLines: FormArray;
@@ -90,6 +90,13 @@ export class NewrequisitioninitiateComponent implements OnInit {
 
 
 	headerDateData: any;
+
+
+	/*keyDownHandler(event: Event) {
+		console.log(event);
+		if (event['which'] === 43 || event['which'] === 45)
+			event.preventDefault();
+	}*/
 
 	getRequisitionType(){
 		//GetRequisitionType
@@ -265,6 +272,7 @@ export class NewrequisitioninitiateComponent implements OnInit {
 					this.department = parsedString.departmentName;
 					this.division = parsedString.divisionName;
 					this.emailAddress = parsedString.emailAddress;
+					this.fullName = parsedString.fullName;
 				},
 				err => console.error(err),
 				() => console.log('done loading Emplpoyee Details')
@@ -307,19 +315,17 @@ export class NewrequisitioninitiateComponent implements OnInit {
       this.endDate = 	new FormControl('', Validators.required);
       this.purposeDetails = new FormControl('', Validators.required);
       
-      this.notificationTo = 	new FormControl('', Validators.required);	
-      
       this.requisitionType = new FormControl({value: ''}, Validators.required);
 			this.requisitionDate = new FormControl('');
-			this.requisitionDate.setValue ( moment(new Date()).format('MM-DD-YYYY') );
+			this.requisitionDate.setValue ( moment(new Date()).format('DD-MM-YYYY') );
       this.requisitionLines = new FormArray([  
         //new FormControl(0)    
         new FormGroup({
           product: new FormControl('', Validators.required),
           creditLimit: new FormControl(0),
           quantity: new FormControl(0),
-          imsiType: new FormControl('', Validators.required),
-					specialRequirement: new FormControl(''),
+          imsiType: new FormControl(''),
+					specialRequirement: new FormControl('', Validators.required),
 					specialRequirementOther: new FormControl(''),
           assignProduct: new FormControl(0),
           assignQuantity: new FormControl(0)
@@ -336,8 +342,7 @@ export class NewrequisitioninitiateComponent implements OnInit {
         	usageCategory: this.usageCategory,		
         	startDate: this.startDate,
         	endDate: this.endDate,	
-        	purposeDetails: this.purposeDetails,        
-        	notificationTo: this.notificationTo,
+        	purposeDetails: this.purposeDetails,
         	requisitionLines: this.requisitionLines
 				});
 				this.getRequisitionType();
@@ -362,8 +367,8 @@ export class NewrequisitioninitiateComponent implements OnInit {
           product: new FormControl('', Validators.required),
           creditLimit: new FormControl(0),
           quantity: new FormControl(0),
-          imsiType: new FormControl('', Validators.required),
-					specialRequirement: new FormControl(''),
+          imsiType: new FormControl(''),
+					specialRequirement: new FormControl('', Validators.required),
 					specialRequirementOther: new FormControl(''),
           assignProduct: new FormControl(0),
           assignQuantity: new FormControl(0)
@@ -404,6 +409,10 @@ export class NewrequisitioninitiateComponent implements OnInit {
 				}
 				else if(this.endDate.value <= this.startDate.value ){
 					validationMessage = "End date must be greater than start date";					
+					validationPassed = false;
+				}
+				else if(this.purposeDetails.value == null || this.purposeDetails.value == "" || this.purposeDetails.value == undefined || this.purposeDetails.value.length < 120 ){
+					validationMessage = "Purpose details must contain a minimum of 120 characters";					
 					validationPassed = false;
 				}								
 
@@ -486,30 +495,20 @@ export class NewrequisitioninitiateComponent implements OnInit {
 				this.headerDateData.startDate = this.newSimRequisitionForm.get('startDate').value;
 				this.headerDateData.endDate = this.newSimRequisitionForm.get('endDate').value;
 				this.headerDateData.purposeDetails = this.newSimRequisitionForm.get('purposeDetails').value;
-				this.headerDateData.notificationTo = this.newSimRequisitionForm.get('notificationTo').value;
+				this.headerDateData.notificationTo = "";
 				this.headerDateData.requisitionLines = this.newSimRequisitionForm.get('requisitionLines').value;
-				   
+				
+				for(var i = 0; i < this.headerDateData.requisitionLines.length; i++){
+					if(this.headerDateData.requisitionLines[i]['imsiType'] == null || 
+						this.headerDateData.requisitionLines[i]['imsiType'] == undefined ||
+						this.headerDateData.requisitionLines[i]['imsiType'] == "")
+						{
+							this.headerDateData.requisitionLines[i]['imsiType'] = "0";
+						}
+				}
     
 				let resource = (this.headerDateData);
 				console.log(resource);
-/*
-				let aNewTestSimRequisition:NewTestSimRequisition = new NewTestSimRequisition(); 
-				aNewTestSimRequisition.requisitionDate = this.FormatTheDate(this.newSimRequisitionForm.get('requisitionDate').value);
-				aNewTestSimRequisition.requisitionType = this.FormatTheDate(this.newSimRequisitionForm.get('requisitionType').value);
-				aNewTestSimRequisition.purposeCategory = this.FormatTheDate(this.newSimRequisitionForm.get('purposeCategory').value);
-				aNewTestSimRequisition.location = this.FormatTheDate(this.newSimRequisitionForm.get('location').value);
-				aNewTestSimRequisition.usageCategory = this.FormatTheDate(this.newSimRequisitionForm.get('usageCategory').value);
-				aNewTestSimRequisition.startDate = this.FormatTheDate(this.newSimRequisitionForm.get('startDate').value);
-				aNewTestSimRequisition.endDate = this.FormatTheDate(this.newSimRequisitionForm.get('endDate').value);
-				aNewTestSimRequisition.purposeDetails = this.FormatTheDate(this.newSimRequisitionForm.get('purposeDetails').value);
-				aNewTestSimRequisition.notificationTo = this.FormatTheDate(this.newSimRequisitionForm.get('notificationTo').value);
-				
-				let requisitionLines:RequisitionLine[];
-				// = new RequisitionLine(); 
-				aRequisitionLine:RequisitionLine;
-
-				//aNewTestSimRequisition.requisitionLines = this.newSimRequisitionForm.get('requisitionLines') as FormArray;
-			*/	
 				console.log('Add Button clicked: ' + resource);			
 				
 				
@@ -549,7 +548,7 @@ FormatTheDate(selectedrequisitionDate:any):string {
 		var formattedDate=[day,month,date.getFullYear()].join("-");*/
 		const date = moment(selectedrequisitionDate);
 		console.log('jhhhhhhhhhhhhhhhhhhhhhhhhhh'+date);
-		const formattedDate = moment(date).format('MM-DD-YYYY');
+		const formattedDate = moment(date).format('DD-MM-YYYY');
 	  console.log("formattedDate : "+formattedDate);
   	return formattedDate;
 	

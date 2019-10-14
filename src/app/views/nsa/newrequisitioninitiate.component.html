@@ -2,7 +2,7 @@
 	<div class="col-md-12">
 		<div class="card">
 			<div style="text-align: center">
-        		<i class="fa fa-spinner fa-pulse fa-3x fa-fw" *ngIf="isLoading" ></i>
+        		<div class="div_cust_loading_sign" *ngIf="isLoading"> <div style="position:fixed;width:100%;height:100%;left:0px;top:0px;z-index:50000;background-color:#536c79;opacity:0.95"></div> <div style="position:fixed;width:100%;height:100%;left:0px;top:0px;z-index:60000"><div style="width:25%;height:25%;margin:0px auto;margin-top:20%"><i class="fa fa-spinner fa-pulse fa-4x fa-fw" ></i></div></div> </div>
           </div>
         <div class="alert alert-success" role="alert" *ngIf="successAlertShow">The New Work Request <b>{{WR_Name}}</b> {{successAlertMessage}}</div>
 	<div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">An Error occured to create <b>{{WR_Name}}</b> {{dangerAlertMessage}}</div>
@@ -14,7 +14,7 @@
         <div class="card-body">			
 		<div class="row" >
 		<div class="col-md-12">
-                      <table style="width:50%" border="1">        
+                      <table style="width:100%" border="1">        
                 <tr>
                   <td style="width:25%">Employee ID.</td>
                   <td style="width:25%;" bgcolor="#dcdcdc">{{employeeID}}</td>
@@ -23,7 +23,7 @@
                 </tr>
                 <tr>
                   <td style="width:25%">Employee Name</td>
-                  <td style="width:25%;" bgcolor="#dcdcdc">{{employeeName}}</td>
+                  <td style="width:25%;" bgcolor="#dcdcdc">{{fullName}}</td>
                   <td style="width:25%">Designation</td>
                   <td style="width:25%" bgcolor="#dcdcdc">{{designation}}</td>
                 </tr>
@@ -76,7 +76,7 @@
                                                                          [bsConfig]="{ dateInputFormat: 'dd-MM-yyyy', containerClass: 'theme-green',  showWeekNumbers:false }"
                                                                          [minDate]="todayDate" 
                                                                         
-                                                                         value="{{ requisitionDate.value | date: 'dd-MM-yyyy' }}"
+                                                                         value="{{ requisitionDate.value }}"
                                                                          disabled
                                                                         >
                                                                 </div>
@@ -205,20 +205,13 @@
                                                         <div class="form-group row">
                                                                         <label class="col-md-5 col-form-label" for="purposeDetails">Purpose Details</label>
                                                                         <div class="col-md-12">
-                                                                                <textarea id="purposeDetails" name="purposeDetails" class="form-control" formControlName="purposeDetails" rows="5">
+                                                                                <textarea id="purposeDetails" name="purposeDetails" class="form-control" formControlName="purposeDetails" rows="5"
+                                                                                placeholder="Please enter minimum 120 characters" >
                                                         </textarea>
                                                                         </div>
                                                                 </div>
                                         </div>
-                                        <div class="col-md-6">
-                                                        <div class="form-group row">
-                                                                        <label class="col-md-5 col-form-label" for="notificationTo">Notification To</label>
-                                                                        <div class="col-md-12">
-                                                                                <textarea id="notificationTo" name="notificationTo" class="form-control" formControlName="notificationTo" rows="5">
-                                                        </textarea>
-                                                                        </div>
-                                                                </div>
-                                        </div>
+                                        
                                 </div>
                                 <div class="card-header">
                                                 <strong>Requisition Line</strong>
@@ -257,8 +250,8 @@
                                                                                         
                                                                                         
                                                                                         </td>
-                                                                                        <td><input class="form-control" formControlName="creditLimit" type = "number"></td>
-                                                                                        <td><input class="form-control" formControlName="quantity" type = "number"></td>											  
+                                                                                        <td><input class="form-control" formControlName="creditLimit" type = "number"  min="0" [prevent-keys]="[43, 45,189,187]" ></td>
+                                                                                        <td><input class="form-control" formControlName="quantity" type = "number" min="1" [prevent-keys]="[43, 45,189,187]" ></td>											  
                                                                                         <td>
                                                                                                 <!--<input formControlName="imsiType" >  -->
                                                                                         

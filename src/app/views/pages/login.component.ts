@@ -58,7 +58,7 @@ export class LoginComponent {
             localStorage.setItem('currentLoggedInUser', JSON.stringify(this.currentLoggedInUser));
           
             this.isLoading = false;
-            this.router.navigateByUrl('/nsa')
+            this.router.navigateByUrl('/nsa/testsimdashboard')
           }
         },
         err => {
@@ -85,7 +85,7 @@ export class LoginComponent {
             localStorage.setItem('currentLoggedInUser', JSON.stringify(this.currentLoggedInUser));
           
             this.isLoading = false;
-            this.router.navigateByUrl('/nsa')
+            this.router.navigateByUrl('/nsa/testsimdashboard')
           }
         },
         err => {

@@ -181,4 +181,137 @@ export class WorkflowsService {
 	
 		
 	}
+
+	/* ISMS phase 2 services */
+
+	newSimActivation(wr_id: number, user_id: string) : any {
+		return this.http.post(this.serverUrl + 'workflow/newsimactivation', {
+			createdBy: user_id,
+			requisitionNo: wr_id,
+			status: ""
+		});
+	}
+
+	newSimActivationDetails(wr_id: number, user_id: string) : any {
+		return this.http.post(this.serverUrl + 'workflow/newsimactivationdetails', {
+			createdBy: user_id,
+			requisitionNo: wr_id,
+			status: ""
+		});
+	}
+
+	submitNewSimActivationReq(
+		wr_id: number, 
+		user_id: string, 
+		approvedRqnLineNumbers: string, 
+		rejectedRqnLineNumbers: string, 
+		actionType: string) : any {
+		return this.http.post(this.serverUrl + 'workflow/submitnewsimactivationreq', {
+			user_id: user_id,
+			wr_id: wr_id,
+			actionType: actionType,
+			approvedRqnLineNumbers: approvedRqnLineNumbers,
+			rejectedRqnLineNumbers: rejectedRqnLineNumbers
+		});
+	}
+
+	updateSimActivationReq(
+		wr_id: number, 
+		user_id: string, 
+		approvedRqnLineNumbers: string, 
+		rejectedRqnLineNumbers: string, 
+		approvedSimActivationIds: string,
+		actionType: string) : any {
+		return this.http.post(this.serverUrl + 'workflow/updatesimactivationreq', {
+			user_id: user_id,
+			wr_id: wr_id,
+			actionType: actionType,
+			approvedRqnLineNumbers: approvedRqnLineNumbers,
+			rejectedRqnLineNumbers: rejectedRqnLineNumbers,
+			approvedSimActivationIds : approvedSimActivationIds
+		});
+	}
+
+	activationRequestsPendingForApproval(wr_id: number, user_id: string) : any {
+		return this.http.post(this.serverUrl + 'workflow/activationrequestspendingforapproval', {
+			createdBy: user_id,
+			requisitionNo: wr_id,
+			status: "PENDING"
+		});
+	}
+
+	loadMySims(user_id: string) : any {
+		return this.http.post(this.serverUrl + 'workflow/mysims', {
+			createdBy: user_id,
+			requisitionNo: 0,
+			status: ""
+		});
+	}
+
+	loadMyNonActiveSims(user_id: string) : any {
+		return this.http.post(this.serverUrl + 'workflow/mynonactivesims', {
+			createdBy: user_id,
+			requisitionNo: 0,
+			status: ""
+		});
+	}
+
+	loadMySimsFiltered(user_id: string, requisitionLineMsisdnIds: string) : any {
+		return this.http.post(this.serverUrl + 'workflow/mysims', {
+			createdBy: user_id,
+			requisitionNo: 0,
+			status: requisitionLineMsisdnIds
+		});
+	}
+
+	submitSimActionRequest(requestObj: any) : any {
+		return this.http.post(this.serverUrl + 'workflow/submitsimactionrequest', requestObj);
+	}
+
+
+	simActionRequestsPendingForApproval(wr_id: number, user_id: string) : any {
+		return this.http.post(this.serverUrl + 'workflow/simactionspendingforapproval', {
+			createdBy: user_id,
+			requisitionNo: wr_id,
+			status: "PENDING"
+		});
+	}
+
+	simActionRequestDetailsPendingForApproval(sim_action_id: number) : any {
+		return this.http.post(this.serverUrl + 'workflow/simactiondetailspendingforapproval', {
+			createdBy: 0,
+			requisitionNo: sim_action_id,
+			status: "PENDING"
+		});
+	}
+
+	updateSimAction(data: any) : any {
+		return this.http.post(this.serverUrl + 'workflow/updatesimaction', data);
+	}
+
+
+	doPendingSimActionExistsForRqnLineMsisdnId(idsPassed: Array<number>) : any {
+		return this.http.post(this.serverUrl + 'workflow/dopendingsimactionexistsforrqnlinemsisdnid', {
+			idsPassed: idsPassed
+		});
+	}
+
+
+	ownRequestsForSimAction(wr_id: number, user_id: string) : any {
+		return this.http.post(this.serverUrl + 'workflow/ownrequestsforsimaction', {
+			createdBy: user_id,
+			requisitionNo: wr_id,
+			status: "PENDING"
+		});
+	}
+
+
+	getUserList() : any {
+		return this.http.post(this.serverUrl + 'workflow/userlist', {
+			createdBy: 0,
+			requisitionNo: 0,
+			status: ""
+		});
+	}
+
 }

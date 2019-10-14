@@ -36,6 +36,52 @@ import { RequisitionassignComponent } from './requisitionassign/requisitionassig
 import { RequisitiondetailshodComponent } from './requisitiondetailshod/requisitiondetailshod.component';
 import { RequisitiondetailsdeliveryComponent } from './requisitiondetailsdelivery/requisitiondetailsdelivery.component';
 import { RequisitioneditComponent } from './requisitionedit/requisitionedit.component';
+import { RequisitionviewComponent } from './requisitionview/requisitionview.component';
+import { NewsimactivationreqComponent } from './newsimactivationreq/newsimactivationreq.component';
+import { TestsimdashboardComponent } from './testsimdashboard/testsimdashboard.component';
+import { ActivationrequeststatusComponent } from './activationrequeststatus/activationrequeststatus.component';
+import { TestsimTransferSsmComponent } from './testsim-transfer-ssm/testsim-transfer-ssm.component';
+import { TestsimTransferHodComponent } from './testsim-transfer-hod/testsim-transfer-hod.component';
+import { TestsimTransferComponent } from './testsim-transfer/testsim-transfer.component';
+import { TestsimTimeextComponent } from './testsim-timeext/testsim-timeext.component';
+import { TestsimTimeextSsmComponent } from './testsim-timeext-ssm/testsim-timeext-ssm.component';
+import { TestsimTimeextHodComponent } from './testsim-timeext-hod/testsim-timeext-hod.component';
+import { TestsimTimeextCreditlimitextComponent } from './testsim-timeext-creditlimitext/testsim-timeext-creditlimitext.component';
+import { TestsimCreditlimitextComponent } from './testsim-creditlimitext/testsim-creditlimitext.component';
+import { TestsimCreditlimitextSsmComponent } from './testsim-creditlimitext-ssm/testsim-creditlimitext-ssm.component';
+import { TestsimCreditlimitextHodComponent } from './testsim-creditlimitext-hod/testsim-creditlimitext-hod.component';
+import { TestsimRechargeComponent } from './testsim-recharge/testsim-recharge.component';
+import { TestsimRechargeSsmComponent } from './testsim-recharge-ssm/testsim-recharge-ssm.component';
+import { TestsimRechargeHodComponent } from './testsim-recharge-hod/testsim-recharge-hod.component';
+import { TestsimSurrenderComponent } from './testsim-surrender/testsim-surrender.component';
+import { TestsimSurrenderHodComponent } from './testsim-surrender-hod/testsim-surrender-hod.component';
+import { TestsimSurrenderSsmComponent } from './testsim-surrender-ssm/testsim-surrender-ssm.component';
+import { TestsimDamagedComponent } from './testsim-damaged/testsim-damaged.component';
+import { TestsimDamagedSsmComponent } from './testsim-damaged-ssm/testsim-damaged-ssm.component';
+import { TestsimDamagedHodComponent } from './testsim-damaged-hod/testsim-damaged-hod.component';
+import { TestsimLostComponent } from './testsim-lost/testsim-lost.component';
+import { TestsimLostSsComponent } from './testsim-lost-ss/testsim-lost-ss.component';
+import { TestsimLostSsmComponent } from './testsim-lost-ssm/testsim-lost-ssm.component';
+import { TestsimLostHodComponent } from './testsim-lost-hod/testsim-lost-hod.component';
+import { TestsimMysimsComponent } from './testsim-mysims/testsim-mysims.component';
+import { ActivationPendingregistrationsComponent } from './activation-pendingregistrations/activation-pendingregistrations.component';
+import { TestsimRequisitionhistoryreportComponent } from './testsim-requisitionhistoryreport/testsim-requisitionhistoryreport.component';
+import { TestsimMsisdnreportSsmComponent } from './testsim-msisdnreport-ssm/testsim-msisdnreport-ssm.component';
+import { TestsimMsisdnreportComponent } from './testsim-msisdnreport/testsim-msisdnreport.component';
+import { ActivationPendingapprovalsComponent } from './activation-pendingapprovals/activation-pendingapprovals.component';
+import { NewsimactivationreqDetailsComponent } from './newsimactivationreq-details/newsimactivationreq-details.component';
+import { TestsimCreditlimitextNewComponent } from './testsim-creditlimitext-new/testsim-creditlimitext-new.component';
+import { TestsimCreditLimitextExistingComponent } from './testsim-credit-limitext-existing/testsim-credit-limitext-existing.component';
+import { TestsimRechargeNewComponent } from './testsim-recharge-new/testsim-recharge-new.component';
+import { TestsimRechargeExistingComponent } from './testsim-recharge-existing/testsim-recharge-existing.component';
+import { TestsimDeactivationExistingComponent } from './testsim-deactivation-existing/testsim-deactivation-existing.component';
+import { TestsimSurrenderNewComponent } from './testsim-surrender-new/testsim-surrender-new.component';
+import { TestsimSurrenderExistingComponent } from './testsim-surrender-existing/testsim-surrender-existing.component';
+import { TestsimLostdamagedNewComponent } from './testsim-lostdamaged-new/testsim-lostdamaged-new.component';
+import { TestsimLostdamagedExistingComponent } from './testsim-lostdamaged-existing/testsim-lostdamaged-existing.component';
+import { TestsimTransferNewComponent } from './testsim-transfer-new/testsim-transfer-new.component';
+import { TestsimTransferExistingComponent } from './testsim-transfer-existing/testsim-transfer-existing.component';
+import { TestsimMyOtherSimsComponent } from './testsim-my-other-sims/testsim-my-other-sims.component';
 
 
 const routes: Routes = [
@@ -144,7 +190,7 @@ const routes: Routes = [
       title: 'Re-Provision Search Form'
     }
   },
-  
+
   {
     path: 'reprovisiondetail/:wr_BriefName/:wr_BriefId/:hopSequence',
     component: ReProvisionDetailsComponent,
@@ -152,8 +198,8 @@ const routes: Routes = [
       title: 'Re-Provision Workflow'
     }
   },
-  
-  
+
+
   {
     path: 'mnpreprovision',
     component: MnpreProvisionComponent,
@@ -182,8 +228,8 @@ const routes: Routes = [
       title: 'MNP Re-Provision Workflow'
     }
   },
-  
-  
+
+
   {
     path: 'seriesprovision',
     component: SeriesprovisionComponent,
@@ -267,7 +313,14 @@ const routes: Routes = [
     data: {
       title: 'Requisition Details (Revision by end user)'
     }
-  },  
+  },
+  {
+    path: 'requisitionview/:requisition_id',
+    component: RequisitionviewComponent,
+    data: {
+      title: 'View Requisition Details'
+    }
+  },
   {
     path: 'requisitiondetailsassesment/:requisition_id',
     component: RequisitiondetailsFormComponent,
@@ -295,7 +348,315 @@ const routes: Routes = [
     data: {
       title: 'Requisition Details (Delivery) - CLC User Group'
     }
-  }
+  },
+  {
+    path: 'newsimactivationreq',
+    component: NewsimactivationreqComponent,
+    data: {
+      title: 'New Test SIM Activation Request'
+    }
+  },
+  {
+    path: 'newsimactivationreq_dt/:requisition_id',
+    component: NewsimactivationreqDetailsComponent,
+    data: {
+      title: 'New Test SIM Activation Request'
+    }
+  },
+  {
+    path: 'testsimdashboard',
+    component: TestsimdashboardComponent,
+    data: {
+      title: 'Dashboard'
+    }
+  },
+  {
+    path: 'activationrequeststatus',
+    component: ActivationrequeststatusComponent,
+    data: {
+      title: 'Existing Test SIM Activation Requests'
+    }
+  },
+  {
+    path: 'activation-pendingregistrations',
+    component: ActivationPendingregistrationsComponent,
+    data: {
+      title: 'Activation Requests - Pending for Registration'
+    }
+  },
+  {
+    path: 'activation-pendingapprovals/:requisition_id',
+    component: ActivationPendingapprovalsComponent,
+    data: {
+      title: 'Activation Requests - Pending for Approval'
+    }
+  },
+  {
+    path: 'testsim-msisdnreport',
+    component: TestsimMsisdnreportComponent,
+    data: {
+      title: 'MSISDN Status Report'
+    }
+  },
+  {
+    path: 'testsim-msisdnreport-ssm',
+    component: TestsimMsisdnreportSsmComponent,
+    data: {
+      title: 'MSISDN Status Report (for SSM)'
+    }
+  },
+  {
+    path: 'testsim-requisitionhistoryreport',
+    component: TestsimRequisitionhistoryreportComponent,
+    data: {
+      title: 'Requisition History Report'
+    }
+  },
+  /*{
+    path: 'testsim-requeststatus',
+    component: Testsimrequeststatuscomponent,
+    data: {
+      title: 'Request status'
+    }
+  },*/
+  {
+    path: 'testsim-mysims',
+    component: TestsimMysimsComponent,
+    data: {
+      title: 'My SIMs (Active)'
+    }
+  },
+  {
+    path: 'testsim-myothersims',
+    component: TestsimMyOtherSimsComponent,
+    data: {
+      title: 'My SIMs (Inactive / Deactive / Suspended)'
+    }
+  },
+  {
+    path: 'testsim-timeext/:all_ids',
+    component: TestsimTimeextComponent,
+    data: {
+      title: 'Time Limit Extension'
+    }
+  },
+  {
+    path: 'testsim-timeext-ssm',
+    component: TestsimTimeextSsmComponent,
+    data: {
+      title: 'Time Limit Extension - Approval'
+    }
+  },
+  {
+    path: 'testsim-timeext-hod',
+    component: TestsimTimeextHodComponent,
+    data: {
+      title: 'Time Limit Extension - Approval'
+    }
+  },
+  {
+    path: 'testsim-creditlimitext/:all_ids',
+    component: TestsimCreditlimitextComponent,
+    data: {
+      title: 'Credit Limit Extension'
+    }
+  },
+  {
+    path: 'testsim-creditlimitext-ssm',
+    component: TestsimCreditlimitextSsmComponent,
+    data: {
+      title: 'Credit Limit Extension - Approval'
+    }
+  },
+  {
+    path: 'testsim-creditlimitext-hod',
+    component: TestsimCreditlimitextHodComponent,
+    data: {
+      title: 'Credit Limit Extension - Approval'
+    }
+  },
+  {
+    path: 'testsim-recharge/:all_ids',
+    component: TestsimRechargeComponent,
+    data: {
+      title: 'Recharge'
+    }
+  },
+  {
+    path: 'testsim-recharge-ssm',
+    component: TestsimRechargeSsmComponent,
+    data: {
+      title: 'Recharge - Approval'
+    }
+  },
+  {
+    path: 'testsim-recharge-hod',
+    component: TestsimRechargeHodComponent,
+    data: {
+      title: 'Recharge - Approval'
+    }
+  },
+  {
+    path: 'testsim-surrender/:all_ids',
+    component: TestsimSurrenderComponent,
+    data: {
+      title: 'Surrender'
+    }
+  },
+  {
+    path: 'testsim-surrender-hod',
+    component: TestsimSurrenderHodComponent,
+    data: {
+      title: 'Surrender - Approval'
+    }
+  },
+  {
+    path: 'testsim-surrender-ssm',
+    component: TestsimSurrenderSsmComponent,
+    data: {
+      title: 'Surrender - Approval'
+    }
+  },
+  {
+    path: 'testsim-damaged/:all_ids',
+    component: TestsimDamagedComponent,
+    data: {
+      title: 'Damaged Test SIM'
+    }
+  },
+  {
+    path: 'testsim-damaged-ssm',
+    component: TestsimDamagedSsmComponent,
+    data: {
+      title: 'Damaged Test SIM - Approval'
+    }
+  },
+  {
+    path: 'testsim-damaged-hod',
+    component: TestsimDamagedHodComponent,
+    data: {
+      title: 'Damaged Test SIM - Approval'
+    }
+  },
+  {
+    path: 'testsim-lost/:all_ids',
+    component: TestsimLostComponent,
+    data: {
+      title: 'Lost Test SIM'
+    }
+  },
+  {
+    path: 'testsim-lost-ssm',
+    component: TestsimLostSsmComponent,
+    data: {
+      title: 'Lost Test SIM - Approval'
+    }
+  },
+  {
+    path: 'testsim-lost-hod',
+    component: TestsimLostHodComponent,
+    data: {
+      title: 'Lost Test SIM - Approval'
+    }
+  },
+  {
+    path: 'testsim-transfer/:all_ids',
+    component: TestsimTransferComponent,
+    data: {
+      title: 'Transfer'
+    }
+  },
+  {
+    path: 'testsim-transfer-hod',
+    component: TestsimTransferHodComponent,
+    data: {
+      title: 'Transfer - Approval'
+    }
+  },
+  {
+    path: 'testsim-transfer-ssm',
+    component: TestsimTransferSsmComponent,
+    data: {
+      title: 'Transfer - Approval'
+    }
+  },
+  {
+    path: 'testsim-creditlimitext-new',
+    component: TestsimCreditlimitextNewComponent,
+    data: {
+      title: 'New Credit Limit / Time Limit Extension Request'
+    }
+  },
+  {
+    path: 'testsim-creditlimitext-existing',
+    component: TestsimCreditLimitextExistingComponent,
+    data: {
+      title: 'Existing Credit Limit / Time Limit Extension Requests'
+    }
+  },
+  {
+    path: 'testsim-recharge-new',
+    component: TestsimRechargeNewComponent,
+    data: {
+      title: 'New SIM Recharge Request'
+    }
+  },
+  {
+    path: 'testsim-recharge-existing',
+    component: TestsimRechargeExistingComponent,
+    data: {
+      title: 'Existing SIM Recharge Requests'
+    }
+  },
+  {
+    path: 'testsim-deactivation-existing',
+    component: TestsimDeactivationExistingComponent,
+    data: {
+      title: 'Existing SIM Deactivation Requests'
+    }
+  },
+  {
+    path: 'testsim-surrender-new',
+    component: TestsimSurrenderNewComponent,
+    data: {
+      title: 'New SIM Surrender Request'
+    }
+  },
+  {
+    path: 'testsim-surrender-existing',
+    component: TestsimSurrenderExistingComponent,
+    data: {
+      title: 'Existing SIM Surrender Requests'
+    }
+  },
+  {
+    path: 'testsim-lostdamaged-new',
+    component: TestsimLostdamagedNewComponent,
+    data: {
+      title: 'New SIM Lost / Damaged Request'
+    }
+  },
+  {
+    path: 'testsim-lostdamaged-existing',
+    component: TestsimLostdamagedExistingComponent,
+    data: {
+      title: 'Existing SIM Lost / Damaged Requests'
+    }
+  },
+  {
+    path: 'testsim-transfer-new',
+    component: TestsimTransferNewComponent,
+    data: {
+      title: 'New SIM Transfer Request'
+    }
+  },
+  {
+    path: 'testsim-transfer-existing',
+    component: TestsimTransferExistingComponent,
+    data: {
+      title: 'Existing SIM Transfer Requests'
+    }
+  },
 ];
 
 @NgModule({
@@ -303,4 +664,3 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class NsaRoutingModule { }
-
