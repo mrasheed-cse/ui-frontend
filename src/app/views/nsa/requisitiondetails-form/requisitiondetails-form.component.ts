@@ -6,7 +6,7 @@ import { DefinitionDataService } from '../services/definitiondata.service';
 import { IsmsworkflowsService } from '../services/Ismsworkflows.service';
 
 import { LoginService } from '../../pages/LoginService';
-import { LoggedInUser } from '../../pages/loggedInUser'; 
+import { LoggedInUser } from '../../pages/loggedInUser';
 
 @Component({
   selector: 'app-requisitiondetails-form',
@@ -31,12 +31,12 @@ export class RequisitiondetailsFormComponent implements OnInit {
 
     this.requisition_comments = "";
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
-			
+
     if (this.currentLoggedInUser) {
       this.userName = this.currentLoggedInUser.userName
       this.groupID = this.currentLoggedInUser.groupID
       this.userID = this.currentLoggedInUser.userID
-    } 
+    }
     else {
       this.router.navigate(['pages/login']);
     }
@@ -44,7 +44,7 @@ export class RequisitiondetailsFormComponent implements OnInit {
    this.requisitionId = parseInt(this.route.snapshot.paramMap.get('requisition_id'));
     this.ismsworkflowsService.findRequisitionDetails(this.requisitionId).subscribe(
       res  =>  {
-        console.log('response is : '+res.message);  
+        console.log('response is : '+res.message);
         if(res !== ""){
           this.requisition = res;
           this.requsitionLines = res.requisitionLines;
@@ -52,30 +52,31 @@ export class RequisitiondetailsFormComponent implements OnInit {
           this.requisitionDetails = res.requisitionDetails;
         }
           },
-          err  =>  {	
-           
+          err  =>  {
+
           }
-        
+
           );
         }
 
   ngOnInit() {
-    
+
   }
 
   approveOrRejectRequest(requisitionId, status, userId){
 
     this.ismsworkflowsService.approveOrRejectRequest(requisitionId, status, userId, this.requisition_comments).subscribe(
       res  =>  {
-        console.log('response is : '+res.message);  
+        console.log('response is : '+res.message);
         if(res !== ""){
-
+          alert(res.message);
+          this.router.navigate(['nsa/newrequisition']);
         }
       },
-      err  =>  {	
-           
+      err  =>  {
+
       }
-        
+
     );
 
   }
@@ -84,48 +85,42 @@ export class RequisitiondetailsFormComponent implements OnInit {
   approve(){
     console.log(this.requisitionDetails);
     this.approveOrRejectRequest(this.requisitionDetails['id'], "ACCEPT", this.userID);
-    alert('This request has been approved.');
-    this.router.navigate(['nsa/newrequisition']);
 
   }
 
   reject(){
-    this.approveOrRejectRequest(this.requisitionDetails['id'], "REJECT", this.userID);    
-    alert('This request has been rejected.');
-    this.router.navigate(['nsa/newrequisition']);
+    this.approveOrRejectRequest(this.requisitionDetails['id'], "REJECT", this.userID);
   }
 
   rfi(){
     this.approveOrRejectRequest(this.requisitionDetails['id'], "RFI", this.userID);
-    alert('This request has been sent for RFI.');
-    this.router.navigate(['nsa/newrequisition']);
   }
-  
+
   deleteRequisitionLine(lineItem){
 
     if(confirm("Are you sure?")){
       let numberOfLines : number;
       numberOfLines = this.requsitionLines.length;
-  
+
       if(numberOfLines <= 1){
         alert("There is only 1 line item. This cannot be deleted");
         return;
       }
-  
+
       /////////////////////////////////// /////////////////
       this.ismsworkflowsService.deleteRequisitionLine(lineItem['id']).subscribe(
         res  =>  {
-          console.log('response is : '+res.message);  
+          console.log('response is : '+res.message);
           alert("Requisition line deleted successfully");
           window.location.reload();
           if(res !== ""){
-  
+
           }
         },
-        err  =>  {	
-             
+        err  =>  {
+
         }
-          
+
       );
       ////////////// //////////////////////////// /////////
     }
