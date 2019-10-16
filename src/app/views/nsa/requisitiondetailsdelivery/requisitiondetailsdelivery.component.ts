@@ -113,6 +113,8 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
     dataToSubmit['status'] = "ACCEPT";
     dataToSubmit['lineWiseMsisdnInfo'] = this.finalArrayToSubmit;
 
+    //console.log(dataToSubmit);return;
+
     if(this.finalArrayToSubmit.length <= 0){
       alert("Please assign MSISDN for each line item before submitting");
       return;
@@ -122,7 +124,7 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
       return;
     }
 
-    console.log(dataToSubmit);
+    //console.log(dataToSubmit);
 
     this.updateForClc(dataToSubmit);
     alert('This request has been submitted.');
@@ -258,6 +260,38 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
             let alertMsg = "The requsition line specifies quantity of " + this.lineItemBeingConsidered['assignQuantity'] + ". However, with specified KIT numbers " + res.length + " number of MSISDN found.";
             alert(alertMsg);
             return;
+          }
+          else{
+            //console.log("new check");
+            for(var z = 0; z < this.finalArrayToSubmit.length; z++){
+              for(var z1 = 0; z1 < this.finalArrayToSubmit[z].msisdnInfo.length; z1++){
+
+                for(var y = 0; y < res.length; y++){
+                  /*console.log("res");
+                  console.log(res[y]);
+                  console.log("final array to submit");
+                  console.log(this.finalArrayToSubmit[z].msisdnInfo[z1]);*/
+
+                  if(res[y]['kit_No'] == this.finalArrayToSubmit[z].msisdnInfo[z1]['kit_No']){
+                    let innerAlertMsg = "The KIT number " + res[y]['kit_No'] + " has been assigned already in a previous line item. Please specify new KIT number.";
+                    alert(innerAlertMsg);
+                    return;
+                  }
+                  if(res[y]['mobile_No'] == this.finalArrayToSubmit[z].msisdnInfo[z1]['mobile_No']){
+                    let innerAlertMsg = "The MSISDN " + res[y]['mobile_No'] + " has been assigned already in a previous line item. Please use new MSISDN.";
+                    alert(innerAlertMsg);
+                    return;
+                  }
+                  if(res[y]['imsi_No'] == this.finalArrayToSubmit[z].msisdnInfo[z1]['imsi_No']){
+                    let innerAlertMsg = "The IMSI number " + res[y]['imsi_No'] + " has been assigned already in a previous line item. Please specify new IMSI number.";
+                    alert(innerAlertMsg);
+                    return;
+                  }
+
+                }
+
+              }
+            }
           }
 
           //step 1: push to final array

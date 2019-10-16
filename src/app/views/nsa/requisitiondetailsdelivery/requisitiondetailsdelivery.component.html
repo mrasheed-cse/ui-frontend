@@ -111,13 +111,13 @@
 
                 <tbody>
                       <tr *ngFor="let c of requisition['requisitionLines']">
-                        <td>{{ c.id }}</td>
-                        <td>{{ c.productName }}</td>
-                        <td>{{ c.assignCreditlimit }}</td>
-                        <td>{{ c.assignQuantity }}</td>
-                        <td>{{ c.activationInstruction }}</td>
-                        <td>{{ c.imsiTypeName }}</td>
-                        <td>
+                        <td [ngClass]="{'dimmed': c.clcAssignmentCompleted == true}">{{ c.id }}</td>
+                        <td [ngClass]="{'dimmed': c.clcAssignmentCompleted == true}">{{ c.productName }}</td>
+                        <td [ngClass]="{'dimmed': c.clcAssignmentCompleted == true}">{{ c.assignCreditlimit }}</td>
+                        <td [ngClass]="{'dimmed': c.clcAssignmentCompleted == true}">{{ c.assignQuantity }}</td>
+                        <td [ngClass]="{'dimmed': c.clcAssignmentCompleted == true}">{{ c.activationInstruction }}</td>
+                        <td [ngClass]="{'dimmed': c.clcAssignmentCompleted == true}">{{ c.imsiTypeName }}</td>
+                        <td [ngClass]="{'dimmed': c.clcAssignmentCompleted == true}">
                             {{ c.specialRequirement }}
                             <span *ngIf="c.specialRequirementOther != null && c.specialRequirementOther != undefined && c.specialRequirementOther != ''"><br /></span>
                             <span *ngIf="c.specialRequirementOther != null && c.specialRequirementOther != undefined && c.specialRequirementOther != ''">{{c.specialRequirementOther}}</span>

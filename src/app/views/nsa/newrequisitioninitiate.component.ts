@@ -416,6 +416,30 @@ export class NewrequisitioninitiateComponent implements OnInit {
 					validationPassed = false;
 				}
 
+        console.log("new check");
+        console.log(this.requisitionType.value);
+        //validationPassed = false;
+
+        if(this.requisitionType.value == 300){ //test sim
+
+          console.log(this.endDate.value);
+
+          var endDateAsDate = new Date(this.endDate.value);
+          console.log(endDateAsDate);
+
+          console.log(this.endDate.value.getTime());
+          const diffTimeAlt = Math.abs(this.endDate.value.getTime() - this.startDate.value.getTime());
+  				const diffDaysAlt = Math.floor(diffTimeAlt / (1000 * 60 * 60 * 24));
+
+          console.log(diffTimeAlt);
+          console.log(diffDaysAlt);
+
+          if(diffDaysAlt > 365){
+            alert("You cannot specify a test date period greater than 1 year");
+            validationPassed = false;
+          }
+        }
+
 				for(var i = 0; i < this.requisitionLines.length; i++){
 
 					var creditLimit = 0;
