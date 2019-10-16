@@ -2,11 +2,11 @@
 
     <div class="card-header">
         <strong>Employee Details</strong>
-    </div>	
-    <div class="card-body">			
+    </div>
+    <div class="card-body">
       <div class="row" >
         <div class="col-md-12">
-          <table style="width:100%" border="1">        
+          <table style="width:100%" border="1">
             <tr>
               <td style="width:25%">Employee ID.</td>
               <td style="width:25%;" bgcolor="#dcdcdc">{{requisition['employeeDetails']['employeeNo']}}</td>
@@ -30,25 +30,25 @@
               <td style="width:25%;" bgcolor="#dcdcdc">{{requisition['employeeDetails']['emailAddress']}}</td>
               <td style="width:25%"></td>
               <td style="width:25%" bgcolor="#dcdcdc"></td>
-            </tr>                        
-          </table>						
-        </div>				
+            </tr>
+          </table>
+        </div>
       </div>
     </div>
-  
+
   </div>
-  
+
   <br />
-  
+
   <div class="card">
-  
+
     <div class="card-header">
         <strong>Requisition Details</strong>
-    </div>	
-    <div class="card-body">			
+    </div>
+    <div class="card-body">
       <div class="row" >
         <div class="col-md-12">
-          <table style="width:100%" border="1">        
+          <table style="width:100%" border="1">
             <tr>
               <td style="width:25%">Requisition No</td>
               <td style="width:25%;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['requisitionNo']}}</td>
@@ -76,30 +76,30 @@
             <tr>
               <td style="width:25%">Usage Category</td>
               <td style="width:75%;" colspan="3" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['usageCategory']}}</td>
-            </tr>           
-          </table>						
-        </div>				
+            </tr>
+          </table>
+        </div>
       </div>
     </div>
-  
+
   </div>
-  
+
   <br />
-  
+
   <div class="card">
-  
+
     <div class="card-header">
         <strong>Requisition Line Items</strong>
-    </div>	
-    <div class="card-body">			
+    </div>
+    <div class="card-body">
       <div class="row" >
         <div class="col-md-12">
-          <table style="width:100%" border="1">        
-  
+          <table style="width:100%" border="1">
+
               <thead>
                   <tr>
                       <th>Line item ID</th>
-                      <th>Product</th>                        
+                      <th>Product</th>
                       <th>Credit Limit</th>
                       <th>Quantity</th>
                       <th>Instruction</th>
@@ -108,7 +108,7 @@
                       <th>Action</th>
                   </tr>
                 </thead>
-                
+
                 <tbody>
                       <tr *ngFor="let c of requisition['requisitionLines']">
                         <td>{{ c.id }}</td>
@@ -119,31 +119,32 @@
                         <td>{{ c.imsiTypeName }}</td>
                         <td>
                             {{ c.specialRequirement }}
-                            <span *ngIf="c.specialRequirementOther != null && c.specialRequirementOther != undefined && c.specialRequirementOther != ''"><br /></span>  
-                            <span *ngIf="c.specialRequirementOther != null && c.specialRequirementOther != undefined && c.specialRequirementOther != ''">{{c.specialRequirementOther}}</span>                              
-                        </td>                                                  
+                            <span *ngIf="c.specialRequirementOther != null && c.specialRequirementOther != undefined && c.specialRequirementOther != ''"><br /></span>
+                            <span *ngIf="c.specialRequirementOther != null && c.specialRequirementOther != undefined && c.specialRequirementOther != ''">{{c.specialRequirementOther}}</span>
+                        </td>
                           <td>
-                              <a class="btn btn-primary btn-sm" (click) = "assignMsisdn(c)" style="padding: 2%;margin: 5%;border-radius: 4px;color: white;" >Assign MSISDN</a>
+                              <a *ngIf="c.clcAssignmentCompleted == false" class="btn btn-primary btn-sm" (click) = "assignMsisdn(c)" style="padding: 2%;margin: 5%;border-radius: 4px;color: white;" >Assign MSISDN</a>
+                              <span *ngIf="c.clcAssignmentCompleted == true" style="font-weight:bold;font-style:italic">Already Assigned</span>
                           </td>
                       </tr>
                   </tbody>
-                           
-          </table>						
-        </div>				
+
+          </table>
+        </div>
       </div>
     </div>
-  
+
   </div>
 
   <div class="card" [hidden]="!showMsisdnSeriesAssignmentCard">
 
     <div class="card-header">
         <strong>MSISDN series assignment</strong>
-    </div>	
-    <div class="card-body">			
+    </div>
+    <div class="card-body">
       <div class="row" >
         <div class="col-md-12">
-          
+
           <div class="form-horizontal">
 
             <div class="form-group row">
@@ -186,10 +187,10 @@
                 <input type="text" class="form-control"  [(ngModel)] = "endingKitNumber" />
               </div>
             </div>
-            
+
           </div>
-          
-        </div>				
+
+        </div>
       </div>
     </div>
     <div class="card-footer">
@@ -203,17 +204,17 @@
 
     <div class="card-header">
         <strong>Already assigned MSISDN series</strong>
-    </div>	
-    <div class="card-body">			
+    </div>
+    <div class="card-body">
       <div class="row" >
         <div class="col-md-12">
-          
-          <table style="width:100%" border="1">        
-  
+
+          <table style="width:100%" border="1">
+
               <thead>
                   <tr>
                       <th>Requisition Line No</th>
-                      <th>Starting KIT number</th>                        
+                      <th>Starting KIT number</th>
                       <th>Ending KIT number</th>
                       <th>Starting MSISDN number</th>
                       <th>Ending MSISDN number</th>
@@ -221,45 +222,43 @@
                       <th>Ending IMSI number</th>
                   </tr>
                 </thead>
-                
+
                 <tbody>
                       <tr *ngFor="let c of alreadyAssignedMsisdnSeriesDetails">
                           <td>{{ c.requisitionLine }}</td>
                           <td>{{ c.startingKitNumber }}</td>
                           <td>{{ c.endingKitNumber }}</td>
                           <td>{{ c.startingMsisdnNumber }}</td>
-                          <td>{{ c.endingMsisdnNumber }}</td>                          
+                          <td>{{ c.endingMsisdnNumber }}</td>
                           <td>{{ c.startingImsiNumber }}</td>
-                          <td>{{ c.endingImsiNumber }}</td>                          
+                          <td>{{ c.endingImsiNumber }}</td>
                       </tr>
                   </tbody>
-                          
+
           </table>
-          
-        </div>				
+
+        </div>
       </div>
     </div>
 
   </div>
 
   <br />
-  
+
   <div class="card">
-  
-      <div class="card-body">			
+
+      <div class="card-body">
         <div class="row" >
           <div class="col-md-12">
-            Comments: <textarea rows="6" cols="75" [(ngModel)] = "requisition.comments"></textarea>				
-            
+            Comments: <textarea rows="6" cols="75" [(ngModel)] = "requisition.comments"></textarea>
+
             <br /><br />
-  
+
             <a style="width:120px" class="btn btn-success" (click) = "submit()" >Submit</a>
             <a style="width:120px" class="btn btn-danger" (click) = "clear()" >Clear</a>
-  
-          </div>				
+
+          </div>
         </div>
       </div>
-    
+
   </div>
-
-

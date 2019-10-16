@@ -4,4 +4,5 @@ node_modules56
 .project
 .classpath
 .settings
+dist
 /package-lock.json

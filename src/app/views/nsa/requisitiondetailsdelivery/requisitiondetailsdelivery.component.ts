@@ -15,7 +15,7 @@ import { LoggedInUser } from '../../pages/loggedInUser';
 })
 export class RequisitiondetailsdeliveryComponent implements OnInit {
 
-  public recordsFromFile: any[] = [];  
+  public recordsFromFile: any[] = [];
   @ViewChild('csvReader') csvReader: any;
 
   requisition: any;
@@ -26,7 +26,7 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
   allAssignmentTypes : any;
   assignmentType : any;
   startingKitNumber : any;
-  endingKitNumber : any;  
+  endingKitNumber : any;
   showMsisdnSeriesAssignmentCard: boolean;
   alreadyAssignedMsisdnSeriesDetails : Array<any>;
   finalArrayToSubmit : Array<any>;
@@ -41,12 +41,12 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
 
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
     this.lineItemBeingConsidered = {};
-    
+
     if (this.currentLoggedInUser) {
       this.userName = this.currentLoggedInUser.userName
       this.groupID = this.currentLoggedInUser.groupID
       this.userID = this.currentLoggedInUser.userID
-    } 
+    }
     else {
       this.router.navigate(['pages/login']);
     }
@@ -56,18 +56,26 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
    // this.requisition = _global.dataTempForRequisitionDetail;
     this.ismsworkflowsService.findRequisitionDetails(this.requisitionId).subscribe(
       res  =>  {
-        console.log('response is : '+res.message);  
+        console.log('response is : '+res.message);
         if(res !== ""){
           this.requisition = res;
+
+          if(this.requisition != null && this.requisition != undefined && this.requisition != "" &&
+        this.requisition['requisitionLines'] != null && this.requisition['requisitionLines'] != undefined && this.requisition['requisitionLines'] != ""){
+              for(var i = 0; i < this.requisition['requisitionLines'].length; i++){
+                this.requisition['requisitionLines'][i].clcAssignmentCompleted = false;
+              }
+          }
+
           this.requsitionLines = res.requisitionLines;
           this.employeeDetails = res.employeeDetails;
           this.requisitionDetails = res.requisitionDetails;
         }
           },
-          err  =>  {	
-           
+          err  =>  {
+
           }
-        
+
           );
 
     this.allAssignmentTypes = [
@@ -98,7 +106,7 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
   }
 
   submit(){
-    
+
     var dataToSubmit = Object.create(null);
     dataToSubmit['wrID'] = this.requisitionDetails['id'];
     dataToSubmit['userID'] = this.userID;
@@ -122,55 +130,55 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
 
   }
 
-  uploadListener($event: any): void {  
-  
-    let text = [];  
-    let files = $event.srcElement.files;  
-  
-    if (this.isValidTxtFile(files[0])) {  
-  
-      let input = $event.target;  
-      let reader = new FileReader();  
-      reader.readAsText(input.files[0]);  
-  
-      reader.onload = () => {  
-        let csvData = reader.result;  
-        let csvRecordsArray = (<string>csvData).split(/\r\n|\n/);  
-  
-        this.recordsFromFile = this.getDataRecordsArrayFromTxtFile(csvRecordsArray);  
-      };  
-  
-      reader.onerror = function () {  
-        console.log('error is occured while reading file!');  
-      };  
-  
-    } else {  
-      alert("Please import valid .txt file.");  
-      this.fileReset();  
-    }  
-  }  
-  
-  getDataRecordsArrayFromTxtFile(csvRecordsArray: any) {  
-    let csvArr = [];  
-  
-    for (let i = 1; i < csvRecordsArray.length; i++) {  
-      let curruntRecord = (<string>csvRecordsArray[i]).split(',');  
-      let singleKitNumber = curruntRecord[0].trim();  
-      csvArr.push(singleKitNumber);  
-    }  
-    return csvArr;  
-  }  
-  
-  isValidTxtFile(file: any) {  
-    return file.name.endsWith(".txt");  
-  }    
-  
-  fileReset() {  
-    this.csvReader.nativeElement.value = "";  
-    this.recordsFromFile = [];  
-  }  
+  uploadListener($event: any): void {
 
-  
+    let text = [];
+    let files = $event.srcElement.files;
+
+    if (this.isValidTxtFile(files[0])) {
+
+      let input = $event.target;
+      let reader = new FileReader();
+      reader.readAsText(input.files[0]);
+
+      reader.onload = () => {
+        let csvData = reader.result;
+        let csvRecordsArray = (<string>csvData).split(/\r\n|\n/);
+
+        this.recordsFromFile = this.getDataRecordsArrayFromTxtFile(csvRecordsArray);
+      };
+
+      reader.onerror = function () {
+        console.log('error is occured while reading file!');
+      };
+
+    } else {
+      alert("Please import valid .txt file.");
+      this.fileReset();
+    }
+  }
+
+  getDataRecordsArrayFromTxtFile(csvRecordsArray: any) {
+    let csvArr = [];
+
+    for (let i = 1; i < csvRecordsArray.length; i++) {
+      let curruntRecord = (<string>csvRecordsArray[i]).split(',');
+      let singleKitNumber = curruntRecord[0].trim();
+      csvArr.push(singleKitNumber);
+    }
+    return csvArr;
+  }
+
+  isValidTxtFile(file: any) {
+    return file.name.endsWith(".txt");
+  }
+
+  fileReset() {
+    this.csvReader.nativeElement.value = "";
+    this.recordsFromFile = [];
+  }
+
+
 
   assignMsisdn(lineItem){
     this.assignmentType = "";
@@ -193,7 +201,7 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
         var arrayObj = {};
         arrayObj['startingKitNumber'] = this.recordsFromFile[i];
         arrayObj['endingKitNumber'] = this.recordsFromFile[i];
-    
+
         if(arrayObj['startingKitNumber'] == null || arrayObj['startingKitNumber'] == undefined || arrayObj['startingKitNumber'] == "" || arrayObj['startingKitNumber'].length != 28){
           console.log(arrayObj['startingKitNumber']);
           console.log(arrayObj['startingKitNumber'].length);
@@ -225,18 +233,18 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
         alert("Invalid ending KIT number specified. KIT number must be 28 digits.");
         return;
       }
-  
+
       responseObj['searchModel'].push(arrayObj);
     }
 
-    
+
 
     //console.log(responseObj);
     //return;
 
     this.ismsworkflowsService.getMsisdnDetailsFromSsm(responseObj).subscribe(
       res  =>  {
-        console.log('response is : '+res.message);  
+        console.log('response is : '+res.message);
         console.log(res);
         if(res !== ""){
 
@@ -248,7 +256,7 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
           }
           else if(res.length != this.lineItemBeingConsidered['assignQuantity']){
             let alertMsg = "The requsition line specifies quantity of " + this.lineItemBeingConsidered['assignQuantity'] + ". However, with specified KIT numbers " + res.length + " number of MSISDN found.";
-            alert(alertMsg);            
+            alert(alertMsg);
             return;
           }
 
@@ -267,9 +275,9 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
           obj['startingKitNumber'] = res[0]['kit_No'];
           obj['endingKitNumber'] = res[res.length - 1]['kit_No'];
           obj['startingMsisdnNumber'] =res[0]['mobile_No'];
-          obj['endingMsisdnNumber'] = res[res.length - 1]['mobile_No'];                   
+          obj['endingMsisdnNumber'] = res[res.length - 1]['mobile_No'];
           obj['startingImsiNumber'] = res[0]['imsi_No'];
-          obj['endingImsiNumber'] = res[res.length - 1]['imsi_No'];        
+          obj['endingImsiNumber'] = res[res.length - 1]['imsi_No'];
 
           this.alreadyAssignedMsisdnSeriesDetails.push(obj);
 
@@ -279,15 +287,25 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
           this.startingKitNumber = "";
           this.endingKitNumber = "";
           this.showMsisdnSeriesAssignmentCard = false;
+
+          //step 4: mark the row in requisition line items as completed
+          //console.log("in step 4");
+          for(var i = 0; i < this.requisition['requisitionLines'].length; i++){
+            //console.log(this.requisition['requisitionLines'][i].id);
+            //console.log(responseObj['requisitionLineId']);
+            if(this.requisition['requisitionLines'][i].id == responseObj['requisitionLineId']){
+              this.requisition['requisitionLines'][i].clcAssignmentCompleted = true;
+            }
+          }
         }
         else{
           alert("An error occured when fetching MSISDN information. Please try again.");
         }
       },
-      err  =>  {	
-           
+      err  =>  {
+
       }
-        
+
     );
 
 
@@ -311,15 +329,15 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
 
     this.ismsworkflowsService.updateForClc(dataToSubmit).subscribe(
       res  =>  {
-        console.log('response is : '+res.message);  
+        console.log('response is : '+res.message);
         if(res !== ""){
 
         }
       },
-      err  =>  {	
-           
+      err  =>  {
+
       }
-        
+
     );
 
   }
