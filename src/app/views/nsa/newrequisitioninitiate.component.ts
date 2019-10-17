@@ -490,76 +490,94 @@ export class NewrequisitioninitiateComponent implements OnInit {
 
       // FORM SUBMISSION
       onNewSimRequisitionSubmit() {
+
        //console.log("this.defFlowFound is "+this.defFlowFound);
-      if (this.newSimRequisitionForm.valid && confirm("Are you sure you want to submit this requisition? Please review that all your data is correct.")) {
-        this.topFunction();
-      this.isLoading = true;
-        console.log('Form Submitted!');
+      if (this.newSimRequisitionForm.valid) {
 
-        const theReqDate = this.FormatTheDate(new Date());
-        const theStartDate = this.FormatTheDate(this.newSimRequisitionForm.get('startDate').value);
-        const theEndDate = this.FormatTheDate(this.newSimRequisitionForm.get('endDate').value);
+        /////////////////////////////////////////// //////////////////////////////////
+            ///////////////////////// /////////////////////// //////////////////////////////////
+            this.topFunction();
+          this.isLoading = true;
+            console.log('Form Submitted!');
 
-				console.log("log start");
-				console.log(theReqDate);
+            const theReqDate = this.FormatTheDate(new Date());
+            const theStartDate = this.FormatTheDate(this.newSimRequisitionForm.get('startDate').value);
+            const theEndDate = this.FormatTheDate(this.newSimRequisitionForm.get('endDate').value);
 
-				if(!this.formValidation()) {
-					this.isLoading = false;
-					return;
-				}
+    				console.log("log start");
+    				console.log(theReqDate);
 
-				this.headerDateData.requisitionDate = theReqDate;
-				console.log(this.headerDateData);
-				this.headerDateData.theStartDate = theStartDate;
-				this.headerDateData.theEndDate = theEndDate;
-				this.headerDateData.requisitionType = this.newSimRequisitionForm.get('requisitionType').value;
-				this.headerDateData.purposeCategory = this.newSimRequisitionForm.get('purposeCategory').value;
-				this.headerDateData.location = this.newSimRequisitionForm.get('location').value;
-				this.headerDateData.usageCategory = this.newSimRequisitionForm.get('usageCategory').value;
-				this.headerDateData.startDate = this.newSimRequisitionForm.get('startDate').value;
-				this.headerDateData.endDate = this.newSimRequisitionForm.get('endDate').value;
-				this.headerDateData.purposeDetails = this.newSimRequisitionForm.get('purposeDetails').value;
-				this.headerDateData.notificationTo = "";
-				this.headerDateData.requisitionLines = this.newSimRequisitionForm.get('requisitionLines').value;
+    				if(!this.formValidation()) {
+    					this.isLoading = false;
+    					return;
+    				}
 
-				for(var i = 0; i < this.headerDateData.requisitionLines.length; i++){
-					if(this.headerDateData.requisitionLines[i]['imsiType'] == null ||
-						this.headerDateData.requisitionLines[i]['imsiType'] == undefined ||
-						this.headerDateData.requisitionLines[i]['imsiType'] == "")
-						{
-							this.headerDateData.requisitionLines[i]['imsiType'] = "0";
-						}
-				}
+            ////////////////////////////////////////////////////////////////////
+            if(confirm("Are you sure you want to submit this requisition? Please review that all your data is correct.")){
+              //do nothing here
+            }
+            else{
+              this.isLoading = false;
+              return;
+            }
+            ////////////////////////////////////////////////////////////////////
 
-				let resource = (this.headerDateData);
-				console.log(resource);
-				console.log('Add Button clicked: ' + resource);
+    				this.headerDateData.requisitionDate = theReqDate;
+    				console.log(this.headerDateData);
+    				this.headerDateData.theStartDate = theStartDate;
+    				this.headerDateData.theEndDate = theEndDate;
+    				this.headerDateData.requisitionType = this.newSimRequisitionForm.get('requisitionType').value;
+    				this.headerDateData.purposeCategory = this.newSimRequisitionForm.get('purposeCategory').value;
+    				this.headerDateData.location = this.newSimRequisitionForm.get('location').value;
+    				this.headerDateData.usageCategory = this.newSimRequisitionForm.get('usageCategory').value;
+    				this.headerDateData.startDate = this.newSimRequisitionForm.get('startDate').value;
+    				this.headerDateData.endDate = this.newSimRequisitionForm.get('endDate').value;
+    				this.headerDateData.purposeDetails = this.newSimRequisitionForm.get('purposeDetails').value;
+    				this.headerDateData.notificationTo = "";
+    				this.headerDateData.requisitionLines = this.newSimRequisitionForm.get('requisitionLines').value;
+
+    				for(var i = 0; i < this.headerDateData.requisitionLines.length; i++){
+    					if(this.headerDateData.requisitionLines[i]['imsiType'] == null ||
+    						this.headerDateData.requisitionLines[i]['imsiType'] == undefined ||
+    						this.headerDateData.requisitionLines[i]['imsiType'] == "")
+    						{
+    							this.headerDateData.requisitionLines[i]['imsiType'] = "0";
+    						}
+    				}
+
+    				let resource = (this.headerDateData);
+    				console.log(resource);
+    				console.log('Add Button clicked: ' + resource);
 
 
-				this.ismsworkflowsService.CreateNewTestSimRequest(this._global.wrid_NewSimRequision, this.groupID,this.userID,this.WR_Name,resource).subscribe(
-					res  =>  {
-						console.log('response is : '+res.message);
+    				this.ismsworkflowsService.CreateNewTestSimRequest(this._global.wrid_NewSimRequision, this.groupID,this.userID,this.WR_Name,resource).subscribe(
+    					res  =>  {
+    						console.log('response is : '+res.message);
 
-						if(res !== ""){
-							this.isLoading = false;
-							this.newSimRequisitionForm.reset();
-							this.successAlertShow = true;
-							this.successAlertMessage = "Requisition no "+ this.WR_Name +" has been submitted successfully and forwarded to "+res.message+". You will be redirected to request listing page momentarily.";
-							alert(this.successAlertMessage);
-							setTimeout(()=>{
-								this.router.navigate(['nsa/newrequisitiondetails']);
-					 		}, 4000);
-						}
-							},
-							err  =>  {
-								this.isLoading = false;
-							console.log("err.status : "+err.status);
-							this.dangerAlertShow = true;
-						this.dangerAlertMessage = " .";
-							}
+    						if(res !== ""){
+    							this.newSimRequisitionForm.reset();
+    							this.successAlertShow = true;
+    							this.successAlertMessage = "Requisition no "+ this.WR_Name +" has been submitted successfully and forwarded to SSM for approval.";
+    							alert(this.successAlertMessage);
+    							setTimeout(()=>{
+                    this.isLoading = false;
+    								this.router.navigate(['nsa/newrequisitiondetails']);
+    					 		}, 4000);
+    						}
+    							},
+    							err  =>  {
+    								this.isLoading = false;
+    							console.log("err.status : "+err.status);
+    							this.dangerAlertShow = true;
+    						this.dangerAlertMessage = " .";
+    							}
 
-							);
-						}
+    							);
+
+            /////////////////// //////////////// /////////////// ///////////////////////////////
+        }
+        ///////////////// //////////////////////////// ///////////////////////////////
+
     }
 
 
