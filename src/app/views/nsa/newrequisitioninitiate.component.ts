@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { environment } from '../../../environments/environment.prod';
 import { DefinitionDataService } from './services/definitiondata.service';
 import { IsmsworkflowsService } from './services/Ismsworkflows.service';
+import { WorkflowsService } from './services/workflows.service';
 import { Observable } from 'rxjs/Observable';
 
 import 'rxjs/add/operator/map';
@@ -32,10 +33,15 @@ import { moment } from 'ngx-bootstrap/chronos/test/chain';
   selector: 'app-newrequisitioninitiate',
   templateUrl: './newrequisitioninitiate.component.html',
   styles: ['./nsa_styles.css'],
-  providers: [DefinitionDataService,IsmsworkflowsService,AppGlobals,LoginService]
+  providers: [WorkflowsService,DefinitionDataService,IsmsworkflowsService,AppGlobals,LoginService]
 })
 export class NewrequisitioninitiateComponent implements OnInit {
 
+
+	userData: any[] = [];
+	userList1: any[] = [];
+	lastkeydown1: number = 0;
+	finalListOfUsersToSendWithRqn: Array<any>;
 
 	employeeID: string;
 	employeeName: string;
@@ -72,6 +78,7 @@ export class NewrequisitioninitiateComponent implements OnInit {
 	startDate: FormControl;
 	endDate: FormControl;
 	purposeDetails: FormControl;
+	notificationTo: FormControl;
 	requisitionType: FormControl;
 	requisitionDate: FormControl;
 	requisitionLines: FormArray;
@@ -205,11 +212,24 @@ export class NewrequisitioninitiateComponent implements OnInit {
 					);
 				}
 
-				this.getImsiType();
+				this.getUsersList();
 			},
 		err => console.error(err),
 		() => console.log('done loading Product Name List')
 		);
+	}
+
+	getUsersList(){
+		this.finalListOfUsersToSendWithRqn = [];
+
+		this.workFlowsService.getUserList().subscribe(
+			data => {
+			Object.assign(this.userData, data);
+			this.getImsiType();
+			},
+			error => {
+			console.log("Something wrong here in getUsersList()");
+			});
 	}
 
 	getImsiType(){
@@ -239,7 +259,58 @@ export class NewrequisitioninitiateComponent implements OnInit {
 		);
 	}
 
-  constructor(private router: Router,private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private definitionDataService: DefinitionDataService, private ismsworkflowsService: IsmsworkflowsService) {
+
+	getUserIdsFirstWay($event) {
+
+		//console.log($event.target.value);
+	
+		//let userId = (<HTMLInputElement>document.getElementById('userIdFirstWay')).value;
+	
+		let userId = $event.target.value;
+	
+		this.userList1 = [];
+	
+		if (userId.length > 2) {
+		  if ($event.timeStamp - this.lastkeydown1 > 200) {
+			this.userList1 = this.searchFromArray(this.userData, userId);
+		  }
+		}
+	}
+	
+	searchFromArray(arr, regex) {
+		let matches = [], i;
+		for (i = 0; i < arr.length; i++) {
+		  if (arr[i]['userName'].match(regex)) {
+			matches.push(arr[i]);
+		  }
+		}
+		return matches;
+	};
+
+	addRecipient(){
+
+		if(this.notificationTo.value == null || this.notificationTo.value == undefined || this.notificationTo.value == "") return;
+
+		for(var i = 0; i < this.userData.length; i++){
+			if(this.userData[i]['userName'] == this.notificationTo.value){
+				this.finalListOfUsersToSendWithRqn.push( this.userData[i] );
+				break;
+			}
+		}
+
+		this.notificationTo.setValue("");
+	}
+
+	deleteRecipient(listObj){
+		for(var i = 0; i < this.finalListOfUsersToSendWithRqn.length; i++){
+			if(this.finalListOfUsersToSendWithRqn[i]['userName'] == listObj['userName']){
+				this.finalListOfUsersToSendWithRqn.splice( i, 1 );
+				break;
+			}
+		}
+	}
+
+  constructor(private router: Router,private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private definitionDataService: DefinitionDataService, private ismsworkflowsService: IsmsworkflowsService, private workFlowsService: WorkflowsService) {
 
 			this.	headerDateData = {};
 
@@ -313,7 +384,8 @@ export class NewrequisitioninitiateComponent implements OnInit {
       this.usageCategory = 	new FormControl({value: ''}, Validators.required);
       this.startDate =	new FormControl('', Validators.required);
       this.endDate = 	new FormControl('', Validators.required);
-      this.purposeDetails = new FormControl('', Validators.required);
+	  this.purposeDetails = new FormControl('', Validators.required);
+	  this.notificationTo = new FormControl('');
 
       this.requisitionType = new FormControl({value: ''}, Validators.required);
 			this.requisitionDate = new FormControl('');
@@ -342,7 +414,8 @@ export class NewrequisitioninitiateComponent implements OnInit {
         	usageCategory: this.usageCategory,
         	startDate: this.startDate,
         	endDate: this.endDate,
-        	purposeDetails: this.purposeDetails,
+			purposeDetails: this.purposeDetails,
+			notificationTo: this.notificationTo,
         	requisitionLines: this.requisitionLines
 				});
 				this.getRequisitionType();
@@ -533,7 +606,18 @@ export class NewrequisitioninitiateComponent implements OnInit {
     				this.headerDateData.startDate = this.newSimRequisitionForm.get('startDate').value;
     				this.headerDateData.endDate = this.newSimRequisitionForm.get('endDate').value;
     				this.headerDateData.purposeDetails = this.newSimRequisitionForm.get('purposeDetails').value;
-    				this.headerDateData.notificationTo = "";
+					this.headerDateData.notificationTo = "";
+					
+					if(this.finalListOfUsersToSendWithRqn != null && this.finalListOfUsersToSendWithRqn.length > 0){
+						for(var  i = 0; i < this.finalListOfUsersToSendWithRqn.length; i++){
+							this.headerDateData.notificationTo += this.finalListOfUsersToSendWithRqn[i]['emailAddress'];
+							if(i >= (this.finalListOfUsersToSendWithRqn.length - 1)){
+								//do nothing
+							}
+							else this.headerDateData.notificationTo += ",";
+						}
+					}
+
     				this.headerDateData.requisitionLines = this.newSimRequisitionForm.get('requisitionLines').value;
 
     				for(var i = 0; i < this.headerDateData.requisitionLines.length; i++){

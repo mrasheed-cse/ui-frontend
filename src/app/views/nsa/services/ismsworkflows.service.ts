@@ -65,6 +65,14 @@ export class IsmsworkflowsService {
 		});
 	}
 
+	addEmailRecipientForRequest(wr_id: number,email: string) : any{
+		return this.http.post(this.serverUrl+ 'requisition/addemailrecipient',{
+			userID: email,
+			wrID: wr_id,
+			comment: ""
+		});
+	}
+
 	respondToRfi(wr_id: number,comment: string,userID: string, requisitionLines: any) : any{
 		return this.http.post(this.serverUrl+ 'requisition/respondtorfi',{
 			userID: userID,
@@ -80,6 +88,24 @@ export class IsmsworkflowsService {
 			userID: userID,
 			wrID: wr_id,
 			comment: comment
+		});
+	}
+
+	getAllEmailRecipientsForRequest(wr_id: number) : any{
+
+		return this.http.post(this.serverUrl+ 'requisition/getemailrecipients',{
+			userID: 0,
+			wrID: wr_id,
+			comment: ""
+		});
+	}
+
+	deleteEmailRecipientFromRequest(wr_id: number) : any{
+
+		return this.http.post(this.serverUrl+ 'requisition/deleteemailrecipient',{
+			userID: 0,
+			wrID: wr_id,
+			comment: ""
 		});
 	}
 

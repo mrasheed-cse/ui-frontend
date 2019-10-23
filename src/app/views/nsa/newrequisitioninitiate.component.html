@@ -216,6 +216,25 @@
                                                                 </div>
                                         </div>
 
+                                        <div class="col-md-6">
+                                                <div class="form-group row">
+                                                        <label class="col-md-5 col-form-label" for="userIdFirstWay">Notification to</label>
+                                                        <div class="col-md-7">
+                                                                <input class="form-control" type="text" (keyup)="getUserIdsFirstWay($event)" id="userIdFirstWay" list="dynmicUserIds" formControlName="notificationTo" />
+                                                                <span (click)="addRecipient()"><i class="fa fa-plus cust-icon-add-to-autocomplete"></i></span>
+                                                                <datalist id="dynmicUserIds">
+                                                                        <option *ngFor="let item of userList1" [value]="item.userName">{{item.userName}}</option>
+                                                                </datalist>
+                                                                <table>
+                                                                        <tr *ngFor="let listObj of finalListOfUsersToSendWithRqn">
+                                                                                <td>{{listObj.emailAddress}}</td>
+                                                                                <td><span (click)="deleteRecipient(listObj)"><i class="fa fa-trash-o"></i></span></td>
+                                                                        </tr>
+                                                                </table>
+                                                        </div>
+                                                </div>
+                                        </div>
+
                                 </div>
                                 <div class="card-header">
                                                 <strong>Requisition Line</strong>
