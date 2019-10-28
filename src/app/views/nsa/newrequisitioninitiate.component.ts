@@ -564,7 +564,7 @@ export class NewrequisitioninitiateComponent implements OnInit {
       // FORM SUBMISSION
       onNewSimRequisitionSubmit() {
 
-       //console.log("this.defFlowFound is "+this.defFlowFound);
+		//console.log("this.defFlowFound is "+this.defFlowFound);
       if (this.newSimRequisitionForm.valid) {
 
         /////////////////////////////////////////// //////////////////////////////////
@@ -640,8 +640,13 @@ export class NewrequisitioninitiateComponent implements OnInit {
 
     						if(res !== ""){
     							this.newSimRequisitionForm.reset();
-    							this.successAlertShow = true;
-    							this.successAlertMessage = "Requisition no "+ this.WR_Name +" has been submitted successfully and forwarded to SSM for approval.";
+								this.successAlertShow = true;
+								if(this.groupID == this._global.groupID_SSM){
+									this.successAlertMessage = "Requisition no "+ this.WR_Name +" has been submitted successfully and forwarded to CLC for approval.";
+								}
+								else{
+									this.successAlertMessage = "Requisition no "+ this.WR_Name +" has been submitted successfully and forwarded to SSM for approval.";
+								}
     							alert(this.successAlertMessage);
     							setTimeout(()=>{
                     this.isLoading = false;
