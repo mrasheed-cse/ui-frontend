@@ -734,35 +734,42 @@ export const navigation_grpID_ADMIN  = [
 export const navigation_grpID_Wipro_OSS = [
    
   {
-    name: 'Landing Page',
-    url: '/nsa',
-	icon: 'icon-star'
+    name: 'Dashboard',
+    url: '/nsa/testsimdashboard',
+	  icon: 'icon-star'
   }, 
-{
-    title: true,
-    name: 'Work Requests'
-  },
- 
+  {
+    name: 'NSA',
+    url: '/nsa/testsimworkflow0',
+    icon: 'icon-star',
+    children:[
       {
-            name: 'DeProvision',
-            url: '/nsa/deprovision',
-            icon: 'icon-cursor'
-          }
+        name: 'DeProvision',
+        url: '/nsa/deprovision',
+        icon: 'icon-cursor'
+      }, 
+      {
+      name: 'Report',
+     url: '/nsa/nsareport',
+     icon: 'icon-speedometer'
+       }
+    ]
+  },     
 ];
 
 
 export const navigation_grpID_Wipro_CIM = [
-   
   {
-    name: 'Landing Page',
-    url: '/nsa',
-	icon: 'icon-star'
+    name: 'Dashboard',
+    url: '/nsa/testsimdashboard',
+	  icon: 'icon-star'
   }, 
-{
-    title: true,
-    name: 'Work Requests'
-  },
   {
+    name: 'NSA',
+    url: '/nsa/testsimworkflow0',
+    icon: 'icon-star',
+    children:[
+      {
         name: 'Series Provision',
         url: '/nsa/seriesprovision',
         icon: 'icon-cursor'
@@ -771,17 +778,24 @@ export const navigation_grpID_Wipro_CIM = [
             name: 'ReProvision',
             url: '/nsa/reprovision',
             icon: 'icon-cursor'
-          },
-          {
-                name: 'Discrete Provision',
-                url: '/nsa/discprovision',
-                icon: 'icon-cursor'
-              },
-              {
-                  name: 'MNP ReProvision',
-                  url: '/nsa/mnpreprovision',
-                  icon: 'icon-cursor'
-                }
+      },
+      {
+            name: 'Discrete Provision',
+            url: '/nsa/discprovision',
+            icon: 'icon-cursor'
+      },
+      {
+            name: 'MNP ReProvision',
+            url: '/nsa/mnpreprovision',
+            icon: 'icon-cursor'
+      }, 
+      {
+      name: 'Report',
+     url: '/nsa/nsareport',
+     icon: 'icon-speedometer'
+       }
+    ]
+  },           
 ];
 
 
@@ -789,308 +803,350 @@ export const navigation_grpID_Wipro_CIM = [
 export const navigation_grpID_RAFM = [
    
   {
-    name: 'Landing Page',
-    url: '/nsa',
-	icon: 'icon-star'
+    name: 'Dashboard',
+    url: '/nsa/testsimdashboard',
+	  icon: 'icon-star'
   }, 
-{
-    title: true,
-    name: 'Work Requests'
-  },
-  
-{
-    name: 'Series Provision',
-    url: '/nsa/seriesprovision',
-    icon: 'icon-cursor'
-  },
   {
-        name: 'DeProvision',
-        url: '/nsa/deprovision',
+    name: 'NSA',
+    url: '/nsa/testsimworkflow0',
+    icon: 'icon-star',
+    children:[
+      {
+        name: 'Series Provision',
+        url: '/nsa/seriesprovision',
         icon: 'icon-cursor'
       },
       {
-            name: 'Discrete Provision',
-            url: '/nsa/discprovision',
+            name: 'DeProvision',
+            url: '/nsa/deprovision',
             icon: 'icon-cursor'
-          }
-	  ,
-  {
-        name: 'ReProvision',
-        url: '/nsa/reprovision',
-        icon: 'icon-cursor'
       },
-  {
-        name: 'MNP ReProvision',
-        url: '/nsa/mnpreprovision',
-        icon: 'icon-cursor'
-      }
+      {
+                name: 'Discrete Provision',
+                url: '/nsa/discprovision',
+                icon: 'icon-cursor'
+      },
+      {
+            name: 'ReProvision',
+            url: '/nsa/reprovision',
+            icon: 'icon-cursor'
+      },
+      {
+            name: 'MNP ReProvision',
+            url: '/nsa/mnpreprovision',
+            icon: 'icon-cursor'
+      }, 
+      {
+      name: 'Report',
+     url: '/nsa/nsareport',
+     icon: 'icon-speedometer'
+       }
+    ]
+  },  
+
 ];
 
 export const navigation_grpID_Wipro_Billing = [
-   
+
   {
-    name: 'Landing Page',
-    url: '/nsa',
-	icon: 'icon-star'
+    name: 'Dashboard',
+    url: '/nsa/testsimdashboard',
+	  icon: 'icon-star'
   }, 
-{
-    title: true,
-    name: 'Work Requests'
-  },
   {
-    name: 'Series Provision',
-    url: '/nsa/seriesprovision',
-    icon: 'icon-cursor'
-  },
-  {
-        name: 'DeProvision',
-        url: '/nsa/deprovision',
+    name: 'NSA',
+    url: '/nsa/testsimworkflow0',
+    icon: 'icon-star',
+    children:[
+      {
+        name: 'Series Provision',
+        url: '/nsa/seriesprovision',
         icon: 'icon-cursor'
       },
       {
-            name: 'Discrete Provision',
-            url: '/nsa/discprovision',
+            name: 'DeProvision',
+            url: '/nsa/deprovision',
             icon: 'icon-cursor'
           },
-  {
-        name: 'ReProvision',
-        url: '/nsa/reprovision',
-        icon: 'icon-cursor'
-      },
-	  {
-        name: 'MNP ReProvision',
-        url: '/nsa/mnpreprovision',
-        icon: 'icon-cursor'
-      }
+          {
+                name: 'Discrete Provision',
+                url: '/nsa/discprovision',
+                icon: 'icon-cursor'
+              },
+      {
+            name: 'ReProvision',
+            url: '/nsa/reprovision',
+            icon: 'icon-cursor'
+          },
+        {
+            name: 'MNP ReProvision',
+            url: '/nsa/mnpreprovision',
+            icon: 'icon-cursor'
+          }, 
+          {
+          name: 'Report',
+         url: '/nsa/nsareport',
+         icon: 'icon-speedometer'
+           }
+    ]
+  },  
 ];
 
 
 export const navigation_grpID_BSS_Planning = [
    
   {
-    name: 'Landing Page',
-    url: '/nsa',
-	icon: 'icon-star'
+    name: 'Dashboard',
+    url: '/nsa/testsimdashboard',
+	  icon: 'icon-star'
   }, 
-{
-    title: true,
-    name: 'Work Requests'
-  },
-  
   {
-    name: 'Series Definition',
-    url: '/nsa/seriesdefinition',
-    icon: 'icon-cursor'
-  }, 
-
-  {
-    name: 'SDP Migration',    
-	 url: '/nsa/sdpmigration',
-    icon: 'icon-cursor',
+    name: 'NSA',
+    url: '/nsa/testsimworkflow0',
+    icon: 'icon-star',
+    children:[
+      {
+        name: 'Series Definition',
+        url: '/nsa/seriesdefinition',
+        icon: 'icon-cursor'
+      }, 
     
-  }
+      {
+        name: 'SDP Migration',    
+       url: '/nsa/sdpmigration',
+        icon: 'icon-cursor',
+        
+      }, 
+      {
+      name: 'Report',
+     url: '/nsa/nsareport',
+     icon: 'icon-speedometer'
+       }
+    ]
+  },  
+
 ];
 
 export const navigation_grpID_VDSO = [
    
   {
-    name: 'Landing Page',
-    url: '/nsa',
-	icon: 'icon-star'
+    name: 'Dashboard',
+    url: '/nsa/testsimdashboard',
+	  icon: 'icon-star'
   }, 
-{
-    title: true,
-    name: 'Work Requests'
-  },
-  
   {
-    name: 'Series Definition',
-    url: '/nsa/seriesdefinition',
-    icon: 'icon-cursor'
-  }
-  ,
-  
-  {
-    name: 'APN Creation',
-    url: '/nsa/apn',
-    icon: 'icon-cursor'
-  }
+    name: 'NSA',
+    url: '/nsa/testsimworkflow0',
+    icon: 'icon-star',
+    children:[
+      {
+        name: 'Series Definition',
+        url: '/nsa/seriesdefinition',
+        icon: 'icon-cursor'
+      }
+      ,
+      
+      {
+        name: 'APN Creation',
+        url: '/nsa/apn',
+        icon: 'icon-cursor'
+      }, 
+      {
+      name: 'Report',
+     url: '/nsa/nsareport',
+     icon: 'icon-speedometer'
+       }
+    ]
+  }, 
+
 ];
 
 export const navigation_grpID_CNP = [
    
   {
-    name: 'Landing Page',
-    url: '/nsa',
-	icon: 'icon-star'
+    name: 'Dashboard',
+    url: '/nsa/testsimdashboard',
+	  icon: 'icon-star'
   }, 
-{
-    title: true,
-    name: 'Work Requests'
-  },
+  {
+    name: 'NSA',
+    url: '/nsa/testsimworkflow0',
+    icon: 'icon-star',
+    children:[
+      {
+        name: 'Series Definition',
+        url: '/nsa/seriesdefinition',
+        icon: 'icon-cursor'
+      },
+      {
+        name: 'DeProvision',    
+       url: '/deprovision',
+        icon: 'icon-cursor',
+        children: [	
+          {
+            name: 'Ongoing List',
+            url: '/nsa/deprovision',
+            icon: 'icon-puzzle'
+          },
+          {
+            name: 'New Creation',
+            url: '/nsa/deprovisionform',
+            icon: 'icon-puzzle'
+          }
+        ]
+      },
+      {
+        name: 'APN',    
+       url: '/apn',
+        icon: 'icon-cursor',
+        children: [	
+          {
+            name: 'Ongoing List',
+            url: '/nsa/apn',
+            icon: 'icon-puzzle'
+          },
+          {
+            name: 'New Creation',
+            url: '/nsa/apnform',
+            icon: 'icon-puzzle'
+          }
+        ]
+      }, 
+         {
+         name: 'Report',
+        url: '/nsa/nsareport',
+        icon: 'icon-speedometer'
+          }
+    ]
+  }, 
+
+
+
+
   
-  {
-    name: 'Series Definition',
-    url: '/nsa/seriesdefinition',
-    icon: 'icon-cursor'
-  },
-  {
-    name: 'DeProvision',    
-	 url: '/deprovision',
-    icon: 'icon-cursor',
-    children: [	
-      {
-        name: 'Ongoing List',
-        url: '/nsa/deprovision',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'New Creation',
-        url: '/nsa/deprovisionform',
-        icon: 'icon-puzzle'
-      }
-    ]
-  },
-  {
-    name: 'APN',    
-	 url: '/apn',
-    icon: 'icon-cursor',
-    children: [	
-      {
-        name: 'Ongoing List',
-        url: '/nsa/apn',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'New Creation',
-        url: '/nsa/apnform',
-        icon: 'icon-puzzle'
-      }
-    ]
-  }, 
-     {
-		 title: true,
-	 name: 'Report Module'},{
-		 name: 'Report',
-    url: '/nsa/nsareport',
-    icon: 'icon-speedometer'
-      }
+  
 
 ];
 
 export const navigation_grpID_Sourcing = [
    
   {
-    name: 'Landing Page',
-    url: '/nsa',
-	icon: 'icon-star'
+    name: 'Dashboard',
+    url: '/nsa/testsimdashboard',
+	  icon: 'icon-star'
   }, 
-{
-    title: true,
-    name: 'Work Requests'
-  },   
   {
-    name: 'Series Definition',
-    url: '/seriesdefinition',
-    icon: 'icon-cursor',
-    children: [	
+    name: 'NSA',
+    url: '/nsa/testsimworkflow0',
+    icon: 'icon-star',
+    children:[
       {
-        name: 'Ongoing List',
-        url: '/nsa/seriesdefinition',
-        icon: 'icon-puzzle'
+        name: 'Series Definition',
+        url: '/seriesdefinition',
+        icon: 'icon-cursor',
+        children: [	
+          {
+            name: 'Ongoing List',
+            url: '/nsa/seriesdefinition',
+            icon: 'icon-puzzle'
+          },
+          {
+            name: 'New Creation',
+            url: '/nsa/seriesdefintionform',
+            icon: 'icon-puzzle'
+          }
+        ]
       },
       {
-        name: 'New Creation',
-        url: '/nsa/seriesdefintionform',
-        icon: 'icon-puzzle'
-      }
+        name: 'Series Provision',
+        url: '/seriesprovision',
+        icon: 'icon-cursor',
+        children: [	
+          {
+            name: 'Ongoing List',
+            url: '/nsa/seriesprovision',
+            icon: 'icon-puzzle'
+          },
+          {
+            name: 'New Creation',
+            url: '/nsa/seriesprovisionform',
+            icon: 'icon-puzzle'
+          }
+        ]
+      },
+      {
+        name: 'DiscProvision',    
+       url: '/discprovision',
+        icon: 'icon-cursor',
+        children: [	
+          {
+            name: 'Ongoing List',
+            url: '/nsa/discprovision',
+            icon: 'icon-puzzle'
+          },
+          {
+            name: 'New Creation',
+            url: '/nsa/discprovisionform',
+            icon: 'icon-puzzle'
+          }
+        ]
+      },
+      {
+        name: 'ReProvision',    
+       url: '/reprovision',
+        icon: 'icon-cursor',
+        children: [	
+          {
+            name: 'Ongoing List',
+            url: '/nsa/reprovision',
+            icon: 'icon-puzzle'
+          },
+          {
+            name: 'ReProvision Eligibility',
+            url: '/nsa/reprovisionsearch',
+            icon: 'icon-puzzle'
+          },
+          {
+            name: 'New Creation',
+            url: '/nsa/reprovisionform',
+            icon: 'icon-puzzle'
+          }
+        ]
+      },
+      {
+        name: 'MNP ReProvision',    
+       url: '/mnpreprovision',
+        icon: 'icon-cursor',
+        children: [	
+          {
+            name: 'Ongoing List',
+            url: '/nsa/mnpreprovision',
+            icon: 'icon-puzzle'
+          },
+          {
+            name: 'MNP ReProvision Eligibility',
+            url: '/nsa/mnpreprovisionsearch',
+            icon: 'icon-puzzle'
+          },
+          {
+            name: 'New Creation',
+            url: '/nsa/mnpreprovisionform',
+            icon: 'icon-puzzle'
+          }
+        ]
+      },{
+         name: 'Report',
+        url: '/nsa/nsareport',
+        icon: 'icon-speedometer'
+          }
     ]
-  },
-  {
-    name: 'Series Provision',
-    url: '/seriesprovision',
-    icon: 'icon-cursor',
-    children: [	
-      {
-        name: 'Ongoing List',
-        url: '/nsa/seriesprovision',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'New Creation',
-        url: '/nsa/seriesprovisionform',
-        icon: 'icon-puzzle'
-      }
-    ]
-  },
-  {
-    name: 'DiscProvision',    
-	 url: '/discprovision',
-    icon: 'icon-cursor',
-    children: [	
-      {
-        name: 'Ongoing List',
-        url: '/nsa/discprovision',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'New Creation',
-        url: '/nsa/discprovisionform',
-        icon: 'icon-puzzle'
-      }
-    ]
-  },
-  {
-    name: 'ReProvision',    
-	 url: '/reprovision',
-    icon: 'icon-cursor',
-    children: [	
-      {
-        name: 'Ongoing List',
-        url: '/nsa/reprovision',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'ReProvision Eligibility',
-        url: '/nsa/reprovisionsearch',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'New Creation',
-        url: '/nsa/reprovisionform',
-        icon: 'icon-puzzle'
-      }
-    ]
-  },
-  {
-    name: 'MNP ReProvision',    
-	 url: '/mnpreprovision',
-    icon: 'icon-cursor',
-    children: [	
-      {
-        name: 'Ongoing List',
-        url: '/nsa/mnpreprovision',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'MNP ReProvision Eligibility',
-        url: '/nsa/mnpreprovisionsearch',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'New Creation',
-        url: '/nsa/mnpreprovisionform',
-        icon: 'icon-puzzle'
-      }
-    ]
-  },
-	  {
-		 title: true,
-	 name: 'Report Module'},{
-		 name: 'Report',
-    url: '/nsa/nsareport',
-    icon: 'icon-speedometer'
-      }
+  }, 
+
+
+
+
+  
 
 ];
 

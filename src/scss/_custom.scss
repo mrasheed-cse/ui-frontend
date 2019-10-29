@@ -60,7 +60,7 @@
 }
 
 .dashboard-box-numeric-value-custom, .dashboard-box-numeric-value-custom a{
-    font-size: 1.3em;font-weight: bold;
+    font-size: 0.9em;font-weight: bold;
 }
 
 .dashboard-box-table-custom{
@@ -78,7 +78,7 @@
 }
 
 .dashboard-box-custom .card-header{
-    font-size: 1.8em;
+    font-size: 1.2em;
     font-family: monospace;
     letter-spacing: 0.15em;
     font-weight: bold;
@@ -228,4 +228,9 @@
     position: absolute;
     top: 0px;
     right: 15px;
+}
+
+.dashboard-box-custom{
+    width:220px !important;
+    margin-right:3%;
 }

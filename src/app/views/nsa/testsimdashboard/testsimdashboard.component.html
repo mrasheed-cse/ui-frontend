@@ -1,11 +1,38 @@
 <div class="row">
 
 
+                <!-- x -->
+                    <div class="card text-white bg-primary dashboard-box-custom" >
+                        <div class="card-header">
+                            My Approval Needed
+                        </div>
+                        <div class="card-body pb-0">
+                            <div><a href="/nsa/#/nsa/testsim-mysims">Total: 100</a></div>
+                            <table class="dashboard-box-table-custom">
+                                <tr>
+                                    <td style="width:33% !important">
+                                            <div><a href="/nsa/#/nsa/testsim-myothersims">Requisition: 999</a></div>
+                                    </td>
+                                </tr><tr>
+                                    <td style="width:33% !important">
+                                        <div><a href="/nsa/#/nsa/testsim-myothersims">Recharge: 999</a></div>
+                                    </td>
+                                </tr><tr>                                    
+                                    <td style="width:33% !important">
+                                        <div><a href="/nsa/#/nsa/testsim-myothersims">SIM Transfer: 999</a></div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                    </div>
+                <!-- x -->
+
+
         <!-- x -->
-        <div class="col-lg-4 col-md-4">
-            <div class="card text-white bg-primary dashboard-box-custom" >
+            <div class="card text-white bg-warning dashboard-box-custom" >
                 <div class="card-header">
-                    ** My SIMs **
+                    My SIMs
                 </div>
                 <div class="card-body pb-0">
                     <div class="btn-group float-right" >
@@ -15,33 +42,29 @@
                             </button>
                         </a>
                     </div>
-                    <div class="text-value dashboard-box-numeric-value-custom"><a href="/nsa/#/nsa/testsim-mysims">100</a></div>
-                    <div><a href="/nsa/#/nsa/testsim-mysims">Active SIMs</a></div>
+                    <div><a href="/nsa/#/nsa/testsim-mysims">Active SIMs: 100</a></div>
                     <table class="dashboard-box-table-custom">
                         <tr>
                             <td>
-                                    <div class="text-value dashboard-box-numeric-value-custom"><a href="/nsa/#/nsa/testsim-myothersims">999</a></div>
-                                    <div><a href="/nsa/#/nsa/testsim-myothersims">Non Active SIMs</a></div>
-                            </td>
-                            <td>
-                                    <div>
-                                        &nbsp;
-                                    </div>
+                                    <div><a href="/nsa/#/nsa/testsim-myothersims">Non Active SIMs: 999</a></div>
                             </td>
                         </tr>
                     </table>
                 </div>
                 
             </div>
-        </div>
         <!-- x -->
 
+</div>
+
+<hr />
+
+<div class="row">
 
     <!-- x -->
-    <div class="col-lg-4 col-md-4">
-        <div class="card text-white bg-warning dashboard-box-custom" >
+        <div class="card text-white bg-danger dashboard-box-custom" >
             <div class="card-header">
-                ** Requisition **
+                Requisition
             </div>
             <div class="card-body pb-0">
                 <div class="btn-group float-right" >
@@ -51,156 +74,170 @@
                         </button>
                     </a>
                 </div>
-                <div class="text-value dashboard-box-numeric-value-custom"><a href="/nsa/#/nsa/newrequisitiondetails">100</a></div>
-                <div><a href="/nsa/#/nsa/newrequisitiondetails">Personal requests</a></div>
+                <div><a href="/nsa/#/nsa/newrequisitiondetails">Total: 100</a></div>
                 <table class="dashboard-box-table-custom">
                     <tr>
-                        <td>
-                                <div class="text-value dashboard-box-numeric-value-custom"><a href="/nsa/#/nsa/newrequisition">999</a></div>
-                                <div><a href="/nsa/#/nsa/newrequisition">Pending for approval</a></div>
+                        <td style="width:33% !important">
+                                <div><a href="/nsa/#/nsa/newrequisition">Approved: 999</a></div>
                         </td>
-                        <td>
-                                <div *ngIf="isCurrentUserSSMRole" class="text-value dashboard-box-numeric-value-custom"><a href="/nsa/#/nsa/newrequisition-existing-all">999</a></div>
-                                <div *ngIf="isCurrentUserSSMRole"><a href="/nsa/#/nsa/newrequisition-existing-all">Total requests</a></div>
-                                <div *ngIf="!isCurrentUserSSMRole">
-                                    &nbsp;
-                                </div>
+                    </tr><tr>
+                        <td style="width:33% !important">
+                            <div><a href="/nsa/#/nsa/newrequisition">Rejected: 999</a></div>
+                        </td>
+                    </tr><tr>                        
+                        <td style="width:33% !important">
+                            <div><a href="/nsa/#/nsa/newrequisition">Pending: 999</a></div>
                         </td>
                     </tr>
                 </table>
             </div>
             
         </div>
+    <!-- x -->
+
+
+    <!-- x -->
+    <div class="card text-white bg-success dashboard-box-custom" >
+        <div class="card-header">
+            Activation
+        </div>
+        <div class="card-body pb-0">
+            <div class="btn-group float-right" >
+                <a href="/nsa/#/nsa/newrequisitioninitiation">
+                    <button class="btn btn-transparent p-0" type="button" aria-haspopup="true">
+                        <i class="icon-plus dashboard-box-icon-custom"></i>
+                    </button>
+                </a>
+            </div>
+            <div><a href="/nsa/#/nsa/newrequisitiondetails">Total: 100</a></div>
+            <table class="dashboard-box-table-custom">
+                <tr>
+                    <td style="width:33% !important">
+                            <div><a href="/nsa/#/nsa/newrequisition">Approved: 999</a></div>
+                    </td>
+                </tr><tr>
+                    <td style="width:33% !important">
+                        <div><a href="/nsa/#/nsa/newrequisition">Rejected: 999</a></div>
+                    </td>
+                </tr><tr>                        
+                    <td style="width:33% !important">
+                        <div><a href="/nsa/#/nsa/newrequisition">Pending: 999</a></div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        
     </div>
     <!-- x -->
 
-
     <!-- x -->
-    <div class="col-lg-4 col-md-4">
-        <div class="card text-white bg-success dashboard-box-custom" >
+    <div class="card text-white bg-primary dashboard-box-custom" >
+        <div class="card-header">
+            Time Extension
+        </div>
+        <div class="card-body pb-0">
+            <div class="btn-group float-right" >
+                <a href="/nsa/#/nsa/newrequisitioninitiation">
+                    <button class="btn btn-transparent p-0" type="button" aria-haspopup="true">
+                        <i class="icon-plus dashboard-box-icon-custom"></i>
+                    </button>
+                </a>
+            </div>
+            <div><a href="/nsa/#/nsa/newrequisitiondetails">Total: 100</a></div>
+            <table class="dashboard-box-table-custom">
+                <tr>
+                    <td style="width:33% !important">
+                            <div><a href="/nsa/#/nsa/newrequisition">Approved: 999</a></div>
+                    </td>
+                </tr><tr>
+                    <td style="width:33% !important">
+                        <div><a href="/nsa/#/nsa/newrequisition">Rejected: 999</a></div>
+                    </td>
+                </tr><tr>                        
+                    <td style="width:33% !important">
+                        <div><a href="/nsa/#/nsa/newrequisition">Pending: 999</a></div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+    <!-- x -->    
+
+
+        <!-- x -->
+        <div class="card text-white bg-warning dashboard-box-custom" >
             <div class="card-header">
-                ** Activation **
+                Limit Extension
             </div>
             <div class="card-body pb-0">
                 <div class="btn-group float-right" >
-                    <a href="/nsa/#/nsa/newsimactivationreq">
+                    <a href="/nsa/#/nsa/newrequisitioninitiation">
                         <button class="btn btn-transparent p-0" type="button" aria-haspopup="true">
                             <i class="icon-plus dashboard-box-icon-custom"></i>
                         </button>
                     </a>
                 </div>
-                <div class="text-value dashboard-box-numeric-value-custom"><a href="/nsa/#/nsa/activationrequeststatus">100</a></div>
-                <div><a href="/nsa/#/nsa/activationrequeststatus">Personal requests</a></div>
+                <div><a href="/nsa/#/nsa/newrequisitiondetails">Total: 100</a></div>
                 <table class="dashboard-box-table-custom">
                     <tr>
-                        <td>
-                                <div *ngIf="isCurrentUserSSMRole" class="text-value dashboard-box-numeric-value-custom"><a href="/nsa/#/nsa/activation-pendingregistrations">999</a></div>
-                                <div *ngIf="isCurrentUserSSMRole"><a href="/nsa/#/nsa/activation-pendingregistrations">Pending for approval</a></div>
+                        <td style="width:33% !important">
+                                <div><a href="/nsa/#/nsa/newrequisition">Approved: 999</a></div>
                         </td>
-                        <td>
-                                <div *ngIf="isCurrentUserSSMRole" class="text-value dashboard-box-numeric-value-custom"><a href="/nsa/#/nsa/activationrequeststatus-all">999</a></div>
-                                <div *ngIf="isCurrentUserSSMRole"><a href="/nsa/#/nsa/activationrequeststatus-all">Total requests</a></div>
-                                <div *ngIf="!isCurrentUserSSMRole">
-                                    &nbsp;
-                                </div>
+                    </tr><tr>
+                        <td style="width:33% !important">
+                            <div><a href="/nsa/#/nsa/newrequisition">Rejected: 999</a></div>
+                        </td>
+                    </tr><tr>                        
+                        <td style="width:33% !important">
+                            <div><a href="/nsa/#/nsa/newrequisition">Pending: 999</a></div>
                         </td>
                     </tr>
                 </table>
             </div>
             
         </div>
-    </div>
-    <!-- x -->
-
-
-
-</div>
-
-<hr />
-
-<div class="row">
+        <!-- x -->
 
         <!-- x -->
-        <div class="col-lg-4 col-md-4">
-            <div class="card text-white bg-danger dashboard-box-custom" >
-                <div class="card-header">
-                    ** Time /credit limit **
-                </div>
-                <div class="card-body pb-0">
-                    <div class="btn-group float-right" >
-                        <a href="/nsa/#/nsa/testsim-creditlimitext-new">
-                            <button class="btn btn-transparent p-0" type="button" aria-haspopup="true">
-                                <i class="icon-plus dashboard-box-icon-custom"></i>
-                            </button>
-                        </a>
-                    </div>
-                    <div class="text-value dashboard-box-numeric-value-custom"><a href="/nsa/#/nsa/testsim-creditlimitext-existing">100</a></div>
-                    <div><a href="/nsa/#/nsa/testsim-creditlimitext-existing">Personal requests</a></div>
-                    <table class="dashboard-box-table-custom">
-                        <tr>
-                            <td>
-                                    <div class="text-value dashboard-box-numeric-value-custom"><a href="/nsa/#/nsa/testsim-creditlimitext-ssm">999</a></div>
-                                    <div><a href="/nsa/#/nsa/testsim-creditlimitext-ssm">Pending for approval</a></div>
-                            </td>
-                            <td>
-                                    <div *ngIf="isCurrentUserSSMRole" class="text-value dashboard-box-numeric-value-custom"><a href="/nsa/#/nsa/testsim-creditlimitext-existing-all">999</a></div>
-                                    <div *ngIf="isCurrentUserSSMRole"><a href="/nsa/#/nsa/testsim-creditlimitext-existing-all">Total requests</a></div>
-                                    <div *ngIf="!isCurrentUserSSMRole">
-                                        &nbsp;
-                                    </div>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                
+        <div class="card text-white bg-danger dashboard-box-custom" >
+            <div class="card-header">
+                Recharge
             </div>
-        </div>
-        <!-- x -->    
-
-
-        <!-- x -->
-        <div class="col-lg-4 col-md-4">
-            <div class="card text-white bg-primary dashboard-box-custom" >
-                <div class="card-header">
-                    ** Recharge **
+            <div class="card-body pb-0">
+                <div class="btn-group float-right" >
+                    <a href="/nsa/#/nsa/newrequisitioninitiation">
+                        <button class="btn btn-transparent p-0" type="button" aria-haspopup="true">
+                            <i class="icon-plus dashboard-box-icon-custom"></i>
+                        </button>
+                    </a>
                 </div>
-                <div class="card-body pb-0">
-                    <div class="btn-group float-right" >
-                        <a href="/nsa/#/nsa/testsim-recharge-new">
-                            <button class="btn btn-transparent p-0" type="button" aria-haspopup="true">
-                                <i class="icon-plus dashboard-box-icon-custom"></i>
-                            </button>
-                        </a>
-                    </div>
-                    <div class="text-value dashboard-box-numeric-value-custom"><a href="/nsa/#/nsa/testsim-recharge-existing">100</a></div>
-                    <div><a href="/nsa/#/nsa/testsim-recharge-existing">Personal requests</a></div>
-                    <table class="dashboard-box-table-custom">
-                        <tr>
-                            <td>
-                                    <div class="text-value dashboard-box-numeric-value-custom"><a href="/nsa/#/nsa/testsim-recharge-ssm">999</a></div>
-                                    <div><a href="/nsa/#/nsa/testsim-recharge-ssm">Pending for approval</a></div>
-                            </td>
-                            <td>
-                                    <div *ngIf="isCurrentUserSSMRole" class="text-value dashboard-box-numeric-value-custom"><a href="/nsa/#/nsa/testsim-recharge-existing-all">999</a></div>
-                                    <div *ngIf="isCurrentUserSSMRole"><a href="/nsa/#/nsa/testsim-recharge-existing-all">Total requests</a></div>
-                                    <div *ngIf="!isCurrentUserSSMRole">
-                                        &nbsp;
-                                    </div>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                
+                <div><a href="/nsa/#/nsa/newrequisitiondetails">Total: 100</a></div>
+                <table class="dashboard-box-table-custom">
+                    <tr>
+                        <td style="width:33% !important">
+                                <div><a href="/nsa/#/nsa/newrequisition">Approved: 999</a></div>
+                        </td>
+                    </tr><tr>
+                        <td style="width:33% !important">
+                            <div><a href="/nsa/#/nsa/newrequisition">Rejected: 999</a></div>
+                        </td>
+                    </tr><tr>                        
+                        <td style="width:33% !important">
+                            <div><a href="/nsa/#/nsa/newrequisition">Pending: 999</a></div>
+                        </td>
+                    </tr>
+                </table>
             </div>
+            
         </div>
         <!-- x -->    
 
 
                 <!-- x -->
-                <div class="col-lg-4 col-md-4">
-                    <div class="card text-white bg-warning dashboard-box-custom" >
+                    <div class="card text-white bg-success dashboard-box-custom" >
                         <div class="card-header">
-                            ** SIM Deactivation **
+                            SIM Deactivation
                         </div>
                         <div class="card-body pb-0">
                             <div class="btn-group float-right" >
@@ -226,14 +263,12 @@
                         </div>
                         
                     </div>
-                </div>
                 <!-- x -->    
 
         <!-- x -->
-        <div class="col-lg-4 col-md-4">
-            <div class="card text-white bg-success dashboard-box-custom" >
+            <div class="card text-white bg-primary dashboard-box-custom" >
                 <div class="card-header">
-                    ** Surrender **
+                    Surrender
                 </div>
                 <div class="card-body pb-0">
                     <div class="btn-group float-right" >
@@ -263,15 +298,13 @@
                 </div>
                 
             </div>
-        </div>
         <!-- x -->   
 
 
         <!-- x -->
-        <div class="col-lg-4 col-md-4">
-            <div class="card text-white bg-danger dashboard-box-custom" >
+            <div class="card text-white bg-warning dashboard-box-custom" >
                 <div class="card-header">
-                    ** Lost / Damaged **
+                    Lost / Damaged
                 </div>
                 <div class="card-body pb-0">
                     <div class="btn-group float-right" >
@@ -301,15 +334,13 @@
                 </div>
                 
             </div>
-        </div>
         <!-- x -->   
 
 
         <!-- x -->
-        <div class="col-lg-4 col-md-4">
-            <div class="card text-white bg-primary dashboard-box-custom" >
+            <div class="card text-white bg-danger dashboard-box-custom" >
                 <div class="card-header">
-                    ** SIM Transfer **
+                    SIM Transfer
                 </div>
                 <div class="card-body pb-0">
                     <div class="btn-group float-right" >
@@ -339,7 +370,6 @@
                 </div>
                 
             </div>
-        </div>
         <!-- x -->   
 
 
