@@ -18,7 +18,7 @@ import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment.prod';
 
 import { LoginService } from '../pages/LoginService';
-import { LoggedInUser } from '../pages/loggedInUser'; 
+import { LoggedInUser } from '../pages/loggedInUser';
 
 
 @Component({
@@ -34,7 +34,7 @@ export class NewrequisitionComponent implements OnInit {
 	userName: string;
 	groupID: number;
 	userID: string;
-	
+
 	public dangerAlertShow:boolean = false;
 	public dangerAlertMessage:string = "";
 	public successSearchShow:boolean = false;
@@ -42,8 +42,8 @@ export class NewrequisitionComponent implements OnInit {
 
 	isDataFound: boolean = true;
 	isCollapsed: boolean = true;
-	
-	mySearchForm: FormGroup;  
+
+	mySearchForm: FormGroup;
    wrname: FormControl;
    wrstatus: FormControl;
    startDate: FormControl;
@@ -62,18 +62,18 @@ export class NewrequisitionComponent implements OnInit {
 	todayDate: Date;
 	routerUrlAndParams: string;
 	public isLoading:boolean = false;
-	
-	constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {	
-		
+
+	constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {
+
 			this.isLoading = false;
 			let isValid = true;
 			this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
-			
+
 			if (this.currentLoggedInUser) {
 				this.userName = this.currentLoggedInUser.userName
 				this.groupID = this.currentLoggedInUser.groupID
 				this.userID = this.currentLoggedInUser.userID
-			} 
+			}
 			else {
 				this.router.navigate(['pages/login']);
 			}
@@ -85,11 +85,14 @@ export class NewrequisitionComponent implements OnInit {
   loadPendingList(){
 		//GetPendingTaskList
 		this.workFlowsService.LoadRequisitionList(0,this.userID).subscribe(
-				data => { 				
+				data => {
 					if(data !=null){
 						console.log(data);
 						this.isDataFound = true;
-						this.requisitionList = data;					
+						this.requisitionList = data;
+            for(var i = 0; i < this.requisitionList.length; i++){
+              this.requisitionList[i]['show'] = true;
+            }
 						this.isLoading = false;
 					}
 					else{
@@ -116,46 +119,63 @@ export class NewrequisitionComponent implements OnInit {
 
 
   }
-	
+
 	datepickerConfig: Partial<BsDatepickerConfig>;
 
+  clearSearch(){
+    for(var i = 0; i < this.requisitionList.length; i++){
+      this.requisitionList[i]['show'] = true;
+    }
+  }
+
   onSearchSubmit() {
-	  
-			if (this.wrname.value || this.startDate.value || this.endDate.value || this.wrstatus.value) {
-				console.log('Form Submitted!');
-				console.log(this.mySearchForm.value);
-			this.successSearchShow = false;
-			this.dangerAlertShow = false;
-			
-			this.workFlowsService.SearchWorkRequest(this.wrname.value, this.startDate.value,this.endDate.value,this.wrstatus.value).subscribe(
-				res  =>  {
-				console.log('response is : '+res);
-				this.successSearchShow = true;
-				this.searchWR=this.wrname.value;
-				this.searchWRNumber=res["wrNumber"];
-				this.searchWrCreatedBy=res["createdBy"];
-				this.searchWrCreationDate=res["wrCreateDate"];
-				this.searchLastApprover=res["lastApprover"];
-				this.searchLextApprover=res["currentApprover"];
-				this.searchStatus=res["status"];
-				this.searchPendingGroupID = res["currentApproverGroup"];
-				this.searchHopSequence = res["currentHopSeq"];
-					},
-				err  =>  {		  
-				console.log("err.status : "+err.status);		  
-				this.dangerAlertShow = true;
-				if(err.status==404)
-					this.dangerAlertMessage = "No data found for this search.";
-				else
-					this.dangerAlertMessage = "An error occured while showing the search result.";
-			
-				}
-				);	  
-			}
-			else{
-				this.dangerAlertShow = true;
-				this.dangerAlertMessage = "Please select any input to search.";
-			}
+
+    if (this.wrname.value || this.startDate.value || this.endDate.value || this.wrstatus.value) {
+        console.log('Form Submitted!');
+        console.log(this.mySearchForm.value);
+        this.successSearchShow = false;
+        this.dangerAlertShow = false;
+
+        for(var i = 0; i < this.requisitionList.length; i++){
+          this.requisitionList[i]['show'] = false;
+
+          if(this.wrname.value != null && this.wrname.value != undefined && this.wrname.value != "" && this.wrname.value == this.requisitionList[i]['requisitionNo']){
+            this.requisitionList[i]['show'] = true;
+          }
+
+          if(this.startDate.value != null && this.startDate.value != undefined && this.startDate.value != ""
+          &&
+          this.endDate.value != null && this.endDate.value != undefined && this.endDate.value != ""){
+            //var sdate = moment(this.requisitionList[i]['requisitionDt']).format('DD-MM-YYYY');
+            var sdate = new Date(this.requisitionList[i]['requisitionDt'].replace( /(\d{2})-(\d{2})-(\d{4})/, "$2/$1/$3"))
+
+            var startDateOfForm = this.startDate.value;
+            var endDateOfForm = this.endDate.value;
+
+            startDateOfForm.setHours(0);
+            startDateOfForm.setMinutes(0);
+            startDateOfForm.setSeconds(0);
+
+            endDateOfForm.setHours(23);
+            endDateOfForm.setMinutes(59);
+            endDateOfForm.setSeconds(59);
+
+            console.log("sdate");
+            //console.log(this.requisitionList[i]['requisitionDt']);
+            console.log(sdate);
+            console.log(this.startDate.value);
+            console.log(this.endDate.value);
+
+            if(sdate >= startDateOfForm && sdate <= endDateOfForm){
+              this.requisitionList[i]['show'] = true;
+            }
+          }
+
+
+        }
+
+    }
+
 	}
 
   createFormControls() {
@@ -173,12 +193,12 @@ export class NewrequisitionComponent implements OnInit {
 	  endDate: this.endDate
     });
   }
-  
+
   onTaskSelect(aTask) {
         //this.selectedContactId = aTask.wr_ID;
 				//this.router.navigateByUrl('/nsa/seriesprovisiondetail');
   }
-	
+
 	detailsAction(aTask){
 
 				if(aTask.hop == environment.ssmAssessmentHopMarker){

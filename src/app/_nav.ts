@@ -23,458 +23,60 @@ export const navigation_grpID_SSM  = [
 	  icon: 'icon-star'
   },
   {
-        name: 'Test SIM Requisition',
-        url: '/test_sim_requisition',
-        icon: 'icon-cursor',
-        children: [	
-          {
-            name: 'Create New',
-            url: '/nsa/newrequisitioninitiation',
-            icon: 'icon-puzzle'
-          },
-          {
-            name: 'My Requests',
-            url: '/nsa/newrequisitiondetails',
-            icon: 'icon-puzzle'
-          },          
-          {
-            name: 'Pending for Approval',
-            url: '/nsa/newrequisition',
-            icon: 'icon-cursor'
-          }
-        ]
-   },
-   {
-         name: 'Test SIM Activation',
-         url: '/test_sim_activation',
-         icon: 'icon-cursor',
-         children: [	
-           {
-             name: 'New Activation Request',
-             url: '/nsa/newsimactivationreq',
-             icon: 'icon-puzzle'
-           },
-           {
-             name: 'Activation Request Status',
-             url: '/nsa/activationrequeststatus',
-             icon: 'icon-puzzle'
-           },          
-           {
-             name: 'Pending Registrations',
-             url: '/nsa/activation-pendingregistrations',
-             icon: 'icon-cursor'
-           }/*,          
-           {
-             name: 'Pending Approvals',
-             url: '/nsa/activation-pendingapprovals',
-             icon: 'icon-cursor'
-           }*/
-         ]
-    },
-    {
-      name: 'Time / Credit Limit Extension',
-      url: '/test_sim_workflow1',
-      icon: 'icon-cursor',
-      children: [	
-        {
-          name: 'New Request',
-          url: '/nsa/testsim-creditlimitext-new',
-          icon: 'icon-puzzle'
-        },
-        {
-          name: 'Existing Requests',
-          url: '/nsa/testsim-creditlimitext-existing',
-          icon: 'icon-puzzle'
-        },          
-        {
-          name: 'Pending for Approval',
-          url: '/nsa/testsim-creditlimitext-ssm',
-          icon: 'icon-puzzle'
-        }
-      ]
- },
- {
-      name: 'Test SIM Recharge',
-      url: '/test_sim_workflow2',
-      icon: 'icon-cursor',
-      children: [	
-        {
-          name: 'New Request',
-          url: '/nsa/testsim-recharge-new',
-          icon: 'icon-puzzle'
-        },
-        {
-          name: 'Existing Requests',
-          url: '/nsa/testsim-recharge-existing',
-          icon: 'icon-puzzle'
-        },          
-        {
-          name: 'Pending for Approval',
-          url: '/nsa/testsim-recharge-ssm',
-          icon: 'icon-puzzle'
-        }
-      ]
-  },
-  {
-      name: 'Test SIM Deactivation',
-      url: '/test_sim_workflow3',
-      icon: 'icon-cursor',
-      children: [	
-        {
-          name: 'Existing Requests',
-          url: '/nsa/testsim-deactivation-existing',
-          icon: 'icon-puzzle'
-        },          
-        {
-          name: 'Pending for Approval',
-          url: '/nsa/testsim-deactivation-ssm',
-          icon: 'icon-puzzle'
-        }
-      ]
-  },
-  {
-        name: 'Test SIM Surrender',
-        url: '/test_sim_workflow4',
-        icon: 'icon-cursor',
-        children: [	
-          {
-            name: 'New Request',
-            url: '/nsa/testsim-surrender-new',
-            icon: 'icon-puzzle'
-          },
-          {
-            name: 'Existing Requests',
-            url: '/nsa/testsim-surrender-existing',
-            icon: 'icon-puzzle'
-          },          
-          {
-            name: 'Pending for Approval',
-            url: '/nsa/testsim-surrender-ssm',
-            icon: 'icon-puzzle'
-          }
-        ]
-   },
-   {
-        name: 'Damaged / Lost SIM',
-        url: '/test_sim_workflow5',
-        icon: 'icon-cursor',
-        children: [	
-          {
-            name: 'New Request',
-            url: '/nsa/testsim-lostdamaged-new',
-            icon: 'icon-puzzle'
-          },
-          {
-            name: 'Existing Requests',
-            url: '/nsa/testsim-lostdamaged-existing',
-            icon: 'icon-puzzle'
-          },          
-          {
-            name: 'Pending for Approval',
-            url: '/nsa/testsim-lost-ssm',
-            icon: 'icon-puzzle'
-          }
-        ]
-    },
-    {
-      name: 'Test SIM Transfer',
-      url: '/test_sim_workflow6',
-      icon: 'icon-cursor',
-      children: [	
-        {
-          name: 'New Request',
-          url: '/nsa/testsim-transfer-new',
-          icon: 'icon-puzzle'
-        },
-        {
-          name: 'Existing Requests',
-          url: '/nsa/testsim-transfer-existing',
-          icon: 'icon-puzzle'
-        },          
-        {
-          name: 'Pending for Approval',
-          url: '/nsa/testsim-transfer-ssm',
-          icon: 'icon-puzzle'
-        }
-      ]
-    },
-    {
-         name: 'Test SIM Reports',
-         url: '/test_sim_reports',
-         icon: 'icon-cursor',
-         children: [	
-           {
-             name: 'MSISDN Status',
-             url: '/nsa/testsim-msisdnreport',
-             icon: 'icon-puzzle'
-           },
-           {
-             name: 'MSISDN Status (SSM)',
-             url: '/nsa/testsim-msisdnreport-ssm',
-             icon: 'icon-puzzle'
-           },          
-           {
-             name: 'Requisition History',
-             url: '/nsa/testsim-requisitionhistoryreport',
-             icon: 'icon-cursor'
-           },          
-           {
-             name: 'Request Status',
-             url: '/nsa/testsim-requeststatus',
-             icon: 'icon-cursor'
-           }
-         ]
-    }
-
-];
-
-export const navigation_grpID_CLC  = [
-   
-   
-  {
-    name: 'Dashboard',
-    url: '/nsa/testsimdashboard',
-	  icon: 'icon-star'
-  },
-  {
-        name: 'Test SIM Requisition',
-        url: '/test_sim_requisition',
-        icon: 'icon-cursor',
-        children: [	
-          {
-            name: 'Create New',
-            url: '/nsa/newrequisitioninitiation',
-            icon: 'icon-puzzle'
-          },
-          {
-            name: 'My Requests',
-            url: '/nsa/newrequisitiondetails',
-            icon: 'icon-puzzle'
-          },          
-          {
-            name: 'Pending for Approval',
-            url: '/nsa/newrequisition',
-            icon: 'icon-cursor'
-          }
-        ]
-   }
-     
-
-];
-export const navigation_grpID_HOD  = [
-   
-  {
-    name: 'Dashboard',
-    url: '/nsa/testsimdashboard',
-	  icon: 'icon-star'
-  },
-  {
-        name: 'Test SIM Requisition',
-        url: '/test_sim_requisition',
-        icon: 'icon-cursor',
-        children: [	
-          {
-            name: 'Create New',
-            url: '/nsa/newrequisitioninitiation',
-            icon: 'icon-puzzle'
-          },
-          {
-            name: 'My Requests',
-            url: '/nsa/newrequisitiondetails',
-            icon: 'icon-puzzle'
-          },          
-          {
-            name: 'Pending for Approval',
-            url: '/nsa/newrequisition',
-            icon: 'icon-cursor'
-          }
-        ]
-   },
-   {
-    name: 'Time / Credit Limit Extension',
-    url: '/test_sim_workflow1',
-    icon: 'icon-cursor',
-    children: [	
+    name: 'Test / Internal SIM',
+    url: '/nsa/testsimworkflow0',
+    icon: 'icon-star',
+    children:[
       {
-        name: 'New Request',
-        url: '/nsa/testsim-creditlimitext-new',
-        icon: 'icon-puzzle'
+        name: 'Test SIM Requisition',
+        url: '/test_sim_requisition',
+        icon: 'icon-cursor',
+        children: [	
+          {
+            name: 'Create New',
+            url: '/nsa/newrequisitioninitiation',
+            icon: 'icon-puzzle'
+          },
+          {
+            name: 'My Requests',
+            url: '/nsa/newrequisitiondetails',
+            icon: 'icon-puzzle'
+          },          
+          {
+            name: 'Pending for Approval',
+            url: '/nsa/newrequisition',
+            icon: 'icon-cursor'
+          }
+        ]
       },
       {
-        name: 'Existing Requests',
-        url: '/nsa/testsim-creditlimitext-existing',
-        icon: 'icon-puzzle'
-      },          
-      {
-        name: 'Pending for Approval',
-        url: '/nsa/testsim-creditlimitext-ssm',
-        icon: 'icon-puzzle'
-      }
-    ]
-},
-{
-    name: 'Test SIM Recharge',
-    url: '/test_sim_workflow2',
-    icon: 'icon-cursor',
-    children: [	
-      {
-        name: 'New Request',
-        url: '/nsa/testsim-recharge-new',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'Existing Requests',
-        url: '/nsa/testsim-recharge-existing',
-        icon: 'icon-puzzle'
-      },          
-      {
-        name: 'Pending for Approval',
-        url: '/nsa/testsim-recharge-ssm',
-        icon: 'icon-puzzle'
-      }
-    ]
-},
-{
-    name: 'Test SIM Deactivation',
-    url: '/test_sim_workflow3',
-    icon: 'icon-cursor',
-    children: [	
-      {
-        name: 'Existing Requests',
-        url: '/nsa/testsim-deactivation-existing',
-        icon: 'icon-puzzle'
-      },          
-      {
-        name: 'Pending for Approval',
-        url: '/nsa/testsim-deactivation-ssm',
-        icon: 'icon-puzzle'
-      }
-    ]
-},
-{
-      name: 'Test SIM Surrender',
-      url: '/test_sim_workflow4',
-      icon: 'icon-cursor',
-      children: [	
-        {
-          name: 'New Request',
-          url: '/nsa/testsim-surrender-new',
-          icon: 'icon-puzzle'
+            name: 'Test SIM Activation',
+            url: '/test_sim_activation',
+            icon: 'icon-cursor',
+            children: [	
+              {
+                name: 'New Activation Request',
+                url: '/nsa/newsimactivationreq',
+                icon: 'icon-puzzle'
+              },
+              {
+                name: 'Activation Request Status',
+                url: '/nsa/activationrequeststatus',
+                icon: 'icon-puzzle'
+              },          
+              {
+                name: 'Pending Registrations',
+                url: '/nsa/activation-pendingregistrations',
+                icon: 'icon-cursor'
+              }/*,          
+              {
+                name: 'Pending Approvals',
+                url: '/nsa/activation-pendingapprovals',
+                icon: 'icon-cursor'
+              }*/
+            ]
         },
         {
-          name: 'Existing Requests',
-          url: '/nsa/testsim-surrender-existing',
-          icon: 'icon-puzzle'
-        },          
-        {
-          name: 'Pending for Approval',
-          url: '/nsa/testsim-surrender-ssm',
-          icon: 'icon-puzzle'
-        }
-      ]
- },
- {
-      name: 'Damaged / Lost SIM',
-      url: '/test_sim_workflow5',
-      icon: 'icon-cursor',
-      children: [	
-        {
-          name: 'New Request',
-          url: '/nsa/testsim-lostdamaged-new',
-          icon: 'icon-puzzle'
-        },
-        {
-          name: 'Existing Requests',
-          url: '/nsa/testsim-lostdamaged-existing',
-          icon: 'icon-puzzle'
-        },          
-        {
-          name: 'Pending for Approval',
-          url: '/nsa/testsim-lost-ssm',
-          icon: 'icon-puzzle'
-        }
-      ]
-  },
-  {
-    name: 'Test SIM Transfer',
-    url: '/test_sim_workflow6',
-    icon: 'icon-cursor',
-    children: [	
-      {
-        name: 'New Request',
-        url: '/nsa/testsim-transfer-new',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'Existing Requests',
-        url: '/nsa/testsim-transfer-existing',
-        icon: 'icon-puzzle'
-      },          
-      {
-        name: 'Pending for Approval',
-        url: '/nsa/testsim-transfer-ssm',
-        icon: 'icon-puzzle'
-      }
-    ]
-  },
-
-   
-  
-     
-
-];
-export const navigation_grpID_GENERAL  = [
-   
-    
-  /*{
-    title: true,
-    name: 'New Sim Requisition'
-  },*/
-  {
-    name: 'Dashboard',
-    url: '/nsa/testsimdashboard',
-	  icon: 'icon-star'
-  },
-  {
-        name: 'Test SIM Requisition',
-        url: '/test_sim_requisition',
-        icon: 'icon-cursor',
-        children: [	
-          {
-            name: 'Create New',
-            url: '/nsa/newrequisitioninitiation',
-            icon: 'icon-puzzle'
-          },
-          {
-            name: 'My Requests',
-            url: '/nsa/newrequisitiondetails',
-            icon: 'icon-puzzle'
-          },          
-          {
-            name: 'Pending for Approval',
-            url: '/nsa/newrequisition',
-            icon: 'icon-cursor'
-          }
-        ]
-   },
-   {
-         name: 'Test SIM Activation',
-         url: '/test_sim_activation',
-         icon: 'icon-cursor',
-         children: [	
-           {
-             name: 'New Activation Request',
-             url: '/nsa/newsimactivationreq',
-             icon: 'icon-puzzle'
-           },
-           {
-             name: 'Activation Request Status',
-             url: '/nsa/activationrequeststatus',
-             icon: 'icon-puzzle'
-           }
-         ]
-    },
-    {
           name: 'Time / Credit Limit Extension',
           url: '/test_sim_workflow1',
           icon: 'icon-cursor',
@@ -495,8 +97,8 @@ export const navigation_grpID_GENERAL  = [
               icon: 'icon-puzzle'
             }
           ]
-     },
-     {
+    },
+    {
           name: 'Test SIM Recharge',
           url: '/test_sim_workflow2',
           icon: 'icon-cursor',
@@ -556,8 +158,8 @@ export const navigation_grpID_GENERAL  = [
                 icon: 'icon-puzzle'
               }
             ]
-       },
-       {
+      },
+      {
             name: 'Damaged / Lost SIM',
             url: '/test_sim_workflow5',
             icon: 'icon-cursor',
@@ -600,20 +202,495 @@ export const navigation_grpID_GENERAL  = [
               icon: 'icon-puzzle'
             }
           ]
+        }
+    ]
+  },    
+  {
+    name: 'Reports',
+    url: '/nsa/testsimworkflowr0',
+    icon: 'icon-star',
+    children:[
+      {
+        name: 'Test SIM Reports',
+        url: '/test_sim_reports',
+        icon: 'icon-cursor',
+        children: [	
+          {
+            name: 'MSISDN Status',
+            url: '/nsa/testsim-msisdnreport',
+            icon: 'icon-puzzle'
+          },
+          {
+            name: 'MSISDN Status (SSM)',
+            url: '/nsa/testsim-msisdnreport-ssm',
+            icon: 'icon-puzzle'
+          },          
+          {
+            name: 'Requisition History',
+            url: '/nsa/testsim-requisitionhistoryreport',
+            icon: 'icon-cursor'
+          },          
+          {
+            name: 'Request Status',
+            url: '/nsa/testsim-requeststatus',
+            icon: 'icon-cursor'
+          }
+        ]
+      }
+    ]
+  }
+    
+
+];
+
+export const navigation_grpID_CLC  = [
+  {
+    name: 'Dashboard',
+    url: '/nsa/testsimdashboard',
+	  icon: 'icon-star'
+  },
+  {
+    name: 'Test / Internal SIM',
+    url: '/nsa/testsimworkflow0',
+    icon: 'icon-star',
+    children:[
+      {
+        name: 'Test SIM Requisition',
+        url: '/test_sim_requisition',
+        icon: 'icon-cursor',
+        children: [	
+          {
+            name: 'Create New',
+            url: '/nsa/newrequisitioninitiation',
+            icon: 'icon-puzzle'
+          },
+          {
+            name: 'My Requests',
+            url: '/nsa/newrequisitiondetails',
+            icon: 'icon-puzzle'
+          },          
+          {
+            name: 'Pending for Approval',
+            url: '/nsa/newrequisition',
+            icon: 'icon-cursor'
+          }
+        ]
+      },
+      {
+            name: 'Test SIM Activation',
+            url: '/test_sim_activation',
+            icon: 'icon-cursor',
+            children: [	
+              {
+                name: 'New Activation Request',
+                url: '/nsa/newsimactivationreq',
+                icon: 'icon-puzzle'
+              },
+              {
+                name: 'Activation Request Status',
+                url: '/nsa/activationrequeststatus',
+                icon: 'icon-puzzle'
+              },          
+              {
+                name: 'Pending Registrations',
+                url: '/nsa/activation-pendingregistrations',
+                icon: 'icon-cursor'
+              }/*,          
+              {
+                name: 'Pending Approvals',
+                url: '/nsa/activation-pendingapprovals',
+                icon: 'icon-cursor'
+              }*/
+            ]
         },
+        {
+          name: 'Time / Credit Limit Extension',
+          url: '/test_sim_workflow1',
+          icon: 'icon-cursor',
+          children: [	
+            {
+              name: 'New Request',
+              url: '/nsa/testsim-creditlimitext-new',
+              icon: 'icon-puzzle'
+            },
+            {
+              name: 'Existing Requests',
+              url: '/nsa/testsim-creditlimitext-existing',
+              icon: 'icon-puzzle'
+            },          
+            {
+              name: 'Pending for Approval',
+              url: '/nsa/testsim-creditlimitext-ssm',
+              icon: 'icon-puzzle'
+            }
+          ]
+    },
     {
-         name: 'Test SIM Reports',
-         url: '/test_sim_reports',
-         icon: 'icon-cursor',
-         children: [	
-           {
-             name: 'MSISDN Status',
-             url: '/nsa/testsim-msisdnreport',
-             icon: 'icon-puzzle'
-           }
-         ]
-    }
-      
+          name: 'Test SIM Recharge',
+          url: '/test_sim_workflow2',
+          icon: 'icon-cursor',
+          children: [	
+            {
+              name: 'New Request',
+              url: '/nsa/testsim-recharge-new',
+              icon: 'icon-puzzle'
+            },
+            {
+              name: 'Existing Requests',
+              url: '/nsa/testsim-recharge-existing',
+              icon: 'icon-puzzle'
+            },          
+            {
+              name: 'Pending for Approval',
+              url: '/nsa/testsim-recharge-ssm',
+              icon: 'icon-puzzle'
+            }
+          ]
+      },
+      {
+          name: 'Test SIM Deactivation',
+          url: '/test_sim_workflow3',
+          icon: 'icon-cursor',
+          children: [	
+            {
+              name: 'Existing Requests',
+              url: '/nsa/testsim-deactivation-existing',
+              icon: 'icon-puzzle'
+            },          
+            {
+              name: 'Pending for Approval',
+              url: '/nsa/testsim-deactivation-ssm',
+              icon: 'icon-puzzle'
+            }
+          ]
+      },
+      {
+            name: 'Test SIM Surrender',
+            url: '/test_sim_workflow4',
+            icon: 'icon-cursor',
+            children: [	
+              {
+                name: 'New Request',
+                url: '/nsa/testsim-surrender-new',
+                icon: 'icon-puzzle'
+              },
+              {
+                name: 'Existing Requests',
+                url: '/nsa/testsim-surrender-existing',
+                icon: 'icon-puzzle'
+              },          
+              {
+                name: 'Pending for Approval',
+                url: '/nsa/testsim-surrender-ssm',
+                icon: 'icon-puzzle'
+              }
+            ]
+      },
+      {
+            name: 'Damaged / Lost SIM',
+            url: '/test_sim_workflow5',
+            icon: 'icon-cursor',
+            children: [	
+              {
+                name: 'New Request',
+                url: '/nsa/testsim-lostdamaged-new',
+                icon: 'icon-puzzle'
+              },
+              {
+                name: 'Existing Requests',
+                url: '/nsa/testsim-lostdamaged-existing',
+                icon: 'icon-puzzle'
+              },          
+              {
+                name: 'Pending for Approval',
+                url: '/nsa/testsim-lost-ssm',
+                icon: 'icon-puzzle'
+              }
+            ]
+        },
+        {
+          name: 'Test SIM Transfer',
+          url: '/test_sim_workflow6',
+          icon: 'icon-cursor',
+          children: [	
+            {
+              name: 'New Request',
+              url: '/nsa/testsim-transfer-new',
+              icon: 'icon-puzzle'
+            },
+            {
+              name: 'Existing Requests',
+              url: '/nsa/testsim-transfer-existing',
+              icon: 'icon-puzzle'
+            },          
+            {
+              name: 'Pending for Approval',
+              url: '/nsa/testsim-transfer-ssm',
+              icon: 'icon-puzzle'
+            }
+          ]
+        }
+    ]
+  },    
+  {
+    name: 'Reports',
+    url: '/nsa/testsimworkflowr0',
+    icon: 'icon-star',
+    children:[
+      {
+        name: 'Test SIM Reports',
+        url: '/test_sim_reports',
+        icon: 'icon-cursor',
+        children: [	
+          {
+            name: 'MSISDN Status',
+            url: '/nsa/testsim-msisdnreport',
+            icon: 'icon-puzzle'
+          },
+          {
+            name: 'MSISDN Status (SSM)',
+            url: '/nsa/testsim-msisdnreport-ssm',
+            icon: 'icon-puzzle'
+          },          
+          {
+            name: 'Requisition History',
+            url: '/nsa/testsim-requisitionhistoryreport',
+            icon: 'icon-cursor'
+          },          
+          {
+            name: 'Request Status',
+            url: '/nsa/testsim-requeststatus',
+            icon: 'icon-cursor'
+          }
+        ]
+      }
+    ]
+  }
+];
+
+export const navigation_grpID_GENERAL  = [
+  {
+    name: 'Dashboard',
+    url: '/nsa/testsimdashboard',
+	  icon: 'icon-star'
+  },
+  {
+    name: 'Test / Internal SIM',
+    url: '/nsa/testsimworkflow0',
+    icon: 'icon-star',
+    children:[
+      {
+        name: 'Test SIM Requisition',
+        url: '/test_sim_requisition',
+        icon: 'icon-cursor',
+        children: [	
+          {
+            name: 'Create New',
+            url: '/nsa/newrequisitioninitiation',
+            icon: 'icon-puzzle'
+          },
+          {
+            name: 'My Requests',
+            url: '/nsa/newrequisitiondetails',
+            icon: 'icon-puzzle'
+          },          
+          {
+            name: 'Pending for Approval',
+            url: '/nsa/newrequisition',
+            icon: 'icon-cursor'
+          }
+        ]
+      },
+      {
+            name: 'Test SIM Activation',
+            url: '/test_sim_activation',
+            icon: 'icon-cursor',
+            children: [	
+              {
+                name: 'New Activation Request',
+                url: '/nsa/newsimactivationreq',
+                icon: 'icon-puzzle'
+              },
+              {
+                name: 'Activation Request Status',
+                url: '/nsa/activationrequeststatus',
+                icon: 'icon-puzzle'
+              },          
+              {
+                name: 'Pending Registrations',
+                url: '/nsa/activation-pendingregistrations',
+                icon: 'icon-cursor'
+              }/*,          
+              {
+                name: 'Pending Approvals',
+                url: '/nsa/activation-pendingapprovals',
+                icon: 'icon-cursor'
+              }*/
+            ]
+        },
+        {
+          name: 'Time / Credit Limit Extension',
+          url: '/test_sim_workflow1',
+          icon: 'icon-cursor',
+          children: [	
+            {
+              name: 'New Request',
+              url: '/nsa/testsim-creditlimitext-new',
+              icon: 'icon-puzzle'
+            },
+            {
+              name: 'Existing Requests',
+              url: '/nsa/testsim-creditlimitext-existing',
+              icon: 'icon-puzzle'
+            },          
+            {
+              name: 'Pending for Approval',
+              url: '/nsa/testsim-creditlimitext-ssm',
+              icon: 'icon-puzzle'
+            }
+          ]
+    },
+    {
+          name: 'Test SIM Recharge',
+          url: '/test_sim_workflow2',
+          icon: 'icon-cursor',
+          children: [	
+            {
+              name: 'New Request',
+              url: '/nsa/testsim-recharge-new',
+              icon: 'icon-puzzle'
+            },
+            {
+              name: 'Existing Requests',
+              url: '/nsa/testsim-recharge-existing',
+              icon: 'icon-puzzle'
+            },          
+            {
+              name: 'Pending for Approval',
+              url: '/nsa/testsim-recharge-ssm',
+              icon: 'icon-puzzle'
+            }
+          ]
+      },
+      {
+          name: 'Test SIM Deactivation',
+          url: '/test_sim_workflow3',
+          icon: 'icon-cursor',
+          children: [	
+            {
+              name: 'Existing Requests',
+              url: '/nsa/testsim-deactivation-existing',
+              icon: 'icon-puzzle'
+            },          
+            {
+              name: 'Pending for Approval',
+              url: '/nsa/testsim-deactivation-ssm',
+              icon: 'icon-puzzle'
+            }
+          ]
+      },
+      {
+            name: 'Test SIM Surrender',
+            url: '/test_sim_workflow4',
+            icon: 'icon-cursor',
+            children: [	
+              {
+                name: 'New Request',
+                url: '/nsa/testsim-surrender-new',
+                icon: 'icon-puzzle'
+              },
+              {
+                name: 'Existing Requests',
+                url: '/nsa/testsim-surrender-existing',
+                icon: 'icon-puzzle'
+              },          
+              {
+                name: 'Pending for Approval',
+                url: '/nsa/testsim-surrender-ssm',
+                icon: 'icon-puzzle'
+              }
+            ]
+      },
+      {
+            name: 'Damaged / Lost SIM',
+            url: '/test_sim_workflow5',
+            icon: 'icon-cursor',
+            children: [	
+              {
+                name: 'New Request',
+                url: '/nsa/testsim-lostdamaged-new',
+                icon: 'icon-puzzle'
+              },
+              {
+                name: 'Existing Requests',
+                url: '/nsa/testsim-lostdamaged-existing',
+                icon: 'icon-puzzle'
+              },          
+              {
+                name: 'Pending for Approval',
+                url: '/nsa/testsim-lost-ssm',
+                icon: 'icon-puzzle'
+              }
+            ]
+        },
+        {
+          name: 'Test SIM Transfer',
+          url: '/test_sim_workflow6',
+          icon: 'icon-cursor',
+          children: [	
+            {
+              name: 'New Request',
+              url: '/nsa/testsim-transfer-new',
+              icon: 'icon-puzzle'
+            },
+            {
+              name: 'Existing Requests',
+              url: '/nsa/testsim-transfer-existing',
+              icon: 'icon-puzzle'
+            },          
+            {
+              name: 'Pending for Approval',
+              url: '/nsa/testsim-transfer-ssm',
+              icon: 'icon-puzzle'
+            }
+          ]
+        }
+    ]
+  },    
+  {
+    name: 'Reports',
+    url: '/nsa/testsimworkflowr0',
+    icon: 'icon-star',
+    children:[
+      {
+        name: 'Test SIM Reports',
+        url: '/test_sim_reports',
+        icon: 'icon-cursor',
+        children: [	
+          {
+            name: 'MSISDN Status',
+            url: '/nsa/testsim-msisdnreport',
+            icon: 'icon-puzzle'
+          },
+          {
+            name: 'MSISDN Status (SSM)',
+            url: '/nsa/testsim-msisdnreport-ssm',
+            icon: 'icon-puzzle'
+          },          
+          {
+            name: 'Requisition History',
+            url: '/nsa/testsim-requisitionhistoryreport',
+            icon: 'icon-cursor'
+          },          
+          {
+            name: 'Request Status',
+            url: '/nsa/testsim-requeststatus',
+            icon: 'icon-cursor'
+          }
+        ]
+      }
+    ]
+  }   
 ];
 
 export const navigation_grpID_ADMIN  = [
@@ -657,35 +734,42 @@ export const navigation_grpID_ADMIN  = [
 export const navigation_grpID_Wipro_OSS = [
    
   {
-    name: 'Landing Page',
-    url: '/nsa',
-	icon: 'icon-star'
+    name: 'Dashboard',
+    url: '/nsa/testsimdashboard',
+	  icon: 'icon-star'
   }, 
-{
-    title: true,
-    name: 'Work Requests'
-  },
- 
+  {
+    name: 'NSA',
+    url: '/nsa/testsimworkflow0',
+    icon: 'icon-star',
+    children:[
       {
-            name: 'DeProvision',
-            url: '/nsa/deprovision',
-            icon: 'icon-cursor'
-          }
+        name: 'DeProvision',
+        url: '/nsa/deprovision',
+        icon: 'icon-cursor'
+      }, 
+      {
+      name: 'Report',
+     url: '/nsa/nsareport',
+     icon: 'icon-speedometer'
+       }
+    ]
+  },     
 ];
 
 
 export const navigation_grpID_Wipro_CIM = [
-   
   {
-    name: 'Landing Page',
-    url: '/nsa',
-	icon: 'icon-star'
+    name: 'Dashboard',
+    url: '/nsa/testsimdashboard',
+	  icon: 'icon-star'
   }, 
-{
-    title: true,
-    name: 'Work Requests'
-  },
   {
+    name: 'NSA',
+    url: '/nsa/testsimworkflow0',
+    icon: 'icon-star',
+    children:[
+      {
         name: 'Series Provision',
         url: '/nsa/seriesprovision',
         icon: 'icon-cursor'
@@ -694,17 +778,24 @@ export const navigation_grpID_Wipro_CIM = [
             name: 'ReProvision',
             url: '/nsa/reprovision',
             icon: 'icon-cursor'
-          },
-          {
-                name: 'Discrete Provision',
-                url: '/nsa/discprovision',
-                icon: 'icon-cursor'
-              },
-              {
-                  name: 'MNP ReProvision',
-                  url: '/nsa/mnpreprovision',
-                  icon: 'icon-cursor'
-                }
+      },
+      {
+            name: 'Discrete Provision',
+            url: '/nsa/discprovision',
+            icon: 'icon-cursor'
+      },
+      {
+            name: 'MNP ReProvision',
+            url: '/nsa/mnpreprovision',
+            icon: 'icon-cursor'
+      }, 
+      {
+      name: 'Report',
+     url: '/nsa/nsareport',
+     icon: 'icon-speedometer'
+       }
+    ]
+  },           
 ];
 
 
@@ -712,308 +803,350 @@ export const navigation_grpID_Wipro_CIM = [
 export const navigation_grpID_RAFM = [
    
   {
-    name: 'Landing Page',
-    url: '/nsa',
-	icon: 'icon-star'
+    name: 'Dashboard',
+    url: '/nsa/testsimdashboard',
+	  icon: 'icon-star'
   }, 
-{
-    title: true,
-    name: 'Work Requests'
-  },
-  
-{
-    name: 'Series Provision',
-    url: '/nsa/seriesprovision',
-    icon: 'icon-cursor'
-  },
   {
-        name: 'DeProvision',
-        url: '/nsa/deprovision',
+    name: 'NSA',
+    url: '/nsa/testsimworkflow0',
+    icon: 'icon-star',
+    children:[
+      {
+        name: 'Series Provision',
+        url: '/nsa/seriesprovision',
         icon: 'icon-cursor'
       },
       {
-            name: 'Discrete Provision',
-            url: '/nsa/discprovision',
+            name: 'DeProvision',
+            url: '/nsa/deprovision',
             icon: 'icon-cursor'
-          }
-	  ,
-  {
-        name: 'ReProvision',
-        url: '/nsa/reprovision',
-        icon: 'icon-cursor'
       },
-  {
-        name: 'MNP ReProvision',
-        url: '/nsa/mnpreprovision',
-        icon: 'icon-cursor'
-      }
+      {
+                name: 'Discrete Provision',
+                url: '/nsa/discprovision',
+                icon: 'icon-cursor'
+      },
+      {
+            name: 'ReProvision',
+            url: '/nsa/reprovision',
+            icon: 'icon-cursor'
+      },
+      {
+            name: 'MNP ReProvision',
+            url: '/nsa/mnpreprovision',
+            icon: 'icon-cursor'
+      }, 
+      {
+      name: 'Report',
+     url: '/nsa/nsareport',
+     icon: 'icon-speedometer'
+       }
+    ]
+  },  
+
 ];
 
 export const navigation_grpID_Wipro_Billing = [
-   
+
   {
-    name: 'Landing Page',
-    url: '/nsa',
-	icon: 'icon-star'
+    name: 'Dashboard',
+    url: '/nsa/testsimdashboard',
+	  icon: 'icon-star'
   }, 
-{
-    title: true,
-    name: 'Work Requests'
-  },
   {
-    name: 'Series Provision',
-    url: '/nsa/seriesprovision',
-    icon: 'icon-cursor'
-  },
-  {
-        name: 'DeProvision',
-        url: '/nsa/deprovision',
+    name: 'NSA',
+    url: '/nsa/testsimworkflow0',
+    icon: 'icon-star',
+    children:[
+      {
+        name: 'Series Provision',
+        url: '/nsa/seriesprovision',
         icon: 'icon-cursor'
       },
       {
-            name: 'Discrete Provision',
-            url: '/nsa/discprovision',
+            name: 'DeProvision',
+            url: '/nsa/deprovision',
             icon: 'icon-cursor'
           },
-  {
-        name: 'ReProvision',
-        url: '/nsa/reprovision',
-        icon: 'icon-cursor'
-      },
-	  {
-        name: 'MNP ReProvision',
-        url: '/nsa/mnpreprovision',
-        icon: 'icon-cursor'
-      }
+          {
+                name: 'Discrete Provision',
+                url: '/nsa/discprovision',
+                icon: 'icon-cursor'
+              },
+      {
+            name: 'ReProvision',
+            url: '/nsa/reprovision',
+            icon: 'icon-cursor'
+          },
+        {
+            name: 'MNP ReProvision',
+            url: '/nsa/mnpreprovision',
+            icon: 'icon-cursor'
+          }, 
+          {
+          name: 'Report',
+         url: '/nsa/nsareport',
+         icon: 'icon-speedometer'
+           }
+    ]
+  },  
 ];
 
 
 export const navigation_grpID_BSS_Planning = [
    
   {
-    name: 'Landing Page',
-    url: '/nsa',
-	icon: 'icon-star'
+    name: 'Dashboard',
+    url: '/nsa/testsimdashboard',
+	  icon: 'icon-star'
   }, 
-{
-    title: true,
-    name: 'Work Requests'
-  },
-  
   {
-    name: 'Series Definition',
-    url: '/nsa/seriesdefinition',
-    icon: 'icon-cursor'
-  }, 
-
-  {
-    name: 'SDP Migration',    
-	 url: '/nsa/sdpmigration',
-    icon: 'icon-cursor',
+    name: 'NSA',
+    url: '/nsa/testsimworkflow0',
+    icon: 'icon-star',
+    children:[
+      {
+        name: 'Series Definition',
+        url: '/nsa/seriesdefinition',
+        icon: 'icon-cursor'
+      }, 
     
-  }
+      {
+        name: 'SDP Migration',    
+       url: '/nsa/sdpmigration',
+        icon: 'icon-cursor',
+        
+      }, 
+      {
+      name: 'Report',
+     url: '/nsa/nsareport',
+     icon: 'icon-speedometer'
+       }
+    ]
+  },  
+
 ];
 
 export const navigation_grpID_VDSO = [
    
   {
-    name: 'Landing Page',
-    url: '/nsa',
-	icon: 'icon-star'
+    name: 'Dashboard',
+    url: '/nsa/testsimdashboard',
+	  icon: 'icon-star'
   }, 
-{
-    title: true,
-    name: 'Work Requests'
-  },
-  
   {
-    name: 'Series Definition',
-    url: '/nsa/seriesdefinition',
-    icon: 'icon-cursor'
-  }
-  ,
-  
-  {
-    name: 'APN Creation',
-    url: '/nsa/apn',
-    icon: 'icon-cursor'
-  }
+    name: 'NSA',
+    url: '/nsa/testsimworkflow0',
+    icon: 'icon-star',
+    children:[
+      {
+        name: 'Series Definition',
+        url: '/nsa/seriesdefinition',
+        icon: 'icon-cursor'
+      }
+      ,
+      
+      {
+        name: 'APN Creation',
+        url: '/nsa/apn',
+        icon: 'icon-cursor'
+      }, 
+      {
+      name: 'Report',
+     url: '/nsa/nsareport',
+     icon: 'icon-speedometer'
+       }
+    ]
+  }, 
+
 ];
 
 export const navigation_grpID_CNP = [
    
   {
-    name: 'Landing Page',
-    url: '/nsa',
-	icon: 'icon-star'
+    name: 'Dashboard',
+    url: '/nsa/testsimdashboard',
+	  icon: 'icon-star'
   }, 
-{
-    title: true,
-    name: 'Work Requests'
-  },
+  {
+    name: 'NSA',
+    url: '/nsa/testsimworkflow0',
+    icon: 'icon-star',
+    children:[
+      {
+        name: 'Series Definition',
+        url: '/nsa/seriesdefinition',
+        icon: 'icon-cursor'
+      },
+      {
+        name: 'DeProvision',    
+       url: '/deprovision',
+        icon: 'icon-cursor',
+        children: [	
+          {
+            name: 'Ongoing List',
+            url: '/nsa/deprovision',
+            icon: 'icon-puzzle'
+          },
+          {
+            name: 'New Creation',
+            url: '/nsa/deprovisionform',
+            icon: 'icon-puzzle'
+          }
+        ]
+      },
+      {
+        name: 'APN',    
+       url: '/apn',
+        icon: 'icon-cursor',
+        children: [	
+          {
+            name: 'Ongoing List',
+            url: '/nsa/apn',
+            icon: 'icon-puzzle'
+          },
+          {
+            name: 'New Creation',
+            url: '/nsa/apnform',
+            icon: 'icon-puzzle'
+          }
+        ]
+      }, 
+         {
+         name: 'Report',
+        url: '/nsa/nsareport',
+        icon: 'icon-speedometer'
+          }
+    ]
+  }, 
+
+
+
+
   
-  {
-    name: 'Series Definition',
-    url: '/nsa/seriesdefinition',
-    icon: 'icon-cursor'
-  },
-  {
-    name: 'DeProvision',    
-	 url: '/deprovision',
-    icon: 'icon-cursor',
-    children: [	
-      {
-        name: 'Ongoing List',
-        url: '/nsa/deprovision',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'New Creation',
-        url: '/nsa/deprovisionform',
-        icon: 'icon-puzzle'
-      }
-    ]
-  },
-  {
-    name: 'APN',    
-	 url: '/apn',
-    icon: 'icon-cursor',
-    children: [	
-      {
-        name: 'Ongoing List',
-        url: '/nsa/apn',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'New Creation',
-        url: '/nsa/apnform',
-        icon: 'icon-puzzle'
-      }
-    ]
-  }, 
-     {
-		 title: true,
-	 name: 'Report Module'},{
-		 name: 'Report',
-    url: '/nsa/nsareport',
-    icon: 'icon-speedometer'
-      }
+  
 
 ];
 
 export const navigation_grpID_Sourcing = [
    
   {
-    name: 'Landing Page',
-    url: '/nsa',
-	icon: 'icon-star'
+    name: 'Dashboard',
+    url: '/nsa/testsimdashboard',
+	  icon: 'icon-star'
   }, 
-{
-    title: true,
-    name: 'Work Requests'
-  },   
   {
-    name: 'Series Definition',
-    url: '/seriesdefinition',
-    icon: 'icon-cursor',
-    children: [	
+    name: 'NSA',
+    url: '/nsa/testsimworkflow0',
+    icon: 'icon-star',
+    children:[
       {
-        name: 'Ongoing List',
-        url: '/nsa/seriesdefinition',
-        icon: 'icon-puzzle'
+        name: 'Series Definition',
+        url: '/seriesdefinition',
+        icon: 'icon-cursor',
+        children: [	
+          {
+            name: 'Ongoing List',
+            url: '/nsa/seriesdefinition',
+            icon: 'icon-puzzle'
+          },
+          {
+            name: 'New Creation',
+            url: '/nsa/seriesdefintionform',
+            icon: 'icon-puzzle'
+          }
+        ]
       },
       {
-        name: 'New Creation',
-        url: '/nsa/seriesdefintionform',
-        icon: 'icon-puzzle'
-      }
+        name: 'Series Provision',
+        url: '/seriesprovision',
+        icon: 'icon-cursor',
+        children: [	
+          {
+            name: 'Ongoing List',
+            url: '/nsa/seriesprovision',
+            icon: 'icon-puzzle'
+          },
+          {
+            name: 'New Creation',
+            url: '/nsa/seriesprovisionform',
+            icon: 'icon-puzzle'
+          }
+        ]
+      },
+      {
+        name: 'DiscProvision',    
+       url: '/discprovision',
+        icon: 'icon-cursor',
+        children: [	
+          {
+            name: 'Ongoing List',
+            url: '/nsa/discprovision',
+            icon: 'icon-puzzle'
+          },
+          {
+            name: 'New Creation',
+            url: '/nsa/discprovisionform',
+            icon: 'icon-puzzle'
+          }
+        ]
+      },
+      {
+        name: 'ReProvision',    
+       url: '/reprovision',
+        icon: 'icon-cursor',
+        children: [	
+          {
+            name: 'Ongoing List',
+            url: '/nsa/reprovision',
+            icon: 'icon-puzzle'
+          },
+          {
+            name: 'ReProvision Eligibility',
+            url: '/nsa/reprovisionsearch',
+            icon: 'icon-puzzle'
+          },
+          {
+            name: 'New Creation',
+            url: '/nsa/reprovisionform',
+            icon: 'icon-puzzle'
+          }
+        ]
+      },
+      {
+        name: 'MNP ReProvision',    
+       url: '/mnpreprovision',
+        icon: 'icon-cursor',
+        children: [	
+          {
+            name: 'Ongoing List',
+            url: '/nsa/mnpreprovision',
+            icon: 'icon-puzzle'
+          },
+          {
+            name: 'MNP ReProvision Eligibility',
+            url: '/nsa/mnpreprovisionsearch',
+            icon: 'icon-puzzle'
+          },
+          {
+            name: 'New Creation',
+            url: '/nsa/mnpreprovisionform',
+            icon: 'icon-puzzle'
+          }
+        ]
+      },{
+         name: 'Report',
+        url: '/nsa/nsareport',
+        icon: 'icon-speedometer'
+          }
     ]
-  },
-  {
-    name: 'Series Provision',
-    url: '/seriesprovision',
-    icon: 'icon-cursor',
-    children: [	
-      {
-        name: 'Ongoing List',
-        url: '/nsa/seriesprovision',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'New Creation',
-        url: '/nsa/seriesprovisionform',
-        icon: 'icon-puzzle'
-      }
-    ]
-  },
-  {
-    name: 'DiscProvision',    
-	 url: '/discprovision',
-    icon: 'icon-cursor',
-    children: [	
-      {
-        name: 'Ongoing List',
-        url: '/nsa/discprovision',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'New Creation',
-        url: '/nsa/discprovisionform',
-        icon: 'icon-puzzle'
-      }
-    ]
-  },
-  {
-    name: 'ReProvision',    
-	 url: '/reprovision',
-    icon: 'icon-cursor',
-    children: [	
-      {
-        name: 'Ongoing List',
-        url: '/nsa/reprovision',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'ReProvision Eligibility',
-        url: '/nsa/reprovisionsearch',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'New Creation',
-        url: '/nsa/reprovisionform',
-        icon: 'icon-puzzle'
-      }
-    ]
-  },
-  {
-    name: 'MNP ReProvision',    
-	 url: '/mnpreprovision',
-    icon: 'icon-cursor',
-    children: [	
-      {
-        name: 'Ongoing List',
-        url: '/nsa/mnpreprovision',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'MNP ReProvision Eligibility',
-        url: '/nsa/mnpreprovisionsearch',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'New Creation',
-        url: '/nsa/mnpreprovisionform',
-        icon: 'icon-puzzle'
-      }
-    ]
-  },
-	  {
-		 title: true,
-	 name: 'Report Module'},{
-		 name: 'Report',
-    url: '/nsa/nsareport',
-    icon: 'icon-speedometer'
-      }
+  }, 
+
+
+
+
+  
 
 ];
 

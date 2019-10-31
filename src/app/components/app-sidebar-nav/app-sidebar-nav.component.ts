@@ -4,14 +4,15 @@ import { LoginService } from '../../views/pages/LoginService';
 import { LoggedInUser } from '../../views/pages/loggedInUser'; 
 // Import navigation elements
 import { navigation, navigation_grpID_Sourcing, navigation_grpID_CNP,navigation_grpID_VDSO,navigation_grpID_BSS_Planning, navigation_blankdata, navigation_grpID_Wipro_Billing, navigation_grpID_RAFM, navigation_grpID_Wipro_CIM, navigation_grpID_Wipro_OSS 
-  , navigation_grpID_SSM, navigation_grpID_CLC,navigation_grpID_HOD,navigation_grpID_GENERAL, navigation_grpID_ADMIN
+  , navigation_grpID_SSM, navigation_grpID_CLC,navigation_grpID_GENERAL, navigation_grpID_ADMIN
 } from './../../_nav';
 import { AppGlobals } from './../../app.global';
 @Component({
   selector: 'app-sidebar-nav',
   template: `
-    <nav class="sidebar-nav">
+    <nav class="sidebar-nav-cst">
       <ul class="nav">
+        <li class="nav-item"><a class="navbar-brand navbar-brand-cst"></a></li>
         <ng-template ngFor let-navitem [ngForOf]="navigation">
           <li *ngIf="isDivider(navitem)" class="nav-divider"></li>
           <ng-template [ngIf]="isTitle(navitem)">
@@ -21,6 +22,7 @@ import { AppGlobals } from './../../app.global';
             <app-sidebar-nav-item [item]='navitem'></app-sidebar-nav-item>
           </ng-template>
         </ng-template>
+
       </ul>
     </nav>`,
   providers: [LoginService, AppGlobals]
@@ -83,10 +85,6 @@ export class AppSidebarNavComponent {
 			this.navigation = navigation_grpID_CLC;
 			
     }
-    else if (this.groupID == this._global.groupID_HOD){
-			this.navigation = navigation_grpID_HOD;
-			
-		}
     else if (this.groupID == this._global.groupID_GENERAL){
 			this.navigation = navigation_grpID_GENERAL;
 			
@@ -214,7 +212,7 @@ export class AppSidebarNavLinkComponent {
       {{ link.name }}
       <span *ngIf="isBadge()" [ngClass]="'badge badge-' + link.badge.variant">{{ link.badge.text }}</span>
     </a>
-    <ul class="nav-dropdown-items">
+    <ul class="nav-dropdown-items-cst">
       <ng-template ngFor let-child [ngForOf]="link.children">
         <app-sidebar-nav-item [item]='child'></app-sidebar-nav-item>
       </ng-template>

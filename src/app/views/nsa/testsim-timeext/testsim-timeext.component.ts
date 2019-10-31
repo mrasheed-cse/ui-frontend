@@ -118,8 +118,8 @@ export class TestsimTimeextComponent implements OnInit {
 
       console.log(a);
       console.log(b);
-      //console.log(b - a);    
-      var x = b.diff(a, 'days');   
+      //console.log(b - a);
+      var x = b.diff(a, 'days');
       console.log(x);
 
       if(x != null &&
@@ -163,20 +163,20 @@ export class TestsimTimeextComponent implements OnInit {
       requestObj['numberWiseDetails'].push(requestDetailObj);
 
     } //end of loop over numbers
-    
+
     ////////////////// /////////////////////////////////
     this.workFlowsService.submitSimActionRequest(requestObj).subscribe(
       data => {
-        
+        if(data != null && data != undefined && data != ""){
+          this.isLoading = false;
+          var msg = "The request has been submitted" + data['name'];
+          alert(msg);
+          this.router.navigate(['nsa/testsimdashboard']);
+        }
       },
     err => console.error(err),
     () => console.log('Done loading PendingTask List')
     );
-    setTimeout(()=>{    //<<<---    using ()=> syntax
-      this.isLoading = false;
-      alert("The request has been submitted");
-      this.router.navigate(['nsa/testsimdashboard']);
-    }, 4000);
 
     ////////////// /////////////////////// /////////////
   }

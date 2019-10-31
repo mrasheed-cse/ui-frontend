@@ -101,7 +101,7 @@ export class TestsimTransferComponent implements OnInit {
           "id":"Handover","name":"Handover"
         }
       ];
-      
+
       this.listUsers = [];
 
       this.workFlowsService.getUserList().subscribe(
@@ -110,7 +110,7 @@ export class TestsimTransferComponent implements OnInit {
         },
         error => {
           console.log("Something wrong here");
-        });    
+        });
 
     }, 2000);
 
@@ -132,7 +132,7 @@ export class TestsimTransferComponent implements OnInit {
         this.userList1 = this.searchFromArray(this.userData, userId);
       }
     }
-  }  
+  }
 
   searchFromArray(arr, regex) {
     let matches = [], i;
@@ -201,16 +201,16 @@ export class TestsimTransferComponent implements OnInit {
     ////////////////// /////////////////////////////////
     this.workFlowsService.submitSimActionRequest(requestObj).subscribe(
       data => {
-        
+        if(data != null && data != undefined && data != ""){
+          this.isLoading = false;
+          var msg = "The request has been submitted" + data['name'];
+          alert(msg);
+          this.router.navigate(['nsa/testsimdashboard']);
+        }
       },
     err => console.error(err),
     () => console.log('Done loading PendingTask List')
     );
-    setTimeout(()=>{    //<<<---    using ()=> syntax
-      this.isLoading = false;
-      alert("The request has been submitted");
-      this.router.navigate(['nsa/testsimdashboard']);
-    }, 4000);
 
     ////////////// /////////////////////// /////////////
   }
@@ -218,9 +218,9 @@ export class TestsimTransferComponent implements OnInit {
   cancel(){
     this.router.navigate(['nsa/testsimdashboard']);
   }
-  
+
   //////////// ///////////////////////////// //////////////////////////////////
-  
-  
+
+
 
 }

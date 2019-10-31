@@ -19,7 +19,7 @@ import { environment } from '../../../environments/environment.prod';
 import { moment } from 'ngx-bootstrap/chronos/test/chain';
 
 import { LoginService } from '../pages/LoginService';
-import { LoggedInUser } from '../pages/loggedInUser'; 
+import { LoggedInUser } from '../pages/loggedInUser';
 
 @Component({
   selector: 'app-newrequisitiondetails',
@@ -34,7 +34,7 @@ export class NewrequisitiondetailsComponent implements OnInit {
 	userName: string;
 	groupID: number;
 	userID: string;
-	
+
 	public dangerAlertShow:boolean = false;
 	public dangerAlertMessage:string = "";
 	public successSearchShow:boolean = false;
@@ -42,8 +42,8 @@ export class NewrequisitiondetailsComponent implements OnInit {
 
 	isDataFound: boolean = true;
 	isCollapsed: boolean = true;
-	
-	mySearchForm: FormGroup;  
+
+	mySearchForm: FormGroup;
    wrname: FormControl;
    wrstatus: FormControl;
    startDate: FormControl;
@@ -61,31 +61,31 @@ export class NewrequisitiondetailsComponent implements OnInit {
 	searchHopSequence: number;
 	todayDate: Date;
 	routerUrlAndParams: string;
-	
 
-  constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {	
-		
+
+  constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {
+
     let isValid = true;
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
-    
+
     if (this.currentLoggedInUser) {
       this.userName = this.currentLoggedInUser.userName
       this.groupID = this.currentLoggedInUser.groupID
       this.userID = this.currentLoggedInUser.userID
-    } 
+    }
     else {
       this.router.navigate(['pages/login']);
     }
       //this.requisitionList = _global.dataTemp;
-    
+
 
     //GetPendingTaskList
     this.workFlowsService.LoadPersonalDetails(0,this.userID).subscribe(
-        data => { 				
+        data => {
           if(data !=null){
             console.log(data);
             this.isDataFound = true;
-            this.requisitionList = data;					
+            this.requisitionList = data;
 
             for(var i = 0; i < this.requisitionList.length; i++){
               this.requisitionList[i]['show'] = true;
@@ -102,7 +102,7 @@ export class NewrequisitiondetailsComponent implements OnInit {
     //Get Today Date
     this.todayDate = new Date();
 
-    
+
 
 } //end of constructor
 
@@ -119,18 +119,18 @@ datepickerConfig: Partial<BsDatepickerConfig>;
 
 clearSearch(){
   for(var i = 0; i < this.requisitionList.length; i++){
-    this.requisitionList[i]['show'] = true;    
+    this.requisitionList[i]['show'] = true;
   }
 }
 
 onSearchSubmit() {
-  
+
   if (this.wrname.value || this.startDate.value || this.endDate.value || this.wrstatus.value) {
       console.log('Form Submitted!');
       console.log(this.mySearchForm.value);
       this.successSearchShow = false;
       this.dangerAlertShow = false;
-    
+
       for(var i = 0; i < this.requisitionList.length; i++){
         this.requisitionList[i]['show'] = false;
 
@@ -141,15 +141,30 @@ onSearchSubmit() {
           this.requisitionList[i]['show'] = true;
         }
 
-        if(this.startDate.value != null && this.startDate.value != undefined && this.startDate.value != "" 
+        if(this.startDate.value != null && this.startDate.value != undefined && this.startDate.value != ""
         &&
         this.endDate.value != null && this.endDate.value != undefined && this.endDate.value != ""){
-          var sdate = moment(this.requisitionList[i]['requisitionDt']).format('DD-MM-YYYY');
+          //var sdate = moment(this.requisitionList[i]['requisitionDt']).format('DD-MM-YYYY');
+          var sdate = new Date(this.requisitionList[i]['requisitionDt'].replace( /(\d{2})-(\d{2})-(\d{4})/, "$2/$1/$3"))
+
+          var startDateOfForm = this.startDate.value;
+          var endDateOfForm = this.endDate.value;
+
+          startDateOfForm.setHours(0);
+          startDateOfForm.setMinutes(0);
+          startDateOfForm.setSeconds(0);
+
+          endDateOfForm.setHours(23);
+          endDateOfForm.setMinutes(59);
+          endDateOfForm.setSeconds(59);
 
           console.log("sdate");
+          //console.log(this.requisitionList[i]['requisitionDt']);
           console.log(sdate);
+          console.log(this.startDate.value);
+          console.log(this.endDate.value);
 
-          if(sdate >= this.startDate.value && sdate <= this.endDate.value){
+          if(sdate >= startDateOfForm && sdate <= endDateOfForm){
             this.requisitionList[i]['show'] = true;
           }
         }
