@@ -1,32 +1,59 @@
 <div class="row">
 
-    <div class="col-md-4">
 
-        <a href="/nsa/#/nsa/testsim-mysims">
-            <div class="callout callout-info">
-                <small class="text-muted">Number of ActiveTest SIMs you have</small>
-                <br>
-                <strong class="h4">{{numberOfTestSims}}</strong>
-                <div class="chart-wrapper">              
-                </div>
-            </div>
-        </a>
-
-    </div>
-
-    <div class="col-md-4">
-
-            <a href="/nsa/#/nsa/testsim-myothersims">
-                <div class="callout callout-info">
-                    <small class="text-muted">Number of Non-active Test SIMs you have</small>
-                    <br>
-                    <strong class="h4">{{numberOfTestSims}}</strong>
-                    <div class="chart-wrapper">              
+                <!-- x -->
+                    <div class="card text-white bg-primary dashboard-box-custom" >
+                        <div class="card-header">
+                            My Approval Needed
+                        </div>
+                        <div class="card-body pb-0">
+                            <div><a href="/nsa/#/nsa/testsim-mysims">Total: 100</a></div>
+                            <table class="dashboard-box-table-custom">
+                                <tr>
+                                    <td style="width:33% !important">
+                                            <div><a href="/nsa/#/nsa/testsim-myothersims">Requisition: 999</a></div>
+                                    </td>
+                                </tr><tr>
+                                    <td style="width:33% !important">
+                                        <div><a href="/nsa/#/nsa/testsim-myothersims">Recharge: 999</a></div>
+                                    </td>
+                                </tr><tr>                                    
+                                    <td style="width:33% !important">
+                                        <div><a href="/nsa/#/nsa/testsim-myothersims">SIM Transfer: 999</a></div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        
                     </div>
+                <!-- x -->
+
+
+        <!-- x -->
+            <div class="card text-white bg-warning dashboard-box-custom" >
+                <div class="card-header">
+                    My SIMs
                 </div>
-            </a>
-    
-        </div>
+                <div class="card-body pb-0">
+                    <div class="btn-group float-right" >
+                        <a href="/nsa/#/nsa/newrequisitioninitiation">
+                            <button class="btn btn-transparent p-0" type="button" aria-haspopup="true">
+                                <i class="icon-plus dashboard-box-icon-custom"></i>
+                            </button>
+                        </a>
+                    </div>
+                    <div><a href="/nsa/#/nsa/testsim-mysims">Active SIMs: 100</a></div>
+                    <table class="dashboard-box-table-custom">
+                        <tr>
+                            <td>
+                                    <div><a href="/nsa/#/nsa/testsim-myothersims">Non Active SIMs: 999</a></div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                
+            </div>
+        <!-- x -->
 
 </div>
 
@@ -34,128 +61,317 @@
 
 <div class="row">
 
-    <div class="col-md-4">
-        
-        <a href="/nsa/#/nsa/newrequisition">
-            <div class="callout callout-primary">
-                <small class="text-muted">Approval needed - new requisition</small>
-                <br>
-                <strong class="h4">{{numberOfTestSims1}}</strong>
-                <div class="chart-wrapper">              
-                </div>
+    <!-- x -->
+        <div class="card text-white bg-danger dashboard-box-custom" >
+            <div class="card-header">
+                Requisition
             </div>
-        </a>
-
-    </div>
-
-    
-    <div class="col-md-4">
-        <a href="/nsa/#/nsa/testsim-timeext-ssm">
-            <div class="callout callout-success">
-                <small class="text-muted">Approval needed - time extension</small>
-                <br>
-                <strong class="h4">{{numberOfTestSims2}}</strong>
-                <div class="chart-wrapper">              
+            <div class="card-body pb-0">
+                <div class="btn-group float-right" >
+                    <a href="/nsa/#/nsa/newrequisitioninitiation">
+                        <button class="btn btn-transparent p-0" type="button" aria-haspopup="true">
+                            <i class="icon-plus dashboard-box-icon-custom"></i>
+                        </button>
+                    </a>
                 </div>
+                <div><a href="/nsa/#/nsa/newrequisitiondetails">Total: 100</a></div>
+                <table class="dashboard-box-table-custom">
+                    <tr>
+                        <td style="width:33% !important">
+                                <div><a href="/nsa/#/nsa/newrequisition">Approved: 999</a></div>
+                        </td>
+                    </tr><tr>
+                        <td style="width:33% !important">
+                            <div><a href="/nsa/#/nsa/newrequisition">Rejected: 999</a></div>
+                        </td>
+                    </tr><tr>                        
+                        <td style="width:33% !important">
+                            <div><a href="/nsa/#/nsa/newrequisition">Pending: 999</a></div>
+                        </td>
+                    </tr>
+                </table>
             </div>
-        </a>
-    </div>
-    
-
-
-    <div class="col-md-4">
-        <a href="/nsa/#/nsa/testsim-creditlimitext-ssm">    
-            <div class="callout callout-danger">
-                <small class="text-muted">Approval needed - credit limit update</small>
-                <br>
-                <strong class="h4">{{numberOfTestSims3}}</strong>
-                <div class="chart-wrapper">              
-                </div>
-            </div>
-        </a>    
-    </div>
-    
-
-    <div class="col-md-4">
-            <a href="/nsa/#/nsa/testsim-recharge-ssm">    
-                <div class="callout callout-danger">
-                    <small class="text-muted">Approval needed - recharge</small>
-                    <br>
-                    <strong class="h4">{{numberOfTestSims3}}</strong>
-                    <div class="chart-wrapper">              
-                    </div>
-                </div>
-            </a>    
+            
         </div>
+    <!-- x -->
 
 
-    <div class="col-md-4">
-        <a href="/nsa/#/nsa/testsim-transfer-ssm">
-            <div class="callout callout-primary">
-                <small class="text-muted">Approval needed - SIM transfer</small>
-                <br>
-                <strong class="h4">{{numberOfTestSims4}}</strong>
-                <div class="chart-wrapper">              
-                </div>
+    <!-- x -->
+    <div class="card text-white bg-success dashboard-box-custom" >
+        <div class="card-header">
+            Activation
+        </div>
+        <div class="card-body pb-0">
+            <div class="btn-group float-right" >
+                <a href="/nsa/#/nsa/newrequisitioninitiation">
+                    <button class="btn btn-transparent p-0" type="button" aria-haspopup="true">
+                        <i class="icon-plus dashboard-box-icon-custom"></i>
+                    </button>
+                </a>
             </div>
-        </a>
+            <div><a href="/nsa/#/nsa/newrequisitiondetails">Total: 100</a></div>
+            <table class="dashboard-box-table-custom">
+                <tr>
+                    <td style="width:33% !important">
+                            <div><a href="/nsa/#/nsa/newrequisition">Approved: 999</a></div>
+                    </td>
+                </tr><tr>
+                    <td style="width:33% !important">
+                        <div><a href="/nsa/#/nsa/newrequisition">Rejected: 999</a></div>
+                    </td>
+                </tr><tr>                        
+                    <td style="width:33% !important">
+                        <div><a href="/nsa/#/nsa/newrequisition">Pending: 999</a></div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        
     </div>
-    
+    <!-- x -->
 
-
-    <div class="col-md-4">
-        <a href="/nsa/#/nsa/testsim-lost-ssm">
-            <div class="callout callout-success">
-                <small class="text-muted">Approval needed - Lost SIM</small>
-                <br>
-                <strong class="h4">{{numberOfTestSims5}}</strong>
-                <div class="chart-wrapper">              
-                </div>
+    <!-- x -->
+    <div class="card text-white bg-primary dashboard-box-custom" >
+        <div class="card-header">
+            Time Extension
+        </div>
+        <div class="card-body pb-0">
+            <div class="btn-group float-right" >
+                <a href="/nsa/#/nsa/newrequisitioninitiation">
+                    <button class="btn btn-transparent p-0" type="button" aria-haspopup="true">
+                        <i class="icon-plus dashboard-box-icon-custom"></i>
+                    </button>
+                </a>
             </div>
-        </a>
+            <div><a href="/nsa/#/nsa/newrequisitiondetails">Total: 100</a></div>
+            <table class="dashboard-box-table-custom">
+                <tr>
+                    <td style="width:33% !important">
+                            <div><a href="/nsa/#/nsa/newrequisition">Approved: 999</a></div>
+                    </td>
+                </tr><tr>
+                    <td style="width:33% !important">
+                        <div><a href="/nsa/#/nsa/newrequisition">Rejected: 999</a></div>
+                    </td>
+                </tr><tr>                        
+                    <td style="width:33% !important">
+                        <div><a href="/nsa/#/nsa/newrequisition">Pending: 999</a></div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        
     </div>
-    
+    <!-- x -->    
 
 
-    <div class="col-md-4">
-        <a href="/nsa/#/nsa/testsim-damaged-ssm">
-            <div class="callout callout-danger">
-                <small class="text-muted">Approval needed - Damaged SIM</small>
-                <br>
-                <strong class="h4">{{numberOfTestSims6}}</strong>
-                <div class="chart-wrapper">              
-                </div>
+        <!-- x -->
+        <div class="card text-white bg-warning dashboard-box-custom" >
+            <div class="card-header">
+                Limit Extension
             </div>
-        </a>
-    </div>
-    
-
-
-    <div class="col-md-4">
-        <a href="/nsa/#/nsa/activation-pendingregistrations">
-            <div class="callout callout-primary">
-                <small class="text-muted">Pending Biometric Registration</small>
-                <br>
-                <strong class="h4">{{numberOfTestSims7}}</strong>
-                <div class="chart-wrapper">              
+            <div class="card-body pb-0">
+                <div class="btn-group float-right" >
+                    <a href="/nsa/#/nsa/newrequisitioninitiation">
+                        <button class="btn btn-transparent p-0" type="button" aria-haspopup="true">
+                            <i class="icon-plus dashboard-box-icon-custom"></i>
+                        </button>
+                    </a>
                 </div>
+                <div><a href="/nsa/#/nsa/newrequisitiondetails">Total: 100</a></div>
+                <table class="dashboard-box-table-custom">
+                    <tr>
+                        <td style="width:33% !important">
+                                <div><a href="/nsa/#/nsa/newrequisition">Approved: 999</a></div>
+                        </td>
+                    </tr><tr>
+                        <td style="width:33% !important">
+                            <div><a href="/nsa/#/nsa/newrequisition">Rejected: 999</a></div>
+                        </td>
+                    </tr><tr>                        
+                        <td style="width:33% !important">
+                            <div><a href="/nsa/#/nsa/newrequisition">Pending: 999</a></div>
+                        </td>
+                    </tr>
+                </table>
             </div>
-        </a>
-    </div>
-    
+            
+        </div>
+        <!-- x -->
 
-
-    <div class="col-md-4">
-        <a href="/nsa/#/nsa/activation-pendingapprovals">
-            <div class="callout callout-success">
-                <small class="text-muted">Pending Activation Approval</small>
-                <br>
-                <strong class="h4">{{numberOfTestSims8}}</strong>
-                <div class="chart-wrapper">              
+        <!-- x -->
+        <div class="card text-white bg-danger dashboard-box-custom" >
+            <div class="card-header">
+                Recharge
+            </div>
+            <div class="card-body pb-0">
+                <div class="btn-group float-right" >
+                    <a href="/nsa/#/nsa/newrequisitioninitiation">
+                        <button class="btn btn-transparent p-0" type="button" aria-haspopup="true">
+                            <i class="icon-plus dashboard-box-icon-custom"></i>
+                        </button>
+                    </a>
                 </div>
+                <div><a href="/nsa/#/nsa/newrequisitiondetails">Total: 100</a></div>
+                <table class="dashboard-box-table-custom">
+                    <tr>
+                        <td style="width:33% !important">
+                                <div><a href="/nsa/#/nsa/newrequisition">Approved: 999</a></div>
+                        </td>
+                    </tr><tr>
+                        <td style="width:33% !important">
+                            <div><a href="/nsa/#/nsa/newrequisition">Rejected: 999</a></div>
+                        </td>
+                    </tr><tr>                        
+                        <td style="width:33% !important">
+                            <div><a href="/nsa/#/nsa/newrequisition">Pending: 999</a></div>
+                        </td>
+                    </tr>
+                </table>
             </div>
-        </a>
-    </div>
+            
+        </div>
+        <!-- x -->    
+
+
+                <!-- x -->
+                    <div class="card text-white bg-success dashboard-box-custom" >
+                        <div class="card-header">
+                            SIM Deactivation
+                        </div>
+                        <div class="card-body pb-0">
+                            <div class="btn-group float-right" >
+                                
+                            </div>
+                            <div class="text-value dashboard-box-numeric-value-custom"><a href="/nsa/#/nsa/testsim-deactivation-existing">100</a></div>
+                            <div><a href="/nsa/#/nsa/testsim-deactivation-existing">Personal requests</a></div>
+                            <table class="dashboard-box-table-custom">
+                                <tr>
+                                    <td>
+                                            <div class="text-value dashboard-box-numeric-value-custom"><a href="/nsa/#/nsa/testsim-deactivation-ssm">999</a></div>
+                                            <div><a href="/nsa/#/nsa/testsim-deactivation-ssm">Pending for approval</a></div>
+                                    </td>
+                                    <td>
+                                            <div *ngIf="isCurrentUserSSMRole" class="text-value dashboard-box-numeric-value-custom"><a href="/nsa/#/nsa/testsim-deactivation-existing-all">999</a></div>
+                                            <div *ngIf="isCurrentUserSSMRole"><a href="/nsa/#/nsa/testsim-deactivation-existing-all">Total requests</a></div>
+                                            <div *ngIf="!isCurrentUserSSMRole">
+                                                &nbsp;
+                                            </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                    </div>
+                <!-- x -->    
+
+        <!-- x -->
+            <div class="card text-white bg-primary dashboard-box-custom" >
+                <div class="card-header">
+                    Surrender
+                </div>
+                <div class="card-body pb-0">
+                    <div class="btn-group float-right" >
+                        <a href="/nsa/#/nsa/testsim-surrender-new">
+                            <button class="btn btn-transparent p-0" type="button" aria-haspopup="true">
+                                <i class="icon-plus dashboard-box-icon-custom"></i>
+                            </button>
+                        </a>
+                    </div>
+                    <div class="text-value dashboard-box-numeric-value-custom"><a href="/nsa/#/nsa/testsim-surrender-existing">100</a></div>
+                    <div><a href="/nsa/#/nsa/testsim-surrender-existing">Personal requests</a></div>
+                    <table class="dashboard-box-table-custom">
+                        <tr>
+                            <td>
+                                    <div class="text-value dashboard-box-numeric-value-custom"><a href="/nsa/#/nsa/testsim-surrender-ssm">999</a></div>
+                                    <div><a href="/nsa/#/nsa/testsim-surrender-ssm">Pending for approval</a></div>
+                            </td>
+                            <td>
+                                    <div *ngIf="isCurrentUserSSMRole" class="text-value dashboard-box-numeric-value-custom"><a href="/nsa/#/nsa/testsim-surrender-existing-all">999</a></div>
+                                    <div *ngIf="isCurrentUserSSMRole"><a href="/nsa/#/nsa/testsim-surrender-existing-all">Total requests</a></div>
+                                    <div *ngIf="!isCurrentUserSSMRole">
+                                        &nbsp;
+                                    </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                
+            </div>
+        <!-- x -->   
+
+
+        <!-- x -->
+            <div class="card text-white bg-warning dashboard-box-custom" >
+                <div class="card-header">
+                    Lost / Damaged
+                </div>
+                <div class="card-body pb-0">
+                    <div class="btn-group float-right" >
+                        <a href="/nsa/#/nsa/testsim-lostdamaged-new">
+                            <button class="btn btn-transparent p-0" type="button" aria-haspopup="true">
+                                <i class="icon-plus dashboard-box-icon-custom"></i>
+                            </button>
+                        </a>
+                    </div>
+                    <div class="text-value dashboard-box-numeric-value-custom"><a href="/nsa/#/nsa/testsim-lostdamaged-existing">100</a></div>
+                    <div><a href="/nsa/#/nsa/testsim-lostdamaged-existing">Personal requests</a></div>
+                    <table class="dashboard-box-table-custom">
+                        <tr>
+                            <td>
+                                    <div class="text-value dashboard-box-numeric-value-custom"><a href="/nsa/#/nsa/testsim-lost-ssm">999</a></div>
+                                    <div><a href="/nsa/#/nsa/testsim-lost-ssm">Pending for approval</a></div>
+                            </td>
+                            <td>
+                                    <div *ngIf="isCurrentUserSSMRole" class="text-value dashboard-box-numeric-value-custom"><a href="/nsa/#/nsa/testsim-lostdamaged-existing-all">999</a></div>
+                                    <div *ngIf="isCurrentUserSSMRole"><a href="/nsa/#/nsa/testsim-lostdamaged-existing-all">Total requests</a></div>
+                                    <div *ngIf="!isCurrentUserSSMRole">
+                                        &nbsp;
+                                    </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                
+            </div>
+        <!-- x -->   
+
+
+        <!-- x -->
+            <div class="card text-white bg-danger dashboard-box-custom" >
+                <div class="card-header">
+                    SIM Transfer
+                </div>
+                <div class="card-body pb-0">
+                    <div class="btn-group float-right" >
+                        <a href="/nsa/#/nsa/testsim-transfer-new">
+                            <button class="btn btn-transparent p-0" type="button" aria-haspopup="true">
+                                <i class="icon-plus dashboard-box-icon-custom"></i>
+                            </button>
+                        </a>
+                    </div>
+                    <div class="text-value dashboard-box-numeric-value-custom"><a href="/nsa/#/nsa/testsim-transfer-existing">100</a></div>
+                    <div><a href="/nsa/#/nsa/testsim-transfer-existing">Personal requests</a></div>
+                    <table class="dashboard-box-table-custom">
+                        <tr>
+                            <td>
+                                    <div class="text-value dashboard-box-numeric-value-custom"><a href="/nsa/#/nsa/testsim-transfer-ssm">999</a></div>
+                                    <div><a href="/nsa/#/nsa/testsim-transfer-ssm">Pending for approval</a></div>
+                            </td>
+                            <td>
+                                    <div *ngIf="isCurrentUserSSMRole" class="text-value dashboard-box-numeric-value-custom"><a href="/nsa/#/nsa/testsim-transfer-existing-all">999</a></div>
+                                    <div *ngIf="isCurrentUserSSMRole"><a href="/nsa/#/nsa/testsim-transfer-existing-all">Total requests</a></div>
+                                    <div *ngIf="!isCurrentUserSSMRole">
+                                        &nbsp;
+                                    </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                
+            </div>
+        <!-- x -->   
+
 
 
     <!--<div class="col-md-4">

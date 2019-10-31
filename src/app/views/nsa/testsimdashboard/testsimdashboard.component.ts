@@ -29,6 +29,7 @@ export class TestsimdashboardComponent implements OnInit {
 	routerUrlAndParams: string;
   public isLoading:boolean = false;
   isDataFound: boolean = true;
+  isCurrentUserSSMRole: boolean = false;
 
   numberOfTestSims : number;
   numberOfTestSims1 : number;  
@@ -58,7 +59,7 @@ export class TestsimdashboardComponent implements OnInit {
     this.numberOfTestSims7 = 0;
     this.numberOfTestSims8 = 0;                            
     this.numberOfTestSims9 = 0;
-
+    
     this.isLoading = false;
     let isValid = true;
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
@@ -68,7 +69,12 @@ export class TestsimdashboardComponent implements OnInit {
       this.groupID = this.currentLoggedInUser.groupID
       this.userID = this.currentLoggedInUser.userID
 
-      
+      if(+(this.groupID) == +(this._global.groupID_SSM)){
+        this.isCurrentUserSSMRole = true;
+      }
+      else{
+        this.isCurrentUserSSMRole = false;
+      }
 
     }
     else {

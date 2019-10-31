@@ -30,12 +30,12 @@ export class RequisitiondetailshodComponent implements OnInit {
 
     this.requisition_comments = "";
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
-			
+
     if (this.currentLoggedInUser) {
       this.userName = this.currentLoggedInUser.userName
       this.groupID = this.currentLoggedInUser.groupID
       this.userID = this.currentLoggedInUser.userID
-    } 
+    }
     else {
       this.router.navigate(['pages/login']);
     }
@@ -44,7 +44,7 @@ export class RequisitiondetailshodComponent implements OnInit {
     this.requisitionId = parseInt(this.route.snapshot.paramMap.get('requisition_id'));
     this.ismsworkflowsService.findRequisitionDetails(this.requisitionId).subscribe(
       res  =>  {
-        console.log('response is : '+res.message);  
+        console.log('response is : '+res.message);
         if(res !== ""){
           this.requisition = res;
           this.requsitionLines = res.requisitionLines;
@@ -52,10 +52,10 @@ export class RequisitiondetailshodComponent implements OnInit {
           this.requisitionDetails = res.requisitionDetails;
         }
           },
-          err  =>  {	
-           
+          err  =>  {
+
           }
-        
+
           );
         }
 
@@ -66,15 +66,16 @@ export class RequisitiondetailshodComponent implements OnInit {
 
     this.ismsworkflowsService.approveOrRejectRequest(requisitionId, status, userId, this.requisition_comments).subscribe(
       res  =>  {
-        console.log('response is : '+res.message);  
+        console.log('response is : '+res.message);
         if(res !== ""){
-
+          alert(res.message);
+          this.router.navigate(['nsa/newrequisition']);
         }
       },
-      err  =>  {	
-           
+      err  =>  {
+
       }
-        
+
     );
 
   }
@@ -82,20 +83,14 @@ export class RequisitiondetailshodComponent implements OnInit {
   approve(){
 
     this.approveOrRejectRequest(this.requisitionDetails['id'], "ACCEPT", this.userID);
-    alert('This request has been approved.');
-    this.router.navigate(['nsa/newrequisition']);
   }
 
   reject(){
     this.approveOrRejectRequest(this.requisitionDetails['id'], "REJECT", this.userID);
-    alert('This request has been rejected.');
-    this.router.navigate(['nsa/newrequisition']);
   }
 
   rfi(){
     this.approveOrRejectRequest(this.requisitionDetails['id'], "RFI", this.userID);
-    alert('This request has been sent for RFI.');
-    this.router.navigate(['nsa/newrequisition']);
   }
 
 }
