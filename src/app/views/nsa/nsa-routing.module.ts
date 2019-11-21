@@ -83,6 +83,16 @@ import { TestsimTransferNewComponent } from './testsim-transfer-new/testsim-tran
 import { TestsimTransferExistingComponent } from './testsim-transfer-existing/testsim-transfer-existing.component';
 import { TestsimMyOtherSimsComponent } from './testsim-my-other-sims/testsim-my-other-sims.component';
 
+import { TestSimRequisitionComponent } from './isms-reports/test-sim-requisition.component';
+import { TestSimActivationComponent } from './isms-reports/test-sim-activation.component';
+import { CreditLimitExtensionComponent } from './isms-reports/credit-limit-extension.component';
+import { TestSimRechargeComponent } from './isms-reports/test-sim-recharge.component';
+import { TestSimDeactivationComponent } from './isms-reports/test-sim-deactivation.component';
+import { TimeLimitChangeComponent } from './isms-reports/time-limit-change.component';
+import { TestSimSurrenderComponent } from './isms-reports/test-sim-surrender.component';
+import { DamageLostSimComponent } from './isms-reports/damage-lost-sim.component';
+import { TestSimTransferComponent } from './isms-reports/test-sim-transfer.component';
+
 
 const routes: Routes = [
   {
@@ -657,6 +667,69 @@ const routes: Routes = [
       title: 'Existing SIM Transfer Requests'
     }
   },
+  {
+    path: 'isms-reports/test-sim-requisition',
+    component: TestSimRequisitionComponent,
+    data: {
+      title: 'Credit Limit Extension'
+    }
+  },
+    {
+      path: 'isms-reports/test-sim-activation',
+      component: TestSimActivationComponent,
+      data: {
+        title: 'Credit Limit Extension'
+      }
+    },
+      {
+        path: 'isms-reports/credit-limit-extension',
+        component: CreditLimitExtensionComponent,
+        data: {
+          title: 'Credit Limit Extension'
+        }
+      } ,
+      {
+        path: 'isms-reports/test-sim-recharge',
+        component: TestSimRechargeComponent,
+        data: {
+          title: 'Credit Limit Extension'
+        }
+      },
+        {
+          path: 'isms-reports/test-sim-deactivation',
+          component: TestSimDeactivationComponent,
+          data: {
+            title: 'Time Limit Change'
+          }
+        },
+        {
+          path: 'isms-reports/time-limit-change',
+          component: TimeLimitChangeComponent,
+          data: {
+            title: 'Time Limit Change'
+          }
+        },
+          {
+            path: 'isms-reports/test-sim-surrender',
+            component: TestSimSurrenderComponent,
+            data: {
+              title: 'Test Sim Surrender'
+            }
+          } ,
+          {
+            path: 'isms-reports/damage-lost-sim',
+            component: DamageLostSimComponent,
+            data: {
+              title: 'Damage Lost Sim'
+            }
+          },
+            {
+              path: 'isms-reports/test-sim-transfer',
+              component: TestSimTransferComponent,
+              data: {
+                title: 'Test Sim Transfer'
+              }
+            } 
 ];
 
 @NgModule({
