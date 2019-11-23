@@ -105,6 +105,17 @@ import { TestsimTransferExistingComponent } from './testsim-transfer-existing/te
 import { TestsimMyOtherSimsComponent } from './testsim-my-other-sims/testsim-my-other-sims.component';
 import { PreventKeysDirective } from './prevent-keys.directive';
 
+
+import { TestSimRequisitionComponent } from './isms-reports/test-sim-requisition.component';
+import { TestSimActivationComponent } from './isms-reports/test-sim-activation.component';
+import { CreditLimitExtensionComponent } from './isms-reports/credit-limit-extension.component';
+import { TestSimRechargeComponent } from './isms-reports/test-sim-recharge.component';
+import { TestSimDeactivationComponent } from './isms-reports/test-sim-deactivation.component';
+import { TimeLimitChangeComponent } from './isms-reports/time-limit-change.component';
+import { TestSimSurrenderComponent } from './isms-reports/test-sim-surrender.component';
+import { DamageLostSimComponent } from './isms-reports/damage-lost-sim.component';
+import { TestSimTransferComponent } from './isms-reports/test-sim-transfer.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -203,7 +214,7 @@ import { PreventKeysDirective } from './prevent-keys.directive';
     TestsimTransferNewComponent,
     TestsimTransferExistingComponent,
     TestsimMyOtherSimsComponent,    
-    PreventKeysDirective,
+    PreventKeysDirective, TestSimRequisitionComponent, TestSimActivationComponent, CreditLimitExtensionComponent, TestSimRechargeComponent, TestSimDeactivationComponent, TimeLimitChangeComponent, TestSimSurrenderComponent, DamageLostSimComponent, TestSimTransferComponent,
   ]
 })
 export class NsaModule { }
