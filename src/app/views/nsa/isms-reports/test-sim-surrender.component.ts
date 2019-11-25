@@ -56,6 +56,7 @@ export class TestSimSurrenderComponent implements OnInit {
 
   datepickerConfig: Partial<BsDatepickerConfig>;
   listMsisdnStatus: Array<any>;
+  listUsers: Array<any>;
 
   private columnDefs;
   private defaultColDef;
@@ -142,14 +143,15 @@ export class TestSimSurrenderComponent implements OnInit {
         "id":"D","name":"Deactive"
       }
     ];
-/*
+    this.listUsers = [];
+
     this.workFlowsService.getUserList().subscribe(
       data => {
         Object.assign(this.userData, data);
       },
       error => {
         console.log("Something wrong here");
-      });*/
+      });
     }, 2000);
      
   }
@@ -243,10 +245,15 @@ onGridReady(params) {
      //this.topFunction();
      //this.isLoading = true;
     
+     
+var simOwner_value_asId = 0;
+if(this.simOwner.value != null && this.simOwner.value != undefined && this.simOwner.value != ""){
+  simOwner_value_asId = this.getUserIdFromUserName(this.simOwner.value);
+}
         
     this.ismsreportService.TestSimActitonReport(this.reqname.value,
       this.FormatTheDate(this.startDate.value),this.FormatTheDate(this.endDate.value),this.msisdnStatus.value,
-      this.startMSISDN.value,this.endMSISDN.value,this.simOwner.value,0,0,"Surrender").subscribe(
+      this.startMSISDN.value,this.endMSISDN.value,simOwner_value_asId,0,0,"Surrender").subscribe(
         data  =>  {
       console.log('response is : '+data);
       
@@ -276,5 +283,15 @@ onGridReady(params) {
     var params = {};
     this.gridApi.exportDataAsCsv(params);
   }
+
+  getUserIdFromUserName(userName){
+    for (var i = 0; i < this.userData.length; i++) {
+      if (this.userData[i]['userName'] == userName) {
+        return this.userData[i]['id'];
+      }
+    }
+    return 0;
+  }
+  
 }
 
