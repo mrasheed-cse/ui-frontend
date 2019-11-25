@@ -20,6 +20,10 @@ export class IsmsreportService {
     this.serverUrl = environment.apiUrl;
   }
 
+  /**********************************
+	 * TEST SIM REQUISITION REPORTS
+	 ***********************************/
+
   TestSimRequisitionReport(requisitionNo: string, starDate: string, endDate: string, status: string,
     starMsisdn: string, endMsisdn: string, owner: number ) : any {	
   
@@ -36,6 +40,53 @@ export class IsmsreportService {
     }
     );	  
   }
+
+  /**********************************
+	 * TEST SIM ACTIVATION REPORTS
+	 ***********************************/
+
+  TestSimActivatonReport(requisitionNo: string, starDate: string, endDate: string, status: string,
+    starMsisdn: string, endMsisdn: string, owner: number ) : any {	
+  
+    console.log("In TestSimActivationReport()");
+    
+		return this.http.post(this.serverUrl + 'ReportTestSimActivation', {
+      "requisitionNo": requisitionNo,
+      "starDate": starDate,
+      "endDate": endDate,
+      "status": status,
+      "starMsisdn": starMsisdn,
+      "endMsisdn": endMsisdn,  
+      "owner": owner
+    }
+    );	  
+  }
+
+
+  /**********************************
+	 * TEST SIM ACTION REPORTS 
+	 ***********************************/
+  
+  TestSimActitonReport(requisitionNo: string, starDate: string, endDate: string, status: string,
+    starMsisdn: string, endMsisdn: string, owner: number, month: number, year: number,  simActionRequestName: string) : any {	
+  
+    console.log("In TestSimActitonReport() for " + simActionRequestName);
+    
+		return this.http.post(this.serverUrl + 'ReportTestSimActions', {
+      "requisitionNo": requisitionNo,
+      "starDate": starDate,
+      "endDate": endDate,
+      "status": status,
+      "starMsisdn": starMsisdn,
+      "endMsisdn": endMsisdn,  
+      "owner": owner,    
+      "month": month,
+      "year": year,
+      "simActionRequestName": simActionRequestName
+    }
+    );	  
+  }
+  
   
 
 }

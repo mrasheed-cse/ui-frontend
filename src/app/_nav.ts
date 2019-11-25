@@ -247,10 +247,15 @@ export const navigation_grpID_SSM  = [
             icon: 'icon-puzzle'
           },          
           {
-            name: 'Damage Lost Sim',
-            url: '/nsa/isms-reports/damage-lost-sim',
+            name: 'Damage Sim',
+            url: '/nsa/isms-reports/damage-sim',
             icon: 'icon-cursor'
           },          
+          {
+            name: 'Lost Sim',
+            url: '/nsa/isms-reports/lost-sim',
+            icon: 'icon-cursor'
+          },
           {
             name: 'Test Sim Transfer',
             url: '/nsa/isms-reports/test-sim-transfer',

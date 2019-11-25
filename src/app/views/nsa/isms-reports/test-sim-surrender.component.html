@@ -1,3 +1,134 @@
-<p>
-  test-sim-surrender works!
-</p>
+
+  <div class="card">
+
+      <div class="card-header">
+    
+        Test Sim :: Surrender Report
+    
+          
+        </div>
+    
+    
+        <div class="card-body">
+        <div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">{{dangerAlertMessage}}</div>
+       
+        <form [formGroup]="mySearchForm" novalidate (ngSubmit)="onSearchSubmit()">
+          <div class="row">
+            
+              <div class="col-xs-12 col-12 col-md-6 form-group" >
+                <label>Requisition Name</label> <input type="text" class="form-control"  formControlName="reqname"
+                                   [ngClass]="{
+                                                               'is-invalid': reqname.invalid,
+                                                               'is-valid': reqname.valid
+                                                          }">
+                        <div class="invalid-feedback"  *ngIf="reqname.errors?.pattern"> Requisition Name Starts with RQN.</div>
+              </div>
+            
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-12 col-md-6 form-group " >
+              <label>Start Date</label>
+                <input type="text" class="form-control calendar-container" id="startDate" formControlName="startDate" name="startDate"   bsDatepicker [bsConfig]="datepickerConfig"
+                             placement="left" >
+            </div>
+    
+            <div class="col-xs-12 col-12 col-md-6 form-group " >
+               <label>End Date</label>
+                 <input type="text" class="form-control calendar-container" id="endDate" formControlName="endDate" name="endDate"   bsDatepicker [bsConfig]="datepickerConfig"
+                             placement="left" >
+            </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-12 col-md-6 form-group " >
+                  <label>Start MSISDN</label>
+                    
+                    <input type="text" id="startMSISDN" name="startMSISDN" class="form-control" formControlName="startMSISDN" pattern="(017|013)\d*" 
+                           [ngClass]="{
+                            'is-invalid': startMSISDN.invalid && (startMSISDN.dirty || startMSISDN.touched),
+                            'is-valid': startMSISDN.valid && (startMSISDN.dirty || startMSISDN.touched)
+                           }">
+                          <div class="invalid-feedback" *ngIf="startMSISDN.errors && (startMSISDN.dirty || startMSISDN.touched)">												
+                            <p *ngIf="startMSISDN.errors.pattern">MSISDN starts with 017 or 013 and  contains only digits.</p>
+                            <p *ngIf="startMSISDN.errors.minlength">MSISDN must be 11 digit long</p>
+                            <p *ngIf="startMSISDN.errors.maxlength">MSISDN must be 11 digit long</p>
+                          </div>
+                </div>
+        
+                <div class="col-xs-12 col-12 col-md-6 form-group " >
+                   <label>End MSISDN</label>
+                   <input type="text" id="endMSISDN" name="endMSISDN" class="form-control" formControlName="endMSISDN" pattern="(017|013)\d*"
+                   [ngClass]="{
+                    'is-invalid': endMSISDN.invalid && (endMSISDN.dirty || endMSISDN.touched),
+                    'is-valid': endMSISDN.valid && (endMSISDN.dirty || endMSISDN.touched)
+                   }">
+                  <div class="invalid-feedback" *ngIf="endMSISDN.errors && (endMSISDN.dirty || endMSISDN.touched)">                
+                    <p *ngIf="endMSISDN.errors.pattern">MSISDN starts with 017 or 013 and  contains only digits.</p>
+                    <p *ngIf="endMSISDN.errors.minlength">MSISDN must be 11 digit long</p>
+                    <p *ngIf="endMSISDN.errors.maxlength">MSISDN must be 11 digit long</p>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                  <div class="col-xs-12 col-12 col-md-6 form-group " >
+                      <label>Status</label> <select class="form-control"
+                      formControlName="msisdnStatus">
+                      <option value="">Please select a status</option>
+                      <option *ngFor="let astatus of listMsisdnStatus" [value]="astatus.id">{{astatus.name}}</option>
+                    </select>
+                      
+                  </div>
+          
+                  <div class="col-xs-12 col-12 col-md-6 form-group " >
+                     <label>Owner Name</label>
+                     <input type="text" class="form-control"  id="simOwner"  formControlName="simOwner" />
+                     <!-- 
+                       <input type="text" class="form-control" (keyup)="getUserIdsFirstWay($event)" id="simOwner" list="dynmicUserIds" formControlName="simOwner" />
+                     <datalist id="dynmicUserIds">
+                        <option *ngFor="let item of userList1" [value]="item.userName">{{item.userName}}</option>
+                    </datalist>         
+                  -->
+                  </div>
+                </div>
+            <div class="row">
+                <div class="col-xs-12 col-12 col-md-6 form-group " >
+                  <button type="submit" class="btn btn-primary" >Submit</button>
+                </div>
+            </div>
+                       </form>
+    <!--
+    <pre >{{mySearchForm.value | json}}</pre>
+    <pre *ngIf="mySearchForm.valid">This is Valid form Data.{{mySearchForm.value | json}}</pre>
+    -->
+    <div class="card">
+        <div class="card-header">
+          <i class="fa fa-align-justify"></i>Test SIM :: Surrender
+        </div>
+        <div class="card-body" *ngIf="isDataFound">
+          <label style="margin-left: 20px;"> <button (click)="onBtExport()">Export to CSV</button> </label>
+          <ag-grid-angular 
+            #agGrid
+            style="width: 100%; height: 330px;"
+            id="myGrid"
+            class="ag-theme-balham"          
+            [floatingFilter]="true"
+            [columnTypes]="columnTypes"
+            [columnDefs]="columnDefs"
+            [rowData]="rowData"
+            (gridReady)="onGridReady($event)"
+            >
+          </ag-grid-angular>
+    
+        </div>
+        <div class="card-body" *ngIf="!isDataFound">
+            <div class="alert alert-primary" role="alert" ><b>System found no test sim surrender report</b></div>
+        </div>
+      </div>   
+    
+     </div>
+    </div>
+    
+    
+       <!--<a href="#" (click) = "detailsAction(aTask)" > Details</a></button> </td>  -->
+                                <!-- <a [routerLink]="detailsAction(aTask)">Details</a>/button> </td>   -->
+    
+    

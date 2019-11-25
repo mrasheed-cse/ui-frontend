@@ -113,7 +113,8 @@ import { TestSimRechargeComponent } from './isms-reports/test-sim-recharge.compo
 import { TestSimDeactivationComponent } from './isms-reports/test-sim-deactivation.component';
 import { TimeLimitChangeComponent } from './isms-reports/time-limit-change.component';
 import { TestSimSurrenderComponent } from './isms-reports/test-sim-surrender.component';
-import { DamageLostSimComponent } from './isms-reports/damage-lost-sim.component';
+import { DamageSimComponent } from './isms-reports/damage-sim.component';
+import { LostSimComponent } from './isms-reports/lost-sim.component';
 import { TestSimTransferComponent } from './isms-reports/test-sim-transfer.component';
 
 @NgModule({

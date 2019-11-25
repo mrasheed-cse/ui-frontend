@@ -90,7 +90,8 @@ import { TestSimRechargeComponent } from './isms-reports/test-sim-recharge.compo
 import { TestSimDeactivationComponent } from './isms-reports/test-sim-deactivation.component';
 import { TimeLimitChangeComponent } from './isms-reports/time-limit-change.component';
 import { TestSimSurrenderComponent } from './isms-reports/test-sim-surrender.component';
-import { DamageLostSimComponent } from './isms-reports/damage-lost-sim.component';
+import { DamageSimComponent } from './isms-reports/damage-sim.component';
+import { LostSimComponent } from './isms-reports/lost-sim.component';
 import { TestSimTransferComponent } from './isms-reports/test-sim-transfer.component';
 
 
@@ -671,14 +672,14 @@ const routes: Routes = [
     path: 'isms-reports/test-sim-requisition',
     component: TestSimRequisitionComponent,
     data: {
-      title: 'Credit Limit Extension'
+      title: 'Test Sim Requisition'
     }
   },
     {
       path: 'isms-reports/test-sim-activation',
       component: TestSimActivationComponent,
       data: {
-        title: 'Credit Limit Extension'
+        title: 'Test Sim Activation'
       }
     },
       {
@@ -692,14 +693,14 @@ const routes: Routes = [
         path: 'isms-reports/test-sim-recharge',
         component: TestSimRechargeComponent,
         data: {
-          title: 'Credit Limit Extension'
+          title: 'Test Sim Recharge'
         }
       },
         {
           path: 'isms-reports/test-sim-deactivation',
           component: TestSimDeactivationComponent,
           data: {
-            title: 'Time Limit Change'
+            title: 'Test Sim Deactivation'
           }
         },
         {
@@ -717,13 +718,20 @@ const routes: Routes = [
             }
           } ,
           {
-            path: 'isms-reports/damage-lost-sim',
-            component: DamageLostSimComponent,
+            path: 'isms-reports/damage-sim',
+            component: DamageSimComponent,
             data: {
-              title: 'Damage Lost Sim'
+              title: 'Damage Sim'
             }
           },
-            {
+          {
+            path: 'isms-reports/lost-sim',
+            component: LostSimComponent,
+            data: {
+              title: 'Lost Sim'
+            }
+          },
+          {
               path: 'isms-reports/test-sim-transfer',
               component: TestSimTransferComponent,
               data: {

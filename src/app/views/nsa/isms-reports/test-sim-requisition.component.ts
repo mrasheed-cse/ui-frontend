@@ -15,6 +15,7 @@ import {BsDatepickerConfig} from 'ngx-bootstrap/datepicker';
 import {IsmsReportResponse} from './../models/IsmsReportResponse';
 import { LoginService } from '../../pages/LoginService';
 import { LoggedInUser } from '../../pages/loggedInUser';
+import { AgGridAngular } from 'ag-grid-angular';
 
 @Component({
   selector: 'app-test-sim-requisition',
@@ -56,6 +57,14 @@ export class TestSimRequisitionComponent implements OnInit {
   datepickerConfig: Partial<BsDatepickerConfig>;
   listMsisdnStatus: Array<any>;
 
+  private columnDefs;
+  private defaultColDef;
+  private defaultColGroupDef;
+  private columnTypes;
+  private rowData: any[];
+  private gridApi;
+  private gridColumnApi;
+
   constructor(private route:ActivatedRoute, private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private ismsreportService: IsmsreportService, private workFlowsService: WorkflowsService) {
 
     
@@ -71,7 +80,51 @@ export class TestSimRequisitionComponent implements OnInit {
     else {
       this.router.navigate(['pages/login']);
     }
-    //this.requisitionList = [];
+    this.columnDefs = _global.agGrid_defaultColDef;
+    this.columnTypes = _global.agGrid_columnTypes;
+
+    this.columnDefs = [
+        
+        {headerName: 'RQN #', field: 'requisitionNo', sortable: true, filter: true, width: 200 },
+        {headerName: 'Product', field: 'product', sortable: true, filter: true,  width: 160 },
+        {headerName: 'MSISDN', field: 'msisdn', sortable: true, filter: true,  width: 160 },
+        {headerName: 'SIM', field: 'sim', sortable: true, filter: true,  width: 160 },
+        {headerName: 'RQN Type', field: 'requisitionType', sortable: true, filter: true, width: 200 },
+        {headerName: 'Requester Name', field: 'requesterName', sortable: true, filter: true,  width: 160 },
+        {headerName: 'Requester Mobile', field: 'requesterMobile', sortable: true, filter: true, width: 200 },
+        {headerName: 'MSISDN Status', field: 'msisdnStatus', sortable: true, filter: true, width: 100 },        
+        {headerName: 'Start date', field: 'startDate', sortable: true, filter: true, width: 130, type: ["dateColumn", "nonEditableColumn"] },
+        {headerName: 'End date', field: 'endDate', sortable: true, filter: true, width: 130, type: ["dateColumn", "nonEditableColumn"] },
+        
+    ];
+
+    this.rowData = [];   
+    
+    
+    this.ismsreportService.TestSimRequisitionReport("","","","","","",0).subscribe(
+        data  =>  {
+      console.log('response is : '+data);
+      
+      if(data !=null){
+        console.log(data);
+        this.isDataFound = true;
+        this.rowData = data;
+        this.isLoading = false;
+      }
+      else{
+        this.isDataFound = false;
+      }
+      
+        },
+        err  =>  {		  
+        console.log("err.status : "+err.status);		  
+        this.dangerAlertShow = true;
+      this.dangerAlertMessage = " .";
+        }
+      
+        );
+        this.isLoading = false;
+
 
   } //end of constructor
 
@@ -107,8 +160,14 @@ export class TestSimRequisitionComponent implements OnInit {
 		this.msisdnStatus = new FormControl('');
 		this.startDate = new FormControl('');
     this.endDate = new FormControl('');
-    this.startMSISDN = new FormControl('');
-    this.endMSISDN = new FormControl('');
+    this.startMSISDN = new FormControl('', [      
+      Validators.minLength(11) ,
+      Validators.maxLength(11)
+    ]);
+    this.endMSISDN = new FormControl('', [      
+      Validators.minLength(11) ,
+      Validators.maxLength(11)
+    ]);
     this.simOwner = new FormControl('');
   }
 
@@ -153,7 +212,8 @@ export class TestSimRequisitionComponent implements OnInit {
   };
 
   FormatTheDate(theDate:any):string {
-	
+  if(theDate.length==0)
+    return "";
     console.log("theDate : "+theDate);	
       var date = new Date(theDate);
       var month = ("0" + (date.getMonth()+1)).slice(-2);
@@ -170,6 +230,10 @@ topFunction() {
 	document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 }
 
+onGridReady(params) {
+  this.gridApi = params.api;
+  this.gridColumnApi = params.columnApi; 
+}
    // FORM SUBMISSION
    onSearchSubmit() {
 	 
@@ -181,41 +245,38 @@ topFunction() {
      //this.isLoading = true;
     
         
-    this.ismsreportService.TestSimRequisitionReport(this.reqname.value,this.startMSISDN.value,this.endMSISDN.value, this.startDate.value,this.endDate.value,this.msisdnStatus.value,this.simOwner.value).subscribe(
-        res  =>  {
-      console.log('response is : '+res);
-      /*
-      if(res !== ""){	
-        this.requisitionReportList = res;
+    this.ismsreportService.TestSimRequisitionReport(this.reqname.value,
+      this.FormatTheDate(this.startDate.value),this.FormatTheDate(this.endDate.value),this.msisdnStatus.value,
+      this.startMSISDN.value,this.endMSISDN.value,this.simOwner.value).subscribe(
+        data  =>  {
+      console.log('response is : '+data);
+      
+      if(data !=null){
+        console.log(data);
         this.isDataFound = true;
-        for (let index in res) {
-          console.log('requisitionNo is : '+index +' ' +this.requisitionReportList[index].requisitionNo);
-          console.log('Product is : '+index +' ' +this.requisitionReportList[index].Product);
-          console.log('msisdn is : '+index +' ' +this.requisitionReportList[index].msisdn);
-          console.log('SIM is : '+index +' ' +this.requisitionReportList[index].SIM);
-          console.log('requisitionType is : '+index +' ' +this.requisitionReportList[index].requisitionType);
-          console.log('requesterName is : '+index +' ' +this.requisitionReportList[index].requesterName);
-          console.log('requesterMobile is : '+index +' ' +this.requisitionReportList[index].requesterMobile);
-          console.log('msisdnStatus is : '+index +' ' +this.requisitionReportList[index].msisdnStatus);
-          console.log('startDate is : '+index +' ' +this.requisitionReportList[index].startDate);
-          console.log('endDate is : '+index +' ' +this.requisitionReportList[index].endDate);
-          console.log('index is : '+index);
-        }	
-//        this.successAlertShow = true;
-        this.successAlertMessage = " has been created successfully and forwarded to "+res+". ";
+        this.rowData = data;
+        this.isLoading = false;
       }
-      */
+      else{
+        this.isDataFound = false;
+      }
+      
         },
         err  =>  {		  
         console.log("err.status : "+err.status);		  
         this.dangerAlertShow = true;
-      this.dangerAlertMessage = " .";
+      this.dangerAlertMessage = "Invalid inputs or An error occured while loading the report.";
         }
       
         );
         this.isLoading = false;
     
       }
+  }
+
+  onBtExport() {
+    var params = {};
+    this.gridApi.exportDataAsCsv(params);
   }
   
   
