@@ -55,6 +55,7 @@ export class TestSimRequisitionComponent implements OnInit {
 
   datepickerConfig: Partial<BsDatepickerConfig>;
   listMsisdnStatus: Array<any>;
+  listUsers: Array<any>;
 
   constructor(private route:ActivatedRoute, private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private ismsreportService: IsmsreportService, private workFlowsService: WorkflowsService) {
 
@@ -77,28 +78,35 @@ export class TestSimRequisitionComponent implements OnInit {
 
   ngOnInit() {
     this.createFormControls();
-	this.createForm();
-  this.isLoading = true;
+	  this.createForm();
+    this.isLoading = true;
   
-  setTimeout(()=>{    //<<<---    using ()=> syntax
+    setTimeout(()=>{    //<<<---    using ()=> syntax
 
-    this.listMsisdnStatus = [
-      {
-        "id":"A","name":"Active"
-      },
-      {
-        "id":"D","name":"Deactive"
-      }
-    ];
-/*
-    this.workFlowsService.getUserList().subscribe(
-      data => {
-        Object.assign(this.userData, data);
-      },
-      error => {
-        console.log("Something wrong here");
-      });*/
-    }, 2000);
+      this.listMsisdnStatus = [
+        {
+          "id":"A","name":"Active"
+        },
+        {
+          "id":"D","name":"Deactive"
+        }
+      ];
+
+
+      ///////////////////////////////////////////    
+      this.listUsers = [];
+
+      this.workFlowsService.getUserList().subscribe(
+        data => {
+          Object.assign(this.userData, data);
+        },
+        error => {
+          console.log("Something wrong here");
+        });
+      ///////////////////////////////////////////
+
+
+      }, 2000);
      
   }
 
@@ -170,18 +178,31 @@ topFunction() {
 	document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 }
 
+getUserIdFromUserName(userName){
+  for (var i = 0; i < this.userData.length; i++) {
+    if (this.userData[i]['userName'] == userName) {
+      return this.userData[i]['id'];
+    }
+  }
+  return 0;
+}
+
    // FORM SUBMISSION
    onSearchSubmit() {
 	 
     if (this.mySearchForm.valid) {
       console.log('Form Submitted!');
       console.log(this.mySearchForm.value);
+      //return;
   
      //this.topFunction();
      //this.isLoading = true;
-    
+      var simOwner_value_asId = 0;
+      if(this.simOwner.value != null && this.simOwner.value != undefined && this.simOwner.value != ""){
+        simOwner_value_asId = this.getUserIdFromUserName(this.simOwner.value);
+      }
         
-    this.ismsreportService.TestSimRequisitionReport(this.reqname.value,this.startMSISDN.value,this.endMSISDN.value, this.startDate.value,this.endDate.value,this.msisdnStatus.value,this.simOwner.value).subscribe(
+    this.ismsreportService.TestSimRequisitionReport(this.reqname.value,this.startMSISDN.value,this.endMSISDN.value, this.startDate.value,this.endDate.value,this.msisdnStatus.value,simOwner_value_asId).subscribe(
         res  =>  {
       console.log('response is : '+res);
       /*
