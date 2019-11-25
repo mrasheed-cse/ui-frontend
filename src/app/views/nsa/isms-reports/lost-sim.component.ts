@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-damage-lost-sim',
-  templateUrl: './damage-lost-sim.component.html',
-  styleUrls: ['./damage-lost-sim.component.scss']
+  selector: 'app-lost-sim',
+  templateUrl: './lost-sim.component.html',
+  styleUrls: ['./lost-sim.component.scss']
 })
-export class DamageLostSimComponent implements OnInit {
+export class LostSimComponent implements OnInit {
 
   constructor() { }
 

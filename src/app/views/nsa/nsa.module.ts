@@ -215,7 +215,7 @@ import { TestSimTransferComponent } from './isms-reports/test-sim-transfer.compo
     TestsimTransferNewComponent,
     TestsimTransferExistingComponent,
     TestsimMyOtherSimsComponent,    
-    PreventKeysDirective, TestSimRequisitionComponent, TestSimActivationComponent, CreditLimitExtensionComponent, TestSimRechargeComponent, TestSimDeactivationComponent, TimeLimitChangeComponent, TestSimSurrenderComponent, DamageLostSimComponent, TestSimTransferComponent,
+    PreventKeysDirective, TestSimRequisitionComponent, TestSimActivationComponent, CreditLimitExtensionComponent, TestSimRechargeComponent, TestSimDeactivationComponent, TimeLimitChangeComponent, TestSimSurrenderComponent, DamageSimComponent, LostSimComponent, TestSimTransferComponent,
   ]
 })
 export class NsaModule { }
