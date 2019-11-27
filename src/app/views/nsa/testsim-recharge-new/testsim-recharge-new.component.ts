@@ -34,7 +34,13 @@ export class TestsimRechargeNewComponent implements OnInit {
   private columnTypes;
   private rowData: any[];
   private rowDataTable2: any[];  
-  private offset: Number;
+  private offset: number;
+		  private currPage: number;
+		  private totalPages: number;
+		  listSimStatus: Array<any>;
+		  searchOptions_simStatus: String;
+		  searchOptions_msisdn: String;
+		  searchOptions_rqnNo: String;
 
   selectedIds: string;
   requisitionList: Array<Object>;
@@ -119,13 +125,15 @@ export class TestsimRechargeNewComponent implements OnInit {
   }
 
   loadPendingList(){
+
     //GetPendingTaskList
-    this.workFlowsService.loadMySims(this.userID, this.offset).subscribe(
+    this.workFlowsService.loadMySimsWithSearch(this.userID, this.offset, this.searchOptions_msisdn, this.searchOptions_rqnNo, +(this.searchOptions_simStatus)).subscribe(
         data => {
-          if(data !=null){
+          if(data !=null){            
             console.log(data);
             this.isDataFound = true;
             this.rowData = data;
+            if(data.length > 0) this.totalPages = +(data[0]['totalPages']);
             this.isLoading = false;
           }
           else{
@@ -139,12 +147,52 @@ export class TestsimRechargeNewComponent implements OnInit {
     this.todayDate = new Date();
   }
 
+  search(){
+    this.offset = 0;
+    this.currPage = 1;
+    this.loadPendingList();
+  }
+  clearSearch(){
+    this.searchOptions_simStatus = "1";
+    this.searchOptions_msisdn = "";
+    this.searchOptions_rqnNo = "";
+    this.search();
+  }
+
+  prevPage(){
+    if(this.offset <= 0){
+      //first page .. do nothing
+    }
+    else{
+      this.isLoading = true;
+      this.offset = this.offset - this._global.defaultPageSize;
+      this.currPage--;
+      this.loadPendingList();
+    }
+  }
+
+  nextPage(){
+    if(this.currPage >= this.totalPages){
+      //last page .. do nothing
+    }
+    else{
+      this.isLoading = true;
+      this.offset = this.offset + this._global.defaultPageSize;
+      this.currPage++;
+      this.loadPendingList();
+    }
+  }
+
 
   ngOnInit () {
 
     this.isLoading = true;
     this.selectedIds = "";
-    this.offset = 0;
+    this.offset = 0; this.currPage = 1; this.totalPages = 50000;
+    this.listSimStatus = this._global.listSimStatus;
+    this.searchOptions_simStatus = "1";
+    this.searchOptions_msisdn = "";
+    this.searchOptions_rqnNo = "";
     
 
   }

@@ -35,7 +35,7 @@ export class TestsimCreditlimitextNewComponent implements OnInit {
   private rowData: any[];
   private rowDataTable2: any[];  
   private offset: number;
-  private currPage: number;
+	private currPage: number;
   private totalPages: number;
   listSimStatus: Array<any>;
   searchOptions_simStatus: String;
