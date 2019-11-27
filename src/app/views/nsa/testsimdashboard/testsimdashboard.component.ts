@@ -30,6 +30,7 @@ export class TestsimdashboardComponent implements OnInit {
   public isLoading:boolean = false;
   isDataFound: boolean = true;
   isCurrentUserSSMRole: boolean = false;
+  counters: any;
 
   numberOfTestSims : number;
   numberOfTestSims1 : number;  
@@ -55,6 +56,7 @@ export class TestsimdashboardComponent implements OnInit {
         data => {
           if(data !=null){
             console.log(data);
+            this.counters = data;
             this.isDataFound = true;
             this.isLoading = false;
           }
