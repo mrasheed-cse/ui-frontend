@@ -246,7 +246,23 @@ export class WorkflowsService {
 			requisitionNo: 0,
 			status: "",
 			pageSize: this._global.defaultPageSize,
-			offset: offset
+			offset: offset,
+			msisdnForSearch: "",
+			rqnNoForSearch: "",
+			simStatusForSearch: -1
+		});
+	}
+
+	loadMySimsWithSearch(user_id: string, offset: Number, msisdnForSearch: String, rqnNoForSearch: String, simStatusForSearch: Number) : any {
+		return this.http.post(this.serverUrl + 'workflow/mysims', {
+			createdBy: user_id,
+			requisitionNo: 0,
+			status: "",
+			pageSize: this._global.defaultPageSize,
+			offset: offset,
+			msisdnForSearch: msisdnForSearch,
+			rqnNoForSearch: rqnNoForSearch,
+			simStatusForSearch: simStatusForSearch
 		});
 	}
 
@@ -264,7 +280,10 @@ export class WorkflowsService {
 			requisitionNo: 0,
 			status: requisitionLineMsisdnIds,
 			pageSize: this._global.defaultPageSize,
-			offset: offset
+			offset: offset,
+			msisdnForSearch: "",
+			rqnNoForSearch: "",
+			simStatusForSearch: -1
 		});
 	}
 

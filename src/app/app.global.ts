@@ -100,4 +100,22 @@ export class AppGlobals {
 
 	defaultPageSize = 100;
 
+	listSimStatus = [
+		{
+			"id":"-1","name":"Search by SIM Status"
+		},
+        {
+          "id":"0","name":"Inactive"
+        },
+        {
+          "id":"1","name":"Active"
+        },
+        {
+          "id":"2","name":"Deactive"
+        },
+        {
+          "id":"3","name":"Requested for activation"
+        }
+      ];
+
 }
