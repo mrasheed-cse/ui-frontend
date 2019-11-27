@@ -314,4 +314,12 @@ export class WorkflowsService {
 		});
 	}
 
+	getDashboardCounters(user_id: string) : any {
+		return this.http.post(this.serverUrl + 'dashboard/counters', {
+			createdBy: user_id,
+			requisitionNo: 0,
+			status: ""
+		});
+	}
+
 }
