@@ -32,6 +32,7 @@ export class TestsimLostComponent implements OnInit {
 	routerUrlAndParams: string;
   public isLoading:boolean = false;
   isDataFound: boolean = true;
+  private offset: Number;
 
   constructor(private route:ActivatedRoute, private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {
 
@@ -54,7 +55,7 @@ export class TestsimLostComponent implements OnInit {
 
   loadPendingList(){
     //GetPendingTaskList
-    this.workFlowsService.loadMySimsFiltered(this.userID, this.allRequisitionLineMsisdnIds).subscribe(
+    this.workFlowsService.loadMySimsFiltered(this.userID, this.allRequisitionLineMsisdnIds, this.offset).subscribe(
         data => {
           if(data !=null){
             console.log(data);
@@ -79,6 +80,7 @@ export class TestsimLostComponent implements OnInit {
 
   ngOnInit () {
 
+    this.offset = 0;
     this.isLoading = true;
     this.allRequisitionLineMsisdnIds = this.route.snapshot.paramMap.get('all_ids');
     console.log("sim action page");

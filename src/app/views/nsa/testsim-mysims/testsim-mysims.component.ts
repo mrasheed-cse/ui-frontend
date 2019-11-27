@@ -33,6 +33,7 @@ export class TestsimMysimsComponent implements OnInit {
   private columnTypes;
   private rowData: any[];
   private rowDataTable2: any[];  
+  private offset: Number;
 
   selectedIds: string;
   requisitionList: Array<Object>;
@@ -81,7 +82,6 @@ export class TestsimMysimsComponent implements OnInit {
     else {
       this.router.navigate(['pages/login']);
     }
-    //this.requisitionList = _global.dataTempForMySims;
 
     this.columnDefs = _global.agGrid_defaultColDef;
     this.columnTypes = _global.agGrid_columnTypes;
@@ -117,7 +117,7 @@ export class TestsimMysimsComponent implements OnInit {
 
   loadPendingList(){
     //GetPendingTaskList
-    this.workFlowsService.loadMySims(this.userID).subscribe(
+    this.workFlowsService.loadMySims(this.userID, this.offset).subscribe(
         data => {
           if(data !=null){
             console.log(data);
@@ -139,6 +139,7 @@ export class TestsimMysimsComponent implements OnInit {
 
   ngOnInit () {
 
+    this.offset = 0;
     this.isLoading = true;
     this.selectedIds = "";
 

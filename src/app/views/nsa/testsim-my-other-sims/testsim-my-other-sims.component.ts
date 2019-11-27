@@ -82,7 +82,6 @@ export class TestsimMyOtherSimsComponent implements OnInit {
     else {
       this.router.navigate(['pages/login']);
     }
-    //this.requisitionList = _global.dataTempForMySims;
 
     this.columnDefs = _global.agGrid_defaultColDef;
     this.columnTypes = _global.agGrid_columnTypes;

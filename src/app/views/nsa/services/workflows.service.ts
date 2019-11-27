@@ -240,11 +240,13 @@ export class WorkflowsService {
 		});
 	}
 
-	loadMySims(user_id: string) : any {
+	loadMySims(user_id: string, offset: Number) : any {
 		return this.http.post(this.serverUrl + 'workflow/mysims', {
 			createdBy: user_id,
 			requisitionNo: 0,
-			status: ""
+			status: "",
+			pageSize: this._global.defaultPageSize,
+			offset: offset
 		});
 	}
 
@@ -256,11 +258,13 @@ export class WorkflowsService {
 		});
 	}
 
-	loadMySimsFiltered(user_id: string, requisitionLineMsisdnIds: string) : any {
+	loadMySimsFiltered(user_id: string, requisitionLineMsisdnIds: string, offset: Number) : any {
 		return this.http.post(this.serverUrl + 'workflow/mysims', {
 			createdBy: user_id,
 			requisitionNo: 0,
-			status: requisitionLineMsisdnIds
+			status: requisitionLineMsisdnIds,
+			pageSize: this._global.defaultPageSize,
+			offset: offset
 		});
 	}
 
