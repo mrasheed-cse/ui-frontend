@@ -46,7 +46,12 @@
                     <table class="dashboard-box-table-custom">
                         <tr>
                             <td>
-                                    <div><a href="/sscm/#/nsa/testsim-myothersims">Non Active SIMs: {{counters.myNonActiveSimsCount}}</a></div>
+                                    <div><a href="/sscm/#/nsa/testsim-deactivation">Inactive SIMs: {{counters.myInactiveSimsCount}}</a></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                    <div><a href="/sscm/#/nsa/testsim-myothersims">Deactive / Pending SIMs: {{counters.myDeactiveAndPendingSimsCount}}</a></div>
                             </td>
                         </tr>
                     </table>
@@ -103,7 +108,7 @@
         </div>
         <div class="card-body pb-0">
             <div class="btn-group float-right" >
-                <a href="/sscm/#/nsa/newrequisitioninitiation">
+                <a href="/sscm/#/nsa/newsimactivationreq">
                     <button class="btn btn-transparent p-0" type="button" aria-haspopup="true">
                         <i class="icon-plus dashboard-box-icon-custom"></i>
                     </button>
@@ -133,7 +138,7 @@
         </div>
         <div class="card-body pb-0">
             <div class="btn-group float-right" >
-                <a href="/sscm/#/nsa/newrequisitioninitiation">
+                <a href="/sscm/#/nsa/testsim-creditlimitext-new">
                     <button class="btn btn-transparent p-0" type="button" aria-haspopup="true">
                         <i class="icon-plus dashboard-box-icon-custom"></i>
                     </button>
@@ -168,7 +173,7 @@
             </div>
             <div class="card-body pb-0">
                 <div class="btn-group float-right" >
-                    <a href="/sscm/#/nsa/newrequisitioninitiation">
+                    <a href="/sscm/#/nsa/testsim-creditlimitext-new">
                         <button class="btn btn-transparent p-0" type="button" aria-haspopup="true">
                             <i class="icon-plus dashboard-box-icon-custom"></i>
                         </button>
@@ -202,7 +207,7 @@
             </div>
             <div class="card-body pb-0">
                 <div class="btn-group float-right" >
-                    <a href="/sscm/#/nsa/newrequisitioninitiation">
+                    <a href="/sscm/#/nsa/testsim-recharge-new">
                         <button class="btn btn-transparent p-0" type="button" aria-haspopup="true">
                             <i class="icon-plus dashboard-box-icon-custom"></i>
                         </button>
@@ -234,13 +239,6 @@
                 Deactivation
             </div>
             <div class="card-body pb-0">
-                <div class="btn-group float-right" >
-                    <a href="/sscm/#/nsa/newrequisitioninitiation">
-                        <button class="btn btn-transparent p-0" type="button" aria-haspopup="true">
-                            <i class="icon-plus dashboard-box-icon-custom"></i>
-                        </button>
-                    </a>
-                </div>
                 <div><a href="/sscm/#/nsa/newrequisitiondetails">Total: {{counters.total_simDeactivationCount}}</a></div>
                 <table class="dashboard-box-table-custom">
                     <tr>
@@ -268,7 +266,7 @@
             </div>
             <div class="card-body pb-0">
                 <div class="btn-group float-right" >
-                    <a href="/sscm/#/nsa/newrequisitioninitiation">
+                    <a href="/sscm/#/nsa/testsim-surrender-new">
                         <button class="btn btn-transparent p-0" type="button" aria-haspopup="true">
                             <i class="icon-plus dashboard-box-icon-custom"></i>
                         </button>
@@ -297,44 +295,75 @@
                 
         <div class="card text-white bg-warning dashboard-box-custom" >
             <div class="card-header">
-                Lost / damaged
+                Lost
             </div>
             <div class="card-body pb-0">
                 <div class="btn-group float-right" >
-                    <a href="/sscm/#/nsa/newrequisitioninitiation">
+                    <a href="/sscm/#/nsa/testsim-lostdamaged-new">
                         <button class="btn btn-transparent p-0" type="button" aria-haspopup="true">
                             <i class="icon-plus dashboard-box-icon-custom"></i>
                         </button>
                     </a>
                 </div>
-                <div><a href="/sscm/#/nsa/newrequisitiondetails">Total: {{counters.total_lostDamagedCount}}</a></div>
+                <div><a href="/sscm/#/nsa/newrequisitiondetails">Total: {{counters.total_lostCount}}</a></div>
                 <table class="dashboard-box-table-custom">
                     <tr>
                         <td style="width:33% !important">
-                                <div><a href="/sscm/#/nsa/newrequisition">Approved: {{counters.total_lostDamagedApprovedCount}}</a></div>
+                                <div><a href="/sscm/#/nsa/newrequisition">Approved: {{counters.total_lostApprovedCount}}</a></div>
                         </td>
                     </tr><tr>
                         <td style="width:33% !important">
-                            <div><a href="/sscm/#/nsa/newrequisition">Rejected: {{counters.total_lostDamagedRejectedCount}}</a></div>
+                            <div><a href="/sscm/#/nsa/newrequisition">Rejected: {{counters.total_lostRejectedCount}}</a></div>
                         </td>
                     </tr><tr>                        
                         <td style="width:33% !important">
-                            <div><a href="/sscm/#/nsa/newrequisition">Pending: {{counters.total_lostDamagedPendingCount}}</a></div>
+                            <div><a href="/sscm/#/nsa/newrequisition">Pending: {{counters.total_lostPendingCount}}</a></div>
                         </td>
                     </tr>
                 </table>
             </div>
             
         </div>
-                    
-
+              
         <div class="card text-white bg-danger dashboard-box-custom" >
+            <div class="card-header">
+                Damaged
+            </div>
+            <div class="card-body pb-0">
+                <div class="btn-group float-right" >
+                    <a href="/sscm/#/nsa/testsim-lostdamaged-new">
+                        <button class="btn btn-transparent p-0" type="button" aria-haspopup="true">
+                            <i class="icon-plus dashboard-box-icon-custom"></i>
+                        </button>
+                    </a>
+                </div>
+                <div><a href="/sscm/#/nsa/newrequisitiondetails">Total: {{counters.total_damagedCount}}</a></div>
+                <table class="dashboard-box-table-custom">
+                    <tr>
+                        <td style="width:33% !important">
+                                <div><a href="/sscm/#/nsa/newrequisition">Approved: {{counters.total_damagedApprovedCount}}</a></div>
+                        </td>
+                    </tr><tr>
+                        <td style="width:33% !important">
+                            <div><a href="/sscm/#/nsa/newrequisition">Rejected: {{counters.total_damagedRejectedCount}}</a></div>
+                        </td>
+                    </tr><tr>                        
+                        <td style="width:33% !important">
+                            <div><a href="/sscm/#/nsa/newrequisition">Pending: {{counters.total_damagedPendingCount}}</a></div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
+        </div>
+
+        <div class="card text-white bg-success dashboard-box-custom" >
             <div class="card-header">
                 SIM Transfer
             </div>
             <div class="card-body pb-0">
                 <div class="btn-group float-right" >
-                    <a href="/sscm/#/nsa/newrequisitioninitiation">
+                    <a href="/sscm/#/nsa/testsim-transfer-new">
                         <button class="btn btn-transparent p-0" type="button" aria-haspopup="true">
                             <i class="icon-plus dashboard-box-icon-custom"></i>
                         </button>

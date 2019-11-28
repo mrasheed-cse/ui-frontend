@@ -75,6 +75,7 @@ import { TestsimCreditLimitextExistingComponent } from './testsim-credit-limitex
 import { TestsimRechargeNewComponent } from './testsim-recharge-new/testsim-recharge-new.component';
 import { TestsimRechargeExistingComponent } from './testsim-recharge-existing/testsim-recharge-existing.component';
 import { TestsimDeactivationExistingComponent } from './testsim-deactivation-existing/testsim-deactivation-existing.component';
+import { TestsimDeactivationComponent } from './testsim-deactivation/testsim-deactivation.component';
 import { TestsimSurrenderNewComponent } from './testsim-surrender-new/testsim-surrender-new.component';
 import { TestsimSurrenderExistingComponent } from './testsim-surrender-existing/testsim-surrender-existing.component';
 import { TestsimLostdamagedNewComponent } from './testsim-lostdamaged-new/testsim-lostdamaged-new.component';
@@ -606,6 +607,13 @@ const routes: Routes = [
     component: TestsimRechargeExistingComponent,
     data: {
       title: 'Existing SIM Recharge Requests'
+    }
+  },
+  {
+    path: 'testsim-deactivation',
+    component: TestsimDeactivationComponent,
+    data: {
+      title: 'My Inactive SIMs'
     }
   },
   {

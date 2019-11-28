@@ -116,6 +116,15 @@ export class AppGlobals {
         {
           "id":"3","name":"Requested for activation"
         }
+	  ];
+	  
+	  listSimStatusAlt = [
+		{
+          "id":"2","name":"Deactive"
+        },
+        {
+          "id":"3","name":"Requested for activation"
+        }
       ];
 
 }

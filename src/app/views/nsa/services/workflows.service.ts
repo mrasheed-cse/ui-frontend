@@ -266,6 +266,19 @@ export class WorkflowsService {
 		});
 	}
 
+	loadMyInactiveSimsWithSearch(user_id: string, offset: Number, msisdnForSearch: String, rqnNoForSearch: String, simStatusForSearch: Number) : any {
+		return this.http.post(this.serverUrl + 'workflow/myinactivesims', {
+			createdBy: user_id,
+			requisitionNo: 0,
+			status: "",
+			pageSize: this._global.defaultPageSize,
+			offset: offset,
+			msisdnForSearch: msisdnForSearch,
+			rqnNoForSearch: rqnNoForSearch,
+			simStatusForSearch: simStatusForSearch
+		});
+	}
+
 	loadMyNonActiveSims(user_id: string) : any {
 		return this.http.post(this.serverUrl + 'workflow/mynonactivesims', {
 			createdBy: user_id,
