@@ -47,7 +47,6 @@ export class TestsimTransferHodComponent implements OnInit {
     else {
       this.router.navigate(['pages/login']);
     }
-    this.requisitionList = _global.dataTempForMySims;
     this.listTransferModes = [
       {
         "id":"Transfer","name":"Transfer"

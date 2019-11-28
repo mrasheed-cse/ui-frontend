@@ -31,6 +31,13 @@ export class TestsimRechargeComponent implements OnInit {
 	routerUrlAndParams: string;
   public isLoading:boolean = false;
   isDataFound: boolean = true;
+  private offset: number;
+		  private currPage: number;
+		  private totalPages: number;
+		  listSimStatus: Array<any>;
+		  searchOptions_simStatus: String;
+		  searchOptions_msisdn: String;
+		  searchOptions_rqnNo: String;
 
   constructor(private route:ActivatedRoute, private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {
 
@@ -53,7 +60,7 @@ export class TestsimRechargeComponent implements OnInit {
 
   loadPendingList(){
     //GetPendingTaskList
-    this.workFlowsService.loadMySimsFiltered(this.userID, this.allRequisitionLineMsisdnIds).subscribe(
+    this.workFlowsService.loadMySimsFiltered(this.userID, this.allRequisitionLineMsisdnIds, this.offset).subscribe(
         data => {
           if(data !=null){
             console.log(data);
@@ -78,6 +85,7 @@ export class TestsimRechargeComponent implements OnInit {
 
   ngOnInit () {
 
+    this.offset = 0;
     this.isLoading = true;
     this.allRequisitionLineMsisdnIds = this.route.snapshot.paramMap.get('all_ids');
     console.log("sim action page");

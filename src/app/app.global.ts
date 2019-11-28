@@ -98,249 +98,33 @@ export class AppGlobals {
 		}
 	};
 
-	//for test purpose
-	dataTemp = [
+	defaultPageSize = 100;
+
+	listSimStatus = [
 		{
-		  id: 1,
-		  requisitionNo: "test",
-		  requisitionDt:  "test",
-		  quantity: "test",
-		  requisitionType:  "test",
-		  purposeCategory:  "test",
-		  testStartDt:  "test",
-		  testCompletionDt:  "test",
-		  usageCategory:  "test",
-		  nextHop:  "1",
-		  wrfStatus:  "test"
+			"id":"-1","name":"Search by SIM Status"
 		},
+        {
+          "id":"0","name":"Inactive"
+        },
+        {
+          "id":"1","name":"Active"
+        },
+        {
+          "id":"2","name":"Deactive"
+        },
+        {
+          "id":"3","name":"Requested for activation"
+        }
+	  ];
+	  
+	  listSimStatusAlt = [
 		{
-			id: 2,
-			requisitionNo: "test",
-			requisitionDt:  "test",
-			quantity: "test",
-			requisitionType:  "test",
-			purposeCategory:  "test",
-			testStartDt:  "test",
-			testCompletionDt:  "test",
-			usageCategory:  "test",
-			nextHop:  "2",
-			wrfStatus:  "test"
-		},
-		{
-			id: 3,
-			requisitionNo: "test",
-			requisitionDt:  "test",
-			quantity: "test",
-			requisitionType:  "test",
-			purposeCategory:  "test",
-			testStartDt:  "test",
-			testCompletionDt:  "test",
-			usageCategory:  "test",
-			nextHop:  "4",
-			wrfStatus:  "test"
-		},
-		{
-			id: 4,
-			requisitionNo: "test",
-			requisitionDt:  "test",
-			quantity: "test",
-			requisitionType:  "test",
-			purposeCategory:  "test",
-			testStartDt:  "test",
-			testCompletionDt:  "test",
-			usageCategory:  "test",
-			nextHop:  "3",
-			wrfStatus:  "test"
-		}
-
-	]
-
-	/*dataTempForLogin = {
-		usersName : "general",
-    	emailAddress : "gen@wipro.com",
-    	usersGroupName : "general",
-    	usersGroupId : 12,
-    	remarks : "n/a"
-	}*/
-
-	dataTempForLogin = {
-		usersName : "ssm",
-    	emailAddress : "ssm@wipro.com",
-    	usersGroupName : "SSM",
-    	usersGroupId : 10,
-    	remarks : "n/a"
-	}
-
-	/*dataTempForLogin = {
-		usersName : "hod",
-    	emailAddress : "hod@wipro.com",
-    	usersGroupName : "HOD",
-    	usersGroupId : 13,
-    	remarks : "n/a"
-	}*/
-
-	/*dataTempForLogin = {
-		usersName : "clc",
-    	emailAddress : "clc@wipro.com",
-    	usersGroupName : "CLC",
-    	usersGroupId : 11,
-    	remarks : "n/a"
-	}*/
-
-	dataTempForRequisitionDetail = {
-		employeeDetails : {
-			employeeID : "test",
-			mobileNo : "",
-			employeeName : "",
-			designation : "",
-			department : "test",
-			division : "",
-			emailAddress : ""
-		},
-		requisitionDetails : {
-			requisitionNo : "",
-			requisitionDate : "",
-			requisitionType : "",
-			purposeCategory : "",
-			purposeDetails : "test",
-			expectedStartDate : "",
-			expectedEndDate : "",
-			location : "",
-			usageCategory : "",
-			notificationTo : ""
-		},
-		requisitionLines : [
-			{
-				productName : "Bondhu",
-				creditLimit : "2000",
-				quantity : "10",
-				instruction : "",
-				imsiTypeName : "Normal",
-				specialRequirement : "",
-				assignedQuantity: "0",
-				assignedLimit: "0"
-			},
-			{
-				productName : "MyPlan",
-				creditLimit : "5000",
-				quantity : "50",
-				instruction : "",
-				imsiTypeName : "Normal",
-				specialRequirement : "",
-				assignedQuantity: "0",
-				assignedLimit: "0"
-			}
-		]
-	}
-
-
-  dataTempForNewActRequest = [
-		{
-		  id: 1,
-		  requisitionNo: "RQN-201808-1001",
-		  deliveryStatus: "Delivered",
-		  requisitionType:  "For Internal use"
-		},
-    {
-		  id: 2,
-		  requisitionNo: "RQN-201808-1002",
-		  deliveryStatus: "Delivered",
-		  requisitionType:  "For Internal use"
-		},
-    {
-		  id: 3,
-		  requisitionNo: "RQN-201808-1003",
-		  deliveryStatus: "Delivered",
-		  requisitionType:  "For Internal use"
-		},
-    {
-		  id: 4,
-		  requisitionNo: "RQN-201808-1004",
-		  deliveryStatus: "Delivered",
-		  requisitionType:  "For Internal use"
-		}
-	]
-
-	dataTempForActRequestStatus = [
-		{
-		  id: 1,
-		  requisitionNo: "RQN-201808-1001",
-		  deliveryStatus: "Delivered",
-		  requisitionType:  "For Internal use"
-		},
-    {
-		  id: 2,
-		  requisitionNo: "RQN-201808-1002",
-		  deliveryStatus: "Delivered",
-		  requisitionType:  "For Internal use"
-		},
-    {
-		  id: 3,
-		  requisitionNo: "RQN-201808-1003",
-		  deliveryStatus: "Delivered",
-		  requisitionType:  "For Internal use"
-		},
-    {
-		  id: 4,
-		  requisitionNo: "RQN-201808-1004",
-		  deliveryStatus: "Delivered",
-		  requisitionType:  "For Internal use"
-		}
-	]
-
-	dataTempForNewActRequestDetails = {
-		"requisitionDetails" : {
-			requisitionNo: "RQN-201808-1001",
-			requisitionType:  "For Internal use"
-		},
-		"msisdnDetails" : [
-			{
-			  id: 1,
-			  msisdn: "1710823427",
-			  sim: "890091311111",
-			  simType:  "Prepaid",
-			  simStatus:  "Inactive",
-			  deliveryStatus:  "Delivered",
-			  declarationStatus:  "Pending"		  			  			  			  
-			},
-			{
-				id: 2,
-				msisdn: "1710823428",
-				sim: "890091311112",
-				simType:  "Prepaid",
-				simStatus:  "Inactive",
-				deliveryStatus:  "Delivered",
-				declarationStatus:  "Pending"		  			  			  			  
-			  },
-		]
-	}	
-	
-
-	//// /////////////// ///////////////////// ///////
-
-	dataTempForMySims = [
-		{
-		  id: 1,
-		  msisdn: "1726838059",
-		  requisitionNo: "RQN-201707-001",
-		  requisitionType: "For internal use",
-		  simStatus: "Active",
-		  requisitionDate: "12 June 2017",
-		  testStartDate: "15 June 2017",
-		  testEndDate: "30 August 2019",
-		  assignedCreditLimit: "30000"
-		},
-    	{
-			id: 2,
-			msisdn: "1746838060",
-			requisitionNo: "RQN-201811-022",
-			requisitionType: "For internal use",
-			simStatus: "Active",
-			requisitionDate: "20 November 2018",
-			testStartDate: "15 December 2018",
-			testEndDate: "15 December 2019",
-			assignedCreditLimit: "1500"
-		}
-	]
+          "id":"2","name":"Deactive"
+        },
+        {
+          "id":"3","name":"Requested for activation"
+        }
+      ];
 
 }
