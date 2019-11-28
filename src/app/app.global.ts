@@ -56,6 +56,11 @@ export class AppGlobals {
 	readonly masterData_ImsiType = 7;
 
 
+	readonly simActionListPage_totalMarker = -1;
+	readonly simActionListPage_approvedMarker = 1;
+	readonly simActionListPage_rejectedMarker = 2;
+	readonly simActionListPage_pendingMarker = 0;
+
 
 	readonly wrid_FileUploadPath: string = '/app/nsa_files/';
 

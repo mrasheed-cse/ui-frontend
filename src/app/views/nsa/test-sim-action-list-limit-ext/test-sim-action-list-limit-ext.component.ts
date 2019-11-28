@@ -54,6 +54,7 @@ export class TestSimActionListLimitExtComponent implements OnInit {
   public isLoading:boolean = false;
   isDataFound: boolean = true;
   isDataFoundOther: boolean = true;
+  approvalFilterMarker: number;
 
   selectAll:boolean = false;
 
@@ -132,7 +133,7 @@ export class TestSimActionListLimitExtComponent implements OnInit {
     this.workFlowsService.loadSimActionListWithSearch(
       this.userID, 
       this._global.wrid_testSimCreditLimitExtension, 
-      -1, 
+      this.approvalFilterMarker, 
       this.offset, 
       this.searchOptions_msisdn, 
       this.searchOptions_rqnNo, 
@@ -203,8 +204,15 @@ export class TestSimActionListLimitExtComponent implements OnInit {
     this.isLoading = true;
     this.selectedIds = "";
 
-    
-
+    var url = window.location.href;
+    var urlparts = url.split("?t=");
+    var markerFromPrevPage = urlparts[1];
+    if(markerFromPrevPage != null && markerFromPrevPage != undefined && markerFromPrevPage != ""){
+      if(markerFromPrevPage == "total") this.approvalFilterMarker = this._global.simActionListPage_totalMarker;
+      if(markerFromPrevPage == "approved") this.approvalFilterMarker = this._global.simActionListPage_approvedMarker;
+      if(markerFromPrevPage == "pending") this.approvalFilterMarker = this._global.simActionListPage_pendingMarker;
+      if(markerFromPrevPage == "rejected") this.approvalFilterMarker = this._global.simActionListPage_rejectedMarker;                
+    }
   }
   
   onBtExport() {
