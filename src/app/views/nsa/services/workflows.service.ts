@@ -301,7 +301,7 @@ export class WorkflowsService {
 	}
 
 	loadSimActionListWithSearch(user_id: string, defWorkRequestId: Number, approvalStatus: Number, offset: Number, msisdnForSearch: String, rqnNoForSearch: String, simStatusForSearch: Number) : any {
-		return this.http.post(this.serverUrl + 'workflow/myinactivesims', {
+		return this.http.post(this.serverUrl + 'workflow/simactionlist', {
 			createdBy: user_id,
 			requisitionNo: defWorkRequestId,
 			status: approvalStatus.toString(),

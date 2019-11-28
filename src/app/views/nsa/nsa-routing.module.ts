@@ -83,6 +83,14 @@ import { TestsimLostdamagedExistingComponent } from './testsim-lostdamaged-exist
 import { TestsimTransferNewComponent } from './testsim-transfer-new/testsim-transfer-new.component';
 import { TestsimTransferExistingComponent } from './testsim-transfer-existing/testsim-transfer-existing.component';
 import { TestsimMyOtherSimsComponent } from './testsim-my-other-sims/testsim-my-other-sims.component';
+import { TestSimActionListTimeExtComponent } from './test-sim-action-list-time-ext/test-sim-action-list-time-ext.component';
+import { TestSimActionListLimitExtComponent } from './test-sim-action-list-limit-ext/test-sim-action-list-limit-ext.component';
+import { TestSimActionListRechargeComponent } from './test-sim-action-list-recharge/test-sim-action-list-recharge.component';
+import { TestSimActionListDeactivateComponent } from './test-sim-action-list-deactivate/test-sim-action-list-deactivate.component';
+import { TestSimActionListSurrenderComponent } from './test-sim-action-list-surrender/test-sim-action-list-surrender.component';
+import { TestSimActionListLostComponent } from './test-sim-action-list-lost/test-sim-action-list-lost.component';
+import { TestSimActionListTransferComponent } from './test-sim-action-list-transfer/test-sim-action-list-transfer.component';
+import { TestSimActionListDamagedComponent } from './test-sim-action-list-damaged/test-sim-action-list-damaged.component';
 
 
 const routes: Routes = [
@@ -665,6 +673,62 @@ const routes: Routes = [
       title: 'Existing SIM Transfer Requests'
     }
   },
+  {
+    path: 'testsim-action-list-time-ext',
+    component: TestSimActionListTimeExtComponent,
+    data: {
+      title: 'Test SIM time limit extension - operational history'
+    }
+  },
+  {
+    path: 'testsim-action-list-limit-ext',
+    component: TestSimActionListLimitExtComponent,
+    data: {
+      title: 'Test SIM credit limit extension - operational history'
+    }
+  },
+  {
+    path: 'testsim-action-list-recharge',
+    component: TestSimActionListRechargeComponent,
+    data: {
+      title: 'Test SIM recharge - operational history'
+    }
+  },
+  {
+    path: 'testsim-action-list-deactivate',
+    component: TestSimActionListDeactivateComponent,
+    data: {
+      title: 'Test SIM deactivation - operational history'
+    }
+  },
+  {
+    path: 'testsim-action-list-surrender',
+    component: TestSimActionListSurrenderComponent,
+    data: {
+      title: 'Test SIM surrender - operational history'
+    }
+  },
+  {
+    path: 'testsim-action-list-lost',
+    component: TestSimActionListLostComponent,
+    data: {
+      title: 'Test SIM lost - operational history'
+    }
+  },
+  {
+    path: 'testsim-action-list-damaged',
+    component: TestSimActionListDamagedComponent,
+    data: {
+      title: 'Test SIM damaged - operational history'
+    }
+  },  
+  {
+    path: 'testsim-action-list-transfer',
+    component: TestSimActionListTransferComponent,
+    data: {
+      title: 'Test SIM transfer - operational history'
+    }
+  },  
 ];
 
 @NgModule({

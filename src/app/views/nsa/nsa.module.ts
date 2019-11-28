@@ -104,6 +104,14 @@ import { TestsimTransferNewComponent } from './testsim-transfer-new/testsim-tran
 import { TestsimTransferExistingComponent } from './testsim-transfer-existing/testsim-transfer-existing.component';
 import { TestsimMyOtherSimsComponent } from './testsim-my-other-sims/testsim-my-other-sims.component';
 import { PreventKeysDirective } from './prevent-keys.directive';
+import { TestSimActionListTimeExtComponent } from './test-sim-action-list-time-ext/test-sim-action-list-time-ext.component';
+import { TestSimActionListLimitExtComponent } from './test-sim-action-list-limit-ext/test-sim-action-list-limit-ext.component';
+import { TestSimActionListRechargeComponent } from './test-sim-action-list-recharge/test-sim-action-list-recharge.component';
+import { TestSimActionListSurrenderComponent } from './test-sim-action-list-surrender/test-sim-action-list-surrender.component';
+import { TestSimActionListLostComponent } from './test-sim-action-list-lost/test-sim-action-list-lost.component';
+import { TestSimActionListDamagedComponent } from './test-sim-action-list-damaged/test-sim-action-list-damaged.component';
+import { TestSimActionListTransferComponent } from './test-sim-action-list-transfer/test-sim-action-list-transfer.component';
+import { TestSimActionListDeactivateComponent } from './test-sim-action-list-deactivate/test-sim-action-list-deactivate.component';
 
 @NgModule({
   imports: [
@@ -204,6 +212,14 @@ import { PreventKeysDirective } from './prevent-keys.directive';
     TestsimTransferExistingComponent,
     TestsimMyOtherSimsComponent,    
     PreventKeysDirective,
+    TestSimActionListTimeExtComponent,
+    TestSimActionListLimitExtComponent,
+    TestSimActionListRechargeComponent,
+    TestSimActionListSurrenderComponent,
+    TestSimActionListLostComponent,
+    TestSimActionListDamagedComponent,
+    TestSimActionListTransferComponent,
+    TestSimActionListDeactivateComponent
   ]
 })
 export class NsaModule { }
