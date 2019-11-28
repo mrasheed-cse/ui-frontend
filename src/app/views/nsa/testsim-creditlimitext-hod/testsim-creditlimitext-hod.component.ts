@@ -45,7 +45,6 @@ export class TestsimCreditlimitextHodComponent implements OnInit {
     else {
       this.router.navigate(['pages/login']);
     }
-    this.requisitionList = _global.dataTempForMySims;
 
   } //end of constructor
 

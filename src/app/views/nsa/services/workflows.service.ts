@@ -240,11 +240,42 @@ export class WorkflowsService {
 		});
 	}
 
-	loadMySims(user_id: string) : any {
+	loadMySims(user_id: string, offset: Number) : any {
 		return this.http.post(this.serverUrl + 'workflow/mysims', {
 			createdBy: user_id,
 			requisitionNo: 0,
-			status: ""
+			status: "",
+			pageSize: this._global.defaultPageSize,
+			offset: offset,
+			msisdnForSearch: "",
+			rqnNoForSearch: "",
+			simStatusForSearch: -1
+		});
+	}
+
+	loadMySimsWithSearch(user_id: string, offset: Number, msisdnForSearch: String, rqnNoForSearch: String, simStatusForSearch: Number) : any {
+		return this.http.post(this.serverUrl + 'workflow/mysims', {
+			createdBy: user_id,
+			requisitionNo: 0,
+			status: "",
+			pageSize: this._global.defaultPageSize,
+			offset: offset,
+			msisdnForSearch: msisdnForSearch,
+			rqnNoForSearch: rqnNoForSearch,
+			simStatusForSearch: simStatusForSearch
+		});
+	}
+
+	loadMyInactiveSimsWithSearch(user_id: string, offset: Number, msisdnForSearch: String, rqnNoForSearch: String, simStatusForSearch: Number) : any {
+		return this.http.post(this.serverUrl + 'workflow/myinactivesims', {
+			createdBy: user_id,
+			requisitionNo: 0,
+			status: "",
+			pageSize: this._global.defaultPageSize,
+			offset: offset,
+			msisdnForSearch: msisdnForSearch,
+			rqnNoForSearch: rqnNoForSearch,
+			simStatusForSearch: simStatusForSearch
 		});
 	}
 
@@ -256,11 +287,16 @@ export class WorkflowsService {
 		});
 	}
 
-	loadMySimsFiltered(user_id: string, requisitionLineMsisdnIds: string) : any {
+	loadMySimsFiltered(user_id: string, requisitionLineMsisdnIds: string, offset: Number) : any {
 		return this.http.post(this.serverUrl + 'workflow/mysims', {
 			createdBy: user_id,
 			requisitionNo: 0,
-			status: requisitionLineMsisdnIds
+			status: requisitionLineMsisdnIds,
+			pageSize: this._global.defaultPageSize,
+			offset: offset,
+			msisdnForSearch: "",
+			rqnNoForSearch: "",
+			simStatusForSearch: -1
 		});
 	}
 
@@ -309,6 +345,14 @@ export class WorkflowsService {
 	getUserList() : any {
 		return this.http.post(this.serverUrl + 'workflow/userlist', {
 			createdBy: 0,
+			requisitionNo: 0,
+			status: ""
+		});
+	}
+
+	getDashboardCounters(user_id: string) : any {
+		return this.http.post(this.serverUrl + 'dashboard/counters', {
+			createdBy: user_id,
 			requisitionNo: 0,
 			status: ""
 		});

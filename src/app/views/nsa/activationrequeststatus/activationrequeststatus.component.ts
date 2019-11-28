@@ -45,7 +45,6 @@ export class ActivationrequeststatusComponent implements OnInit {
     else {
       this.router.navigate(['pages/login']);
     }
-    this.requisitionList = _global.dataTempForActRequestStatus;
 
   } //end of constructor
 

@@ -30,6 +30,7 @@ export class TestsimdashboardComponent implements OnInit {
   public isLoading:boolean = false;
   isDataFound: boolean = true;
   isCurrentUserSSMRole: boolean = false;
+  counters: any;
 
   numberOfTestSims : number;
   numberOfTestSims1 : number;  
@@ -47,6 +48,29 @@ export class TestsimdashboardComponent implements OnInit {
 
   }
 
+  loadDashboardCounters(){
+
+    this.isLoading = true;
+
+    this.workFlowsService.getDashboardCounters(this.userID).subscribe(
+        data => {
+          if(data !=null){
+            console.log(data);
+            this.counters = data;
+            this.isDataFound = true;
+            this.isLoading = false;
+          }
+          else{
+            this.isDataFound = false;
+          }
+        },
+      err => console.error(err),
+      () => console.log('Done loading dashboard counters')
+      );
+    //Get Today Date
+    this.todayDate = new Date();
+  }
+
   ngOnInit() {
 
     this.numberOfTestSims = 0;
@@ -60,7 +84,7 @@ export class TestsimdashboardComponent implements OnInit {
     this.numberOfTestSims8 = 0;                            
     this.numberOfTestSims9 = 0;
     
-    this.isLoading = false;
+    this.isLoading = true;
     let isValid = true;
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
 
@@ -76,13 +100,11 @@ export class TestsimdashboardComponent implements OnInit {
         this.isCurrentUserSSMRole = false;
       }
 
+      this.loadDashboardCounters();
     }
     else {
       this.router.navigate(['pages/login']);
     }
-
-
-
 
   }
 

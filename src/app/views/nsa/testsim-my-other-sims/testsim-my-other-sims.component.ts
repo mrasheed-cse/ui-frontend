@@ -34,6 +34,13 @@ export class TestsimMyOtherSimsComponent implements OnInit {
   private columnTypes;
   private rowData: any[];
   private rowDataTable2: any[];  
+  private offset: number;
+		  private currPage: number;
+		  private totalPages: number;
+		  listSimStatus: Array<any>;
+		  searchOptions_simStatus: String;
+		  searchOptions_msisdn: String;
+		  searchOptions_rqnNo: String;
 
   selectedIds: string;
   requisitionList: Array<Object>;
@@ -82,7 +89,6 @@ export class TestsimMyOtherSimsComponent implements OnInit {
     else {
       this.router.navigate(['pages/login']);
     }
-    //this.requisitionList = _global.dataTempForMySims;
 
     this.columnDefs = _global.agGrid_defaultColDef;
     this.columnTypes = _global.agGrid_columnTypes;
@@ -91,7 +97,7 @@ export class TestsimMyOtherSimsComponent implements OnInit {
         {headerName: 'MSISDN', field: 'msisdn', sortable: true, filter: true, checkboxSelection: true, width: 160 },
         {headerName: 'RQN #', field: 'requisitionNo', sortable: true, filter: true, width: 200 },
         {headerName: 'RQN Type', field: 'requisitionType', sortable: true, filter: true, width: 200 },
-        {headerName: 'SIM Status', field: 'simStatus', sortable: true, filter: true, width: 100 },
+        {headerName: 'SIM Status', field: 'simStatus', sortable: true, filter: true, width: 250 },
         {headerName: 'RQN Date', field: 'requisitionDateAsString', sortable: true, filter: true, width: 130, type: ["dateColumn", "nonEditableColumn"] },
         {headerName: 'Test start date', field: 'testStartDateAsString', sortable: true, filter: true, width: 130, type: ["dateColumn", "nonEditableColumn"] },
         {headerName: 'Test end date', field: 'testEndDateAsString', sortable: true, filter: true, width: 130, type: ["dateColumn", "nonEditableColumn"] },
@@ -102,38 +108,87 @@ export class TestsimMyOtherSimsComponent implements OnInit {
 
   } //end of constructor
 
-  loadOtherSims(){
-    this.isLoading = true;
-    this.workFlowsService.loadMyNonActiveSims(this.userID).subscribe(
-      data => {
-        if(data !=null){
-          console.log(data);
-          this.isDataFoundOther = true;
-          this.rowDataTable2 = data;
-          this.isLoading = false;
-        }
-        else{
-          this.isDataFoundOther = false;
-        }
-      },
-    err => console.error(err),
-    () => console.log('Done loading PendingTask List')
-    );
-    this.isLoading = false;
-  }
+  
 
+  onGridReady(params) {
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
 
-  onGridReady(params) {    
+    setTimeout(()=>{    //<<<---    using ()=> syntax
+      this.loadPendingList();
+    }, 2000);
   }
 
   onGridReadyTable2(params) {
-    this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;    
-    this.loadOtherSims();
   }
+
+  loadPendingList(){
+
+    //GetPendingTaskList
+    this.workFlowsService.loadMySimsWithSearch(this.userID, this.offset, this.searchOptions_msisdn, this.searchOptions_rqnNo, +(this.searchOptions_simStatus)).subscribe(
+        data => {
+          if(data !=null){            
+            console.log(data);
+            this.isDataFound = true;
+            this.rowData = data;
+            if(data.length > 0) this.totalPages = +(data[0]['totalPages']);
+            this.isLoading = false;
+          }
+          else{
+            this.isDataFound = false;
+          }
+        },
+      err => console.error(err),
+      () => console.log('Done loading PendingTask List')
+      );
+    //Get Today Date
+    this.todayDate = new Date();
+  }
+
+  search(){
+    this.offset = 0;
+    this.currPage = 1;
+    this.loadPendingList();
+  }
+  clearSearch(){
+    this.searchOptions_simStatus = "2";
+    this.searchOptions_msisdn = "";
+    this.searchOptions_rqnNo = "";
+    this.search();
+  }
+
+  prevPage(){
+    if(this.offset <= 0){
+      //first page .. do nothing
+    }
+    else{
+      this.isLoading = true;
+      this.offset = this.offset - this._global.defaultPageSize;
+      this.currPage--;
+      this.loadPendingList();
+    }
+  }
+
+  nextPage(){
+    if(this.currPage >= this.totalPages){
+      //last page .. do nothing
+    }
+    else{
+      this.isLoading = true;
+      this.offset = this.offset + this._global.defaultPageSize;
+      this.currPage++;
+      this.loadPendingList();
+    }
+  }
+
 
   ngOnInit () {
 
+    this.offset = 0; this.currPage = 1; this.totalPages = 50000;
+    this.listSimStatus = this._global.listSimStatusAlt;
+    this.searchOptions_simStatus = "2";
+    this.searchOptions_msisdn = "";
+    this.searchOptions_rqnNo = "";
     this.isLoading = true;
     this.selectedIds = "";
 
@@ -209,6 +264,13 @@ export class TestsimMyOtherSimsComponent implements OnInit {
   transfer(){
     this.getSelectedIds();
     this.router.navigate(['nsa/testsim-transfer', this.selectedIds]);
+  }
+
+
+
+  onBtExport() {
+    var params = {};
+    this.gridApi.exportDataAsCsv(params);
   }
 
 }
