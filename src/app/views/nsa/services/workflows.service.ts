@@ -300,6 +300,19 @@ export class WorkflowsService {
 		});
 	}
 
+	loadSimActionListWithSearch(user_id: string, defWorkRequestId: Number, approvalStatus: Number, offset: Number, msisdnForSearch: String, rqnNoForSearch: String, simStatusForSearch: Number) : any {
+		return this.http.post(this.serverUrl + 'workflow/simactionlist', {
+			createdBy: user_id,
+			requisitionNo: defWorkRequestId,
+			status: approvalStatus.toString(),
+			pageSize: this._global.defaultPageSize,
+			offset: offset,
+			msisdnForSearch: msisdnForSearch,
+			rqnNoForSearch: rqnNoForSearch,
+			simStatusForSearch: simStatusForSearch
+		});
+	}
+
 	submitSimActionRequest(requestObj: any) : any {
 		return this.http.post(this.serverUrl + 'workflow/submitsimactionrequest', requestObj);
 	}
