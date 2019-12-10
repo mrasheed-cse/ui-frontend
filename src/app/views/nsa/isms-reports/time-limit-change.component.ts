@@ -104,7 +104,7 @@ export class TimeLimitChangeComponent implements OnInit {
     this.rowData = [];   
     
     
-    this.ismsreportService.TestSimActitonReport("","","","","","",0,0,0,"Time Limit Change").subscribe(
+    this.ismsreportService.TestSimActitonReport("","","","","","",0,0,0,"Time Limit Extension").subscribe(
         data  =>  {
       console.log('response is : '+data);
       
@@ -264,7 +264,7 @@ onGridReady(params) {
 
     this.ismsreportService.TestSimActitonReport(this.reqname.value,
       this.FormatTheDate(this.startDate.value),this.FormatTheDate(this.endDate.value),this.msisdnStatus.value,
-      this.startMSISDN.value,this.endMSISDN.value,simOwner_value_asId,0,0,"Time Limit Change").subscribe(
+      this.startMSISDN.value,this.endMSISDN.value,simOwner_value_asId,0,0,"Time Limit Extension").subscribe(
         data  =>  {
       console.log('response is : '+data);
       
