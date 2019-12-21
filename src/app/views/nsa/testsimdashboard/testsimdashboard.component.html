@@ -36,22 +36,22 @@
                 </div>
                 <div class="card-body pb-0">
                     <div class="btn-group float-right" >
-                        <a href="/sscm/#/nsa/newrequisitioninitiation">
+                            <a [routerLink]="['/nsa/newrequisitioninitiation']">
                             <button class="btn btn-transparent p-0" type="button" aria-haspopup="true">
                                 <i class="icon-plus dashboard-box-icon-custom"></i>
                             </button>
                         </a>
                     </div>
-                    <div><a href="/sscm/#/nsa/testsim-mysims">Active SIMs: {{counters.myActiveSimsCount}}</a></div>
+                    <div><a [routerLink]="['/nsa/testsim-mysims']">Active SIMs: {{counters.myActiveSimsCount}}</a></div>
                     <table class="dashboard-box-table-custom">
                         <tr>
                             <td>
-                                    <div><a href="/sscm/#/nsa/testsim-deactivation">Inactive SIMs: {{counters.myInactiveSimsCount}}</a></div>
+                                    <div><a [routerLink]="['/nsa/testsim-deactivation']">Inactive SIMs: {{counters.myInactiveSimsCount}}</a></div>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                    <div><a href="/sscm/#/nsa/testsim-myothersims">Deactive / Pending SIMs: {{counters.myDeactiveAndPendingSimsCount}}</a></div>
+                                    <div><a [routerLink]="['/nsa/testsim-myothersims']">Deactive / Pending SIMs: {{counters.myDeactiveAndPendingSimsCount}}</a></div>
                             </td>
                         </tr>
                     </table>
