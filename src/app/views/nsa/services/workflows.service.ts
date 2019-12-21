@@ -188,7 +188,12 @@ export class WorkflowsService {
 		return this.http.post(this.serverUrl + 'workflow/newsimactivation', {
 			createdBy: user_id,
 			requisitionNo: wr_id,
-			status: ""
+			status: "",
+			pageSize: this._global.defaultPageSize,
+			offset: 0,
+			msisdnForSearch: "",
+			rqnNoForSearch: "",
+			simStatusForSearch: -1
 		});
 	}
 
@@ -236,7 +241,12 @@ export class WorkflowsService {
 		return this.http.post(this.serverUrl + 'workflow/activationrequestspendingforapproval', {
 			createdBy: user_id,
 			requisitionNo: wr_id,
-			status: "PENDING"
+			status: "PENDING",
+			pageSize: this._global.defaultPageSize,
+			offset: 0,
+			msisdnForSearch: "",
+			rqnNoForSearch: "",
+			simStatusForSearch: -1
 		});
 	}
 

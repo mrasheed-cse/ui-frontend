@@ -23,7 +23,7 @@
                 <thead>
                   <tr>
                     <th>Requisition No</th>
-                    <th>Requisition Type</th>
+                    <th>Requested by</th>
                     <th>Delivery Status</th>
                     <th>Total SIMs</th>
                     <th>Inactive SIMs</th>
@@ -36,7 +36,7 @@
                 <tbody *ngFor="let aTask of requisitionList;  index as i">
                             <tr>
                                 <td>{{aTask.requisitionNo}}</td>
-                                <td>{{aTask.requisitionType}}</td>
+                                <td>{{aTask.requestedByFullName}}</td>
                                 <td>{{aTask.deliveryStatus}}</td>
                                 <td>{{aTask.totalSims}}</td>
                                 <td>{{aTask.inactiveSims}}</td>
