@@ -35,6 +35,7 @@ export class ActivationPendingregistrationsComponent implements OnInit {
   public showDetail:boolean = false;  
   public requisitionIdSelected: number = 0;
   isDataFound: boolean = true;
+  isCurrentUserSSMRole: boolean = false;
 
   constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workflowsService: WorkflowsService, private ismsworkflowsService: IsmsworkflowsService) {
 
@@ -50,17 +51,33 @@ export class ActivationPendingregistrationsComponent implements OnInit {
     else {
       this.router.navigate(['pages/login']);
     }
+
+    if(+(this.groupID) == +(this._global.groupID_SSM)){
+      this.isCurrentUserSSMRole = true;
+    }
+    else{
+      this.isCurrentUserSSMRole = false;
+    }
+
     //this.requisitionList = _global.dataTempForNewActRequest;
 
   } //end of constructor
 
   loadPendingList(){
+
+    if(!this.isCurrentUserSSMRole){
+      this.requisitionList = [];
+      this.isDataFound = true;
+      this.isLoading = false;
+      return;
+    }
+
     //GetPendingTaskList
     this.workflowsService.activationRequestsPendingForApproval(0,this.userID).subscribe(
         data => {
           if(data !=null){
             console.log(data);
-			this.isDataFound = true;
+			      this.isDataFound = true;
             this.rawDataFromBackend = data;
             this.requisitionList = [];
 
