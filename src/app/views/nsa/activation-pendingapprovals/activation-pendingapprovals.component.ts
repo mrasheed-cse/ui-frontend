@@ -137,13 +137,13 @@ export class ActivationPendingapprovalsComponent implements OnInit {
     for(var i = 0; i < this.requisition['msisdnDetails'].length; i++){
       if(this.requisition['msisdnDetails'][i]['selected']){
 
-        if(this.requisition['msisdnDetails'][i]['simStatus'] == "SSM Processing" &&
+        if(this.requisition['msisdnDetails'][i]['simStatus'] == "Requested For Activation" &&
         this.requisition['msisdnDetails'][i]['declarationStatus'] == "Agreed"){
           allRqnLineNumbers += this.requisition['msisdnDetails'][i]['requisitionLineMsisdnId'] + ",";
           approvedSimActivationIds += this.requisition['msisdnDetails'][i]['simActivationId'] + ",";          
         }
         else{
-          var msg = "Only MSISDNs which are in status 'SSM Processing', and with declaration status 'Agreed', can be selected. Please deselect MSISDN in row " + (i+1) + ".";
+          var msg = "Only MSISDNs which are in status 'Requested For Activation', and with declaration status 'Agreed', can be selected. Please deselect MSISDN in row " + (i+1) + ".";
           alert(msg);
           return;
         }
