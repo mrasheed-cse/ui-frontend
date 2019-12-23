@@ -12,12 +12,8 @@ export const navigation_blankdata  = [
 
 ];
 
-
-
-
-export const navigation_grpID_SSM  = [
-   
-  {
+export const navigation_grpID_SSM  = [   
+  {    
     name: 'Dashboard',
     url: '/nsa/testsimdashboard',
 	  icon: 'icon-star'

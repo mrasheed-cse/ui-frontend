@@ -118,6 +118,18 @@ export class IsmsworkflowsService {
 		});
 	}
 
+	// CLC Assignment for final delivery quantity.
+	clcAssignment(wr_id: number,userID: string,theLineItem: any) : any{
+		console.log("In clcAssignment: "+ wr_id+","+userID);
+		
+		return this.http.post(this.serverUrl+ 'requisition/clcassignment',{
+			wrID: wr_id,			
+			userID: userID,
+			theLineItem: theLineItem
+		});
+		
+	}
+
 	deleteRequisitionLine(lineItemId: number) : any{
 		return this.http.post(this.serverUrl+ 'requisitionline/delete',{
 			userID: "",

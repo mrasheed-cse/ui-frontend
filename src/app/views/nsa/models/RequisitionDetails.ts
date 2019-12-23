@@ -36,6 +36,7 @@ export class RequisitionLines {
     specialRequirement: string;
     assignCreditLimit: number;
     assignQuantity: number;
+    deliverQuantity: number;
     actionType: string;
     
 }

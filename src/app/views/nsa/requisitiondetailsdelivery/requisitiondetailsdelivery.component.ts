@@ -63,6 +63,10 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
           if(this.requisition != null && this.requisition != undefined && this.requisition != "" &&
         this.requisition['requisitionLines'] != null && this.requisition['requisitionLines'] != undefined && this.requisition['requisitionLines'] != ""){
               for(var i = 0; i < this.requisition['requisitionLines'].length; i++){
+                if(this.requisition['requisitionLines'][i].deliverQuantity>-1)
+                  this.requisition['requisitionLines'][i].clcUpdateQnty = true;
+                else
+                  this.requisition['requisitionLines'][i].clcUpdateQnty = false;
                 this.requisition['requisitionLines'][i].clcAssignmentCompleted = false;
               }
           }
@@ -375,6 +379,47 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
     );
 
   }
+
+  clcUpdate(lineItem){
+    //alert('In clcUpdate');
+    var lineItemIdBeingConsidered = lineItem['id'];
+    var deliverQuantity = lineItem['deliverQuantity'];
+    
+    console.log('requisitionId '+this.requisitionId);
+    console.log("lineItemIdBeingConsidered "+lineItemIdBeingConsidered);
+    console.log("deliverQuantity "+deliverQuantity);
+    console.log(this.userID);
+
+    //let theLineItem : any;
+      
+      var theLineItem = Object.create(null);
+      theLineItem['requisitionLineId'] =lineItemIdBeingConsidered;
+      theLineItem['deliverQuantity'] = deliverQuantity;
+      //theLineItem.push(obj);
+    console.log(theLineItem);
+    
+
+    this.ismsworkflowsService.clcAssignment(this.requisitionId, this.userID, theLineItem).subscribe(
+      res  =>  {
+        console.log('response is : '+res.message);
+        if(res !== ""){
+          //alert(res.message);
+          for(var i = 0; i < this.requisition['requisitionLines'].length; i++){            
+            if(this.requisition['requisitionLines'][i].id == lineItemIdBeingConsidered){
+              this.requisition['requisitionLines'][i].clcUpdateQnty = true;
+            }
+          }
+          //this.router.navigate(['nsa/newrequisition']);
+        }
+      },
+      err  =>  {
+
+      }
+
+    );
+
+  }
+
 
 
 }

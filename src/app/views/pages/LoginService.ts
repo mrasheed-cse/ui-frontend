@@ -100,5 +100,9 @@ export class LoginService {
 		this.router.navigate(['pages/login']);
 	}
 
+	LoadMenu(): any {
+		return this.http.post(this.serverUrl + 'LoadFullMmenu',{});
+	}
+
 
 }
