@@ -127,7 +127,8 @@ export class TestsimCreditlimitextSsmComponent implements OnInit {
 
     this.isLoading = true;
     this.selectedSimActionId = (aTask['simActionId']);
-
+    console.log("selectedSimActionId" + this.selectedSimActionId);
+    
     this.workFlowsService.simActionRequestDetailsPendingForApproval(aTask['simActionId']).subscribe(
       res  =>  {
         if(res !== ""){
@@ -199,6 +200,8 @@ export class TestsimCreditlimitextSsmComponent implements OnInit {
 
       obj['msisdnDetails'].push(obj2);
     }
+
+    console.log(obj);
 
     this.workFlowsService.updateSimAction(obj).subscribe(
       res  =>  {

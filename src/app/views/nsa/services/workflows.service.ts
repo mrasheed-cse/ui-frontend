@@ -329,6 +329,7 @@ export class WorkflowsService {
 
 
 	simActionRequestsPendingForApproval(wr_id: number, user_id: string) : any {
+		console.log("wr_id: "+wr_id+", user_id: "+user_id);
 		return this.http.post(this.serverUrl + 'workflow/simactionspendingforapproval', {
 			createdBy: user_id,
 			requisitionNo: wr_id,
