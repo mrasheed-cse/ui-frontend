@@ -12,19 +12,19 @@
                             My Approval Needed
                         </div>
                         <div class="card-body pb-0">
-                            <div><a href="/sscm/#/nsa/testsimdashboard">Total: {{counters.total_myApprovalNeeded}}</a></div>
+                            <div><a [routerLink]="['/nsa/testsimdashboard']">Total: {{counters.total_myApprovalNeeded}}</a></div>
                             <table class="dashboard-box-table-custom">
                                 <tr>
                                     <td style="width:33% !important">
-                                            <div><a href="/sscm/#/nsa/newrequisition">Requisition: {{counters.total_myApprovalNeededRequisition}}</a></div>
+                                            <div><a [routerLink]="['/nsa/newrequisition']">Requisition: {{counters.total_myApprovalNeededRequisition}}</a></div>
                                     </td>
                                 </tr><tr *ngIf="isCurrentUserSSMRole">
                                     <td style="width:33% !important">
-                                        <div><a href="/sscm/#/nsa/activation-pendingregistrations">Activation: {{counters.total_myApprovalNeededActivation}}</a></div>
+                                        <div><a [routerLink]="['/nsa/activation-pendingregistrations']">Activation: {{counters.total_myApprovalNeededActivation}}</a></div>
                                     </td>
                                 </tr><tr>                                    
                                     <td style="width:33% !important">
-                                        <div><a href="/sscm/#/nsa/testsimdashboard">Others: {{counters.total_myAPprovalNeededOthers}}</a></div>
+                                        <div><a [routerLink]="['/nsa/testsimdashboard']">Others: {{counters.total_myAPprovalNeededOthers}}</a></div>
                                     </td>
                                 </tr>
                             </table>
@@ -78,25 +78,25 @@
             </div>
             <div class="card-body pb-0">
                 <div class="btn-group float-right" >
-                    <a href="/sscm/#/nsa/newrequisitioninitiation">
+                    <a [routerLink]="['/nsa/newrequisitioninitiation']">
                         <button class="btn btn-transparent p-0" type="button" aria-haspopup="true">
                             <i class="icon-plus dashboard-box-icon-custom"></i>
                         </button>
                     </a>
                 </div>
-                <div><a href="/sscm/#/nsa/newrequisitiondetails">Total: {{counters.total_requisitionsCount}}</a></div>
+                <div><a [routerLink]="['/nsa/newrequisitiondetails']">Total: {{counters.total_requisitionsCount}}</a></div>
                 <table class="dashboard-box-table-custom">
                     <tr>
                         <td style="width:33% !important">
-                                <div><a href="/sscm/#/nsa/newrequisitiondetails">Approved: {{counters.total_requisitionsApprovedCount}}</a></div>
+                                <div><a [routerLink]="['/nsa/newrequisitiondetails']">Approved: {{counters.total_requisitionsApprovedCount}}</a></div>
                         </td>
                     </tr><tr>
                         <td style="width:33% !important">
-                            <div><a href="/sscm/#/nsa/newrequisitiondetails">Rejected: {{counters.total_requisitionsRejectedCount}}</a></div>
+                            <div><a [routerLink]="['/nsa/newrequisitiondetails']">Rejected: {{counters.total_requisitionsRejectedCount}}</a></div>
                         </td>
                     </tr><tr>                        
                         <td style="width:33% !important">
-                            <div><a href="/sscm/#/nsa/newrequisitiondetails">Pending: {{counters.total_requisitionsPendingCount}}</a></div>
+                            <div><a [routerLink]="['/nsa/newrequisitiondetails']">Pending: {{counters.total_requisitionsPendingCount}}</a></div>
                         </td>
                     </tr>
                 </table>
@@ -113,21 +113,21 @@
         </div>
         <div class="card-body pb-0">
             <div class="btn-group float-right" >
-                <a href="/sscm/#/nsa/newsimactivationreq">
+                <a [routerLink]="['/nsa/newsimactivationreq']">
                     <button class="btn btn-transparent p-0" type="button" aria-haspopup="true">
                         <i class="icon-plus dashboard-box-icon-custom"></i>
                     </button>
                 </a>
             </div>
-            <div><a href="/sscm/#/nsa/newsimactivationreq">Total: {{counters.total_activationsCount}}</a></div>
+            <div><a [routerLink]="['/nsa/newsimactivationreq']">Total: {{counters.total_activationsCount}}</a></div>
             <table class="dashboard-box-table-custom">
                 <tr>
                     <td style="width:33% !important">
-                            <div><a href="/sscm/#/nsa/newsimactivationreq">Approved: {{counters.total_activationsApprovedCount}}</a></div>
+                            <div><a [routerLink]="['/nsa/newsimactivationreq']">Approved: {{counters.total_activationsApprovedCount}}</a></div>
                     </td>
                 </tr><tr>                        
                     <td style="width:33% !important">
-                        <div><a href="/sscm/#/nsa/newsimactivationreq">Pending: {{counters.total_activationsPendingCount}}</a></div>
+                        <div><a [routerLink]="['/nsa/newsimactivationreq']">Pending: {{counters.total_activationsPendingCount}}</a></div>
                     </td>
                 </tr>
             </table>
@@ -143,25 +143,28 @@
         </div>
         <div class="card-body pb-0">
             <div class="btn-group float-right" >
-                <a href="/sscm/#/nsa/testsim-creditlimitext-new">
+                <a [routerLink]="['/nsa/testsim-creditlimitext-new']">                    
                     <button class="btn btn-transparent p-0" type="button" aria-haspopup="true">
                         <i class="icon-plus dashboard-box-icon-custom"></i>
                     </button>
                 </a>
             </div>
-            <div><a href="/sscm/#/nsa/testsim-action-list-time-ext?t=total">Total: {{counters.total_timeExtensionsCount}}</a></div>
+            <div>
+                <!--<a href="/#/nsa/testsim-action-list-time-ext?t=total">-->
+                <a [routerLink]="['/nsa/testsim-action-list-time-ext']" [queryParams]="{t: 'total'}">                    
+                Total: {{counters.total_timeExtensionsCount}}</a></div>
             <table class="dashboard-box-table-custom">
                 <tr>
                     <td style="width:33% !important">
-                            <div><a href="/sscm/#/nsa/testsim-action-list-time-ext?t=approved">Approved: {{counters.total_timeExtensionsApprovedCount}}</a></div>
+                            <div><a [routerLink]="['/nsa/testsim-action-list-time-ext']" [queryParams]="{t: 'approved'}">Approved: {{counters.total_timeExtensionsApprovedCount}}</a></div>
                     </td>
                 </tr><tr>
                     <td style="width:33% !important">
-                        <div><a href="/sscm/#/nsa/testsim-action-list-time-ext?t=rejected">Rejected: {{counters.total_timeExtensionsRejectedCount}}</a></div>
+                        <div><a [routerLink]="['/nsa/testsim-action-list-time-ext']" [queryParams]="{t: 'rejected'}">Rejected: {{counters.total_timeExtensionsRejectedCount}}</a></div>
                     </td>
                 </tr><tr>                        
                     <td style="width:33% !important">
-                        <div><a href="/sscm/#/nsa/testsim-action-list-time-ext?t=pending">Pending: {{counters.total_timeExtensionsPendingCount}}</a></div>
+                        <div><a [routerLink]="['/nsa/testsim-action-list-time-ext']" [queryParams]="{t: 'pending'}">Pending: {{counters.total_timeExtensionsPendingCount}}</a></div>
                     </td>
                 </tr>
             </table>
@@ -177,26 +180,27 @@
                 Limit Extension
             </div>
             <div class="card-body pb-0">
-                <div class="btn-group float-right" >
-                    <a href="/sscm/#/nsa/testsim-creditlimitext-new">
+                <div class="btn-group float-right" >                    
+                        <a [routerLink]="['/nsa/testsim-creditlimitext-new']">
                         <button class="btn btn-transparent p-0" type="button" aria-haspopup="true">
                             <i class="icon-plus dashboard-box-icon-custom"></i>
                         </button>
                     </a>
                 </div>
-                <div><a href="/sscm/#/nsa/testsim-action-list-limit-ext?t=total">Total: {{counters.total_limitExtensionsCount}}</a></div>
+                
+                <div><a [routerLink]="['/nsa/testsim-action-list-limit-ext']" [queryParams]="{t: 'total'}">Total: {{counters.total_limitExtensionsCount}}</a></div>
                 <table class="dashboard-box-table-custom">
                     <tr>
                         <td style="width:33% !important">
-                                <div><a href="/sscm/#/nsa/testsim-action-list-limit-ext?t=approved">Approved: {{counters.total_limitExtensionsApprovedCount}}</a></div>
+                                <div><a [routerLink]="['/nsa/testsim-action-list-limit-ext']" [queryParams]="{t: 'approved'}">Approved: {{counters.total_limitExtensionsApprovedCount}}</a></div>
                         </td>
                     </tr><tr>
                         <td style="width:33% !important">
-                            <div><a href="/sscm/#/nsa/testsim-action-list-limit-ext?t=rejected">Rejected: {{counters.total_limitExtensionsRejectedCount}}</a></div>
+                            <div><a [routerLink]="['/nsa/testsim-action-list-limit-ext']" [queryParams]="{t: 'rejected'}">Rejected: {{counters.total_limitExtensionsRejectedCount}}</a></div>
                         </td>
                     </tr><tr>                        
                         <td style="width:33% !important">
-                            <div><a href="/sscm/#/nsa/testsim-action-list-limit-ext?t=pending">Pending: {{counters.total_limitExtensionsPendingCount}}</a></div>
+                            <div><a [routerLink]="['/nsa/testsim-action-list-limit-ext']" [queryParams]="{t: 'pending'}">Pending: {{counters.total_limitExtensionsPendingCount}}</a></div>
                         </td>
                     </tr>
                 </table>
@@ -212,25 +216,25 @@
             </div>
             <div class="card-body pb-0">
                 <div class="btn-group float-right" >
-                    <a href="/sscm/#/nsa/testsim-recharge-new">
+                    <a [routerLink]="['/nsa/testsim-recharge-new']">
                         <button class="btn btn-transparent p-0" type="button" aria-haspopup="true">
                             <i class="icon-plus dashboard-box-icon-custom"></i>
                         </button>
                     </a>
                 </div>
-                <div><a href="/sscm/#/nsa/testsim-action-list-recharge?t=total">Total: {{counters.total_rechargeCount}}</a></div>
+                <div><a [routerLink]="['/nsa/testsim-action-list-recharge']" [queryParams]="{t: 'total'}">Total: {{counters.total_rechargeCount}}</a></div>
                 <table class="dashboard-box-table-custom">
                     <tr>
                         <td style="width:33% !important">
-                                <div><a href="/sscm/#/nsa/testsim-action-list-recharge?t=approved">Approved: {{counters.total_rechargeApprovedCount}}</a></div>
+                                <div><a [routerLink]="['/nsa/testsim-action-list-recharge']" [queryParams]="{t: 'approved'}">Approved: {{counters.total_rechargeApprovedCount}}</a></div>
                         </td>
                     </tr><tr>
                         <td style="width:33% !important">
-                            <div><a href="/sscm/#/nsa/testsim-action-list-recharge?t=rejected">Rejected: {{counters.total_rechargeRejectedCount}}</a></div>
+                            <div><a [routerLink]="['/nsa/testsim-action-list-recharge']" [queryParams]="{t: 'rejected'}">Rejected: {{counters.total_rechargeRejectedCount}}</a></div>
                         </td>
                     </tr><tr>                        
                         <td style="width:33% !important">
-                            <div><a href="/sscm/#/nsa/testsim-action-list-recharge?t=pending">Pending: {{counters.total_rechargePendingCount}}</a></div>
+                            <div><a [routerLink]="['/nsa/testsim-action-list-recharge']" [queryParams]="{t: 'pending'}">Pending: {{counters.total_rechargePendingCount}}</a></div>
                         </td>
                     </tr>
                 </table>
@@ -244,19 +248,20 @@
                 Deactivation
             </div>
             <div class="card-body pb-0">
-                <div><a href="/sscm/#/nsa/testsim-action-list-deactivate?t=total">Total: {{counters.total_simDeactivationCount}}</a></div>
+                    
+                <div><a [routerLink]="['/nsa/testsim-action-list-deactivate']" [queryParams]="{t: 'total'}">Total: {{counters.total_simDeactivationCount}}</a></div>
                 <table class="dashboard-box-table-custom">
                     <tr>
                         <td style="width:33% !important">
-                                <div><a href="/sscm/#/nsa/testsim-action-list-deactivate?t=approved">Approved: {{counters.total_simDeactivationApprovedCount}}</a></div>
+                                <div><a [routerLink]="['/nsa/testsim-action-list-deactivate']" [queryParams]="{t: 'approved'}">Approved: {{counters.total_simDeactivationApprovedCount}}</a></div>
                         </td>
                     </tr><tr>
                         <td style="width:33% !important">
-                            <div><a href="/sscm/#/nsa/testsim-action-list-deactivate?t=rejected">Rejected: {{counters.total_simDeactivationRejectedCount}}</a></div>
+                            <div><a [routerLink]="['/nsa/testsim-action-list-deactivate']" [queryParams]="{t: 'rejected'}">Rejected: {{counters.total_simDeactivationRejectedCount}}</a></div>
                         </td>
                     </tr><tr>                        
                         <td style="width:33% !important">
-                            <div><a href="/sscm/#/nsa/testsim-action-list-deactivate?t=pending">Pending: {{counters.total_simDeactivationPendingCount}}</a></div>
+                            <div><a [routerLink]="['/nsa/testsim-action-list-deactivate']" [queryParams]="{t: 'pending'}">Pending: {{counters.total_simDeactivationPendingCount}}</a></div>
                         </td>
                     </tr>
                 </table>
@@ -271,25 +276,25 @@
             </div>
             <div class="card-body pb-0">
                 <div class="btn-group float-right" >
-                    <a href="/sscm/#/nsa/testsim-surrender-new">
+                    <a [routerLink]="['/nsa/testsim-surrender-new']">
                         <button class="btn btn-transparent p-0" type="button" aria-haspopup="true">
                             <i class="icon-plus dashboard-box-icon-custom"></i>
                         </button>
                     </a>
                 </div>
-                <div><a href="/sscm/#/nsa/testsim-action-list-surrender?t=total">Total: {{counters.total_simSurrenderCount}}</a></div>
+                <div><a [routerLink]="['/nsa/testsim-action-list-surrender']" [queryParams]="{t: 'total'}">Total: {{counters.total_simSurrenderCount}}</a></div>
                 <table class="dashboard-box-table-custom">
                     <tr>
                         <td style="width:33% !important">
-                                <div><a href="/sscm/#/nsa/testsim-action-list-surrender?t=approved">Approved: {{counters.total_simSurrenderApprovedCount}}</a></div>
+                                <div><a [routerLink]="['/nsa/testsim-action-list-surrender']" [queryParams]="{t: 'approved'}">Approved: {{counters.total_simSurrenderApprovedCount}}</a></div>
                         </td>
                     </tr><tr>
                         <td style="width:33% !important">
-                            <div><a href="/sscm/#/nsa/testsim-action-list-surrender?t=rejected">Rejected: {{counters.total_simSurrenderRejectedCount}}</a></div>
+                            <div><a [routerLink]="['/nsa/testsim-action-list-surrender']" [queryParams]="{t: 'rejected'}">Rejected: {{counters.total_simSurrenderRejectedCount}}</a></div>
                         </td>
                     </tr><tr>                        
                         <td style="width:33% !important">
-                            <div><a href="/sscm/#/nsa/testsim-action-list-surrender?t=pending">Pending: {{counters.total_simSurrenderPendingCount}}</a></div>
+                            <div><a [routerLink]="['/nsa/testsim-action-list-surrender']" [queryParams]="{t: 'pending'}">Pending: {{counters.total_simSurrenderPendingCount}}</a></div>
                         </td>
                     </tr>
                 </table>
@@ -304,25 +309,25 @@
             </div>
             <div class="card-body pb-0">
                 <div class="btn-group float-right" >
-                    <a href="/sscm/#/nsa/testsim-lostdamaged-new">
+                    <a [routerLink]="['/nsa/testsim-lostdamaged-new']">
                         <button class="btn btn-transparent p-0" type="button" aria-haspopup="true">
                             <i class="icon-plus dashboard-box-icon-custom"></i>
                         </button>
                     </a>
                 </div>
-                <div><a href="/sscm/#/nsa/testsim-action-list-lost?t=total">Total: {{counters.total_lostCount}}</a></div>
+                <div><a [routerLink]="['/nsa/testsim-action-list-lost']" [queryParams]="{t: 'total'}">Total: {{counters.total_lostCount}}</a></div>
                 <table class="dashboard-box-table-custom">
                     <tr>
                         <td style="width:33% !important">
-                                <div><a href="/sscm/#/nsa/testsim-action-list-lost?t=approved">Approved: {{counters.total_lostApprovedCount}}</a></div>
+                                <div><a [routerLink]="['/nsa/testsim-action-list-lost']" [queryParams]="{t: 'approved'}">Approved: {{counters.total_lostApprovedCount}}</a></div>
                         </td>
                     </tr><tr>
                         <td style="width:33% !important">
-                            <div><a href="/sscm/#/nsa/testsim-action-list-lost?t=rejected">Rejected: {{counters.total_lostRejectedCount}}</a></div>
+                            <div><a [routerLink]="['/nsa/testsim-action-list-lost']" [queryParams]="{t: 'rejected'}">Rejected: {{counters.total_lostRejectedCount}}</a></div>
                         </td>
                     </tr><tr>                        
                         <td style="width:33% !important">
-                            <div><a href="/sscm/#/nsa/testsim-action-list-lost?t=pending">Pending: {{counters.total_lostPendingCount}}</a></div>
+                            <div><a [routerLink]="['/nsa/testsim-action-list-lost']" [queryParams]="{t: 'pending'}">Pending: {{counters.total_lostPendingCount}}</a></div>
                         </td>
                     </tr>
                 </table>
@@ -336,25 +341,25 @@
             </div>
             <div class="card-body pb-0">
                 <div class="btn-group float-right" >
-                    <a href="/sscm/#/nsa/testsim-lostdamaged-new">
+                    <a [routerLink]="['/nsa/testsim-lostdamaged-new']">
                         <button class="btn btn-transparent p-0" type="button" aria-haspopup="true">
                             <i class="icon-plus dashboard-box-icon-custom"></i>
                         </button>
                     </a>
                 </div>
-                <div><a href="/sscm/#/nsa/testsim-action-list-damaged?t=total">Total: {{counters.total_damagedCount}}</a></div>
+                <div><a [routerLink]="['/nsa/testsim-action-list-damaged']" [queryParams]="{t: 'total'}">Total: {{counters.total_damagedCount}}</a></div>
                 <table class="dashboard-box-table-custom">
                     <tr>
                         <td style="width:33% !important">
-                                <div><a href="/sscm/#/nsa/testsim-action-list-damaged?t=approved">Approved: {{counters.total_damagedApprovedCount}}</a></div>
+                                <div><a [routerLink]="['/nsa/testsim-action-list-damaged']" [queryParams]="{t: 'approved'}">Approved: {{counters.total_damagedApprovedCount}}</a></div>
                         </td>
                     </tr><tr>
                         <td style="width:33% !important">
-                            <div><a href="/sscm/#/nsa/testsim-action-list-damaged?t=rejected">Rejected: {{counters.total_damagedRejectedCount}}</a></div>
+                            <div><a [routerLink]="['/nsa/testsim-action-list-damaged']" [queryParams]="{t: 'rejected'}">Rejected: {{counters.total_damagedRejectedCount}}</a></div>
                         </td>
                     </tr><tr>                        
                         <td style="width:33% !important">
-                            <div><a href="/sscm/#/nsa/testsim-action-list-damaged?t=pending">Pending: {{counters.total_damagedPendingCount}}</a></div>
+                            <div><a [routerLink]="['/nsa/testsim-action-list-damaged']" [queryParams]="{t: 'pending'}">Pending: {{counters.total_damagedPendingCount}}</a></div>
                         </td>
                     </tr>
                 </table>
@@ -368,25 +373,25 @@
             </div>
             <div class="card-body pb-0">
                 <div class="btn-group float-right" >
-                    <a href="/sscm/#/nsa/testsim-transfer-new">
+                    <a [routerLink]="['/nsa/testsim-transfer-new']">
                         <button class="btn btn-transparent p-0" type="button" aria-haspopup="true">
                             <i class="icon-plus dashboard-box-icon-custom"></i>
                         </button>
                     </a>
                 </div>
-                <div><a href="/sscm/#/nsa/testsim-action-list-transfer?t=total">Total: {{counters.total_simTransferCount}}</a></div>
+                <div><a [routerLink]="['/nsa/testsim-action-list-transfer']" [queryParams]="{t: 'total'}">Total: {{counters.total_simTransferCount}}</a></div>
                 <table class="dashboard-box-table-custom">
                     <tr>
                         <td style="width:33% !important">
-                                <div><a href="/sscm/#/nsa/testsim-action-list-transfer?t=approved">Approved: {{counters.total_simTransferApprovedCount}}</a></div>
+                                <div><a [routerLink]="['/nsa/testsim-action-list-transfer']" [queryParams]="{t: 'approved'}">Approved: {{counters.total_simTransferApprovedCount}}</a></div>
                         </td>
                     </tr><tr>
                         <td style="width:33% !important">
-                            <div><a href="/sscm/#/nsa/testsim-action-list-transfer?t=rejected">Rejected: {{counters.total_simTransferRejectedCount}}</a></div>
+                            <div><a [routerLink]="['/nsa/testsim-action-list-transfer']" [queryParams]="{t: 'rejected'}">Rejected: {{counters.total_simTransferRejectedCount}}</a></div>
                         </td>
                     </tr><tr>                        
                         <td style="width:33% !important">
-                            <div><a href="/sscm/#/nsa/testsim-action-list-transfer?t=pending">Pending: {{counters.total_simTransferPendingCount}}</a></div>
+                            <div><a [routerLink]="['/nsa/testsim-action-list-transfer']" [queryParams]="{t: 'pending'}">Pending: {{counters.total_simTransferPendingCount}}</a></div>
                         </td>
                     </tr>
                 </table>

@@ -8,7 +8,7 @@ import {
 import { HttpClient } from '@angular/common/http';
 import { WorkflowsService } from './../services/workflows.service';
 import { AppGlobals } from './../../../app.global';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from '../../../../environments/environment.prod';
 
 import { LoginService } from '../../pages/LoginService';
@@ -75,7 +75,7 @@ export class TestSimActionListDamagedComponent implements OnInit {
     }
   }
 
-  constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {
+  constructor(private router: Router,private loginService: LoginService,private activatedRoute: ActivatedRoute,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {
 
     this.selectedIds = "";
     this.isLoading = false;
@@ -205,9 +205,14 @@ export class TestSimActionListDamagedComponent implements OnInit {
     this.isLoading = true;
     this.selectedIds = "";
 
-    var url = window.location.href;
-    var urlparts = url.split("?t=");
-    var markerFromPrevPage = urlparts[1];
+    // var url = window.location.href;
+    //var urlparts = url.split("?t=");
+    //var markerFromPrevPage = urlparts[1];
+    //console.log("markerFromPrevPage "+markerFromPrevPage);
+
+    var markerFromPrevPage = this.activatedRoute.snapshot.queryParamMap.get("t");
+
+    //console.log("markerFromPrevPage "+markerFromPrevPage);
     if(markerFromPrevPage != null && markerFromPrevPage != undefined && markerFromPrevPage != ""){
       if(markerFromPrevPage == "total") this.approvalFilterMarker = this._global.simActionListPage_totalMarker;
       if(markerFromPrevPage == "approved") this.approvalFilterMarker = this._global.simActionListPage_approvedMarker;

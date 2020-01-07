@@ -43,8 +43,8 @@ export class LoginService {
 
 	ValidateUser(username: string, password: string) : any {
 		var isValidGpUser;
-		var userNameFromEmail = null;
-		var indexOfAt = username.indexOf('@')
+		//var userNameFromEmail = null;
+		//var indexOfAt = username.indexOf('@')
 		/*if(indexOfAt!= -1){
 			userNameFromEmail = username.substring(0,indexOfAt -1);
 		}else{
@@ -54,9 +54,9 @@ export class LoginService {
 		 });
 		 return isValidGpUser;
 		}*/
-		console.log(" isValidGpUser: "+isValidGpUser," indexOfAt: "+indexOfAt," userNameFromEmail "+userNameFromEmail, );
+		
 		return this.http.post<LoggedInResponse>(this.serverUrl + 'login', {
-			userId: userNameFromEmail == null? username: userNameFromEmail,
+			userId: username,
 			password: password
 		});
 	}
@@ -100,8 +100,10 @@ export class LoginService {
 		this.router.navigate(['pages/login']);
 	}
 
-	LoadMenu(): any {
-		return this.http.post(this.serverUrl + 'LoadFullMmenu',{});
+	LoadMenu(usersGroupId: number): any {
+		return this.http.post(this.serverUrl + 'LoadFullMmenu',{
+			userGroupID: usersGroupId
+		});
 	}
 
 

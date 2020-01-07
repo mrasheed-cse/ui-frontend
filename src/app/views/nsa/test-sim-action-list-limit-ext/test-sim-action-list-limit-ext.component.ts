@@ -8,7 +8,7 @@ import {
 import { HttpClient } from '@angular/common/http';
 import { WorkflowsService } from './../services/workflows.service';
 import { AppGlobals } from './../../../app.global';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from '../../../../environments/environment.prod';
 
 import { LoginService } from '../../pages/LoginService';
@@ -75,7 +75,7 @@ export class TestSimActionListLimitExtComponent implements OnInit {
     }
   }
 
-  constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {
+  constructor(private router: Router,private loginService: LoginService,private activatedRoute: ActivatedRoute, private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {
 
     this.selectedIds = "";
     this.isLoading = false;
@@ -141,6 +141,7 @@ export class TestSimActionListLimitExtComponent implements OnInit {
         data => {
           if(data !=null){            
             console.log(data);
+            console.log(data.length);
             this.isDataFound = true;
             this.rowData = data;
             if(data.length > 0) this.totalPages = +(data[0]['totalPages']);
@@ -207,6 +208,12 @@ export class TestSimActionListLimitExtComponent implements OnInit {
     var url = window.location.href;
     var urlparts = url.split("?t=");
     var markerFromPrevPage = urlparts[1];
+    
+    var markerFromPrevPage = this.activatedRoute.snapshot.queryParamMap.get("t");
+    
+                             
+    console.log("t = "+markerFromPrevPage);
+
     if(markerFromPrevPage != null && markerFromPrevPage != undefined && markerFromPrevPage != ""){
       if(markerFromPrevPage == "total") this.approvalFilterMarker = this._global.simActionListPage_totalMarker;
       if(markerFromPrevPage == "approved") this.approvalFilterMarker = this._global.simActionListPage_approvedMarker;
@@ -214,6 +221,10 @@ export class TestSimActionListLimitExtComponent implements OnInit {
       if(markerFromPrevPage == "rejected") this.approvalFilterMarker = this._global.simActionListPage_rejectedMarker;                
     }
   }
+
+
+  
+
   
   onBtExport() {
     var params = {};

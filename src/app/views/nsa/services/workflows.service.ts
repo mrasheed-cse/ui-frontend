@@ -110,7 +110,7 @@ export class WorkflowsService {
 	
 	SearchWorkRequest(wrBriefName: string,startDate: string,endDate: string,status: string) : any {	
   
-		console.log("In SearchWorkRequest() for wrBriefName "+ wrBriefName);	
+		console.log("In SearchWorkRequest() for wrBriefName "+ wrBriefName +"at "+this.serverUrl + 'search/single');	
 		
 	
 	
@@ -311,6 +311,8 @@ export class WorkflowsService {
 	}
 
 	loadSimActionListWithSearch(user_id: string, defWorkRequestId: Number, approvalStatus: Number, offset: Number, msisdnForSearch: String, rqnNoForSearch: String, simStatusForSearch: Number) : any {
+		console.log("In loadSimActionListWithSearch(user_id: string, defWorkRequestId: Number, approvalStatus: Number, offset: Number, msisdnForSearch: String, rqnNoForSearch: String, simStatusForSearch: Number)");
+		console.log("user_id: "+user_id+", defWorkRequestId: "+defWorkRequestId+", approvalStatus: "+approvalStatus+", offset: "+offset+", msisdnForSearch: "+msisdnForSearch+", rqnNoForSearch: "+rqnNoForSearch+", simStatusForSearch:"+simStatusForSearch);
 		return this.http.post(this.serverUrl + 'workflow/simactionlist', {
 			createdBy: user_id,
 			requisitionNo: defWorkRequestId,
