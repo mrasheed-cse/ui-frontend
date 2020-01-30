@@ -72,6 +72,7 @@ export class TestsimTransferHodComponent implements OnInit {
           }
           else{
             this.isDataFound = false;
+            this.isLoading = false;
           }
         },
       err => console.error(err),
@@ -79,6 +80,7 @@ export class TestsimTransferHodComponent implements OnInit {
       );
     //Get Today Date
     this.todayDate = new Date();
+    this.isLoading = false;
   }
 
 

@@ -138,6 +138,7 @@ export class TestsimTransferNewComponent implements OnInit {
           }
           else{
             this.isDataFound = false;
+            this.isLoading = false;
           }
         },
       err => console.error(err),
@@ -145,6 +146,7 @@ export class TestsimTransferNewComponent implements OnInit {
       );
     //Get Today Date
     this.todayDate = new Date();
+    this.isLoading = false;    
   }
 
   search(){
@@ -180,6 +182,7 @@ export class TestsimTransferNewComponent implements OnInit {
       this.offset = this.offset + this._global.defaultPageSize;
       this.currPage++;
       this.loadPendingList();
+      this.isLoading = false;
     }
   }
 
@@ -193,7 +196,7 @@ export class TestsimTransferNewComponent implements OnInit {
     this.searchOptions_simStatus = "1";
     this.searchOptions_msisdn = "";
     this.searchOptions_rqnNo = "";
-    
+    this.isLoading = false;
 
   }
 
@@ -246,7 +249,7 @@ export class TestsimTransferNewComponent implements OnInit {
     },
     () => console.log('Done loading PendingTask List')
     );
-
+    this.isLoading = false;
     
   }
 

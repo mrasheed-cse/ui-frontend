@@ -66,6 +66,7 @@ export class TestsimTransferSsmComponent implements OnInit {
           }
           else{
             this.isDataFound = false;
+            this.isLoading = false;
           }
         },
       err => console.error(err),
@@ -73,6 +74,7 @@ export class TestsimTransferSsmComponent implements OnInit {
       );
     //Get Today Date
     this.todayDate = new Date();
+    this.isLoading = false;
   }
 
   initTasks(){
@@ -85,6 +87,8 @@ export class TestsimTransferSsmComponent implements OnInit {
     setTimeout(()=>{    //<<<---    using ()=> syntax
       this.loadPendingList();
     }, 2000);
+
+    this.isLoading = false;
   }
 
   ngOnInit () {

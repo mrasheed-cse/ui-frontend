@@ -80,6 +80,7 @@ export class TestsimTransferComponent implements OnInit {
           }
           else{
             this.isDataFound = false;
+            this.isLoading = false;
           }
         },
       err => console.error(err),
@@ -87,6 +88,7 @@ export class TestsimTransferComponent implements OnInit {
       );
     //Get Today Date
     this.todayDate = new Date();
+    this.isLoading = false;
   }
 
 
@@ -121,7 +123,7 @@ export class TestsimTransferComponent implements OnInit {
         });
 
     }, 2000);
-
+    this.isLoading = false;
   }
 
 
@@ -219,7 +221,7 @@ export class TestsimTransferComponent implements OnInit {
     err => console.error(err),
     () => console.log('Done loading PendingTask List')
     );
-
+    this.isLoading = false;
     ////////////// /////////////////////// /////////////
   }
 

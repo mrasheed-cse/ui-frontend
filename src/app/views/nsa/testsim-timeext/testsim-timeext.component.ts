@@ -74,6 +74,7 @@ export class TestsimTimeextComponent implements OnInit {
           }
           else{
             this.isDataFound = false;
+            this.isLoading = false;
           }
         },
       err => console.error(err),
@@ -81,6 +82,7 @@ export class TestsimTimeextComponent implements OnInit {
       );
     //Get Today Date
     this.todayDate = new Date();
+    this.isLoading = false;
   }
 
 
@@ -185,7 +187,7 @@ export class TestsimTimeextComponent implements OnInit {
     err => console.error(err),
     () => console.log('Done loading PendingTask List')
     );
-
+    this.isLoading = false;
     ////////////// /////////////////////// /////////////
   }
 

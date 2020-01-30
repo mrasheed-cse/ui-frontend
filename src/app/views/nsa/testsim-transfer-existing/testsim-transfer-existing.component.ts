@@ -116,6 +116,7 @@ export class TestsimTransferExistingComponent implements OnInit {
           }
           else{
             this.isDataFound = false;
+            this.isLoading = false;
           }
         },
       err => console.error(err),
@@ -123,6 +124,7 @@ export class TestsimTransferExistingComponent implements OnInit {
       );
     //Get Today Date
     this.todayDate = new Date();
+    this.isLoading = false;s
   }
 
   initTasks(){
@@ -187,7 +189,7 @@ export class TestsimTransferExistingComponent implements OnInit {
            
       }        
     );
-
+    this.isLoading = false;
   }
 
 
