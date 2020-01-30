@@ -147,6 +147,7 @@ export class ActivationPendingregistrationsComponent implements OnInit {
           }
           else{
             this.isDataFound = false;
+            this.isLoading = false;
           }
         },
       err => console.error(err),

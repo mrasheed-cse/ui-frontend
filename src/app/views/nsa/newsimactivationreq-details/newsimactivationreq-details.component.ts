@@ -103,6 +103,7 @@ export class NewsimactivationreqDetailsComponent implements OnInit {
         }
       },
       err  =>  {	
+        this.isLoading = false;
            
       }        
     );
@@ -121,9 +122,10 @@ export class NewsimactivationreqDetailsComponent implements OnInit {
           this.requisition['requisitionDetails'] = res.requisitionDetails;
           this.getMsisdnDetails();
         }
+        this.isLoading = false;
       },
       err  =>  {	
-           
+        this.isLoading = false;
       }        
     );
 

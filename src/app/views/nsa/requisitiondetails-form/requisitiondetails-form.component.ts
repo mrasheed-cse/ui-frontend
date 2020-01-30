@@ -51,6 +51,7 @@ export class RequisitiondetailsFormComponent implements OnInit {
           this.employeeDetails = res.employeeDetails;
           this.requisitionDetails = res.requisitionDetails;
         }
+        
           },
           err  =>  {
 

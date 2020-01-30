@@ -149,6 +149,7 @@ export class TestSimActionListLimitExtComponent implements OnInit {
           }
           else{
             this.isDataFound = false;
+            this.isLoading = false;
           }
         },
       err => console.error(err),
@@ -220,6 +221,8 @@ export class TestSimActionListLimitExtComponent implements OnInit {
       if(markerFromPrevPage == "pending") this.approvalFilterMarker = this._global.simActionListPage_pendingMarker;
       if(markerFromPrevPage == "rejected") this.approvalFilterMarker = this._global.simActionListPage_rejectedMarker;                
     }
+
+    this.isLoading = false;
   }
 
 

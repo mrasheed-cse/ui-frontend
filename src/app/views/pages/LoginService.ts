@@ -101,6 +101,7 @@ export class LoginService {
 	}
 
 	LoadMenu(usersGroupId: number): any {
+		console.log("Fetching menu for userGroupID: "+usersGroupId+  " from the API : "+this.serverUrl + 'LoadFullMmenu' );
 		return this.http.post(this.serverUrl + 'LoadFullMmenu',{
 			userGroupID: usersGroupId
 		});

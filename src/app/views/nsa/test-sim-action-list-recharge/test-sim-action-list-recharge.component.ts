@@ -148,13 +148,16 @@ export class TestSimActionListRechargeComponent implements OnInit {
           }
           else{
             this.isDataFound = false;
+            this.isLoading = false;
           }
         },
       err => console.error(err),
       () => console.log('Done loading PendingTask List')
+      this.isLoading = false;
       );
     //Get Today Date
     this.todayDate = new Date();
+    this.isLoading = false;
   }
 
   search(){
@@ -219,6 +222,7 @@ export class TestSimActionListRechargeComponent implements OnInit {
       if(markerFromPrevPage == "pending") this.approvalFilterMarker = this._global.simActionListPage_pendingMarker;
       if(markerFromPrevPage == "rejected") this.approvalFilterMarker = this._global.simActionListPage_rejectedMarker;
     }
+    this.isLoading = false;
   }
 
   onBtExport() {

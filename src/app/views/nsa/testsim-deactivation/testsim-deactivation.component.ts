@@ -136,6 +136,7 @@ export class TestsimDeactivationComponent implements OnInit {
           }
           else{
             this.isDataFound = false;
+            this.isLoading = false;
           }
         },
       err => console.error(err),
@@ -143,6 +144,7 @@ export class TestsimDeactivationComponent implements OnInit {
       );
     //Get Today Date
     this.todayDate = new Date();
+    this.isLoading = false;
   }
 
   search(){
@@ -178,6 +180,7 @@ export class TestsimDeactivationComponent implements OnInit {
       this.offset = this.offset + this._global.defaultPageSize;
       this.currPage++;
       this.loadPendingList();
+      this.isLoading = false;
     }
   }
 

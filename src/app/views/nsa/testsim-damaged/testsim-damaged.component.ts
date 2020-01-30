@@ -74,6 +74,7 @@ export class TestsimDamagedComponent implements OnInit {
           }
           else{
             this.isDataFound = false;
+            this.isLoading = false;
           }
         },
       err => console.error(err),
@@ -81,6 +82,7 @@ export class TestsimDamagedComponent implements OnInit {
       );
     //Get Today Date
     this.todayDate = new Date();
+    this.isLoading = false;
   }
 
 
@@ -95,7 +97,7 @@ export class TestsimDamagedComponent implements OnInit {
     setTimeout(()=>{    //<<<---    using ()=> syntax
       this.loadPendingList();
     }, 2000);
-
+    this.isLoading = false;
   }
 
   submit(){
@@ -170,7 +172,7 @@ export class TestsimDamagedComponent implements OnInit {
     err => console.error(err),
     () => console.log('Done loading PendingTask List')
     );
-
+    this.isLoading = false;
     ////////////// /////////////////////// /////////////
   }
 

@@ -119,9 +119,10 @@ export class ActivationPendingapprovalsComponent implements OnInit {
           this.requisition['requisitionDetails'] = res.requisitionDetails;
           this.getMsisdnDetails();
         }
+        this.isLoading = false;      
       },
       err  =>  {	
-           
+        this.isLoading = false;
       }        
     );
 

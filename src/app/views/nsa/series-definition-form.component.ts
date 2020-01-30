@@ -245,7 +245,8 @@ export class SeriesDefinitionFormComponent implements OnInit {
 
 ChaeckDefinitionValidity (startMSISDNs, endMSISDNs) {	  		
 	if ((Number(endMSISDNs)-Number(startMSISDNs))>=0){
-	console.log("Start for ChaeckDefinitionValidity");	
+	console.log("Start for ChaeckDefinitionValidity");
+	this.isLoading = true;	
 	this.definitionDataService.CheckValidityDefinitionWorkRequest(startMSISDNs,endMSISDNs).subscribe(
 		data => { 
 				console.log(data);
@@ -263,12 +264,13 @@ ChaeckDefinitionValidity (startMSISDNs, endMSISDNs) {
 					this.infoAlertMessage = "All or some numbers from "+startMSISDNs +" and "+ endMSISDNs +" already have Definition Work Request";
 				
 				}
-			
+				this.isLoading = false;
 			
 		},
 		err => {
 			console.error(err);
 			 this.infoAlertShow = true;			 
+			 this.isLoading = false;
 			 this.infoAlertMessage = "All or some numbers from "+startMSISDNs +" and "+ endMSISDNs +" already have Definition Work Request";
 				
 		},

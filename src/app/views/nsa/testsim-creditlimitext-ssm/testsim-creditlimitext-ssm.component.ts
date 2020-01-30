@@ -84,6 +84,7 @@ export class TestsimCreditlimitextSsmComponent implements OnInit {
                 }
                 else{
                   this.isDataFound = false;
+                  this.isLoading = false;
                 }
               },
             err => console.error(err),
@@ -103,6 +104,7 @@ export class TestsimCreditlimitextSsmComponent implements OnInit {
       );
     //Get Today Date
     this.todayDate = new Date();
+    this.isLoading = false;
   }
 
   initTasks(){
@@ -115,6 +117,7 @@ export class TestsimCreditlimitextSsmComponent implements OnInit {
     setTimeout(()=>{    //<<<---    using ()=> syntax
       this.loadPendingList();
     }, 2000);
+    this.isLoading = false;
   }
 
   ngOnInit () {
@@ -150,10 +153,10 @@ export class TestsimCreditlimitextSsmComponent implements OnInit {
         }
       },
       err  =>  {
-
+        this.isLoading = false;
       }
     );
-
+    this.isLoading = false;
   }
 
   approveAll(){
@@ -213,10 +216,10 @@ export class TestsimCreditlimitextSsmComponent implements OnInit {
         }
       },
       err  =>  {
-
+        this.isLoading = false;
       }
     );
-
+    this.isLoading = false;
   }
 
   cancel(){

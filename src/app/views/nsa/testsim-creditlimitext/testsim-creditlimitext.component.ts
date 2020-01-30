@@ -95,7 +95,7 @@ export class TestsimCreditlimitextComponent implements OnInit {
     setTimeout(()=>{    //<<<---    using ()=> syntax
       this.loadPendingList();
     }, 2000);
-
+    this.isLoading = false;
   }
 
   submit(){
@@ -161,6 +161,7 @@ export class TestsimCreditlimitextComponent implements OnInit {
 
         console.log("sim action submitted");
         console.log(data);
+        this.isLoading = false;
       },
     err => console.error(err),
     () => console.log('Done loading PendingTask List')

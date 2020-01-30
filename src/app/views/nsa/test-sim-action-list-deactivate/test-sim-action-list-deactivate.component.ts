@@ -147,6 +147,7 @@ export class TestSimActionListDeactivateComponent implements OnInit {
           }
           else{
             this.isDataFound = false;
+            this.isLoading = false;
           }
         },
       err => console.error(err),
@@ -218,6 +219,7 @@ export class TestSimActionListDeactivateComponent implements OnInit {
       if(markerFromPrevPage == "pending") this.approvalFilterMarker = this._global.simActionListPage_pendingMarker;
       if(markerFromPrevPage == "rejected") this.approvalFilterMarker = this._global.simActionListPage_rejectedMarker;
     }
+    this.isLoading = false;
   }
 
   onBtExport() {

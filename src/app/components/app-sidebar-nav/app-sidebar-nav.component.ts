@@ -41,11 +41,11 @@ export class AppSidebarNavComponent {
   if (this.currentLoggedInUser) {		
 		this.groupID = this.currentLoggedInUser.groupID;
     console.log('Current user groupID : ' + this.groupID);
-  
+    
   this.loginService.LoadMenu(this.groupID).subscribe(
     data => {
+      
       if(data !=null){
-        //console.log(data);
         this.navigation = data;
       }
       else{

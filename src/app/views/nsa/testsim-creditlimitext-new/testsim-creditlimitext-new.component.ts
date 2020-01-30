@@ -138,6 +138,7 @@ export class TestsimCreditlimitextNewComponent implements OnInit {
           }
           else{
             this.isDataFound = false;
+            this.isLoading = false;
           }
         },
       err => console.error(err),
@@ -145,6 +146,7 @@ export class TestsimCreditlimitextNewComponent implements OnInit {
       );
     //Get Today Date
     this.todayDate = new Date();
+    this.isLoading = false;
   }
 
   search(){
@@ -193,6 +195,7 @@ export class TestsimCreditlimitextNewComponent implements OnInit {
     this.searchOptions_simStatus = "1";
     this.searchOptions_msisdn = "";
     this.searchOptions_rqnNo = "";
+    this.isLoading = false;
   }
 
 
