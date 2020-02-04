@@ -39,7 +39,7 @@ export class TestSimRequisitionComponent implements OnInit {
   public successAlertMessage:string = "";
 
   requisitionReportList: IsmsReportResponse;
-  
+
   mySearchForm: FormGroup;
   reqname: FormControl;
   msisdnStatus: FormControl;
@@ -69,7 +69,7 @@ export class TestSimRequisitionComponent implements OnInit {
 
   constructor(private route:ActivatedRoute, private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private ismsreportService: IsmsreportService, private workFlowsService: WorkflowsService) {
 
-    
+
     this.isLoading = false;
     let isValid = true;
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
@@ -86,7 +86,7 @@ export class TestSimRequisitionComponent implements OnInit {
     this.columnTypes = _global.agGrid_columnTypes;
 
     this.columnDefs = [
-        
+
         {headerName: 'RQN #', field: 'requisitionNo', sortable: true, filter: true, width: 200 },
         {headerName: 'Product', field: 'product', sortable: true, filter: true,  width: 160 },
         {headerName: 'MSISDN', field: 'msisdn', sortable: true, filter: true,  width: 160 },
@@ -94,19 +94,19 @@ export class TestSimRequisitionComponent implements OnInit {
         {headerName: 'RQN Type', field: 'requisitionType', sortable: true, filter: true, width: 200 },
         {headerName: 'Requester Name', field: 'requesterName', sortable: true, filter: true,  width: 160 },
         {headerName: 'Requester Mobile', field: 'requesterMobile', sortable: true, filter: true, width: 200 },
-        {headerName: 'MSISDN Status', field: 'msisdnStatus', sortable: true, filter: true, width: 100 },        
+        {headerName: 'MSISDN Status', field: 'msisdnStatus', sortable: true, filter: true, width: 100 },
         {headerName: 'Start date', field: 'startDate', sortable: true, filter: true, width: 130, type: ["dateColumn", "nonEditableColumn"] },
         {headerName: 'End date', field: 'endDate', sortable: true, filter: true, width: 130, type: ["dateColumn", "nonEditableColumn"] },
-        
+
     ];
 
-    this.rowData = [];   
-    
-    
-    this.ismsreportService.TestSimActivatonReport("","","","","","",0).subscribe(
+    this.rowData = [];
+
+
+    this.ismsreportService.TestSimRequisitionReport("","","","","","",0, this.groupID).subscribe(
         data  =>  {
       console.log('response is : '+data);
-      
+
       if(data !=null){
         console.log(data);
         this.isDataFound = true;
@@ -116,14 +116,14 @@ export class TestSimRequisitionComponent implements OnInit {
       else{
         this.isDataFound = false;
       }
-      
+
         },
-        err  =>  {		  
-        console.log("err.status : "+err.status);		  
+        err  =>  {
+        console.log("err.status : "+err.status);
         this.dangerAlertShow = true;
       this.dangerAlertMessage = " .";
         }
-      
+
         );
         this.isLoading = false;
 
@@ -134,7 +134,7 @@ export class TestSimRequisitionComponent implements OnInit {
     this.createFormControls();
 	  this.createForm();
     this.isLoading = true;
-  
+
     setTimeout(()=>{    //<<<---    using ()=> syntax
 
       this.listMsisdnStatus = [
@@ -147,7 +147,7 @@ export class TestSimRequisitionComponent implements OnInit {
       ];
 
 
-      ///////////////////////////////////////////    
+      ///////////////////////////////////////////
       this.listUsers = [];
 
       this.workFlowsService.getUserList().subscribe(
@@ -161,7 +161,7 @@ export class TestSimRequisitionComponent implements OnInit {
 
 
       }, 2000);
-     
+
   }
 
   createFormControls() {
@@ -215,18 +215,18 @@ export class TestSimRequisitionComponent implements OnInit {
   };
 
   FormatTheDate(theDate:any):string {
-	
-    console.log("theDate : "+theDate);	
+
+    console.log("theDate : "+theDate);
       var date = new Date(theDate);
       var month = ("0" + (date.getMonth()+1)).slice(-2);
       var day  = ("0" + date.getDate()).slice(-2);
       var formattedDate=[date.getFullYear(),month,day].join("-");
     console.log("formattedDate : "+formattedDate);
     return formattedDate;
-    
+
   }
 
-  
+
 topFunction() {
 	document.body.scrollTop = 0; // For Safari
 	document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
@@ -243,24 +243,24 @@ getUserIdFromUserName(userName){
 
    // FORM SUBMISSION
    onSearchSubmit() {
-	 
+
     if (this.mySearchForm.valid) {
       console.log('Form Submitted!');
       console.log(this.mySearchForm.value);
       //return;
-  
+
      //this.topFunction();
      //this.isLoading = true;
       var simOwner_value_asId = 0;
       if(this.simOwner.value != null && this.simOwner.value != undefined && this.simOwner.value != ""){
         simOwner_value_asId = this.getUserIdFromUserName(this.simOwner.value);
       }
-        
-    this.ismsreportService.TestSimRequisitionReport(this.reqname.value,this.startMSISDN.value,this.endMSISDN.value, this.startDate.value,this.endDate.value,this.msisdnStatus.value,simOwner_value_asId).subscribe(
+
+    this.ismsreportService.TestSimRequisitionReport(this.reqname.value,this.startDate.value,this.endDate.value,this.msisdnStatus.value,this.startMSISDN.value,this.endMSISDN.value,simOwner_value_asId,this.groupID).subscribe(
       data  =>  {
       console.log('response is : '+data);
 
-       
+
       if(data !=null){
         console.log(data);
         this.isDataFound = true;
@@ -270,30 +270,30 @@ getUserIdFromUserName(userName){
       else{
         this.isDataFound = false;
       }
-      
+
         },
-        err  =>  {		  
-        console.log("err.status : "+err.status);		  
+        err  =>  {
+        console.log("err.status : "+err.status);
         this.dangerAlertShow = true;
       this.dangerAlertMessage = " .";
         }
-      
+
         );
         this.isLoading = false;
-    
+
       }
   }
 
 
 onGridReady(params) {
   this.gridApi = params.api;
-  this.gridColumnApi = params.columnApi; 
+  this.gridColumnApi = params.columnApi;
 }
 
   onBtExport() {
     var params = {};
     this.gridApi.exportDataAsCsv(params);
   }
-    
-  
+
+
 }

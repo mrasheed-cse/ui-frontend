@@ -41,7 +41,7 @@ export class TestSimActivationComponent implements OnInit {
   public successAlertMessage:string = "";
 
   activationReportList: IsmsReportResponse;
-  
+
   mySearchForm: FormGroup;
   reqname: FormControl;
   msisdnStatus: FormControl;
@@ -69,7 +69,7 @@ export class TestSimActivationComponent implements OnInit {
 
   constructor(private route:ActivatedRoute, private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private ismsreportService: IsmsreportService, private workFlowsService: WorkflowsService) {
 
-    
+
     this.isLoading = false;
     let isValid = true;
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
@@ -86,7 +86,7 @@ export class TestSimActivationComponent implements OnInit {
     this.columnTypes = _global.agGrid_columnTypes;
 
     this.columnDefs = [
-        
+
         {headerName: 'RQN #', field: 'requisitionNo', sortable: true, filter: true, width: 200 },
         {headerName: 'Product', field: 'product', sortable: true, filter: true,  width: 160 },
         {headerName: 'MSISDN', field: 'msisdn', sortable: true, filter: true,  width: 160 },
@@ -94,19 +94,19 @@ export class TestSimActivationComponent implements OnInit {
         {headerName: 'RQN Type', field: 'requisitionType', sortable: true, filter: true, width: 200 },
         {headerName: 'Requester Name', field: 'requesterName', sortable: true, filter: true,  width: 160 },
         {headerName: 'Requester Mobile', field: 'requesterMobile', sortable: true, filter: true, width: 200 },
-        {headerName: 'MSISDN Status', field: 'msisdnStatus', sortable: true, filter: true, width: 100 },        
+        {headerName: 'MSISDN Status', field: 'msisdnStatus', sortable: true, filter: true, width: 100 },
         {headerName: 'Start date', field: 'startDate', sortable: true, filter: true, width: 130, type: ["dateColumn", "nonEditableColumn"] },
         {headerName: 'End date', field: 'endDate', sortable: true, filter: true, width: 130, type: ["dateColumn", "nonEditableColumn"] },
-        
+
     ];
 
-    this.rowData = [];   
-    
-    
-    this.ismsreportService.TestSimActivatonReport("","","","","","",0).subscribe(
+    this.rowData = [];
+
+
+    this.ismsreportService.TestSimActivationReport("","","","","","",0, this.groupID).subscribe(
         data  =>  {
       console.log('response is : '+data);
-      
+
       if(data !=null){
         console.log(data);
         this.isDataFound = true;
@@ -116,14 +116,14 @@ export class TestSimActivationComponent implements OnInit {
       else{
         this.isDataFound = false;
       }
-      
+
         },
-        err  =>  {		  
-        console.log("err.status : "+err.status);		  
+        err  =>  {
+        console.log("err.status : "+err.status);
         this.dangerAlertShow = true;
       this.dangerAlertMessage = " .";
         }
-      
+
         );
         this.isLoading = false;
 
@@ -134,7 +134,7 @@ export class TestSimActivationComponent implements OnInit {
     this.createFormControls();
 	this.createForm();
   this.isLoading = true;
-  
+
   setTimeout(()=>{    //<<<---    using ()=> syntax
 
     this.listMsisdnStatus = [
@@ -155,7 +155,7 @@ export class TestSimActivationComponent implements OnInit {
         console.log("Something wrong here");
       });
     }, 2000);
-     
+
   }
 
   createFormControls() {
@@ -163,11 +163,11 @@ export class TestSimActivationComponent implements OnInit {
 		this.msisdnStatus = new FormControl('');
 		this.startDate = new FormControl('');
     this.endDate = new FormControl('');
-    this.startMSISDN = new FormControl('', [      
+    this.startMSISDN = new FormControl('', [
       Validators.minLength(11) ,
       Validators.maxLength(11)
     ]);
-    this.endMSISDN = new FormControl('', [      
+    this.endMSISDN = new FormControl('', [
       Validators.minLength(11) ,
       Validators.maxLength(11)
     ]);
@@ -217,17 +217,17 @@ export class TestSimActivationComponent implements OnInit {
   FormatTheDate(theDate:any):string {
   if(theDate.length==0)
     return "";
-    console.log("theDate : "+theDate);	
+    console.log("theDate : "+theDate);
       var date = new Date(theDate);
       var month = ("0" + (date.getMonth()+1)).slice(-2);
       var day  = ("0" + date.getDate()).slice(-2);
       var formattedDate=[date.getFullYear(),month,day].join("-");
     console.log("formattedDate : "+formattedDate);
     return formattedDate;
-    
+
   }
 
-  
+
 topFunction() {
 	document.body.scrollTop = 0; // For Safari
 	document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
@@ -235,7 +235,7 @@ topFunction() {
 
 onGridReady(params) {
   this.gridApi = params.api;
-  this.gridColumnApi = params.columnApi; 
+  this.gridColumnApi = params.columnApi;
 }
 
 
@@ -249,25 +249,25 @@ getUserIdFromUserName(userName){
 }
    // FORM SUBMISSION
    onSearchSubmit() {
-	 
+
     if (this.mySearchForm.valid) {
       console.log('Form Submitted!');
       console.log(this.mySearchForm.value);
-  
+
      //this.topFunction();
      //this.isLoading = true;
-    
+
      var simOwner_value_asId = 0;
      if(this.simOwner.value != null && this.simOwner.value != undefined && this.simOwner.value != ""){
        simOwner_value_asId = this.getUserIdFromUserName(this.simOwner.value);
      }
 
-    this.ismsreportService.TestSimActivatonReport(this.reqname.value,
+    this.ismsreportService.TestSimActivationReport(this.reqname.value,
       this.FormatTheDate(this.startDate.value),this.FormatTheDate(this.endDate.value),this.msisdnStatus.value,
-      this.startMSISDN.value,this.endMSISDN.value,simOwner_value_asId).subscribe(
+      this.startMSISDN.value,this.endMSISDN.value,simOwner_value_asId,this.groupID).subscribe(
         data  =>  {
       console.log('response is : '+data);
-      
+
       if(data !=null){
         console.log(data);
         this.isDataFound = true;
@@ -277,17 +277,17 @@ getUserIdFromUserName(userName){
       else{
         this.isDataFound = false;
       }
-      
+
         },
-        err  =>  {		  
-        console.log("err.status : "+err.status);		  
+        err  =>  {
+        console.log("err.status : "+err.status);
         this.dangerAlertShow = true;
       this.dangerAlertMessage = "Invalid inputs or An error occured while loading the report.";
         }
-      
+
         );
         this.isLoading = false;
-    
+
       }
   }
 
@@ -295,6 +295,6 @@ getUserIdFromUserName(userName){
     var params = {};
     this.gridApi.exportDataAsCsv(params);
   }
-  
-  
+
+
 }
