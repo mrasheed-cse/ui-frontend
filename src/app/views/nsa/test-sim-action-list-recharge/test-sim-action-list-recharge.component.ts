@@ -151,9 +151,11 @@ export class TestSimActionListRechargeComponent implements OnInit {
             this.isLoading = false;
           }
         },
-      err => console.error(err),
+      err => {
+        console.error(err);
+        this.isLoading = false;
+      },
       () => console.log('Done loading PendingTask List')
-      this.isLoading = false;
       );
     //Get Today Date
     this.todayDate = new Date();

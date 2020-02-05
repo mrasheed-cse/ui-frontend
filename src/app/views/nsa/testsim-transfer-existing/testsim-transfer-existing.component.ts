@@ -124,7 +124,7 @@ export class TestsimTransferExistingComponent implements OnInit {
       );
     //Get Today Date
     this.todayDate = new Date();
-    this.isLoading = false;s
+    this.isLoading = false;
   }
 
   initTasks(){
