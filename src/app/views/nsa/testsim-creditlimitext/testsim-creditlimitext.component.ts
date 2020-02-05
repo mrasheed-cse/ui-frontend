@@ -98,6 +98,17 @@ export class TestsimCreditlimitextComponent implements OnInit {
     this.isLoading = false;
   }
 
+  copyToAll(){
+    for(var i = 0; i < this.requisitionList.length; i++){
+
+      if(i == 0) continue;
+
+      this.requisitionList[i]['newCreditLimit'] = this.requisitionList[0]['newCreditLimit'];
+      this.requisitionList[i]['justification'] = this.requisitionList[0]['justification'];
+
+    }
+  }
+
   submit(){
 
     for(var i = 0; i < this.requisitionList.length; i++){

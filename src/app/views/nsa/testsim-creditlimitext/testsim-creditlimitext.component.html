@@ -20,8 +20,16 @@
               <th>RQN #</th>
               <th>SIM Status</th>
               <th>Assigned Credit Limit</th>
-              <th>New Credit Limit</th>
-              <th>Justification</th>                
+              <th>
+                New Credit Limit
+                <br />
+                <a class="copyToAllLink" (click)="copyToAll()">&lt;&lt; Copy to All &gt;&gt;</a>
+              </th>
+              <th>
+                Justification
+                <br />
+                <a class="copyToAllLink" (click)="copyToAll()">&lt;&lt; Copy to All &gt;&gt;</a>
+              </th>                
             </tr>
           </thead>
           <tbody *ngFor="let aTask of requisitionList;  index as i">
