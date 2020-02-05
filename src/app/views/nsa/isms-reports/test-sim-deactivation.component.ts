@@ -42,7 +42,7 @@ export class TestSimDeactivationComponent implements OnInit {
   public successAlertMessage:string = "";
 
   activationReportList: IsmsReportResponse;
-  
+
   mySearchForm: FormGroup;
   reqname: FormControl;
   msisdnStatus: FormControl;
@@ -59,7 +59,7 @@ export class TestSimDeactivationComponent implements OnInit {
   datepickerConfig: Partial<BsDatepickerConfig>;
   listMsisdnStatus: Array<any>;
   listUsers: Array<any>;
-  
+
   private columnDefs;
   private defaultColDef;
   private defaultColGroupDef;
@@ -70,7 +70,7 @@ export class TestSimDeactivationComponent implements OnInit {
 
   constructor(private route:ActivatedRoute, private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private ismsreportService: IsmsreportService, private workFlowsService: WorkflowsService) {
 
-    
+
     this.isLoading = false;
     let isValid = true;
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
@@ -87,7 +87,7 @@ export class TestSimDeactivationComponent implements OnInit {
     this.columnTypes = _global.agGrid_columnTypes;
 
     this.columnDefs = [
-        
+
         {headerName: 'RQN #', field: 'requisitionNo', sortable: true, filter: true, width: 150 },
         {headerName: 'Product', field: 'product', sortable: true, filter: true,  width: 100 },
         {headerName: 'MSISDN', field: 'msisdn', sortable: true, filter: true,  width: 100 },
@@ -95,18 +95,18 @@ export class TestSimDeactivationComponent implements OnInit {
         {headerName: 'RQN Type', field: 'requisitionType', sortable: true, filter: true, width: 130 },
         {headerName: 'Requester Name', field: 'requesterName', sortable: true, filter: true,  width: 200 },
         {headerName: 'Requester Mobile', field: 'requesterMobile', sortable: true, filter: true, width: 160 },
-        {headerName: 'Approval Status', field: 'msisdnStatus', sortable: true, filter: true, width: 150 },        
+        {headerName: 'Approval Status', field: 'msisdnStatus', sortable: true, filter: true, width: 150 },
         {headerName: 'Start date', field: 'startDate', sortable: true, filter: true, width: 150, type: ["dateColumn", "nonEditableColumn"] },
-        {headerName: 'End date', field: 'endDate', sortable: true, filter: true, width: 150, type: ["dateColumn", "nonEditableColumn"] }        
+        {headerName: 'End date', field: 'endDate', sortable: true, filter: true, width: 150, type: ["dateColumn", "nonEditableColumn"] }
     ];
 
-    this.rowData = [];   
-    
-    
-    this.ismsreportService.TestSimActitonReport("","","","","","",0,0,0,"Test SIM Deactivation").subscribe(
+    this.rowData = [];
+
+
+    this.ismsreportService.TestSimActionReport("","","","","","",0,0,0,"Test SIM Deactivation", this.groupID).subscribe(
         data  =>  {
       console.log('response is : '+data);
-      
+
       if(data !=null){
         console.log(data);
         this.isDataFound = true;
@@ -116,14 +116,14 @@ export class TestSimDeactivationComponent implements OnInit {
       else{
         this.isDataFound = false;
       }
-      
+
         },
-        err  =>  {		  
-        console.log("err.status : "+err.status);		  
+        err  =>  {
+        console.log("err.status : "+err.status);
         this.dangerAlertShow = true;
       this.dangerAlertMessage = " .";
         }
-      
+
         );
         this.isLoading = false;
 
@@ -134,7 +134,7 @@ export class TestSimDeactivationComponent implements OnInit {
     this.createFormControls();
 	this.createForm();
   this.isLoading = true;
-  
+
   setTimeout(()=>{    //<<<---    using ()=> syntax
 
     this.listMsisdnStatus = [
@@ -155,7 +155,7 @@ export class TestSimDeactivationComponent implements OnInit {
         console.log("Something wrong here");
       });
     }, 2000);
-     
+
   }
 
   createFormControls() {
@@ -163,11 +163,11 @@ export class TestSimDeactivationComponent implements OnInit {
 		this.msisdnStatus = new FormControl('');
 		this.startDate = new FormControl('');
     this.endDate = new FormControl('');
-    this.startMSISDN = new FormControl('', [      
+    this.startMSISDN = new FormControl('', [
       Validators.minLength(11) ,
       Validators.maxLength(11)
     ]);
-    this.endMSISDN = new FormControl('', [      
+    this.endMSISDN = new FormControl('', [
       Validators.minLength(11) ,
       Validators.maxLength(11)
     ]);
@@ -217,17 +217,17 @@ export class TestSimDeactivationComponent implements OnInit {
   FormatTheDate(theDate:any):string {
   if(theDate.length==0)
     return "";
-    console.log("theDate : "+theDate);	
+    console.log("theDate : "+theDate);
       var date = new Date(theDate);
       var month = ("0" + (date.getMonth()+1)).slice(-2);
       var day  = ("0" + date.getDate()).slice(-2);
       var formattedDate=[date.getFullYear(),month,day].join("-");
     console.log("formattedDate : "+formattedDate);
     return formattedDate;
-    
+
   }
 
-  
+
 topFunction() {
 	document.body.scrollTop = 0; // For Safari
 	document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
@@ -235,7 +235,7 @@ topFunction() {
 
 onGridReady(params) {
   this.gridApi = params.api;
-  this.gridColumnApi = params.columnApi; 
+  this.gridColumnApi = params.columnApi;
 }
 
 getUserIdFromUserName(userName){
@@ -248,25 +248,25 @@ getUserIdFromUserName(userName){
 }
    // FORM SUBMISSION
    onSearchSubmit() {
-	 
+
     if (this.mySearchForm.valid) {
       console.log('Form Submitted!');
       console.log(this.mySearchForm.value);
-  
+
      //this.topFunction();
      //this.isLoading = true;
-    
+
      var simOwner_value_asId = 0;
      if(this.simOwner.value != null && this.simOwner.value != undefined && this.simOwner.value != ""){
        simOwner_value_asId = this.getUserIdFromUserName(this.simOwner.value);
      }
 
-    this.ismsreportService.TestSimActitonReport(this.reqname.value,
+    this.ismsreportService.TestSimActionReport(this.reqname.value,
       this.FormatTheDate(this.startDate.value),this.FormatTheDate(this.endDate.value),this.msisdnStatus.value,
-      this.startMSISDN.value,this.endMSISDN.value,simOwner_value_asId,0,0,"Test SIM Deactivation").subscribe(
+      this.startMSISDN.value,this.endMSISDN.value,simOwner_value_asId,0,0,"Test SIM Deactivation",this.groupID).subscribe(
         data  =>  {
       console.log('response is : '+data);
-      
+
       if(data !=null){
         console.log(data);
         this.isDataFound = true;
@@ -276,17 +276,17 @@ getUserIdFromUserName(userName){
       else{
         this.isDataFound = false;
       }
-      
+
         },
-        err  =>  {		  
-        console.log("err.status : "+err.status);		  
+        err  =>  {
+        console.log("err.status : "+err.status);
         this.dangerAlertShow = true;
       this.dangerAlertMessage = "Invalid inputs or An error occured while loading the report.";
         }
-      
+
         );
         this.isLoading = false;
-    
+
       }
   }
   onBtExport() {
