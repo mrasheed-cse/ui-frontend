@@ -208,7 +208,7 @@ export class SeriesprovisionformComponent implements OnInit {
     .subscribe(selectedMSISDN => {        		
 		const endMSISDNs = this.mySeriesProvisionForm.get('endMSISDN').value;
 		
-		if (selectedMSISDN!=null){			
+		if (selectedMSISDN!=null && selectedMSISDN.length==11 && endMSISDNs.length ==11){			
 			this.totalQuantity = 1+ Number(endMSISDNs) - Number(selectedMSISDN);
 			this.mySeriesProvisionForm.get('quantity').setValue(this.totalQuantity);
 			this.LoadDetailData(selectedMSISDN,endMSISDNs);
@@ -220,7 +220,7 @@ export class SeriesprovisionformComponent implements OnInit {
     .subscribe(selectedMSISDN => {        		
 		const startMSISDNs = this.mySeriesProvisionForm.get('startMSISDN').value;
 		
-		if (selectedMSISDN!=null){
+		if (selectedMSISDN!=null && selectedMSISDN.length==11 && startMSISDNs.length ==11){
 			this.totalQuantity = 1 + Number(selectedMSISDN) - Number(startMSISDNs);
 			this.mySeriesProvisionForm.get('quantity').setValue(this.totalQuantity);
 			this.LoadDetailData(startMSISDNs, selectedMSISDN);
@@ -228,21 +228,22 @@ export class SeriesprovisionformComponent implements OnInit {
     });
   }
 	  LoadDetailData (startMSISDNs, endMSISDNs) {	  	
-	
+			this.isLoading = true;
 		console.log("Quantity Now "+ this.totalQuantity);
 		if (this.totalQuantity>0){
 		console.log("Start for GetDefinitionDetails");	
+		
 		this.definitionDataService.GetDefinitionDetails(startMSISDNs,endMSISDNs).subscribe(
 			data => { 
-					console.log(data);
+					//console.log(data);
 					
 					if(data.length>0){
 					
 						for (let index in data) {
-							console.log (data[index]);					     
-							console.log('fieldName is : '+index +' ' +data[index].fieldName);
-							console.log('fieldValue is : '+index +' ' +data[index].fieldValue);
-							console.log('index is : '+index);
+							//console.log (data[index]);					     
+							//console.log('fieldName is : '+index +' ' +data[index].fieldName);
+							//console.log('fieldValue is : '+index +' ' +data[index].fieldValue);
+							//console.log('index is : '+index);
 							
 							if(data[index].fieldName == 'Product type'){
 								this.mySeriesProvisionForm.get('productType').setValue(data[index].fieldValue);
@@ -285,6 +286,7 @@ export class SeriesprovisionformComponent implements OnInit {
 			},
 			() => console.log('Done loading Detail Data')
 			);  
+			this.isLoading = false;
 		}
 	}
 
@@ -345,7 +347,7 @@ topFunction() {
   //{wr_id}/{userGroup_id}/{user_id}/[{workflowFieldsValueSeqWise}]
   this.workFlowsService.CreateNewWorkRequest(this._global.wrid_NumberSeriesProvisioning, this.groupID,this.userID,this.formFieldData).subscribe(
       res  =>  {
-		console.log('response is : '+res.message);
+		//console.log('response is : '+res.message);
 		
 		if(res !== ""){	
 			this.successAlertShow = true;
@@ -380,7 +382,7 @@ LogKeyValuePairs(group: FormGroup): void {
       // If the control is a FormControl
     } else {
 		
-      console.log("Key : "+key+" , Value : "+abstractControl.value);
+      //console.log("Key : "+key+" , Value : "+abstractControl.value);
 	  
 	  if (this.formFieldData){
 		  if (key == 'needByDate'){
