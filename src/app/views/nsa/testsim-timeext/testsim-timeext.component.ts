@@ -100,6 +100,17 @@ export class TestsimTimeextComponent implements OnInit {
 
   }
 
+  copyToAll(){
+    for(var i = 0; i < this.requisitionList.length; i++){
+
+      if(i == 0) continue;
+
+      this.requisitionList[i]['newEndDate'] = this.requisitionList[0]['newEndDate'];
+      this.requisitionList[i]['justification'] = this.requisitionList[0]['justification'];
+
+    }
+  }
+
   submit(){
 
     for(var i = 0; i < this.requisitionList.length; i++){

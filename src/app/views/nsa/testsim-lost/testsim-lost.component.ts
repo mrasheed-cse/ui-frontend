@@ -98,6 +98,18 @@ export class TestsimLostComponent implements OnInit {
 
   }
 
+  copyToAll(){
+    for(var i = 0; i < this.requisitionList.length; i++){
+
+      if(i == 0) continue;
+
+      this.requisitionList[i]['lostDamageDate'] = this.requisitionList[0]['lostDamageDate'];
+      this.requisitionList[i]['comments'] = this.requisitionList[0]['comments'];
+      this.requisitionList[i]['requestedNewSim'] = this.requisitionList[0]['requestedNewSim'];
+
+    }
+  }
+
   submit(){
 
     for(var i = 0; i < this.requisitionList.length; i++){

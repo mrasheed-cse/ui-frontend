@@ -97,6 +97,16 @@ export class TestsimSurrenderComponent implements OnInit {
 
   }
 
+  copyToAll(){
+    for(var i = 0; i < this.requisitionList.length; i++){
+
+      if(i == 0) continue;
+
+      this.requisitionList[i]['comments'] = this.requisitionList[0]['comments'];
+
+    }
+  }
+
   submit(){
 
     for(var i = 0; i < this.requisitionList.length; i++){

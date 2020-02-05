@@ -97,6 +97,17 @@ export class TestsimRechargeComponent implements OnInit {
 
   }
 
+  copyToAll(){
+    for(var i = 0; i < this.requisitionList.length; i++){
+
+      if(i == 0) continue;
+
+      this.requisitionList[i]['rechargeAmount'] = this.requisitionList[0]['rechargeAmount'];
+      this.requisitionList[i]['justification'] = this.requisitionList[0]['justification'];
+
+    }
+  }
+
   submit(){
 
     for(var i = 0; i < this.requisitionList.length; i++){
