@@ -310,6 +310,19 @@ export class WorkflowsService {
 		});
 	}
 
+	loadMySimsFilteredByRqnLineMsisdnOnly(requisitionLineMsisdnIds: string) : any {
+		return this.http.post(this.serverUrl + 'workflow/mysims_by_rqn_line_msisdn_id', {
+			createdBy: "",
+			requisitionNo: 0,
+			status: requisitionLineMsisdnIds,
+			pageSize: this._global.defaultPageSize,
+			offset: 0,
+			msisdnForSearch: "",
+			rqnNoForSearch: "",
+			simStatusForSearch: -1
+		});
+	}
+
 	loadSimActionListWithSearch(user_id: string, defWorkRequestId: Number, approvalStatus: Number, offset: Number, msisdnForSearch: String, rqnNoForSearch: String, simStatusForSearch: Number) : any {
 		console.log("In loadSimActionListWithSearch(user_id: string, defWorkRequestId: Number, approvalStatus: Number, offset: Number, msisdnForSearch: String, rqnNoForSearch: String, simStatusForSearch: Number)");
 		console.log("user_id: "+user_id+", defWorkRequestId: "+defWorkRequestId+", approvalStatus: "+approvalStatus+", offset: "+offset+", msisdnForSearch: "+msisdnForSearch+", rqnNoForSearch: "+rqnNoForSearch+", simStatusForSearch:"+simStatusForSearch);

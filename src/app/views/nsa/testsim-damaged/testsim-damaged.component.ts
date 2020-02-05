@@ -61,7 +61,7 @@ export class TestsimDamagedComponent implements OnInit {
 
   loadPendingList(){
     //GetPendingTaskList
-    this.workFlowsService.loadMySimsFiltered(this.userID, this.allRequisitionLineMsisdnIds, this.offset).subscribe(
+    this.workFlowsService.loadMySimsFilteredByRqnLineMsisdnOnly(this.allRequisitionLineMsisdnIds).subscribe(
         data => {
           if(data !=null){
             console.log(data);
