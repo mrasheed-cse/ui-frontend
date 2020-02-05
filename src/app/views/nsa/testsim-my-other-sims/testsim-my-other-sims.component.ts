@@ -94,7 +94,7 @@ export class TestsimMyOtherSimsComponent implements OnInit {
     this.columnTypes = _global.agGrid_columnTypes;
 
     this.columnDefs = [
-        {headerName: 'MSISDN', field: 'msisdn', sortable: true, filter: true, checkboxSelection: true, width: 160 },
+        {headerName: 'MSISDN', field: 'msisdn', sortable: true, filter: true, checkboxSelection: true, headerCheckboxSelection: true, width: 160 },
         {headerName: 'RQN #', field: 'requisitionNo', sortable: true, filter: true, width: 200 },
         {headerName: 'RQN Type', field: 'requisitionType', sortable: true, filter: true, width: 200 },
         {headerName: 'SIM Status', field: 'simStatus', sortable: true, filter: true, width: 250 },
