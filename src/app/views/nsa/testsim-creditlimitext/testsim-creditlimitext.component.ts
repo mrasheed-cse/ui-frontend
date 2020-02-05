@@ -102,9 +102,14 @@ export class TestsimCreditlimitextComponent implements OnInit {
 
     for(var i = 0; i < this.requisitionList.length; i++){
 
-      if(this.requisitionList[i]['newCreditLimit'] == null ||
-      this.requisitionList[i]['newCreditLimit'] == undefined ||
-      this.requisitionList[i]['newCreditLimit'] == ""){
+      this.requisitionList[i]['newCreditLimit'] = +(this.requisitionList[i]['newCreditLimit']);
+
+      //alert(this.requisitionList[i]['newCreditLimit']);
+
+      if(
+        isNaN(this.requisitionList[i]['newCreditLimit']) ||
+      this.requisitionList[i]['newCreditLimit'] == null ||
+      this.requisitionList[i]['newCreditLimit'] == undefined){
           var msg = "At row " + (i+1) + " new credit limit is blank.";
           alert(msg);
           return;

@@ -101,9 +101,12 @@ export class TestsimRechargeComponent implements OnInit {
 
     for(var i = 0; i < this.requisitionList.length; i++){
 
-      if(this.requisitionList[i]['rechargeAmount'] == null ||
-      this.requisitionList[i]['rechargeAmount'] == undefined ||
-      this.requisitionList[i]['rechargeAmount'] == ""){
+      this.requisitionList[i]['rechargeAmount'] = +(this.requisitionList[i]['rechargeAmount']);
+
+      if(
+        isNaN(this.requisitionList[i]['rechargeAmount']) ||
+        this.requisitionList[i]['rechargeAmount'] == null ||
+      this.requisitionList[i]['rechargeAmount'] == undefined){
           var msg = "At row " + (i+1) + " recharge amount is blank.";
           alert(msg);
           return;
