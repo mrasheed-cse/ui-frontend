@@ -22,7 +22,7 @@ import 'rxjs/add/operator/retry';
 import 'rxjs/add/observable/of';
 
 import { LoginService } from '../pages/LoginService';
-import { LoggedInUser } from '../pages/loggedInUser'; 
+import { LoggedInUser } from '../pages/loggedInUser';
 
 
 import { AppGlobals } from './../../app.global';
@@ -35,17 +35,17 @@ import { AppGlobals } from './../../app.global';
 })
 export class SeriesprovisionformComponent implements OnInit {
 
-	
+
 	WR_Name: string;
 	serverUrl: string;
 	currentLoggedInUser: LoggedInUser;
 	userName: string;
-	userID: string;	  	  
-	groupID: number;	
+	userID: string;
+	groupID: number;
 	totalQuantity: number = 0;
-	
-	//datepickerConfig: Partial<BsDatepickerConfig>;	
-	
+
+	//datepickerConfig: Partial<BsDatepickerConfig>;
+
 	public dangerAlertShow:boolean = false;
 	public dangerAlertMessage:string = "";
 	public successAlertShow:boolean = false;
@@ -53,14 +53,14 @@ export class SeriesprovisionformComponent implements OnInit {
 	public infoAlertShow:boolean = false;
 	public infoAlertMessage:string = "";
 	public defFlowFound:boolean = false;
-	
+
 	public isLoading:boolean = false;
 
-	
+
 	mySeriesProvisionForm: FormGroup;
 	startMSISDN: FormControl;
-	endMSISDN: FormControl;	
-	quantity: FormControl;	
+	endMSISDN: FormControl;
+	quantity: FormControl;
 	productType: FormControl;
 	productName: FormControl;
 	serviceClassName: FormControl;
@@ -68,7 +68,7 @@ export class SeriesprovisionformComponent implements OnInit {
 	hlr: FormControl;
 	sdp: FormControl;
 	startICCID: FormControl;
-	startICCID19: FormControl;	
+	startICCID19: FormControl;
 	endICCID: FormControl;
 	startIMSI: FormControl;
 	endIMSI: FormControl;
@@ -76,33 +76,33 @@ export class SeriesprovisionformComponent implements OnInit {
 	needByDate: FormControl;
 	srcComment: FormControl;
 	formFieldData: string;
-	
+
 	public listSimType = [];
-  
+
 	todayDate: Date;
 
   constructor(private router: Router,private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private definitionDataService: DefinitionDataService, private workFlowsService: WorkflowsService) {
-	  
+
 	// Get Current User Profile
-	
+
 	this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
-	
+
 	if (this.currentLoggedInUser) {
 		this.userName = this.currentLoggedInUser.userName
 		this.userID = this.currentLoggedInUser.userID
 		this.groupID = this.currentLoggedInUser.groupID
 		//console.log('Current user: ' + this.userName);
-		
-	} 
+
+	}
 	else {
 	  //console.log('Current user not found');
 	  this.router.navigate(['pages/login']);
 	}
-	
+
 	//GetWR_Name
 	this.definitionDataService.GetWR_Name(this._global.wrid_NumberSeriesProvisioning).subscribe(
 	data => {
-			//console.log(data);				
+			//console.log(data);
 			const dataStr = JSON.stringify(data);
 
 			JSON.parse(dataStr, (key, value) => {
@@ -110,16 +110,16 @@ export class SeriesprovisionformComponent implements OnInit {
 					this.WR_Name = value;
 					return value;
 				}
-			}); 
+			});
 			// console.log(this.WR_Name);
 		},
 		err => console.error(err),
 		()=> console.log('done loading Work Request Name')
-		);	
-		
+		);
+
 	//GetSimType
 	this.definitionDataService.GetSimTypes().subscribe(
-		data => { 
+		data => {
 					//console.log(data);
 					for (let index in data) {
 						//console.log (data[index]);
@@ -128,8 +128,8 @@ export class SeriesprovisionformComponent implements OnInit {
 							id:data[index].id,
 							simTypeName: data[index].simTypeName
 						}
-						); 
-					}		
+						);
+					}
 				},
 			err => console.error(err),
 			() => console.log('done loading Provisioning Type Name List')
@@ -158,10 +158,10 @@ export class SeriesprovisionformComponent implements OnInit {
       Validators.maxLength(11)
     ]);
 	this.quantity =	new FormControl({value: 0, disabled: true}, Validators.required);
-	this.productType = new FormControl({value: '', disabled: true}, Validators.required);	
+	this.productType = new FormControl({value: '', disabled: true}, Validators.required);
 	this.productName = new FormControl({value: '', disabled: true}, Validators.required);
 	this.serviceClassName =	new FormControl({value: '', disabled: true}, Validators.required);
-	this.communityID = 	new FormControl({value: '', disabled: true}, Validators.required);	
+	this.communityID = 	new FormControl({value: '', disabled: true}, Validators.required);
 	this.hlr =	new FormControl({value: '', disabled: true}, Validators.required);
 	this.sdp = 	new FormControl({value: '', disabled: true}, Validators.required);
 	this.startICCID = new FormControl('', [
@@ -169,10 +169,10 @@ export class SeriesprovisionformComponent implements OnInit {
 		Validators.minLength(18) ,
 		Validators.maxLength(18)
 	]);
-	this.startICCID19 = 	new FormControl({value: '', disabled: true}, Validators.required);	
-	this.endICCID = 	new FormControl({value: '', disabled: true}, Validators.required);	
-	this.startIMSI = 	new FormControl({value: '', disabled: true}, Validators.required);	
-	this.endIMSI = 	new FormControl({value: '', disabled: true}, Validators.required);	
+	this.startICCID19 = 	new FormControl({value: '', disabled: true}, Validators.required);
+	this.endICCID = 	new FormControl({value: '', disabled: true}, Validators.required);
+	this.startIMSI = 	new FormControl({value: '', disabled: true}, Validators.required);
+	this.endIMSI = 	new FormControl({value: '', disabled: true}, Validators.required);
 	this.simType = new  FormControl('');
 	this.needByDate = new FormControl('');
 	this.srcComment = new FormControl('');
@@ -182,13 +182,13 @@ export class SeriesprovisionformComponent implements OnInit {
     this.mySeriesProvisionForm = new FormGroup({
 		startMSISDN: this.startMSISDN,
 		endMSISDN: this.endMSISDN,
-		quantity: this.quantity,		
+		quantity: this.quantity,
 		productType: this.productType,
 		productName: this.productName,
 		serviceClassName: this.serviceClassName,
-		communityID: this.communityID,		
+		communityID: this.communityID,
 		hlr: this.hlr,
-		sdp: this.sdp,	
+		sdp: this.sdp,
 		startICCID: this.startICCID,
 		startICCID19: this.startICCID19,
 		endICCID: this.endICCID,
@@ -200,51 +200,54 @@ export class SeriesprovisionformComponent implements OnInit {
 
     });
   }
-  
+
   onMSISDNChanges() {
-  
-	
+
+
     this.mySeriesProvisionForm.get('startMSISDN').valueChanges
-    .subscribe(selectedMSISDN => {        		
+    .subscribe(selectedMSISDN => {
 		const endMSISDNs = this.mySeriesProvisionForm.get('endMSISDN').value;
-		
-		if (selectedMSISDN!=null && selectedMSISDN.length==11 && endMSISDNs.length ==11){			
+
+		if (selectedMSISDN!=null && selectedMSISDN.toString().length==11){
 			this.totalQuantity = 1+ Number(endMSISDNs) - Number(selectedMSISDN);
 			this.mySeriesProvisionForm.get('quantity').setValue(this.totalQuantity);
 			this.LoadDetailData(selectedMSISDN,endMSISDNs);
+      this.isLoading = false;
 		}
-        
+
     });
-	
+
 	this.mySeriesProvisionForm.get('endMSISDN').valueChanges
-    .subscribe(selectedMSISDN => {        		
+    .subscribe(selectedMSISDN => {
 		const startMSISDNs = this.mySeriesProvisionForm.get('startMSISDN').value;
-		
-		if (selectedMSISDN!=null && selectedMSISDN.length==11 && startMSISDNs.length ==11){
+
+
+      if (selectedMSISDN!=null && startMSISDNs.length==11){
 			this.totalQuantity = 1 + Number(selectedMSISDN) - Number(startMSISDNs);
 			this.mySeriesProvisionForm.get('quantity').setValue(this.totalQuantity);
-			this.LoadDetailData(startMSISDNs, selectedMSISDN);
-		}        
+      this.isLoading = true;
+      this.LoadDetailData(startMSISDNs, selectedMSISDN);
+		}
     });
   }
-	  LoadDetailData (startMSISDNs, endMSISDNs) {	  	
-			this.isLoading = true;
+	  LoadDetailData (startMSISDNs, endMSISDNs) {
+
 		console.log("Quantity Now "+ this.totalQuantity);
 		if (this.totalQuantity>0){
-		console.log("Start for GetDefinitionDetails");	
-		
+		console.log("Start for GetDefinitionDetails");
+		this.isLoading = true;
 		this.definitionDataService.GetDefinitionDetails(startMSISDNs,endMSISDNs).subscribe(
-			data => { 
-					//console.log(data);
-					
+			data => {
+					console.log(data);
+
 					if(data.length>0){
-					
+
 						for (let index in data) {
-							//console.log (data[index]);					     
-							//console.log('fieldName is : '+index +' ' +data[index].fieldName);
-							//console.log('fieldValue is : '+index +' ' +data[index].fieldValue);
-							//console.log('index is : '+index);
-							
+							console.log (data[index]);
+							console.log('fieldName is : '+index +' ' +data[index].fieldName);
+							console.log('fieldValue is : '+index +' ' +data[index].fieldValue);
+							console.log('index is : '+index);
+
 							if(data[index].fieldName == 'Product type'){
 								this.mySeriesProvisionForm.get('productType').setValue(data[index].fieldValue);
 							}
@@ -267,59 +270,59 @@ export class SeriesprovisionformComponent implements OnInit {
 						this.infoAlertShow = false;
 						this.defFlowFound = true;
 					}
-					
+
 					else{
-					
+
 						this.infoAlertShow = true;
 						this.defFlowFound=false;
 						this.infoAlertMessage = "All numbers from "+startMSISDNs +" and "+ endMSISDNs +" do not have Definition Work Request OR these numbers already have provisioned.";
-					
+            this.isLoading = false;
 					}
-				
-				
+
+
 			},
 			err => {
 				console.error(err);
 				 this.infoAlertShow = true;
 				 this.defFlowFound=false;
 				this.infoAlertMessage = "All numbers from "+startMSISDNs +" and "+ endMSISDNs +" do not have Definition Work Request OR these numbers already have provisioned.";
-			},
+        this.isLoading = false;
+				},
 			() => console.log('Done loading Detail Data')
-			);  
-			this.isLoading = false;
+			);
 		}
 	}
 
 
-	
+
 onStartICCIDChanges() {
-  
+
 	var lastDigit: string;
-	
+
     this.mySeriesProvisionForm.get('startICCID').valueChanges
-    .subscribe(selectedStartICCID => {        		
+    .subscribe(selectedStartICCID => {
 		lastDigit = this.definitionDataService.LuhnAlgorithmFor19thDigit(selectedStartICCID);
-			
-			
+
+
 			var startICCIDval = selectedStartICCID +lastDigit;
-			var totalQuantity = this.mySeriesProvisionForm.get('quantity').value - 1;		
-			
+			var totalQuantity = this.mySeriesProvisionForm.get('quantity').value - 1;
+
 			var endICCIDval = this.definitionDataService.LongNumberAddition(selectedStartICCID,totalQuantity+"");
 			lastDigit = this.definitionDataService.LuhnAlgorithmFor19thDigit(endICCIDval);
 			endICCIDval = endICCIDval + lastDigit;
-			
+
 			var startIMSIval = '47001'+selectedStartICCID.substr(8,10);
 			var endIMSIval = this.definitionDataService.LongNumberAddition(startIMSIval,totalQuantity+"");
-			
+
 			this.mySeriesProvisionForm.get('startICCID19').setValue(startICCIDval);
 			this.mySeriesProvisionForm.get('endICCID').setValue(endICCIDval);
-			
+
 			this.mySeriesProvisionForm.get('startIMSI').setValue(startIMSIval);
 			this.mySeriesProvisionForm.get('endIMSI').setValue(endIMSIval);
-        
+
     });
-	
-	
+
+
 }
 
 topFunction() {
@@ -337,10 +340,10 @@ topFunction() {
     //console.log('Form Submitted!');
 	//console.log(this.needByDate.value);
 	const date = new Date(this.needByDate.value);
-	
+
     //console.log(this.mySeriesProvisionForm.value);
-	//console.log("this.isLoading "+this.isLoading); 
-  
+	//console.log("this.isLoading "+this.isLoading);
+
   this.formFieldData = this.workFlowsService.FormatWorkRequestNameForAPI(this.WR_Name);
   this.LogKeyValuePairs(this.mySeriesProvisionForm);
   //console.log(this.formFieldData);
@@ -348,28 +351,28 @@ topFunction() {
   this.workFlowsService.CreateNewWorkRequest(this._global.wrid_NumberSeriesProvisioning, this.groupID,this.userID,this.formFieldData).subscribe(
       res  =>  {
 		//console.log('response is : '+res.message);
-		
-		if(res !== ""){	
+
+		if(res !== ""){
 			this.successAlertShow = true;
 			this.successAlertMessage = " has been created successfully and forwarded to "+res.message+". ";
 			this.isLoading = false;
 		}
       },
-      err  =>  {		  
-		  console.log("err.status : "+err.status);		  
+      err  =>  {
+		  console.log("err.status : "+err.status);
 		  this.dangerAlertShow = true;
 		this.dangerAlertMessage = " .";
 		this.isLoading = false;
       }
-	  
+
       );
-	// console.log("this.isLoading "+this.isLoading); 
+	// console.log("this.isLoading "+this.isLoading);
 		}
 }
 
 
 LogKeyValuePairs(group: FormGroup): void {
-	
+
   // Loop through each control key in the FormGroup
   Object.keys(group.controls).forEach((key: string) => {
     // Get the control. The control can be a nested form group
@@ -381,9 +384,9 @@ LogKeyValuePairs(group: FormGroup): void {
       this.LogKeyValuePairs(abstractControl);
       // If the control is a FormControl
     } else {
-		
+
       //console.log("Key : "+key+" , Value : "+abstractControl.value);
-	  
+
 	  if (this.formFieldData){
 		  if (key == 'needByDate'){
 			  this.formFieldData=this.formFieldData+","+this.FormatTheDate(abstractControl.value);
@@ -396,32 +399,32 @@ LogKeyValuePairs(group: FormGroup): void {
 			//console.log("Key : "+key+" , Value : "+abstractControl.value);
 			this.formFieldData=abstractControl.value;
 		}
-		
+
     }
   });
 }
 
 FormatTheDate(selectedNeedByDate:any):string {
-	
-	console.log("selectedNeedByDate : "+selectedNeedByDate);	
+
+	console.log("selectedNeedByDate : "+selectedNeedByDate);
 		var date = new Date(selectedNeedByDate);
     var month = ("0" + (date.getMonth()+1)).slice(-2);
     var day  = ("0" + date.getDate()).slice(-2);
     var formattedDate=[day,month,date.getFullYear()].join("/");
 	console.log("formattedDate : "+formattedDate);
 	return formattedDate;
-	
+
 }
 
 clearForm(event: any){
 		//console.log(event);
 		this.dangerAlertShow = false;
-		this.successAlertShow = false;	
-		this.mySeriesProvisionForm.reset();		
+		this.successAlertShow = false;
+		this.mySeriesProvisionForm.reset();
 	}
  backButton(event: any){
 		//console.log(event);
-		this.router.navigateByUrl('/nsa/seriesprovision');	
+		this.router.navigateByUrl('/nsa/seriesprovision');
 	}
-  
+
 }

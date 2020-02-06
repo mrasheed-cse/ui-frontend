@@ -33,7 +33,7 @@ export class TestsimdashboardComponent implements OnInit {
   counters: any;
 
   numberOfTestSims : number;
-  numberOfTestSims1 : number;  
+  numberOfTestSims1 : number;
   numberOfTestSims2 : number;
   numberOfTestSims3 : number;
   numberOfTestSims4 : number;
@@ -43,15 +43,13 @@ export class TestsimdashboardComponent implements OnInit {
   numberOfTestSims8 : number;
   numberOfTestSims9 : number;
 
-  constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) { 
+  constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {
 
+    this.isLoading = false;
 
   }
 
   loadDashboardCounters(){
-
-    this.isLoading = true;
-
     this.workFlowsService.getDashboardCounters(this.userID).subscribe(
         data => {
           if(data !=null){
@@ -70,23 +68,23 @@ export class TestsimdashboardComponent implements OnInit {
       );
     //Get Today Date
     this.todayDate = new Date();
-    this.isLoading = false;
+
   }
 
   ngOnInit() {
 
     this.numberOfTestSims = 0;
-    this.numberOfTestSims1 = 0;    
+    this.numberOfTestSims1 = 0;
     this.numberOfTestSims2 = 0;
     this.numberOfTestSims3 = 0;
     this.numberOfTestSims4 = 0;
     this.numberOfTestSims5 = 0;
     this.numberOfTestSims6 = 0;
     this.numberOfTestSims7 = 0;
-    this.numberOfTestSims8 = 0;                            
+    this.numberOfTestSims8 = 0;
     this.numberOfTestSims9 = 0;
-    
-    this.isLoading = true;
+
+
     let isValid = true;
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
 
@@ -102,12 +100,14 @@ export class TestsimdashboardComponent implements OnInit {
         this.isCurrentUserSSMRole = false;
       }
 
+      this.isLoading = true;
       this.loadDashboardCounters();
+
     }
     else {
       this.router.navigate(['pages/login']);
     }
-    this.isLoading = false;
+
   }
 
 }
