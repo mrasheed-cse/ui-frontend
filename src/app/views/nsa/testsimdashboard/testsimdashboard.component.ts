@@ -45,7 +45,7 @@ export class TestsimdashboardComponent implements OnInit {
 
   constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {
 
-    this.isLoading = false;
+    this.isLoading = true;
 
   }
 
@@ -63,7 +63,10 @@ export class TestsimdashboardComponent implements OnInit {
             this.isLoading = false;
           }
         },
-      err => console.error(err),
+      err => {
+        console.error(err);
+        this.isLoading = false;
+      },
       () => console.log('Done loading dashboard counters')
       );
     //Get Today Date
