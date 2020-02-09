@@ -114,10 +114,10 @@ export class SeriesDefinitionDetailsComponent implements OnInit {
   LoadQueryStringData(){
 	  // LOAD QUERY STRING DATA
 		this.wr_BriefId = Number(this.activatedRoute.snapshot.paramMap.get('wr_BriefId'));
-		console.log(this.wr_BriefId);
+		//console.log(this.wr_BriefId);
 		
 		this.hop_sequence = Number(this.activatedRoute.snapshot.paramMap.get('hopSequence'));		
-		console.log(this.hop_sequence);
+		//console.log(this.hop_sequence);
 		
 		this.wrBriefName = this.activatedRoute.snapshot.paramMap.get('wr_BriefName');
 	
@@ -131,9 +131,9 @@ LoadPreviousHopsData(){
 					//console.log(data);
 					this.fieldNameValueList = data;
 					const totalData = this.fieldNameValueList.length;
-					console.log(totalData);
+					//console.log(totalData);
 					if (totalData%2==1){   
-						console.log("totalData is odd");
+						//console.log("totalData is odd");
 						
 						this.fieldNameValueList.push({fieldName: "", fieldValue: ""});
 
@@ -333,7 +333,7 @@ if (this.mySeriesDefinitionForm.valid) {
   //{wr_id}/{userGroup_id}/{user_id}/[{workflowFieldsValueSeqWise}]
   this.workFlowsService.UpdateExistiongWorkRequest(this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName),this._global.wrid_NumberSeriesDefinition, this.groupID,this.userID,this.hop_sequence,this.formFieldData,this.isDone).subscribe(
       res  =>  {
-		console.log('response is : '+res.message);
+		//console.log('response is : '+res.message);
 		
 		if(res !== ""){	
 			this.successAlertShow = true;
@@ -402,7 +402,7 @@ onDoneClick(event: any){
 			this.isDone = true;
 		  this.workFlowsService.UpdateExistiongWorkRequest(this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName),this._global.wrid_NumberSeriesDefinition, this.groupID,this.userID,this.hop_sequence,this.formFieldData,this.isDone).subscribe(
       res  =>  {
-		console.log('response is : '+res.message);
+		//console.log('response is : '+res.message);
 		
 		if(res !== ""){	
 			this.isLoading = false;

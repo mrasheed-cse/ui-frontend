@@ -225,7 +225,7 @@ export class SeriesDefinitionFormComponent implements OnInit {
     .subscribe(selectedMSISDN => {
 		const endMSISDNs = this.mySeriesDefinitionForm.get('endMSISDN').value;
 
-		if (selectedMSISDN!=null && selectedMSISDN.toString().length==11 ){
+		if (selectedMSISDN!=null && selectedMSISDN.toString().length==11 && endMSISDNs.toString().length==11 ){
 			this.mySeriesDefinitionForm.get('quantity').setValue(1 + Number(endMSISDNs) - Number(selectedMSISDN));
 			this.ChaeckDefinitionValidity(selectedMSISDN,endMSISDNs);
 		}
@@ -236,7 +236,7 @@ export class SeriesDefinitionFormComponent implements OnInit {
     .subscribe(selectedMSISDN => {
 		const startMSISDNs = this.mySeriesDefinitionForm.get('startMSISDN').value;
 
-		if (selectedMSISDN!=null && selectedMSISDN.toString().length==11){
+		if (selectedMSISDN!=null && selectedMSISDN.toString().length==11 && startMSISDNs.toString().length==11){
 			this.mySeriesDefinitionForm.get('quantity').setValue(1 + Number(selectedMSISDN) - Number(startMSISDNs));
 			this.ChaeckDefinitionValidity(startMSISDNs, selectedMSISDN);
 		}
@@ -341,9 +341,9 @@ ChaeckDefinitionValidity (startMSISDNs, endMSISDNs) {
   if (this.mySeriesDefinitionForm.valid) {
 		this.topFunction();
 	this.isLoading = true;
-    console.log('Form Submitted!');
-    console.log(this.mySeriesDefinitionForm.value);
-	console.log("this.isLoading "+this.isLoading);
+   // console.log('Form Submitted!');
+    //console.log(this.mySeriesDefinitionForm.value);
+	//console.log("this.isLoading "+this.isLoading);
 
   this.formFieldData = this.workFlowsService.FormatWorkRequestNameForAPI(this.WR_Name);
   this.LogKeyValuePairs(this.mySeriesDefinitionForm);
@@ -351,7 +351,7 @@ ChaeckDefinitionValidity (startMSISDNs, endMSISDNs) {
   //{wr_id}/{userGroup_id}/{user_id}/[{workflowFieldsValueSeqWise}]
   this.workFlowsService.CreateNewWorkRequest(this._global.wrid_NumberSeriesDefinition, this.groupID,this.userID,this.formFieldData).subscribe(
       res  =>  {
-		console.log('response is : '+res.message);
+		//console.log('response is : '+res.message);
 
 		if(res !== ""){
 			this.successAlertShow = true;

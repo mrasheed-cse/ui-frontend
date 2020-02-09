@@ -85,7 +85,7 @@ constructor(private router: Router,private loginService: LoginService,private ht
 	this.workFlowsService.LoadPendingTask(this._global.wrid_NumberSeriesDefinition,this.groupID).subscribe(
       data => { 				
 				if(data !=null){
-					console.log(data);
+					//console.log(data);
 					this.isDataFound = true;
 					this.pendingTasksList = data;
 						
@@ -126,14 +126,14 @@ datepickerConfig: Partial<BsDatepickerConfig>;
 onSearchSubmit() {
 	  
   if (this.wrname.value || this.startDate.value || this.endDate.value || this.wrstatus.value) {
-    console.log('Form Submitted!');
-    console.log(this.mySearchForm.value);
+    //console.log('Form Submitted!');
+    //console.log(this.mySearchForm.value);
 	this.successSearchShow = false;
 	this.dangerAlertShow = false;
 	
 	this.workFlowsService.SearchWorkRequest(this.wrname.value, this.startDate.value,this.endDate.value,this.wrstatus.value).subscribe(
       res  =>  {
-		console.log('response is : '+res);
+		//console.log('response is : '+res);
 		this.successSearchShow = true;
 		/*
 		{"wrNumber":"DEF/001/04/2019","createdBy":"nsa_src","wrCreateDate":"2019-04-02 16:24:36.979","lastApprover":"VDSO","currentApprover":"CNP","status":"Completed"}

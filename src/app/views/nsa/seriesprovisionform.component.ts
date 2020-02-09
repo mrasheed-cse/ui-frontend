@@ -208,11 +208,13 @@ export class SeriesprovisionformComponent implements OnInit {
     .subscribe(selectedMSISDN => {
 		const endMSISDNs = this.mySeriesProvisionForm.get('endMSISDN').value;
 
-		if (selectedMSISDN!=null && selectedMSISDN.toString().length==11){
+		if (selectedMSISDN!=null && selectedMSISDN.toString().length==11 && endMSISDNs.toString().length==11){
 			this.totalQuantity = 1+ Number(endMSISDNs) - Number(selectedMSISDN);
+			if (this.totalQuantity>0){
 			this.mySeriesProvisionForm.get('quantity').setValue(this.totalQuantity);
 			this.LoadDetailData(selectedMSISDN,endMSISDNs);
-      this.isLoading = false;
+			//this.isLoading = false;
+			}
 		}
 
     });
@@ -222,11 +224,13 @@ export class SeriesprovisionformComponent implements OnInit {
 		const startMSISDNs = this.mySeriesProvisionForm.get('startMSISDN').value;
 
 
-      if (selectedMSISDN!=null && startMSISDNs.length==11){
+      if (selectedMSISDN!=null && startMSISDNs.length==11 && startMSISDNs.toString().length==11){
 			this.totalQuantity = 1 + Number(selectedMSISDN) - Number(startMSISDNs);
+			if (this.totalQuantity>0){
 			this.mySeriesProvisionForm.get('quantity').setValue(this.totalQuantity);
-      this.isLoading = true;
-      this.LoadDetailData(startMSISDNs, selectedMSISDN);
+      //this.isLoading = true;
+			this.LoadDetailData(startMSISDNs, selectedMSISDN);
+			}
 		}
     });
   }
@@ -238,16 +242,17 @@ export class SeriesprovisionformComponent implements OnInit {
 		this.isLoading = true;
 		this.definitionDataService.GetDefinitionDetails(startMSISDNs,endMSISDNs).subscribe(
 			data => {
-					console.log(data);
+					//console.log(data);
 
 					if(data.length>0){
 
 						for (let index in data) {
+							/*
 							console.log (data[index]);
 							console.log('fieldName is : '+index +' ' +data[index].fieldName);
 							console.log('fieldValue is : '+index +' ' +data[index].fieldValue);
 							console.log('index is : '+index);
-
+							*/
 							if(data[index].fieldName == 'Product type'){
 								this.mySeriesProvisionForm.get('productType').setValue(data[index].fieldValue);
 							}
@@ -276,9 +281,9 @@ export class SeriesprovisionformComponent implements OnInit {
 						this.infoAlertShow = true;
 						this.defFlowFound=false;
 						this.infoAlertMessage = "All numbers from "+startMSISDNs +" and "+ endMSISDNs +" do not have Definition Work Request OR these numbers already have provisioned.";
-            this.isLoading = false;
+            
 					}
-
+					this.isLoading = false;
 
 			},
 			err => {
