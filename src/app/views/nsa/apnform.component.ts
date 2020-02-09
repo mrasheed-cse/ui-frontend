@@ -47,6 +47,7 @@ export class ApnformComponent implements OnInit {
 	public successAlertShow:boolean = false;
 	public successAlertMessage:string = "";
 	public isLoading:boolean = false;
+	public isDisableBtn = false;
 
 	
 	myApnCreationForm: FormGroup;
@@ -143,10 +144,15 @@ export class ApnformComponent implements OnInit {
   // FORM SUBMISSION
   onApnCreationSubmit() {
 	 
-  if (this.myApnCreationForm.valid) {
+  if (this.myApnCreationForm.valid && !this.isDisableBtn) {
+console.log(this.isDisableBtn);
+
 		this.topFunction();
 	this.isLoading = true;
-    console.log('Form Submitted!');
+	this.isDisableBtn = true;
+	
+		console.log('Form Submitted!');
+		console.log(this.isDisableBtn);
 //    console.log(this.myApnCreationForm.value);
 
   this.formFieldData = this.workFlowsService.FormatWorkRequestNameForAPI(this.WR_Name);
