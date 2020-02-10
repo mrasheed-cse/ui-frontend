@@ -33,7 +33,7 @@ export class TestsimLostdamagedExistingComponent implements OnInit {
   private defaultColGroupDef;
   private columnTypes;
   private rowData: any[];
-  private rowDataTable2: any[];  
+  private rowDataTable2: any[];
 
   requisitionList: Array<Object>;
   msisdnList: Array<Object>;
@@ -70,12 +70,13 @@ export class TestsimLostdamagedExistingComponent implements OnInit {
     this.columnTypes = _global.agGrid_columnTypes;
 
     this.columnDefs = [
-        {headerName: 'SL', field: 'serial', sortable: true, filter: false, checkboxSelection: true, width: 90 },      
+        {headerName: 'SL', field: 'serial', sortable: true, filter: false, checkboxSelection: true, width: 90 },
         {headerName: 'Work Request #', field: 'workRequestBriefName', sortable: true, filter: true, width: 210 },
         {headerName: 'Request Type', field: 'requestType', sortable: true, filter: true, width: 220 },
         {headerName: 'Initiate date', field: 'requestedOn', sortable: true, filter: true, width: 210 },
         {headerName: 'Status', field: 'workRequestStatus', sortable: true, filter: true, width: 210 },
-        {headerName: 'Update date', field: 'requestUpdateDate', sortable: true, filter: true, width: 210 }                
+        {headerName: 'Update date', field: 'requestUpdateDate', sortable: true, filter: true, width: 210 },
+        {headerName: 'Pending At', field: 'pendingAt', sortable: true, filter: true, width: 210 }
     ];
 
     this.rowData = [];
@@ -172,11 +173,11 @@ export class TestsimLostdamagedExistingComponent implements OnInit {
 
     const selectedNodes = this.agGrid.api.getSelectedNodes();
     const selectedData = selectedNodes.map( node => node.data );
-    
+
     for(var i = 0; i < selectedData.length; i++){
-        selectedIds = selectedData[i]['simActionId'];      
+        selectedIds = selectedData[i]['simActionId'];
     }
-    
+
     var selectedIdsAsInt = parseInt( selectedIds );
     this.details(selectedIdsAsInt);
   }
@@ -195,7 +196,7 @@ export class TestsimLostdamagedExistingComponent implements OnInit {
             this.msisdnList[i]['selected'] = false;
             this.msisdnList[i]['isApproved'] = false;
             this.msisdnList[i]['isRejected'] = false;
-            this.msisdnList[i]['locked'] = false;            
+            this.msisdnList[i]['locked'] = false;
             if(this.msisdnList[i]['approvalStatus'] == 2){
               this.msisdnList[i]['isRejected'] = true;
               this.msisdnList[i]['locked'] = true;
@@ -206,9 +207,9 @@ export class TestsimLostdamagedExistingComponent implements OnInit {
           this.showDetail = true;
         }
       },
-      err  =>  {	
-           
-      }        
+      err  =>  {
+
+      }
     );
 
   }
