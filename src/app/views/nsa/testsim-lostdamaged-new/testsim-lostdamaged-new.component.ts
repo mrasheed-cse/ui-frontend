@@ -130,7 +130,7 @@ export class TestsimLostdamagedNewComponent implements OnInit {
     this.workFlowsService.loadMySimsWithSearch(this.userID, this.offset, this.searchOptions_msisdn, this.searchOptions_rqnNo, +(this.searchOptions_simStatus)).subscribe(
         data => {
           if(data !=null){            
-            console.log(data);
+            //console.log(data);
             this.isDataFound = true;
             this.rowData = data;
             if(data.length > 0) this.totalPages = +(data[0]['totalPages']);

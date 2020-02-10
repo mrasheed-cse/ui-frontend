@@ -97,7 +97,7 @@ export class TestsimLostdamagedExistingComponent implements OnInit {
     this.workFlowsService.ownRequestsForSimAction(this._global.wrid_testSimLost,this.userID).subscribe(
         data => {
           if(data !=null){
-            console.log(data);
+            //console.log(data);
             this.isDataFound = true;
 
             if(data.length > 0){
@@ -110,7 +110,7 @@ export class TestsimLostdamagedExistingComponent implements OnInit {
             this.workFlowsService.ownRequestsForSimAction(this._global.wrid_testSimDamaged,this.userID).subscribe(
               data => {
                 if(data !=null){
-                  console.log(data);
+                  //console.log(data);
 
                   if(data.length > 0){
                     for(var i = 0; i < data.length; i++){

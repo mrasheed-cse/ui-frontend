@@ -56,7 +56,7 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
    // this.requisition = _global.dataTempForRequisitionDetail;
     this.ismsworkflowsService.findRequisitionDetails(this.requisitionId).subscribe(
       res  =>  {
-        console.log('response is : '+res.message);
+        console.log('response is : '+res);
         if(res !== ""){
           this.requisition = res;
 
