@@ -9,7 +9,7 @@
             </div>
       <div class="alert alert-success" role="alert" *ngIf="successAlertShow">The New Work Request <b>{{WR_Name}}</b> {{successAlertMessage}}</div>
       <div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">An Error occured to create <b>{{WR_Name}}</b> {{dangerAlertMessage}}</div>
-  
+
         <div class="card-header">
           <strong>Discrete Provisioning</strong>
         </div>
@@ -40,14 +40,14 @@
                     </div>
                     <div class="invalid-feedback" *ngIf="productType.errors && (productType.dirty || productType.touched)">
                       <p *ngIf="productType.errors.required">Product Type Selection required</p>
-    
+
                     </div>
                   </div>
                 </div>
-              
+
             </div>
-            
-            
+
+
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group row">
@@ -60,12 +60,12 @@
                                  }">
                           <option></option>
                           <option *ngFor="let aProduct of listProduct" [value]="aProduct.id">{{aProduct.productName}}</option>
-      
+
                         </select>
                       </div>
                       <div class="invalid-feedback" *ngIf="productName.errors && (productName.dirty || productName.touched)">
                         <p *ngIf="productName.errors.required">Product Name Selection required</p>
-      
+
                       </div>
                     </div>
                   </div>
@@ -74,20 +74,20 @@
                   <label class="col-md-5 col-form-label" for="quantity">Quantity</label>
                   <div class="col-md-7">
                     <input type="text" id="quantity" name="quantity" class="form-control" formControlName="quantity">
-                    
+
                   </div>
                 </div>
               </div>
-              
+
             </div>
-            
-            
+
+
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group row">
                       <label class="col-md-5 col-form-label" for="discProvisionFile">Discrete Provision File</label>
                       <div class="col-md-7">
-                      
+
                         <input type="file" id="discProvisionFile" name="discProvisionFile" class="form-control" formControlName="discProvisionFile" required
                          [ngClass]="{
                           'is-invalid': discProvisionFile.invalid && (discProvisionFile.dirty || discProvisionFile.touched),
@@ -116,7 +116,7 @@
                             </div>
                           </div>
                       </div>
-        
+
                     </div>
                   </div>
                   <div class="row">
@@ -125,40 +125,40 @@
                             <label class="col-md-5 col-form-label" for="startICCID19">Start ICCID 19</label>
                             <div class="col-md-7">
                               <input type="text" id="startICCID19" name="startICCID19" class="form-control" formControlName="startICCID19">
-            
+
                             </div>
                           </div>
-            
-                        </div>						
+
+                        </div>
               <div class="col-md-6">
                 <div class="form-group row">
                   <label class="col-md-5 col-form-label" for="endICCID">End ICCID</label>
                   <div class="col-md-7">
                     <input type="text" id="endICCID" name="endICCID" class="form-control" formControlName="endICCID">
-  
+
                   </div>
                 </div>
-  
+
               </div>
             </div>
-            
+
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group row">
                   <label class="col-md-5 col-form-label" for="startIMSI">Start IMSI</label>
                   <div class="col-md-7">
                     <input type="text" id="startIMSI" name="startIMSI" class="form-control" formControlName="startIMSI">
-  
+
                   </div>
                 </div>
-  
+
               </div>
               <div class="col-md-6">
                 <div class="form-group row">
                   <label class="col-md-5 col-form-label" for="endIMSI">End IMSI</label>
                   <div class="col-md-7">
                     <input type="text" id="endIMSI" name="endIMSI" class="form-control" formControlName="endIMSI">
-  
+
                   </div>
                 </div>
               </div>
@@ -172,26 +172,26 @@
                       <option></option>
                       <option *ngFor="let aZone of listZone" [value]="aZone.id">{{aZone.name}}</option>
                     </select>
-                  </div>								
+                  </div>
                 </div>
               </div>
-              
+
               <div class="col-md-6">
-          
+
                   <div class="form-group row">
                     <label class="col-md-5 col-form-label" for="needByDate">Need By Date</label>
-                    <div class="col-md-7">									
-                      <input type="text" class="form-control calendar-container" id="needByDate" formControlName="needByDate" name="needByDate" 
-                      required bsDatepicker  placement="left"  
+                    <div class="col-md-7">
+                      <input type="text" class="form-control calendar-container" id="needByDate" formControlName="needByDate" name="needByDate"
+                      required bsDatepicker  placement="left"
                        [bsConfig]="{ dateInputFormat: 'dd-MM-yyyy', containerClass: 'theme-green',  showWeekNumbers:false}"
                        [minDate]="todayDate"
                        value="{{ needByDate.value | date: 'dd-MM-yyyy' }}"
                       >
                     </div>
                   </div>
-    
+
                 </div>
-              
+
             </div>
             <div class="row">
                 <div class="col-md-6">
@@ -203,17 +203,17 @@
                                   'is-valid': simType.valid && (simType.dirty || simType.touched)
                                  }">
                           <option></option>
-                          <option *ngFor="let aSimType of listSimType" [value]="aSimType.id">{{aSimType.simTypeName}}</option>                          
+                          <option *ngFor="let aSimType of listSimType" [value]="aSimType.id">{{aSimType.simTypeName}}</option>
                         </select>
                       </div>
-      
-      
+
+
                       <div class="invalid-feedback" *ngIf="simType.errors && (simType.dirty || simType.touched)">
                         <p *ngIf="simType.errors.required">Provisioning Type required</p>
-      
+
                       </div>
-      
-      
+
+
                     </div>
                 </div>
             </div>
@@ -224,27 +224,27 @@
           </textarea>
               </div>
             </div>
-  
+
           </div>
           <!-- <div class="card-body"> -->
           <div class="card-footer text-right">
-            <button type="submit" [disabled]="!myDiscProvisionForm.valid" class="btn btn-sm btn-primary">
+            <button type="submit" [disabled]="isDisableBtn" class="btn btn-sm btn-primary">
               <i class="fa fa-dot-circle-o"></i> Submit</button>
             <button type="reset" class="btn btn-sm btn-danger"(click)="clearForm($event)">
               <i class="fa fa-ban"></i> Reset</button>
             <button type="button" class="btn btn-link" (click)="backButton($event)"><i class="fa fa-link" ></i>&nbsp; Back</button>
-          
+
           </div>
           <!-- <div class="card-footer"> -->
         </form>
-  
-        
+
+
       </div>
       <!-- <div class="card"> -->
     </div>
     <div class="col-md-2">
       <div class="card-body"></div>
-  
+
     </div>
   </div>
 <!--

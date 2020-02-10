@@ -4,12 +4,12 @@
 	</div>
 	<div class="col-md-10">
 		<div class="card">
-		
+
 		<div class="alert alert-success" role="alert" *ngIf="successAlertShow">The New Work Request <b>{{WR_Name}}</b> {{successAlertMessage}}</div>
 		<div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">An Error occured to create <b>{{WR_Name}}</b> {{dangerAlertMessage}}</div>
 
 			<div class="card-header">
-				
+
 				<strong>New APN Creation</strong>
 			</div>
 			<form [formGroup]="myApnCreationForm" novalidate (ngSubmit)="onApnCreationSubmit()">
@@ -34,14 +34,14 @@
 										'is-valid': apnName.valid && (apnName.dirty || apnName.touched)
 								   }">
 									<div class="invalid-feedback" *ngIf="apnName.errors && (apnName.dirty || apnName.touched)">
-										<p *ngIf="apnName.errors.required">APN Name is required</p>										
+										<p *ngIf="apnName.errors.required">APN Name is required</p>
 									</div>
 								</div>
 							</div>
 						</div>
 						</div>
 
-					<div class="row">	
+					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group row">
 								<label class="col-md-5 col-form-label" for="apnID">APN ID</label>
@@ -52,17 +52,17 @@
 										'is-valid': apnID.valid && (apnID.dirty || apnID.touched)
 								   }">
 									<div class="invalid-feedback" *ngIf="apnID.errors && (apnID.dirty || apnID.touched)">
-										<p *ngIf="apnID.errors.required">APN ID is required</p>										
+										<p *ngIf="apnID.errors.required">APN ID is required</p>
 									</div>
 								</div>
 							</div>
 						</div>
-										
+
 						<div class="col-md-6">
 							<div class="form-group row">
 								<label class="col-md-5 col-form-label" for="productType">Product Type</label>
 								<div class="col-md-7">
-									<select class="form-control" id="productType" formControlName="productType" required 
+									<select class="form-control" id="productType" formControlName="productType" required
 									 [ngClass]="{
 														'is-invalid': productType.invalid && (productType.dirty || productType.touched),
 														'is-valid': productType.valid && (productType.dirty || productType.touched)
@@ -76,21 +76,21 @@
 
 								</div>
 							</div>
-						</div>						
+						</div>
 					</div>
 				</div>
 				<!-- <div class="card-body"> -->
 				<div class="card-footer text-right">
-					<button type="submit" id = "btnSubmit" [disabled]="!myApnCreationForm.valid" class="btn btn-sm btn-primary">
+					<button type="submit" id = "btnSubmit" [disabled]="isDisableBtn" class="btn btn-sm btn-primary">
 						<i class="fa fa-dot-circle-o"></i> Submit</button>
 					<button type="reset" class="btn btn-sm btn-danger"(click)="clearForm($event)">
 						<i class="fa fa-ban"></i> Reset</button>
 					<button type="button" class="btn btn-link" (click)="backButton($event)"><i class="fa fa-link" ></i>&nbsp; Back</button>
-				
+
 				</div>
 				<!-- <div class="card-footer"> -->
 			</form>
-			
+
 		</div>
 		<!-- <div class="card"> -->
 	</div>

@@ -29,7 +29,7 @@
 							<div class="form-group row">
 								<label class="col-md-5 col-form-label" for="reProvisionFile">MNP Re Provision File</label>
 								<div class="col-md-7">
-								
+
 									<input type="file" id="reProvisionFile" name="reProvisionFile" class="form-control" formControlName="reProvisionFile" required
 									 [ngClass]="{
 										'is-invalid': reProvisionFile.invalid && (reProvisionFile.dirty || reProvisionFile.touched),
@@ -42,15 +42,15 @@
 							</div>
 						</div>
 					</div>
-					
-					
+
+
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group row">
 								<label class="col-md-5 col-form-label" for="quantity">Quantity</label>
 								<div class="col-md-7">
 									<input type="text" id="quantity" name="quantity" class="form-control" formControlName="quantity">
-									
+
 								</div>
 							</div>
 						</div>
@@ -74,8 +74,8 @@
 
 						</div>
 					</div>
-					
-					
+
+
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group row">
@@ -86,7 +86,7 @@
 								</div>
 							</div>
 
-						</div>					
+						</div>
 						<div class="col-md-6">
 							<div class="form-group row">
 								<label class="col-md-5 col-form-label" for="endICCID">End ICCID</label>
@@ -98,7 +98,7 @@
 
 						</div>
 					</div>
-					
+
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group row">
@@ -120,13 +120,13 @@
 							</div>
 						</div>
 					</div>
-					
-					
 
-					
-					
+
+
+
+
 					<div class="row">
-						
+
 						<div class="col-md-6">
 							<div class="form-group row">
 								<label class="col-md-5 col-form-label" for="productType">Product Type</label>
@@ -146,7 +146,7 @@
 								</div>
 							</div>
 						</div>
-					
+
 						<div class="col-md-6">
 							<div class="form-group row">
 								<label class="col-md-5 col-form-label" for="productName">Product Name</label>
@@ -167,7 +167,7 @@
 								</div>
 							</div>
 						</div>
-					</div>	
+					</div>
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group row">
@@ -178,7 +178,7 @@
 								</div>
 							</div>
 						</div>
-					
+
 						<div class="col-md-6">
 							<div class="form-group row">
 								<label class="col-md-5 col-form-label" for="communityID">Community ID</label>
@@ -198,7 +198,7 @@
 										<option></option>
 										<option *ngFor="let aZone of listZone" [value]="aZone.id">{{aZone.name}}</option>
 									</select>
-								</div>								
+								</div>
 							</div>
 						</div>
 						<div class="col-md-6">
@@ -227,19 +227,19 @@
 					</div>
 					<div class="row">
 						<div class="col-md-6">
-				
+
 								<div class="form-group row">
 									<label class="col-md-5 col-form-label" for="needByDate">Need By Date</label>
-									<div class="col-md-7">									
-										<input type="text" class="form-control calendar-container" id="needByDate" formControlName="needByDate" name="needByDate" 
-										required bsDatepicker  placement="right"  
+									<div class="col-md-7">
+										<input type="text" class="form-control calendar-container" id="needByDate" formControlName="needByDate" name="needByDate"
+										required bsDatepicker  placement="right"
 										 [bsConfig]="{ dateInputFormat: 'dd-MM-yyyy', containerClass: 'theme-green' }"
 										 [minDate]="todayDate"
 										 value="{{ needByDate.value | date: 'dd-MM-yyyy' }}"
 										>
 									</div>
 								</div>
-	
+
 							</div>
 							<div class="col-md-6">
 								</div>
@@ -255,17 +255,17 @@
 				</div>
 				<!-- <div class="card-body"> -->
 				<div class="card-footer text-right">
-					<button type="submit" [disabled]="!myMNPReProvisionForm.valid" class="btn btn-sm btn-primary">
+					<button type="submit" [disabled]="isDisableBtn" class="btn btn-sm btn-primary">
 						<i class="fa fa-dot-circle-o"></i> Submit</button>
 					<button type="reset" class="btn btn-sm btn-danger"(click)="clearForm($event)">
 						<i class="fa fa-ban"></i> Reset</button>
 					<button type="button" class="btn btn-link" (click)="backButton($event)"><i class="fa fa-link" ></i>&nbsp; Back</button>
-				
+
 				</div>
 				<!-- <div class="card-footer"> -->
 			</form>
 
-			
+
 		</div>
 		<!-- <div class="card"> -->
 	</div>

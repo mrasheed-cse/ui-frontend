@@ -53,8 +53,8 @@ export class SeriesprovisionformComponent implements OnInit {
 	public infoAlertShow:boolean = false;
 	public infoAlertMessage:string = "";
 	public defFlowFound:boolean = false;
-
 	public isLoading:boolean = false;
+  public isDisableBtn:boolean = false;
 
 
 	mySeriesProvisionForm: FormGroup;
@@ -281,7 +281,7 @@ export class SeriesprovisionformComponent implements OnInit {
 						this.infoAlertShow = true;
 						this.defFlowFound=false;
 						this.infoAlertMessage = "All numbers from "+startMSISDNs +" and "+ endMSISDNs +" do not have Definition Work Request OR these numbers already have provisioned.";
-            
+
 					}
 					this.isLoading = false;
 
@@ -339,9 +339,10 @@ topFunction() {
   // FORM SUBMISSION
   onSeriesProvisionSubmit() {
 	 //console.log("this.defFlowFound is "+this.defFlowFound);
-  if (this.mySeriesProvisionForm.valid && this.defFlowFound) {
+  if (this.mySeriesProvisionForm.valid && this.defFlowFound && !this.isDisableBtn) {
 		this.topFunction();
 	this.isLoading = true;
+	this.isDisableBtn = true;
     //console.log('Form Submitted!');
 	//console.log(this.needByDate.value);
 	const date = new Date(this.needByDate.value);

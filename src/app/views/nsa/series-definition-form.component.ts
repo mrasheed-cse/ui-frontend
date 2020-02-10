@@ -50,6 +50,7 @@ export class SeriesDefinitionFormComponent implements OnInit {
 	public isLoading:boolean = false;
 	public infoAlertShow:boolean = false;
 	public infoAlertMessage:string = "";
+  public isDisableBtn:boolean = false;
 
 
 	mySeriesDefinitionForm: FormGroup;
@@ -338,9 +339,10 @@ ChaeckDefinitionValidity (startMSISDNs, endMSISDNs) {
   // FORM SUBMISSION
   onSeriesProvisionSubmit() {
 
-  if (this.mySeriesDefinitionForm.valid) {
+  if (this.mySeriesDefinitionForm.valid && !this.isDisableBtn) {
 		this.topFunction();
 	this.isLoading = true;
+	this.isDisableBtn = true;
    // console.log('Form Submitted!');
     //console.log(this.mySeriesDefinitionForm.value);
 	//console.log("this.isLoading "+this.isLoading);

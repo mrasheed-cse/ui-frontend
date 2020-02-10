@@ -22,7 +22,7 @@ import 'rxjs/add/operator/retry';
 import 'rxjs/add/observable/of';
 
 import { LoginService } from '../pages/LoginService';
-import { LoggedInUser } from '../pages/loggedInUser'; 
+import { LoggedInUser } from '../pages/loggedInUser';
 
 
 import { AppGlobals } from './../../app.global';
@@ -39,48 +39,48 @@ export class ApnformComponent implements OnInit {
 	currentLoggedInUser: LoggedInUser;
 	userName: string;
 	userID: string;
-	groupID: number;	
-	
-	
+	groupID: number;
+
+
 	public dangerAlertShow:boolean = false;
 	public dangerAlertMessage:string = "";
 	public successAlertShow:boolean = false;
 	public successAlertMessage:string = "";
 	public isLoading:boolean = false;
-	public isDisableBtn = false;
+	public isDisableBtn:boolean = false;
 
-	
+
 	myApnCreationForm: FormGroup;
 	apnName: FormControl;
-	apnID: FormControl;	
+	apnID: FormControl;
 	productType: FormControl;
 	formFieldData: string;
-	
+
 
   public listProductType = [];
 
   constructor(private router: Router,private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private definitionDataService: DefinitionDataService, private workFlowsService: WorkflowsService) {
-	  
+
 	// Get Current User Profile
-	
+
 	this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
-	
+
 	if (this.currentLoggedInUser) {
 		this.userName = this.currentLoggedInUser.userName
 		this.groupID = this.currentLoggedInUser.groupID
 		this.userID = this.currentLoggedInUser.userID
 		//console.log('Current user: ' + this.userName);
-		
-	} 
+
+	}
 	else {
 	  //console.log('Current user not found');
 	  this.router.navigate(['pages/login']);
 	}
-	
+
 		//GetWR_Name
 	this.definitionDataService.GetWR_Name(this._global.wrid_ApnCreation).subscribe(
 	data => {
-			//console.log(data);				
+			//console.log(data);
 			const dataStr = JSON.stringify(data);
 
 			JSON.parse(dataStr, (key, value) => {
@@ -88,28 +88,28 @@ export class ApnformComponent implements OnInit {
 					this.WR_Name = value;
 					return value;
 				}
-			}); 
+			});
 			// console.log(this.WR_Name);
 		},
 		err => console.error(err),
 		()=> console.log('done loading Work Request Name')
     );
 
-	
+
 	//GetProductTypes
 	this.definitionDataService.GetProductTypes().subscribe(
-	data => { 
+	data => {
 				this.listProductType = [];
 				//console.log("this.listProductType "+this.listProductType.length);
 				for (let index in data) {
-				//console.log (data[index]);			
+				//console.log (data[index]);
 				this.listProductType.push(
 					{
 						id:data[index].id,
 						productType_name: data[index].productTypeName
 					}
-					); 
-				}		
+					);
+				}
 		// return data;
 			},
 		err => console.error(err),
@@ -119,7 +119,7 @@ export class ApnformComponent implements OnInit {
 
   ngOnInit() {
     this.createFormControls();
-    this.createForm();	
+    this.createForm();
   }
 
   createFormControls() {
@@ -139,18 +139,18 @@ export class ApnformComponent implements OnInit {
 		document.body.scrollTop = 0; // For Safari
 		document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 	}
-		
+
 
   // FORM SUBMISSION
   onApnCreationSubmit() {
-	 
+
   if (this.myApnCreationForm.valid && !this.isDisableBtn) {
 console.log(this.isDisableBtn);
 
 		this.topFunction();
 	this.isLoading = true;
 	this.isDisableBtn = true;
-	
+
 		console.log('Form Submitted!');
 		console.log(this.isDisableBtn);
 //    console.log(this.myApnCreationForm.value);
@@ -162,25 +162,25 @@ console.log(this.isDisableBtn);
   this.workFlowsService.CreateNewWorkRequest(this._global.wrid_ApnCreation, this.groupID,this.userID,this.formFieldData).subscribe(
       res  =>  {
 				console.log('response is : '+res.message);
-		
-				if(res !== ""){	
+
+				if(res !== ""){
 			this.successAlertShow = true;
 			this.successAlertMessage = " has been created successfully and forwarded to "+res.message+" .";
 		}
       },
-      err  =>  {		  
-		  console.log("err.status : "+err.status);		  
+      err  =>  {
+		  console.log("err.status : "+err.status);
 		  this.dangerAlertShow = true;
-		this.dangerAlertMessage = " .";		
+		this.dangerAlertMessage = " .";
       }
-	  
+
 			);
 		}
 }
 
 
 LogKeyValuePairs(group: FormGroup): void {
-	
+
   // Loop through each control key in the FormGroup
   Object.keys(group.controls).forEach((key: string) => {
     // Get the control. The control can be a nested form group
@@ -192,7 +192,7 @@ LogKeyValuePairs(group: FormGroup): void {
       this.LogKeyValuePairs(abstractControl);
       // If the control is a FormControl
     } else {
-		
+
       //console.log("Key : "+key+" , Value : "+abstractControl.value);
 	  if (this.formFieldData){
 		this.formFieldData=this.formFieldData+","+abstractControl.value;
@@ -202,7 +202,7 @@ LogKeyValuePairs(group: FormGroup): void {
 			//console.log("Key : "+key+" , Value : "+abstractControl.value);
 			this.formFieldData=abstractControl.value;
 		}
-		
+
     }
   });
 }
@@ -210,13 +210,13 @@ LogKeyValuePairs(group: FormGroup): void {
 clearForm(event: any){
 		//console.log(event);
 		this.dangerAlertShow = false;
-		this.successAlertShow = false;	
-		this.myApnCreationForm.reset();		
+		this.successAlertShow = false;
+		this.myApnCreationForm.reset();
 	}
  backButton(event: any){
 		//console.log(event);
-		this.router.navigateByUrl('/nsa/apn');	
+		this.router.navigateByUrl('/nsa/apn');
 	}
-	
-  
+
+
 }
