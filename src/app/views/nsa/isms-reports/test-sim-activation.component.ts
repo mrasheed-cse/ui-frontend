@@ -97,6 +97,7 @@ export class TestSimActivationComponent implements OnInit {
         {headerName: 'MSISDN Status', field: 'msisdnStatus', sortable: true, filter: true, width: 100 },
         {headerName: 'Start date', field: 'startDate', sortable: true, filter: true, width: 130, type: ["dateColumn", "nonEditableColumn"] },
         {headerName: 'End date', field: 'endDate', sortable: true, filter: true, width: 130, type: ["dateColumn", "nonEditableColumn"] },
+      {headerName: 'Pending At', field: 'pendingAt', sortable: true, filter: true, width: 210 }
 
     ];
 

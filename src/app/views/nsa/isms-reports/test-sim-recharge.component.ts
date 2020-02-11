@@ -98,7 +98,8 @@ export class TestSimRechargeComponent implements OnInit {
         {headerName: 'Start date', field: 'startDate', sortable: true, filter: true, width: 150, type: ["dateColumn", "nonEditableColumn"] },
         {headerName: 'End date', field: 'endDate', sortable: true, filter: true, width: 150, type: ["dateColumn", "nonEditableColumn"] },
         {headerName: 'Credit Limit', field: 'creditLimit', sortable: true, filter: true,  width: 110 },
-        {headerName: 'Recharge Amount', field: 'rechargeAmount', sortable: true, filter: true, width: 150 }
+        {headerName: 'Recharge Amount', field: 'rechargeAmount', sortable: true, filter: true, width: 150 },
+      {headerName: 'Pending At', field: 'pendingAt', sortable: true, filter: true, width: 210 }
     ];
 
     this.rowData = [];

@@ -99,7 +99,8 @@ export class CreditLimitExtensionComponent implements OnInit {
         {headerName: 'Start date', field: 'startDate', sortable: true, filter: true, width: 150, type: ["dateColumn", "nonEditableColumn"] },
         {headerName: 'End date', field: 'endDate', sortable: true, filter: true, width: 150, type: ["dateColumn", "nonEditableColumn"] },
         {headerName: 'Credit Limit', field: 'creditLimit', sortable: true, filter: true,  width: 110 },
-        {headerName: 'New Credit Limit', field: 'newCreditLimit', sortable: true, filter: true, width: 150 }
+        {headerName: 'New Credit Limit', field: 'newCreditLimit', sortable: true, filter: true, width: 150 },
+      {headerName: 'Pending At', field: 'pendingAt', sortable: true, filter: true, width: 210 }
     ];
 
     this.rowData = [];

@@ -95,7 +95,8 @@ export class TestSimSurrenderComponent implements OnInit {
         {headerName: 'Requester Mobile', field: 'requesterMobile', sortable: true, filter: true, width: 160 },
         {headerName: 'Approval Status', field: 'msisdnStatus', sortable: true, filter: true, width: 150 },
         {headerName: 'Start date', field: 'startDate', sortable: true, filter: true, width: 150, type: ["dateColumn", "nonEditableColumn"] },
-        {headerName: 'End date', field: 'endDate', sortable: true, filter: true, width: 150, type: ["dateColumn", "nonEditableColumn"] }
+        {headerName: 'End date', field: 'endDate', sortable: true, filter: true, width: 150, type: ["dateColumn", "nonEditableColumn"] },
+      {headerName: 'Pending At', field: 'pendingAt', sortable: true, filter: true, width: 210 }
     ];
 
     this.rowData = [];

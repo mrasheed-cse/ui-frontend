@@ -97,7 +97,8 @@ export class TestSimTransferComponent implements OnInit {
         {headerName: 'Approval Status', field: 'msisdnStatus', sortable: true, filter: true, width: 150 },
         {headerName: 'Start date', field: 'startDate', sortable: true, filter: true, width: 150, type: ["dateColumn", "nonEditableColumn"] },
         {headerName: 'End date', field: 'endDate', sortable: true, filter: true, width: 150, type: ["dateColumn", "nonEditableColumn"] },
-        {headerName: 'New Owner', field: 'newOwner', sortable: true, filter: true, width: 150 }
+        {headerName: 'New Owner', field: 'newOwner', sortable: true, filter: true, width: 150 },
+      {headerName: 'Pending At', field: 'pendingAt', sortable: true, filter: true, width: 210 }
 
     ];
 
