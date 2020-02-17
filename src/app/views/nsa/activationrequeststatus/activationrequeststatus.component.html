@@ -10,6 +10,7 @@
     <div class="card">
       <div class="card-header">
         <i class="fa fa-align-justify"></i> Already sent activation requests
+        <button style="float: right;" type="button" class="btn btn-link" ><i class="fa fa-link"></i><a [routerLink]="[ '/nsa/newsimactivationreq' ]"> Create New Activation </a></button>                
       </div>
       <div class="card-body" *ngIf="isDataFound">
         <table class="table table-bordered table-striped table-sm">

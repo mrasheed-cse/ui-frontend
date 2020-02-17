@@ -200,16 +200,16 @@ constructor(private router: Router,private loginService: LoginService, private h
 		Validators.minLength(18) ,
 		Validators.maxLength(18)
 	]);
-	this.startICCID19 = 	new FormControl({value: '', disabled: true}, Validators.required);
-	this.endICCID = 	new FormControl({value: '', disabled: true}, Validators.required);
-	this.startIMSI = 	new FormControl({value: '', disabled: true}, Validators.required);
-	this.endIMSI = 	new FormControl({value: '', disabled: true}, Validators.required);
+	this.startICCID19 = 	new FormControl({value: '', disabled: true});
+	this.endICCID = 	new FormControl({value: '', disabled: true});
+	this.startIMSI = 	new FormControl({value: '', disabled: true});
+	this.endIMSI = 	new FormControl({value: '', disabled: true});
 	this.productType = new FormControl('', [Validators.required]);
 	this.productName= new FormControl('', Validators.required);
-	this.serviceClassName=	new FormControl({value: '', disabled: true}, Validators.required);
-	this.communityID= 	new FormControl({value: '', disabled: true}, Validators.required);
+	this.serviceClassName=	new FormControl({value: '', disabled: true});
+	this.communityID= 	new FormControl({value: '', disabled: true});
 	this.zone= new FormControl('');
-	this.simType = new  FormControl('');
+	this.simType = new  FormControl('', Validators.required);
 	this.needByDate = new FormControl('');
 	this.srcComment= new FormControl('');
   }
@@ -324,7 +324,8 @@ topFunction() {
 
   // FORM SUBMISSION
   onReProvisionSubmit() {
-
+console.log('this.myReProvisionForm.valid '+this.myReProvisionForm.valid );
+console.log('this.isDisableBtn'+this.isDisableBtn);
   if (this.myReProvisionForm.valid && !this.isDisableBtn) {
     console.log('Form Submitted!');
     console.log(this.myReProvisionForm.value);

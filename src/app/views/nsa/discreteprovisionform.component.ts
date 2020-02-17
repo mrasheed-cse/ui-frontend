@@ -193,10 +193,10 @@ constructor(private router: Router,private loginService: LoginService, private h
 			Validators.minLength(18) ,
 			Validators.maxLength(18)
 		]);
-		this.startICCID19 = 	new FormControl({value: '123', disabled: true}, Validators.required);
-		this.endICCID = 	new FormControl({value: '', disabled: true}, Validators.required);
-		this.startIMSI = 	new FormControl({value: '', disabled: true}, Validators.required);
-		this.endIMSI = 	new FormControl({value: '', disabled: true}, Validators.required);
+		this.startICCID19 = 	new FormControl({value: '', disabled: true});
+		this.endICCID = 	new FormControl({value: '', disabled: true});
+		this.startIMSI = 	new FormControl({value: '', disabled: true});
+		this.endIMSI = 	new FormControl({value: '', disabled: true});
 		this.productType = new FormControl('', [Validators.required]);
 		this.productName= new FormControl('', Validators.required);
 		this.zone= new FormControl('');
@@ -272,14 +272,14 @@ onStartICCIDChanges() {
 			lastDigit = this.definitionDataService.LuhnAlgorithmFor19thDigit(selectedStartICCID);
 
 			var startICCIDval = selectedStartICCID +lastDigit;
-			console.log("startICCIDval "+startICCIDval);
+			//console.log("startICCIDval "+startICCIDval);
 			var totalQuantity = this.myDiscProvisionForm.get('quantity').value - 1;
 
 			var endICCIDval = this.definitionDataService.LongNumberAddition(selectedStartICCID,totalQuantity+"");
-			console.log("endICCIDval "+endICCIDval);
+			//console.log("endICCIDval "+endICCIDval);
 			lastDigit = this.definitionDataService.LuhnAlgorithmFor19thDigit(endICCIDval);
 			endICCIDval = endICCIDval + lastDigit;
-			console.log("endICCIDval2 "+endICCIDval);
+			//console.log("endICCIDval2 "+endICCIDval);
 
 			var startIMSIval = '47001'+selectedStartICCID.substr(8,10);
 			var endIMSIval = this.definitionDataService.LongNumberAddition(startIMSIval,totalQuantity+"");
@@ -302,23 +302,24 @@ topFunction() {
 
   // FORM SUBMISSION
   onDiscProvisionSubmit() {
-
+	console.log("this.myDiscProvisionForm.valid "+this.myDiscProvisionForm.valid );
+	console.log("this.isDisableBtn "+this.isDisableBtn);
   if (this.myDiscProvisionForm.valid && !this.isDisableBtn) {
 	  this.topFunction();
-    console.log('Form Submitted!');
-    console.log(this.myDiscProvisionForm.value);
+    //console.log('Form Submitted!');
+    //console.log(this.myDiscProvisionForm.value);
 
 	this.isLoading = true;
 	this.isDisableBtn = true;
   this.formFieldData = this.workFlowsService.FormatWorkRequestNameForAPI(this.WR_Name);
   this.fileName = this.formFieldData;
-  console.log(this.formFieldData);
+  //console.log(this.formFieldData);
   const fd = new FormData();
   fd.append('nsa-file',this.selectedFile,this.fileName+".csv");// File Name will be the WR_Name in server
-  console.log(this.selectedFile.name);
+  //console.log(this.selectedFile.name);
 
   this.LogKeyValuePairs(this.myDiscProvisionForm);
-  console.log(this.formFieldData);
+  //console.log(this.formFieldData);
 
   var result = this.fileoperationService.uploadCSV(fd);
 		console.log(result);
@@ -366,7 +367,7 @@ LogKeyValuePairs(group: FormGroup): void {
       // If the control is a FormControl
     } else {
 
-      console.log("Key : "+key+" , Value : "+abstractControl.value);
+      //console.log("Key : "+key+" , Value : "+abstractControl.value);
 
 	  if (this.formFieldData){
 		  if (key == 'needByDate'){
@@ -394,7 +395,7 @@ FormatTheDate(selectedNeedByDate:any):string {
     var month = ("0" + (date.getMonth()+1)).slice(-2);
     var day  = ("0" + date.getDate()).slice(-2);
     var formattedDate=[day,month,date.getFullYear()].join("/");
-	console.log("formattedDate : "+formattedDate);
+	//console.log("formattedDate : "+formattedDate);
 	return formattedDate;
 
 }
