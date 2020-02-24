@@ -169,7 +169,7 @@ export class TestsimCreditlimitextComponent implements OnInit {
     this.workFlowsService.submitSimActionRequest(requestObj).subscribe(
       data => {
         if(data != null && data != undefined && data != ""){
-          this.isLoading = false;
+          
           var msg = "The request has been submitted" + data['name'];
           alert(msg);
           this.router.navigate(['nsa/testsimdashboard']);
@@ -177,12 +177,12 @@ export class TestsimCreditlimitextComponent implements OnInit {
 
         console.log("sim action submitted");
         console.log(data);
-        this.isLoading = false;
+       
       },
     err => console.error(err),
     () => console.log('Done loading PendingTask List')
     );
-
+    this.isLoading = false;
     ////////////// /////////////////////// /////////////
   }
 

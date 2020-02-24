@@ -265,7 +265,8 @@ export class WorkflowsService {
 		});
 	}
 
-	loadMySimsWithSearch(user_id: string, offset: Number, msisdnForSearch: String, rqnNoForSearch: String, simStatusForSearch: Number) : any {
+	
+	loadMySimsWithSearch(user_id: string, offset: Number, msisdnForSearch: String, rqnNoForSearch: String, simStatusForSearch: Number, defWorkRequestId: Number) : any {
 		return this.http.post(this.serverUrl + 'workflow/mysims', {
 			createdBy: user_id,
 			requisitionNo: 0,
@@ -274,7 +275,22 @@ export class WorkflowsService {
 			offset: offset,
 			msisdnForSearch: msisdnForSearch,
 			rqnNoForSearch: rqnNoForSearch,
-			simStatusForSearch: simStatusForSearch
+			simStatusForSearch: simStatusForSearch,
+			defWorkRequestId: defWorkRequestId
+		});
+	}
+
+	loadMySimsforLimitExtWithSearch(user_id: string, offset: Number, msisdnForSearch: String, rqnNoForSearch: String, simStatusForSearch: Number) : any {
+		return this.http.post(this.serverUrl + 'workflow/mysimsforLimitExt', {
+			createdBy: user_id,
+			requisitionNo: 0,
+			status: "",
+			pageSize: this._global.defaultPageSize,
+			offset: offset,
+			msisdnForSearch: msisdnForSearch,
+			rqnNoForSearch: rqnNoForSearch,
+			simStatusForSearch: simStatusForSearch,
+			defWorkRequestId: 0
 		});
 	}
 

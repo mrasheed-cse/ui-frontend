@@ -74,7 +74,7 @@ export class TestsimCreditLimitextExistingComponent implements OnInit {
         {headerName: 'Work Request #', field: 'workRequestBriefName', sortable: true, filter: true, width: 210 },
         {headerName: 'Request Type', field: 'requestType', sortable: true, filter: true, width: 220 },
         {headerName: 'Initiate date', field: 'requestedOn', sortable: true, filter: true, width: 210 },
-        {headerName: 'Status', field: 'workRequestStatus', sortable: true, filter: true, width: 210 },
+       // {headerName: 'Status', field: 'workRequestStatus', sortable: true, filter: true, width: 210 },
         {headerName: 'Update date', field: 'requestUpdateDate', sortable: true, filter: true, width: 210 },
         {headerName: 'Pending At', field: 'pendingAt', sortable: true, filter: true, width: 210 }
     ];
@@ -160,7 +160,7 @@ export class TestsimCreditLimitextExistingComponent implements OnInit {
     this.showDetail = false;
 
     setTimeout(()=>{    //<<<---    using ()=> syntax
-      this.loadPendingList();
+      //this.loadPendingList();
     }, 2000);
 
     this.isLoading = false;
@@ -181,6 +181,7 @@ export class TestsimCreditLimitextExistingComponent implements OnInit {
 
     for(var i = 0; i < selectedData.length; i++){
         selectedIds = selectedData[i]['simActionId'];
+        console.log(selectedData[i]);
     }
 
     var selectedIdsAsInt = parseInt( selectedIds );
@@ -213,7 +214,8 @@ export class TestsimCreditLimitextExistingComponent implements OnInit {
         }
       },
       err  =>  {
-
+        this.isLoading = false;
+        this.showDetail = true;
       }
     );
 

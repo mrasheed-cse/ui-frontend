@@ -17,6 +17,18 @@
 
         <hr />
 
+        
+          <div class="row">
+                  <div class="col-md-6">
+                          <div class="form-group row">
+                                  <label class="col-md-5 col-form-label">Activation No</label>
+                                  <div class="col-md-7">
+                                          {{WR_Name}}
+                                  </div>
+                          </div>
+                  </div>
+                </div>
+
         <h6>MSISDNs delivered under this requisition:</h6>
 
         <div style="height:340px;overflow-y:scroll">
@@ -28,6 +40,7 @@
                 <th>SIM Serial #</th>
                 <th>SIM Type</th>
                 <th>SIM Status</th>
+                <th>Activation No</th>
                 <th>Delivery Status</th>              
                 <th>Declaration Status</th>
               </tr>
@@ -39,6 +52,7 @@
                             <td>{{aTask.simSerial}}</td>
                             <td>{{aTask.simType}}</td>
                             <td>{{aTask.simStatus}}</td>
+                            <td>{{aTask.activationWRName}}</td>
                             <td>{{aTask.deliveryStatus}}</td>
                             <td>{{aTask.declarationStatus}}</td>
                         </tr>

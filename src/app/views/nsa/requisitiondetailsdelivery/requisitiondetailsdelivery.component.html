@@ -133,8 +133,9 @@
                         <td>
                             <a *ngIf="c.clcUpdateQnty == false" class="btn btn-primary btn-sm" (click) = "clcUpdate(c)" style="padding: 2%;margin: 5%;border-radius: 4px;color: white;" >Set Quantity</a>                            
                         
-                              <a *ngIf="c.clcUpdateQnty == true && c.clcAssignmentCompleted == false" class="btn btn-primary btn-sm" (click) = "assignMsisdn(c)" style="padding: 2%;margin: 5%;border-radius: 4px;color: white;" >Assign MSISDN</a>
-                              <span *ngIf="c.clcUpdateQnty == true && c.clcAssignmentCompleted == true" style="font-weight:bold;font-style:italic">Already Assigned</span>
+                              <a *ngIf="c.clcUpdateQnty == true && c.clcAssignmentCompleted == false " class="btn btn-primary btn-sm" (click) = "assignMsisdn(c)" style="padding: 2%;margin: 5%;border-radius: 4px;color: white;" >Assign MSISDN</a>
+                              <span *ngIf="c.clcUpdateQnty == true && c.clcAssignmentCompleted == true && c.deliverQuantity > 0" style="font-weight:bold;font-style:italic">Already Assigned</span>
+                              <span *ngIf="c.clcUpdateQnty == true && c.deliverQuantity == 0 && c.clcAssignmentCompleted == true" style="font-weight:bold;font-style:italic">No Assignment required</span>
                           </td>
                       </tr>
                   </tbody>

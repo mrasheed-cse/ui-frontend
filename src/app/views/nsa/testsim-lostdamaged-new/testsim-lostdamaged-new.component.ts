@@ -103,7 +103,9 @@ export class TestsimLostdamagedNewComponent implements OnInit {
         {headerName: 'RQN Date', field: 'requisitionDateAsString', sortable: true, filter: true, width: 130, type: ["dateColumn", "nonEditableColumn"] },
         {headerName: 'Test start date', field: 'testStartDateAsString', sortable: true, filter: true, width: 130, type: ["dateColumn", "nonEditableColumn"] },
         {headerName: 'Test end date', field: 'testEndDateAsString', sortable: true, filter: true, width: 130, type: ["dateColumn", "nonEditableColumn"] },
-        {headerName: 'Credit limit', field: 'assignedCreditLimit', sortable: false, filter: false, width: 100, type: "numberColumn" } 
+        {headerName: 'Credit limit', field: 'assignedCreditLimit', sortable: false, filter: false, width: 100, type: "numberColumn" } ,
+        {headerName: 'Request', field: 'simActionWorkRequestBriefName', sortable: true, filter: true, width: 200},
+        {headerName: 'Pending At', field: 'pendingAt', sortable: true, filter: true, width: 130}
     ];
 
     this.rowData = [];    
@@ -127,7 +129,7 @@ export class TestsimLostdamagedNewComponent implements OnInit {
   loadPendingList(){
 
     //GetPendingTaskList
-    this.workFlowsService.loadMySimsWithSearch(this.userID, this.offset, this.searchOptions_msisdn, this.searchOptions_rqnNo, +(this.searchOptions_simStatus)).subscribe(
+    this.workFlowsService.loadMySimsWithSearch(this.userID, this.offset, this.searchOptions_msisdn, this.searchOptions_rqnNo, +(this.searchOptions_simStatus),  this._global.wrid_testSimLost).subscribe(
         data => {
           if(data !=null){            
             //console.log(data);
