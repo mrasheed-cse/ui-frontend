@@ -134,7 +134,7 @@ export class TestsimRechargeExistingComponent implements OnInit {
     this.showDetail = false;
 
     setTimeout(()=>{    //<<<---    using ()=> syntax
-      this.loadPendingList();
+      //this.loadPendingList();
     }, 2000);
   }
 

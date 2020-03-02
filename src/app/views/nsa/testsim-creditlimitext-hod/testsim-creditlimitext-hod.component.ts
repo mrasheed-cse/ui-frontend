@@ -77,7 +77,7 @@ export class TestsimCreditlimitextHodComponent implements OnInit {
     //this.isLoading = true;
 
     setTimeout(()=>{    //<<<---    using ()=> syntax
-      //this.loadPendingList();
+      this.loadPendingList();
     }, 2000);
 
   }

@@ -66,11 +66,12 @@ export class WorkflowsService {
 		});
 	}
 
-	LoadPersonalDetails(wr_id: number, user_id: string) : any {
+	LoadPersonalDetails(wr_id: number, user_id: string, status: string) : any {
+		//console.log( "status : "+status);
 		return this.http.post(this.serverUrl + 'workflow/personalrequests', {
 			createdBy: user_id,
 			requisitionNo: wr_id,
-			status: this.statusMarker
+			status: status
 		});
 	}
 	
@@ -276,12 +277,13 @@ export class WorkflowsService {
 			msisdnForSearch: msisdnForSearch,
 			rqnNoForSearch: rqnNoForSearch,
 			simStatusForSearch: simStatusForSearch,
-			defWorkRequestId: defWorkRequestId
+			defWorkRequestId: defWorkRequestId,
+			defWorkRequestId2: 0
 		});
 	}
 
-	loadMySimsforLimitExtWithSearch(user_id: string, offset: Number, msisdnForSearch: String, rqnNoForSearch: String, simStatusForSearch: Number) : any {
-		return this.http.post(this.serverUrl + 'workflow/mysimsforLimitExt', {
+	loadMySimsforDualActionsWithSearch(user_id: string, offset: Number, msisdnForSearch: String, rqnNoForSearch: String, simStatusForSearch: Number, defWorkRequestId: Number, defWorkRequestId2: Number) : any {
+		return this.http.post(this.serverUrl + 'workflow/mysimsforDualActions', {
 			createdBy: user_id,
 			requisitionNo: 0,
 			status: "",
@@ -290,7 +292,8 @@ export class WorkflowsService {
 			msisdnForSearch: msisdnForSearch,
 			rqnNoForSearch: rqnNoForSearch,
 			simStatusForSearch: simStatusForSearch,
-			defWorkRequestId: 0
+			defWorkRequestId: defWorkRequestId,
+			defWorkRequestId2: defWorkRequestId2
 		});
 	}
 

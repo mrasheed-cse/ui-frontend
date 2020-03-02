@@ -84,19 +84,20 @@
                         </button>
                     </a>
                 </div>
-                <div><a [routerLink]="['/nsa/newrequisitiondetails']">Total: {{counters.total_requisitionsCount}}</a></div>
+                
+                <div><a [routerLink]="['/nsa/newrequisitiondetails', {requestedSimAtatus: 'All'}]">Total: {{counters.total_requisitionsCount}}</a></div>
                 <table class="dashboard-box-table-custom">
                     <tr>
                         <td style="width:33% !important">
-                                <div><a [routerLink]="['/nsa/newrequisitiondetails']">Approved: {{counters.total_requisitionsApprovedCount}}</a></div>
+                                <div><a [routerLink]="['/nsa/newrequisitiondetails', {requestedSimAtatus: 'Approved'}]">Approved: {{counters.total_requisitionsApprovedCount}}</a></div>
                         </td>
                     </tr><tr>
                         <td style="width:33% !important">
-                            <div><a [routerLink]="['/nsa/newrequisitiondetails']">Rejected: {{counters.total_requisitionsRejectedCount}}</a></div>
+                            <div><a [routerLink]="['/nsa/newrequisitiondetails', {requestedSimAtatus: 'Rejected'}]">Rejected: {{counters.total_requisitionsRejectedCount}}</a></div>
                         </td>
                     </tr><tr>                        
                         <td style="width:33% !important">
-                            <div><a [routerLink]="['/nsa/newrequisitiondetails']">Pending: {{counters.total_requisitionsPendingCount}}</a></div>
+                            <div><a [routerLink]="['/nsa/newrequisitiondetails', {requestedSimAtatus: 'Pending'}]">Pending: {{counters.total_requisitionsPendingCount}}</a></div>
                         </td>
                     </tr>
                 </table>
@@ -177,7 +178,7 @@
         
         <div class="card text-white bg-success dashboard-box-custom" >
             <div class="card-header">
-                Limit Extension
+                Credit Extension
             </div>
             <div class="card-body pb-0">
                 <div class="btn-group float-right" >                    

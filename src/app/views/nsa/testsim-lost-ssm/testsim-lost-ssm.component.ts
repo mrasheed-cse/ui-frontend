@@ -56,6 +56,7 @@ export class TestsimLostSsmComponent implements OnInit {
 
   loadPendingList(){
     //GetPendingTaskList
+    this.isLoading = true;
     this.workFlowsService.simActionRequestsPendingForApproval(this._global.wrid_testSimDamaged,this.userID).subscribe(
         data => {
           if(data !=null){
@@ -80,7 +81,6 @@ export class TestsimLostSsmComponent implements OnInit {
                     }
                   }
 
-                  this.isLoading = false;
                 }
                 else{
                   this.isDataFound = false;
@@ -92,7 +92,7 @@ export class TestsimLostSsmComponent implements OnInit {
             ////////// //////////////////// /////////////////// //////////////
 
             this.requisitionList = data;
-            this.isLoading = false;
+            
           }
           else{
             this.isDataFound = false;
@@ -103,6 +103,7 @@ export class TestsimLostSsmComponent implements OnInit {
       );
     //Get Today Date
     this.todayDate = new Date();
+    this.isLoading = false;
   }
 
   initTasks(){
@@ -204,7 +205,7 @@ export class TestsimLostSsmComponent implements OnInit {
       res  =>  {
         if(res !== ""){
           if(res != null && res != undefined && res != ""){
-            this.isLoading = false;
+            
             var msg = "The request has been submitted" + res['name'];
             alert(msg);
             this.router.navigate(['nsa/testsimdashboard']);
@@ -215,7 +216,7 @@ export class TestsimLostSsmComponent implements OnInit {
 
       }
     );
-
+    this.isLoading = false;
   }
 
   cancel(){

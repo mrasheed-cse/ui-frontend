@@ -49,13 +49,13 @@
                   <div class="col-md-10" style="text-align: center">
                       
                       <div *ngIf="groupID==_global.groupID_Wipro_Billing">
-                          <button type="button"  class="btn btn-link"  (click)="downloadCSVFiles('ADC_File_.txt')">
+                          <button type="button"  class="btn btn-link"  (click)="downloadCSVFiles('ADC_File_.adc')">
                             <i class="fa fa-download" ></i>ADC File Download</button>
-                            <button type="button"  class="btn btn-link"  (click)="downloadCSVFiles('in_.csv')">
+                            <button type="button"  class="btn btn-link"  (click)="downloadCSVFiles('in_.txt')">
                                 <i class="fa fa-download" ></i>IN File Download</button>
                         </div>
                         <div *ngIf="groupID==_global.groupID_CIM">
-                            <button type="button"  class="btn btn-link"  (click)="downloadCSVFiles('ADC_File_.txt')">
+                            <button type="button"  class="btn btn-link"  (click)="downloadCSVFiles('ADC_File_.adc')">
                                 <i class="fa fa-download" ></i>ADC File Download</button>
                             <button type="button"  class="btn btn-link"  (click)="downloadCSVFiles('BPP_File_.csv')">
                               <i class="fa fa-download" ></i>BPP File Download</button>

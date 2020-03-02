@@ -134,8 +134,9 @@ export class TestsimCreditlimitextNewComponent implements OnInit {
 
   loadPendingList(){
     this.isDataFound = true;
+    this.isLoading = true;
     //GetPendingTaskList
-    this.workFlowsService.loadMySimsforLimitExtWithSearch(this.userID, this.offset, this.searchOptions_msisdn, this.searchOptions_rqnNo, +(this.searchOptions_simStatus)).subscribe(
+    this.workFlowsService.loadMySimsforDualActionsWithSearch(this.userID, this.offset, this.searchOptions_msisdn, this.searchOptions_rqnNo, +(this.searchOptions_simStatus), this._global.wrid_testSimTimeLimitExtension, this._global.wrid_testSimCreditLimitExtension).subscribe(
         data => {
           if(data !=null){            
             //console.log(data);
