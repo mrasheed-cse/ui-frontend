@@ -9,7 +9,7 @@
       </div>
       <div class="card">
         <div class="card-header">
-          <i class="fa fa-align-justify"></i> Lost -  Approval
+          <i class="fa fa-align-justify"></i> Lost / Damaged -  Approval
           <button type="button" style="float: right;" class="btn btn-link" ><i class="fa fa-link"></i><a [routerLink]="[ '/nsa/testsim-lostdamaged-new' ]"> Create New New SIM Lost / Damaged Request</a></button>
         </div>
         <div class="card-body" *ngIf="isDataFound && !showDetail">
@@ -86,9 +86,9 @@
                               </td>                                                       
                               <td>{{aTask.comments}}</td>
                               <td>
-                                <input type="checkbox" [(ngModel)] = "aTask.isApproved" [disabled]="aTask.locked" /> Approve
+                                <input type="checkbox" [(ngModel)] = "aTask.isApproved" [disabled]="aTask.locked" (click)="rejectCorresponding(i)"/> Approve
                                 &nbsp;&nbsp;&nbsp;
-                                <input type="checkbox" [(ngModel)] = "aTask.isRejected" [disabled]="aTask.locked" /> Reject                            
+                                <input type="checkbox" [(ngModel)] = "aTask.isRejected" [disabled]="aTask.locked"  (click)="approveCorresponding(i)"/> Reject                            
                               </td>                                                   
                           </tr>
               </tbody>

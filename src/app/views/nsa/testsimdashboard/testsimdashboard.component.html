@@ -12,7 +12,7 @@
                             My Approval Needed
                         </div>
                         <div class="card-body pb-0">
-                            <div><a [routerLink]="['/nsa/testsimdashboard']">Total: {{counters.total_myApprovalNeeded}}</a></div>
+                            <!--<div><a [routerLink]="['/nsa/testsimdashboard']">Total: {{counters.total_myApprovalNeeded}}</a></div>-->
                              
                                 <table class="dashboard-box-table-custom">
                                     <tr>
@@ -27,7 +27,7 @@
                                     </tr>
                                     <tr>                                    
                                         <td style="width:33% !important">
-                                            <div><a [routerLink]="['/nsa/testsimdashboard']">Others: {{counters.total_myAPprovalNeededOthers}}</a></div>
+                                           <!-- <div><a [routerLink]="['/nsa/testsimdashboard']">Others: {{counters.total_myAPprovalNeededOthers}}</a></div>-->
                                         </td>
                                     </tr>
                                 </table>                            
@@ -42,27 +42,27 @@
                     <table class="dashboard-box-table-custom">
                         <tr>
                             <td>
-                                    <div><a [routerLink]="['/nsa/testsim-deactivation']">Limit Ext: {{counters.myInactiveSimsCount}}</a></div>
+                                    <div><a [routerLink]="['/nsa/testsim-creditlimitext-ssm']">Time Limit Ext:{{counters.total_myAPprovalNeededTLE}}<br/> Credit limit Ext:{{counters.total_myAPprovalNeededCLE}}</a></div>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                    <div><a [routerLink]="['/nsa/testsim-myothersims']">Sim Recharge: {{counters.myDeactiveAndPendingSimsCount}}</a></div>
+                                    <div><a [routerLink]="['/nsa/testsim-recharge-ssm']">Sim Recharge: {{counters.total_myAPprovalNeededRecharge}}</a></div>
                             </td>
                         </tr>
                         <tr>
                                 <td>
-                                        <div><a [routerLink]="['/nsa/testsim-deactivation']">Sim Surrender: {{counters.myInactiveSimsCount}}</a></div>
+                                        <div><a [routerLink]="['/nsa/testsim-surrender-ssm']">Sim Surrender: {{counters.total_myAPprovalNeededSurrender}}</a></div>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                        <div><a [routerLink]="['/nsa/testsim-myothersims']">Damaged / Lost: {{counters.myDeactiveAndPendingSimsCount}}</a></div>
+                                        <div><a [routerLink]="['/nsa/testsim-lost-ssm']">Damaged:{{counters.total_myAPprovalNeededDamaged}}<br/>Lost:{{counters.total_myAPprovalNeededLost}}</a></div>
                                 </td>
                             </tr>
                             <tr>
                                     <td>
-                                            <div><a [routerLink]="['/nsa/testsim-myothersims']">Transfer: {{counters.myDeactiveAndPendingSimsCount}}</a></div>
+                                            <div><a [routerLink]="['/nsa/testsim-transfer-ssm']">Transfer: {{counters.total_myAPprovalNeededTransfer}}</a></div>
                                     </td>
                                 </tr>
                     </table>

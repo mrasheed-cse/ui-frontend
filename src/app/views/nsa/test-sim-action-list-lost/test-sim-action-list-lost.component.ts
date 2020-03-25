@@ -104,7 +104,7 @@ export class TestSimActionListLostComponent implements OnInit {
         {headerName: 'Pending at', field: 'hop', sortable: true, filter: true, width: 100 },
         {headerName: 'Req date', field: 'requestDateAsString', sortable: false, filter: true, width: 200 },
         {headerName: 'Mode', field: 'lostDamageMode', sortable: false, filter: false, width: 90 },
-        {headerName: 'Lost date', field: 'lostDamageDate', sortable: false, filter: false, width: 140 },
+        {headerName: 'Lost date', field: 'lostDamageDateAsString', sortable: false, filter: false, width: 140  },
         //{headerName: 'Test start date', field: 'testStartDateAsString', sortable: true, filter: true, width: 130, type: ["dateColumn", "nonEditableColumn"] },
         //{headerName: 'Test end date', field: 'testEndDateAsString', sortable: true, filter: true, width: 130, type: ["dateColumn", "nonEditableColumn"] },
         //{headerName: 'Credit limit', field: 'assignedCreditLimit', sortable: false, filter: false, width: 100, type: "numberColumn" }

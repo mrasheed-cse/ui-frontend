@@ -350,7 +350,8 @@ export class NewrequisitioninitiateComponent implements OnInit {
 
 			);
 
-  //GetWR_Name
+	//GetWR_Name
+	/*
 	this.definitionDataService.GetWR_Name_forIsms(this._global.wrid_NewSimRequision).subscribe(
     data => {
         const dataStr = JSON.stringify(data);
@@ -365,7 +366,7 @@ export class NewrequisitioninitiateComponent implements OnInit {
       err => console.error(err),
       ()=> console.log('done loading Work Request Name')
       );
-
+*/
 
 		//Get Today Date
 		this.todayDate = new Date();
@@ -642,10 +643,10 @@ export class NewrequisitioninitiateComponent implements OnInit {
     							this.newSimRequisitionForm.reset();
 								this.successAlertShow = true;
 								if(this.groupID == this._global.groupID_SSM){
-									this.successAlertMessage = "Requisition no "+ this.WR_Name +" has been submitted successfully and forwarded to CLC for approval.";
+									this.successAlertMessage = "Requisition no "+ res.message +" has been submitted successfully and forwarded to CLC for approval.";
 								}
 								else{
-									this.successAlertMessage = "Requisition no "+ this.WR_Name +" has been submitted successfully and forwarded to SSM for approval.";
+									this.successAlertMessage = "Requisition no "+ res.message +" has been submitted successfully and forwarded to SSM for approval.";
 								}
     							alert(this.successAlertMessage);
     							setTimeout(()=>{

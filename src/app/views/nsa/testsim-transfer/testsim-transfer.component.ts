@@ -44,7 +44,10 @@ export class TestsimTransferComponent implements OnInit {
 		  listSimStatus: Array<any>;
 		  searchOptions_simStatus: String;
 		  searchOptions_msisdn: String;
-		  searchOptions_rqnNo: String;
+      searchOptions_rqnNo: String;
+      transferMode: String;
+      transferTo: String;
+      comments: String;
 
   constructor(private route:ActivatedRoute, private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {
 
@@ -157,6 +160,15 @@ export class TestsimTransferComponent implements OnInit {
 
   submit(){
 
+    if(this.comments == null ||
+      this.comments == undefined ||
+      this.comments == ""){
+          var msg = "Comments is blank.";
+          alert(msg);
+          return;
+      }
+
+
     for(var i = 0; i < this.requisitionList.length; i++){
 
       //todo hard code
@@ -169,14 +181,7 @@ export class TestsimTransferComponent implements OnInit {
           return;
       }*/
 
-      if(this.requisitionList[i]['comments'] == null ||
-      this.requisitionList[i]['comments'] == undefined ||
-      this.requisitionList[i]['comments'] == ""){
-          var msg = "At row " + (i+1) + " comments is blank.";
-          alert(msg);
-          return;
-      }
-
+      
     }
 
     ////////////// ////////////////////////
@@ -195,12 +200,12 @@ export class TestsimTransferComponent implements OnInit {
       var requestDetailObj = {};
       requestDetailObj['requisitionLineMsisdnId'] = this.requisitionList[i]['requisitionLineMsisdnId'];
       requestDetailObj['justification'] = this.requisitionList[i]['comments'];
-      requestDetailObj['comments'] = this.requisitionList[i]['comments'];
+      requestDetailObj['comments'] = this.comments;
       requestDetailObj['newCreditLimit'] = 0;
       requestDetailObj['newEndDate'] = "";
       requestDetailObj['rechargeAmount'] = 0;
-      requestDetailObj['transferMode'] = this.requisitionList[i]['transferMode'];
-      requestDetailObj['transferTo'] = this.requisitionList[i]['transferTo'];
+      requestDetailObj['transferMode'] = this.transferMode;
+      requestDetailObj['transferTo'] = this.transferTo;
       requestDetailObj['lostDamageMode'] = "";
       requestDetailObj['lostDamageDate'] = "";
 

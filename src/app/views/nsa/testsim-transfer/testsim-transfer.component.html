@@ -13,6 +13,30 @@
           <button type="button" style="float: right;" class="btn btn-link" ><i class="fa fa-link"></i><a [routerLink]="[ '/nsa/testsim-transfer-new' ]"> Create New SIM Transfer Request</a></button>
         </div>
         <div class="card-body" *ngIf="isDataFound">
+            <div class="row">
+
+                <div class="col-md-2">Transfer Mode
+                  </div>
+
+    <div class="col-md-6">
+                  <select class="form-control"  [(ngModel)] = "transferMode">
+                      <option *ngFor="let singleListItem of listTransferModes" [value]="singleListItem.id">{{singleListItem.name}}</option>
+                  </select>
+                </div></div>
+                <div class="row">
+
+                    <div class="col-md-2">Select Transferee</div>
+                        <div class="col-md-6">             
+                  <input type="text" (keyup)="getUserIdsFirstWay($event)" id="userIdFirstWay" list="dynmicUserIds" [(ngModel)] = "transferTo" />                  
+                </div></div>
+                <div class="row">
+
+                    <div class="col-md-2">Comments
+                      </div>
+                      <div class="col-md-6">   
+                    <input type="text" class="form-control" [(ngModel)] = "comments" />
+                  </div></div>
+        
           <table class="table table-bordered table-striped table-sm">
             <thead>
               <tr>
@@ -22,9 +46,9 @@
                 <th>SIM Status</th>
                 <th>Test start date</th>
                 <th>Test end date</th>
-                <th>Transfer mode</th>
+                <!--<th>Transfer mode</th>
                 <th>Transfer to</th>
-                <th>Comments</th>                
+                <th>Comments</th>                -->
               </tr>
             </thead>
             <tbody *ngFor="let aTask of requisitionList;  index as i">
@@ -35,22 +59,7 @@
                             <td>{{aTask.simStatus}}</td>
                             <td>{{aTask.testStartDateAsString}}</td>
                             <td>{{aTask.testEndDateAsString}}</td>
-                            <td>
-                              <select class="form-control"  [(ngModel)] = "aTask.transferMode">
-                                  <option *ngFor="let singleListItem of listTransferModes" [value]="singleListItem.id">{{singleListItem.name}}</option>
-                              </select>
-                            </td>
-                            <td>
-                              <!--<input type="text" [(ngModel)] = "aTask.transferTo" />-->
-                              <!--<select class="form-control"  >
-                                  <option *ngFor="let singleUser of listUsers" [value]="singleUser.nsa_users_id">{{singleListItem.nsa_users_name}}</option>
-                              </select>-->
-                              <input type="text" (keyup)="getUserIdsFirstWay($event)" id="userIdFirstWay" list="dynmicUserIds" [(ngModel)] = "aTask.transferTo" />
-                              
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" [(ngModel)] = "aTask.comments" />
-                            </td>                                                                              
+                                                                                                         
                         </tr>
             </tbody>
           </table>

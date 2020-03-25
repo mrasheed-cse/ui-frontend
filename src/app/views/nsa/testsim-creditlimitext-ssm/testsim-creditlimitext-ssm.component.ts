@@ -104,7 +104,7 @@ export class TestsimCreditlimitextSsmComponent implements OnInit {
       );
     //Get Today Date
     this.todayDate = new Date();
-    this.isLoading = false;
+    //this.isLoading = false;
   }
 
   initTasks(){
@@ -136,7 +136,7 @@ export class TestsimCreditlimitextSsmComponent implements OnInit {
       res  =>  {
         if(res !== ""){
           this.msisdnList = res;
-
+console.log(res);
           for(var i = 0; i < this.msisdnList.length; i++){
             this.msisdnList[i]['selected'] = false;
             this.msisdnList[i]['isApproved'] = false;
@@ -156,7 +156,7 @@ export class TestsimCreditlimitextSsmComponent implements OnInit {
         this.isLoading = false;
       }
     );
-    this.isLoading = false;
+    //this.isLoading = false;
   }
 
   approveAll(){
@@ -180,6 +180,54 @@ export class TestsimCreditlimitextSsmComponent implements OnInit {
     }
 
   }
+
+  rejectCorresponding(position){
+  //  alert(position);
+    this.msisdnList[position]['isRejected'] = false;
+    this.msisdnList[position]['isApproved'] = true;
+    //console.log(aTask);
+    /*
+    for(var i = 0; i < this.msisdnList.length; i+=2){
+      if(!this.msisdnList[i]['locked']){
+        this.msisdnList[i]['isRejected'] = false;
+        this.msisdnList[i]['isApproved'] = true;
+        console.log(this.msisdnList[i]);
+      }
+    }
+    */
+    /*
+    console.log(this.msisdnList[position]);
+    this.msisdnList[position]['isRejected'] = true;
+    this.msisdnList[position]['isApproved'] = false;
+    this.msisdnList[position]['selected'] = false;
+    console.log(this.msisdnList[position]);
+    */
+  }
+
+  
+  approveCorresponding(position){
+    //  alert(position);
+      this.msisdnList[position]['isRejected'] = true;
+      this.msisdnList[position]['isApproved'] = false;
+      //console.log(aTask);
+      /*
+      for(var i = 0; i < this.msisdnList.length; i+=2){
+        if(!this.msisdnList[i]['locked']){
+          this.msisdnList[i]['isRejected'] = false;
+          this.msisdnList[i]['isApproved'] = true;
+          console.log(this.msisdnList[i]);
+        }
+      }
+      */
+      /*
+      console.log(this.msisdnList[position]);
+      this.msisdnList[position]['isRejected'] = true;
+      this.msisdnList[position]['isApproved'] = false;
+      this.msisdnList[position]['selected'] = false;
+      console.log(this.msisdnList[position]);
+      */
+    }
+  
 
   submit(){
 

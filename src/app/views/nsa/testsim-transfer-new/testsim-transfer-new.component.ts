@@ -127,7 +127,7 @@ export class TestsimTransferNewComponent implements OnInit {
   }
 
   loadPendingList(){
-
+    this.isLoading = true;  
     //GetPendingTaskList
     this.workFlowsService.loadMySimsWithSearch(this.userID, this.offset, this.searchOptions_msisdn, this.searchOptions_rqnNo, +(this.searchOptions_simStatus), this._global.wrid_testSimTransfer).subscribe(
         data => {
@@ -136,19 +136,22 @@ export class TestsimTransferNewComponent implements OnInit {
             this.isDataFound = true;
             this.rowData = data;
             if(data.length > 0) this.totalPages = +(data[0]['totalPages']);
-            this.isLoading = false;
+            //this.isLoading = false;
           }
           else{
             this.isDataFound = false;
-            this.isLoading = false;
+            //this.isLoading = false;
           }
         },
       err => console.error(err),
-      () => console.log('Done loading PendingTask List')
+      () =>{
+         console.log('Done loading PendingTask List');
+         this.isLoading = false;    
+      }
       );
     //Get Today Date
     this.todayDate = new Date();
-    this.isLoading = false;    
+    //this.isLoading = false;    
   }
 
   search(){

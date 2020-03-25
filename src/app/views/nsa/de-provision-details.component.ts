@@ -61,7 +61,7 @@ import {
   
 	  
 	  
-	constructor(private loginService: LoginService,private activatedRoute: ActivatedRoute, private router:Router, private _global: AppGlobals, private workFlowsService: WorkflowsService, private fileoperationService: FileoperationService) {
+	constructor(private loginService: LoginService,private activatedRoute: ActivatedRoute, private router:Router, public _global: AppGlobals, private workFlowsService: WorkflowsService, private fileoperationService: FileoperationService) {
 		
 	  // Get Current User Profile
 	  
@@ -175,11 +175,22 @@ import {
 		  
 	  }  
 	  
-	
+	/*
   downloadCSVFiles() {
 		  var nameOfFileToDownload = this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName)+".csv";
 		  console.log("nameOfFileToDownload : "+nameOfFileToDownload);
+	*/
+
+	downloadCSVFiles(requiredFile: string) {
+
+		var nameOfFileToDownload;
+		if(requiredFile.length == 0)
+				nameOfFileToDownload = this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName)+".csv";
+		
+		else
+			nameOfFileToDownload = requiredFile.replace(".", this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName)+".");
 	
+			console.log("Download File Name : "+nameOfFileToDownload);
 		  var result = this.fileoperationService.downloadCSV(nameOfFileToDownload);
 		  console.log(result);
 		  result.subscribe(

@@ -155,7 +155,7 @@ export class TestsimCreditlimitextNewComponent implements OnInit {
       );
     //Get Today Date
     this.todayDate = new Date();
-    this.isLoading = false;
+   // this.isLoading = false;
   }
 
   search(){

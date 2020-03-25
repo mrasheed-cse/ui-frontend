@@ -148,7 +148,18 @@ export class TestsimTimeextSsmComponent implements OnInit {
     }
 
   }
-
+ rejectCorresponding(position){
+    //  alert(position);
+      this.msisdnList[position]['isRejected'] = false;
+      this.msisdnList[position]['isApproved'] = true;      
+    }  
+    
+    approveCorresponding(position){
+      //  alert(position);
+        this.msisdnList[position]['isRejected'] = true;
+        this.msisdnList[position]['isApproved'] = false;       
+      }
+ 
   submit(){
 
     this.isLoading = true;

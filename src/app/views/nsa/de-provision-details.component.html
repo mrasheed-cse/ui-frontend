@@ -49,8 +49,14 @@
 							</tr>					
 						</table >-->
 					</div>
-			<button type="button" class="btn btn-link" (click)="downloadCSVFiles()"><i class="fa fa-download" ></i>Download File</button>
-			
+					<div *ngIf="groupID==_global.groupID_Wipro_Billing">
+						<button type="button"  class="btn btn-link"  (click)="downloadCSVFiles('IN_.txt')">
+							<i class="fa fa-download" ></i>IN File Download</button>
+					</div>
+					<div *ngIf="groupID!=_global.groupID_Wipro_Billing">
+						<button type="button" class="btn btn-link" (click)="downloadCSVFiles('')">
+							<i class="fa fa-download" ></i>Download File</button>
+					</div>
 			<div >
 			<div class="card-footer text-right">
 					<button type="submit" [disabled]="isDoneDisable" class="btn btn-sm btn-primary" (click)="onDoneClick($event)">
