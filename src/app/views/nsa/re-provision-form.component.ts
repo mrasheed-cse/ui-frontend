@@ -349,26 +349,32 @@ console.log('this.isDisableBtn'+this.isDisableBtn);
         result
 		.subscribe(res => {
 			console.log(res);
+
+			console.log('file uploaded at '+new Date().toString());
+
+			console.log('Before work request process time '+new Date().toString());
+
+			this.workFlowsService.CreateNewWorkRequest(this._global.wrid_ReProvisioning, this.groupID,this.userID,this.formFieldData).subscribe(
+				res  =>  {
+				console.log('response is : '+res.message);
+				this.isLoading = false;
+			if(res !== ""){
+				this.successAlertShow = true;
+				this.successAlertMessage = " has been created successfully and forwarded to "+res.message+". ";
+			}
+				},
+				err  =>  {
+					this.isLoading = false;
+				console.log("err.status : "+err.status);
+				this.dangerAlertShow = true;
+			this.dangerAlertMessage = " .";
+			
+				}
+	
+				);
+
 		});
-
-
-  this.workFlowsService.CreateNewWorkRequest(this._global.wrid_ReProvisioning, this.groupID,this.userID,this.formFieldData).subscribe(
-      res  =>  {
-		console.log('response is : '+res.message);
-
-		if(res !== ""){
-			this.successAlertShow = true;
-			this.successAlertMessage = " has been created successfully and forwarded to "+res.message+". ";
-		}
-      },
-      err  =>  {
-		  console.log("err.status : "+err.status);
-		  this.dangerAlertShow = true;
-		this.dangerAlertMessage = " .";
-      }
-
-			);
-			this.isLoading = false;
+			
 
 		}
 }

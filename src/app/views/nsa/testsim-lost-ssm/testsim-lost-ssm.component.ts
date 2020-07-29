@@ -54,45 +54,18 @@ export class TestsimLostSsmComponent implements OnInit {
 
   } //end of constructor
 
+
   loadPendingList(){
     //GetPendingTaskList
-    this.isLoading = true;
-    this.workFlowsService.simActionRequestsPendingForApproval(this._global.wrid_testSimDamaged,this.userID).subscribe(
+    this.workFlowsService.simActionDualRequestsPendingForApproval(this._global.wrid_testSimDamaged+','+this._global.wrid_testSimLost,this.userID).subscribe(
         data => {
           if(data !=null){
             console.log(data);
             this.isDataFound = true;
 
-            if(data.length > 0){
-              for(var i = 0; i < data.length; i++){
-                this.requisitionList.push(data[i]);
-              }
-            }
-
-            /////////// /////////////////// ///////////// ////////////////////
-            this.workFlowsService.simActionRequestsPendingForApproval(this._global.wrid_testSimLost,this.userID).subscribe(
-              data => {
-                if(data !=null){
-                  console.log(data);
-
-                  if(data.length > 0){
-                    for(var i = 0; i < data.length; i++){
-                      this.requisitionList.push(data[i]);
-                    }
-                  }
-
-                }
-                else{
-                  this.isDataFound = false;
-                }
-              },
-            err => console.error(err),
-            () => console.log('Done loading PendingTask List')
-            );
-            ////////// //////////////////// /////////////////// //////////////
-
-            this.requisitionList = data;
             
+            this.requisitionList = data;
+            this.isLoading = false;
           }
           else{
             this.isDataFound = false;
@@ -103,8 +76,9 @@ export class TestsimLostSsmComponent implements OnInit {
       );
     //Get Today Date
     this.todayDate = new Date();
-    this.isLoading = false;
+    //this.isLoading = false;
   }
+
 
   initTasks(){
     this.selectedSimActionId = 0;
@@ -125,7 +99,9 @@ export class TestsimLostSsmComponent implements OnInit {
   }
 
   details(aTask){
-
+    console.log(aTask);
+    console.log(this.groupID);
+    if(this.groupID == 10){
     this.isLoading = true;
     this.selectedSimActionId = (aTask['simActionId']);
 
@@ -153,6 +129,20 @@ export class TestsimLostSsmComponent implements OnInit {
 
       }
     );
+  }
+  else  if(this.groupID == 13){
+    //return '../lostdamagedetailsdelivery/'.toString();
+    this.router.navigateByUrl('/nsa/lostdamagedetailsdelivery/'+aTask['simActionId']);	
+//this.router.navigateByUrl('../lostdamagedetailsdelivery/133');	
+  // return '../lostdamagedetailsdelivery/133'.toString();
+   //lostdamagedetailsdelivery
+
+  }
+
+  else  if(this.groupID == 12){
+    
+    this.router.navigateByUrl('/nsa/lostdamagenewsimconnection/'+aTask['simActionId']);	
+  }
 
   }
 

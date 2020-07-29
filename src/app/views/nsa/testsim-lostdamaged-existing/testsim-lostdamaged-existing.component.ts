@@ -94,59 +94,38 @@ export class TestsimLostdamagedExistingComponent implements OnInit {
 
   loadPendingList(){
     //GetPendingTaskList
-    this.workFlowsService.ownRequestsForSimAction(this._global.wrid_testSimLost,this.userID).subscribe(
+    this.isLoading = true;
+    this.workFlowsService.ownRequestsForDualSimAction(this._global.wrid_testSimLost+","+this._global.wrid_testSimDamaged,this.userID).subscribe(
         data => {
           if(data !=null){
-            //console.log(data);
+            console.log(data);
             this.isDataFound = true;
-
+           
             if(data.length > 0){
               for(var i = 0; i < data.length; i++){
                 this.requisitionList.push(data[i]);
+                this.requisitionList[i]['serial'] = (i+1);
               }
-            }
 
-            /////////// /////////////////// ///////////// ////////////////////
-            this.workFlowsService.ownRequestsForSimAction(this._global.wrid_testSimDamaged,this.userID).subscribe(
-              data => {
-                if(data !=null){
-                  //console.log(data);
+             
+              console.log(this.requisitionList);
+              this.rowData = this.requisitionList;
 
-                  if(data.length > 0){
-                    for(var i = 0; i < data.length; i++){
-                      this.requisitionList.push(data[i]);
-                    }
-                  }
-
-                  for(var i = 0; i < this.requisitionList.length; i++){
-                    this.requisitionList[i]['serial'] = (i+1);
-                  }
-                  console.log(this.requisitionList);
-                  this.rowData = this.requisitionList;
-
-                  this.isLoading = false;
-                }
-                else{
-                  this.isDataFound = false;
-                }
-              },
-            err => console.error(err),
-            () => console.log('Done loading PendingTask List')
-            );
-            ////////// //////////////////// /////////////////// //////////////
-
-            this.requisitionList = data;
-            this.isLoading = false;
+            }           
           }
           else{
-            this.isDataFound = false;
+            this.isDataFound = false;          
           }
         },
       err => console.error(err),
-      () => console.log('Done loading PendingTask List')
+      () => {
+        console.log('Done loading PendingTask List');    
+        this.isLoading = false;   
+      }
       );
     //Get Today Date
     this.todayDate = new Date();
+ 
   }
 
   initTasks(){

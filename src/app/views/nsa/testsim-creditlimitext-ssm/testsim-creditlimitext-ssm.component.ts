@@ -56,42 +56,13 @@ export class TestsimCreditlimitextSsmComponent implements OnInit {
 
   loadPendingList(){
     //GetPendingTaskList
-    this.workFlowsService.simActionRequestsPendingForApproval(this._global.wrid_testSimCreditLimitExtension,this.userID).subscribe(
+    this.workFlowsService.simActionDualRequestsPendingForApproval(this._global.wrid_testSimCreditLimitExtension+','+this._global.wrid_testSimTimeLimitExtension,this.userID).subscribe(
         data => {
           if(data !=null){
             console.log(data);
             this.isDataFound = true;
 
-            if(data.length > 0){
-              for(var i = 0; i < data.length; i++){
-                this.requisitionList.push(data[i]);
-              }
-            }
-
-            /////////// /////////////////// ///////////// ////////////////////
-            this.workFlowsService.simActionRequestsPendingForApproval(this._global.wrid_testSimTimeLimitExtension,this.userID).subscribe(
-              data => {
-                if(data !=null){
-                  console.log(data);
-
-                  if(data.length > 0){
-                    for(var i = 0; i < data.length; i++){
-                      this.requisitionList.push(data[i]);
-                    }
-                  }
-
-                  this.isLoading = false;
-                }
-                else{
-                  this.isDataFound = false;
-                  this.isLoading = false;
-                }
-              },
-            err => console.error(err),
-            () => console.log('Done loading PendingTask List')
-            );
-            ////////// //////////////////// /////////////////// //////////////
-
+            
             this.requisitionList = data;
             this.isLoading = false;
           }

@@ -36,8 +36,8 @@ export class WorkflowsService {
 	CreateNewWorkRequest(wr_id: number,userGroup_id: number,userID: string,workflowFieldsValueSeqWise: string) : any {	
   
 		//console.log("In GetWR_Name() for theWrNumber "+ theWrNumber);	
-		//console.log("In GetWR_Name() for workflowFieldsValueSeqWise "+ workflowFieldsValueSeqWise);	
-		//console.log(wr_id+'/'+userGroup_id+'/'+userID+'/['+workflowFieldsValueSeqWise+']');
+		console.log("In GetWR_Name() for workflowFieldsValueSeqWise "+ workflowFieldsValueSeqWise);	
+		console.log(wr_id+'/'+userGroup_id+'/'+userID+'/['+workflowFieldsValueSeqWise+']');
 	
 	
 	return this.http.post(this.serverUrl + 'NewWorkRequest', {
@@ -66,12 +66,11 @@ export class WorkflowsService {
 		});
 	}
 
-	LoadPersonalDetails(wr_id: number, user_id: string, status: string) : any {
-		//console.log( "status : "+status);
+	LoadPersonalDetails(wr_id: number, user_id: string) : any {
 		return this.http.post(this.serverUrl + 'workflow/personalrequests', {
 			createdBy: user_id,
 			requisitionNo: wr_id,
-			status: status
+			status: this.statusMarker
 		});
 	}
 	
@@ -80,7 +79,7 @@ export class WorkflowsService {
 	//http://localhost:8019/nsa/PreviousHopsField/1/1/3/2
 	
 	LoadPreviousHopsField(wrID: number,wrBriefID: number,userGroup_id: number,current_hop_seq: number) : any {
-		//console.log('PreviousHopsField/'+wrID+'/'+wrBriefID+'/'+userGroup_id+'/'+current_hop_seq);
+		console.log('PreviousHopsField/'+wrID+'/'+wrBriefID+'/'+userGroup_id+'/'+current_hop_seq);
 		return this.http.post(this.serverUrl + 'PreviousHopsField', {
 			wrID: wrID,
 			wrBriefID: wrBriefID,
@@ -96,7 +95,7 @@ export class WorkflowsService {
 		//console.log("In GetWR_Name() for theWrNumber "+ theWrNumber);	
 		
 	
-	//console.log(this.serverUrl + 'ExistingWorkRequest/'+wrBriefName+'/'+wr_id+'/'+userGroup_id+'/'+userID+'/'+hopSequence+'/['+workflowFieldsValueSeqWise+']/'+isDone);
+	console.log(this.serverUrl + 'ExistingWorkRequest/'+wrBriefName+'/'+wr_id+'/'+userGroup_id+'/'+userID+'/'+hopSequence+'/['+workflowFieldsValueSeqWise+']/'+isDone);
 	return this.http.post(this.serverUrl + 'ExistingWorkRequest', {
 			wrBriefName: wrBriefName,
 			wrID: wr_id,
@@ -111,7 +110,7 @@ export class WorkflowsService {
 	
 	SearchWorkRequest(wrBriefName: string,startDate: string,endDate: string,status: string) : any {	
   
-		//console.log("In SearchWorkRequest() for wrBriefName "+ wrBriefName +"at "+this.serverUrl + 'search/single');	
+		console.log("In SearchWorkRequest() for wrBriefName "+ wrBriefName +"at "+this.serverUrl + 'search/single');	
 		
 	
 	
@@ -126,7 +125,7 @@ export class WorkflowsService {
 	
 	APNSearchWorkRequest(wrID:number, apnName: string) : any {	
   
-		//console.log("In APNSearchWorkRequest() for apnName "+ apnName);	
+		console.log("In APNSearchWorkRequest() for apnName "+ apnName);	
 		
 	
 		return this.http.post(this.serverUrl + 'APNSearch', {
@@ -141,22 +140,28 @@ export class WorkflowsService {
 
 	ReprovisonEligibilitySearch(productType: string,productName: string,hlr: string,	imsiClub: string,batchID: string) : any {	
 		
-		//console.log("In ReprovisonEligibilitySearch()");	
-		/*
-		console.log(this.serverUrl + "ReProvEligibilitySearch, {	"+		
+		console.log("In ReprovisonEligibilitySearch()");	
+		console.log(this.serverUrl + "ReProvEligibilitySearch, {	"+	
+			"msisdn: ,"+	
 			"productType: "+productType+","+
 			"productName: "+ productName+","+
 			"hlr: "+ hlr+","+
 			"imsiClub: "+ imsiClub+","+
-			"batchID: "+ batchID+"});") ;
-		*/
+			"batchID: "+ batchID+","+
+			"sdp: ,"+	
+			"sapc: "+	
+		"});") ;
+		
 	
-		return this.http.post(this.serverUrl + 'ReProvEligibilitySearch', {			
+		return this.http.post(this.serverUrl + 'ReProvEligibilitySearch', {	
+			//msisdn: "",		
 			productType: productType,
 			productName: productName,
 			hlr: hlr,
 			imsiClub: imsiClub,
-			batchID: batchID			
+			batchID: batchID
+			//sdp: "",
+			//sapc: ""
 		});	
 	
 		
@@ -164,15 +169,14 @@ export class WorkflowsService {
 
 	MnpProvisonEligibilitySearch(productType: string,productName: string,hlr: string,	imsiClub: string,batchID: string) : any {	
 		
-		//console.log("In Mnp ProvisonEligibilitySearch()");	
-		/*
+		console.log("In Mnp ProvisonEligibilitySearch()");	
 		console.log(this.serverUrl + "MnpProvEligibilitySearch, {	"+		
 			"productType: "+productType+","+
 			"productName: "+ productName+","+
 			"hlr: "+ hlr+","+
 			"imsiClub: "+ imsiClub+","+
 			"batchID: "+ batchID+"});") ;
-		*/
+		
 	
 		return this.http.post(this.serverUrl + 'MnpProvEligibilitySearch', {			
 			productType: productType,
@@ -266,8 +270,7 @@ export class WorkflowsService {
 		});
 	}
 
-	
-	loadMySimsWithSearch(user_id: string, offset: Number, msisdnForSearch: String, rqnNoForSearch: String, simStatusForSearch: Number, defWorkRequestId: Number) : any {
+	loadMySimsWithSearch(user_id: string, offset: Number, msisdnForSearch: String, rqnNoForSearch: String, simStatusForSearch: Number) : any {
 		return this.http.post(this.serverUrl + 'workflow/mysims', {
 			createdBy: user_id,
 			requisitionNo: 0,
@@ -276,24 +279,7 @@ export class WorkflowsService {
 			offset: offset,
 			msisdnForSearch: msisdnForSearch,
 			rqnNoForSearch: rqnNoForSearch,
-			simStatusForSearch: simStatusForSearch,
-			defWorkRequestId: defWorkRequestId,
-			defWorkRequestId2: 0
-		});
-	}
-
-	loadMySimsforDualActionsWithSearch(user_id: string, offset: Number, msisdnForSearch: String, rqnNoForSearch: String, simStatusForSearch: Number, defWorkRequestId: Number, defWorkRequestId2: Number) : any {
-		return this.http.post(this.serverUrl + 'workflow/mysimsforDualActions', {
-			createdBy: user_id,
-			requisitionNo: 0,
-			status: "",
-			pageSize: this._global.defaultPageSize,
-			offset: offset,
-			msisdnForSearch: msisdnForSearch,
-			rqnNoForSearch: rqnNoForSearch,
-			simStatusForSearch: simStatusForSearch,
-			defWorkRequestId: defWorkRequestId,
-			defWorkRequestId2: defWorkRequestId2
+			simStatusForSearch: simStatusForSearch
 		});
 	}
 
@@ -331,19 +317,6 @@ export class WorkflowsService {
 		});
 	}
 
-	loadMySimsFilteredByRqnLineMsisdnOnly(requisitionLineMsisdnIds: string) : any {
-		return this.http.post(this.serverUrl + 'workflow/mysims_by_rqn_line_msisdn_id', {
-			createdBy: "",
-			requisitionNo: 0,
-			status: requisitionLineMsisdnIds,
-			pageSize: this._global.defaultPageSize,
-			offset: 0,
-			msisdnForSearch: "",
-			rqnNoForSearch: "",
-			simStatusForSearch: -1
-		});
-	}
-
 	loadSimActionListWithSearch(user_id: string, defWorkRequestId: Number, approvalStatus: Number, offset: Number, msisdnForSearch: String, rqnNoForSearch: String, simStatusForSearch: Number) : any {
 		console.log("In loadSimActionListWithSearch(user_id: string, defWorkRequestId: Number, approvalStatus: Number, offset: Number, msisdnForSearch: String, rqnNoForSearch: String, simStatusForSearch: Number)");
 		console.log("user_id: "+user_id+", defWorkRequestId: "+defWorkRequestId+", approvalStatus: "+approvalStatus+", offset: "+offset+", msisdnForSearch: "+msisdnForSearch+", rqnNoForSearch: "+rqnNoForSearch+", simStatusForSearch:"+simStatusForSearch);
@@ -365,15 +338,6 @@ export class WorkflowsService {
 
 
 	simActionRequestsPendingForApproval(wr_id: number, user_id: string) : any {
-		console.log("wr_id: "+wr_id+", user_id: "+user_id);
-		return this.http.post(this.serverUrl + 'workflow/simactionspendingforapproval', {
-			createdBy: user_id,
-			requisitionNo: wr_id,
-			status: "PENDING"
-		});
-	}
-
-	simActionDualRequestsPendingForApproval(wr_id: string, user_id: string) : any {
 		console.log("wr_id: "+wr_id+", user_id: "+user_id);
 		return this.http.post(this.serverUrl + 'workflow/simactionspendingforapproval', {
 			createdBy: user_id,
@@ -410,13 +374,6 @@ export class WorkflowsService {
 		});
 	}
 
-	ownRequestsForDualSimAction(wr_id: string, user_id: string) : any {
-		return this.http.post(this.serverUrl + 'workflow/ownrequestsforsimaction', {
-			createdBy: user_id,
-			requisitionNo: wr_id,
-			status: "PENDING"
-		});
-	}
 
 	getUserList() : any {
 		return this.http.post(this.serverUrl + 'workflow/userlist', {
@@ -433,9 +390,5 @@ export class WorkflowsService {
 			status: ""
 		});
 	}
-
-
-
-
 
 }

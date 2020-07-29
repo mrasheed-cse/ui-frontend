@@ -127,7 +127,8 @@ export class TestsimSurrenderNewComponent implements OnInit {
   }
 
   loadPendingList(){
-
+    //this.isDataFound = false;
+    this.isLoading = true;
     //GetPendingTaskList
     this.workFlowsService.loadMySimsWithSearch(this.userID, this.offset, this.searchOptions_msisdn, this.searchOptions_rqnNo, +(this.searchOptions_simStatus), this._global.wrid_testSimSurrender).subscribe(
         data => {

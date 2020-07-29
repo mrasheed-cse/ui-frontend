@@ -319,15 +319,17 @@ topFunction() {
   //console.log(this.selectedFile.name);
 
   this.LogKeyValuePairs(this.myDiscProvisionForm);
-  //console.log(this.formFieldData);
-
-  var result = this.fileoperationService.uploadCSV(fd);
+	//console.log(this.formFieldData);
+	
+	console.log('Before file upload, time '+new Date().toString());
+	var result = this.fileoperationService.uploadCSV(fd);
 		console.log(result);
         result
 		.subscribe(res => {
 			console.log(res);
-		});
+			console.log('file uploaded at '+new Date().toString());
 
+			console.log('Before work request process time '+new Date().toString());
 
   this.workFlowsService.CreateNewWorkRequest(this._global.wrid_DescProvisioning, this.groupID,this.userID,this.formFieldData).subscribe(
       res  =>  {
@@ -346,6 +348,11 @@ topFunction() {
       }
 
 			);
+
+
+		});
+	 
+	
 
 		}
 

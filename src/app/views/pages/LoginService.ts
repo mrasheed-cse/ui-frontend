@@ -75,6 +75,7 @@ export class LoginService {
 		 return isValidGpUser;
 		}*/
 		console.log(" isValidGpUser: "+isValidGpUser," indexOfAt: "+indexOfAt," userNameFromEmail "+userNameFromEmail, );
+		console.log(this.serverUrl + 'loginAsDelegate');
 		return this.http.post<LoggedInResponse>(this.serverUrl + 'loginAsDelegate', {
 			userId: userNameFromEmail == null? username: userNameFromEmail,
 			delegateUserId: delegateusername,

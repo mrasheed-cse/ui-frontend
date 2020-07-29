@@ -48,6 +48,10 @@ export class ApnformComponent implements OnInit {
 	public successAlertMessage:string = "";
 	public isLoading:boolean = false;
 	public isDisableBtn:boolean = false;
+	public infoAlertShow:boolean = false;
+	public infoAlertMessage:string = "";
+
+	public isValidApn:boolean = false;
 
 
 	myApnCreationForm: FormGroup;
@@ -152,32 +156,63 @@ console.log(this.isDisableBtn);
 	this.isDisableBtn = true;
 
 		console.log('Form Submitted!');
-		console.log(this.isDisableBtn);
+//console.log(this.isDisableBtn);
 //    console.log(this.myApnCreationForm.value);
 
-  this.formFieldData = this.workFlowsService.FormatWorkRequestNameForAPI(this.WR_Name);
-  this.LogKeyValuePairs(this.myApnCreationForm);
-  //console.log(this.formFieldData);
-  //{wr_id}/{userGroup_id}/{user_id}/[{workflowFieldsValueSeqWise}]
-  this.workFlowsService.CreateNewWorkRequest(this._global.wrid_ApnCreation, this.groupID,this.userID,this.formFieldData).subscribe(
-      res  =>  {
-				console.log('response is : '+res.message);
+const apnName = this.myApnCreationForm.get('apnName').value;
+const apnID = this.myApnCreationForm.get('apnID').value;
 
-				if(res !== ""){
-			this.successAlertShow = true;
-			this.successAlertMessage = " has been created successfully and forwarded to "+res.message+" .";
-		}
-      },
-      err  =>  {
-		  console.log("err.status : "+err.status);
-		  this.dangerAlertShow = true;
-		this.dangerAlertMessage = " .";
-      }
+this.isLoading = true;
 
-			);
-		}
+	this.definitionDataService.CheckValidityApnCreationWorkRequest(apnName,apnID).subscribe(
+		data => {
+				console.log(data);
+
+				if(data==false){
+
+					this.infoAlertShow = true;
+
+					this.infoAlertMessage = "APN has been already created with APN Name "+apnName+" or APN ID "+apnID;
+					this.isLoading = false;
+					
+					return;
+				}
+				else{
+					this.formFieldData = this.workFlowsService.FormatWorkRequestNameForAPI(this.WR_Name);
+					this.LogKeyValuePairs(this.myApnCreationForm);
+					//console.log(this.formFieldData);
+					//{wr_id}/{userGroup_id}/{user_id}/[{workflowFieldsValueSeqWise}]
+					this.workFlowsService.CreateNewWorkRequest(this._global.wrid_ApnCreation, this.groupID,this.userID,this.formFieldData).subscribe(
+							res  =>  {
+								console.log('response is : '+res.message);
+		
+								if(res !== ""){
+							this.successAlertShow = true;
+							this.successAlertMessage = " has been created successfully and forwarded to "+res.message+" .";
+						}
+							},
+							err  =>  {
+							console.log("err.status : "+err.status);
+							this.dangerAlertShow = true;
+						this.dangerAlertMessage = " .";
+							}
+		
+							);
+						}
+				},
+		err => {
+			console.error(err);
+			 this.infoAlertShow = true;
+			 this.isLoading = false;
+			 this.infoAlertMessage = "APN has been already created with APN Name "+apnName+" or APN ID "+apnID;
+			 this.isValidApn = false;
+		},
+		() => console.log('Done ChaeckAPNCreationValidity')
+		);
+		this.isLoading = false;
+
+	}
 }
-
 
 LogKeyValuePairs(group: FormGroup): void {
 

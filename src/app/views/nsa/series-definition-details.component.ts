@@ -398,7 +398,7 @@ onDoneClick(event: any){
 		this.dangerAlertShow = false;
 		 this.formFieldData = "";
 		 this.isDoneDisable = true;
-		 if(this.hop_sequence==5) // LAST HOP IN SERIES PROVISION
+		 if(this.hop_sequence==4) // LAST HOP IN SERIES PROVISION
 			this.isDone = true;
 		  this.workFlowsService.UpdateExistiongWorkRequest(this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName),this._global.wrid_NumberSeriesDefinition, this.groupID,this.userID,this.hop_sequence,this.formFieldData,this.isDone).subscribe(
       res  =>  {
@@ -407,7 +407,7 @@ onDoneClick(event: any){
 		if(res !== ""){	
 			this.isLoading = false;
 			this.successAlertShow = true;
-			if(this.hop_sequence==5)
+			if(this.hop_sequence==4)
 				this.successAlertMessage = " has been completed successfully.";
 			else
 				this.successAlertMessage = " has been saved successfully and forwarded to "+res.message+".";

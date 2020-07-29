@@ -12,6 +12,9 @@
 
 				<strong>New APN Creation</strong>
 			</div>
+
+			<div class="alert alert-danger" role="alert" *ngIf="infoAlertShow"><b>{{infoAlertMessage}}</b></div>
+
 			<form [formGroup]="myApnCreationForm" novalidate (ngSubmit)="onApnCreationSubmit()">
 				<div class="card-body">
 					<div class="row">

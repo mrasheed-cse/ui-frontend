@@ -112,6 +112,9 @@ export class TestsimRechargeComponent implements OnInit {
 
     for(var i = 0; i < this.requisitionList.length; i++){
 
+      
+      if(this.requisitionList[i]['thisMonthRechargeAmount'] < this.requisitionList[i]['assignedCreditLimit']){
+        
       this.requisitionList[i]['rechargeAmount'] = +(this.requisitionList[i]['rechargeAmount']);
 
       if(
@@ -138,6 +141,7 @@ export class TestsimRechargeComponent implements OnInit {
       }
 
     }
+  }
 
     ////////////// ////////////////////////
 
@@ -151,7 +155,7 @@ export class TestsimRechargeComponent implements OnInit {
     requestObj['numberWiseDetails'] = [];
 
     for(var i = 0; i < this.requisitionList.length; i++){
-
+      if(this.requisitionList[i]['thisMonthRechargeAmount'] < this.requisitionList[i]['assignedCreditLimit']){
       var requestDetailObj = {};
       requestDetailObj['requisitionLineMsisdnId'] = this.requisitionList[i]['requisitionLineMsisdnId'];
       requestDetailObj['justification'] = this.requisitionList[i]['justification'];
@@ -165,7 +169,7 @@ export class TestsimRechargeComponent implements OnInit {
       requestDetailObj['lostDamageDate'] = "";
 
       requestObj['numberWiseDetails'].push(requestDetailObj);
-
+      }
     } //end of loop over numbers
 
     ////////////////// /////////////////////////////////

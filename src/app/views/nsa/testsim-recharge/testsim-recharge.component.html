@@ -20,6 +20,7 @@
               <th>RQN #</th>
               <th>SIM Status</th>
               <th>Assigned Credit Limit</th>
+              <th>Already Recharged</th>
               <th>
                 Recharge amount
                 <br />
@@ -39,12 +40,19 @@
                           <td>{{aTask.requisitionNo}}</td>                          
                           <td>{{aTask.simStatus}}</td>
                           <td>{{aTask.assignedCreditLimit}}</td>
-                          <td>
+                          <td>{{aTask.thisMonthRechargeAmount}}</td>
+                          <td *ngIf="aTask.thisMonthRechargeAmount < aTask.assignedCreditLimit">
                               <input type="text" class="form-control" [(ngModel)] = "aTask.rechargeAmount" />
                           </td>
-                          <td>
+                          <td *ngIf="aTask.thisMonthRechargeAmount == aTask.assignedCreditLimit">
+                            Recharge limit is over.
+                        </td>
+                        <td *ngIf="aTask.thisMonthRechargeAmount < aTask.assignedCreditLimit">
                               <input type="text" class="form-control" [(ngModel)] = "aTask.justification" />
                           </td>                                                                              
+                          <td *ngIf="aTask.thisMonthRechargeAmount == aTask.assignedCreditLimit">
+                            This number is not applicable for recharge.
+                        </td>
                       </tr>
           </tbody>
         </table>

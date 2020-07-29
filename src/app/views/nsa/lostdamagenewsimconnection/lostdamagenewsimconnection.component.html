@@ -1,0 +1,178 @@
+<div class="card">
+    Work Request Name :: {{rawDataFromBackend['workRequestBriefName']}}
+    <div *ngIf="isDataFound == true" class="card-header" >
+        <strong>Employee Details</strong>
+    </div>
+   
+    <div class="card-body">
+      <div class="row" >
+        <div class="col-md-12">
+          <table style="width:100%" border="1">
+            <tr>
+              <td style="width:25%">Employee ID.</td>
+              <td style="width:25%;" bgcolor="#dcdcdc">{{rawDataFromBackend['employeeDetails']['employeeNo']}}</td>
+              <td style="width:25%">Mobile No.</td>
+              <td style="width:25%" bgcolor="#dcdcdc">{{rawDataFromBackend['employeeDetails']['mobileNumber']}}</td>
+            </tr>
+            <tr>
+              <td style="width:25%">Employee Name</td>
+              <td style="width:25%;" bgcolor="#dcdcdc">{{rawDataFromBackend['employeeDetails']['fullName']}}</td>
+              <td style="width:25%">Designation</td>
+              <td style="width:25%" bgcolor="#dcdcdc">{{rawDataFromBackend['employeeDetails']['designation']}}</td>
+            </tr>
+            <tr>
+              <td style="width:25%">Department</td>
+              <td style="width:25%;" bgcolor="#dcdcdc">{{rawDataFromBackend['employeeDetails']['departmentName']}}</td>
+              <td style="width:25%">Division</td>
+              <td style="width:25%" bgcolor="#dcdcdc">{{rawDataFromBackend['employeeDetails']['divisionName']}}</td>
+            </tr>
+            <tr>
+              <td style="width:25%">Email</td>
+              <td style="width:25%;" bgcolor="#dcdcdc">{{rawDataFromBackend['employeeDetails']['emailAddress']}}</td>
+              <td style="width:25%"></td>
+              <td style="width:25%" bgcolor="#dcdcdc"></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  
+  <div class="card" *ngFor="let aDetail of rawDataFromBackend_polished['allRequisitionDetails'];  index as i">
+    <div class="card-header" >
+        <strong>Requisition Details :: {{aDetail['msisdn']}}</strong>
+        <!--Previous Sim : {{aDetail['sim']}}-->
+    </div>
+    <div class="card-body">
+      <div class="row" >
+        <div class="col-md-12">
+          <table style="width:100%" border="1">
+            <tr>
+              <td style="width:25%">Requisition No</td>
+              <td style="width:25%;" bgcolor="#dcdcdc">{{aDetail['requisitionDetails']['requisitionNo']}}</td>
+              <td style="width:25%">Date of requisition</td>
+              <td style="width:25%" bgcolor="#dcdcdc">{{aDetail['requisitionDetails']['requisitionDt']}}</td>
+            </tr>
+            <tr>
+              <td style="width:25%">Requisition Type</td>
+              <td style="width:25%;" bgcolor="#dcdcdc">{{aDetail['requisitionDetails']['requisitionType']}}</td>
+              <td style="width:25%">Purpose Category</td>
+              <td style="width:25%" bgcolor="#dcdcdc">{{aDetail['requisitionDetails']['purposeCategory']}}</td>
+            </tr>
+            <tr>
+              <td style="width:25%">Purpose Details</td>
+              <td style="width:25%;" bgcolor="#dcdcdc">{{aDetail['requisitionDetails']['purposeDetails']}}</td>
+              <td style="width:25%">Expected Test Start Date</td>
+              <td style="width:25%" bgcolor="#dcdcdc">{{aDetail['requisitionDetails']['testStartDt']}}</td>
+            </tr>
+            <tr>
+              <td style="width:25%">Expected Test End Date</td>
+              <td style="width:25%;" bgcolor="#dcdcdc">{{aDetail['requisitionDetails']['testCompletionDt']}}</td>
+              <td style="width:25%">Location</td>
+              <td style="width:25%" bgcolor="#dcdcdc">{{aDetail['requisitionDetails']['locationDetails']}}</td>
+            </tr>
+            <tr>
+              <td style="width:25%">Usage Category</td>
+              <td style="width:75%;" colspan="3" bgcolor="#dcdcdc">{{aDetail['requisitionDetails']['usageCategory']}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="card">
+      <div class="card-header">
+          <strong>Lost/Damaged Information</strong>
+      </div>
+      <div class="card-body">
+        <div class="row" >
+          <div class="col-md-12">
+            <table style="width:100%" border="1">               
+                <thead>
+                    <tr>
+                      <th>MSISDN</th>
+                        <th>Lost Damaged Mode</th>
+                        <th>lost Damaged Date</th>
+                        <th>Justification</th>
+                        <th>Comments</th>
+                        <th>Requested New Sim</th>                  
+                    </tr>
+                  </thead>  
+                  <tbody>
+                        <tr  *ngFor="let aDetail of rawDataFromBackend['allRequisitionDetails'];  index as i">
+                          <td>{{aDetail['msisdn']}}</td>
+                          <td>{{ aDetail['lostDamageMode'] }}</td>                          
+                          <td>{{ aDetail['lostDamageDate'] }}</td>
+                          <td>{{ aDetail['justification'] }}</td>
+                          <td>{{ aDetail['comments'] }}</td>
+                          <td>{{ aDetail['requestedNewSim'] }}</td>
+                        </tr>
+                    </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <div class="card">
+      <div class="card-header">
+          <strong>Requisition Lines </strong>
+      </div>
+    <div class="card-body">
+      <div class="row" >
+        <div class="col-md-12">
+          <table style="width:100%" border="1">
+
+              <thead>
+                  <tr>
+                      <th>MSISDN</th>                      
+                      <th>Product</th>
+                      <th>Credit Limit</th>
+                      <th>End Date</th>
+                      <th>Instruction</th>
+                      <th>IMSI Type</th>
+                      <th>Special Requirement</th>
+                      <th>New Sim</th>
+                  </tr>
+                </thead>               
+
+                <tbody >
+                      <tr  *ngFor="let aDetail of rawDataFromBackend['allRequisitionDetails'];  index as i">
+                          <td>{{aDetail['msisdn']}}</td>                        
+                        <td *ngIf="aDetail['requisitionLine']['product']!= null">{{ aDetail['requisitionLine']['product']['ismsMasterDataDetailsName'] }} </td>
+                        <td *ngIf="aDetail['requisitionLine']['product'] == null"> </td>
+                        <td>{{ aDetail['creditLimit'] }}</td>
+                        <td>{{ aDetail['old_end_date'] }}</td>
+                        <td>{{ aDetail['requisitionLine']['activationInstruction'] }}</td>
+                        <td *ngIf="aDetail['requisitionLine']['imsiType'] != null">{{ aDetail['requisitionLine']['imsiType']['ismsMasterDataDetailsName'] }} </td>
+                        <td *ngIf="aDetail['requisitionLine']['imsiType'] == null"> </td>
+                        <td>{{ aDetail['requisitionLine']['specialRequirement'] }}</td>
+                        <td>
+                            {{ aDetail['newSim'] }}
+                          </td>
+                      </tr>
+                  </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card" >
+  
+    <div class="card-body">
+      <div class="row" >
+        <div class="col-md-12">            
+
+          <a style="width:200px" class="btn btn-success" (click) = "submit()" >New Connection Given</a>
+          <a style="width:120px" class="btn btn-danger" (click) = "clear()" >Cancel</a>
+
+        </div>
+      </div>
+    </div>
+
+
+
+</div>

@@ -106,15 +106,7 @@ export class TestsimTransferComponent implements OnInit {
     setTimeout(()=>{    //<<<---    using ()=> syntax
       this.loadPendingList();
 
-      this.listTransferModes = [
-        {
-          "id":"Transfer","name":"Transfer"
-        },
-        {
-          "id":"Handover","name":"Handover"
-        }
-      ];
-
+     
       this.listUsers = [];
 
       this.workFlowsService.getUserList().subscribe(
@@ -204,7 +196,7 @@ export class TestsimTransferComponent implements OnInit {
       requestDetailObj['newCreditLimit'] = 0;
       requestDetailObj['newEndDate'] = "";
       requestDetailObj['rechargeAmount'] = 0;
-      requestDetailObj['transferMode'] = this.transferMode;
+      requestDetailObj['transferMode'] = "Transfer"; //this.transferMode;
       requestDetailObj['transferTo'] = this.transferTo;
       requestDetailObj['lostDamageMode'] = "";
       requestDetailObj['lostDamageDate'] = "";

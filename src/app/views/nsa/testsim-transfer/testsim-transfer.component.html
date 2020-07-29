@@ -13,7 +13,7 @@
           <button type="button" style="float: right;" class="btn btn-link" ><i class="fa fa-link"></i><a [routerLink]="[ '/nsa/testsim-transfer-new' ]"> Create New SIM Transfer Request</a></button>
         </div>
         <div class="card-body" *ngIf="isDataFound">
-            <div class="row">
+            <!--<div class="row">
 
                 <div class="col-md-2">Transfer Mode
                   </div>
@@ -22,7 +22,7 @@
                   <select class="form-control"  [(ngModel)] = "transferMode">
                       <option *ngFor="let singleListItem of listTransferModes" [value]="singleListItem.id">{{singleListItem.name}}</option>
                   </select>
-                </div></div>
+                </div></div> -->
                 <div class="row">
 
                     <div class="col-md-2">Select Transferee</div>
@@ -36,7 +36,9 @@
                       <div class="col-md-6">   
                     <input type="text" class="form-control" [(ngModel)] = "comments" />
                   </div></div>
-        
+        <br/>
+        <br/>
+
           <table class="table table-bordered table-striped table-sm">
             <thead>
               <tr>

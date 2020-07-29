@@ -124,6 +124,8 @@ import { TestSimSurrenderComponent } from './isms-reports/test-sim-surrender.com
 import { DamageSimComponent } from './isms-reports/damage-sim.component';
 import { LostSimComponent } from './isms-reports/lost-sim.component';
 import { TestSimTransferComponent } from './isms-reports/test-sim-transfer.component';
+import { LostdamagedetailsdeliveryComponent } from './lostdamagedetailsdelivery/lostdamagedetailsdelivery.component';
+import { LostdamagenewsimconnectionComponent } from './lostdamagenewsimconnection/lostdamagenewsimconnection.component';
 
 @NgModule({
   imports: [
@@ -231,7 +233,9 @@ import { TestSimTransferComponent } from './isms-reports/test-sim-transfer.compo
     TestSimActionListLostComponent,
     TestSimActionListDamagedComponent,
     TestSimActionListTransferComponent,
-    TestSimActionListDeactivateComponent
+    TestSimActionListDeactivateComponent,
+    LostdamagedetailsdeliveryComponent,
+    LostdamagenewsimconnectionComponent
   ]
 })
 export class NsaModule { }

@@ -245,7 +245,17 @@ export class SeriesDefinitionFormComponent implements OnInit {
 }
 
 ChaeckDefinitionValidity (startMSISDNs, endMSISDNs) {
-	if ((Number(endMSISDNs)-Number(startMSISDNs))>=0){
+	
+
+	const totalMsisdn = (Number(endMSISDNs)-Number(startMSISDNs));
+
+	if (totalMsisdn>100000){
+		this.infoAlertShow = true;
+
+		this.infoAlertMessage = "More than 100K numbers.";
+
+	}
+	else if (totalMsisdn>=0){
 	console.log("Start for ChaeckDefinitionValidity");
 	this.isLoading = true;
 	this.definitionDataService.CheckValidityDefinitionWorkRequest(startMSISDNs,endMSISDNs).subscribe(

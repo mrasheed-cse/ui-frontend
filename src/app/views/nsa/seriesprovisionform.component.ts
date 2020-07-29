@@ -84,6 +84,9 @@ export class SeriesprovisionformComponent implements OnInit {
   constructor(private router: Router,private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private definitionDataService: DefinitionDataService, private workFlowsService: WorkflowsService) {
 
 	// Get Current User Profile
+	
+	console.log("this.isDisableBtn is "+this.isDisableBtn);	
+	console.log("this.defFlowFound is "+this.defFlowFound);
 
 	this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
 
@@ -285,6 +288,7 @@ export class SeriesprovisionformComponent implements OnInit {
 					}
 					this.isLoading = false;
 
+				
 			},
 			err => {
 				console.error(err);
@@ -293,9 +297,18 @@ export class SeriesprovisionformComponent implements OnInit {
 				this.infoAlertMessage = "All numbers from "+startMSISDNs +" and "+ endMSISDNs +" do not have Definition Work Request OR these numbers already have provisioned.";
         this.isLoading = false;
 				},
-			() => console.log('Done loading Detail Data')
+			() => {
+				console.log('Done loading Detail Data');
+				console.log("this.isDisableBtn is "+this.isDisableBtn);	
+				console.log("this.defFlowFound is "+this.defFlowFound);
+			}
 			);
+
+
 		}
+
+
+
 	}
 
 
@@ -338,7 +351,9 @@ topFunction() {
 
   // FORM SUBMISSION
   onSeriesProvisionSubmit() {
-	 //console.log("this.defFlowFound is "+this.defFlowFound);
+		console.log("this.isDisableBtn is "+this.isDisableBtn);
+		console.log("this.mySeriesProvisionForm.valid is "+this.mySeriesProvisionForm.valid);
+		console.log("this.defFlowFound is "+this.defFlowFound);
   if (this.mySeriesProvisionForm.valid && this.defFlowFound && !this.isDisableBtn) {
 		this.topFunction();
 	this.isLoading = true;

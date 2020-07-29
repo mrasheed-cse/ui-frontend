@@ -27,6 +27,7 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
   assignmentType : any;
   startingKitNumber : any;
   endingKitNumber : any;
+  quantity: number;
   showMsisdnSeriesAssignmentCard: boolean;
   alreadyAssignedMsisdnSeriesDetails : Array<any>;
   finalArrayToSubmit : Array<any>;
@@ -200,6 +201,7 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
     this.assignmentType = "";
     this.startingKitNumber = "";
     this.endingKitNumber = "";
+    this.quantity =lineItem['deliverQuantity'];
     if(lineItem['deliverQuantity'] >0)
       this.showMsisdnSeriesAssignmentCard = true;
     else{
@@ -221,12 +223,27 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
     if(this.assignmentType == 'Discrete'){
 
       for(var i = 0; i < this.recordsFromFile.length; i++){
+        /*
         var arrayObj = {};
         arrayObj['startingKitNumber'] = this.recordsFromFile[i];
         arrayObj['endingKitNumber'] = this.recordsFromFile[i];
 
         console.log(arrayObj['startingKitNumber']);
           console.log(arrayObj['startingKitNumber'].length);
+        */
+
+       var arrayObj = {};
+       var str = this.recordsFromFile[i];
+       var res = str.split(" ");
+       arrayObj['startingKitNumber'] = res[0];
+       arrayObj['endingKitNumber'] = res[1];
+       arrayObj['quantity'] = res[2];
+       
+       
+       console.log(arrayObj['startingKitNumber']);
+         console.log(arrayObj['startingKitNumber'].length);
+         console.log(arrayObj['endingKitNumber']);
+         console.log(arrayObj['quantity']);
 
         if(arrayObj['startingKitNumber'] == null || arrayObj['startingKitNumber'] == undefined || arrayObj['startingKitNumber'] == "" || arrayObj['startingKitNumber'].length != 28){
           console.log(arrayObj['startingKitNumber']);
@@ -250,6 +267,11 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
       var arrayObj = {};
       arrayObj['startingKitNumber'] = this.startingKitNumber;
       arrayObj['endingKitNumber'] = this.endingKitNumber;
+      arrayObj['quantity'] = this.quantity;
+      console.log(arrayObj['startingKitNumber']);
+         console.log(arrayObj['startingKitNumber'].length);
+         console.log(arrayObj['endingKitNumber']);
+         console.log(arrayObj['quantity']);
 
       if(this.startingKitNumber == null || this.startingKitNumber == undefined || this.startingKitNumber == "" || this.startingKitNumber.length != 28){
         alert("Invalid starting KIT number specified. KIT number must be 28 digits.");

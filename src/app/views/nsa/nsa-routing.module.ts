@@ -102,7 +102,8 @@ import { TestSimSurrenderComponent } from './isms-reports/test-sim-surrender.com
 import { DamageSimComponent } from './isms-reports/damage-sim.component';
 import { LostSimComponent } from './isms-reports/lost-sim.component';
 import { TestSimTransferComponent } from './isms-reports/test-sim-transfer.component';
-
+import { LostdamagedetailsdeliveryComponent } from './lostdamagedetailsdelivery/lostdamagedetailsdelivery.component';
+import { LostdamagenewsimconnectionComponent } from './lostdamagenewsimconnection/lostdamagenewsimconnection.component';
 
 const routes: Routes = [
   {
@@ -369,6 +370,7 @@ const routes: Routes = [
       title: 'Requisition Details (Delivery) - CLC User Group'
     }
   },
+
   {
     path: 'newsimactivationreq',
     component: NewsimactivationreqComponent,
@@ -668,6 +670,22 @@ const routes: Routes = [
     component: TestsimLostdamagedExistingComponent,
     data: {
       title: 'Existing SIM Lost / Damaged Requests'
+    }
+  },
+  
+  {
+    path: 'lostdamagedetailsdelivery/:sim_action_id',
+    component: LostdamagedetailsdeliveryComponent,
+    data: {
+      title: 'Lost-Damage Details (Delivery) - CLC User Group'
+    }
+  },
+
+  {
+    path: 'lostdamagenewsimconnection/:sim_action_id',
+    component: LostdamagenewsimconnectionComponent,
+    data: {
+      title: 'Lost-Damage New Sim Connection - Socks Group'
     }
   },
   {
