@@ -18,6 +18,7 @@ export class RequisitioneditComponent implements OnInit {
 
   requisition: any;
   requsitionLines: any;
+  requsition_modified: any;
   employeeDetails: any;
   requisitionDetails: any;
   requisitionId: number;
@@ -177,6 +178,7 @@ data => {
         if(res !== ""){
           this.requisition = res;
           this.requsitionLines = res.requisitionLines;
+          this.requsition_modified = res;
           this.employeeDetails = res.employeeDetails;
           this.requisitionDetails = res.requisitionDetails;
           this.getComments(this.requisitionDetails['id'], "", "");
@@ -209,8 +211,16 @@ data => {
 
   }
 
-  respondToRfi(requisitionId, comment, userId, requisitionLines){
+  deleteLine(aLine, index: number) {
+   alert(aLine);   
+   console.log(aLine);
+   this.requsitionLines.splice(index,1);    
+  }
 
+
+  respondToRfi(requisitionId, comment, userId, requisitionLines){
+    alert('In respondToRfi');
+    console.log(requisitionLines);
     this.ismsworkflowsService.respondToRfi(requisitionId, comment, userId, requisitionLines).subscribe(
       res  =>  {
         console.log('response is : '+res.message);  
@@ -273,9 +283,12 @@ data => {
   }
 
   save(){
-
-    if(!this.formValidation()) return;
-
+    alert('THER');
+    if(!this.formValidation()) {
+      alert('Invalid form');
+      return;
+    }
+    alert('HERE');
     this.respondToRfi(this.requisitionDetails['id'], this.requisition_comments, this.userID, this.requisition['requisitionLines']);
     alert('The changes have been saved.');
     this.router.navigate(['nsa/newrequisitiondetails']);
