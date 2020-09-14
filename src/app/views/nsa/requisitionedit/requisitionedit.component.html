@@ -108,7 +108,7 @@
               </thead>
                                                                                        
               <tbody>	
-                <tr  *ngFor="let c of requisition['requisitionLines']">
+                <tr  *ngFor="let c of requisition['requisitionLines'];index as idx">
                   <td>
                     <select class="form-control" [(ngModel)] = "c.product" >
                       <option></option>
@@ -129,7 +129,7 @@
                       <br /><br />
                       <textarea [(ngModel)] = "c.specialRequirementOther" style="width:100% !important" placeholder="Put more requirements here..." rows="4"cols="5"></textarea>
                   </td>
-                  <td><button type="button" (click)="deleteLine(idx)">Delete</button></td>                        
+                  <td><button type="button" (click)="deleteLine(c,idx)">Delete</button></td>                        
                 </tr>							   
               </tbody>                      
           </table>

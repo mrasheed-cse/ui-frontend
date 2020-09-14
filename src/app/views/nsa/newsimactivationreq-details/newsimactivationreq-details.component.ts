@@ -9,16 +9,17 @@ import { WorkflowsService } from './../services/workflows.service';
 import { AppGlobals } from './../../../app.global';
 import { Router,ActivatedRoute, Params } from '@angular/router'
 import { environment } from '../../../../environments/environment.prod';
+import { IsmsworkflowsService } from '../services/Ismsworkflows.service';
+import { DefinitionDataService } from '../services/definitiondata.service';
 
 import { LoginService } from '../../pages/LoginService';
 import { LoggedInUser } from '../../pages/loggedInUser';
-import { IsmsworkflowsService } from '../services/Ismsworkflows.service';
 
 @Component({
   selector: 'app-newsimactivationreq-details',
   templateUrl: './newsimactivationreq-details.component.html',
   styleUrls: ['./newsimactivationreq-details.component.scss'],
-	providers: [WorkflowsService,AppGlobals,LoginService,IsmsworkflowsService],
+	providers: [WorkflowsService,DefinitionDataService,AppGlobals,LoginService,IsmsworkflowsService],
 })
 export class NewsimactivationreqDetailsComponent implements OnInit {
 
@@ -37,6 +38,8 @@ export class NewsimactivationreqDetailsComponent implements OnInit {
   routerUrlAndParams: string;
   selectAll:boolean = false;
 
+  WR_Name: string;
+
   handleSelectAll(event: any){
 
     console.log(event);
@@ -54,7 +57,7 @@ export class NewsimactivationreqDetailsComponent implements OnInit {
     }
   }
 
-  constructor(private route:ActivatedRoute, private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService, private ismsworkflowsService: IsmsworkflowsService) {
+  constructor(private route:ActivatedRoute, private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private definitionDataService: DefinitionDataService, private workFlowsService: WorkflowsService, private ismsworkflowsService: IsmsworkflowsService) {
 
     this.isLoading = false;
     let isValid = true;
@@ -69,6 +72,23 @@ export class NewsimactivationreqDetailsComponent implements OnInit {
       this.router.navigate(['pages/login']);
     }
     this.requisitionId = parseInt(this.route.snapshot.paramMap.get('requisition_id'));
+
+    //GetWR_Name
+	this.definitionDataService.GetWR_Name_forIsms(this._global.wrid_NewSimActivation).subscribe(
+    data => {
+        const dataStr = JSON.stringify(data);
+
+        JSON.parse(dataStr, (key, value) => {
+          if (typeof value === 'string') {
+            this.WR_Name = value;
+            return value;
+          }
+        });
+      },
+      err => console.error(err),
+      ()=> console.log('done loading Work Request Name')
+      );
+
 
   } //end of constructor
 
@@ -103,6 +123,7 @@ export class NewsimactivationreqDetailsComponent implements OnInit {
         }
       },
       err  =>  {	
+        this.isLoading = false;
            
       }        
     );
@@ -121,9 +142,10 @@ export class NewsimactivationreqDetailsComponent implements OnInit {
           this.requisition['requisitionDetails'] = res.requisitionDetails;
           this.getMsisdnDetails();
         }
+        this.isLoading = false;
       },
       err  =>  {	
-           
+        this.isLoading = false;
       }        
     );
 

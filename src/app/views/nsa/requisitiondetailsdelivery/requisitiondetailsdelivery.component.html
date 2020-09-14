@@ -105,6 +105,7 @@
                       <th>Instruction</th>
                       <th>IMSI Type</th>
                       <th>Special Requirement</th>
+                      <th>Delivery Quantity</th>
                       <th>Action</th>
                   </tr>
                 </thead>
@@ -122,9 +123,19 @@
                             <span *ngIf="c.specialRequirementOther != null && c.specialRequirementOther != undefined && c.specialRequirementOther != ''"><br /></span>
                             <span *ngIf="c.specialRequirementOther != null && c.specialRequirementOther != undefined && c.specialRequirementOther != ''">{{c.specialRequirementOther}}</span>
                         </td>
-                          <td>
-                              <a *ngIf="c.clcAssignmentCompleted == false" class="btn btn-primary btn-sm" (click) = "assignMsisdn(c)" style="padding: 2%;margin: 5%;border-radius: 4px;color: white;" >Assign MSISDN</a>
-                              <span *ngIf="c.clcAssignmentCompleted == true" style="font-weight:bold;font-style:italic">Already Assigned</span>
+                       <td *ngIf="c.clcUpdateQnty == true">
+                          {{c.deliverQuantity}}
+                        </td>
+                        <td *ngIf="c.clcUpdateQnty == false">
+                            <input type="number" [(ngModel)] = "c.deliverQuantity" />
+                        </td>
+                     
+                        <td>
+                            <a *ngIf="c.clcUpdateQnty == false" class="btn btn-primary btn-sm" (click) = "clcUpdate(c)" style="padding: 2%;margin: 5%;border-radius: 4px;color: white;" >Set Quantity</a>                            
+                        
+                              <a *ngIf="c.clcUpdateQnty == true && c.clcAssignmentCompleted == false " class="btn btn-primary btn-sm" (click) = "assignMsisdn(c)" style="padding: 2%;margin: 5%;border-radius: 4px;color: white;" >Assign MSISDN</a>
+                              <span *ngIf="c.clcUpdateQnty == true && c.clcAssignmentCompleted == true && c.deliverQuantity > 0" style="font-weight:bold;font-style:italic">Already Assigned</span>
+                              <span *ngIf="c.clcUpdateQnty == true && c.deliverQuantity == 0 && c.clcAssignmentCompleted == true" style="font-weight:bold;font-style:italic">No Assignment required</span>
                           </td>
                       </tr>
                   </tbody>
@@ -162,7 +173,7 @@
             <div class="form-group row" [hidden]="assignmentType != 'Discrete'">
               <div classs="col-md-12">
 
-                <a href="assets/file/kitnumbers.txt" download>Download sample file</a>
+                <a href="assets/file/kitnumberswithquantity.txt" download>Download sample file</a>
 
               </div>
             </div>

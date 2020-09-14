@@ -47,7 +47,6 @@ export class TestsimTransferHodComponent implements OnInit {
     else {
       this.router.navigate(['pages/login']);
     }
-    this.requisitionList = _global.dataTempForMySims;
     this.listTransferModes = [
       {
         "id":"Transfer","name":"Transfer"
@@ -73,6 +72,7 @@ export class TestsimTransferHodComponent implements OnInit {
           }
           else{
             this.isDataFound = false;
+            this.isLoading = false;
           }
         },
       err => console.error(err),
@@ -80,6 +80,7 @@ export class TestsimTransferHodComponent implements OnInit {
       );
     //Get Today Date
     this.todayDate = new Date();
+    this.isLoading = false;
   }
 
 

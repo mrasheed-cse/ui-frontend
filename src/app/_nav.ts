@@ -12,12 +12,8 @@ export const navigation_blankdata  = [
 
 ];
 
-
-
-
-export const navigation_grpID_SSM  = [
-   
-  {
+export const navigation_grpID_SSM  = [   
+  {    
     name: 'Dashboard',
     url: '/nsa/testsimdashboard',
 	  icon: 'icon-star'
@@ -206,6 +202,67 @@ export const navigation_grpID_SSM  = [
     ]
   },    
   {
+    name: 'Reports',   
+    url: '/nsa/testsimworkflowr0',
+    icon: 'icon-star',
+    children: [	          
+		      {
+            name: 'Test Sim Requisition',
+            url: '/nsa/isms-reports/test-sim-requisition',
+            icon: 'icon-puzzle'
+          },
+          {
+            name: 'Test Sim Activation',
+            url: '/nsa/isms-reports/test-sim-activation',
+            icon: 'icon-puzzle'
+          },          
+          {
+            name: 'Credit Limit Extension',
+            url: '/nsa/isms-reports/credit-limit-extension',
+            icon: 'icon-cursor'
+          },          
+          {
+            name: 'Test Sim Recharge',
+            url: '/nsa/isms-reports/test-sim-recharge',
+            icon: 'icon-cursor'
+          },
+		      {
+            name: 'Test Sim Deactivation',
+            url: '/nsa/isms-reports/test-sim-deactivation',
+            icon: 'icon-puzzle'
+          },
+          {
+            name: 'Time Limit Change',
+            url: '/nsa/isms-reports/time-limit-change',
+            icon: 'icon-puzzle'
+          },
+          
+          {
+            name: 'Test Sim Surrender',
+            url: '/nsa/isms-reports/test-sim-surrender',
+            icon: 'icon-puzzle'
+          },          
+          {
+            name: 'Damage Sim',
+            url: '/nsa/isms-reports/damage-sim',
+            icon: 'icon-cursor'
+          },          
+          {
+            name: 'Lost Sim',
+            url: '/nsa/isms-reports/lost-sim',
+            icon: 'icon-cursor'
+          },
+          {
+            name: 'Test Sim Transfer',
+            url: '/nsa/isms-reports/test-sim-transfer',
+            icon: 'icon-cursor'
+          }
+        ]
+}
+
+
+ /*
+  {
     name: 'Reports',
     url: '/nsa/testsimworkflowr0',
     icon: 'icon-star',
@@ -239,7 +296,7 @@ export const navigation_grpID_SSM  = [
       }
     ]
   }
-    
+   */ 
 
 ];
 

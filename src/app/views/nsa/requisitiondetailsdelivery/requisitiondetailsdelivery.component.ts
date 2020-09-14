@@ -27,6 +27,7 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
   assignmentType : any;
   startingKitNumber : any;
   endingKitNumber : any;
+  quantity: number;
   showMsisdnSeriesAssignmentCard: boolean;
   alreadyAssignedMsisdnSeriesDetails : Array<any>;
   finalArrayToSubmit : Array<any>;
@@ -35,6 +36,7 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
 	groupID: number;
 	userID: string;
   lineItemBeingConsidered : any;
+  zeroDeliveryQtyCount :number;
 
 
   constructor(private route:ActivatedRoute,private router: Router,private loginService: LoginService, private http: HttpClient, private _global: AppGlobals,private ismsworkflowsService: IsmsworkflowsService) {
@@ -56,13 +58,17 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
    // this.requisition = _global.dataTempForRequisitionDetail;
     this.ismsworkflowsService.findRequisitionDetails(this.requisitionId).subscribe(
       res  =>  {
-        console.log('response is : '+res.message);
+        console.log('response is : '+res);
         if(res !== ""){
           this.requisition = res;
 
           if(this.requisition != null && this.requisition != undefined && this.requisition != "" &&
         this.requisition['requisitionLines'] != null && this.requisition['requisitionLines'] != undefined && this.requisition['requisitionLines'] != ""){
               for(var i = 0; i < this.requisition['requisitionLines'].length; i++){
+                if(this.requisition['requisitionLines'][i].deliverQuantity>-1)
+                  this.requisition['requisitionLines'][i].clcUpdateQnty = true;
+                else
+                  this.requisition['requisitionLines'][i].clcUpdateQnty = false;
                 this.requisition['requisitionLines'][i].clcAssignmentCompleted = false;
               }
           }
@@ -95,6 +101,7 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
     this.showMsisdnSeriesAssignmentCard = false;
     this.alreadyAssignedMsisdnSeriesDetails = [];
     this.finalArrayToSubmit = [];
+    this.zeroDeliveryQtyCount = 0;
 
    }
 
@@ -106,7 +113,9 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
   }
 
   submit(){
-
+    console.log("this.finalArrayToSubmit "+this.finalArrayToSubmit.length);
+    console.log("this.requsitionLines "+this.requsitionLines.length);
+    console.log("this.zeroDeliveryQtyCount "+this.zeroDeliveryQtyCount);
     var dataToSubmit = Object.create(null);
     dataToSubmit['wrID'] = this.requisitionDetails['id'];
     dataToSubmit['userID'] = this.userID;
@@ -114,12 +123,14 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
     dataToSubmit['lineWiseMsisdnInfo'] = this.finalArrayToSubmit;
 
     //console.log(dataToSubmit);return;
-
+/*
     if(this.finalArrayToSubmit.length <= 0){
       alert("Please assign MSISDN for each line item before submitting");
       return;
     }
-    else if(this.finalArrayToSubmit.length != this.requsitionLines.length){
+    else
+*/
+    if(this.finalArrayToSubmit.length + this.zeroDeliveryQtyCount != this.requsitionLines.length){
       alert("Please assign MSISDN for each line item before submitting");
       return;
     }
@@ -148,6 +159,10 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
         let csvRecordsArray = (<string>csvData).split(/\r\n|\n/);
 
         this.recordsFromFile = this.getDataRecordsArrayFromTxtFile(csvRecordsArray);
+        console.log("recordsFromFile");
+        console.log(this.recordsFromFile);
+        
+
       };
 
       reader.onerror = function () {
@@ -186,7 +201,15 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
     this.assignmentType = "";
     this.startingKitNumber = "";
     this.endingKitNumber = "";
-    this.showMsisdnSeriesAssignmentCard = true;
+    this.quantity =lineItem['deliverQuantity'];
+    if(lineItem['deliverQuantity'] >0)
+      this.showMsisdnSeriesAssignmentCard = true;
+    else{
+      alert("No assignment is required because of 0 delivery quantity.");
+      this.zeroDeliveryQtyCount = this.zeroDeliveryQtyCount + 1;
+      this.showMsisdnSeriesAssignmentCard = false;
+      lineItem['clcAssignmentCompleted'] = true;
+    }
     this.lineItemBeingConsidered = lineItem;
   }
 
@@ -200,9 +223,27 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
     if(this.assignmentType == 'Discrete'){
 
       for(var i = 0; i < this.recordsFromFile.length; i++){
+        /*
         var arrayObj = {};
         arrayObj['startingKitNumber'] = this.recordsFromFile[i];
         arrayObj['endingKitNumber'] = this.recordsFromFile[i];
+
+        console.log(arrayObj['startingKitNumber']);
+          console.log(arrayObj['startingKitNumber'].length);
+        */
+
+       var arrayObj = {};
+       var str = this.recordsFromFile[i];
+       var res = str.split(" ");
+       arrayObj['startingKitNumber'] = res[0];
+       arrayObj['endingKitNumber'] = res[1];
+       arrayObj['quantity'] = res[2];
+       
+       
+       console.log(arrayObj['startingKitNumber']);
+         console.log(arrayObj['startingKitNumber'].length);
+         console.log(arrayObj['endingKitNumber']);
+         console.log(arrayObj['quantity']);
 
         if(arrayObj['startingKitNumber'] == null || arrayObj['startingKitNumber'] == undefined || arrayObj['startingKitNumber'] == "" || arrayObj['startingKitNumber'].length != 28){
           console.log(arrayObj['startingKitNumber']);
@@ -221,11 +262,16 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
       }
 
     }
-    else{
+    else if(this.assignmentType == 'Sequential'){
 
       var arrayObj = {};
       arrayObj['startingKitNumber'] = this.startingKitNumber;
       arrayObj['endingKitNumber'] = this.endingKitNumber;
+      arrayObj['quantity'] = this.quantity;
+      console.log(arrayObj['startingKitNumber']);
+         console.log(arrayObj['startingKitNumber'].length);
+         console.log(arrayObj['endingKitNumber']);
+         console.log(arrayObj['quantity']);
 
       if(this.startingKitNumber == null || this.startingKitNumber == undefined || this.startingKitNumber == "" || this.startingKitNumber.length != 28){
         alert("Invalid starting KIT number specified. KIT number must be 28 digits.");
@@ -239,25 +285,25 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
       responseObj['searchModel'].push(arrayObj);
     }
 
-
-
-    //console.log(responseObj);
+    console.log('responseObj ');
+    console.log(responseObj);
     //return;
 
     this.ismsworkflowsService.getMsisdnDetailsFromSsm(responseObj).subscribe(
       res  =>  {
-        console.log('response is : '+res.message);
+        //console.log('response is : '+res.message);
         console.log(res);
         if(res !== ""){
 
           //step 0: validation
 
-          if(res.length <= 0){
+          //if(res.length <= 0){
+            if(res==null){
             alert("No MSISDNs found with the given KIT numbers specified. Please try again with different KIT numbers.");
             return;
           }
-          else if(res.length != this.lineItemBeingConsidered['assignQuantity']){
-            let alertMsg = "The requsition line specifies quantity of " + this.lineItemBeingConsidered['assignQuantity'] + ". However, with specified KIT numbers " + res.length + " number of MSISDN found.";
+          else if(res.length != this.lineItemBeingConsidered['deliverQuantity']){
+            let alertMsg = "The requsition line specifies quantity of " + this.lineItemBeingConsidered['deliverQuantity'] + ". However, with specified KIT numbers " + res.length + " number of MSISDN found.";
             alert(alertMsg);
             return;
           }
@@ -375,6 +421,47 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
     );
 
   }
+
+  clcUpdate(lineItem){
+    //alert('In clcUpdate');
+    var lineItemIdBeingConsidered = lineItem['id'];
+    var deliverQuantity = lineItem['deliverQuantity'];
+    
+    console.log('requisitionId '+this.requisitionId);
+    console.log("lineItemIdBeingConsidered "+lineItemIdBeingConsidered);
+    console.log("deliverQuantity "+deliverQuantity);
+    console.log(this.userID);
+
+    //let theLineItem : any;
+      
+      var theLineItem = Object.create(null);
+      theLineItem['requisitionLineId'] =lineItemIdBeingConsidered;
+      theLineItem['deliverQuantity'] = deliverQuantity;
+      //theLineItem.push(obj);
+    console.log(theLineItem);
+    
+
+    this.ismsworkflowsService.clcAssignment(this.requisitionId, this.userID, theLineItem).subscribe(
+      res  =>  {
+        console.log('response is : '+res.message);
+        if(res !== ""){
+          //alert(res.message);
+          for(var i = 0; i < this.requisition['requisitionLines'].length; i++){            
+            if(this.requisition['requisitionLines'][i].id == lineItemIdBeingConsidered){
+              this.requisition['requisitionLines'][i].clcUpdateQnty = true;
+            }
+          }
+          //this.router.navigate(['nsa/newrequisition']);
+        }
+      },
+      err  =>  {
+
+      }
+
+    );
+
+  }
+
 
 
 }

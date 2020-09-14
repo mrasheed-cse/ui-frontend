@@ -1,9 +1,9 @@
 export const environment = {
    //production: true,
    production: false,
-  //apiUrl: 'http://10.10.23.51:8081/nsa/', //prod
-  apiUrl: 'http://10.10.20.87:8081/',  
-  //apiUrl: 'http://localhost:8080/',
+//  apiUrl: 'https://10.10.23.51:8443/nsa/', //prod
+//apiUrl: 'https://10.10.23.50:8443/nsa/', //pre-prod
+apiUrl: 'http://localhost:8443/', // dev-env
   pendingRequestMarker : 'PENDING',
   approvedRequestMarker : 'APPROVED',
   rejectedRequestMarker : 'REJECTED',

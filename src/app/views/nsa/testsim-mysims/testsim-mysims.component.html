@@ -14,13 +14,23 @@
       <div class="card-body" *ngIf="isDataFound">
 
           <div style="padding-bottom: 4px;">
-              <label> File Name: <input type="text" id="fileName" value="download.csv" /> </label>
+              <label> File Name: <input type="text" id="fileName" value="export.csv" /> </label>
               <label style="margin-left: 20px;">
                 Separator <input type="text" style="width: 20px;" id="columnSeparator" value="," />
               </label>
               <label style="margin-left: 20px;"> <button (click)="onBtExport()">Export to CSV</button> </label>
             </div>
             <br />
+
+          <div id="div_cst_search_params">
+              MSISDN: <input type="text" [(ngModel)] = "searchOptions_msisdn" placeholder="Search by MSISDN" />
+              &nbsp;&nbsp;&nbsp;RQN #: <input type="text" [(ngModel)] = "searchOptions_rqnNo" placeholder="Search by RQN #" />
+              &nbsp;&nbsp;&nbsp;Sim Status: <select disabled [(ngModel)] = "searchOptions_simStatus">
+                <option *ngFor="let singleListItem of listSimStatus" [value]="singleListItem.id">{{singleListItem.name}}</option>
+              </select>  
+              <a style="font-size:0.8em;width:140px;height:32px" class="btn btn-success" (click) = "search()" >Search</a>
+              <a style="font-size:0.8em;cursor:pointer" (click) = "clearSearch()" >Clear Filters</a>
+          </div>
 
         <ag-grid-angular 
           #agGrid
@@ -34,6 +44,19 @@
           (gridReady)="onGridReady($event)"
           >
         </ag-grid-angular>
+
+
+        <div id="div_cst_pagination_ctrls">
+          <a (click)="prevPage()">&lt;&lt;</a>
+          &nbsp;
+          &nbsp;
+          &nbsp;
+          Page {{currPage}} of {{totalPages}}
+          &nbsp;
+          &nbsp;
+          &nbsp;
+          <a (click)="nextPage()">&gt;&gt;</a>              
+        </div>
 
       </div>
       <div class="card-body" *ngIf="!isDataFound">

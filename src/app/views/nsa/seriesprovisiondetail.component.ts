@@ -151,7 +151,7 @@ onDoneClick(event: any){
 		this.topFunction();
 		this.isLoading = true;		 
 		 this.isDoneDisable = true;
-		 if(this.hop_sequence==3) // LAST HOP IN SERIES PROVISION
+		 if(this.hop_sequence==4) // LAST HOP IN SERIES PROVISION
 			this.isDone = true;
 		  this.workFlowsService.UpdateExistiongWorkRequest(this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName),this._global.wrid_NumberSeriesProvisioning, this.groupID,this.userID,this.hop_sequence,"",this.isDone).subscribe(
       res  =>  {

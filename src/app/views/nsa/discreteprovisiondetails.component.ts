@@ -149,7 +149,7 @@ import {
 			this.topFunction();
 		  this.isLoading = true;		 
 		   this.isDoneDisable = true;
-		   if(this.hop_sequence==3) // LAST HOP IN De-PROVISION
+		   if(this.hop_sequence==4) // LAST HOP IN De-PROVISION
 			  this.isDone = true;
 			this.workFlowsService.UpdateExistiongWorkRequest(this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName),this._global.wrid_DescProvisioning, this.groupID,this.userID,this.hop_sequence,"",this.isDone).subscribe(
 		res  =>  {
@@ -158,7 +158,7 @@ import {
 		  if(res !== ""){	
 			  this.isLoading = false;
 			  this.successAlertShow = true;
-			  if(this.hop_sequence==3)
+			  if(this.hop_sequence==4)
 				  this.successAlertMessage = " has been completed successfully.";
 			  else
 					this.successAlertMessage = " has been saved successfully ";

@@ -350,7 +350,8 @@ export class NewrequisitioninitiateComponent implements OnInit {
 
 			);
 
-  //GetWR_Name
+	//GetWR_Name
+	/*
 	this.definitionDataService.GetWR_Name_forIsms(this._global.wrid_NewSimRequision).subscribe(
     data => {
         const dataStr = JSON.stringify(data);
@@ -365,7 +366,7 @@ export class NewrequisitioninitiateComponent implements OnInit {
       err => console.error(err),
       ()=> console.log('done loading Work Request Name')
       );
-
+*/
 
 		//Get Today Date
 		this.todayDate = new Date();
@@ -384,7 +385,10 @@ export class NewrequisitioninitiateComponent implements OnInit {
       this.usageCategory = 	new FormControl({value: ''}, Validators.required);
       this.startDate =	new FormControl('', Validators.required);
       this.endDate = 	new FormControl('', Validators.required);
-	  this.purposeDetails = new FormControl('', Validators.required);
+	  this.purposeDetails = new FormControl('',  [
+      Validators.required,
+      Validators.minLength(120) 
+    ]);
 	  this.notificationTo = new FormControl('');
 
       this.requisitionType = new FormControl({value: ''}, Validators.required);
@@ -607,6 +611,9 @@ export class NewrequisitioninitiateComponent implements OnInit {
     				this.headerDateData.endDate = this.newSimRequisitionForm.get('endDate').value;
     				this.headerDateData.purposeDetails = this.newSimRequisitionForm.get('purposeDetails').value;
 					this.headerDateData.notificationTo = "";
+
+					console.log("this.finalListOfUsersToSendWithRqn");
+					console.log(this.finalListOfUsersToSendWithRqn);
 					
 					if(this.finalListOfUsersToSendWithRqn != null && this.finalListOfUsersToSendWithRqn.length > 0){
 						for(var  i = 0; i < this.finalListOfUsersToSendWithRqn.length; i++){
@@ -617,7 +624,7 @@ export class NewrequisitioninitiateComponent implements OnInit {
 							else this.headerDateData.notificationTo += ",";
 						}
 					}
-
+console.log(this.headerDateData.notificationTo);
     				this.headerDateData.requisitionLines = this.newSimRequisitionForm.get('requisitionLines').value;
 
     				for(var i = 0; i < this.headerDateData.requisitionLines.length; i++){
@@ -641,12 +648,13 @@ export class NewrequisitioninitiateComponent implements OnInit {
     						if(res !== ""){
     							this.newSimRequisitionForm.reset();
 								this.successAlertShow = true;
-								if(this.groupID == this._global.groupID_SSM){
-									this.successAlertMessage = "Requisition no "+ this.WR_Name +" has been submitted successfully and forwarded to CLC for approval.";
+								/*if(this.groupID == this._global.groupID_SSM){
+									this.successAlertMessage = "Requisition no "+ res.message +" has been submitted successfully and forwarded to CLC for approval.";
 								}
 								else{
-									this.successAlertMessage = "Requisition no "+ this.WR_Name +" has been submitted successfully and forwarded to SSM for approval.";
-								}
+								*/
+									this.successAlertMessage = "Requisition no "+ res.message +" has been submitted successfully and forwarded to SSM for approval.";
+								//}
     							alert(this.successAlertMessage);
     							setTimeout(()=>{
                     this.isLoading = false;
@@ -678,9 +686,9 @@ FormatTheDate(selectedrequisitionDate:any):string {
     var day  = ("0" + date.getDate()).slice(-2);
 		var formattedDate=[day,month,date.getFullYear()].join("-");*/
 		const date = moment(selectedrequisitionDate);
-		console.log('jhhhhhhhhhhhhhhhhhhhhhhhhhh'+date);
+		//console.log('jhhhhhhhhhhhhhhhhhhhhhhhhhh'+date);
 		const formattedDate = moment(date).format('DD-MM-YYYY');
-	  console.log("formattedDate : "+formattedDate);
+	  //console.log("formattedDate : "+formattedDate);
   	return formattedDate;
 
 }

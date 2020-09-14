@@ -38,6 +38,16 @@ export class TestsimTransferComponent implements OnInit {
   isDataFound: boolean = true;
   listTransferModes: Array<any>;
   listUsers: Array<any>;
+  private offset: number;
+		  private currPage: number;
+		  private totalPages: number;
+		  listSimStatus: Array<any>;
+		  searchOptions_simStatus: String;
+		  searchOptions_msisdn: String;
+      searchOptions_rqnNo: String;
+      transferMode: String;
+      transferTo: String;
+      comments: String;
 
   constructor(private route:ActivatedRoute, private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {
 
@@ -60,7 +70,7 @@ export class TestsimTransferComponent implements OnInit {
 
   loadPendingList(){
     //GetPendingTaskList
-    this.workFlowsService.loadMySimsFiltered(this.userID, this.allRequisitionLineMsisdnIds).subscribe(
+    this.workFlowsService.loadMySimsFilteredByRqnLineMsisdnOnly(this.allRequisitionLineMsisdnIds).subscribe(
         data => {
           if(data !=null){
             console.log(data);
@@ -73,6 +83,7 @@ export class TestsimTransferComponent implements OnInit {
           }
           else{
             this.isDataFound = false;
+            this.isLoading = false;
           }
         },
       err => console.error(err),
@@ -80,11 +91,13 @@ export class TestsimTransferComponent implements OnInit {
       );
     //Get Today Date
     this.todayDate = new Date();
+    this.isLoading = false;
   }
 
 
   ngOnInit () {
 
+    this.offset = 0;
     this.isLoading = true;
     this.allRequisitionLineMsisdnIds = this.route.snapshot.paramMap.get('all_ids');
     console.log("sim action page");
@@ -93,15 +106,7 @@ export class TestsimTransferComponent implements OnInit {
     setTimeout(()=>{    //<<<---    using ()=> syntax
       this.loadPendingList();
 
-      this.listTransferModes = [
-        {
-          "id":"Transfer","name":"Transfer"
-        },
-        {
-          "id":"Handover","name":"Handover"
-        }
-      ];
-
+     
       this.listUsers = [];
 
       this.workFlowsService.getUserList().subscribe(
@@ -113,7 +118,7 @@ export class TestsimTransferComponent implements OnInit {
         });
 
     }, 2000);
-
+    this.isLoading = false;
   }
 
 
@@ -147,6 +152,15 @@ export class TestsimTransferComponent implements OnInit {
 
   submit(){
 
+    if(this.comments == null ||
+      this.comments == undefined ||
+      this.comments == ""){
+          var msg = "Comments is blank.";
+          alert(msg);
+          return;
+      }
+
+
     for(var i = 0; i < this.requisitionList.length; i++){
 
       //todo hard code
@@ -159,14 +173,7 @@ export class TestsimTransferComponent implements OnInit {
           return;
       }*/
 
-      if(this.requisitionList[i]['comments'] == null ||
-      this.requisitionList[i]['comments'] == undefined ||
-      this.requisitionList[i]['comments'] == ""){
-          var msg = "At row " + (i+1) + " comments is blank.";
-          alert(msg);
-          return;
-      }
-
+      
     }
 
     ////////////// ////////////////////////
@@ -185,12 +192,12 @@ export class TestsimTransferComponent implements OnInit {
       var requestDetailObj = {};
       requestDetailObj['requisitionLineMsisdnId'] = this.requisitionList[i]['requisitionLineMsisdnId'];
       requestDetailObj['justification'] = this.requisitionList[i]['comments'];
-      requestDetailObj['comments'] = this.requisitionList[i]['comments'];
+      requestDetailObj['comments'] = this.comments;
       requestDetailObj['newCreditLimit'] = 0;
       requestDetailObj['newEndDate'] = "";
       requestDetailObj['rechargeAmount'] = 0;
-      requestDetailObj['transferMode'] = this.requisitionList[i]['transferMode'];
-      requestDetailObj['transferTo'] = this.requisitionList[i]['transferTo'];
+      requestDetailObj['transferMode'] = "Transfer"; //this.transferMode;
+      requestDetailObj['transferTo'] = this.transferTo;
       requestDetailObj['lostDamageMode'] = "";
       requestDetailObj['lostDamageDate'] = "";
 
@@ -211,7 +218,7 @@ export class TestsimTransferComponent implements OnInit {
     err => console.error(err),
     () => console.log('Done loading PendingTask List')
     );
-
+    this.isLoading = false;
     ////////////// /////////////////////// /////////////
   }
 

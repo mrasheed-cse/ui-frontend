@@ -49,6 +49,7 @@ export class RequisitionassignComponent implements OnInit {
           this.employeeDetails = res.employeeDetails;
           this.requisitionDetails = res.requisitionDetails;
         }
+        
           },
           err  =>  {
 

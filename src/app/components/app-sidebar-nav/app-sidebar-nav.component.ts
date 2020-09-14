@@ -29,15 +29,38 @@ import { AppGlobals } from './../../app.global';
 })
 export class AppSidebarNavComponent {
 
-  public navigation = navigation;  
+  public navigation2 = navigation;  
+  public navigation = null;
   currentLoggedInUser: LoggedInUser;	
   groupID: number;
   
   	constructor(private loginService: LoginService, private _global: AppGlobals) { 
 	
-	this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
+  this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
+  
+  if (this.currentLoggedInUser) {		
+		this.groupID = this.currentLoggedInUser.groupID;
+    console.log('Current user groupID : ' + this.groupID);
+    
+  this.loginService.LoadMenu(this.groupID).subscribe(
+    data => {
+      
+      if(data !=null){
+        this.navigation = data;
+      }
+      else{
+        
+      }
+    },
+  err => console.error(err),
+  () => console.log('Done loading menu')
+  );
+}
+  console.log("this.navigation");
+  console.log(this.navigation);
 	
-	if (this.currentLoggedInUser) {		
+  /*
+  if (this.currentLoggedInUser) {		
 		this.groupID = this.currentLoggedInUser.groupID;
     console.log('Current user groupID : ' + this.groupID);
     
@@ -100,6 +123,7 @@ export class AppSidebarNavComponent {
 		}
 		
 	}
+   */
   
 	}
 

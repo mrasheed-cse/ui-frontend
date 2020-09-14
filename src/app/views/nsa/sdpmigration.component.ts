@@ -158,14 +158,14 @@ constructor(private router: Router,private loginService: LoginService, private h
 		this.topFunction();
 		this.isLoading = true;
     console.log('Form Submitted!');
-    console.log(this.mySdpMigrationFileForm.value);
+    //console.log(this.mySdpMigrationFileForm.value);
 
   
   this.fileName = this.formFieldData;
   console.log(this.formFieldData);
   const fd = new FormData();
   fd.append('nsa-file',this.selectedFile,"SDP_Migration.csv");
-  console.log(this.selectedFile.name); 
+  //console.log(this.selectedFile.name); 
   
   
   var result = this.fileoperationService.uploadCSV(fd);
@@ -223,7 +223,7 @@ constructor(private router: Router,private loginService: LoginService, private h
 			console.log('response is : '+res);
 			if(res == true){
 				this.successAlertShow = true;
-				this.successAlertMessage = "SDP for " + this.mySdpMigrationRangeForm.get('startMSISDN').value + " and "+ this.mySdpMigrationRangeForm.get('endMSISDN').value +" has been migrated successfully";
+				this.successAlertMessage = "SDP from " + this.mySdpMigrationRangeForm.get('startMSISDN').value + " to "+ this.mySdpMigrationRangeForm.get('endMSISDN').value +" has been migrated successfully";
 				this.isLoading = false;
 			}
 			else{

@@ -58,27 +58,46 @@
                         <div class="card-body">
                                 <div class="row">
                                         <div class="col-md-6">
-                                                <div class="form-group row">
+                                               <!-- <div class="form-group row">
                                                         <label class="col-md-5 col-form-label">Requisition No</label>
                                                         <div class="col-md-7">
                                                                 {{WR_Name}}
                                                         </div>
                                                 </div>
+                                        -->
+                                        <div class="form-group row">
+                                                <label class="col-md-5 col-form-label" for="requisitionDate">Requisition Date</label>
+                                                <div class="col-md-7">
+                                                        <input type="text" class="form-control calendar-container" id="requisitionDate" formControlName="requisitionDate" name="requisitionDate"
+                                                        required bsDatepicker  placement="left"
+                                                         [bsConfig]="{ dateInputFormat: 'dd-MM-yyyy', containerClass: 'theme-green',  showWeekNumbers:false }"
+                                                         [minDate]="todayDate"
+
+                                                         value="{{ requisitionDate.value }}"
+                                                         disabled
+                                                        >
+                                                </div>
+                                        </div>
+
                                         </div>
 
                                         <div class="col-md-6">
 
+                                                        
                                                         <div class="form-group row">
-                                                                <label class="col-md-5 col-form-label" for="requisitionDate">Requisition Date</label>
+                                                                <label class="col-md-5 col-form-label" for="userIdFirstWay">Notification to</label>
                                                                 <div class="col-md-7">
-                                                                        <input type="text" class="form-control calendar-container" id="requisitionDate" formControlName="requisitionDate" name="requisitionDate"
-                                                                        required bsDatepicker  placement="left"
-                                                                         [bsConfig]="{ dateInputFormat: 'dd-MM-yyyy', containerClass: 'theme-green',  showWeekNumbers:false }"
-                                                                         [minDate]="todayDate"
-
-                                                                         value="{{ requisitionDate.value }}"
-                                                                         disabled
-                                                                        >
+                                                                        <input class="form-control" type="text" (keyup)="getUserIdsFirstWay($event)" id="userIdFirstWay" list="dynmicUserIds" formControlName="notificationTo" />
+                                                                        <span (click)="addRecipient()"><i class="fa fa-plus cust-icon-add-to-autocomplete"></i></span>
+                                                                        <datalist id="dynmicUserIds">
+                                                                                <option *ngFor="let item of userList1" [value]="item.userName">{{item.userName}}</option>
+                                                                        </datalist>
+                                                                        <table>
+                                                                                <tr *ngFor="let listObj of finalListOfUsersToSendWithRqn">
+                                                                                        <td>{{listObj.emailAddress}}</td>
+                                                                                        <td><span (click)="deleteRecipient(listObj)"><i class="fa fa-trash-o"></i></span></td>
+                                                                                </tr>
+                                                                        </table>
                                                                 </div>
                                                         </div>
 
@@ -205,18 +224,29 @@
 
 
                                 <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-12">
                                                         <div class="form-group row">
                                                                         <label class="col-md-5 col-form-label" for="purposeDetails">Purpose Details</label>
                                                                         <div class="col-md-12">
                                                                                 <textarea id="purposeDetails" name="purposeDetails" class="form-control" formControlName="purposeDetails" rows="5"
-                                                                                placeholder="Please enter minimum 120 characters" >
-                                                        </textarea>
+                                                                                placeholder="Please enter minimum 120 characters" required 
+                                                                                [ngClass]="{
+                                                                                        'is-invalid': purposeDetails.invalid && (purposeDetails.dirty || purposeDetails.touched),
+                                                                                        'is-valid': purposeDetails.valid && (purposeDetails.dirty || purposeDetails.touched)
+                                                                           }"></textarea>
+                                                                                <div class="invalid-feedback" *ngIf="purposeDetails.errors && (purposeDetails.dirty || purposeDetails.touched)">
+                                                                                        <p *ngIf="purposeDetails.errors.required">Purpose Details is required</p>                                                                                        
+                                                                                        <p *ngIf="purposeDetails.errors.minlength">Purpose Details must be minimum 120 characters long, we need another
+                                                                                                {{purposeDetails.errors.minlength.requiredLength -
+                                                                                                        purposeDetails.errors.minlength.actualLength}}
+                                                                                                characters</p>                                                                                        
+                                                                                </div>
+                                                        
                                                                         </div>
                                                                 </div>
                                         </div>
 
-                                        <div class="col-md-6">
+                                        <!--<div class="col-md-6">
                                                 <div class="form-group row">
                                                         <label class="col-md-5 col-form-label" for="userIdFirstWay">Notification to</label>
                                                         <div class="col-md-7">
@@ -233,7 +263,7 @@
                                                                 </table>
                                                         </div>
                                                 </div>
-                                        </div>
+                                        </div>-->
 
                                 </div>
                                 <div class="card-header">

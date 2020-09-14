@@ -120,6 +120,16 @@ export class DefinitionDataService {
 			}
 		)
 	}
+
+	// Get Validation for APN Creation Work Request
+	CheckValidityApnCreationWorkRequest(apnName: string, apnID: string): any {
+		//console.log("In GetProducts() for type " + selectedProductTypeID); 
+		return this.http.post(this.serverUrl + 'CheckValidityForApnCreation' , {
+			apnName: apnName,
+			apnID: apnID
+			}
+		)
+	}
 	
 	//GetSimTypes
 	GetSimTypes(): any {	

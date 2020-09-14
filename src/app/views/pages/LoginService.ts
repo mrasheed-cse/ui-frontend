@@ -43,8 +43,8 @@ export class LoginService {
 
 	ValidateUser(username: string, password: string) : any {
 		var isValidGpUser;
-		var userNameFromEmail = null;
-		var indexOfAt = username.indexOf('@')
+		//var userNameFromEmail = null;
+		//var indexOfAt = username.indexOf('@')
 		/*if(indexOfAt!= -1){
 			userNameFromEmail = username.substring(0,indexOfAt -1);
 		}else{
@@ -54,9 +54,9 @@ export class LoginService {
 		 });
 		 return isValidGpUser;
 		}*/
-		console.log(" isValidGpUser: "+isValidGpUser," indexOfAt: "+indexOfAt," userNameFromEmail "+userNameFromEmail, );
+		
 		return this.http.post<LoggedInResponse>(this.serverUrl + 'login', {
-			userId: userNameFromEmail == null? username: userNameFromEmail,
+			userId: username,
 			password: password
 		});
 	}
@@ -75,6 +75,7 @@ export class LoginService {
 		 return isValidGpUser;
 		}*/
 		console.log(" isValidGpUser: "+isValidGpUser," indexOfAt: "+indexOfAt," userNameFromEmail "+userNameFromEmail, );
+		console.log(this.serverUrl + 'loginAsDelegate');
 		return this.http.post<LoggedInResponse>(this.serverUrl + 'loginAsDelegate', {
 			userId: userNameFromEmail == null? username: userNameFromEmail,
 			delegateUserId: delegateusername,
@@ -98,6 +99,13 @@ export class LoginService {
 		localStorage.setItem('currentLoggedInUser', null);
 		localStorage.removeItem('currentLoggedInUser');
 		this.router.navigate(['pages/login']);
+	}
+
+	LoadMenu(usersGroupId: number): any {
+		console.log("Fetching menu for userGroupID: "+usersGroupId+  " from the API : "+this.serverUrl + 'LoadFullMmenu' );
+		return this.http.post(this.serverUrl + 'LoadFullMmenu',{
+			userGroupID: usersGroupId
+		});
 	}
 
 

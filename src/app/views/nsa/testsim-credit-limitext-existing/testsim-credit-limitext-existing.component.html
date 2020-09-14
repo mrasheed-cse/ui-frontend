@@ -9,9 +9,13 @@
       </div>
       <div class="card">
         <div class="card-header">
-          <i class="fa fa-align-justify"></i> Credit Limit Extension - Request Log
+          <i class="fa fa-align-justify"></i>Time / Credit Limit Extension - Request Log
+          <button type="button" style="float: right;" class="btn btn-link" ><i class="fa fa-link"></i><a [routerLink]="[ '/nsa/testsim-creditlimitext-new' ]"> Create New Credit Limit Extension </a></button>
+          
         </div>
+        
         <div class="card-body" *ngIf="isDataFound && !showDetail">
+
 
           <ag-grid-angular 
             #agGrid

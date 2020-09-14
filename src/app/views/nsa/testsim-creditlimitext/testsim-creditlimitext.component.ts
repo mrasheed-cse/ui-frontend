@@ -32,6 +32,14 @@ export class TestsimCreditlimitextComponent implements OnInit {
   public isLoading:boolean = false;
   isDataFound: boolean = true;
 
+  private offset: number;
+		  private currPage: number;
+		  private totalPages: number;
+		  listSimStatus: Array<any>;
+		  searchOptions_simStatus: String;
+		  searchOptions_msisdn: String;
+		  searchOptions_rqnNo: String;
+
   constructor(private route:ActivatedRoute, private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {
 
     this.isLoading = false;
@@ -53,7 +61,7 @@ export class TestsimCreditlimitextComponent implements OnInit {
 
   loadPendingList(){
     //GetPendingTaskList
-    this.workFlowsService.loadMySimsFiltered(this.userID, this.allRequisitionLineMsisdnIds).subscribe(
+    this.workFlowsService.loadMySimsFilteredByRqnLineMsisdnOnly(this.allRequisitionLineMsisdnIds).subscribe(
         data => {
           if(data !=null){
             console.log(data);
@@ -78,6 +86,7 @@ export class TestsimCreditlimitextComponent implements OnInit {
 
   ngOnInit () {
 
+    this.offset = 0;
     this.isLoading = true;
     this.allRequisitionLineMsisdnIds = this.route.snapshot.paramMap.get('all_ids');
     console.log("sim action page");
@@ -86,16 +95,32 @@ export class TestsimCreditlimitextComponent implements OnInit {
     setTimeout(()=>{    //<<<---    using ()=> syntax
       this.loadPendingList();
     }, 2000);
+    this.isLoading = false;
+  }
 
+  copyToAll(){
+    for(var i = 0; i < this.requisitionList.length; i++){
+
+      if(i == 0) continue;
+
+      this.requisitionList[i]['newCreditLimit'] = this.requisitionList[0]['newCreditLimit'];
+      this.requisitionList[i]['justification'] = this.requisitionList[0]['justification'];
+
+    }
   }
 
   submit(){
 
     for(var i = 0; i < this.requisitionList.length; i++){
 
-      if(this.requisitionList[i]['newCreditLimit'] == null ||
-      this.requisitionList[i]['newCreditLimit'] == undefined ||
-      this.requisitionList[i]['newCreditLimit'] == ""){
+      this.requisitionList[i]['newCreditLimit'] = +(this.requisitionList[i]['newCreditLimit']);
+
+      //alert(this.requisitionList[i]['newCreditLimit']);
+
+      if(
+        isNaN(this.requisitionList[i]['newCreditLimit']) ||
+      this.requisitionList[i]['newCreditLimit'] == null ||
+      this.requisitionList[i]['newCreditLimit'] == undefined){
           var msg = "At row " + (i+1) + " new credit limit is blank.";
           alert(msg);
           return;
@@ -144,7 +169,7 @@ export class TestsimCreditlimitextComponent implements OnInit {
     this.workFlowsService.submitSimActionRequest(requestObj).subscribe(
       data => {
         if(data != null && data != undefined && data != ""){
-          this.isLoading = false;
+          
           var msg = "The request has been submitted" + data['name'];
           alert(msg);
           this.router.navigate(['nsa/testsimdashboard']);
@@ -152,11 +177,12 @@ export class TestsimCreditlimitextComponent implements OnInit {
 
         console.log("sim action submitted");
         console.log(data);
+       
       },
     err => console.error(err),
     () => console.log('Done loading PendingTask List')
     );
-
+    this.isLoading = false;
     ////////////// /////////////////////// /////////////
   }
 

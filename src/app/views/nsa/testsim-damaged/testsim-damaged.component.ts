@@ -32,6 +32,13 @@ export class TestsimDamagedComponent implements OnInit {
 	routerUrlAndParams: string;
   public isLoading:boolean = false;
   isDataFound: boolean = true;
+  private offset: number;
+		  private currPage: number;
+		  private totalPages: number;
+		  listSimStatus: Array<any>;
+		  searchOptions_simStatus: String;
+		  searchOptions_msisdn: String;
+		  searchOptions_rqnNo: String;
 
   constructor(private route:ActivatedRoute, private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {
 
@@ -54,7 +61,7 @@ export class TestsimDamagedComponent implements OnInit {
 
   loadPendingList(){
     //GetPendingTaskList
-    this.workFlowsService.loadMySimsFiltered(this.userID, this.allRequisitionLineMsisdnIds).subscribe(
+    this.workFlowsService.loadMySimsFilteredByRqnLineMsisdnOnly(this.allRequisitionLineMsisdnIds).subscribe(
         data => {
           if(data !=null){
             console.log(data);
@@ -67,6 +74,7 @@ export class TestsimDamagedComponent implements OnInit {
           }
           else{
             this.isDataFound = false;
+            this.isLoading = false;
           }
         },
       err => console.error(err),
@@ -74,11 +82,13 @@ export class TestsimDamagedComponent implements OnInit {
       );
     //Get Today Date
     this.todayDate = new Date();
+    this.isLoading = false;
   }
 
 
   ngOnInit () {
 
+    this.offset = 0;
     this.isLoading = true;
     this.allRequisitionLineMsisdnIds = this.route.snapshot.paramMap.get('all_ids');
     console.log("sim action page");
@@ -87,7 +97,19 @@ export class TestsimDamagedComponent implements OnInit {
     setTimeout(()=>{    //<<<---    using ()=> syntax
       this.loadPendingList();
     }, 2000);
+    this.isLoading = false;
+  }
 
+  copyToAll(){
+    for(var i = 0; i < this.requisitionList.length; i++){
+
+      if(i == 0) continue;
+
+      this.requisitionList[i]['lostDamageDate'] = this.requisitionList[0]['lostDamageDate'];
+      this.requisitionList[i]['comments'] = this.requisitionList[0]['comments'];
+      this.requisitionList[i]['requestedNewSim'] = this.requisitionList[0]['requestedNewSim'];
+
+    }
   }
 
   submit(){
@@ -162,7 +184,7 @@ export class TestsimDamagedComponent implements OnInit {
     err => console.error(err),
     () => console.log('Done loading PendingTask List')
     );
-
+    this.isLoading = false;
     ////////////// /////////////////////// /////////////
   }
 

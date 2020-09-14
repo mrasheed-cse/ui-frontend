@@ -56,41 +56,13 @@ export class TestsimCreditlimitextSsmComponent implements OnInit {
 
   loadPendingList(){
     //GetPendingTaskList
-    this.workFlowsService.simActionRequestsPendingForApproval(this._global.wrid_testSimCreditLimitExtension,this.userID).subscribe(
+    this.workFlowsService.simActionDualRequestsPendingForApproval(this._global.wrid_testSimCreditLimitExtension+','+this._global.wrid_testSimTimeLimitExtension,this.userID).subscribe(
         data => {
           if(data !=null){
             console.log(data);
             this.isDataFound = true;
 
-            if(data.length > 0){
-              for(var i = 0; i < data.length; i++){
-                this.requisitionList.push(data[i]);
-              }
-            }
-
-            /////////// /////////////////// ///////////// ////////////////////
-            this.workFlowsService.simActionRequestsPendingForApproval(this._global.wrid_testSimTimeLimitExtension,this.userID).subscribe(
-              data => {
-                if(data !=null){
-                  console.log(data);
-
-                  if(data.length > 0){
-                    for(var i = 0; i < data.length; i++){
-                      this.requisitionList.push(data[i]);
-                    }
-                  }
-
-                  this.isLoading = false;
-                }
-                else{
-                  this.isDataFound = false;
-                }
-              },
-            err => console.error(err),
-            () => console.log('Done loading PendingTask List')
-            );
-            ////////// //////////////////// /////////////////// //////////////
-
+            
             this.requisitionList = data;
             this.isLoading = false;
           }
@@ -103,6 +75,7 @@ export class TestsimCreditlimitextSsmComponent implements OnInit {
       );
     //Get Today Date
     this.todayDate = new Date();
+    //this.isLoading = false;
   }
 
   initTasks(){
@@ -115,6 +88,7 @@ export class TestsimCreditlimitextSsmComponent implements OnInit {
     setTimeout(()=>{    //<<<---    using ()=> syntax
       this.loadPendingList();
     }, 2000);
+    this.isLoading = false;
   }
 
   ngOnInit () {
@@ -127,12 +101,13 @@ export class TestsimCreditlimitextSsmComponent implements OnInit {
 
     this.isLoading = true;
     this.selectedSimActionId = (aTask['simActionId']);
-
+    console.log("selectedSimActionId" + this.selectedSimActionId);
+    
     this.workFlowsService.simActionRequestDetailsPendingForApproval(aTask['simActionId']).subscribe(
       res  =>  {
         if(res !== ""){
           this.msisdnList = res;
-
+console.log(res);
           for(var i = 0; i < this.msisdnList.length; i++){
             this.msisdnList[i]['selected'] = false;
             this.msisdnList[i]['isApproved'] = false;
@@ -149,10 +124,10 @@ export class TestsimCreditlimitextSsmComponent implements OnInit {
         }
       },
       err  =>  {
-
+        this.isLoading = false;
       }
     );
-
+    //this.isLoading = false;
   }
 
   approveAll(){
@@ -177,6 +152,54 @@ export class TestsimCreditlimitextSsmComponent implements OnInit {
 
   }
 
+  rejectCorresponding(position){
+  //  alert(position);
+    this.msisdnList[position]['isRejected'] = false;
+    this.msisdnList[position]['isApproved'] = true;
+    //console.log(aTask);
+    /*
+    for(var i = 0; i < this.msisdnList.length; i+=2){
+      if(!this.msisdnList[i]['locked']){
+        this.msisdnList[i]['isRejected'] = false;
+        this.msisdnList[i]['isApproved'] = true;
+        console.log(this.msisdnList[i]);
+      }
+    }
+    */
+    /*
+    console.log(this.msisdnList[position]);
+    this.msisdnList[position]['isRejected'] = true;
+    this.msisdnList[position]['isApproved'] = false;
+    this.msisdnList[position]['selected'] = false;
+    console.log(this.msisdnList[position]);
+    */
+  }
+
+  
+  approveCorresponding(position){
+    //  alert(position);
+      this.msisdnList[position]['isRejected'] = true;
+      this.msisdnList[position]['isApproved'] = false;
+      //console.log(aTask);
+      /*
+      for(var i = 0; i < this.msisdnList.length; i+=2){
+        if(!this.msisdnList[i]['locked']){
+          this.msisdnList[i]['isRejected'] = false;
+          this.msisdnList[i]['isApproved'] = true;
+          console.log(this.msisdnList[i]);
+        }
+      }
+      */
+      /*
+      console.log(this.msisdnList[position]);
+      this.msisdnList[position]['isRejected'] = true;
+      this.msisdnList[position]['isApproved'] = false;
+      this.msisdnList[position]['selected'] = false;
+      console.log(this.msisdnList[position]);
+      */
+    }
+  
+
   submit(){
 
     this.isLoading = true;
@@ -200,6 +223,8 @@ export class TestsimCreditlimitextSsmComponent implements OnInit {
       obj['msisdnDetails'].push(obj2);
     }
 
+    console.log(obj);
+
     this.workFlowsService.updateSimAction(obj).subscribe(
       res  =>  {
         if(res != null && res != undefined && res !== ""){
@@ -210,10 +235,10 @@ export class TestsimCreditlimitextSsmComponent implements OnInit {
         }
       },
       err  =>  {
-
+        this.isLoading = false;
       }
     );
-
+    this.isLoading = false;
   }
 
   cancel(){

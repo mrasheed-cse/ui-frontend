@@ -87,13 +87,13 @@ export class MnpreProvisionComponent implements OnInit {
 	this.workFlowsService.LoadPendingTask(this._global.wrid_MnpReProvisioning,this.groupID).subscribe(
       data => { 				
 				if(data !=null){
-					console.log(data);
+					//console.log(data);
 					this.isDataFound = true;
 					this.pendingTasksList = data;
 						
 					for (let index in data) {
 						//console.log (data[index]);
-						
+						/*
 						console.log('pendingAt is : '+index +' ' +this.pendingTasksList[index].pendingAt);
 						console.log('nextAction is : '+index +' ' +this.pendingTasksList[index].nextAction);
 						console.log('lastActionBy is : '+index +' ' +this.pendingTasksList[index].lastActionBy);
@@ -102,6 +102,7 @@ export class MnpreProvisionComponent implements OnInit {
 						console.log('wr_BriefName is : '+index +' ' +this.pendingTasksList[index].wr_BriefName);
 						console.log('hopSequence is : '+index +' ' +this.pendingTasksList[index].hopSequence);
 						console.log('index is : '+index);
+						*/
 					}		
 				}
 				else{
@@ -136,7 +137,7 @@ datepickerConfig: Partial<BsDatepickerConfig>;
 	  
   if (this.wrname.value || this.startDate.value || this.endDate.value || this.wrstatus.value) {
     console.log('Form Submitted!');
-    console.log(this.mySearchForm.value);
+    //console.log(this.mySearchForm.value);
 	this.successSearchShow = false;
 	this.dangerAlertShow = false;
 	

@@ -114,10 +114,10 @@ export class SeriesDefinitionDetailsComponent implements OnInit {
   LoadQueryStringData(){
 	  // LOAD QUERY STRING DATA
 		this.wr_BriefId = Number(this.activatedRoute.snapshot.paramMap.get('wr_BriefId'));
-		console.log(this.wr_BriefId);
+		//console.log(this.wr_BriefId);
 		
 		this.hop_sequence = Number(this.activatedRoute.snapshot.paramMap.get('hopSequence'));		
-		console.log(this.hop_sequence);
+		//console.log(this.hop_sequence);
 		
 		this.wrBriefName = this.activatedRoute.snapshot.paramMap.get('wr_BriefName');
 	
@@ -131,9 +131,9 @@ LoadPreviousHopsData(){
 					//console.log(data);
 					this.fieldNameValueList = data;
 					const totalData = this.fieldNameValueList.length;
-					console.log(totalData);
+					//console.log(totalData);
 					if (totalData%2==1){   
-						console.log("totalData is odd");
+						//console.log("totalData is odd");
 						
 						this.fieldNameValueList.push({fieldName: "", fieldValue: ""});
 
@@ -303,10 +303,12 @@ LoadPreviousHopsData(){
 	console.log(Number(selectedSDPID)-1);
 	const selectedSDPName = this.listSDP[Number(selectedSDPID)-1].name;
 	console.log(selectedSDPName);
+	const selectedSDPNumber = selectedSDPName.substring(4)
+	console.log(selectedSDPNumber);	
 	//this.mySeriesDefinitionForm.get('quantity').setValue(1 + Number(selectedMSISDN) - Number(startMSISDNs));
-	this.mySeriesDefinitionForm.get('CSP').setValue(selectedSDPName);
-	this.mySeriesDefinitionForm.get('EOICK').setValue(Number(selectedSDPName)*10);
-	this.mySeriesDefinitionForm.get('SK').setValue(Number(selectedSDPName)+8000-1);
+	this.mySeriesDefinitionForm.get('CSP').setValue(selectedSDPNumber);
+	this.mySeriesDefinitionForm.get('EOICK').setValue(Number(selectedSDPNumber)*10);
+	this.mySeriesDefinitionForm.get('SK').setValue(Number(selectedSDPNumber)+8000-1);
   }
 
   topFunction() {
@@ -331,7 +333,7 @@ if (this.mySeriesDefinitionForm.valid) {
   //{wr_id}/{userGroup_id}/{user_id}/[{workflowFieldsValueSeqWise}]
   this.workFlowsService.UpdateExistiongWorkRequest(this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName),this._global.wrid_NumberSeriesDefinition, this.groupID,this.userID,this.hop_sequence,this.formFieldData,this.isDone).subscribe(
       res  =>  {
-		console.log('response is : '+res.message);
+		//console.log('response is : '+res.message);
 		
 		if(res !== ""){	
 			this.successAlertShow = true;
@@ -396,16 +398,16 @@ onDoneClick(event: any){
 		this.dangerAlertShow = false;
 		 this.formFieldData = "";
 		 this.isDoneDisable = true;
-		 if(this.hop_sequence==5) // LAST HOP IN SERIES PROVISION
+		 if(this.hop_sequence==4) // LAST HOP IN SERIES PROVISION
 			this.isDone = true;
 		  this.workFlowsService.UpdateExistiongWorkRequest(this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName),this._global.wrid_NumberSeriesDefinition, this.groupID,this.userID,this.hop_sequence,this.formFieldData,this.isDone).subscribe(
       res  =>  {
-		console.log('response is : '+res.message);
+		//console.log('response is : '+res.message);
 		
 		if(res !== ""){	
 			this.isLoading = false;
 			this.successAlertShow = true;
-			if(this.hop_sequence==5)
+			if(this.hop_sequence==4)
 				this.successAlertMessage = " has been completed successfully.";
 			else
 				this.successAlertMessage = " has been saved successfully and forwarded to "+res.message+".";

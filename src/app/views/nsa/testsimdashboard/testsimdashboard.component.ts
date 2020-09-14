@@ -30,9 +30,10 @@ export class TestsimdashboardComponent implements OnInit {
   public isLoading:boolean = false;
   isDataFound: boolean = true;
   isCurrentUserSSMRole: boolean = false;
+  counters: any;
 
   numberOfTestSims : number;
-  numberOfTestSims1 : number;  
+  numberOfTestSims1 : number;
   numberOfTestSims2 : number;
   numberOfTestSims3 : number;
   numberOfTestSims4 : number;
@@ -42,25 +43,51 @@ export class TestsimdashboardComponent implements OnInit {
   numberOfTestSims8 : number;
   numberOfTestSims9 : number;
 
-  constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) { 
+  constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {
 
+    this.isLoading = true;
+
+  }
+
+  loadDashboardCounters(){
+    this.workFlowsService.getDashboardCounters(this.userID).subscribe(
+        data => {
+          if(data !=null){
+            console.log(data);
+            this.counters = data;
+            this.isDataFound = true;
+            this.isLoading = false;
+          }
+          else{
+            this.isDataFound = false;
+            this.isLoading = false;
+          }
+        },
+      err => {
+        console.error(err);
+        this.isLoading = false;
+      },
+      () => console.log('Done loading dashboard counters')
+      );
+    //Get Today Date
+    this.todayDate = new Date();
 
   }
 
   ngOnInit() {
 
     this.numberOfTestSims = 0;
-    this.numberOfTestSims1 = 0;    
+    this.numberOfTestSims1 = 0;
     this.numberOfTestSims2 = 0;
     this.numberOfTestSims3 = 0;
     this.numberOfTestSims4 = 0;
     this.numberOfTestSims5 = 0;
     this.numberOfTestSims6 = 0;
     this.numberOfTestSims7 = 0;
-    this.numberOfTestSims8 = 0;                            
+    this.numberOfTestSims8 = 0;
     this.numberOfTestSims9 = 0;
-    
-    this.isLoading = false;
+
+
     let isValid = true;
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
 
@@ -76,13 +103,13 @@ export class TestsimdashboardComponent implements OnInit {
         this.isCurrentUserSSMRole = false;
       }
 
+      this.isLoading = true;
+      this.loadDashboardCounters();
+
     }
     else {
       this.router.navigate(['pages/login']);
     }
-
-
-
 
   }
 

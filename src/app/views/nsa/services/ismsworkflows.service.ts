@@ -47,6 +47,29 @@ export class IsmsworkflowsService {
 		});
 	}
 
+	LostDamagedFind(sim_action_id:number) : any{
+		console.log(this.serverUrl+ 'LostDamaged/find'+sim_action_id);
+		return this.http.post(this.serverUrl+ 'LostDamaged/find',{
+			requisitionId: sim_action_id
+		});
+	}
+
+	LostDamagedFindApprovedOnly(sim_action_id:number) : any{
+		console.log(this.serverUrl+ 'LostDamaged/findApprovedOnly'+sim_action_id);
+		return this.http.post(this.serverUrl+ 'LostDamaged/findApprovedOnly',{
+			requisitionId: sim_action_id
+		});
+	}
+
+
+/**
+ * 
+ * 		//console.log(this.serverUrl+ '');
+		return this.http.post(this.serverUrl+ 'LostDamaged/find',{
+			requisitionId: sim_action_id
+		});
+ */
+
 
 	approveOrRejectRequest(wr_id: number,status: string,userID: string, comment: string) : any{
 		return this.http.post(this.serverUrl+ 'requisition/update',{
@@ -118,6 +141,18 @@ export class IsmsworkflowsService {
 		});
 	}
 
+	// CLC Assignment for final delivery quantity.
+	clcAssignment(wr_id: number,userID: string,theLineItem: any) : any{
+		console.log("In clcAssignment: "+ wr_id+","+userID);
+		
+		return this.http.post(this.serverUrl+ 'requisition/clcassignment',{
+			wrID: wr_id,			
+			userID: userID,
+			theLineItem: theLineItem
+		});
+		
+	}
+
 	deleteRequisitionLine(lineItemId: number) : any{
 		return this.http.post(this.serverUrl+ 'requisitionline/delete',{
 			userID: "",
@@ -128,10 +163,19 @@ export class IsmsworkflowsService {
 
 
 	getMsisdnDetailsFromSsm(searchObj: any) : any{
-		return this.http.post(this.serverUrl+ 'requisition/ssm',searchObj);
+		return this.http.post(this.serverUrl+ 'requisition/ssm2',searchObj);
+	}
+
+	getMsisdnDetailsFromSsmLostDamaged(searchObj: any) : any{
+		console.log(searchObj);
+		return this.http.post(this.serverUrl+ 'requisition/ssm2',searchObj);
 	}
 
 	updateForClc(data : any) : any{
 		return this.http.post(this.serverUrl+ 'requisition/updateforclc',data);
+	}
+
+	updateForClcLostDamaged(data : any) : any{
+		return this.http.post(this.serverUrl+ 'requisition/updateforclcLostDamaged',data);
 	}
 }

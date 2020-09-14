@@ -20,8 +20,17 @@
               <th>RQN #</th>
               <th>SIM Status</th>
               <th>Assigned Credit Limit</th>
-              <th>Recharge amount</th>
-              <th>Justification</th>                
+              <th>Already Recharged</th>
+              <th>
+                Recharge amount
+                <br />
+                <a class="copyToAllLink" (click)="copyToAll()">&lt;&lt; Copy to All &gt;&gt;</a>
+              </th>
+              <th>
+                Justification
+                <br />
+                <a class="copyToAllLink" (click)="copyToAll()">&lt;&lt; Copy to All &gt;&gt;</a>
+              </th>                
             </tr>
           </thead>
           <tbody *ngFor="let aTask of requisitionList;  index as i">
@@ -31,12 +40,19 @@
                           <td>{{aTask.requisitionNo}}</td>                          
                           <td>{{aTask.simStatus}}</td>
                           <td>{{aTask.assignedCreditLimit}}</td>
-                          <td>
+                          <td>{{aTask.thisMonthRechargeAmount}}</td>
+                          <td *ngIf="aTask.thisMonthRechargeAmount < aTask.assignedCreditLimit">
                               <input type="text" class="form-control" [(ngModel)] = "aTask.rechargeAmount" />
                           </td>
-                          <td>
+                          <td *ngIf="aTask.thisMonthRechargeAmount == aTask.assignedCreditLimit">
+                            Recharge limit is over.
+                        </td>
+                        <td *ngIf="aTask.thisMonthRechargeAmount < aTask.assignedCreditLimit">
                               <input type="text" class="form-control" [(ngModel)] = "aTask.justification" />
                           </td>                                                                              
+                          <td *ngIf="aTask.thisMonthRechargeAmount == aTask.assignedCreditLimit">
+                            This number is not applicable for recharge.
+                        </td>
                       </tr>
           </tbody>
         </table>

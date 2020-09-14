@@ -34,8 +34,19 @@ export class TestsimLostdamagedNewComponent implements OnInit {
   private columnTypes;
   private rowData: any[];
   private rowDataTable2: any[];  
+  private offset: number;
+		  private currPage: number;
+		  private totalPages: number;
+		  listSimStatus: Array<any>;
+		  searchOptions_simStatus: String;
+		  searchOptions_msisdn: String;
+		  searchOptions_rqnNo: String;
 
   selectedIds: string;
+  selectedLosts: string;
+  selectedDamageds: string;
+  selectedLoststatus: string;
+  selectedDamagedstatus: string;
   requisitionList: Array<Object>;
   requisitionListOther: Array<Object>;
 	currentLoggedInUser: LoggedInUser;
@@ -84,20 +95,23 @@ export class TestsimLostdamagedNewComponent implements OnInit {
     else {
       this.router.navigate(['pages/login']);
     }
-    //this.requisitionList = _global.dataTempForMySims;
 
     this.columnDefs = _global.agGrid_defaultColDef;
     this.columnTypes = _global.agGrid_columnTypes;
 
     this.columnDefs = [
-        {headerName: 'MSISDN', field: 'msisdn', sortable: true, filter: true, checkboxSelection: true, width: 160 },
+        {headerName: 'MSISDN', field: 'msisdn', sortable: true, filter: true, checkboxSelection: true, headerCheckboxSelection: true, width: 160 },
         {headerName: 'RQN #', field: 'requisitionNo', sortable: true, filter: true, width: 200 },
         {headerName: 'RQN Type', field: 'requisitionType', sortable: true, filter: true, width: 200 },
         {headerName: 'SIM Status', field: 'simStatus', sortable: true, filter: true, width: 100 },
         {headerName: 'RQN Date', field: 'requisitionDateAsString', sortable: true, filter: true, width: 130, type: ["dateColumn", "nonEditableColumn"] },
         {headerName: 'Test start date', field: 'testStartDateAsString', sortable: true, filter: true, width: 130, type: ["dateColumn", "nonEditableColumn"] },
         {headerName: 'Test end date', field: 'testEndDateAsString', sortable: true, filter: true, width: 130, type: ["dateColumn", "nonEditableColumn"] },
-        {headerName: 'Credit limit', field: 'assignedCreditLimit', sortable: false, filter: false, width: 100, type: "numberColumn" } 
+        {headerName: 'Credit limit', field: 'assignedCreditLimit', sortable: false, filter: false, width: 100, type: "numberColumn" } ,
+        {headerName: 'Lost', field: 'simActionWorkRequestBriefName', sortable: true, filter: true, width: 200},
+        {headerName: 'Pending At', field: 'pendingAt', sortable: true, filter: true, width: 130},
+        {headerName: 'Damaged', field: 'simActionWorkRequestBriefName2', sortable: true, filter: true, width: 200 },
+        {headerName: 'Pending At', field: 'pendingAt2', sortable: false, filter: false, width: 130 } 
     ];
 
     this.rowData = [];    
@@ -119,13 +133,15 @@ export class TestsimLostdamagedNewComponent implements OnInit {
   }
 
   loadPendingList(){
+
     //GetPendingTaskList
-    this.workFlowsService.loadMySims(this.userID).subscribe(
+    this.workFlowsService.loadMySimsforDualActionsWithSearch(this.userID, this.offset, this.searchOptions_msisdn, this.searchOptions_rqnNo, +(this.searchOptions_simStatus),  this._global.wrid_testSimLost, this._global.wrid_testSimDamaged).subscribe(
         data => {
-          if(data !=null){
-            console.log(data);
+          if(data !=null){            
+            //console.log(data);
             this.isDataFound = true;
             this.rowData = data;
+            if(data.length > 0) this.totalPages = +(data[0]['totalPages']);
             this.isLoading = false;
           }
           else{
@@ -139,12 +155,52 @@ export class TestsimLostdamagedNewComponent implements OnInit {
     this.todayDate = new Date();
   }
 
+  search(){
+    this.offset = 0;
+    this.currPage = 1;
+    this.loadPendingList();
+  }
+  clearSearch(){
+    this.searchOptions_simStatus = "1";
+    this.searchOptions_msisdn = "";
+    this.searchOptions_rqnNo = "";
+    this.search();
+  }
+
+  prevPage(){
+    if(this.offset <= 0){
+      //first page .. do nothing
+    }
+    else{
+      this.isLoading = true;
+      this.offset = this.offset - this._global.defaultPageSize;
+      this.currPage--;
+      this.loadPendingList();
+    }
+  }
+
+  nextPage(){
+    if(this.currPage >= this.totalPages){
+      //last page .. do nothing
+    }
+    else{
+      this.isLoading = true;
+      this.offset = this.offset + this._global.defaultPageSize;
+      this.currPage++;
+      this.loadPendingList();
+    }
+  }
+
 
   ngOnInit () {
 
     this.isLoading = true;
     this.selectedIds = "";
-
+    this.offset = 0; this.currPage = 1; this.totalPages = 50000;
+    this.listSimStatus = this._global.listSimStatus;
+    this.searchOptions_simStatus = "1";
+    this.searchOptions_msisdn = "";
+    this.searchOptions_rqnNo = "";
     
 
   }
@@ -163,16 +219,30 @@ export class TestsimLostdamagedNewComponent implements OnInit {
     this.tmp = [];
     this.selectedIds = "";
 
+    this.selectedDamageds = "";
+    this.selectedLosts = "";
+    this.selectedDamagedstatus = "";
+    this.selectedLoststatus = "";
+
     const selectedNodes = this.agGrid.api.getSelectedNodes();
     //console.log(selectedNodes);
     const selectedData = selectedNodes.map( node => node.data );
     //console.log(selectedData);
 
     for(var i = 0; i < selectedData.length; i++){
-        this.selectedIds += selectedData[i]['requisitionLineMsisdnId'] + ",";      
+        this.selectedIds += selectedData[i]['requisitionLineMsisdnId'] + ",";    
+        this.selectedDamageds +=selectedData[i]['simActionWorkRequestBriefName2'] == null ? "," : selectedData[i]['simActionWorkRequestBriefName2'] + ",";      
+        this.selectedLosts +=selectedData[i]['simActionWorkRequestBriefName'] == null ? "," : selectedData[i]['simActionWorkRequestBriefName2']+ ",";      
+        this.selectedDamagedstatus +=selectedData[i]['pendingAt2'] == null ? "," : selectedData[i]['simActionWorkRequestBriefName2']+ ",";      
+        this.selectedLoststatus +=selectedData[i]['pendingAt'] == null ? "," : selectedData[i]['simActionWorkRequestBriefName2']+ ",";      
+        
     }
     if(this.selectedIds != "" && this.selectedIds.length > 0){
       this.selectedIds = this.selectedIds.substr(0, this.selectedIds.length - 1);
+      this.selectedLosts = this.selectedLosts.substr(0, this.selectedLosts.length - 1);        
+      this.selectedDamageds = this.selectedDamageds.substr(0, this.selectedDamageds.length - 1);      
+      this.selectedLoststatus = this.selectedLoststatus.substr(0, this.selectedLoststatus.length - 1);        
+      this.selectedDamagedstatus = this.selectedDamagedstatus.substr(0, this.selectedDamagedstatus.length - 1);  
     }
     //console.log(this.selectedIds);
   }
@@ -181,10 +251,21 @@ export class TestsimLostdamagedNewComponent implements OnInit {
     this.getSelectedIds();
 
     var selectedIdsAsArray = this.selectedIds.split(',');
+    var selectedLostsAsArray = this.selectedLosts.split(',');
+    var selectedLoststatusAsArray = this.selectedLoststatus.split(',');
+
     for(var i = 0; i < selectedIdsAsArray.length; i++){
       this.tmp.push(  parseInt(selectedIdsAsArray[i]) );
+      if(selectedLostsAsArray[i]!="" && selectedLoststatusAsArray[i]!="END" ){
+        //console.log(selectedLostsAsArray[i].length);
+        alert("One or more pending requests exist against selected MSISDNs. For example, "+selectedLostsAsArray[i]);
+        return;
+      }
     }
 
+    this.router.navigate(['nsa/testsim-lost', this.selectedIds]);
+
+    /*
     this.isLoading = true;
     this.workFlowsService.doPendingSimActionExistsForRqnLineMsisdnId(this.tmp).subscribe(
       data => {
@@ -198,7 +279,7 @@ export class TestsimLostdamagedNewComponent implements OnInit {
     },
     () => console.log('Done loading PendingTask List')
     );
-
+    */
     
   }
 
@@ -206,10 +287,21 @@ export class TestsimLostdamagedNewComponent implements OnInit {
     this.getSelectedIds();
 
     var selectedIdsAsArray = this.selectedIds.split(',');
+    var selectedDamagedsAsArray = this.selectedDamageds.split(',');
+    var selectedDamagedstatusAsArray = this.selectedDamagedstatus.split(',');
+
+
     for(var i = 0; i < selectedIdsAsArray.length; i++){
       this.tmp.push(  parseInt(selectedIdsAsArray[i]) );
+      if(selectedDamagedsAsArray[i].length!=0 && selectedDamagedstatusAsArray[i]!="END"){
+        alert("One or more pending requests exist against selected MSISDNs. For example, "+selectedDamagedsAsArray[i]);
+        return;
+      }
     }
 
+    this.router.navigate(['nsa/testsim-damaged', this.selectedIds]);
+
+    /*
     this.isLoading = true;
     this.workFlowsService.doPendingSimActionExistsForRqnLineMsisdnId(this.tmp).subscribe(
       data => {
@@ -223,7 +315,7 @@ export class TestsimLostdamagedNewComponent implements OnInit {
     },
     () => console.log('Done loading PendingTask List')
     );
-
+*/
   }
   
 }

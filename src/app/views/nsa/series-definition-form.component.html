@@ -11,10 +11,10 @@
 			<div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">An Error occured to create <b>{{WR_Name}}</b> {{dangerAlertMessage}}</div>
 
 			<div class="card-header">
-				<strong>Provisioning (Active number series table)</strong>
+				<strong>Number Series Definition (Active number series table)</strong>
 			</div>
 			<div class="alert alert-danger" role="alert" *ngIf="infoAlertShow"><b>{{infoAlertMessage}}</b></div>
-			
+
 			<form [formGroup]="mySeriesDefinitionForm" novalidate (ngSubmit)="onSeriesProvisionSubmit()">
 				<div class="card-body">
 					<div class="row">
@@ -40,16 +40,16 @@
 												<!--											<option *ngFor="let cl of clientOptions" [value]="cl.id">{{cl.client_name}}</option> -->
 											</select>
 										</div>
-		
-		
+
+
 										<div class="invalid-feedback" *ngIf="IMSI.errors && (IMSI.dirty || IMSI.touched)">
 											<p *ngIf="IMSI.errors.required">IMSI Name required</p>
-		
+
 										</div>
-		
-		
+
+
 									</div>
-							
+
 						</div>
 					</div>
 
@@ -90,7 +90,7 @@
 										</div>
 									</div>
 								</div>
-							
+
 						</div>
 					</div>
 
@@ -102,7 +102,7 @@
 								<label class="col-md-5 col-form-label" for="quantity">Quantity</label>
 								<div class="col-md-7">
 									<input type="text" id="quantity" name="quantity" class="form-control" formControlName="quantity">
-									
+
 								</div>
 							</div>
 						</div>
@@ -179,7 +179,7 @@
 										<option></option>
 										<option *ngFor="let aZone of listZone" [value]="aZone.id">{{aZone.name}}</option>
 									</select>
-								</div>								
+								</div>
 							</div>
 						</div>
 					</div>
@@ -208,13 +208,13 @@
 				</div>
 				<!-- <div class="card-body"> -->
 				<div class="card-footer text-right">
-						
-					<button type="submit" class="btn btn-sm btn-primary " [disabled]="!mySeriesDefinitionForm.valid" >
+
+					<button type="submit" class="btn btn-sm btn-primary " [disabled]="isDisableBtn" >
 						<i class="fa fa-dot-circle-o"></i> Submit</button>
 					<button type="reset" class="btn btn-sm btn-danger"(click)="clearForm($event)">
 						<i class="fa fa-ban"></i> Reset</button>
 					<button type="button" class="btn btn-link" (click)="backButton($event)"><i class="fa fa-link" ></i>&nbsp; Back</button>
-					
+
 				</div>
 				<!-- <div class="card-footer"> -->
 			</form>
@@ -222,7 +222,7 @@
 			<div *ngIf="isLoading" class="spinner-border text-primary" role="status">
 					<span class="sr-only">Loading...</span>
 				</div>
-			
+
 		</div>
 		<!-- <div class="card"> -->
 	</div>

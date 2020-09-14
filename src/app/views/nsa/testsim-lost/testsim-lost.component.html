@@ -10,6 +10,7 @@
       <div class="card">
         <div class="card-header">
           <i class="fa fa-align-justify"></i> Lost Test SIM
+          <button type="button" style="float: right;" class="btn btn-link" ><i class="fa fa-link"></i><a [routerLink]="[ '/nsa/testsim-lostdamaged-new' ]"> Create New New SIM Lost / Damaged Request</a></button>
         </div>
         <div class="card-body" *ngIf="isDataFound">
           <table class="table table-bordered table-striped table-sm">
@@ -21,9 +22,21 @@
                 <th>SIM Status</th>
                 <th>Test start date</th>
                 <th>Test end date</th>
-                <th>Lost date</th>
-                <th>Request new SIM?</th>
-                <th>Comments</th>                
+                <th>
+                  Lost date
+                  <br />
+                  <a class="copyToAllLink" (click)="copyToAll()">&lt;&lt; Copy to All &gt;&gt;</a>
+                </th>
+                <th>
+                  Request new SIM?
+                  <br />
+                  <a class="copyToAllLink" (click)="copyToAll()">&lt;&lt; Copy to All &gt;&gt;</a>
+                </th>
+                <th>
+                  Comments
+                  <br />
+                  <a class="copyToAllLink" (click)="copyToAll()">&lt;&lt; Copy to All &gt;&gt;</a>
+                </th>                
               </tr>
             </thead>
             <tbody *ngFor="let aTask of requisitionList;  index as i">

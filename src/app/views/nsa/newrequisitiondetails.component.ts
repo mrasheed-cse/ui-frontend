@@ -14,7 +14,7 @@ import { HttpClient } from '@angular/common/http';
 import { HttpErrorResponse } from '@angular/common/http';
 import { WorkflowsService } from './services/workflows.service';
 import { AppGlobals } from './../../app.global';
-import { Router } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
 import { environment } from '../../../environments/environment.prod';
 import { moment } from 'ngx-bootstrap/chronos/test/chain';
 
@@ -38,7 +38,8 @@ export class NewrequisitiondetailsComponent implements OnInit {
 	public dangerAlertShow:boolean = false;
 	public dangerAlertMessage:string = "";
 	public successSearchShow:boolean = false;
-	public successAlertMessage:string = "";
+  public successAlertMessage:string = "";
+  public isLoading:boolean = false;
 
 	isDataFound: boolean = true;
 	isCollapsed: boolean = true;
@@ -60,10 +61,11 @@ export class NewrequisitiondetailsComponent implements OnInit {
 	searchPendingGroupID: number;
 	searchHopSequence: number;
 	todayDate: Date;
-	routerUrlAndParams: string;
+  routerUrlAndParams: string;
+  requestedSimAtatus: string;
 
 
-  constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {
+  constructor(private route:ActivatedRoute, private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {
 
     let isValid = true;
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
@@ -78,12 +80,21 @@ export class NewrequisitiondetailsComponent implements OnInit {
     }
       //this.requisitionList = _global.dataTemp;
 
+//      this.router.navigate(['nsa/testsim-timeext', this.selectedIds]);
+          //call API here to get real dat
+      if(this.route.snapshot.paramMap.get('requestedSimAtatus') != null)
+        this.requestedSimAtatus = this.route.snapshot.paramMap.get('requestedSimAtatus');
+      else 
+      this.requestedSimAtatus = "All"; // ALL 
+//console.log("requestedSimAtatus "+ this.requestedSimAtatus);
+      
 
+      this.isLoading = true;
     //GetPendingTaskList
-    this.workFlowsService.LoadPersonalDetails(0,this.userID).subscribe(
+    this.workFlowsService.LoadPersonalDetails(0,this.userID, this.requestedSimAtatus).subscribe(
         data => {
           if(data !=null){
-            console.log(data);
+            //console.log(data);
             this.isDataFound = true;
             this.requisitionList = data;
 
@@ -100,6 +111,7 @@ export class NewrequisitiondetailsComponent implements OnInit {
       () => console.log('Done loading PendingTask List')
       );
     //Get Today Date
+    this.isLoading = false;
     this.todayDate = new Date();
 
 

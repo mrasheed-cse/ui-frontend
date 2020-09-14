@@ -66,6 +66,7 @@ export class TestsimTimeextSsmComponent implements OnInit {
           }
           else{
             this.isDataFound = false;
+            this.isLoading = false;
           }
         },
       err => console.error(err),
@@ -73,6 +74,7 @@ export class TestsimTimeextSsmComponent implements OnInit {
       );
     //Get Today Date
     this.todayDate = new Date();
+    this.isLoading = false;
   }
 
   initTasks(){
@@ -122,7 +124,7 @@ export class TestsimTimeextSsmComponent implements OnInit {
 
       }
     );
-
+    this.isLoading = false;
   }
 
   approveAll(){
@@ -146,7 +148,18 @@ export class TestsimTimeextSsmComponent implements OnInit {
     }
 
   }
-
+ rejectCorresponding(position){
+    //  alert(position);
+      this.msisdnList[position]['isRejected'] = false;
+      this.msisdnList[position]['isApproved'] = true;      
+    }  
+    
+    approveCorresponding(position){
+      //  alert(position);
+        this.msisdnList[position]['isRejected'] = true;
+        this.msisdnList[position]['isApproved'] = false;       
+      }
+ 
   submit(){
 
     this.isLoading = true;
@@ -185,7 +198,7 @@ export class TestsimTimeextSsmComponent implements OnInit {
 
       }
     );
-
+    this.isLoading = false;
   }
 
   cancel(){

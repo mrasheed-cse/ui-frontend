@@ -45,7 +45,6 @@ export class TestsimCreditlimitextHodComponent implements OnInit {
     else {
       this.router.navigate(['pages/login']);
     }
-    this.requisitionList = _global.dataTempForMySims;
 
   } //end of constructor
 
@@ -61,6 +60,7 @@ export class TestsimCreditlimitextHodComponent implements OnInit {
           }
           else{
             this.isDataFound = false;
+            this.isLoading = false;
           }
         },
       err => console.error(err),
@@ -68,6 +68,7 @@ export class TestsimCreditlimitextHodComponent implements OnInit {
       );
     //Get Today Date
     this.todayDate = new Date();
+    this.isLoading = false;
   }
 
 
@@ -76,7 +77,7 @@ export class TestsimCreditlimitextHodComponent implements OnInit {
     //this.isLoading = true;
 
     setTimeout(()=>{    //<<<---    using ()=> syntax
-      //this.loadPendingList();
+      this.loadPendingList();
     }, 2000);
 
   }

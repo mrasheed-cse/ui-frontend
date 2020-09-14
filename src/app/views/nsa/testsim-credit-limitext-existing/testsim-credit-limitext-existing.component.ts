@@ -33,7 +33,7 @@ export class TestsimCreditLimitextExistingComponent implements OnInit {
   private defaultColGroupDef;
   private columnTypes;
   private rowData: any[];
-  private rowDataTable2: any[];  
+  private rowDataTable2: any[];
 
   requisitionList: Array<Object>;
   msisdnList: Array<Object>;
@@ -68,14 +68,15 @@ export class TestsimCreditLimitextExistingComponent implements OnInit {
 
     this.columnDefs = _global.agGrid_defaultColDef;
     this.columnTypes = _global.agGrid_columnTypes;
-
+//pendingAt
     this.columnDefs = [
-        {headerName: 'SL', field: 'serial', sortable: true, filter: false, checkboxSelection: true, width: 90 },      
+        {headerName: 'SL', field: 'serial', sortable: true, filter: false, checkboxSelection: true, width: 90 },
         {headerName: 'Work Request #', field: 'workRequestBriefName', sortable: true, filter: true, width: 210 },
         {headerName: 'Request Type', field: 'requestType', sortable: true, filter: true, width: 220 },
         {headerName: 'Initiate date', field: 'requestedOn', sortable: true, filter: true, width: 210 },
-        {headerName: 'Status', field: 'workRequestStatus', sortable: true, filter: true, width: 210 },
-        {headerName: 'Update date', field: 'requestUpdateDate', sortable: true, filter: true, width: 210 }                
+       // {headerName: 'Status', field: 'workRequestStatus', sortable: true, filter: true, width: 210 },
+        {headerName: 'Update date', field: 'requestUpdateDate', sortable: true, filter: true, width: 210 },
+        {headerName: 'Pending At', field: 'pendingAt', sortable: true, filter: true, width: 210 }
     ];
 
     this.rowData = [];
@@ -93,71 +94,52 @@ export class TestsimCreditLimitextExistingComponent implements OnInit {
 
   loadPendingList(){
     //GetPendingTaskList
-    this.workFlowsService.ownRequestsForSimAction(this._global.wrid_testSimCreditLimitExtension,this.userID).subscribe(
+    this.isLoading = true;
+    this.workFlowsService.ownRequestsForDualSimAction(this._global.wrid_testSimCreditLimitExtension+","+this._global.wrid_testSimTimeLimitExtension,this.userID).subscribe(
         data => {
           if(data !=null){
             console.log(data);
             this.isDataFound = true;
-
+           
             if(data.length > 0){
               for(var i = 0; i < data.length; i++){
                 this.requisitionList.push(data[i]);
+                this.requisitionList[i]['serial'] = (i+1);
               }
-            }
 
-            /////////// /////////////////// ///////////// ////////////////////
-            this.workFlowsService.ownRequestsForSimAction(this._global.wrid_testSimTimeLimitExtension,this.userID).subscribe(
-              data => {
-                if(data !=null){
-                  console.log(data);
+             
+              console.log(this.requisitionList);
+              this.rowData = this.requisitionList;
 
-                  if(data.length > 0){
-                    for(var i = 0; i < data.length; i++){
-                      this.requisitionList.push(data[i]);
-                    }
-                  }
-
-                  for(var i = 0; i < this.requisitionList.length; i++){
-                    this.requisitionList[i]['serial'] = (i+1);
-                  }
-                  console.log(this.requisitionList);
-                  this.rowData = this.requisitionList;
-
-                  this.isLoading = false;
-                }
-                else{
-                  this.isDataFound = false;
-                }
-              },
-            err => console.error(err),
-            () => console.log('Done loading PendingTask List')
-            );
-            ////////// //////////////////// /////////////////// //////////////
-
-            this.requisitionList = data;
-            this.isLoading = false;
+            }           
           }
           else{
-            this.isDataFound = false;
+            this.isDataFound = false;          
           }
         },
       err => console.error(err),
-      () => console.log('Done loading PendingTask List')
+      () => {
+        console.log('Done loading PendingTask List');    
+        this.isLoading = false;   
+      }
       );
     //Get Today Date
     this.todayDate = new Date();
+ 
   }
 
   initTasks(){
     this.selectedSimActionId = 0;
     this.requisitionList = [];
     this.msisdnList = [];
-    this.isLoading = true;
+ 
     this.showDetail = false;
 
     setTimeout(()=>{    //<<<---    using ()=> syntax
-      this.loadPendingList();
+      //this.loadPendingList();
     }, 2000);
+
+    
   }
 
   ngOnInit () {
@@ -172,11 +154,12 @@ export class TestsimCreditLimitextExistingComponent implements OnInit {
 
     const selectedNodes = this.agGrid.api.getSelectedNodes();
     const selectedData = selectedNodes.map( node => node.data );
-    
+
     for(var i = 0; i < selectedData.length; i++){
-        selectedIds = selectedData[i]['simActionId'];      
+        selectedIds = selectedData[i]['simActionId'];
+        console.log(selectedData[i]);
     }
-    
+
     var selectedIdsAsInt = parseInt( selectedIds );
     this.details(selectedIdsAsInt);
   }
@@ -195,7 +178,7 @@ export class TestsimCreditLimitextExistingComponent implements OnInit {
             this.msisdnList[i]['selected'] = false;
             this.msisdnList[i]['isApproved'] = false;
             this.msisdnList[i]['isRejected'] = false;
-            this.msisdnList[i]['locked'] = false;            
+            this.msisdnList[i]['locked'] = false;
             if(this.msisdnList[i]['approvalStatus'] == 2){
               this.msisdnList[i]['isRejected'] = true;
               this.msisdnList[i]['locked'] = true;
@@ -206,9 +189,10 @@ export class TestsimCreditLimitextExistingComponent implements OnInit {
           this.showDetail = true;
         }
       },
-      err  =>  {	
-           
-      }        
+      err  =>  {
+        this.isLoading = false;
+        this.showDetail = true;
+      }
     );
 
   }
@@ -218,6 +202,6 @@ export class TestsimCreditLimitextExistingComponent implements OnInit {
     this.initTasks();
   }
 
-  
+
 
 }

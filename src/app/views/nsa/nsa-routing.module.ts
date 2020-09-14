@@ -75,6 +75,7 @@ import { TestsimCreditLimitextExistingComponent } from './testsim-credit-limitex
 import { TestsimRechargeNewComponent } from './testsim-recharge-new/testsim-recharge-new.component';
 import { TestsimRechargeExistingComponent } from './testsim-recharge-existing/testsim-recharge-existing.component';
 import { TestsimDeactivationExistingComponent } from './testsim-deactivation-existing/testsim-deactivation-existing.component';
+import { TestsimDeactivationComponent } from './testsim-deactivation/testsim-deactivation.component';
 import { TestsimSurrenderNewComponent } from './testsim-surrender-new/testsim-surrender-new.component';
 import { TestsimSurrenderExistingComponent } from './testsim-surrender-existing/testsim-surrender-existing.component';
 import { TestsimLostdamagedNewComponent } from './testsim-lostdamaged-new/testsim-lostdamaged-new.component';
@@ -82,7 +83,27 @@ import { TestsimLostdamagedExistingComponent } from './testsim-lostdamaged-exist
 import { TestsimTransferNewComponent } from './testsim-transfer-new/testsim-transfer-new.component';
 import { TestsimTransferExistingComponent } from './testsim-transfer-existing/testsim-transfer-existing.component';
 import { TestsimMyOtherSimsComponent } from './testsim-my-other-sims/testsim-my-other-sims.component';
+import { TestSimActionListTimeExtComponent } from './test-sim-action-list-time-ext/test-sim-action-list-time-ext.component';
+import { TestSimActionListLimitExtComponent } from './test-sim-action-list-limit-ext/test-sim-action-list-limit-ext.component';
+import { TestSimActionListRechargeComponent } from './test-sim-action-list-recharge/test-sim-action-list-recharge.component';
+import { TestSimActionListDeactivateComponent } from './test-sim-action-list-deactivate/test-sim-action-list-deactivate.component';
+import { TestSimActionListSurrenderComponent } from './test-sim-action-list-surrender/test-sim-action-list-surrender.component';
+import { TestSimActionListLostComponent } from './test-sim-action-list-lost/test-sim-action-list-lost.component';
+import { TestSimActionListTransferComponent } from './test-sim-action-list-transfer/test-sim-action-list-transfer.component';
+import { TestSimActionListDamagedComponent } from './test-sim-action-list-damaged/test-sim-action-list-damaged.component';
 
+import { TestSimRequisitionComponent } from './isms-reports/test-sim-requisition.component';
+import { TestSimActivationComponent } from './isms-reports/test-sim-activation.component';
+import { CreditLimitExtensionComponent } from './isms-reports/credit-limit-extension.component';
+import { TestSimRechargeComponent } from './isms-reports/test-sim-recharge.component';
+import { TestSimDeactivationComponent } from './isms-reports/test-sim-deactivation.component';
+import { TimeLimitChangeComponent } from './isms-reports/time-limit-change.component';
+import { TestSimSurrenderComponent } from './isms-reports/test-sim-surrender.component';
+import { DamageSimComponent } from './isms-reports/damage-sim.component';
+import { LostSimComponent } from './isms-reports/lost-sim.component';
+import { TestSimTransferComponent } from './isms-reports/test-sim-transfer.component';
+import { LostdamagedetailsdeliveryComponent } from './lostdamagedetailsdelivery/lostdamagedetailsdelivery.component';
+import { LostdamagenewsimconnectionComponent } from './lostdamagenewsimconnection/lostdamagenewsimconnection.component';
 
 const routes: Routes = [
   {
@@ -349,6 +370,7 @@ const routes: Routes = [
       title: 'Requisition Details (Delivery) - CLC User Group'
     }
   },
+
   {
     path: 'newsimactivationreq',
     component: NewsimactivationreqComponent,
@@ -609,6 +631,13 @@ const routes: Routes = [
     }
   },
   {
+    path: 'testsim-deactivation',
+    component: TestsimDeactivationComponent,
+    data: {
+      title: 'My Inactive SIMs'
+    }
+  },
+  {
     path: 'testsim-deactivation-existing',
     component: TestsimDeactivationExistingComponent,
     data: {
@@ -643,6 +672,22 @@ const routes: Routes = [
       title: 'Existing SIM Lost / Damaged Requests'
     }
   },
+  
+  {
+    path: 'lostdamagedetailsdelivery/:sim_action_id',
+    component: LostdamagedetailsdeliveryComponent,
+    data: {
+      title: 'Lost-Damage Details (Delivery) - CLC User Group'
+    }
+  },
+
+  {
+    path: 'lostdamagenewsimconnection/:sim_action_id',
+    component: LostdamagenewsimconnectionComponent,
+    data: {
+      title: 'Lost-Damage New Sim Connection - Socks Group'
+    }
+  },
   {
     path: 'testsim-transfer-new',
     component: TestsimTransferNewComponent,
@@ -657,6 +702,132 @@ const routes: Routes = [
       title: 'Existing SIM Transfer Requests'
     }
   },
+  {
+    path: 'isms-reports/test-sim-requisition',
+    component: TestSimRequisitionComponent,
+    data: {
+      title: 'Test Sim Requisition'
+    }
+  },
+    {
+      path: 'isms-reports/test-sim-activation',
+      component: TestSimActivationComponent,
+      data: {
+        title: 'Test Sim Activation'
+      }
+    },
+      {
+        path: 'isms-reports/credit-limit-extension',
+        component: CreditLimitExtensionComponent,
+        data: {
+          title: 'Credit Limit Extension'
+        }
+      } ,
+      {
+        path: 'isms-reports/test-sim-recharge',
+        component: TestSimRechargeComponent,
+        data: {
+          title: 'Test Sim Recharge'
+        }
+      },
+        {
+          path: 'isms-reports/test-sim-deactivation',
+          component: TestSimDeactivationComponent,
+          data: {
+            title: 'Test Sim Deactivation'
+          }
+        },
+        {
+          path: 'isms-reports/time-limit-change',
+          component: TimeLimitChangeComponent,
+          data: {
+            title: 'Time Limit Change'
+          }
+        },
+          {
+            path: 'isms-reports/test-sim-surrender',
+            component: TestSimSurrenderComponent,
+            data: {
+              title: 'Test Sim Surrender'
+            }
+          } ,
+          {
+            path: 'isms-reports/damage-sim',
+            component: DamageSimComponent,
+            data: {
+              title: 'Damage Sim'
+            }
+          },
+          {
+            path: 'isms-reports/lost-sim',
+            component: LostSimComponent,
+            data: {
+              title: 'Lost Sim'
+            }
+          },
+          {
+              path: 'isms-reports/test-sim-transfer',
+              component: TestSimTransferComponent,
+              data: {
+                title: 'Test Sim Transfer'
+              }
+            }, 
+  {
+    path: 'testsim-action-list-time-ext',
+    component: TestSimActionListTimeExtComponent,
+    data: {
+      title: 'Test SIM time limit extension - operational history'
+    }
+  },
+  {
+    path: 'testsim-action-list-limit-ext',
+    component: TestSimActionListLimitExtComponent,
+    data: {
+      title: 'Test SIM credit limit extension - operational history'
+    }
+  },
+  {
+    path: 'testsim-action-list-recharge',
+    component: TestSimActionListRechargeComponent,
+    data: {
+      title: 'Test SIM recharge - operational history'
+    }
+  },
+  {
+    path: 'testsim-action-list-deactivate',
+    component: TestSimActionListDeactivateComponent,
+    data: {
+      title: 'Test SIM deactivation - operational history'
+    }
+  },
+  {
+    path: 'testsim-action-list-surrender',
+    component: TestSimActionListSurrenderComponent,
+    data: {
+      title: 'Test SIM surrender - operational history'
+    }
+  },
+  {
+    path: 'testsim-action-list-lost',
+    component: TestSimActionListLostComponent,
+    data: {
+      title: 'Test SIM lost - operational history'
+    }
+  },
+  {
+    path: 'testsim-action-list-damaged',
+    component: TestSimActionListDamagedComponent,
+    data: {
+      title: 'Test SIM damaged - operational history'
+    }
+  },  
+  {
+    path: 'testsim-action-list-transfer',
+    component: TestSimActionListTransferComponent,
+    data: {
+      title: 'Test SIM transfer - operational history'
+    }
+  },  
 ];
 
 @NgModule({
