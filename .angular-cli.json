@@ -60,7 +60,7 @@
     "styleExt": "scss",
     "prefixInterfaces": false,
     "serve": {
-    "port": 4242
+    "port": 4200
   }
   }
 }
