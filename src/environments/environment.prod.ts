@@ -3,7 +3,7 @@ export const environment = {
    production: false,
 //  apiUrl: 'https://10.10.23.51:8443/nsa/', //prod
 //apiUrl: 'https://10.10.23.50:8443/nsa/', //pre-prod
-apiUrl: 'http://localhost:8443/', // dev-env
+apiUrl: 'http://localhost:8085/', // dev-env
   pendingRequestMarker : 'PENDING',
   approvedRequestMarker : 'APPROVED',
   rejectedRequestMarker : 'REJECTED',
