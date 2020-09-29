@@ -21,8 +21,7 @@ import {HttpClient} from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { DataTableModule } from 'angular4-smart-table';
-
-
+import {AnalyzeComponent} from '../app/views/analyze/analyze.component';
 // Import containers
 import {
   FullLayoutComponent,
@@ -111,6 +110,7 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
   ],
   declarations: [
     AppComponent,
+    AnalyzeComponent,
     ...APP_CONTAINERS,
     ...APP_COMPONENTS,
     ...APP_DIRECTIVES
