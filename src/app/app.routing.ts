@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
+import {AnalyzeComponent} from '../../src/app/views/analyze/analyze.component';
 // Import Containers
 import {
   FullLayoutComponent,
@@ -13,6 +13,8 @@ export const routes: Routes = [
     redirectTo: 'pages',
     pathMatch: 'full',
   },
+{path:'analyze',component:AnalyzeComponent},
+
   {
     path: '',
     component: FullLayoutComponent,
