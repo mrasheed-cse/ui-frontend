@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
+import {AnalyzeComponent} from './analyze.component';
 import { LandingpageComponent } from './landingpage.component';
 import { SeriesprovisionComponent } from './seriesprovision.component';
 import { SeriesprovisionformComponent } from './seriesprovisionform.component';
@@ -828,6 +828,13 @@ const routes: Routes = [
       title: 'Test SIM transfer - operational history'
     }
   },  
+  {
+    path: 'recycle',
+    component: AnalyzeComponent,
+    data: {
+      title: 'Generate-Analyze the Recycle'
+    }
+  }, 
 ];
 
 @NgModule({
