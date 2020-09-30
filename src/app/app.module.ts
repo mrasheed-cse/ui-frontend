@@ -21,7 +21,6 @@ import {HttpClient} from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { DataTableModule } from 'angular4-smart-table';
-import {AnalyzeComponent} from '../app/views/analyze/analyze.component';
 
 // Import containers
 import {
@@ -33,6 +32,7 @@ const APP_CONTAINERS = [
   FullLayoutComponent,
   SimpleLayoutComponent
 ]
+import {MsisdnService} from '../app/views/nsa/msisdn.service';
 
 // Import components
 import {
@@ -111,12 +111,11 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
   ],
   declarations: [
     AppComponent,
-    AnalyzeComponent,
     ...APP_CONTAINERS,
     ...APP_COMPONENTS,
     ...APP_DIRECTIVES
   ],
-  providers: [{
+  providers: [MsisdnService,{
     provide: LocationStrategy,
     useClass: HashLocationStrategy
   }],

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
-import { Misidn } from '../../views/analyze/misidn';
-import { environment } from '../../../environments/environment.prod';
+import { Misidn } from '../../views/nsa/misidn';
+import {MsisdnService} from '../../views/nsa/msisdn.service';
 @Component({
   selector: 'app-analyze',
   templateUrl: './analyze.component.html',
@@ -21,15 +20,12 @@ export class AnalyzeComponent implements OnInit {
 
   misisdnList: Misidn[] = [];
   misisdn: Misidn;
-  constructor(private httpClient: HttpClient) {
+  constructor(private msisdnService:MsisdnService,private datePipe:DatePipe) {
 
     this.minDate = new Date();
     this.maxDate = new Date();
     this.minDate.setDate(this.minDate.getDate());
     this.maxDate.setDate(this.maxDate.getDate());
-
-    this.misisdn = { listno: 85, formdate: '21-01-2020', todate: '22-01-2020', misidn: 12345 };
-    this.misisdnList[0] = this.misisdn;
   }
 
   ngOnInit(): void {
@@ -52,49 +48,68 @@ changeEndDate(){
 
 }
   analyze() {
+    let st=this.datePipe.transform(this.startdate,"dd-MM-yyyy");
+    let dt=this.datePipe.transform(this.enddate,"dd-MM-yyyy");
+
     this.isLoading = true;
-    this.httpClient.get(environment.apiUrl + "/msisdn_recycle_list_download/start/" + this.startdate + "/" + this.enddate).subscribe((res => {
+    this.msisdnService.getAnalyzeData(st,dt).subscribe((res:Misidn) => {
       this.enable = true;
       this.isLoading = false;
       this.generateenable = false;
-
-    }), err => {
+      console.log(res);
+      if(res==null){
+        this.generateenable = true;
+        this.generatealert = "Couldnot Find the Generation List from "+st+" to "+dt;
+      }else{
+        this.misisdnList[0]=res;
+      }
+    }, err => {
       this.enable = true;
       this.isLoading = false;
       this.generateenable = true;
-      this.generatealert = "Analyze Fail";
+      this.generatealert = "Internal Server Error";
     });
   }
   fileObservable: any;
   generate() {
+
+    let st=this.datePipe.transform(this.startdate,"dd-MM-yyyy");
+    let dt=this.datePipe.transform(this.enddate,"dd-MM-yyyy");
+
     this.isLoading = true;
-    this.httpClient.get(+environment.apiUrl + "/msisdn_recycle_list_download/start/" + this.startdate + "/" + this.enddate).subscribe((res => {
+    this.msisdnService.getAnalyzeData(st,dt).subscribe((res:Misidn) => {
       this.enable = true;
       this.isLoading = false;
       this.generateenable = false;
-
-    }), err => {
+      console.log(res);
+      if(res==null){
+        this.generateenable = true;
+        this.generatealert = "Couldnot Find the Generation List from "+st+" to "+dt;
+      }else{
+        this.misisdnList[0]=res;
+      }
+    }, err => {
       this.enable = true;
       this.isLoading = false;
       this.generateenable = true;
-      this.generatealert = "Generation Fail";
+      this.generatealert = "Internal Server Error";
     });
 
   }
   clear(linkno: number) {
     console.log(linkno);
     this.isLoading = true;
-    this.httpClient.get(environment.apiUrl + "/clear/" + linkno).subscribe((res => {
-      this.enable = true;
-      this.isLoading = false;
-      this.generateenable = false;
+    // this.httpClient.get(environment.apiUrl + "/clear/" + linkno).subscribe((res => {
+    //   this.enable = true;
+    //   this.isLoading = false;
+    //   this.generateenable = false;
 
-    }), err => {
-      this.enable = true;
-      this.isLoading = false;
-      this.generateenable = true;
-      this.generatealert = "MSISDN delettion Fail";
-    });
+    // }), err => {
+    //   this.enable = true;
+    //   this.isLoading = false;
+    //   this.generateenable = true;
+    //   this.generatealert = "MSISDN delettion Fail";
+    // });
 
   }
 }
