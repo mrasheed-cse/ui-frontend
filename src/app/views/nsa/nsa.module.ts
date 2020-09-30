@@ -5,7 +5,7 @@ import {
   OnInit
 } from '@angular/core';
 import {ReactiveFormsModule, FormsModule, FormGroup, FormControl, Validators} from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import {AnalyzeComponent} from './analyze.component';
@@ -237,6 +237,7 @@ import { LostdamagenewsimconnectionComponent } from './lostdamagenewsimconnectio
     LostdamagedetailsdeliveryComponent,
     LostdamagenewsimconnectionComponent,
     AnalyzeComponent
-  ]
+  ],
+  providers:[DatePipe]
 })
 export class NsaModule { }
