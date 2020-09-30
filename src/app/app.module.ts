@@ -22,6 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { DataTableModule } from 'angular4-smart-table';
 import {AnalyzeComponent} from '../app/views/analyze/analyze.component';
+
 // Import containers
 import {
   FullLayoutComponent,
