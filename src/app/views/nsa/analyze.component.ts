@@ -83,6 +83,8 @@ changeEndDate(){
       this.generateenable = false;
       console.log(res);
       if(res==null){
+        this.misisdnList[0]=null;
+        this.misisdnList.length=0;
         this.generateenable = true;
         this.generatealert = "Couldnot Find the Generation List from "+st+" to "+dt;
       }else{
