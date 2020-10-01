@@ -104,7 +104,7 @@ import { LostSimComponent } from './isms-reports/lost-sim.component';
 import { TestSimTransferComponent } from './isms-reports/test-sim-transfer.component';
 import { LostdamagedetailsdeliveryComponent } from './lostdamagedetailsdelivery/lostdamagedetailsdelivery.component';
 import { LostdamagenewsimconnectionComponent } from './lostdamagenewsimconnection/lostdamagenewsimconnection.component';
-
+import {UploadrecycleComponent} from "../nsa/uploadrecycle.component";
 const routes: Routes = [
   {
     path: '',
@@ -835,6 +835,15 @@ const routes: Routes = [
       title: 'Generate-Analyze the Recycle'
     }
   }, 
+  {
+    path: 'uploadrecycle',
+    component: UploadrecycleComponent,
+    data: {
+      title: 'Upload MSISDN Recycle'
+    }
+  }, 
+
+  
 ];
 
 @NgModule({

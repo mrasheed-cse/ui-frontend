@@ -1,0 +1,48 @@
+.recycle-bar{
+    border: 1px solid #ded6d6;
+}
+.recycle{
+    width: 54%;
+    padding: 10px 10px 10px 10px;
+    margin-top: 77px;
+    margin-left: 253px;
+    background-color: white;
+    border: 1px solid #8c8888;
+}
+
+.recycle-download{
+    width:100%;
+    background-color: #D3D3D3;
+    position: relative;
+    border:1px solid #D3D3D3;
+    margin-top: 10px;
+    
+}
+.recycle-collapse{
+    font-size: smaller;
+    color: #212020;
+    font-family: ui-serif;
+    padding-left: 10px;
+}
+button{
+    margin-left: 12px;
+    margin-top: 8px;
+}
+
+.dnd-bar{
+    border: 1px solid #00BFFF;
+    width: 100%;
+    height: 26px;
+    background-color: #10b5ec;
+    border-radius: 11px;
+    margin-bottom: 12px;
+
+}
+.recycle h5{
+    font-size: 26px;
+    font-weight: 00;
+    font-family: Courier New;
+}
+.card-body{
+    max-height:88px;
+}
