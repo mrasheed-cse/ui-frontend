@@ -65,7 +65,7 @@
                     <td>{{item.startDate| date: 'dd-MM-yyyy'}}</td>
                     <td>{{item.endDate | date: 'dd-MM-yyyy'}}</td>
                     <td>{{item.msisdnCount}}</td>
-                    <td><a href={{item.csvFilePath}} class="mx-sm-3"role="button">download</a>
+                    <td><a href="http://localhost:8085/msisdn_recycle_list_download/download/{{item.id}}" class="mx-sm-3"role="button">download</a>
                     <a  href="#" (click)="clear(item.id);$event.preventDefault();" role="button">clear</a></td>
                 </tr>
             </tbody>
