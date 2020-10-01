@@ -52,16 +52,16 @@ changeEndDate(){
     let dt=this.datePipe.transform(this.enddate,"dd-MM-yyyy");
 
     this.isLoading = true;
-    this.msisdnService.getAnalyzeData(st,dt).subscribe((res:Misidn) => {
+    this.msisdnService.getAnalyzeData(st,dt).subscribe((res:Misidn[]) => {
       this.enable = true;
       this.isLoading = false;
       this.generateenable = false;
       console.log(res);
       if(res==null){
         this.generateenable = true;
-        this.generatealert = "Couldnot Find the Generation List from "+st+" to "+dt;
+        this.generatealert = "Couldnot Find the Analyze List from "+st+" to "+dt;
       }else{
-        this.misisdnList[0]=res;
+        this.misisdnList=res;
       }
     }, err => {
       this.enable = true;
@@ -77,7 +77,7 @@ changeEndDate(){
     let dt=this.datePipe.transform(this.enddate,"dd-MM-yyyy");
 
     this.isLoading = true;
-    this.msisdnService.getAnalyzeData(st,dt).subscribe((res:Misidn) => {
+    this.msisdnService.getAnalyzeData(st,dt).subscribe((res:Misidn[]) => {
       this.enable = true;
       this.isLoading = false;
       this.generateenable = false;
@@ -88,7 +88,7 @@ changeEndDate(){
         this.generateenable = true;
         this.generatealert = "Couldnot Find the Generation List from "+st+" to "+dt;
       }else{
-        this.misisdnList[0]=res;
+        this.misisdnList=res;
       }
     }, err => {
       this.enable = true;

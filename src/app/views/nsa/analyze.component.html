@@ -61,12 +61,12 @@
             </thead>
             <tbody>
                 <tr *ngFor="let item of misisdnList">
-                    <th scope="row">{{item.listId}}</th>
-                    <td>{{item.startDate}}</td>
-                    <td>{{item.endDate}}</td>
+                    <th scope="row">{{item.id}}</th>
+                    <td>{{item.startDate| date: 'dd-MM-yyyy'}}</td>
+                    <td>{{item.endDate | date: 'dd-MM-yyyy'}}</td>
                     <td>{{item.msisdnCount}}</td>
                     <td><a href={{item.csvFilePath}} class="mx-sm-3"role="button">download</a>
-                    <a  href="#" (click)="clear(item.listId);$event.preventDefault();" role="button">clear</a></td>
+                    <a  href="#" (click)="clear(item.id);$event.preventDefault();" role="button">clear</a></td>
                 </tr>
             </tbody>
         </table>

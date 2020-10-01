@@ -1,5 +1,5 @@
 export class Misidn {
-    public listId:number;
+    public id:number;
     public startDate:string;
     public endDate:string;
     public csvFilePath:string;
