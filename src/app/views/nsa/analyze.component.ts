@@ -2,10 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { Misidn } from '../../views/nsa/misidn';
 import { MsisdnService } from '../../views/nsa/msisdn.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpErrorResponse } from '@angular/common/http';
 import { JSONP_ERR_WRONG_RESPONSE_TYPE } from '@angular/common/http/src/jsonp';
 import { environment } from '../../../environments/environment.prod';
 import { ActivatedRoute, Router, ActivationEnd } from '@angular/router';
+
+import {map} from 'rxJS/operator/map';
+import {Observable} from 'rxJS/Observable';
+import { catchError, } from 'rxJs/operators';
+import {_throw} from 'rxjs/observable/throw';
+
 @Component({
   selector: 'app-analyze',
   templateUrl: './analyze.component.html',
@@ -17,8 +23,8 @@ export class AnalyzeComponent implements OnInit {
   misisdn: Misidn;
   startDate:string;
   endDate:string;
-  generatealert:string;
-  generateenable:boolean=false;
+  analyzealert:string;
+  analyzeenable:boolean=false;
   constructor(private httpClient: HttpClient, private msisdnService: MsisdnService, private datePipe: DatePipe,
   private activeRoute:ActivatedRoute){ }
 
@@ -30,11 +36,11 @@ export class AnalyzeComponent implements OnInit {
     });
 
     if(this.startDate=="" || this.startDate==undefined || this.endDate=="" || this.endDate==undefined){
-      this.generatealert="Please Enter Start Date and End Date in Generate/Analyze Menu";
-      this.generateenable=true;
+      this.analyzealert="Please Enter Start Date and End Date in Generate/Analyze Menu";
+      this.analyzeenable=true;
       }else{
         this.analyze();
-        this.generateenable=false;
+        this.analyzeenable=false;
       }
     
   }
@@ -44,40 +50,63 @@ export class AnalyzeComponent implements OnInit {
     this.msisdnService.getAnalyzeData(this.startDate, this.endDate).subscribe((res: Misidn[]) => {
       console.log(res);
       if (res == null) {
-        this.generatealert = "Couldnot Find the Analyze List from " + this.startDate + " to " + this.endDate;
-        this.generateenable=true;
+        this.analyzealert = "Couldnot Find the Analyze List from " + this.startDate + " to " + this.endDate;
+        this.analyzeenable=true;
       } else {
         this.misisdnList = res;
-        this.generateenable=false;
+        this.analyzeenable=false;
       }
     }, err => {
-     this.generateenable = true;
-     this.generatealert = "Internal Server Error";
+     this.analyzeenable = true;
+     this.analyzealert = "Internal Server Error";
     });
   }
+
+
+
+  clearAnalyze(linkno: number):Observable<any>{
+    return this.httpClient.get(environment.apiUrl + "msisdn_recycle_list_analyze/clear/" + linkno).pipe(
+      catchError(this.handleError));
+  }
+  
+  
+  handleError(error: HttpErrorResponse){
+    if(error instanceof ErrorEvent){
+    
+    }else {
+      
+      switch (error.status) {
+      case 404:    
+        this.analyzeenable = true;
+        this.analyzealert = "MSISDN Deletion Fail";
+            break;
+        }
+      }
+     return _throw(error);
+    }
+
   
   clear(linkno: number) {
-    console.log(linkno);
-    
-     this.httpClient.get(environment.apiUrl + "msisdn_recycle_list_analyze/clear/" + linkno).subscribe((res => {
+   
+     this.clearAnalyze(linkno).subscribe((res => {
 
-     if(res==null){
-      this.generateenable =true;
-      this.generatealert = "MSISDN Deletion Fail";
+     if(res==false){
+      this.analyzeenable =true;
+      this.analyzealert = "MSISDN Deletion Fail";
      }
      else{
       this.misisdnList = this.misisdnList.filter( h => h.id !==linkno);
-      this.generateenable =true;
-      this.generatealert = "MSISDN Deletion Success";
+      this.analyzeenable =true;
+      this.analyzealert = "MSISDN Deletion Success";
      }
        console.log(res)
     }), err => {
-     this.generateenable = true;
-      this.generatealert = "MSISDN delettion Fail";
+     this.analyzeenable = true;
+      this.analyzealert = "MSISDN delettion Fail";
      });
 
   }
-  downloadfile(std:Date,end:Date,id: any) {
+  downloadfile(path:string,std:Date,end:Date,id: any) {
     const httpOptions = {
       responseType: 'blob' as 'json',
     };
@@ -88,15 +117,15 @@ export class AnalyzeComponent implements OnInit {
       httpOptions).subscribe((response: Response) => {
      
         if (response == null) {
-          this.generateenable = true;
-          this.generatealert = "Couldnot Find the File from " + st + " to " + dt;
+          this.analyzeenable = true;
+          this.analyzealert = "Couldnot Find the File from " + st + " to " + dt;
         } else {
           const a = document.createElement('a');
           document.body.appendChild(a);
           const blob = new Blob([response], { type: 'octet/stream' });
           const url = window.URL.createObjectURL(response);
           a.href = url;
-          a.download = id + ".csv";
+          a.download = path + ".csv";
           a.click();
           window.URL.revokeObjectURL(url);
           console.log(response.headers);
