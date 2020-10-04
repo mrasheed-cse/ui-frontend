@@ -11,10 +11,10 @@
         <div id="collapseOne" class="collapse " style="background-color:white;" aria-labelledby="headingOne" data-parent="#recycle-download">
           <div class="card-body">
             <sub>Please Select the File :</sub>   <button  class="btn btn-secondary btn-sm" onclick="document.getElementById('getFile').click()">Browser</button>
-            <input type='file' id="getFile" style="display:none"   (change)="handleFileInput($event.target.files)">
+            <input #fileInput type='file' id="getFile"  (click)="fileInput.value = null"   accept=".csv" style="display:none"   (change)="handleFileInput($event.target.files)">
             <button type="button" class="btn btn-info btn-sm" style="border-radius: 10px;"(click)="dndUpload()">Upload</button>
             <p style="color:red"*ngIf="fileenable" >Please Upload a File</p>
-            <p style="color:red"*ngIf="filestatus" >{{fileuploadstatus}}</p>
+            <p style="color:red; margin-top: 4px;"*ngIf="filestatus" >{{fileuploadstatus}}</p>
           </div>
         </div>
       </div>
