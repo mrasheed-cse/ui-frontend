@@ -17,6 +17,7 @@ import { DataTableModule } from 'angular4-smart-table';
 import { SeriesprovisionformComponent } from './seriesprovisionform.component';
 import {HttpClient} from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
+import {GenerateanalyzeComponent} from '../nsa/generateanalyze.component';
 
 import { AgGridModule } from 'ag-grid-angular';
 import {UploadrecycleComponent} from "../nsa/uploadrecycle.component";
@@ -52,7 +53,7 @@ import { RequisitiondetailshodComponent } from './requisitiondetailshod/requisit
 import { RequisitiondetailsdeliveryComponent } from './requisitiondetailsdelivery/requisitiondetailsdelivery.component';
 import { RequisitioneditComponent } from './requisitionedit/requisitionedit.component';
 import { RequisitionviewComponent } from './requisitionview/requisitionview.component';
-
+import {GenerateComponent} from '../nsa/generate.component';
 import { TestsimdashboardComponent } from './testsimdashboard/testsimdashboard.component';
 import { NewsimactivationreqComponent } from './newsimactivationreq/newsimactivationreq.component';
 import { ActivationrequeststatusComponent } from './activationrequeststatus/activationrequeststatus.component';
@@ -237,7 +238,9 @@ import { LostdamagenewsimconnectionComponent } from './lostdamagenewsimconnectio
     LostdamagedetailsdeliveryComponent,
     LostdamagenewsimconnectionComponent,
     AnalyzeComponent,
-    UploadrecycleComponent
+    UploadrecycleComponent,
+    GenerateanalyzeComponent,
+    GenerateComponent
   ],
   providers:[DatePipe]
 })

@@ -14,6 +14,7 @@
             <input type='file' id="getFile" style="display:none"   (change)="handleFileInput($event.target.files)">
             <button type="button" class="btn btn-info btn-sm" style="border-radius: 10px;"(click)="dndUpload()">Upload</button>
             <p style="color:red"*ngIf="fileenable" >Please Upload a File</p>
+            <p style="color:red"*ngIf="filestatus" >{{fileuploadstatus}}</p>
           </div>
         </div>
       </div>

@@ -105,6 +105,8 @@ import { TestSimTransferComponent } from './isms-reports/test-sim-transfer.compo
 import { LostdamagedetailsdeliveryComponent } from './lostdamagedetailsdelivery/lostdamagedetailsdelivery.component';
 import { LostdamagenewsimconnectionComponent } from './lostdamagenewsimconnection/lostdamagenewsimconnection.component';
 import {UploadrecycleComponent} from "../nsa/uploadrecycle.component";
+import {GenerateanalyzeComponent} from "../nsa/generateanalyze.component";
+import {GenerateComponent} from "../nsa/generate.component";
 const routes: Routes = [
   {
     path: '',
@@ -829,12 +831,30 @@ const routes: Routes = [
     }
   },  
   {
-    path: 'recycle',
+    path: 'analyze',
     component: AnalyzeComponent,
+    data: {
+      title: 'Analyze the Recycle'
+    }
+  }, 
+
+  {
+    path: 'generate',
+    component: GenerateComponent,
+    data: {
+      title: 'Generate the Recycle'
+    }
+  }, 
+
+  {
+    path: 'analyzegenerate',
+    component: GenerateanalyzeComponent,
     data: {
       title: 'Generate-Analyze the Recycle'
     }
   }, 
+
+
   {
     path: 'uploadrecycle',
     component: UploadrecycleComponent,
