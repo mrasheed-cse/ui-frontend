@@ -19,31 +19,29 @@ export class UploadrecycleComponent implements OnInit {
     if (this.fileToUpload == undefined || this.fileToUpload == null) {
       this.fileenable = true;
     } else {
-      this.msisdnService.postFile(this.fileToUpload).subscribe((res) => {
-        console.log(res);
-        this.fileenable = false;
-      }, err => {
-
+      this.msisdnService.postFile(this.fileToUpload).subscribe((res => {
+        if (res == null) {
+          this.fileuploadstatus = 'File Upload Fail';
+          this.filestatus = true;
+        } else {
+          this.fileuploadstatus = 'File Upload Success';
+          this.filestatus = true;
+        }
+      }), err => {
+        this.fileuploadstatus = 'File Upload Fail';
+        this.filestatus = true;
       })
+      console.log(this.fileToUpload.size);
     }
   }
   handleFileInput(files: FileList) {
     this.fileenable = false;
     this.filestatus = false;
     this.fileToUpload = files.item(0);
-    this.msisdnService.postFile(this.fileToUpload).subscribe((res => {
-      if (res == null) {
-        this.fileuploadstatus = 'File Upload Fail';
-        this.filestatus = true;
-      } else {
-        this.fileuploadstatus = 'File Upload Success';
-        this.filestatus = true;
-      }
-    }), err => {
-      this.fileuploadstatus = 'File Upload Fail';
-      this.filestatus = true;
-    })
-    console.log(this.fileToUpload.size);
+    let fileName = this.fileToUpload.name;
+    this.fileuploadstatus=fileName;
+    this.filestatus = true;
+
   }
 
 

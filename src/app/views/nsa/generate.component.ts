@@ -10,6 +10,7 @@ import {map} from 'rxJS/operator/map';
 import {Observable} from 'rxJS/Observable';
 import { catchError, } from 'rxJs/operators';
 import {_throw} from 'rxjs/observable/throw';
+import {ResponseMessage} from '../nsa/response-message';
 @Component({
   selector: 'app-generate',
   templateUrl: './generate.component.html',
@@ -48,7 +49,7 @@ export class GenerateComponent implements OnInit {
       console.log(res);
 
       if (res == null) {
-        this.genalert = "Couldnot Find the Analyze List from " + this.startDate + " to " + this.endDate;
+        this.genalert = "Couldnot Find the Generate List from " + this.startDate + " to " + this.endDate;
         this.genenable = true;
       } else {
         this.misisdnList = res;
@@ -61,7 +62,7 @@ export class GenerateComponent implements OnInit {
   }
 
 
-clearGenerate(linkno: number):Observable<any>{
+clearGenerate(linkno: number):Observable<ResponseMessage>{
   return this.httpClient.get(environment.apiUrl + "msisdn_recycle_list_generate/clear/" + linkno).pipe(
     catchError(this.handleError));
 }
@@ -84,8 +85,9 @@ handleError(error: HttpErrorResponse){
 
     clear(linkno: number) {
    
-   this.clearGenerate(linkno). subscribe((res:any) => {
-          if (res == false) {
+   this.clearGenerate(linkno). subscribe((res:ResponseMessage) => {
+     console.log(res);
+          if (res.response==false) {
         this.genenable = true;
         this.genalert = "MSISDN Deletion Fail";
       }
@@ -96,7 +98,7 @@ handleError(error: HttpErrorResponse){
       }
       console.log(res)
     }), err => {
-      console.log("my");
+     
       this.genenable = true;
       this.genalert = "MSISDN deletion Fail";
     };
@@ -119,7 +121,7 @@ handleError(error: HttpErrorResponse){
           const blob = new Blob([response], { type: 'octet/stream' });
           const url = window.URL.createObjectURL(response);
           a.href = url;
-          a.download = path + ".csv";
+          a.download = path;
           a.click();
           window.URL.revokeObjectURL(url);
           console.log(response.headers);
