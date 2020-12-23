@@ -1,8 +1,8 @@
-node_modules
-node_modules56
+/node_modules
 .idea
 .project
 .classpath
-.settings
-dist
+/.settings
+/dist
 /package-lock.json
+/report*

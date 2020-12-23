@@ -8,9 +8,7 @@
     {
       "root": "src",
       "outDir": "dist",
-      "assets": [
-        "assets"
-      ],
+      "assets": ["assets"],
       "index": "index.html",
       "main": "main.ts",
       "polyfills": "polyfills.ts",
@@ -22,15 +20,17 @@
         "../node_modules/flag-icon-css/css/flag-icon.css",
         "../node_modules/font-awesome/css/font-awesome.css",
         "../node_modules/simple-line-icons/css/simple-line-icons.css",
-        "../node_modules/bootstrap/dist/css/bootstrap.min.css",
-        "../node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
-        "scss/style.scss"
+		"../node_modules/bootstrap/dist/css/bootstrap.min.css",
+		"../node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+        "scss/style.scss"       
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.min.js",
-        "../node_modules/bootstrap/dist/js/bootstrap.min.js",
+         "../node_modules/bootstrap/dist/js/bootstrap.min.js",
         "../node_modules/chart.js/dist/Chart.bundle.min.js",
         "../node_modules/chart.js/dist/Chart.min.js"
+       
+        
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
@@ -64,7 +64,7 @@
     "styleExt": "scss",
     "prefixInterfaces": false,
     "serve": {
-      "port": 4200
-    }
+    "port": 4215
+  }
   }
 }

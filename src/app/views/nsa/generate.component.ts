@@ -10,7 +10,6 @@ import {map} from 'rxJS/operator/map';
 import {Observable} from 'rxJS/Observable';
 import { catchError, } from 'rxJs/operators';
 import {_throw} from 'rxjs/observable/throw';
-import {ResponseMessage} from '../nsa/response-message';
 @Component({
   selector: 'app-generate',
   templateUrl: './generate.component.html',
@@ -62,48 +61,47 @@ export class GenerateComponent implements OnInit {
   }
 
 
-clearGenerate(linkno: number):Observable<ResponseMessage>{
-  return this.httpClient.get(environment.apiUrl + "msisdn_recycle_list_generate/clear/" + linkno).pipe(
-    catchError(this.handleError));
-}
-
-
-handleError(error: HttpErrorResponse){
-  if(error instanceof ErrorEvent){
-  } else {
-    switch (error.status) {
-       case 404:    
-      this.genenable = true;
-      this.genalert = "MSISDN Deletion Fail";
-          break;
+  clearGenerate(linkno: number):Observable<any>{
+    return this.httpClient.get(environment.apiUrl + "msisdn_recycle_list_generate/clear/" + linkno).pipe(
+      catchError(this.handleError));
+  }
+  
+  
+  handleError(error: HttpErrorResponse){
+    if(error instanceof ErrorEvent){
+    
+    }else {
+      
+      switch (error.status) {
+      case 404:    
+        this.genenable = true;
+        this.genalert = "MSISDN Deletion Fail";
+            break;
+        }
       }
-  }
-   return _throw(error);
-  }
-
-
+     return _throw(error);
+    }
 
     clear(linkno: number) {
    
-   this.clearGenerate(linkno). subscribe((res:ResponseMessage) => {
-     console.log(res);
-          if (res.response==false) {
-        this.genenable = true;
-        this.genalert = "MSISDN Deletion Fail";
+      this.clearGenerate(linkno).subscribe((res => {
+ 
+      if(res==false){
+       this.genenable =true;
+       this.genalert = "MSISDN Deletion Fail";
       }
-      else {
-        this.misisdnList = this.misisdnList.filter(h => h.id !== linkno);
-        this.genenable = true;
-        this.genalert = "MSISDN Deletion Success";
+      else{
+       this.misisdnList = this.misisdnList.filter( h => h.id !==linkno);
+       this.genenable =true;
+       this.genalert = "MSISDN Deletion Success";
       }
-      console.log(res)
-    }), err => {
-     
+    
+     }), err => {
       this.genenable = true;
-      this.genalert = "MSISDN deletion Fail";
-    };
-
-  }
+       this.genalert = "MSISDN delettion Fail";
+      });
+ 
+   }
   downloadfile(path:string,std: Date, end: Date, id: any) {
     const httpOptions = {
       responseType: 'blob' as 'json',
@@ -121,7 +119,7 @@ handleError(error: HttpErrorResponse){
           const blob = new Blob([response], { type: 'octet/stream' });
           const url = window.URL.createObjectURL(response);
           a.href = url;
-          a.download = path;
+          a.download = path + ".csv";
           a.click();
           window.URL.revokeObjectURL(url);
           console.log(response.headers);
