@@ -6,7 +6,7 @@ import { HttpClient,HttpErrorResponse } from '@angular/common/http';
 import { JSONP_ERR_WRONG_RESPONSE_TYPE } from '@angular/common/http/src/jsonp';
 import { environment } from '../../../environments/environment.prod';
 import { ActivatedRoute, Router, ActivationEnd } from '@angular/router';
-import {ResponseMessage} from '../nsa/response-message';
+
 import {map} from 'rxJS/operator/map';
 import {Observable} from 'rxJS/Observable';
 import { catchError, } from 'rxJs/operators';
@@ -88,9 +88,9 @@ export class AnalyzeComponent implements OnInit {
   
   clear(linkno: number) {
    
-     this.clearAnalyze(linkno).subscribe((res:ResponseMessage) =>{
+     this.clearAnalyze(linkno).subscribe((res => {
 
-     if(res.response==false){
+     if(res==false){
       this.analyzeenable =true;
       this.analyzealert = "MSISDN Deletion Fail";
      }
@@ -99,11 +99,11 @@ export class AnalyzeComponent implements OnInit {
       this.analyzeenable =true;
       this.analyzealert = "MSISDN Deletion Success";
      }
-       console.log(res)
+   
     }), err => {
      this.analyzeenable = true;
       this.analyzealert = "MSISDN delettion Fail";
-     };
+     });
 
   }
   downloadfile(path:string,std:Date,end:Date,id: any) {
@@ -125,7 +125,7 @@ export class AnalyzeComponent implements OnInit {
           const blob = new Blob([response], { type: 'octet/stream' });
           const url = window.URL.createObjectURL(response);
           a.href = url;
-          a.download = path;
+          a.download = path + ".csv";
           a.click();
           window.URL.revokeObjectURL(url);
           console.log(response.headers);

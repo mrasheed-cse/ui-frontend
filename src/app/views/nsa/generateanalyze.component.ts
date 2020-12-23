@@ -12,9 +12,9 @@ export class GenerateanalyzeComponent implements OnInit {
 
   startdate: Date
   enddate: Date;
- // maxDate: Date;
+  maxDate: Date;
   bsInlineValue = new Date();
-  //minDate: Date;
+  minDate: Date;
   enable: boolean = false;
   generateenable: boolean = false;
   generatealert: string;
