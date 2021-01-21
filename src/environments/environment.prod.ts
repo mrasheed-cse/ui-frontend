@@ -1,17 +1,15 @@
 export const environment = {
-   //production: true,
-   production: false,
-//  apiUrl: 'https://10.10.23.51:8443/nsa/', //prod
-//apiUrl: 'https://10.10.23.50:8443/nsa/', //pre-prod
-apiUrl: 'http://localhost:8015/', // dev-env
-  pendingRequestMarker : 'PENDING',
-  approvedRequestMarker : 'APPROVED',
-  rejectedRequestMarker : 'REJECTED',
-  ssmAssessmentHopMarker : "SSM",
-  hodHopMarker : "HOD",
-  ssmAssignmentHopMarker : "SSM2",
-  clcHopMarker : "CLC",
-  dataSpecialRequirementTypes : [
+	production: false,
+	"output-path": "./dist2/",
+	apiUrl: 'http://localhost:8015/',
+	pendingRequestMarker: 'PENDING',
+	approvedRequestMarker: 'APPROVED',
+	rejectedRequestMarker: 'REJECTED',
+	ssmAssessmentHopMarker: "SSM",
+	hodHopMarker: "HOD",
+	ssmAssignmentHopMarker: "SSM2",
+	clcHopMarker: "CLC",
+	dataSpecialRequirementTypes: [
 		{
 			name: "Regular", value: "Regular"
 		},
