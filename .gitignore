@@ -6,3 +6,8 @@
 /dist
 /package-lock.json
 /report*
+/.editorconfig
+/src/environments/environment.prod.ts
+/src/environments/environment.dev.ts
+/*.iml
+/watchrun.cmd
