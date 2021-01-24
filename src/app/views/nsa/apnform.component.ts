@@ -4,17 +4,11 @@ import {
   Pipe,
   OnInit
 } from '@angular/core';
-import {ReactiveFormsModule, FormGroup, FormControl, Validators} from '@angular/forms';
-import {BrowserModule} from '@angular/platform-browser';
-import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
-import {BsDatepickerConfig} from 'ngx-bootstrap/datepicker';
+import {FormGroup, FormControl, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import {HttpClient} from '@angular/common/http';
-import { HttpClientModule } from '@angular/common/http';
-import { environment } from '../../../environments/environment.prod';
 import { DefinitionDataService } from './services/definitiondata.service';
 import { WorkflowsService } from './services/workflows.service';
-import { Observable } from 'rxjs/Observable';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';

@@ -1,7 +1,6 @@
 export const environment = {
-	production: false,
-	"output-path": "./dist2/",
-	apiUrl: 'http://localhost:8015/',
+	production: true,
+	apiUrl: '/',
 	pendingRequestMarker: 'PENDING',
 	approvedRequestMarker: 'APPROVED',
 	rejectedRequestMarker: 'REJECTED',

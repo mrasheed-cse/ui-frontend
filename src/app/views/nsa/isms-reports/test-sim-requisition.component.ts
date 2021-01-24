@@ -10,7 +10,6 @@ import { IsmsreportService } from './../services/Ismsreport.service';
 import { WorkflowsService } from './../services/workflows.service';
 import { AppGlobals } from './../../../app.global';
 import { Router,ActivatedRoute } from '@angular/router';
-import { environment } from '../../../../environments/environment.prod';
 import {BsDatepickerConfig} from 'ngx-bootstrap/datepicker';
 import {IsmsReportResponse} from './../models/IsmsReportResponse';
 import { LoginService } from '../../pages/LoginService';

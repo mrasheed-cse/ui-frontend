@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Misidn } from '../../views/nsa/misidn';
-import { environment } from '../../../environments/environment.prod';
+import { environment } from '../../../environments/environment';
 import {Observable} from 'rxJs';
 @Injectable()
 export class MsisdnService {
