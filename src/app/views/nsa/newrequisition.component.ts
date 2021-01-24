@@ -1,234 +1,216 @@
-import {
-  NgModule,
-  Component,
-  Pipe,
-  OnInit
-} from '@angular/core';
-import {ReactiveFormsModule, FormsModule, FormGroup, FormControl, Validators} from '@angular/forms';
-import {BrowserModule} from '@angular/platform-browser';
-import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
-import { DataTableResource } from 'angular4-smart-table';
-import { RequisitionList } from './models/RequisitionList';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {BsDatepickerConfig} from 'ngx-bootstrap/datepicker';
-import { HttpClient } from '@angular/common/http';
-import { HttpErrorResponse } from '@angular/common/http';
-import { WorkflowsService } from './services/workflows.service';
-import { AppGlobals } from './../../app.global';
-import { Router } from '@angular/router';
-import { environment } from '../../../environments/environment.prod';
+import {HttpClient} from '@angular/common/http';
+import {WorkflowsService} from './services/workflows.service';
+import {AppGlobals} from './../../app.global';
+import {Router} from '@angular/router';
+import {environment} from '../../../environments/environment';
 
-import { LoginService } from '../pages/LoginService';
-import { LoggedInUser } from '../pages/loggedInUser';
-
+import {LoginService} from '../pages/LoginService';
+import {LoggedInUser} from '../pages/loggedInUser';
 
 @Component({
-  selector: 'app-newrequisition',
-  templateUrl: './newrequisition.component.html',
-  styleUrls: ['./demo.component.css'],
-	providers: [WorkflowsService,AppGlobals,LoginService],
+    selector: 'app-newrequisition',
+    templateUrl: './newrequisition.component.html',
+    styleUrls: ['./demo.component.css'],
+    providers: [WorkflowsService, AppGlobals, LoginService],
 })
 export class NewrequisitionComponent implements OnInit {
+    requisitionList: Array<Object>;
+    currentLoggedInUser: LoggedInUser;
+    userName: string;
+    groupID: number;
+    userID: string;
 
-  requisitionList: Array<Object>;
-	currentLoggedInUser: LoggedInUser;
-	userName: string;
-	groupID: number;
-	userID: string;
+    public dangerAlertShow: boolean = false;
+    public dangerAlertMessage: string = "";
+    public successSearchShow: boolean = false;
+    public successAlertMessage: string = "";
 
-	public dangerAlertShow:boolean = false;
-	public dangerAlertMessage:string = "";
-	public successSearchShow:boolean = false;
-	public successAlertMessage:string = "";
+    isDataFound: boolean = true;
+    isCollapsed: boolean = true;
 
-	isDataFound: boolean = true;
-	isCollapsed: boolean = true;
+    mySearchForm: FormGroup;
+    wrname: FormControl;
+    wrstatus: FormControl;
+    startDate: FormControl;
+    endDate: FormControl;
 
-	mySearchForm: FormGroup;
-   wrname: FormControl;
-   wrstatus: FormControl;
-   startDate: FormControl;
-   endDate: FormControl;
+    wrNamePattern: string = "(RQN).\*";
+    searchWR: string;
+    searchWRNumber: string;
+    searchWrCreatedBy: string;
+    searchWrCreationDate: string;
+    searchLastApprover: string;
+    searchLextApprover: string;
+    searchStatus: string;
+    searchPendingGroupID: number;
+    searchHopSequence: number;
+    todayDate: Date;
+    routerUrlAndParams: string;
+    public isLoading: boolean = false;
 
-	wrNamePattern:string = "(RQN).\*";
-	searchWR: string;
-	searchWRNumber: string;
-	searchWrCreatedBy: string;
-	searchWrCreationDate: string;
-	searchLastApprover: string;
-	searchLextApprover: string;
-	searchStatus: string;
-	searchPendingGroupID: number;
-	searchHopSequence: number;
-	todayDate: Date;
-	routerUrlAndParams: string;
-	public isLoading:boolean = false;
+    constructor(private router: Router, private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {
 
-	constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {
+        this.isLoading = false;
+        let isValid = true;
+        this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
 
-			this.isLoading = false;
-			let isValid = true;
-			this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
+        if (this.currentLoggedInUser) {
+            this.userName = this.currentLoggedInUser.userName
+            this.groupID = this.currentLoggedInUser.groupID
+            this.userID = this.currentLoggedInUser.userID
+        } else {
+            this.router.navigate(['pages/login']);
+        }
+        //this.requisitionList = _global.dataTemp;
 
-			if (this.currentLoggedInUser) {
-				this.userName = this.currentLoggedInUser.userName
-				this.groupID = this.currentLoggedInUser.groupID
-				this.userID = this.currentLoggedInUser.userID
-			}
-			else {
-				this.router.navigate(['pages/login']);
-			}
-			//this.requisitionList = _global.dataTemp;
-
-  } //end of constructor
+    } //end of constructor
 
 
-  loadPendingList(){
-		//GetPendingTaskList
-		this.workFlowsService.LoadRequisitionList(0,this.userID).subscribe(
-				data => {
-					if(data !=null){
-						console.log(data);
-						this.isDataFound = true;
-						this.requisitionList = data;
-            for(var i = 0; i < this.requisitionList.length; i++){
-              this.requisitionList[i]['show'] = true;
-            }
-						this.isLoading = false;
-					}
-					else{
-						this.isDataFound = false;
-					}
-				},
-			err => console.error(err),
-			() => console.log('Done loading PendingTask List')
-			);
-		//Get Today Date
-		this.todayDate = new Date();
-  }
-
-
-  ngOnInit () {
-
-	this.createFormControls();
-	this.createForm();
-	this.isLoading = true;
-
-	setTimeout(()=>{    //<<<---    using ()=> syntax
-		this.loadPendingList();
-   	}, 5000);
-
-
-  }
-
-	datepickerConfig: Partial<BsDatepickerConfig>;
-
-  clearSearch(){
-    for(var i = 0; i < this.requisitionList.length; i++){
-      this.requisitionList[i]['show'] = true;
+    loadPendingList() {
+        //GetPendingTaskList
+        this.workFlowsService.LoadRequisitionList(0, this.userID).subscribe(
+            data => {
+                if (data != null) {
+                    console.log(data);
+                    this.isDataFound = true;
+                    this.requisitionList = data;
+                    for (var i = 0; i < this.requisitionList.length; i++) {
+                        this.requisitionList[i]['show'] = true;
+                    }
+                    this.isLoading = false;
+                } else {
+                    this.isDataFound = false;
+                }
+            },
+            err => console.error(err),
+            () => console.log('Done loading PendingTask List')
+        );
+        //Get Today Date
+        this.todayDate = new Date();
     }
-  }
 
-  onSearchSubmit() {
 
-    if (this.wrname.value || this.startDate.value || this.endDate.value || this.wrstatus.value) {
-        console.log('Form Submitted!');
-        console.log(this.mySearchForm.value);
-        this.successSearchShow = false;
-        this.dangerAlertShow = false;
+    ngOnInit() {
 
-        for(var i = 0; i < this.requisitionList.length; i++){
-          this.requisitionList[i]['show'] = false;
+        this.createFormControls();
+        this.createForm();
+        this.isLoading = true;
 
-          if(this.wrname.value != null && this.wrname.value != undefined && this.wrname.value != "" && this.wrname.value == this.requisitionList[i]['requisitionNo']){
+        setTimeout(() => {    //<<<---    using ()=> syntax
+            this.loadPendingList();
+        }, 5000);
+
+
+    }
+
+    datepickerConfig: Partial<BsDatepickerConfig>;
+
+    clearSearch() {
+        for (var i = 0; i < this.requisitionList.length; i++) {
             this.requisitionList[i]['show'] = true;
-          }
+        }
+    }
 
-          if(this.startDate.value != null && this.startDate.value != undefined && this.startDate.value != ""
-          &&
-          this.endDate.value != null && this.endDate.value != undefined && this.endDate.value != ""){
-            //var sdate = moment(this.requisitionList[i]['requisitionDt']).format('DD-MM-YYYY');
-            var sdate = new Date(this.requisitionList[i]['requisitionDt'].replace( /(\d{2})-(\d{2})-(\d{4})/, "$2/$1/$3"))
+    onSearchSubmit() {
 
-            var startDateOfForm = this.startDate.value;
-            var endDateOfForm = this.endDate.value;
+        if (this.wrname.value || this.startDate.value || this.endDate.value || this.wrstatus.value) {
+            console.log('Form Submitted!');
+            console.log(this.mySearchForm.value);
+            this.successSearchShow = false;
+            this.dangerAlertShow = false;
 
-            startDateOfForm.setHours(0);
-            startDateOfForm.setMinutes(0);
-            startDateOfForm.setSeconds(0);
+            for (var i = 0; i < this.requisitionList.length; i++) {
+                this.requisitionList[i]['show'] = false;
 
-            endDateOfForm.setHours(23);
-            endDateOfForm.setMinutes(59);
-            endDateOfForm.setSeconds(59);
+                if (this.wrname.value != null && this.wrname.value != undefined && this.wrname.value != "" && this.wrname.value == this.requisitionList[i]['requisitionNo']) {
+                    this.requisitionList[i]['show'] = true;
+                }
 
-            console.log("sdate");
-            //console.log(this.requisitionList[i]['requisitionDt']);
-            console.log(sdate);
-            console.log(this.startDate.value);
-            console.log(this.endDate.value);
+                if (this.startDate.value != null && this.startDate.value != undefined && this.startDate.value != ""
+                    &&
+                    this.endDate.value != null && this.endDate.value != undefined && this.endDate.value != "") {
+                    //var sdate = moment(this.requisitionList[i]['requisitionDt']).format('DD-MM-YYYY');
+                    var sdate = new Date(this.requisitionList[i]['requisitionDt'].replace(/(\d{2})-(\d{2})-(\d{4})/, "$2/$1/$3"))
 
-            if(sdate >= startDateOfForm && sdate <= endDateOfForm){
-              this.requisitionList[i]['show'] = true;
+                    var startDateOfForm = this.startDate.value;
+                    var endDateOfForm = this.endDate.value;
+
+                    startDateOfForm.setHours(0);
+                    startDateOfForm.setMinutes(0);
+                    startDateOfForm.setSeconds(0);
+
+                    endDateOfForm.setHours(23);
+                    endDateOfForm.setMinutes(59);
+                    endDateOfForm.setSeconds(59);
+
+                    console.log("sdate");
+                    //console.log(this.requisitionList[i]['requisitionDt']);
+                    console.log(sdate);
+                    console.log(this.startDate.value);
+                    console.log(this.endDate.value);
+
+                    if (sdate >= startDateOfForm && sdate <= endDateOfForm) {
+                        this.requisitionList[i]['show'] = true;
+                    }
+                }
+
+
             }
-          }
-
 
         }
 
     }
 
-	}
+    createFormControls() {
+        this.wrname = new FormControl('', Validators.pattern(this.wrNamePattern));
+        this.wrstatus = new FormControl('');
+        this.startDate = new FormControl('');
+        this.endDate = new FormControl('');
+    }
 
-  createFormControls() {
-		this.wrname = new FormControl('',Validators.pattern(this.wrNamePattern));
-		this.wrstatus = new FormControl('');
-		this.startDate = new FormControl('');
-		this.endDate = new FormControl('');
-  }
+    createForm() {
+        this.mySearchForm = new FormGroup({
+            wrname: this.wrname,
+            wrstatus: this.wrstatus,
+            startDate: this.startDate,
+            endDate: this.endDate
+        });
+    }
 
-  createForm() {
-    this.mySearchForm = new FormGroup({
-      wrname: this.wrname,
-      wrstatus: this.wrstatus,
-      startDate: this.startDate,
-	  endDate: this.endDate
-    });
-  }
-
-  onTaskSelect(aTask) {
+    onTaskSelect(aTask) {
         //this.selectedContactId = aTask.wr_ID;
-				//this.router.navigateByUrl('/nsa/seriesprovisiondetail');
-  }
+        //this.router.navigateByUrl('/nsa/seriesprovisiondetail');
+    }
 
-	detailsAction(aTask){
+    detailsAction(aTask) {
 
-				if(aTask.hop == environment.ssmAssessmentHopMarker){
-					//router.navigate(['user', user.id, 'details']);
-					//this.router.navigate(['/nsa/requisitiondetailsassesment/',aTask['id']]);
-				return '../requisitiondetailsassesment/'.toString();
-				}
-				else if(aTask.hop == environment.hodHopMarker){
-					//this.router.navigateByUrl('/nsa/requisitiondetailshod/' + aTask['id']);
-					//this.router.navigate(['/nsa/requisitiondetailshod/',aTask['id']]);
-					return '../requisitiondetailshod/'.toString();
+        if (aTask.hop == environment.ssmAssessmentHopMarker) {
+            //router.navigate(['user', user.id, 'details']);
+            //this.router.navigate(['/nsa/requisitiondetailsassesment/',aTask['id']]);
+            return '../requisitiondetailsassesment/'.toString();
+        } else if (aTask.hop == environment.hodHopMarker) {
+            //this.router.navigateByUrl('/nsa/requisitiondetailshod/' + aTask['id']);
+            //this.router.navigate(['/nsa/requisitiondetailshod/',aTask['id']]);
+            return '../requisitiondetailshod/'.toString();
 
-				}
-				else if(aTask.hop == environment.ssmAssignmentHopMarker){
-					//this.router.navigateByUrl('/nsa/requisitionassign/' + aTask['id']);
-					//this.router.navigate(['/nsa/requisitionassign/',aTask['id']]);
-					return '../requisitionassign/'.toString();
+        } else if (aTask.hop == environment.ssmAssignmentHopMarker) {
+            //this.router.navigateByUrl('/nsa/requisitionassign/' + aTask['id']);
+            //this.router.navigate(['/nsa/requisitionassign/',aTask['id']]);
+            return '../requisitionassign/'.toString();
 
-				}
-				else if(aTask.hop == environment.clcHopMarker){
-					//this.router.navigateByUrl('/nsa/requisitionassign/' + aTask['id']);
-					//this.router.navigate(['/nsa/requisitionassign/',aTask['id']]);
-					return '../requisitiondetailsdelivery/'.toString();
+        } else if (aTask.hop == environment.clcHopMarker) {
+            //this.router.navigateByUrl('/nsa/requisitionassign/' + aTask['id']);
+            //this.router.navigate(['/nsa/requisitionassign/',aTask['id']]);
+            return '../requisitiondetailsdelivery/'.toString();
 
-				}
-				else{
-					return 'novalue'.toString();
-					//alert('No Pending Details for '+this.userID+" user");
-				}
+        } else {
+            return 'novalue'.toString();
+            //alert('No Pending Details for '+this.userID+" user");
+        }
 
-	}
+    }
 
 }

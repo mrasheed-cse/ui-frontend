@@ -9,7 +9,6 @@ import { WorkflowsService } from './../services/workflows.service';
 import { IsmsworkflowsService } from '../services/Ismsworkflows.service';
 import { AppGlobals } from './../../../app.global';
 import { Router,ActivatedRoute } from '@angular/router';
-import { environment } from '../../../../environments/environment.prod';
 
 import { LoginService } from '../../pages/LoginService';
 import { LoggedInUser } from '../../pages/loggedInUser';

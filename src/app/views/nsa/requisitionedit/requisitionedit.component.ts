@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { DefinitionDataService } from '../services/definitiondata.service';
 import { IsmsworkflowsService } from '../services/Ismsworkflows.service';
 import { LoggedInUser } from '../../pages/loggedInUser';
-import { environment } from '../../../../environments/environment.prod';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-requisitionedit',

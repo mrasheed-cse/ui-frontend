@@ -3,11 +3,9 @@ import { DatePipe } from '@angular/common';
 import { Misidn } from '../../views/nsa/misidn';
 import { MsisdnService } from '../../views/nsa/msisdn.service';
 import { HttpClient,HttpErrorResponse } from '@angular/common/http';
-import { JSONP_ERR_WRONG_RESPONSE_TYPE } from '@angular/common/http/src/jsonp';
-import { environment } from '../../../environments/environment.prod';
-import { ActivatedRoute, Router, ActivationEnd } from '@angular/router';
+import { environment } from '../../../environments/environment';
+import { ActivatedRoute } from '@angular/router';
 
-import {map} from 'rxJS/operator/map';
 import {Observable} from 'rxJS/Observable';
 import { catchError, } from 'rxJs/operators';
 import {_throw} from 'rxjs/observable/throw';

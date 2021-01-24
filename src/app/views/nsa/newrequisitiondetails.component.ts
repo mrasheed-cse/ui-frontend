@@ -15,8 +15,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { WorkflowsService } from './services/workflows.service';
 import { AppGlobals } from './../../app.global';
 import { ActivatedRoute,Router } from '@angular/router';
-import { environment } from '../../../environments/environment.prod';
-import { moment } from 'ngx-bootstrap/chronos/test/chain';
 
 import { LoginService } from '../pages/LoginService';
 import { LoggedInUser } from '../pages/loggedInUser';

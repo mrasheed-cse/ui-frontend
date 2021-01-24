@@ -1,14 +1,11 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import { HttpClientModule } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import { environment } from '../../../../environments/environment.prod';
+import { environment } from '../../../../environments/environment';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/retry';
 import 'rxjs/add/observable/of';
-import {NewTestSimRequisition} from '../models/NewTestSimRequisition'
 
 import { AppGlobals } from './../../../app.global';
 
