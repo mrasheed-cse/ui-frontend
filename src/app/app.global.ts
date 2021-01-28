@@ -9,6 +9,7 @@ export class AppGlobals {
 	readonly groupID_BSS_Planning: number = 4;
     readonly groupID_VDSO: number = 5;
 	readonly groupID_Wipro_Billing: number = 6;
+	readonly groupID_Wipro_RAFM: number = 10;
     readonly groupID_RAFM: number = 7;
 	readonly groupID_CIM: number = 8;
 	readonly groupID_OSS: number = 9;
@@ -65,12 +66,12 @@ export class AppGlobals {
 	readonly wrid_FileUploadPath: string = '/app/nsa_files/';
 
 
-	//agGrid_1 = 
-	
+	//agGrid_1 =
+
 	agGrid_defaultColDef = {
 		filter: "agTextColumnFilter"
 	};
-  
+
 	agGrid_columnTypes = {
 		numberColumn: {
 		  width: 83,
@@ -122,7 +123,7 @@ export class AppGlobals {
           "id":"3","name":"Requested for activation"
         }
 	  ];
-	  
+
 	  listSimStatusAlt = [
 		{
           "id":"2","name":"Deactive"
