@@ -1,18 +1,19 @@
 {
   "name": "@coreui/angular",
-  "version": "1.0.10",
-  "description": "Open Source Bootstrap Admin Template",
-  "author": "Łukasz Holeczek",
-  "homepage": "http://coreui.io",
-  "copyright": "Copyright 2018 creativeLabs Łukasz Holeczek",
+  "version": "1.6.7",
+  "description": "Scratch SIM Management",
+  "author": "Afifa Julia",
+  "homepage": "https://sscm.grameenphone.com",
+  "copyright": "Copyright 2021 Grameenphone Bangladesh Ltd",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod",
+    "build": "node --max-old-space-size=3072 ./node_modules/@angular/cli/bin/ng build --environment=prod --prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "dev": "ng build --environment=dev --watch=true"
   },
   "private": true,
   "dependencies": {
@@ -41,7 +42,7 @@
     "moment": "^2.20.1",
     "ng2-charts": "1.6.0",
     "ngx-bootstrap": "^2.0.2",
-    "ngx-spinner": "^8.0.3",
+    "ngx-spinner": "^2.0.0",
     "popper.js": "^1.14.7",
     "rxjs": "5.5.6",
     "simple-line-icons": "^2.4.1",
