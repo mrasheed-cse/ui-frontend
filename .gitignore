@@ -1,8 +1,13 @@
-node_modules
-node_modules56
+/node_modules
 .idea
 .project
 .classpath
-.settings
-dist
+/.settings
+/dist
 /package-lock.json
+/report*
+/.editorconfig
+/src/environments/environment.prod.ts
+/src/environments/environment.dev.ts
+/*.iml
+/watchrun.cmd
