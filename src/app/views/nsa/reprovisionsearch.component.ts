@@ -58,7 +58,7 @@ export class ReprovisionsearchComponent implements OnInit {
 	HLR: FormControl;
 	IMSI: FormControl;
 	batchID: FormControl;
-
+	deProvWrname: FormControl
 	formFieldData: string;
 
 
@@ -66,6 +66,9 @@ export class ReprovisionsearchComponent implements OnInit {
   public listProductType = [];
   public listProduct = [];
   	public listHLR = [];
+  		
+  dropdownSettings = {};
+  	
 
   constructor(private router: Router,private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private definitionDataService: DefinitionDataService, private workFlowsService: WorkflowsService, private fileoperationService: FileoperationService) {
 
@@ -125,8 +128,40 @@ export class ReprovisionsearchComponent implements OnInit {
     );
 
 
-  this.listHLR = [{'id':1, 'name':'HLR1'}, {'id':2, 'name': 'HLR2'}, {'id':3, 'name': 'HLR3'}];
+  //this.listHLR = [{'id':1, 'name':'HLR1'}, {'id':2, 'name': 'HLR2'}, {'id':3, 'name': 'HLR3'}];
+  this.definitionDataService.GetHLRNames().subscribe(
+		data => {
+					this.listHLR = [];
+					//console.log("this.listHLR "+this.listHLR.length);
+					for (let index in data) {
+					//console.log (data[index]);
+					this.listHLR.push(
+						{
+							id:data[index].id,
+							name: data[index].hlrName
+						}
+						);
+					}
+					//this.listHLR = this.listIMSI;
+			// return data;
+				},
+			err => console.error(err),
+			() => console.log('done loading HLR List')
+			);
+
+  
   this.isLoading = false;
+  this.dropdownSettings = {
+		singleSelection: false,
+		idField: 'id',
+		textField: 'name',
+		selectAllText: 'Select All',
+		unSelectAllText: 'UnSelect All',
+		itemsShowLimit: 0,
+		allowSearchFilter: true
+	};
+	
+  
 
 
 }
@@ -144,6 +179,7 @@ export class ReprovisionsearchComponent implements OnInit {
 	this.HLR= new FormControl('');
 	this.IMSI= new FormControl('');
 	this.batchID = new FormControl('');
+	this.deProvWrname = new FormControl('')
   }
 
   createForm() {
@@ -152,7 +188,8 @@ export class ReprovisionsearchComponent implements OnInit {
 		productName: this.productName,
 		HLR: this.HLR,
 		IMSI: this.IMSI,
-		batchID: this.batchID
+		batchID: this.batchID,
+		deProvWrname: this.deProvWrname
     });
   }
   onProductTypeSelect (event: any) {
@@ -197,8 +234,9 @@ export class ReprovisionsearchComponent implements OnInit {
 		const HLRVal = this.myReProvisionSearchForm.get('HLR').value;
 		const IMSIVal = this.myReProvisionSearchForm.get('IMSI').value;
 		const batchIDVal = this.myReProvisionSearchForm.get('batchID').value;
+		const deProvWrnameVal = this.workFlowsService.FormatWorkRequestNameForAPI(this.myReProvisionSearchForm.get('deProvWrname').value);
     this.isLoading = true;
-		this.workFlowsService.ReprovisonEligibilitySearch(productTypeVal,productNameVal,HLRVal,IMSIVal,batchIDVal).subscribe(
+		this.workFlowsService.ReprovisonEligibilitySearch(productTypeVal,productNameVal,HLRVal,IMSIVal,batchIDVal,deProvWrnameVal).subscribe(
 			data => {
 				//	console.log(data);
 				this.isLoading = false;
