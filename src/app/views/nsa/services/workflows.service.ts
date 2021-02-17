@@ -139,7 +139,7 @@ export class WorkflowsService {
 		});	  
 	}
 
-	ReprovisonEligibilitySearch(productType: string,productName: string,hlr: string,	imsiClub: string,batchID: string) : any {	
+	ReprovisonEligibilitySearch(productType: string,productName: string,hlr: string,	imsiClub: string,batchID: string,deProvWrname: string) : any {	
 		
 		//console.log("In ReprovisonEligibilitySearch()");	
 		/*
@@ -156,7 +156,8 @@ export class WorkflowsService {
 			productName: productName,
 			hlr: hlr,
 			imsiClub: imsiClub,
-			batchID: batchID			
+			batchID: batchID,	
+			deProvWrname: deProvWrname	
 		});	
 	
 		

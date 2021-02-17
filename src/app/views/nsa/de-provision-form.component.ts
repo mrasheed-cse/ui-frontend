@@ -154,7 +154,7 @@ WR_Name: string;
   // FORM SUBMISSION
    onDeProvisionSubmit() {
    
-		if(this.selectedFile.name==this.workFlowsService.FormatWorkRequestNameForAPI(this.WR_Name)+".csv"){
+		if(this.selectedFile.name==this.workFlowsService.FormatWorkRequestNameForAPI(this.WR_Name)+".csv"||this.selectedFile.name==this.workFlowsService.FormatWorkRequestNameForAPI(this.WR_Name)+".txt"){
 
   if (this.myDeProvisionForm.valid && !this.isDisableBtn) {
 	this.topFunction();
