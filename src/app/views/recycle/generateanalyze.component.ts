@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {DatePipe} from '@angular/common';
-import {Misidn} from "../nsa/misidn";
 import {MsisdnService} from "../nsa/msisdn.service";
+import {environment} from '../../../environments/environment';
 
 @Component({
     selector: 'app-generateanalyze',
@@ -33,7 +33,7 @@ export class GenerateanalyzeComponent implements OnInit {
     changeEndDate() {
     }
 
-    generate() {
+    generate(analyze) {
         let st = this.datePipe.transform(this.startdate, "dd-MM-yyyy");
         let dt = this.datePipe.transform(this.enddate, "dd-MM-yyyy");
         if (this.startdate.getTime() > this.enddate.getTime()) {
@@ -41,20 +41,14 @@ export class GenerateanalyzeComponent implements OnInit {
             console.log("Start date cannot greate than End date");
         } else {
             this.isLoading = true;
-            this.msisdnService.generateMsisdnList(st, dt).subscribe((res: string) => {
+            this.msisdnService.generateMsisdnList(st, dt, analyze).subscribe((res: string) => {
                 this.isLoading = false;
-                this.router.navigate(['/nsa/generate']);
+                this.router.navigate([environment.apiUrl + (analyze ? 'analyze' : 'generate')]);
             }, err => {
                 this.isLoading = false;
                 this.genenable = true;
                 this.genalert = err.error.message || err.error || "Internal Server Error";
             });
         }
-    }
-
-    analyze() {
-        let st = this.datePipe.transform(this.startdate, "dd-MM-yyyy");
-        let dt = this.datePipe.transform(this.enddate, "dd-MM-yyyy");
-        this.router.navigate(['/nsa/analyze'], {queryParams: {startDate: st, endDate: dt}});
     }
 }

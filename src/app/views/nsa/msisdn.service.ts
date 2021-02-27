@@ -14,8 +14,11 @@ export class MsisdnService {
         return this.httpClient.get<Misidn[]>(url);
     }
 
-    generateMsisdnList(st: any, ed: any): Observable<string> {
+    generateMsisdnList(st: any, ed: any, analyze: boolean): Observable<string> {
         let url = environment.apiUrl + "msisdn_recycle_list_generate/start/" + st + "/" + ed;
+        if(analyze) {
+            url += "?analyze"
+        }
         return this.httpClient.get<string>(url, {responseType: "text" as 'json'});
     }
 

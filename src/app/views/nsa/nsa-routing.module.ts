@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {AnalyzeComponent} from '../recycle/analyze.component';
 import {LandingpageComponent} from './landingpage.component';
 import {SeriesprovisionComponent} from './seriesprovision.component';
 import {SeriesprovisionformComponent} from './seriesprovisionform.component';
@@ -435,13 +434,6 @@ const routes: Routes = [
             title: 'Requisition History Report'
         }
     },
-    /*{
-      path: 'testsim-requeststatus',
-      component: Testsimrequeststatuscomponent,
-      data: {
-        title: 'Request status'
-      }
-    },*/
     {
         path: 'testsim-mysims',
         component: TestsimMysimsComponent,
@@ -831,9 +823,10 @@ const routes: Routes = [
     },
     {
         path: 'analyze',
-        component: AnalyzeComponent,
+        component: GenerateComponent,
         data: {
-            title: 'Recycle List To Analyze'
+            title: 'Recycle List To Analyze',
+            list: "analyze"
         }
     },
 
@@ -841,7 +834,8 @@ const routes: Routes = [
         path: 'generate',
         component: GenerateComponent,
         data: {
-            title: 'Generated Recycle List'
+            title: 'Generated Recycle List',
+            list: "generate"
         }
     },
     {

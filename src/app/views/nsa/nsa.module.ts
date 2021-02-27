@@ -8,7 +8,6 @@ import {ReactiveFormsModule, FormsModule, FormGroup, FormControl, Validators} fr
 import { CommonModule, DatePipe } from '@angular/common';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-import {AnalyzeComponent} from '../recycle/analyze.component';
 import { NsaRoutingModule } from './nsa-routing.module';
 import { LandingpageComponent } from './landingpage.component';
 import { SeriesprovisionComponent } from './seriesprovision.component';
@@ -236,7 +235,6 @@ import { LostdamagenewsimconnectionComponent } from './lostdamagenewsimconnectio
     TestSimActionListDeactivateComponent,
     LostdamagedetailsdeliveryComponent,
     LostdamagenewsimconnectionComponent,
-    AnalyzeComponent,
     UploadrecycleComponent,
     GenerateanalyzeComponent,
     GenerateComponent

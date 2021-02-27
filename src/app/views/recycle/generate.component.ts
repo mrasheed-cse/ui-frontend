@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {DatePipe} from '@angular/common';
 import {Misidn} from '../../views/nsa/misidn';
-import {MsisdnService} from '../../views/nsa/msisdn.service';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {ActivatedRoute} from '@angular/router';
@@ -21,8 +20,10 @@ export class GenerateComponent implements OnInit {
     endDate: string;
     genalert: string;
     genenable: boolean = false;
+    isForAnalyze: boolean
 
     constructor(private httpClient: HttpClient, private datePipe: DatePipe, private activeRoute: ActivatedRoute) {
+        this.isForAnalyze = "analyze" == activeRoute.snapshot.data.list
     }
 
     ngOnInit() {
@@ -77,7 +78,7 @@ export class GenerateComponent implements OnInit {
         };
         let st = this.datePipe.transform(std, "dd-MM-yyyy");
         let dt = this.datePipe.transform(end, "dd-MM-yyyy");
-        this.httpClient.get(environment.apiUrl + "/msisdn_recycle_list_generate/download/" + id,
+        this.httpClient.get(environment.apiUrl + "msisdn_recycle_list_generate/download/" + id,
             httpOptions).subscribe((response: Response) => {
             if (response == null) {
                 this.genenable = true;
