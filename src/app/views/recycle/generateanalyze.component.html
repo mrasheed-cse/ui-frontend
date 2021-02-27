@@ -31,10 +31,10 @@
                 </div>
 
                 <div class="form-group ">
-                    <button class="btn btn-primary" (click)="generate()" [disabled]="!gpForm.valid" style="margin-right:10px;">Generate</button>
+                    <button class="btn btn-primary" (click)="generate(false)" [disabled]="!gpForm.valid" style="margin-right:10px;">Generate</button>
                 </div>
                 <div class="form-group  ml-4">
-                    <button class="btn btn-primary" (click)="analyze()" [disabled]="!gpForm.valid" style="margin-right:10px;">Analyze</button>
+                    <button class="btn btn-primary" (click)="generate(true)" [disabled]="!gpForm.valid" style="margin-right:10px;">Analyze</button>
                 </div>
             </div>
             <div class="row generate-analyze-date">
