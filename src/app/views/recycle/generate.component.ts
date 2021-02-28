@@ -27,10 +27,9 @@ export class GenerateComponent implements OnInit {
     }
 
     ngOnInit() {
-
-    }
-
-    generate() {
+        this.httpClient.get<Misidn[]>(environment.apiUrl + "msisdn_recycle_list/list/" + (this.isForAnalyze ? "analyze" : "generate")).subscribe(x => {
+            this.misisdnList = x;
+        });
     }
 
     clearGenerate(linkno: number): Observable<any> {
@@ -39,9 +38,7 @@ export class GenerateComponent implements OnInit {
 
     handleError(error: HttpErrorResponse) {
         if (error instanceof ErrorEvent) {
-
         } else {
-
             switch (error.status) {
                 case 404:
                     this.genenable = true;
@@ -53,9 +50,7 @@ export class GenerateComponent implements OnInit {
     }
 
     clear(linkno: number) {
-
         this.clearGenerate(linkno).subscribe((res => {
-
             if (res == false) {
                 this.genenable = true;
                 this.genalert = "MSISDN Deletion Fail";
@@ -69,7 +64,6 @@ export class GenerateComponent implements OnInit {
             this.genenable = true;
             this.genalert = "MSISDN delettion Fail";
         });
-
     }
 
     downloadfile(path: string, std: Date, end: Date, id: any) {
@@ -95,7 +89,5 @@ export class GenerateComponent implements OnInit {
                 console.log(response.headers);
             }
         });
-
     }
-
 }
