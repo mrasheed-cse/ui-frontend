@@ -18,7 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
 import {GenerateanalyzeComponent} from '../recycle/generateanalyze.component';
 
 import { AgGridModule } from 'ag-grid-angular';
-import {UploadrecycleComponent} from "../recycle/uploadrecycle.component";
+import {UploadRecycleComponent} from "../recycle/uploadrecycle.component";
 import { SeriesprovisiondetailComponent } from './seriesprovisiondetail.component';
 import { SeriesDefinitionComponent } from './series-definition.component';
 import { SeriesDefinitionFormComponent } from './series-definition-form.component';
@@ -235,7 +235,7 @@ import { LostdamagenewsimconnectionComponent } from './lostdamagenewsimconnectio
     TestSimActionListDeactivateComponent,
     LostdamagedetailsdeliveryComponent,
     LostdamagenewsimconnectionComponent,
-    UploadrecycleComponent,
+    UploadRecycleComponent,
     GenerateanalyzeComponent,
     GenerateComponent
   ],

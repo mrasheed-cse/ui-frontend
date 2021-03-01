@@ -101,7 +101,7 @@ import {LostSimComponent} from './isms-reports/lost-sim.component';
 import {TestSimTransferComponent} from './isms-reports/test-sim-transfer.component';
 import {LostdamagedetailsdeliveryComponent} from './lostdamagedetailsdelivery/lostdamagedetailsdelivery.component';
 import {LostdamagenewsimconnectionComponent} from './lostdamagenewsimconnection/lostdamagenewsimconnection.component';
-import {UploadrecycleComponent} from "../recycle/uploadrecycle.component";
+import {UploadRecycleComponent} from "../recycle/uploadrecycle.component";
 import {GenerateanalyzeComponent} from "../recycle/generateanalyze.component";
 import {GenerateComponent} from "../recycle/generate.component";
 
@@ -847,7 +847,7 @@ const routes: Routes = [
     },
     {
         path: 'uploadrecycle',
-        component: UploadrecycleComponent,
+        component: UploadRecycleComponent,
         data: {
             title: 'Upload MSISDN Recycle CSV'
         }
