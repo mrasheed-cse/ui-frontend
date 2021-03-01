@@ -1,12 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {DatePipe} from '@angular/common';
-import {Misidn} from '../../views/nsa/misidn';
+import {RecycleCandidateMsisdn} from '../nsa/recycleCandidateMsisdn';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {ActivatedRoute} from '@angular/router';
 import {Observable} from 'rxJS/Observable';
 import {catchError,} from 'rxJs/operators';
 import {_throw} from 'rxjs/observable/throw';
+import {GeneratedInPage} from "../nsa/models/recycle/GeneratedInPage";
 
 @Component({
     selector: 'app-generate',
@@ -14,26 +15,45 @@ import {_throw} from 'rxjs/observable/throw';
     styleUrls: ['./generate.component.scss']
 })
 export class GenerateComponent implements OnInit {
-    misisdnList: Misidn[] = [];
-    misisdn: Misidn;
-    startDate: string;
-    endDate: string;
+    misisdnList: RecycleCandidateMsisdn[] = [];
     genalert: string;
     genenable: boolean = false;
     isForAnalyze: boolean
+    sortDir: string = "desc"
+    totalPage: number = 1
+    currentPage: number = 1
+    readonly environment = environment
 
     constructor(private httpClient: HttpClient, private datePipe: DatePipe, private activeRoute: ActivatedRoute) {
         this.isForAnalyze = "analyze" == activeRoute.snapshot.data.list
     }
 
+    changePage(i: number) {
+        if(i + 1 != this.currentPage) {
+            this.currentPage = i + 1;
+            this.loadList();
+        }
+    }
+
+    changeSort() {
+        this.sortDir = this.sortDir == "desc" ? "asc" : "desc";
+        this.loadList();
+    }
+
     ngOnInit() {
-        this.httpClient.get<Misidn[]>(environment.apiUrl + "msisdn_recycle_list/list/" + (this.isForAnalyze ? "analyze" : "generate")).subscribe(x => {
-            this.misisdnList = x;
+        this.loadList();
+    }
+
+    loadList() {
+        this.httpClient.get<GeneratedInPage>(environment.apiUrl + "msisdn_recycle_list/list/" + (this.isForAnalyze ? "analyze" : "generate") + "?dir=" + this.sortDir + "&page=" + this.currentPage).subscribe(x => {
+            this.misisdnList = x.content;
+            this.totalPage = x.totalPages || 1
+            this.currentPage = x.number
         });
     }
 
     clearGenerate(linkno: number): Observable<any> {
-        return this.httpClient.get(environment.apiUrl + "msisdn_recycle_list_generate/clear/" + linkno).pipe(catchError(this.handleError));
+        return this.httpClient.get(environment.apiUrl + "msisdn_recycle_list_analyze/clear/" + linkno).pipe(catchError(this.handleError));
     }
 
     handleError(error: HttpErrorResponse) {
@@ -42,7 +62,7 @@ export class GenerateComponent implements OnInit {
             switch (error.status) {
                 case 404:
                     this.genenable = true;
-                    this.genalert = "MSISDN Deletion Fail";
+                    this.genalert = "Deletion Fail";
                     break;
             }
         }
@@ -53,41 +73,13 @@ export class GenerateComponent implements OnInit {
         this.clearGenerate(linkno).subscribe((res => {
             if (res == false) {
                 this.genenable = true;
-                this.genalert = "MSISDN Deletion Fail";
+                this.genalert = "Deletion Fail";
             } else {
-                this.misisdnList = this.misisdnList.filter(h => h.id !== linkno);
-                this.genenable = true;
-                this.genalert = "MSISDN Deletion Success";
+                this.loadList()
             }
-
         }), err => {
             this.genenable = true;
-            this.genalert = "MSISDN delettion Fail";
-        });
-    }
-
-    downloadfile(path: string, std: Date, end: Date, id: any) {
-        const httpOptions = {
-            responseType: 'blob' as 'json',
-        };
-        let st = this.datePipe.transform(std, "dd-MM-yyyy");
-        let dt = this.datePipe.transform(end, "dd-MM-yyyy");
-        this.httpClient.get(environment.apiUrl + "msisdn_recycle_list_generate/download/" + id,
-            httpOptions).subscribe((response: Response) => {
-            if (response == null) {
-                this.genenable = true;
-                this.genalert = "Couldnot Find the File from " + st + " to " + dt;
-            } else {
-                const a = document.createElement('a');
-                document.body.appendChild(a);
-                const blob = new Blob([response], {type: 'octet/stream'});
-                const url = window.URL.createObjectURL(response);
-                a.href = url;
-                a.download = path + ".csv";
-                a.click();
-                window.URL.revokeObjectURL(url);
-                console.log(response.headers);
-            }
+            this.genalert = "MSISDN Deletion Fail";
         });
     }
 }

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Misidn} from '../../views/nsa/misidn';
+import {RecycleCandidateMsisdn} from './recycleCandidateMsisdn';
 import {environment} from '../../../environments/environment';
 import {Observable} from 'rxJs';
 
@@ -9,9 +9,9 @@ export class MsisdnService {
     constructor(private httpClient: HttpClient) {
     }
 
-    getAnalyzeData(st: any, ed: any): Observable<Misidn[]> {
+    getAnalyzeData(st: any, ed: any): Observable<RecycleCandidateMsisdn[]> {
         let url = environment.apiUrl + "msisdn_recycle_list_analyze/start/" + st + "/" + ed;
-        return this.httpClient.get<Misidn[]>(url);
+        return this.httpClient.get<RecycleCandidateMsisdn[]>(url);
     }
 
     generateMsisdnList(st: any, ed: any, analyze: boolean): Observable<string> {
