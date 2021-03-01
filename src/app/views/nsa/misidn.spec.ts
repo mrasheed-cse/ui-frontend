@@ -1,7 +1,7 @@
-import { Misidn } from './misidn';
+import { RecycleCandidateMsisdn } from './recycleCandidateMsisdn';
 
 describe('Misidn', () => {
   it('should create an instance', () => {
-    expect(new Misidn()).toBeTruthy();
+    expect(new RecycleCandidateMsisdn()).toBeTruthy();
   });
 });

@@ -2,11 +2,15 @@
     <div class="alert alert-danger mt-5 col-sm-10 pt-2 pb-0" role="alert" align="center" *ngIf="genenable">
         <p>{{genalert}}</p>
     </div>
+    <div style="text-align: right; margin-bottom: 10px">
+        Pages:
+        <span (click)="changePage(i)" *ngFor="let k of [].constructor(totalPage); index as i" class="pagination" [class.active]="i + 1 == currentPage">{{i + 1}}</span>
+    </div>
     <div class="table-responsive" style="font-size: 13px; font-family: sans-serif;">
         <table class="table table-bordered">
             <thead>
             <tr style="background-color: #27bbec; color: white">
-                <th>LIST NO</th>
+                <th (click)="changeSort()" style="cursor: pointer">LIST NO <i class="fa fa-sort-{{sortDir}}"></i></th>
                 <th>FROM DATE</th>
                 <th>END DATE</th>
                 <th>MSISDN COUNT</th>
@@ -16,12 +20,12 @@
             <tbody>
             <tr *ngFor="let item of misisdnList">
                 <th scope="row">{{item.id}}</th>
-                <td>{{item.startDate| date: 'dd-MM-yyyy'}}</td>
+                <td>{{item.startDate | date: 'dd-MM-yyyy'}}</td>
                 <td>{{item.endDate | date: 'dd-MM-yyyy'}}</td>
                 <td>{{item.msisdnCount}}</td>
                 <td>
-                    <a href="#" (click)="downloadfile(item.csvFilePath,item.startDate,item.endDate,item.id);$event.preventDefault()" class="mx-sm-3" role="button">download</a>
-                    <a href="#" (click)="clear(item.id);$event.preventDefault();" role="button">clear</a>
+                    <a download="" href="{{environment.apiUrl + 'msisdn_recycle_list/download/' + item.csvFilePath}}" class="mx-sm-3" role="button">Download</a>
+                    <a *ngIf="isForAnalyze" href="#" (click)="clear(item.id);$event.preventDefault();" role="button">Clear</a>
                 </td>
             </tr>
             </tbody>
