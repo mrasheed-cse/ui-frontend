@@ -66,12 +66,12 @@ export class AppGlobals {
 	readonly wrid_FileUploadPath: string = '/app/nsa_files/';
 
 
-	//agGrid_1 = 
-	
+	//agGrid_1 =
+
 	agGrid_defaultColDef = {
 		filter: "agTextColumnFilter"
 	};
-  
+
 	agGrid_columnTypes = {
 		numberColumn: {
 		  width: 83,
@@ -123,7 +123,7 @@ export class AppGlobals {
           "id":"3","name":"Requested for activation"
         }
 	  ];
-	  
+
 	  listSimStatusAlt = [
 		{
           "id":"2","name":"Deactive"

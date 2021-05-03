@@ -136,21 +136,29 @@ import {
 		  //console.log(event);
 		  this.isLoading = true;		 
 		   this.isDoneDisable = true;
-		   if(this.hop_sequence==5) // LAST HOP IN De-PROVISION
+		   if(this.hop_sequence==4) // LAST HOP IN De-PROVISION
 			  this.isDone = true;
 			this.workFlowsService.UpdateExistiongWorkRequest(this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName),this._global.wrid_DeProvisioning, this.groupID,this.userID,this.hop_sequence,"",this.isDone).subscribe(
 		res  =>  {
 		  console.log('response is : '+res.message);
 		  
 		
-
+if(this.hop_sequence!==4){
+ console.log("HOP11= "+this.hop_sequence)
 		if(res !== ""){	
 			  this.isLoading = false;
 			  this.successAlertShow = true;
-			  if(this.hop_sequence==5)
+			 
+			  
+				  this.successAlertMessage = " has been saved successfully and "+res.message+" .";
+		  }
+		  }
+		  else{
+		   this.isLoading = false;
+			  this.successAlertShow = true;
+			  console.log("HOP22= "+this.hop_sequence)
+			  
 				  this.successAlertMessage = " has been completed successfully.";
-			  else
-				  this.successAlertMessage = " has been saved successfully and forwarded to "+res.message+" .";
 		  }
 		},
 		err  =>  {		  

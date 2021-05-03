@@ -88,6 +88,24 @@
 						</div>
 					</div>
 				</div>
+				<div class="row">
+									<div class="col-md-12">
+										<div class="form-group row">
+											<label class="col-md-5 col-form-label" for="deProvisionWR">Deprovision WR</label>
+											<div class="col-md-7">
+												<input type="text" class="form-control"
+													formControlName="deProvWrname" 
+													[ngClass]="{
+																	'is-invalid': deProvWrname.invalid,
+																	'is-valid': deProvWrname.valid
+																}">
+																<div class="invalid-feedback"  *ngIf="deProvWrname.errors?.pattern">
+													Work Request Name Starts with DEPROV.												
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 				<!-- <div class="card-body"> -->
 				<div class="card-footer text-right">
 					<button type="submit" [disabled]="!myReProvisionSearchForm.valid" class="btn btn-sm btn-primary">
