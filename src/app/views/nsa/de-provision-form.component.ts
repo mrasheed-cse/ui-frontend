@@ -146,7 +146,9 @@ WR_Name: string;
 
 
   // FORM SUBMISSION
-  onDeProvisionSubmit() {
+   onDeProvisionSubmit() {
+   
+		if(this.selectedFile.name==this.workFlowsService.FormatWorkRequestNameForAPI(this.WR_Name)+".csv"||this.selectedFile.name==this.workFlowsService.FormatWorkRequestNameForAPI(this.WR_Name)+".txt"){
 
   if (this.myDeProvisionForm.valid && !this.isDisableBtn) {
 	this.topFunction();
@@ -203,6 +205,9 @@ WR_Name: string;
 	// console.log("this.isLoading "+this.isLoading);
 
 }
+}
+else{
+alert("FILE NAME DOES NOT Match")}
 	}
 
 
