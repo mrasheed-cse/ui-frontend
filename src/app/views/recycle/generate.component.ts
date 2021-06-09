@@ -53,7 +53,7 @@ export class GenerateComponent implements OnInit {
     }
 
     clearGenerate(linkno: number): Observable<any> {
-        return this.httpClient.get(environment.apiUrl + "msisdn_recycle_list_analyze/clear/" + linkno).pipe(catchError(this.handleError));
+        return this.httpClient.get(environment.apiUrl + "msisdn_recycle_list/clear/" + (this.isForAnalyze ? "analyze/" : "generate/")+linkno).pipe(catchError(this.handleError));
     }
 
     handleError(error: HttpErrorResponse) {
@@ -75,6 +75,9 @@ export class GenerateComponent implements OnInit {
                 this.genenable = true;
                 this.genalert = "Deletion Fail";
             } else {
+                alert("Record Deleted");
+                
+                
                 this.loadList()
             }
         }), err => {
