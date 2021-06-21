@@ -25,7 +25,7 @@
                 <td>{{item.msisdnCount}}</td>
                 <td>
                     <a download="" href="{{environment.apiUrl + 'msisdn_recycle_list/download/' + item.csvFilePath}}" class="mx-sm-3" role="button">Download</a>
-                    <a href="#" (click)="clear(item.id);$event.preventDefault();" role="button">Clear</a>
+                    <a *ngIf="isForAnalyze" href="#" (click)="clear(item.id);$event.preventDefault();" role="button">Clear</a>
                 </td>
             </tr>
             </tbody>
