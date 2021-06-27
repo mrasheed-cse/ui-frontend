@@ -2,23 +2,25 @@ import { Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 
 import { LoginService } from '../../views/pages/LoginService';
 import { LoggedInUser } from '../../views/pages/loggedInUser'; 
+
 // Import navigation elements
 import { navigation, navigation_grpID_Sourcing, navigation_grpID_CNP,navigation_grpID_VDSO,navigation_grpID_BSS_Planning, navigation_blankdata, navigation_grpID_Wipro_Billing, navigation_grpID_RAFM, navigation_grpID_Wipro_CIM, navigation_grpID_Wipro_OSS 
   , navigation_grpID_SSM, navigation_grpID_CLC,navigation_grpID_GENERAL, navigation_grpID_ADMIN
 } from './../../_nav';
 import { AppGlobals } from './../../app.global';
+
 @Component({
   selector: 'app-sidebar-nav',
   template: `
     <nav class="sidebar-nav-cst">
       <ul class="nav">
-        <li class="nav-item"><a class="navbar-brand navbar-brand-cst"></a></li>
+        <li class="nav-item" ><a class="navbar-brand navbar-brand-cst"></a></li>
         <ng-template ngFor let-navitem [ngForOf]="navigation">
-          <li *ngIf="isDivider(navitem)" class="nav-divider"></li>
-          <ng-template [ngIf]="isTitle(navitem)">
+          <li *ngIf="isDivider(navitem)" class="nav-divider" ></li>
+          <ng-template [ngIf]="isTitle(navitem)" style="Padding: 14px 12px">
             <app-sidebar-nav-title [title]='navitem'></app-sidebar-nav-title>
           </ng-template>
-          <ng-template [ngIf]="!isDivider(navitem)&&!isTitle(navitem)">
+          <ng-template [ngIf]="!isDivider(navitem)&&!isTitle(navitem)" style="Padding: 14px 12px">
             <app-sidebar-nav-item [item]='navitem'></app-sidebar-nav-item>
           </ng-template>
         </ng-template>
@@ -32,29 +34,34 @@ export class AppSidebarNavComponent {
   public navigation2 = navigation;  
   public navigation = null;
   currentLoggedInUser: LoggedInUser;	
+ 
+
+  groupIDs : Array<number>;
   groupID: number;
-  
-  	constructor(private loginService: LoginService, private _global: AppGlobals) { 
+  constructor(private loginService: LoginService, private _global: AppGlobals) { 
 	
   this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
   
   if (this.currentLoggedInUser) {		
-		this.groupID = this.currentLoggedInUser.groupID;
-    console.log('Current user groupID : ' + this.groupID);
+		this.groupIDs = this.currentLoggedInUser.groupIDs;
+    console.log('Current user groupID : ' + this.groupIDs);
     
-  this.loginService.LoadMenu(this.groupID).subscribe(
-    data => {
-      
-      if(data !=null){
-        this.navigation = data;
-      }
-      else{
-        
-      }
-    },
-  err => console.error(err),
-  () => console.log('Done loading menu')
-  );
+      this.loginService.LoadMenu(this.groupIDs).subscribe(
+        data => {
+          
+          if(data !=null){
+            this.navigation = data;
+            
+          }
+          else{
+            
+          }
+        },
+      err => console.error(err),
+      () => console.log('Done loading menu')
+      );
+    
+  
 }
   console.log("this.navigation");
   console.log(this.navigation);

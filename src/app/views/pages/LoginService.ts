@@ -35,7 +35,9 @@ export class LoginService {
 			userID: "",
 			userName: "",
 			groupName: "",
-			groupID: 0
+			groupID: 0,
+			groupNames: null,
+			groupIDs: null
 		};
 
 		this.userStr = "";
@@ -86,6 +88,7 @@ export class LoginService {
 	GetCurrentLoggedInUser() {
 		this.userStr = localStorage.getItem('currentLoggedInUser');
 		try {
+			console.log(JSON.parse(this.userStr));
 			return JSON.parse(this.userStr);
 		} catch (ex) {
 			return null; // or do some other error handling
@@ -101,12 +104,23 @@ export class LoginService {
 		this.router.navigate(['pages/login']);
 	}
 
-	LoadMenu(usersGroupId: number): any {
-		console.log("Fetching menu for userGroupID: "+usersGroupId+  " from the API : "+this.serverUrl + 'LoadFullMmenu' );
+	LoadMenu(usersGroupIds: any): any {
+		console.log("Fetching menu for userGroupIDs: "+JSON.stringify(usersGroupIds)+"  from the API : "+this.serverUrl + 'LoadFullMmenu' );
 		return this.http.post(this.serverUrl + 'LoadFullMmenu',{
-			userGroupID: usersGroupId
+			//userGroupIDs:JSON.stringify(usersGroupIds),
+			usersGroupIds:usersGroupIds
 		});
 	}
+
+
+	AuthenticatePageAccess(link: string, usersGroupIds: any): any {
+		console.log("Authentication current user for link: "+link+"  from the API : "+this.serverUrl + 'AuthenticatePageAccess' );
+		return this.http.post(this.serverUrl + 'AuthenticatePageAccess',{
+			link:link,
+			usersGroupIds:usersGroupIds
+		});
+	}
+	
 
 
 }
