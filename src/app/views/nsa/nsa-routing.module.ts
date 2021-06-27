@@ -105,7 +105,10 @@ import { TestSimTransferComponent } from './isms-reports/test-sim-transfer.compo
 import { LostdamagedetailsdeliveryComponent } from './lostdamagedetailsdelivery/lostdamagedetailsdelivery.component';
 import { LostdamagenewsimconnectionComponent } from './lostdamagenewsimconnection/lostdamagenewsimconnection.component';
 
+import {AuthGuard} from './services/AuthGuard.service';
+
 const routes: Routes = [
+	
   {
     path: '',
     component: LandingpageComponent,
@@ -118,98 +121,111 @@ const routes: Routes = [
     component: DiscreteprovisionComponent,
     data: {
       title: 'Discreteprovision'
-    }
+    },
+    canActivate: [AuthGuard]
   },
   {
     path: 'discprovisionform',
     component: DiscreteprovisionformComponent,
     data: {
       title: 'Discreteprovision form'
-    }
+    },
+    canActivate: [AuthGuard]
   },
   {
     path: 'discprovisiondetail/:wr_BriefName/:wr_BriefId/:hopSequence',
     component: DiscreteprovisiondetailsComponent,
     data: {
       title: 'Discreteprovision details'
-    }
+    },
+    canActivate: [AuthGuard]
   },
   {
     path: 'nsareport',
     component: NsareportComponent,
     data: {
       title: 'Report Module'
-    }
+    },
+    canActivate: [AuthGuard]
   },
   {
     path: 'sdpmigration',
     component: SdpmigrationComponent,
     data: {
       title: 'Sdp Migration'
-    }
+    },
+    canActivate: [AuthGuard]
   },
   {
     path: 'seriesdefinition',
     component: SeriesDefinitionComponent,
     data: {
       title: 'Series Definition'
-    }
+    },
+    canActivate: [AuthGuard]
   },
   {
     path: 'seriesdefintionform',
     component: SeriesDefinitionFormComponent,
     data: {
       title: 'Series Definition Form'
-    }
+    },
+    canActivate: [AuthGuard]
   },
   {
     path: 'seriesdefinitiondetail/:wr_BriefName/:wr_BriefId/:hopSequence',
     component: SeriesDefinitionDetailsComponent,
     data: {
       title: 'Series Definition Workflow'
-    }
+    },
+    canActivate: [AuthGuard]
   },
   {
     path: 'deprovision',
     component: DeProvisionComponent,
     data: {
       title: 'De-Provision'
-    }
+    },canActivate: [AuthGuard]
   },
   {
     path: 'deprovisionform',
     component: DeProvisionFormComponent,
     data: {
       title: 'De-Provision Form'
-    }
+    },
+    canActivate: [AuthGuard]
   },
   {
     path: 'deprovisiondetail/:wr_BriefName/:wr_BriefId/:hopSequence',
     component: DeProvisionDetailsComponent,
     data: {
       title: 'De-Provision Workflow'
-    }
+    },
+    canActivate: [AuthGuard]
   },
   {
     path: 'reprovision',
     component: ReProvisionComponent,
     data: {
       title: 'Re-Provision'
-    }
+    },
+    canActivate: [AuthGuard]
   },
   {
     path: 'reprovisionform',
     component: ReProvisionFormComponent,
     data: {
       title: 'Re-Provision Form'
-    }
+    },
+    canActivate: [AuthGuard]
   },
   {
     path: 'reprovisionsearch',
     component: ReprovisionsearchComponent,
     data: {
       title: 'Re-Provision Search Form'
-    }
+    },
+    canActivate: [AuthGuard]
   },
 
   {
@@ -217,7 +233,8 @@ const routes: Routes = [
     component: ReProvisionDetailsComponent,
     data: {
       title: 'Re-Provision Workflow'
-    }
+    },
+    canActivate: [AuthGuard]
   },
 
 
@@ -256,49 +273,56 @@ const routes: Routes = [
     component: SeriesprovisionComponent,
     data: {
       title: 'Series Provision'
-    }
+    },
+    canActivate: [AuthGuard]
   },
   {
     path: 'seriesprovisionform',
     component: SeriesprovisionformComponent,
     data: {
       title: 'Series Provision Form'
-    }
+    },
+    canActivate: [AuthGuard]
   },
   {
     path: 'seriesprovisiondetail/:wr_BriefName/:wr_BriefId/:hopSequence',
     component: SeriesprovisiondetailComponent,
     data: {
       title: 'Series Provision Workflow'
-    }
+    },
+    canActivate: [AuthGuard]
   },
   {
     path: 'discreteprovision',
     component: DiscreteprovisionComponent,
     data: {
       title: 'Discrete Provision'
-    }
+    },
+    canActivate: [AuthGuard]
   },
   {
     path: 'apn',
     component: ApnComponent,
     data: {
       title: 'APN'
-    }
+    },
+    canActivate: [AuthGuard]
   },
   {
     path: 'apnform',
     component: ApnformComponent,
     data: {
       title: 'Apn Form'
-    }
+    },
+    canActivate: [AuthGuard]
   },
   {
     path: 'apndetails/:wr_BriefName/:wr_BriefId/:hopSequence',
     component: ApndetailsComponent,
     data: {
       title: 'APN Creation Workflow'
-    }
+    },
+    canActivate: [AuthGuard]
   },
   {
     path: 'masterdatamgmt',
@@ -827,11 +851,15 @@ const routes: Routes = [
     data: {
       title: 'Test SIM transfer - operational history'
     }
-  },  
+  }, 
+  /* {path: '**', redirectTo: '/mnpreprovision'}, 
+  ** should be the last route in the list */
+  {path: '**', redirectTo: '/pages/404'}, 
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [AuthGuard]
 })
 export class NsaRoutingModule { }
