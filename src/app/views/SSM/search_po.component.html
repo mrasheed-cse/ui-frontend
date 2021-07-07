@@ -1,0 +1,50 @@
+<div class="row">
+
+    <div class="col-md-12">
+      
+      <div class="card" style="border:0px !important;background:transparent !important">
+      </div>
+      <div class="card">
+      <div class="card-header">
+            <i class="fa fa-align-justify"></i> PO Information
+          </div>
+          <div class="card-body">
+            <div class="row mt-5 form-inline ">
+                <div class="form-group mx-sm-3">
+                 
+                    <input type="text" placeholder="PO Number" [(ngModel)]="PoNumber">
+                     <label style="font-size:0.8em;width:80px;height:15px;margin-left: 20px;border-style: double;background-color: #0F3869;color: white
+                     " (click) ="search()" >Find</label>
+ 					<label style="margin-left: 800px;"> <button >Download</button> </label>
+                </div>
+             
+              <ag-grid-angular 
+            #agGrid
+            style="width: 100%; height: 450px;"
+            id="myGrid"
+            class="ag-theme-balham"          
+            [floatingFilter]="true"
+            [columnTypes]="columnTypes"
+            [columnDefs]="columnDefs"
+            [rowData]="rowData"
+            rowSelection="multiple"
+            (gridReady)="onGridReady($event)"
+            >
+          </ag-grid-angular>
+
+         
+  
+          <br /><br />
+             
+  
+
+          </div>
+          <div class="card-body" >
+            <div class="alert alert-primary" role="alert" ><b>System found no data</b></div>
+          </div>
+     	 </div>
+  </div>
+    </div>
+  
+  </div>
+  

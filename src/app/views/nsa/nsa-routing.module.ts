@@ -104,7 +104,7 @@ import { LostSimComponent } from './isms-reports/lost-sim.component';
 import { TestSimTransferComponent } from './isms-reports/test-sim-transfer.component';
 import { LostdamagedetailsdeliveryComponent } from './lostdamagedetailsdelivery/lostdamagedetailsdelivery.component';
 import { LostdamagenewsimconnectionComponent } from './lostdamagenewsimconnection/lostdamagenewsimconnection.component';
-
+import { SearchPO } from '../SSM/search_po.component';
 const routes: Routes = [
   {
     path: '',
@@ -828,6 +828,14 @@ const routes: Routes = [
       title: 'Test SIM transfer - operational history'
     }
   },  
+  {
+        path: 'poInformation',
+        component: SearchPO,
+        data: {
+            title: 'PO Information'
+        }
+    },
+
 ];
 
 @NgModule({
