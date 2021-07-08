@@ -96,6 +96,17 @@ export class LoginService {
 
 	}
 
+	UpdateCurrentLoggedInUserUserGroup(userGroupId: number, userGroupName: string) {
+		console.log('updating usergroup to '+userGroupName);
+		this.userStr = localStorage.getItem('currentLoggedInUser');
+		this.currentLoggedInUser=JSON.parse(this.userStr);
+		
+		this.currentLoggedInUser.groupID=userGroupId;
+		this.currentLoggedInUser.groupName=userGroupName;		
+		console.log(this.currentLoggedInUser);
+        localStorage.setItem('currentLoggedInUser', JSON.stringify(this.currentLoggedInUser));
+        
+	}
 
 	LogOut() {
 
