@@ -23,23 +23,17 @@ import{SSMService } from './SSM.service';
 })
 export class SearchPO implements OnInit {
 	
-  @ViewChild('agGrid') agGrid: AgGridAngular;
-
-  private gridApi;
-  private gridColumnApi;
-  private columnDefs;
-  private defaultColDef;
-  private defaultColGroupDef;
-  private columnTypes;
+ 
   private rowData: any[];
   private offset: number;
+  private rawDataFromBackend : any[];
 		  	currentLoggedInUser: LoggedInUser;
 			userName: string;
 			groupID: number;
   			userID: string;
  			todayDate: Date;
 			routerUrlAndParams: string;
-  			isDataFound: boolean = true;
+  			isDataFound: boolean ;
   			isDataFoundOther: boolean = true;
 			PoNumber: string;
 	constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private ssmService: SSMService ) {
@@ -49,46 +43,51 @@ export class SearchPO implements OnInit {
       this.userName = this.currentLoggedInUser.userName
       this.groupID = this.currentLoggedInUser.groupID
       this.userID = this.currentLoggedInUser.userID
+      this.isDataFound = true;
     }
     else {
       this.router.navigate(['pages/login']);
     }
 
-    this.columnDefs = _global.agGrid_defaultColDef;
-    this.columnTypes = _global.agGrid_columnTypes;
-
-    this.columnDefs = [
-        {headerName: 'PO Date', field: 'date',  width: 130,type:  "nonEditableColumn" },
-        {headerName: 'PO Number', field: 'poNo', width: 150, type: "nonEditableColumn" },
-        {headerName: 'Item Number', field: 'itemNo', width: 150,type: "nonEditableColumn" },
-        {headerName: 'Item Description', field: 'itemDescription', width: 200,type: "nonEditableColumn" },
-        {headerName: 'PO Expire Date', field: 'expireDateAsString', width: 130, type:  "nonEditableColumn" },
-        {headerName: 'Total Quantity', field: 'quantity', width: 130,type: "nonEditableColumn" },
-        {headerName: 'Vendor Name', field: 'vendorName',width: 200,type: "nonEditableColumn" },
-        {headerName: 'Unit Price', field: 'unitPrice', width: 100, type: "nonEditableColumn" }, 
-        {headerName: 'Amount(BDT)', field: 'amount', width: 100, type: "nonEditableColumn" },
-    ];
-
+   
     this.rowData = [];    
 
 		
     }//Cons End
     
-    onGridReady(params) {
-    this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-
-    
-  }
+   
   
 search(){
+	this.isDataFound = true;
+	// window.location.reload()
 	console.log("Po"+this.PoNumber)
 	this.ssmService.getPoInformation(this.PoNumber).subscribe(
 		 data => {
-          if(data !=null){            
-            console.log(data);
-            this.rowData = data;
-            //this.isLoading = false;
+			 this.rawDataFromBackend = data;
+          if(data !=null){         
+	console.log("DATA= ",data)   
+           this.isDataFound = true;
+          this.rawDataFromBackend=data;
+          if(this.PoNumber==this.rawDataFromBackend['id']){
+           var objToInsert = {};
+                  objToInsert['poDate'] = this.rawDataFromBackend['poDate'];
+                  objToInsert['id'] = this.rawDataFromBackend['id'];
+                  objToInsert['itemNumber'] = this.rawDataFromBackend['itemNumber'];
+                  objToInsert['itemDescription'] = this.rawDataFromBackend['itemDescription'];
+                  objToInsert['poExpireDate'] = this.rawDataFromBackend['poExpireDate'];
+                  objToInsert['totalQuantity'] = this.rawDataFromBackend['totalQuantity'];
+                   objToInsert['supplier'] = this.rawDataFromBackend['supplier'];
+                  objToInsert['price'] = this.rawDataFromBackend['price'];
+                  objToInsert['amount'] = this.rawDataFromBackend['amount'];
+          
+          
+	       this.rowData.push(objToInsert);
+	       
+          }
+          else{
+					 this.isDataFound = false; this.isDataFound = false;
+					
+			}
           }
           else{
             this.isDataFound = false;
@@ -96,11 +95,7 @@ search(){
           }
         },
       err => console.error(err),
-      () =>{
-	alert("No data Found");
-         console.log('Done loading PendingTask List');
-      }
-	);
+     	);
 }
 
  
