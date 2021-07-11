@@ -21,10 +21,9 @@ export class SSMService {
 	
 	
 	getPoInformation(poNumber:string): any{
-		console.log("Hello");
-	//	return this.http.post(this.serverUrl + 'poInformation/poData', {
-	//		Po_number:poNumber
-		//});
+		console.log("Ponumber- "+poNumber);
+	return this.http.post(this.serverUrl + 'poInformation/search/', {
+			poNumber:poNumber});
 	}
 	
 	
