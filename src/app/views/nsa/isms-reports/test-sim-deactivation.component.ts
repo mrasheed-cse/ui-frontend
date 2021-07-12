@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import {ReactiveFormsModule, FormsModule, FormGroup, FormControl, Validators} from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { IsmsreportService } from './../services/Ismsreport.service';
+import { IsmsreportService } from './../services/ismsreport.service';
 import { WorkflowsService } from './../services/workflows.service';
 import { AppGlobals } from './../../../app.global';
 import { Router,ActivatedRoute } from '@angular/router';
