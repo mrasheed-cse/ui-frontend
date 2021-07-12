@@ -4,8 +4,8 @@ import {RecycleCandidateMsisdn} from '../nsa/recycleCandidateMsisdn';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {ActivatedRoute} from '@angular/router';
-import {Observable} from 'rxJS/Observable';
-import {catchError,} from 'rxJs/operators';
+import {Observable} from 'rxjs/Observable';
+import {catchError,} from 'rxjs/operators';
 import {_throw} from 'rxjs/observable/throw';
 import {GeneratedInPage} from "../nsa/models/recycle/GeneratedInPage";
 
