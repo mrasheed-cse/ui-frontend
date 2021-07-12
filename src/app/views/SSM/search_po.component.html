@@ -13,9 +13,9 @@
                 <div class="form-group mx-sm-3">
                  
                     <input type="text" placeholder="PO Number" [(ngModel)]="PoNumber">
-                     <label style="font-size:0.8em;width:80px;height:15px;margin-left: 20px;border-style: double;background-color: #0F3869;color: white
+                     <label style="font-size:0.8em;width:80px;height:40px;margin-left: 20px;border-style: double;background-color: #0F3869;color: white
                      " (click) ="search()" >Find</label>
- 					<label style="margin-left: 800px;"> <button >Download</button> </label>
+ 					<label style="margin-left: 800px;" (click) ="download()" > <button >Download</button> </label>
                 </div>
              <div class="card-body" *ngIf="isDataFound">
               <table class="table table-bordered table-striped table-sm">
