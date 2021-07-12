@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { DefinitionDataService } from './services/definitiondata.service';
-import { IsmsworkflowsService } from './services/Ismsworkflows.service';
+import { IsmsworkflowsService } from './services/ismsworkflows.service';
 import { WorkflowsService } from './services/workflows.service';
 
 import 'rxjs/add/operator/map';
