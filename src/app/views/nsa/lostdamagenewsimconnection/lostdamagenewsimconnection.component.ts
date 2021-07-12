@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
   import {Router, ActivatedRoute} from '@angular/router';
-  import {IsmsworkflowsService } from './../services/Ismsworkflows.service';
+  import {IsmsworkflowsService } from './../services/ismsworkflows.service';
   import { WorkflowsService } from './../services/workflows.service';
   
   import 'rxjs/add/operator/map';

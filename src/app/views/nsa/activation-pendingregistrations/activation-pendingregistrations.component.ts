@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { WorkflowsService } from './../services/workflows.service';
-import { IsmsworkflowsService } from '../services/Ismsworkflows.service';
+import { IsmsworkflowsService } from '../services/ismsworkflows.service';
 import { AppGlobals } from './../../../app.global';
 import { Router } from '@angular/router';
 

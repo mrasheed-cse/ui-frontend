@@ -3,7 +3,7 @@ import { AppGlobals } from './../../../app.global';
 import { Router,ActivatedRoute, Params } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { DefinitionDataService } from '../services/definitiondata.service';
-import { IsmsworkflowsService } from '../services/Ismsworkflows.service';
+import { IsmsworkflowsService } from '../services/ismsworkflows.service';
 
 import { LoginService } from '../../pages/LoginService';
 import { LoggedInUser } from '../../pages/loggedInUser';
