@@ -105,6 +105,7 @@ import { TestSimTransferComponent } from './isms-reports/test-sim-transfer.compo
 import { LostdamagedetailsdeliveryComponent } from './lostdamagedetailsdelivery/lostdamagedetailsdelivery.component';
 import { LostdamagenewsimconnectionComponent } from './lostdamagenewsimconnection/lostdamagenewsimconnection.component';
 import { SearchPO } from '../SSM/search_po.component';
+import { InputFileProcessing } from '../SSM/inputfileprocessing.component';
 const routes: Routes = [
   {
     path: '',
@@ -833,6 +834,13 @@ const routes: Routes = [
         component: SearchPO,
         data: {
             title: 'PO Information'
+        }
+    },
+    {
+        path: 'inputFileprocessing',
+        component: InputFileProcessing,
+        data: {
+            title: 'InputFileProcessing'
         }
     },
 
