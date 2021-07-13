@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../../environments/environment.prod';
 import { Router } from '@angular/router';
@@ -12,6 +12,8 @@ import 'rxjs/add/observable/of';
 import { AppGlobals } from './../../app.global';
 @Injectable()
 export class SSMService {
+
+
 
 	serverUrl: string;
 	
@@ -27,5 +29,10 @@ export class SSMService {
 	}
 	
 	
+  downloadCSV(fileNameToDownload: string){
+	  console.log(fileNameToDownload);
+	  
+        return this.http.post(this.serverUrl +"poInformation/download/",{fileName:fileNameToDownload});
+    }
 	
 	}

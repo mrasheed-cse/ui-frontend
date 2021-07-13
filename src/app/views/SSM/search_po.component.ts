@@ -43,7 +43,7 @@ export class SearchPO implements OnInit {
       this.userName = this.currentLoggedInUser.userName
       this.groupID = this.currentLoggedInUser.groupID
       this.userID = this.currentLoggedInUser.userID
-      this.isDataFound = true;
+      this.isDataFound = false;
     }
     else {
       this.router.navigate(['pages/login']);
@@ -97,7 +97,19 @@ search(){
       err => console.error(err),
      	);
 }
-download(){}
+download(){
+	var nameOfFileToDownload="Purchase Order_"+this.PoNumber+".csv";
+		var  result =this.ssmService.downloadCSV(nameOfFileToDownload);
+	
+		result.subscribe(
+				data => {alert("File Downloaded")
+					},
+					err => {
+						alert("Server error while downloading file.");
+					}
+				);
+	
+}
 
  
 

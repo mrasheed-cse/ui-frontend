@@ -127,6 +127,7 @@ import { TestSimTransferComponent } from './isms-reports/test-sim-transfer.compo
 import { LostdamagedetailsdeliveryComponent } from './lostdamagedetailsdelivery/lostdamagedetailsdelivery.component';
 import { LostdamagenewsimconnectionComponent } from './lostdamagenewsimconnection/lostdamagenewsimconnection.component';
 import { SearchPO } from '../SSM/search_po.component';
+import { InputFileProcessing } from '../SSM/inputfileprocessing.component'
 @NgModule({
   imports: [
     CommonModule,
@@ -236,7 +237,8 @@ import { SearchPO } from '../SSM/search_po.component';
     TestSimActionListDeactivateComponent,
     LostdamagedetailsdeliveryComponent,
     LostdamagenewsimconnectionComponent,
-    SearchPO
+    SearchPO,
+    InputFileProcessing
   ]
 })
 export class NsaModule { }
