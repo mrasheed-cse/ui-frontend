@@ -1,0 +1,24 @@
+<div class="recycle">
+    <h5>Grameenphone</h5>
+    <div class="dnd-bar">
+        <p style="color: #990000; margin-left: 10px; font-weight: bold;" *ngIf="fileerror">{{fileuploadstatus}}</p>
+        <p style="color: #005500; margin-left: 10px; font-weight: bold;" *ngIf="filesuccess">{{fileuploadstatus}}</p>
+    </div>
+    <p style="font-size: 20px; font-family: sans-serif;">MSISDN Recycle</p>
+    <div class="recycle-bar"></div>
+    <div id="recycle-download" class="recycle-download" style="border-radius: 10px 10px 0 0">
+        <i class="fa fa-chevron-circle-right" aria-expanded="true" aria-controls="collapseOne" style="font-size:20px; color:#1b91c1; margin-left: 2px" aria-hidden="true"></i>
+        Upload Global/Local DND List
+        <div id="collapseOne" style="background-color: white;" aria-labelledby="headingOne" data-parent="#recycle-download">
+            <div class="card-body">
+                <sub>Please Select the File:</sub>
+                <button class="btn btn-secondary btn-sm" onclick="document.getElementById('getFile').click()">Browse ...</button>
+                <input #fileInput type='file' id="getFile" (click)="fileInput.value = null" accept=".csv" style="position: fixed; left: -200px; top: -200px;" (change)="handleFileInput($event.target.files)">
+                <br>
+                <button *ngIf="fileName && !uploading" type="button" class="btn btn-info btn-sm" style="border-radius: 10px; color: white" (click)="dndUpload()">
+                    Click Here To Upload <span style="color: yellow; text-decoration: underline;">{{fileName}}</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

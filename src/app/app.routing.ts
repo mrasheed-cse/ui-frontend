@@ -13,6 +13,7 @@ export const routes: Routes = [
     redirectTo: 'pages',
     pathMatch: 'full',
   },
+
   {
     path: '',
     component: FullLayoutComponent,
