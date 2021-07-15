@@ -22,7 +22,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { DataTableModule } from 'angular4-smart-table';
 
-
 // Import containers
 import {
   FullLayoutComponent,
@@ -33,6 +32,7 @@ const APP_CONTAINERS = [
   FullLayoutComponent,
   SimpleLayoutComponent
 ]
+import {MsisdnService} from '../app/views/nsa/msisdn.service';
 
 // Import components
 import {
@@ -86,6 +86,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 
+
 //import { NgxGaugeModule } from 'ngx-gauge';
 
 
@@ -114,8 +115,9 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
     ...APP_CONTAINERS,
     ...APP_COMPONENTS,
     ...APP_DIRECTIVES
+  
   ],
-  providers: [{
+  providers: [MsisdnService,{
     provide: LocationStrategy,
     useClass: HashLocationStrategy
   }],
