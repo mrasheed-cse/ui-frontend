@@ -126,6 +126,8 @@ import { TestSimTransferComponent } from './isms-reports/test-sim-transfer.compo
 import { LostdamagedetailsdeliveryComponent } from './lostdamagedetailsdelivery/lostdamagedetailsdelivery.component';
 import { LostdamagenewsimconnectionComponent } from './lostdamagenewsimconnection/lostdamagenewsimconnection.component';
 
+import {LoginService} from '../pages/LoginService';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -239,6 +241,5 @@ import { LostdamagenewsimconnectionComponent } from './lostdamagenewsimconnectio
     GenerateanalyzeComponent,
     GenerateComponent
   ],
-  providers:[DatePipe]
-})
+  providers:[DatePipe, LoginService]})
 export class NsaModule { }
