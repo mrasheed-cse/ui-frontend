@@ -1,0 +1,65 @@
+<div class="row">
+
+    <div class="col-md-12">
+      
+      <div class="card" style="border:0px !important;background:transparent !important">
+      </div>
+      <div class="card">
+      <div class="card-header">
+            <i class="fa fa-align-justify"></i>Input File
+          </div>
+          <div class="card-body">
+            <div class="row mt-5 form-inline ">
+                <div class="form-group mx-sm-3">
+                    <input type="text" placeholder="PO Number" [(ngModel)]="PoNumber">
+                     <label style="font-size:0.8em;width:80px;height:30px;margin-left: 20px;border-style: double;background-color: #0F3869;color: white
+                     " (click) ="search()" >Find</label>
+                </div>
+                </div>
+             <div class="card-body" *ngIf="isDataFound">
+              <i class="fa fa-align-justify"></i> > PO Details
+              <table class="table table-bordered table-striped table-sm">
+                <thead>
+                  <tr>
+                    <th>PO Number</th>
+                    <th>Available Quantity</th>
+                    <th>Vendor Name</th>
+                     <th>PO Expire Date</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let aTask of rowData ">
+                            <tr>
+                               <td>{{aTask.id}}</td>
+                                <td>{{aTask.availableQuantity}}</td>
+                                <td>{{aTask.supplier}}</td>
+                                <td>{{aTask.poExpireDate}}</td>
+                            </tr>
+                </tbody>
+              </table>
+              
+            </div>
+            
+             <div class="card-header" *ngIf="isDataFound">
+            <div style="padding-bottom: 4px;">
+              <label> <b>Input File </b></label>
+                <label style="font-size:0.8em;width:60px;height:30px;margin-left: 20px;border-style: double;background-color: #0F3869;color: white
+                     "  >Generate</label>
+              <label style="float:right"> <button >Finalize & Download</button> </label>
+            </div>
+            </div>
+             <div class="card-body"  *ngIf="!isDataFound" >
+           <form [formGroup]="InputFile" novalidate (ngSubmit)="onSubmit()">
+           </form>
+             </div>
+            
+            
+            
+          <div class="card-body"  *ngIf="!isDataFound" >
+            <div class="alert alert-primary" role="alert" ><b>System found no data</b></div>
+          </div>
+     	 </div>
+  </div>
+    </div>
+  
+  </div>
+  
