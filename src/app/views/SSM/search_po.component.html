@@ -14,8 +14,8 @@
                     <input type="text" placeholder="PO Number" [(ngModel)]="PoNumber">
                      <label style="font-size:0.8em;width:80px;height:40px;margin-left: 20px;border-style: double;background-color: #0F3869;color: white
                      " (click) ="search()" >Find</label>
- 					<label style="margin-left: 800px;"  *ngIf="isDataFound" (click) ="download()" >
- 					 <button >Download</button> </label>
+                     
+                     
                 </div>
              <div class="card-body" *ngIf="isDataFound">
               <table class="table table-bordered table-striped table-sm">
@@ -44,8 +44,10 @@
                                 <td>{{aTask.price}}</td>
                                 <td> {{aTask.amount}} </td>
                             </tr>
+                            <a download="" href="{{ 'http://localhost:4211/poInformation/download/' + aTask.id}}" class="mx-sm-3" role="button">Download</a>
                 </tbody>
               </table>
+              
             </div>
           </div>
           <div class="card-body"  *ngIf="!isDataFound" >

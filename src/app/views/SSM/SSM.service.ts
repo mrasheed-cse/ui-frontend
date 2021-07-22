@@ -29,10 +29,4 @@ export class SSMService {
 	}
 	
 	
-  downloadCSV(fileNameToDownload: string){
-	  console.log(fileNameToDownload);
-	  
-        return this.http.post(this.serverUrl +"poInformation/download/",{fileName:fileNameToDownload});
-    }
-	
 	}
