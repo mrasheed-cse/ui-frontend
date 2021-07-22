@@ -97,19 +97,8 @@ search(){
       err => console.error(err),
      	);
 }
-download(){
-	var nameOfFileToDownload="Purchase Order_"+this.PoNumber+".csv";
-		var  result =this.ssmService.downloadCSV(nameOfFileToDownload);
-	
-		result.subscribe(
-				data => {alert("File Downloaded")
-					},
-					err => {
-						alert("Server error while downloading file.");
-					}
-				);
-	
-}
+
+
 
  
 
