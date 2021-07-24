@@ -19,6 +19,7 @@ import{SSMService } from './SSM.service';
 @Component({
     selector: 'app-searchPO',
     templateUrl: './inputfileprocessing.component.html',
+      styleUrls: ['./search_po.component.scss'],
       providers: [AppGlobals,LoginService,SSMService],
 })
 export class InputFileProcessing implements OnInit {
@@ -90,7 +91,7 @@ search(){
      	);
 }
 
-onSubmit();
+onSubmit(){};
 	
 	ngOnInit() { 
    
