@@ -46,14 +46,49 @@
                      "  >Generate</label>
               <label style="float:right"> <button >Finalize & Download</button> </label>
             </div>
+            
+               <form [formGroup]="InputFile" novalidate (ngSubmit)="onSubmit()">
+           
+           <div style="padding-bottom: 4px;">
+           <span class="firstLabel"> IMSI TYPE
+           <select id="wgtmsr">
+                                                                        <option></option>
+
+                                                                </select>         
+                                                               </span>
+		<span class="secondLabel"> Quantity
+		   <select id="wgtmsr">
+                                       <option></option>
+                                                                </select>  
+		</span>           
+           </div>
+           <div style="padding-bottom: 4px;">  
+           <span class="firstLabel">Artwork 
+            <select id="wgtmsr" >
+                                                                        <option></option>
+
+                                                                </select>         
+                                                                </span>
+		<span class="secondLabel"> STK
+		   <select id="wgtmsr">
+                                       <option></option>
+                                                                </select>  
+		</span>   
+           </div>
+           
+         			  <div>
+       			  <span class="firstLabel"> Vendor
+       					     <select id="wgtmsr" >
+                                                                        <option></option>
+
+                                                                </select>         
+                                                               </span>
+
+           </div>
+                    </form>
+           
+           
             </div>
-             <div class="card-body"  *ngIf="!isDataFound" >
-           <form [formGroup]="InputFile" novalidate (ngSubmit)="onSubmit()">
-           </form>
-             </div>
-            
-            
-            
           <div class="card-body"  *ngIf="!isDataFound" >
             <div class="alert alert-primary" role="alert" ><b>System found no data</b></div>
           </div>
