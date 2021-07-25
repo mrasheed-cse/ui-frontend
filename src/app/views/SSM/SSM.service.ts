@@ -28,5 +28,12 @@ export class SSMService {
 			poNumber:poNumber});
 	}
 	
+getImsiAndICCID(imsi:string,iccid:string)	{
+	return this.http.post(this.serverUrl + 'inputFileprocessing/getImsiData/', {
+			imsi:imsi,
+			iccid:iccid});
+	
+}
+	
 	
 	}

@@ -24,6 +24,7 @@ import{SSMService } from './SSM.service';
 })
 export class InputFileProcessing implements OnInit {
 	 private rowData: any[];
+	 private insertRowData: any[];
   private offset: number;
   private rawDataFromBackend : any[];
 		  	currentLoggedInUser: LoggedInUser;
@@ -33,8 +34,13 @@ export class InputFileProcessing implements OnInit {
  			todayDate: Date;
 			routerUrlAndParams: string;
   			isDataFound: boolean ;
-  			isDataFoundOther: boolean = true;
+  			isDataFoundOther: boolean ;
 			PoNumber: string;
+			ImsiType:string;
+			Quantity:string;
+			Artwork:string;
+			STK:string;
+			Vendor:string;
 			InputFile:FormGroup;
 	constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private ssmService: SSMService ) {
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
@@ -44,6 +50,7 @@ export class InputFileProcessing implements OnInit {
       this.groupID = this.currentLoggedInUser.groupID
       this.userID = this.currentLoggedInUser.userID
       this.isDataFound = false;
+      this.isDataFoundOther=false;
     }
     else {
       this.router.navigate(['pages/login']);
@@ -51,7 +58,7 @@ export class InputFileProcessing implements OnInit {
 
    
     this.rowData = [];    
-
+this.insertRowData=[];
 		
     }
 	
@@ -91,7 +98,32 @@ search(){
      	);
 }
 
-onSubmit(){};
+submit(){
+	if( parseInt(this.rawDataFromBackend['availableQuantity'])<parseInt(this.Quantity)){
+		  this.isDataFoundOther=false;
+		alert(" Entered should be less than AvailableQuantity")
+	}
+	else{
+		 this.isDataFoundOther=true;
+		  console.log("this.Artwork");
+		 console.log(this.Artwork);
+		  console.log(this.STK);
+		 var objToInsert = {};
+                  objToInsert['id'] = this.rawDataFromBackend['id'];
+                  objToInsert['description'] = this.rawDataFromBackend['itemDescription'];
+                  objToInsert['startImsi'] = this.ImsiType;
+                  objToInsert['endImsi'] = this.rawDataFromBackend['availableQuantity'];
+                   objToInsert['startIccid'] = this.rawDataFromBackend['id'];
+                  objToInsert['endIccid'] = this.rawDataFromBackend['itemDescription'];
+                  objToInsert['quantity'] = this.Quantity;
+                  objToInsert['stk'] = this.STK;
+                  objToInsert['artwork']=this.Artwork;
+                  this.insertRowData.push(objToInsert);
+		
+		
+	}
+	
+};
 	
 	ngOnInit() { 
    
