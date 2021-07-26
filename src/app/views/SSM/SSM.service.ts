@@ -28,14 +28,24 @@ export class SSMService {
 			poNumber:poNumber});
 	}
 	
-getImsiAndICCID(imsi:string):any	{
+getImsiAndICCID(imsi:string,quantity:string):any	{
 	return this.http.post(this.serverUrl + 'inputFileprocessing/getImsiData/', {
-			imsi:imsi});
+			imsi:imsi,quantity:quantity});
 	
 }
 	
-	saveData(poNumber:string,startImsi:string,quantity:string,startIccid:string,stk:string,artwork:string,vendor:string,ImsiType:string){
-		return this.http.post(this.serverUrl + 'inputFileprocessing/SaveData/', {});
+	saveData(poNumber:string,startImsi:string,quantity:string,startIccid:string,stk:string,artwork:string,vendor:string,ImsiType:string):any{
+		console.log("Postinh")
+		return this.http.post(this.serverUrl + 'inputFileprocessing/SaveData/', {
+			poNumber:poNumber,
+			startImsi:startImsi,
+			quantity:quantity,
+			startIccid:startIccid,
+			stk:stk,
+			artwork:artwork,
+			vendor:vendor,
+			ImsiType:ImsiType
+		});
 		
 	}
 	

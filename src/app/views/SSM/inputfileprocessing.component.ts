@@ -104,7 +104,7 @@ submit(){
 	if( parseInt(this.rawDataFromBackend['availableQuantity'])>=parseInt(this.Quantity)&&this.ImsiType!=null&&this.STK!=null&&this.Vendor!=null&&this.Artwork!=null){
 		 this.isDataFoundOther=true;
 		 console.log("1")
-			this.ssmService.getImsiAndICCID(this.ImsiType).subscribe(
+			this.ssmService.getImsiAndICCID(this.ImsiType,this.Quantity).subscribe(
 		 data => {
 			if(data !=null){ 
 				this.rawDataFromBackendImsi=data;
@@ -152,7 +152,16 @@ submit(){
 save(){if(this.isDataFoundOther){
 	console.log(this.FormGroup);
 	
-this.ssmService.saveData(this.FormGroup['poNumber'],this.FormGroup['startImsi'],this.FormGroup['quantity'],this.FormGroup['startIccid'],this.FormGroup['stk'],this.FormGroup['artwork'],this.FormGroup['vendor'],this.FormGroup['ImsiType']).subscribe();
+this.ssmService.saveData(this.FormGroup['poNumber'],this.FormGroup['startImsi'],this.FormGroup['quantity'],this.FormGroup['startIccid'],this.FormGroup['stk'],this.FormGroup['artwork'],this.FormGroup['vendor'],this.FormGroup['imsiType']).subscribe(
+	 data => {
+		if(data!=null)
+		alert("Data Saved")
+		console.log("Data Saved Sucessfully")
+		
+	},
+	err => console.error(err),
+	alert("Failed to save Data")
+);
 }
 	else{
 		
