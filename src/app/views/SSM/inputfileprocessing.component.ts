@@ -27,6 +27,7 @@ export class InputFileProcessing implements OnInit {
 	 private insertRowData: any[];
   private offset: number;
   private rawDataFromBackend : any[];
+  private rawDataFromBackendImsi : any[];
 		  	currentLoggedInUser: LoggedInUser;
 			userName: string;
 			groupID: number;
@@ -41,7 +42,7 @@ export class InputFileProcessing implements OnInit {
 			Artwork:string;
 			STK:string;
 			Vendor:string;
-			InputFile:FormGroup;
+			FormGroup:{};
 	constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private ssmService: SSMService ) {
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
 
@@ -65,7 +66,7 @@ this.insertRowData=[];
 	  
 search(){
 	this.isDataFound = true;
-	// window.location.reload()
+	  this.rowData = [];  
 	console.log("Po"+this.PoNumber)
 	this.ssmService.getPoInformation(this.PoNumber).subscribe(
 		 data => {
@@ -99,31 +100,67 @@ search(){
 }
 
 submit(){
-	if( parseInt(this.rawDataFromBackend['availableQuantity'])<parseInt(this.Quantity)){
-		  this.isDataFoundOther=false;
-		alert(" Entered should be less than AvailableQuantity")
-	}
-	else{
+	this.insertRowData=[];
+	if( parseInt(this.rawDataFromBackend['availableQuantity'])>=parseInt(this.Quantity)&&this.ImsiType!=null&&this.STK!=null&&this.Vendor!=null&&this.Artwork!=null){
 		 this.isDataFoundOther=true;
+		 console.log("1")
+			this.ssmService.getImsiAndICCID(this.ImsiType).subscribe(
+		 data => {
+			if(data !=null){ 
+				this.rawDataFromBackendImsi=data;
+		
 		  console.log("this.Artwork");
 		 console.log(this.Artwork);
 		  console.log(this.STK);
-		 var objToInsert = {};
-                  objToInsert['id'] = this.rawDataFromBackend['id'];
-                  objToInsert['description'] = this.rawDataFromBackend['itemDescription'];
-                  objToInsert['startImsi'] = this.ImsiType;
-                  objToInsert['endImsi'] = this.rawDataFromBackend['availableQuantity'];
-                   objToInsert['startIccid'] = this.rawDataFromBackend['id'];
-                  objToInsert['endIccid'] = this.rawDataFromBackend['itemDescription'];
-                  objToInsert['quantity'] = this.Quantity;
-                  objToInsert['stk'] = this.STK;
-                  objToInsert['artwork']=this.Artwork;
-                  this.insertRowData.push(objToInsert);
-		
+		 var objToInsert1 = {};
+                  objToInsert1['poNumber'] = this.rawDataFromBackend['id'];
+                  objToInsert1['description'] = this.rawDataFromBackend['itemDescription'];
+                  objToInsert1['startImsi'] = this.rawDataFromBackendImsi['startImsi'];
+                  objToInsert1['endImsi'] = this.rawDataFromBackendImsi['endImsi'];
+                   objToInsert1['startIccid'] = this.rawDataFromBackendImsi['startIccid'];
+                  objToInsert1['endIccid'] = this.rawDataFromBackendImsi['EndIccid'];
+                  objToInsert1['quantity'] = this.Quantity;
+                  objToInsert1['stk'] = this.STK;
+                  objToInsert1['artwork']=this.Artwork;
+                  objToInsert1['vendor']=this.Vendor;
+                  objToInsert1['imsiType']=this.ImsiType;
+                  this.FormGroup=objToInsert1;
+                  this.insertRowData.push(objToInsert1);
+                 
+                  }
+                  else{ console.log("4")
+						 this.isDataFoundOther=false;
+					  alert("No Data Found")
+	
+					}
+                  },
+		err => {console.error(err),
+		alert("No Data Found1"),console.log(err),
+      this.isDataFoundOther = false
+     	});
 		
 	}
+	else{  this.isDataFoundOther=false;
+		alert(" Please fill all the correct values ")
+	}
+	  
+    
 	
 };
+
+
+save(){if(this.isDataFoundOther){
+	console.log(this.FormGroup);
+	
+this.ssmService.saveData(this.FormGroup['poNumber'],this.FormGroup['startImsi'],this.FormGroup['quantity'],this.FormGroup['startIccid'],this.FormGroup['stk'],this.FormGroup['artwork'],this.FormGroup['vendor'],this.FormGroup['ImsiType']).subscribe();
+}
+	else{
+		
+		alert("Please Generate data before This Step")
+	}
+	
+	
+}
 	
 	ngOnInit() { 
    
