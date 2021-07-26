@@ -44,13 +44,13 @@
               <label> <b>Input File </b></label>
                 <label style="font-size:0.8em;width:60px;height:30px;margin-left: 20px;border-style: double;background-color: #0F3869;color: white
                      " (click) ="submit()" >Generate</label>
-              <label style="float:right"> <button >Finalize & Download</button> </label>
+              <label style="float:right" (click)="save()"> <button >Finalize & Download</button> </label>
             </div>
             
                           
            <div style="padding-bottom: 4px;">
            <span class="firstLabel"> IMSI TYPE
-           <select id="wgtmsr" [(ngModel)]="ImsiType" >
+           <select id="wgtmsr" [(ngModel)]="ImsiType" required >
            			
            			 <option value="000">000</option>														
                    	 <option value="001">001</option>
@@ -257,20 +257,20 @@
                                                                 </select>         
                                                                </span>
 		<span class="secondLabel"> Quantity
-		    <input id="wgtmsr"  type="text" placeholder="Quantity " [(ngModel)]="Quantity">
+		    <input id="wgtmsr"  type="text"  [(ngModel)]="Quantity" required>
 		</span>           
            </div>
            <div style="padding-bottom: 4px;">  
-           <span class="firstLabel" [(ngModel)]="Artwork">Artwork 
-            <select id="wgtmsr" >
+           <span class="firstLabel">Artwork 
+            <select id="wgtmsr"  [(ngModel)]="Artwork" required>
                                                                          <option value="Test ArtWork ">Artwork Test</option>
                                                                           <option value="Test ArtWork11 ">Artwork Tes11t</option>
                                                                 </select>  
 
                                                                          
                                                                 </span>
-		<span class="secondLabel"  [(ngModel)]="STK"> STK
-		   <select id="wgtmsr" >
+		<span class="secondLabel"> STK
+		   <select id="wgtmsr"   [(ngModel)]="STK" required >
                                        <option value="Test STK ">STK Test</option>
                                         <option value="Test STK11 ">STK Tes11t</option>
                                                                 </select>  
@@ -278,8 +278,8 @@
            </div>
            
          			  <div>
-       			  <span class="firstLabel" [(ngModel)]="Vendor"> Vendor
-       					     <select id="wgtmsr" >
+       			  <span class="firstLabel"> Vendor
+       					     <select id="wgtmsr"  [(ngModel)]="Vendor" required >
                                                                     <option value="Test Vendor ">Vendor Test</option>
 																	  <option value="Test Vendorww32 ">Vendor Test32</option>
                                                                 </select>         
@@ -304,7 +304,7 @@
                 </thead>
                 <tbody *ngFor="let bTask of insertRowData ">
                             <tr>
-                               <td>{{bTask.id}}</td>
+                               <td>{{bTask.poNumber}}</td>
                                 <td>{{bTask.description}}</td>
                                 <td>{{bTask.startImsi}}</td>
                                 <td>{{bTask.endImsi}}</td>
