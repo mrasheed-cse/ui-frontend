@@ -49,4 +49,8 @@ getImsiAndICCID(imsi:string,quantity:string):any	{
 		
 	}
 	
+	GetAllIMSI(): any {	
+		//console.log("In GetAllIMSI()"); 		
+		return this.http.get(this.serverUrl + 'IMSI_Group/');
+	}
 	}
