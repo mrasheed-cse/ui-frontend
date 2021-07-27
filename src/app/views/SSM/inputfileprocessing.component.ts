@@ -42,6 +42,7 @@ export class InputFileProcessing implements OnInit {
 			Artwork:string;
 			STK:string;
 			Vendor:string;
+			 public listIMSI = [];
 			FormGroup:{};
 	constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private ssmService: SSMService ) {
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
@@ -71,7 +72,8 @@ search(){
 	this.ssmService.getPoInformation(this.PoNumber).subscribe(
 		 data => {
 			 this.rawDataFromBackend = data;
-          if(data !=null){         
+          if(data !=null){
+	this.getImsi();         
 	console.log("DATA= ",data)   
            this.isDataFound = true;
           this.rawDataFromBackend=data;
@@ -103,7 +105,6 @@ submit(){
 	this.insertRowData=[];
 	if( parseInt(this.rawDataFromBackend['availableQuantity'])>=parseInt(this.Quantity)&&this.ImsiType!=null&&this.STK!=null&&this.Vendor!=null&&this.Artwork!=null){
 		 this.isDataFoundOther=true;
-		 console.log("1")
 			this.ssmService.getImsiAndICCID(this.ImsiType,this.Quantity).subscribe(
 		 data => {
 			if(data !=null){ 
@@ -170,6 +171,26 @@ this.ssmService.saveData(this.FormGroup['poNumber'],this.FormGroup['startImsi'],
 	
 	
 }
+
+//GetAllIMSI
+getImsi(){ 
+this.ssmService.GetAllIMSI().subscribe(
+	data => {
+				//console.log(data);
+				for (let index in data) {
+					this.listIMSI.push(
+					{
+						id:data[index].id,
+						group_name: data[index].groupName,
+					
+					}
+					);
+				}
+			},
+    err => console.error(err),
+    () => console.log('done loading IMSI List')
+    );
+    }
 	
 	ngOnInit() { 
    
