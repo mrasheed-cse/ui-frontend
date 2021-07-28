@@ -12,7 +12,15 @@ btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
     margin-right: 50px;
 }
 .secondLabel{
-            float:right}
+            float:right
+            }
+            
+.file-input{
+   border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+	 float:right
+}            
 .pagination {
   display: inline-block;
   color: black;
