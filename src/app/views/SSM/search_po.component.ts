@@ -23,7 +23,7 @@ import{SSMService } from './SSM.service';
 })
 export class SearchPO implements OnInit {
 	
- 
+ serverUrl: string;
   private rowData: any[];
   private offset: number;
   private rawDataFromBackend : any[];
@@ -37,6 +37,7 @@ export class SearchPO implements OnInit {
   			isDataFoundOther: boolean = true;
 			PoNumber: string;
 	constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private ssmService: SSMService ) {
+		this.serverUrl = environment.apiUrl; 
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
 
     if (this.currentLoggedInUser) {
@@ -59,7 +60,7 @@ export class SearchPO implements OnInit {
   
 search(){
 	this.isDataFound = true;
-	// window.location.reload()
+	this.rowData = [];    
 	console.log("Po"+this.PoNumber)
 	this.ssmService.getPoInformation(this.PoNumber).subscribe(
 		 data => {
@@ -99,7 +100,38 @@ search(){
 }
 
 
+  downloadCSVFiles() {
+        var nameOfFileToDownload = "Purchase Order_"+this.rawDataFromBackend['id']+".csv";
+		console.log("nameOfFileToDownload : "+nameOfFileToDownload);
 
+        var result = this.ssmService.DownloadCSV(nameOfFileToDownload);
+		console.log(result);
+        result.subscribe(
+            data => {
+				//saveAs(data, nameOfFileToDownload);
+
+				console.log("ToTOOO");
+				//console.log(data);
+
+				var blob = new Blob([data], { type: 'text/csv' });
+
+                if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+		console.log("ggg")
+                    window.navigator.msSaveOrOpenBlob(blob, nameOfFileToDownload);
+                } else {
+                    var a = document.createElement('a');
+                    a.href = URL.createObjectURL(blob);
+                    a.download = nameOfFileToDownload;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                }
+            },
+            err => {console.error(err),
+                alert("Server error while downloading file.");
+            }
+        );
+    }
  
 
     ngOnInit() {

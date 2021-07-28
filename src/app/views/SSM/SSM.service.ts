@@ -10,9 +10,18 @@ import 'rxjs/add/operator/retry';
 import 'rxjs/add/observable/of';
 
 import { AppGlobals } from './../../app.global';
+
+
 @Injectable()
 export class SSMService {
+	
+private headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
 
+ 
+ private options = {
+    headers: this.headers,
+	responseType: 'text' as 'json'
+ }
 
 
 	serverUrl: string;
@@ -35,7 +44,6 @@ getImsiAndICCID(imsi:string,quantity:string):any	{
 }
 	
 	saveData(poNumber:string,startImsi:string,quantity:string,startIccid:string,stk:string,artwork:string,vendor:string,ImsiType:string):any{
-		console.log("Postinh")
 		return this.http.post(this.serverUrl + 'inputFileprocessing/SaveData/', {
 			poNumber:poNumber,
 			startImsi:startImsi,
@@ -48,6 +56,13 @@ getImsiAndICCID(imsi:string,quantity:string):any	{
 		});
 		
 	}
+	
+	DownloadCSV(fileNameToDownload: string){
+	  console.log(this.serverUrl +"poInformation/downloadCSV/");
+	  console.log(fileNameToDownload);
+        return this.http.post(this.serverUrl +"poInformation/downloadCSV/", fileNameToDownload,this.options);
+    }
+
 	
 	GetAllIMSI(): any {	
 		//console.log("In GetAllIMSI()"); 		

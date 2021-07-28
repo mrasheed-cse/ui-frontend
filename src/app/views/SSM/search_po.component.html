@@ -10,13 +10,14 @@
           </div>
           <div class="card-body">
             <div class="row mt-5 form-inline ">
-                <div class="form-group mx-sm-3">
+               
                     <input type="text" placeholder="PO Number" [(ngModel)]="PoNumber">
                      <label style="font-size:0.8em;width:80px;height:40px;margin-left: 20px;border-style: double;background-color: #0F3869;color: white
                      " (click) ="search()" >Find</label>
-                     
-                     
-                </div>
+                   <div style="float: right">
+                   <button type="button"   (click)="downloadCSVFiles()">Download</button>
+                    </div> 
+              
              <div class="card-body" *ngIf="isDataFound">
               <table class="table table-bordered table-striped table-sm">
                 <thead>
@@ -44,7 +45,6 @@
                                 <td>{{aTask.price}}</td>
                                 <td> {{aTask.amount}} </td>
                             </tr>
-                            <a download="" href="{{ 'http://localhost:4211/poInformation/download/' + aTask.id}}" class="mx-sm-3" role="button">Download</a>
                 </tbody>
               </table>
               

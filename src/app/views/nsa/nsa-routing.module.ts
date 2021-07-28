@@ -106,6 +106,7 @@ import { LostdamagedetailsdeliveryComponent } from './lostdamagedetailsdelivery/
 import { LostdamagenewsimconnectionComponent } from './lostdamagenewsimconnection/lostdamagenewsimconnection.component';
 import { SearchPO } from '../SSM/search_po.component';
 import { InputFileProcessing } from '../SSM/inputfileprocessing.component';
+import{AucProcessor} from '../SSM/auc.component';
 const routes: Routes = [
   {
     path: '',
@@ -844,6 +845,13 @@ const routes: Routes = [
         }
     },
 
+  {
+        path: 'aucConversion',
+        component: AucProcessor,
+        data: {
+            title: 'Auc Conversion'
+        }
+    },
 ];
 
 @NgModule({
