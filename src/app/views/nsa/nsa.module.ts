@@ -129,6 +129,8 @@ import { LostdamagenewsimconnectionComponent } from './lostdamagenewsimconnectio
 import { SearchPO } from '../SSM/search_po.component';
 import { InputFileProcessing } from '../SSM/inputfileprocessing.component';
 import{AucProcessor} from '../SSM/auc.component';
+
+import{VoucherGeneration} from '../SSM/ScratchCard/voucher_generation.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -240,7 +242,8 @@ import{AucProcessor} from '../SSM/auc.component';
     LostdamagenewsimconnectionComponent,
     SearchPO,
     InputFileProcessing,
-    AucProcessor
+    AucProcessor,
+    VoucherGeneration
   ]
 })
 export class NsaModule { }

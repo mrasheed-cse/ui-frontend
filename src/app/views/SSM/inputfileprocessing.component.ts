@@ -43,6 +43,9 @@ export class InputFileProcessing implements OnInit {
 			STK:string;
 			Vendor:string;
 			 public listIMSI = [];
+			 public listArtwork=[];
+			 public listVendor=[];
+			 public listStk=[];
 			FormGroup:{};
 	constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private ssmService: SSMService ) {
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
@@ -74,6 +77,9 @@ search(){
 			 this.rawDataFromBackend = data;
           if(data !=null){
 	this.getImsi();         
+	this.getArtwork();
+	this.getStk();
+	this.getVendor();
 	console.log("DATA= ",data)   
            this.isDataFound = true;
           this.rawDataFromBackend=data;
@@ -103,9 +109,10 @@ search(){
 
 submit(){
 	this.insertRowData=[];
-	if( parseInt(this.rawDataFromBackend['availableQuantity'])>=parseInt(this.Quantity)&&this.ImsiType!=null&&this.STK!=null&&this.Vendor!=null&&this.Artwork!=null){
+	if( parseInt(this.rawDataFromBackend['availableQuantity'])>=parseInt(this.Quantity)){
+	if(this.ImsiType!=null&&this.STK!=null&&this.Vendor!=null&&this.Artwork!=null){
 		 this.isDataFoundOther=true;
-			this.ssmService.getImsiAndICCID(this.ImsiType,this.Quantity).subscribe(
+			this.ssmService.getImsiAndICCID(this.ImsiType,this.Quantity,this.Vendor).subscribe(
 		 data => {
 			if(data !=null){ 
 				this.rawDataFromBackendImsi=data;
@@ -139,10 +146,15 @@ submit(){
 		alert("No Data Found1"),console.log(err),
       this.isDataFoundOther = false
      	});
+		}
+		else{
+		 this.isDataFoundOther=false;
+		alert(" Please fill all the correct values ")}
 		
 	}
-	else{  this.isDataFoundOther=false;
-		alert(" Please fill all the correct values ")
+	else{ 
+	 this.isDataFoundOther=false;
+		alert("Quantity Should be less then Avilable Quantity ")
 	}
 	  
     
@@ -161,7 +173,6 @@ this.ssmService.saveData(this.FormGroup['poNumber'],this.FormGroup['startImsi'],
 		
 	},
 	err => console.error(err),
-	alert("Failed to save Data")
 );
 }
 	else{
@@ -191,7 +202,63 @@ this.ssmService.GetAllIMSI().subscribe(
     () => console.log('done loading IMSI List')
     );
     }
+    
+    getArtwork(){ 
+this.ssmService.getAllArtwork().subscribe(
+	data => {
+				//console.log(data);
+				for (let index in data) {
+					this.listArtwork.push(
+					{
+						id:data[index].id,
+						group_name: data[index].groupName,
+					
+					}
+					);
+				}
+			},
+    err => console.error(err),
+    () => console.log('done loading IMSI List')
+    );
+    }
+    
+    getStk(){ 
+this.ssmService.getAllstk().subscribe(
+	data => {
+				//console.log(data);
+				for (let index in data) {
+					this.listStk.push(
+					{
+						id:data[index].id,
+						group_name: data[index].groupName,
+					
+					}
+					);
+				}
+			},
+    err => console.error(err),
+    () => console.log('done loading IMSI List')
+    );
+    }
 	
+	getVendor(){ 
+this.ssmService.getAllVendor().subscribe(
+	data => {
+				//console.log(data);
+				for (let index in data) {
+					this.listVendor.push(
+					{
+						id:data[index].id,
+						group_name: data[index].groupName,
+					
+					}
+					);
+				}
+			},
+    err => console.error(err),
+    () => console.log('done loading IMSI List')
+    );
+    }
 	ngOnInit() { 
    
     }

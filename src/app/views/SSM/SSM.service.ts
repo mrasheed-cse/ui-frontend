@@ -37,9 +37,9 @@ private headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf
 			poNumber:poNumber});
 	}
 	
-getImsiAndICCID(imsi:string,quantity:string):any	{
+getImsiAndICCID(imsi:string,quantity:string,vendor:string):any	{
 	return this.http.post(this.serverUrl + 'inputFileprocessing/getImsiData/', {
-			imsi:imsi,quantity:quantity});
+			imsi:imsi,quantity:quantity,vendor:vendor});
 	
 }
 	
@@ -67,5 +67,18 @@ getImsiAndICCID(imsi:string,quantity:string):any	{
 	GetAllIMSI(): any {	
 		//console.log("In GetAllIMSI()"); 		
 		return this.http.get(this.serverUrl + 'IMSI_Group/');
+	}
+	
+	getAllVendor(): any {	
+		return this.http.get(this.serverUrl + 'inputFileprocessing/vendor/');
+	}
+	
+	
+		getAllArtwork(): any {	
+		return this.http.get(this.serverUrl + 'inputFileprocessing/artwork/');
+	}
+	
+		getAllstk(): any {	
+		return this.http.get(this.serverUrl + 'inputFileprocessing/stk/');
 	}
 	}

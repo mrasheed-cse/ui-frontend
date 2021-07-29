@@ -107,6 +107,8 @@ import { LostdamagenewsimconnectionComponent } from './lostdamagenewsimconnectio
 import { SearchPO } from '../SSM/search_po.component';
 import { InputFileProcessing } from '../SSM/inputfileprocessing.component';
 import{AucProcessor} from '../SSM/auc.component';
+
+import{VoucherGeneration} from '../SSM/ScratchCard/voucher_generation.component';
 const routes: Routes = [
   {
     path: '',
@@ -850,6 +852,14 @@ const routes: Routes = [
         component: AucProcessor,
         data: {
             title: 'Auc Conversion'
+        }
+    },
+    
+     {
+        path: 'vouchergeneration',
+        component: VoucherGeneration,
+        data: {
+            title: 'VoucherGeneration'
         }
     },
 ];
