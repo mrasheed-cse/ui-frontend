@@ -127,6 +127,8 @@ import { LostdamagedetailsdeliveryComponent } from './lostdamagedetailsdelivery/
 import { LostdamagenewsimconnectionComponent } from './lostdamagenewsimconnection/lostdamagenewsimconnection.component';
 
 import {LoginService} from '../pages/LoginService';
+import { AuthGuard } from './services/AuthGuard.service';
+
 
 @NgModule({
   imports: [
@@ -241,5 +243,5 @@ import {LoginService} from '../pages/LoginService';
     GenerateanalyzeComponent,
     GenerateComponent
   ],
-  providers:[DatePipe, LoginService]})
+  providers:[DatePipe, LoginService, AuthGuard]})
 export class NsaModule { }
