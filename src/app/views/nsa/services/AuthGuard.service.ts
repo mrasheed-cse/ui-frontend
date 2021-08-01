@@ -52,7 +52,7 @@ export class AuthGuard implements CanActivate {
 	
 							//this.groupID = data;
 	
-							if (this.groupIDs.length == 1) {
+							if (undefined !== this.groupIDs && this.groupIDs.length == 1) {
 								this.groupID = this.groupIDs[0];
 								console.log('Current page usergroup: ' + this.groupID);
 								if (this.groupID == 0) {
