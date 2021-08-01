@@ -81,4 +81,25 @@ getImsiAndICCID(imsi:string,quantity:string,vendor:string):any	{
 		getAllstk(): any {	
 		return this.http.get(this.serverUrl + 'inputFileprocessing/stk/');
 	}
+	
+	
+	getDenoMination(): any {	
+		return this.http.get(this.serverUrl + 'vouchergeneration/denomination/');
+	}
+	getCardGroup(): any {	
+		return this.http.get(this.serverUrl + 'vouchergeneration/cardgroup/');
+	}
+	getvoucherSerial(): any {	
+		return this.http.get(this.serverUrl + 'vouchergeneration/voucherserial/');
+	}
+	
+	getvoucherSerialHidden(): any {	
+		return this.http.get(this.serverUrl + 'vouchergeneration/voucherserialhidden/');
+	}
+	
+	getVendorWiseSFTP(): any {	
+		return this.http.get(this.serverUrl + 'vouchergeneration/vendorwisesftp/');
+	}
+	
+	
 	}
