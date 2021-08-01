@@ -1,65 +1,278 @@
-<div class="row">
-
-    <div class="col-md-12">
-      
-      <div class="card" style="border:0px !important;background:transparent !important">
-      </div>
-      <div class="card">
-      <div class="card-header">
-            <i class="fa fa-align-justify"></i>Input File
+ <div class="row">
+	<div class="col-md-1">
+		 
+	</div>
+	<div class="col-md-10">
+		<div class="card">
+		<div class="card-header">
+            <i class="fa fa-align-justify"></i>  Voucher Generation
           </div>
-          <div class="card-body">
-                          
-           <div style="padding-bottom: 4px;">
-         		<span class="firstLabel"> Batch No.
-            				 <input id="wgtmsr"  type="text" >
-                </span>
-				<span class="secondLabel"> Denomination
-		  					  <select id="wgtmsr"  >
-                                                                         <option value="Denomination ">1</option>
-                                                                          <option value="Test Denomination ">2</option>
-                              </select>  
-				</span>           
-           </div>
-           
-           <div style="padding-bottom: 4px;">  
-          		 <span class="firstLabel">Start Serial 
-           					 <input id="wgtmsr"  type="text" >
-                 </span>
-				<span class="secondLabel"> End Serial
-		 					<input id="wgtmsr"  type="text" >
-				</span>   
-           </div>
-           
-           <div style="padding-bottom: 4px;">
-         		<span class="firstLabel"> Batch Qty
-       					   <input id="wgtmsr"  type="text" >       
-                </span>
-       			 <span class="secondLabel"> Vendor
-       					     <select id="wgtmsr"  >
-                                                                    <option value="Test Vendor ">Vendor Test</option>
-																	  <option value="Test Vendorww32 ">Vendor Test32</option>
-                             </select>         
-                   </span>
-                   </div>
-                   
-           
-           
-          
-          <div style="padding-bottom: 4px;">
+		<form [formGroup]="voucherGenrationForm" novalidate (ngSubmit)="submitVoucher()" >
+		<div class="card-body">
+					<div class="row">
+						<div class="col-md-6">
+								<div class="form-group row">
+									<label class="col-md-5 col-form-label">Batch No.</label>
+									<div class="col-md-7">
+										<input type="text" id="BatchNo" name="BatchNo" class="form-control" formControlName="BatchNo"  required
+											>
+									</div>
+	
+								</div>
+						</div>
+						
+						<div class="col-md-6">
+								<div class="form-group row">
+									<label class="col-md-5 col-form-label" >Denomination</label>
+									<div class="col-md-7">
+										<select class="form-control" id="Denomination" formControlName="Denomination" required >
+											<option></option>
+											<option *ngFor="let aSimType of listDenomination" [value]="aSimType.groupName">{{aSimType.groupName}}</option>
+										</select>
+									</div>
+	
+	
+								</div>
+						</div>
+					</div>		
+									
+					<div class="row">
+						<div class="col-md-6">
+								<div class="form-group row">
+									<label class="col-md-5 col-form-label">Start Serial.</label>
+									<div class="col-md-7">
+										<input type="number" id="StartSerial" name="StartSerial" class="form-control" formControlName="StartSerial"  required
+											>
+									</div>
+	
+	
+								
+								</div>
+						</div>
+						
+						<div class="col-md-6">
+								<div class="form-group row">
+									<label class="col-md-5 col-form-label">End Serial.</label>
+									<div class="col-md-7">
+									<input disabled type="text" class="form-control calendar-container"
+									value="{{endSerial}}">
+								</div>
+								</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-md-6">
+								<div class="form-group row">
+									<label class="col-md-5 col-form-label">Batch Qty.</label>
+									<div class="col-md-7">
+										<input type="number" id="BatchQty" name="BatchQty" class="form-control" formControlName="BatchQty"  required
+											 >
+									</div>
+	
+	
+									
+								</div>
+						</div>
+						
+						<div class="col-md-6">
+								<div class="form-group row">
+									<label class="col-md-5 col-form-label" >Vendor</label>
+									<div class="col-md-7">
+										<select class="form-control" id="Vendor" formControlName="Vendor" required >
+											<option></option>
+											<option *ngFor="let aSimType of listVendor" [value]="aSimType.groupName">{{aSimType.groupName}}</option>
+										</select>
+									</div>
+								</div>
+						</div>
+					</div>		
+					<div class="row">
+						
+								<div class="col-md-6">
+						
+										<div class="form-group row">
+											<label class="col-md-5 col-form-label" for="requestDate">HRN Generation request date</label>
+											<div class="col-md-7">									
+												<input type="text" class="form-control calendar-container" id="requestDate" formControlName="requestDate" name="requestDate" 
+												required bsDatepicker  placement="right"  
+												 [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-green',  showWeekNumbers:false }"
+												>
+											</div>
+										</div>
+			
+									</div>
+									<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label">PR</label>
+									<div class="col-md-7">
+										<input type="text" id="Pr" name="Pr" class="form-control" formControlName="Pr"  required
+											>
+									</div>
+	
+	
+									
+								</div>
+										</div>
+						</div>
+						
+						<div class="row">
+						
+						<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label">PO</label>
+									<div class="col-md-7">
+										<input type="text" id="Po" name="Po" class="form-control" formControlName="Po"  required
+											 >
+									</div>
+	
+	
+								</div>
+										</div>
+										
+								<div class="col-md-6">
+										<div class="form-group row">
+											<label class="col-md-5 col-form-label" for="nwExpireDate">Network Expire Date</label>
+											<div class="col-md-7">									
+												<input type="text" class="form-control calendar-container" id="nwExpireDate" formControlName="nwExpireDate" name="nwExpireDate" 
+												required bsDatepicker  placement="left"  
+												 [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-green',  showWeekNumbers:false }"
+												>
+											</div>
+										</div>
+			
+									</div>
+						</div>
+					<div class="row">
+						
+								<div class="col-md-6">
+						
+										<div class="form-group row">
+											<label class="col-md-5 col-form-label" for="ExpireDate">Expire Date</label>
+											<div class="col-md-7">									
+												<input type="text" class="form-control calendar-container" id="ExpireDate" formControlName="ExpireDate" name="ExpireDate" 
+												required bsDatepicker  placement="left"  
+												 [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-green',  showWeekNumbers:false }"
+												>
+											</div>
+										</div>
+			
+									</div>
+									<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label" for="CardGroup">Card Group</label>
+									<div class="col-md-7">
+										<select class="form-control" id="CardGroup" formControlName="CardGroup" required >
+											<option></option>
+											<option *ngFor="let aSimType of listCardGroup" [value]="aSimType.groupName">{{aSimType.groupName}}</option>
+										</select>
+									</div>
+	
+	
+								</div>
+										</div>
+						</div>
+						<div class="row">
+						
+								<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label" for="voucherserialdigits">Number of digits in voucher serial</label>
+									<div class="col-md-7">
+										<select class="form-control" id="voucherserialdigits" formControlName="voucherserialdigits"  required >
+											<option></option>
+											<option *ngFor="let aSimType of listvoucherserialdigits" [value]="aSimType.groupName">{{aSimType.groupName}}</option>
+										</select>
+									</div>
+								</div>
+										</div>
+										
+									<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label" for="voucherserialdigitshidden">Number of digits in voucher hidden number</label>
+									<div class="col-md-7">
+										<select class="form-control" id="voucherserialdigitshidden" formControlName="voucherserialdigitshidden" required >
+											<option></option>
+											<option *ngFor="let aSimType of listvoucherserialdigitshidden" [value]="aSimType.groupName">{{aSimType.groupName}}</option>
+										</select>
+									</div>
+								</div>
+										</div>
+						</div>
+						
+							<div class="row">
+						
+								<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label" for="VendorwiseSFTP">Vendor wise SFTP</label>
+									<div class="col-md-7">
+										<select class="form-control" id="VendorwiseSFTP" formControlName="VendorwiseSFTP" required >
+											<option></option>
+											<option *ngFor="let aSimType of listVendorwiseSFTP" [value]="aSimType.groupName">{{aSimType.groupName}}</option>
+										</select>
+									</div>
+	
+	
+								</div>
+										</div>
+										
+									<div class="col-md-6">
+										</div>
+						</div>
+						</div>
+									<div class="card-footer text-right">
+					<button type="submit" [disabled]="!voucherGenrationForm.valid  && !isDisableBtn"  class="btn btn-sm btn-primary">
+						<i class="fa fa-dot-circle-o"></i> Submit</button>
+					<button type="reset" class="btn btn-sm btn-danger"(click)="clearForm($event)">clear
+					</button>
+					</div>
+					</form>
+					
+					   <div class="card-body" *ngIf="isDataFound">
+              <i class="fa fa-align-justify"></i> > Output:
+              <table class="table table-bordered table-striped table-sm">
+                <thead>
+                  <tr>
+                    <th>Batch No.</th>
+                    <th>Denomination</th>
+                    <th>Start Serial</th>
+                     <th>End Serial</th>
+                      <th>Batch Qty </th>
+                    <th>Vendor name</th>
+                    <th>HRN Generation request date</th>
+                     <th>PR</th>
+                      <th>PO</th>
+                    <th>Network Expire Date</th>
+                    <th>Expiry Date</th>
+                     <th>Card Group</th>
+                     <th>Number of digits in voucher serial</th>
+                    <th>Number of digits in voucher hidden number</th>
+                     <th>Vendor wise SFTP</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let aTask of rowData ">
+                            <tr>
+                               <td>{{aTask.BatchNo}}</td>
+                                <td>{{aTask.Denomination}}</td>
+                                <td>{{aTask.StartSerial}}</td>
+                                <td>{{aTask.endSerial}}</td>
+                                <td>{{aTask.BatchQty}}</td>
+                                <td>{{aTask.Vendor}}</td>
+                                <td>{{aTask.requestDate}}</td>
+                                <td>{{aTask.Pr}}</td>
+                                <td>{{aTask.Po}}</td>
+                                <td>{{aTask.nwExpireDate}}</td>
+                                <td>{{aTask.ExpireDate}}</td>
+                                <td>{{aTask.CardGroup}}</td>
+                                <td>{{aTask.voucherserialdigits}}</td>
+                                <td>{{aTask.voucherserialdigitshidden}}</td>
+                                <td>{{aTask.VendorwiseSFTP}}</td>
+                            </tr>
+                </tbody>
+              </table>
               
-              <label style="float:right"> <button >Finalize </button> </label>
             </div>
-          
-          
-          
-          
-          </div>
-          
-          
-          
-          </div>
-          </div>
-          </div>
-          
-          
+					
+					
+					</div>
+					</div>
+					</div>
