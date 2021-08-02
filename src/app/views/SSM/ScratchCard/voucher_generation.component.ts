@@ -305,7 +305,13 @@ ShowData(){
 	objToInsert['ExpireDate']=this.datePipe.transform(this.exDate,"dd-MM-yyyy");
 	  this.rowData.push(objToInsert);
 	
-	
+	this.ssmService.saveScratch(objToInsert['Po'],objToInsert['BatchNo'],objToInsert['Denomination']
+	,objToInsert['StartSerial'],objToInsert['requestDate'],objToInsert['BatchQty'],objToInsert['Vendor']
+	,objToInsert['Pr'],objToInsert['nwExpireDate'],objToInsert['ExpireDate'],objToInsert['CardGroup'],
+	objToInsert['voucherserialdigits'],objToInsert['voucherserialdigitshidden'],objToInsert['VendorwiseSFTP']).subscribe(
+		data=>{alert("Amigo")},
+		err=>console.error(err)
+	)
  
    
    }
