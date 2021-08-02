@@ -32,7 +32,6 @@ private headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf
 	
 	
 	getPoInformation(poNumber:string): any{
-		console.log("Ponumber- "+poNumber);
 	return this.http.post(this.serverUrl + 'poInformation/search/', {
 			poNumber:poNumber});
 	}
@@ -100,6 +99,13 @@ getImsiAndICCID(imsi:string,quantity:string,vendor:string):any	{
 	getVendorWiseSFTP(): any {	
 		return this.http.get(this.serverUrl + 'vouchergeneration/vendorwisesftp/');
 	}
+	getMaxBatchNo():any{
+			return this.http.get(this.serverUrl +'vouchergeneration/getBatchNo');
+	}
 	
+	checkPoExsist(poNumber:string): any{
+	return this.http.post(this.serverUrl + 'sctrachVoucher/searchPo/', {
+			poNumber:poNumber});
+	}
 	
 	}
