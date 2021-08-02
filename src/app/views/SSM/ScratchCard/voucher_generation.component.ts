@@ -40,20 +40,7 @@ export class VoucherGeneration implements OnInit {
   			isDataFoundOther: boolean ;
   			 public isDisableBtn:boolean = false;
 			voucherGenrationForm:FormGroup;
-			/*BatchNo:FormControl;
-			Denomination:FormControl;
-			StartSerial: FormControl;
-			BatchQty:FormControl;
-			Vendor:FormControl;
-			requestDate:FormControl;
-			Pr:FormControl;
-			Po:FormControl;
-			nwExpireDate:FormControl;
-			ExpireDate:FormControl;
-			CardGroup:FormControl;
-			voucherserialdigits:FormControl;
-			voucherserialdigitshidden:FormControl;
-			VendorwiseSFTP:FormControl;*/
+			batchNo:string;
 			listVendorwiseSFTP=[];
 			listvoucherserialdigitshidden=[];
 			listvoucherserialdigits=[];
@@ -82,36 +69,19 @@ export class VoucherGeneration implements OnInit {
     
     ngOnInit() {
     this.getCardGroup();
+    this.getMaxBatchNo();
     this.getDenoMination();
     this.getVendor();
     this.getVendorWiseSFTP();
     this.getvoucherSerial();
     this.getvoucherSerialHidden();
-//this.createFormControls();
 	this.createForm(); 
 	this.onquantityChange()
    
        }
     
-   
-  /* createFormControls(){
-	console.log("Form controll");
-	this.BatchNo= 
-	this.BatchQty=new  FormControl('');
-	this.Pr=new  FormControl('');
-	this.Po= new  FormControl('');
-	this.CardGroup=new  FormControl('');
-	this.Denomination=new  FormControl('');
-	this.ExpireDate=new  FormControl('');
-	this.Vendor=new  FormControl('');
-	this.voucherserialdigits=new  FormControl('');
-	this.voucherserialdigitshidden=new  FormControl('');
-	this.VendorwiseSFTP=new  FormControl('');
-	console.log(this.CardGroup)
-}*/
    createForm(){	console.log("Hello"),
 	this.voucherGenrationForm= new FormGroup({
-		BatchNo:new  FormControl(''),
 		StartSerial:new  FormControl(''),
 		BatchQty:new FormControl(''),
 		Vendor:new FormControl({value: ''}),
@@ -128,12 +98,28 @@ export class VoucherGeneration implements OnInit {
 	});
 	
 }
-
- submitVoucher(){ 
+submitVoucher(){
+	this.ssmService.checkPoExsist(this.voucherGenrationForm.controls.Po.value).subscribe(
+		data =>{ console.log("Da"+data)
+			if(data!=null){
+				this.ShowData();
+				
+			}
+			else{
+				alert("No data Found for entered Po")
+			}
+			
+			
+		}
+		);
+	
+	
+}
+ ShowData(){ 
 	this.isDataFound=true;
 	 var objToInsert = {};
 	 objToInsert['endSerial']=this.endSerial;
-	objToInsert['BatchNo']=this.voucherGenrationForm.controls.BatchNo.value;
+	objToInsert['BatchNo']=this.batchNo;
 	objToInsert['StartSerial']=this.voucherGenrationForm.controls.StartSerial.value;
 	objToInsert['BatchQty']=this.voucherGenrationForm.controls.BatchQty.value;
 	objToInsert['Vendor']=this.voucherGenrationForm.controls.Vendor.value;
@@ -205,7 +191,6 @@ this.ssmService.getCardGroup().subscribe(
 
  getvoucherSerial(){ 
 	
-		console.log("serial")
 this.ssmService.getvoucherSerial().subscribe(
 	data => {
 				//console.log(data);
@@ -224,7 +209,6 @@ this.ssmService.getvoucherSerial().subscribe(
  getvoucherSerialHidden(){ 
 this.ssmService.getvoucherSerialHidden().subscribe(
 	data => {
-		console.log("Hidden")
 				//console.log(data);
 				for (let index in data) {
 					this.listvoucherserialdigitshidden.push(
@@ -256,7 +240,17 @@ this.ssmService.getVendorWiseSFTP().subscribe(
  //Submit data
  
   
-  
+  getMaxBatchNo(){
+	this.ssmService.getMaxBatchNo().subscribe(
+		data=>{
+			console.log("Das" +data)
+			this.batchNo=data;
+			
+		}
+	)
+	
+	
+}
    onquantityChange(){
 	this.voucherGenrationForm.get('BatchQty').valueChanges.subscribe(selectab => {
 		var v1=this.voucherGenrationForm.controls.StartSerial.value;
