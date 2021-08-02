@@ -85,8 +85,11 @@ getImsiAndICCID(imsi:string,quantity:string,vendor:string):any	{
 	getDenoMination(): any {	
 		return this.http.get(this.serverUrl + 'vouchergeneration/denomination/');
 	}
-	getCardGroup(): any {	
-		return this.http.get(this.serverUrl + 'vouchergeneration/cardgroup/');
+	getCardGroup(poNumber:string): any {	
+		console.log("SErvice "+poNumber)
+		return this.http.post(this.serverUrl + 'vouchergeneration/cardgroup/',{
+			poNumber:poNumber}
+			);
 	}
 	getvoucherSerial(): any {	
 		return this.http.get(this.serverUrl + 'vouchergeneration/voucherserial/');

@@ -27,7 +27,7 @@
 									<div class="col-md-7">
 										<select class="form-control" id="Denomination" formControlName="Denomination" required >
 											<option></option>
-											<option *ngFor="let aSimType of listDenomination" [value]="aSimType.groupName">{{aSimType.groupName}}</option>
+											<option *ngFor="let aSimType of listDenomination" [value]="aSimType.id">{{aSimType.groupName}}</option>
 										</select>
 									</div>
 	
@@ -81,7 +81,7 @@
 									<div class="col-md-7">
 										<select class="form-control" id="Vendor" formControlName="Vendor" required >
 											<option></option>
-											<option *ngFor="let aSimType of listVendor" [value]="aSimType.groupName">{{aSimType.groupName}}</option>
+											<option *ngFor="let aSimType of listVendor" [value]="aSimType.id">{{aSimType.groupName}}</option>
 										</select>
 									</div>
 								</div>
@@ -95,7 +95,7 @@
 											<label class="col-md-5 col-form-label" for="requestDate">HRN Generation request date</label>
 											<div class="col-md-7">									
 												<input type="text" class="form-control calendar-container" id="requestDate" formControlName="requestDate" name="requestDate" 
-												required bsDatepicker  placement="right"  
+												required bsDatepicker  placement="right"  [(ngModel)]="reqDate"
 												 [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-green',  showWeekNumbers:false }"
 												>
 											</div>
@@ -135,7 +135,7 @@
 											<label class="col-md-5 col-form-label" for="nwExpireDate">Network Expire Date</label>
 											<div class="col-md-7">									
 												<input type="text" class="form-control calendar-container" id="nwExpireDate" formControlName="nwExpireDate" name="nwExpireDate" 
-												required bsDatepicker  placement="left"  
+												required bsDatepicker  placement="left"  [(ngModel)]="nwDate" 
 												 [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-green',  showWeekNumbers:false }"
 												>
 											</div>
@@ -151,7 +151,7 @@
 											<label class="col-md-5 col-form-label" for="ExpireDate">Expire Date</label>
 											<div class="col-md-7">									
 												<input type="text" class="form-control calendar-container" id="ExpireDate" formControlName="ExpireDate" name="ExpireDate" 
-												required bsDatepicker  placement="left"  
+												required bsDatepicker  placement="left"  [(ngModel)]="exDate"
 												 [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-green',  showWeekNumbers:false }"
 												>
 											</div>
@@ -164,7 +164,7 @@
 									<div class="col-md-7">
 										<select class="form-control" id="CardGroup" formControlName="CardGroup" required >
 											<option></option>
-											<option *ngFor="let aSimType of listCardGroup" [value]="aSimType.groupName">{{aSimType.groupName}}</option>
+											<option *ngFor="let aSimType of listCardGroup" [value]="aSimType.id">{{aSimType.groupName}}</option>
 										</select>
 									</div>
 	
@@ -180,7 +180,7 @@
 									<div class="col-md-7">
 										<select class="form-control" id="voucherserialdigits" formControlName="voucherserialdigits"  required >
 											<option></option>
-											<option *ngFor="let aSimType of listvoucherserialdigits" [value]="aSimType.groupName">{{aSimType.groupName}}</option>
+											<option *ngFor="let aSimType of listvoucherserialdigits" [value]="aSimType.id">{{aSimType.groupName}}</option>
 										</select>
 									</div>
 								</div>
@@ -192,7 +192,7 @@
 									<div class="col-md-7">
 										<select class="form-control" id="voucherserialdigitshidden" formControlName="voucherserialdigitshidden" required >
 											<option></option>
-											<option *ngFor="let aSimType of listvoucherserialdigitshidden" [value]="aSimType.groupName">{{aSimType.groupName}}</option>
+											<option *ngFor="let aSimType of listvoucherserialdigitshidden" [value]="aSimType.id">{{aSimType.groupName}}</option>
 										</select>
 									</div>
 								</div>
@@ -207,7 +207,7 @@
 									<div class="col-md-7">
 										<select class="form-control" id="VendorwiseSFTP" formControlName="VendorwiseSFTP" required >
 											<option></option>
-											<option *ngFor="let aSimType of listVendorwiseSFTP" [value]="aSimType.groupName">{{aSimType.groupName}}</option>
+											<option *ngFor="let aSimType of listVendorwiseSFTP" [value]="aSimType.id">{{aSimType.groupName}}</option>
 										</select>
 									</div>
 	

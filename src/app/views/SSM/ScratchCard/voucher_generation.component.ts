@@ -16,7 +16,7 @@ import { LoginService } from '../../pages/LoginService';
 import { LoggedInUser } from '../../pages/loggedInUser';
 import{SSMService } from '../SSM.service';
 import { Observable } from 'rxjs/Observable';
-
+import {DatePipe} from '@angular/common';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/retry';
@@ -26,7 +26,7 @@ import 'rxjs/add/observable/of';
     selector: 'app-voucherGen',
     templateUrl: './voucher_generation.component.html',
       styleUrls: ['../search_po.component.scss'],
-      providers: [AppGlobals,LoginService,SSMService],
+      providers: [AppGlobals,LoginService,SSMService,DatePipe],
 })
 export class VoucherGeneration implements OnInit {
 		  	currentLoggedInUser: LoggedInUser;
@@ -34,7 +34,9 @@ export class VoucherGeneration implements OnInit {
 			groupID: number;
   			userID: string;
   			endSerial:number;
- 			todayDate: Date;
+  			reqDate: Date
+  			nwDate: Date;
+ 			exDate: Date;
 			routerUrlAndParams: string;
   			isDataFound: boolean=false ;
   			isDataFoundOther: boolean ;
@@ -50,7 +52,7 @@ export class VoucherGeneration implements OnInit {
 			private rowData: any[];
 			
 			
-	constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private ssmService: SSMService ) {
+	constructor(private datePipe: DatePipe,private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private ssmService: SSMService ) {
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
 
     if (this.currentLoggedInUser) {
@@ -63,12 +65,11 @@ export class VoucherGeneration implements OnInit {
     else {
       this.router.navigate(['pages/login']);
     }
-    this.todayDate = new Date();
+   
     this.rowData = [];    
     }
     
     ngOnInit() {
-    this.getCardGroup();
     this.getMaxBatchNo();
     this.getDenoMination();
     this.getVendor();
@@ -76,8 +77,8 @@ export class VoucherGeneration implements OnInit {
     this.getvoucherSerial();
     this.getvoucherSerialHidden();
 	this.createForm(); 
-	this.onquantityChange()
-   
+	this.onquantityChange();
+   this.onDenominationChange()
        }
     
    createForm(){	console.log("Hello"),
@@ -115,30 +116,7 @@ submitVoucher(){
 	
 	
 }
- ShowData(){ 
-	this.isDataFound=true;
-	 var objToInsert = {};
-	 objToInsert['endSerial']=this.endSerial;
-	objToInsert['BatchNo']=this.batchNo;
-	objToInsert['StartSerial']=this.voucherGenrationForm.controls.StartSerial.value;
-	objToInsert['BatchQty']=this.voucherGenrationForm.controls.BatchQty.value;
-	objToInsert['Vendor']=this.voucherGenrationForm.controls.Vendor.value;
-	objToInsert['requestDate']=this.voucherGenrationForm.controls.requestDate.value;
-	objToInsert['Pr']=this.voucherGenrationForm.controls.Pr.value;
-	objToInsert['Po']=this.voucherGenrationForm.controls.Po.value;
-	objToInsert['nwExpireDate']=this.voucherGenrationForm.controls.nwExpireDate.value;
-	objToInsert['ExpireDate']=this.voucherGenrationForm.controls.ExpireDate.value;
-	objToInsert['CardGroup']=this.voucherGenrationForm.controls.CardGroup.value;
-		objToInsert['voucherserialdigits']=this.voucherGenrationForm.controls.voucherserialdigits.value;
-	objToInsert['voucherserialdigitshidden']=this.voucherGenrationForm.controls.voucherserialdigitshidden.value;
-	objToInsert['Denomination']=this.voucherGenrationForm.controls.Denomination.value;
-	objToInsert['VendorwiseSFTP']=this.voucherGenrationForm.controls.VendorwiseSFTP.value;
-	  this.rowData.push(objToInsert);
-	
-	
  
-   
-   }
 //Fetch Dropdown value
 getVendor(){ console.log("Vendor")
 this.ssmService.getAllVendor().subscribe(
@@ -173,8 +151,9 @@ this.ssmService.getDenoMination().subscribe(
     }
     
     getCardGroup(){ 
-		console.log("card")
-this.ssmService.getCardGroup().subscribe(
+	this.listCardGroup=[];
+		console.log("card"+this.voucherGenrationForm.controls.Denomination.value)
+this.ssmService.getCardGroup(this.voucherGenrationForm.controls.Denomination.value).subscribe(
 	data => {
 				//console.log(data);
 				for (let index in data) {
@@ -265,6 +244,72 @@ this.ssmService.getVendorWiseSFTP().subscribe(
 	
 	
 }
+
+onDenominationChange(){
+	this.voucherGenrationForm.get('Denomination').valueChanges.subscribe(selectab => {
+		this.getCardGroup();
+		
+	});
+	
+}
+
+ShowData(){ 
+	this.isDataFound=true;
+	 var objToInsert = {};
+	 
+	 for (let index in this.listDenomination) {
+		if(this.listDenomination[index].id==this.voucherGenrationForm.controls.Denomination.value){
+		objToInsert['Denomination']=this.listDenomination[index].groupName;
+		}
+		
+	}
+	 for (let index in this.listCardGroup) {
+		if(this.listCardGroup[index].id==this.voucherGenrationForm.controls.CardGroup.value){
+		objToInsert['CardGroup']=this.listCardGroup[index].groupName;
+		}
+		
+	}
+	for (let index in this.listVendor) {
+		if(this.listVendor[index].id==this.voucherGenrationForm.controls.Vendor.value){
+		objToInsert['Vendor']=this.listVendor[index].groupName;
+		}
+		
+	}
+	for (let index in this.listvoucherserialdigits) {
+		if(this.listvoucherserialdigits[index].id==this.voucherGenrationForm.controls.voucherserialdigits.value){
+		objToInsert['voucherserialdigits']=this.listvoucherserialdigits[index].groupName;
+		}
+		
+	}
+	for (let index in this.listvoucherserialdigitshidden) {
+		if(this.listvoucherserialdigitshidden[index].id==this.voucherGenrationForm.controls.voucherserialdigitshidden.value){
+		objToInsert['voucherserialdigitshidden']=this.listvoucherserialdigitshidden[index].groupName;
+		}
+		
+	}
+	 for (let index in this.listVendorwiseSFTP) {
+		if(this.listVendorwiseSFTP[index].id==this.voucherGenrationForm.controls.VendorwiseSFTP.value){
+		objToInsert['VendorwiseSFTP']=this.listVendorwiseSFTP[index].groupName;
+		}
+		
+	}
+	 
+	 objToInsert['endSerial']=this.endSerial;
+	objToInsert['BatchNo']=this.batchNo;
+	objToInsert['StartSerial']=this.voucherGenrationForm.controls.StartSerial.value;
+	objToInsert['BatchQty']=this.voucherGenrationForm.controls.BatchQty.value;
+	objToInsert['requestDate']=this.datePipe.transform(this.reqDate,"dd-MM-yyyy");
+	objToInsert['Pr']=this.voucherGenrationForm.controls.Pr.value;
+	objToInsert['Po']=this.voucherGenrationForm.controls.Po.value;
+	objToInsert['nwExpireDate']=this.datePipe.transform(this.nwDate,"dd-MM-yyyy");
+	objToInsert['ExpireDate']=this.datePipe.transform(this.exDate,"dd-MM-yyyy");
+	  this.rowData.push(objToInsert);
+	
+	
+ 
+   
+   }
+
    //Clear form
    clearForm(event: any){
 	this.voucherGenrationForm.reset
