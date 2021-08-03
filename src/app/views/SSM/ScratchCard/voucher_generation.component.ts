@@ -34,9 +34,12 @@ export class VoucherGeneration implements OnInit {
 			groupID: number;
   			userID: string;
   			endSerial:number;
+  			startSerial:number;
   			reqDate: Date
   			nwDate: Date;
  			exDate: Date;
+ 			public successAlertShow:boolean = false;
+	 		public successAlertMessage:string = "";
 			routerUrlAndParams: string;
   			isDataFound: boolean=false ;
   			isDataFoundOther: boolean ;
@@ -78,7 +81,8 @@ export class VoucherGeneration implements OnInit {
     this.getvoucherSerialHidden();
 	this.createForm(); 
 	this.onquantityChange();
-   this.onDenominationChange()
+   this.onDenominationChange();
+   this.onCardChange();
        }
     
    createForm(){	console.log("Hello"),
@@ -227,7 +231,27 @@ this.ssmService.getVendorWiseSFTP().subscribe(
 			
 		}
 	)
-	
+}
+
+getSerial(){ 
+	 var val = {}
+		 for (let index in this.listDenomination) {
+		if(this.listDenomination[index].id==this.voucherGenrationForm.controls.Denomination.value){
+		val['Denomination']=this.listDenomination[index].groupName;
+		}
+		
+	}
+	 for (let index in this.listCardGroup) {
+		if(this.listCardGroup[index].id==this.voucherGenrationForm.controls.CardGroup.value){
+		val['CardGroup']=this.listCardGroup[index].groupName;
+		}}
+	this.ssmService.getSerial(val['Denomination'],val['CardGroup']).subscribe(
+		data =>{
+			this.startSerial=data.serial;
+			
+		}
+		
+	);
 	
 }
    onquantityChange(){
@@ -252,11 +276,19 @@ onDenominationChange(){
 	});
 	
 }
+onCardChange(){
+	this.voucherGenrationForm.get('CardGroup').valueChanges.subscribe(selectab => {
+		this.getSerial();
+		
+	});
+	
+}
+
 
 ShowData(){ 
 	this.isDataFound=true;
 	 var objToInsert = {};
-	 
+	 var start=""+this.startSerial;
 	 for (let index in this.listDenomination) {
 		if(this.listDenomination[index].id==this.voucherGenrationForm.controls.Denomination.value){
 		objToInsert['Denomination']=this.listDenomination[index].groupName;
@@ -306,12 +338,19 @@ ShowData(){
 	  this.rowData.push(objToInsert);
 	
 	this.ssmService.saveScratch(objToInsert['Po'],objToInsert['BatchNo'],objToInsert['Denomination']
-	,objToInsert['StartSerial'],objToInsert['requestDate'],objToInsert['BatchQty'],objToInsert['Vendor']
+	,start,objToInsert['requestDate'],objToInsert['BatchQty'],objToInsert['Vendor']
 	,objToInsert['Pr'],objToInsert['nwExpireDate'],objToInsert['ExpireDate'],objToInsert['CardGroup'],
-	objToInsert['voucherserialdigits'],objToInsert['voucherserialdigitshidden'],objToInsert['VendorwiseSFTP']).subscribe(
-		data=>{alert("Amigo")},
+	objToInsert['voucherserialdigits'],objToInsert['voucherserialdigitshidden'],objToInsert['VendorwiseSFTP'],this.userName).subscribe(
+		data=>{if(data!=""){this.successAlertShow=true;
+			this.successAlertMessage="Data Saved Sucessfully"
+			
+		}
+			
+			
+			
+		},
 		err=>console.error(err)
-	)
+	);
  
    
    }
