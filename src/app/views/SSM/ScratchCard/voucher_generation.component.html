@@ -4,6 +4,7 @@
 	</div>
 	<div class="col-md-10">
 		<div class="card">
+		<div class="alert alert-success" role="alert" *ngIf="successAlertShow"> {{successAlertMessage}}</div>
 		<div class="card-header">
             <i class="fa fa-align-justify"></i>  Voucher Generation
           </div>
@@ -37,12 +38,25 @@
 					</div>		
 									
 					<div class="row">
+					<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label" for="CardGroup">Card Group</label>
+									<div class="col-md-7">
+										<select class="form-control" id="CardGroup" formControlName="CardGroup" required >
+											<option></option>
+											<option *ngFor="let aSimType of listCardGroup" [value]="aSimType.id">{{aSimType.groupName}}</option>
+										</select>
+									</div>
+	
+	
+								</div>
+										</div>
 						<div class="col-md-6">
 								<div class="form-group row">
 									<label class="col-md-5 col-form-label">Start Serial.</label>
 									<div class="col-md-7">
-										<input type="number" id="StartSerial" name="StartSerial" class="form-control" formControlName="StartSerial"  required
-											>
+										<input disabled type="text" class="form-control calendar-container"
+									value="{{startSerial}}">
 									</div>
 	
 	
@@ -50,15 +64,7 @@
 								</div>
 						</div>
 						
-						<div class="col-md-6">
-								<div class="form-group row">
-									<label class="col-md-5 col-form-label">End Serial.</label>
-									<div class="col-md-7">
-									<input disabled type="text" class="form-control calendar-container"
-									value="{{endSerial}}">
-								</div>
-								</div>
-						</div>
+						
 					</div>
 					
 					<div class="row">
@@ -69,21 +75,15 @@
 										<input type="number" id="BatchQty" name="BatchQty" class="form-control" formControlName="BatchQty"  required
 											 >
 									</div>
-	
-	
-									
 								</div>
 						</div>
-						
 						<div class="col-md-6">
 								<div class="form-group row">
-									<label class="col-md-5 col-form-label" >Vendor</label>
+									<label class="col-md-5 col-form-label">End Serial.</label>
 									<div class="col-md-7">
-										<select class="form-control" id="Vendor" formControlName="Vendor" required >
-											<option></option>
-											<option *ngFor="let aSimType of listVendor" [value]="aSimType.id">{{aSimType.groupName}}</option>
-										</select>
-									</div>
+									<input disabled type="text" class="form-control calendar-container"
+									value="{{endSerial}}">
+								</div>
 								</div>
 						</div>
 					</div>		
@@ -159,18 +159,17 @@
 			
 									</div>
 									<div class="col-md-6">
-													<div class="form-group row">
-									<label class="col-md-5 col-form-label" for="CardGroup">Card Group</label>
+								<div class="form-group row">
+									<label class="col-md-5 col-form-label" >Vendor</label>
 									<div class="col-md-7">
-										<select class="form-control" id="CardGroup" formControlName="CardGroup" required >
+										<select class="form-control" id="Vendor" formControlName="Vendor" required >
 											<option></option>
-											<option *ngFor="let aSimType of listCardGroup" [value]="aSimType.id">{{aSimType.groupName}}</option>
+											<option *ngFor="let aSimType of listVendor" [value]="aSimType.id">{{aSimType.groupName}}</option>
 										</select>
 									</div>
-	
-	
 								</div>
-										</div>
+						</div>
+									
 						</div>
 						<div class="row">
 						

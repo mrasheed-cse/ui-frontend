@@ -106,19 +106,28 @@ getImsiAndICCID(imsi:string,quantity:string,vendor:string):any	{
 			return this.http.get(this.serverUrl +'vouchergeneration/getBatchNo');
 	}
 	
+	getSerial(denomination:string,cardgroup:string):any{
+		return this.http.post(this.serverUrl +'vouchergeneration/getSerial',{
+			denomination:denomination,
+			cardgroup:cardgroup
+			
+		});
+		
+	}
+	
 	checkPoExsist(poNumber:string): any{
 	return this.http.post(this.serverUrl + 'sctrachVoucher/searchPo/', {
 			poNumber:poNumber});
 	}
 	
-	saveScratch(ponumber:string,batchNo:string,denomination:string,serial:string,requestDate:string,quantity:string,vendor:string,pr:string
-	,networkexpiredate:string,expirydate:string,cardgroup:string,serialDigitCount:string,hiddenNumberCount:string,sftplocation:string): any{
+	saveScratch(ponumber:string,batchNo:string,denomination:string,serial:string,requestDate:any,quantity:string,vendor:string,pr:string
+	,networkexpiredate:any,expirydate:any,cardgroup:string,serialDigitCount:string,hiddenNumberCount:string,sftplocation:string,createdBy:string): any{
 	return this.http.post(this.serverUrl + 'sctrachVoucher/Save/', {
 			ponumber:ponumber,batchNo:batchNo,denomination:denomination,
 			serial:serial,requestDate:requestDate,quantity:quantity,
 			vendor:vendor,pr:pr,networkexpiredate:networkexpiredate,
 			expirydate:expirydate,cardgroup:cardgroup,serialDigitCount:serialDigitCount,
-			hiddenNumberCount:hiddenNumberCount,sftplocation:sftplocation});
+			hiddenNumberCount:hiddenNumberCount,sftplocation:sftplocation,createdBy:createdBy});
 	}
 	
 	}
