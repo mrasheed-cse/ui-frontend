@@ -136,7 +136,7 @@ getImsiAndICCID(imsi:string,quantity:string,vendor:string):any	{
 	deleteDenomination(linkno: number): Observable<any> {
         return this.http.get(environment.apiUrl + "admin/deleteDenomination/" + linkno).pipe(catchError(this.handleError));
     }
-deleteVendor(linkno: number): Observable<any> {
+	deleteVendor(linkno: number): Observable<any> {
         return this.http.get(environment.apiUrl + "admin/deleteVendor/" + linkno).pipe(catchError(this.handleError));
     }
 	
@@ -151,9 +151,33 @@ deleteVendor(linkno: number): Observable<any> {
         return this.http.get(environment.apiUrl + "admin/deletehiddenSerial/" + linkno).pipe(catchError(this.handleError));
     }
 	deleteVendorSftp(linkno: number): Observable<any> {
-        return this.http.get(environment.apiUrl + "admin/vendorSftp/" + linkno).pipe(catchError(this.handleError));
+        return this.http.get(environment.apiUrl + "admin/deleteVendorSftp/" + linkno).pipe(catchError(this.handleError));
     }
 	
+	
+	saveDenomination(linkno: number): Observable<any> {
+        return this.http.get(environment.apiUrl + "admin/saveDenomination/" + linkno).pipe(catchError(this.handleError));
+    }
+    saveVendor(linkno: string): Observable<any> {
+        return this.http.get(environment.apiUrl + "admin/saveVendor/" + linkno).pipe(catchError(this.handleError));
+    }
+	
+	saveVoucherSerial(linkno: number): Observable<any> {
+        return this.http.get(environment.apiUrl + "admin/saveVoucherSerial/" + linkno).pipe(catchError(this.handleError));
+    }
+	
+	saveCardGroup(value: string,mapValue:number): Observable<any> {
+        return this.http.get(environment.apiUrl + "admin/saveCardGroup/" + value+"/"+mapValue).pipe(catchError(this.handleError));
+    }
+	saveHiddenSerial(linkno: number): Observable<any> {
+        return this.http.get(environment.apiUrl + "admin/saveHiddenSerial/" + linkno).pipe(catchError(this.handleError));
+    }
+	saveVendorSftp(linkno: string): Observable<any> {
+        return this.http.get(environment.apiUrl + "admin/saveVendorSftp/" + linkno).pipe(catchError(this.handleError));
+    }
+	
+    
+    
 	
 	handleError(error: HttpErrorResponse) {
         if (error instanceof ErrorEvent) {
