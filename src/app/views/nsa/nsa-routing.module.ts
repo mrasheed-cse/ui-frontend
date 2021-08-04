@@ -109,6 +109,7 @@ import { InputFileProcessing } from '../SSM/inputfileprocessing.component';
 import{AucProcessor} from '../SSM/auc.component';
 
 import{VoucherGeneration} from '../SSM/ScratchCard/voucher_generation.component';
+import{VoucherAdmin}  from '../SSM/ScratchCard/voucher_admin.component';
 const routes: Routes = [
   {
     path: '',
@@ -862,6 +863,14 @@ const routes: Routes = [
             title: 'VoucherGeneration'
         }
     },
+     {
+        path: 'scratchcardadmin',
+        component: VoucherAdmin,
+        data: {
+            title: 'Scratch Card Admin'
+        }
+    },
+    
 ];
 
 @NgModule({

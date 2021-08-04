@@ -1,0 +1,410 @@
+<div class="row">
+
+    <div class="col-md-12">
+      
+      <div class="card" style="border:0px !important;background:transparent !important">
+      </div>
+      <div class="card">
+          <div class="card-body" *ngIf="noDropdownSelected">
+          <div class="row">
+						<div class="col-md-6">
+								<div class="form-group row">
+									<div class="col-md-7">
+										   <button type="button"   (click)="denomination()">Denomination</button>
+									</div>
+	
+								</div>
+						</div>
+						
+						<div class="col-md-6">
+								<div class="form-group row">
+									<div class="col-md-7">
+										   <button type="button"   (click)="vendorName()">Vendor name</button>
+									</div>
+	
+	
+								</div>
+						</div>
+					</div>	
+					<div class="row">
+						<div class="col-md-6">
+								<div class="form-group row">
+									<div class="col-md-7">
+										   <button type="button"   (click)="cardGroup()">CardGroup</button>
+									</div>
+	
+								</div>
+						</div>
+						
+						<div class="col-md-6">
+								<div class="form-group row">
+									<div class="col-md-7">
+										   <button type="button"   (click)="voucherSerial()">Number of digits in voucher serial</button>
+									</div>
+	
+	
+								</div>
+						</div>
+					</div>	
+					<div class="row">
+						<div class="col-md-6">
+								<div class="form-group row">
+									<div class="col-md-7">
+										   <button type="button"   (click)="voucherHiddenNumber()">Number of digits in voucher hidden number</button>
+									</div>
+	
+								</div>
+						</div>
+						
+						<div class="col-md-6">
+								<div class="form-group row">
+									<div class="col-md-7">
+										   <button type="button"   (click)="vendorWiseSFTP()">Vendor wise SFTP</button>
+									</div>
+	
+	
+								</div>
+						</div>
+					</div>	
+          </div>
+          <div class="card-header" *ngIf="isDenominationfound">
+            <i class="fa fa-align-justify" ></i> Denomination
+          </div>
+        <div class="card-body" *ngIf="isDenominationfound">
+              <table class="table table-bordered table-striped table-sm">
+                <thead>
+                  <tr>
+                    <th>Denomination ID</th>
+                    <th>Denomination Name</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let aTask of listDenomination">
+                            <tr>
+                                <td>{{aTask.id}}</td>
+                                <td>{{aTask.groupName}}</td>
+                                <td> <a  href="#" (click)="clearDenomination(aTask.id);$event.preventDefault();" role="button">Delete</a> </td>
+                            </tr>
+                </tbody>
+              </table>
+              
+            </div>
+            <div class="card-footer text-right"  *ngIf="isDenominationfound">
+            
+            <button type="reset" class="btn btn-sm btn-primary"(click)="addDenomination()">Add
+					</button>
+            </div>
+            
+              <div class="card-header" *ngIf="isaddDenomination">
+            <i class="fa fa-align-justify"></i> Add Denomination
+          </div>
+          
+           <div class="card-body" *ngIf="isaddDenomination">
+           <div class="row">
+						<div class="col-md-6">
+								<div class="form-group row">
+									<label class="col-md-5 col-form-label">Add New Denomination</label>
+									<div class="col-md-7">
+										<input type="number" id="newDenomination" name="newDenomination" class="form-control" [(ngModel)]="newDenomination"
+											 >
+									</div>
+								</div>
+						</div>
+						<div class="col-md-6">
+								<div class="form-group row">
+									<button   class="btn btn-sm btn-primary" (click)="SubmitDenomination()">
+						<i class="fa fa-dot-circle-o"></i> Submit</button>
+								</div>
+								</div>
+						</div>
+					</div>		
+					
+					<div class="card-header" *ngIf="isVendorFound">
+            <i class="fa fa-align-justify" ></i> Vendor Name
+          </div>
+		
+		<div class="card-body" *ngIf="isVendorFound">
+              <table class="table table-bordered table-striped table-sm">
+                <thead>
+                  <tr>
+                    <th>Vendor ID</th>
+                    <th>Vendor Name</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let aTask of listVendor">
+                            <tr>
+                                <td>{{aTask.id}}</td>
+                                <td>{{aTask.groupName}}</td>
+                                <td> <a  href="#" (click)="clearVendor(aTask.id);$event.preventDefault();" role="button">Delete</a> </td>
+                            </tr>
+                </tbody>
+              </table>
+              
+            </div>
+            <div class="card-footer text-right"  *ngIf="isVendorFound">
+            
+            <button type="reset" class="btn btn-sm btn-primary"(click)="addVendor()">Add
+					</button>
+            </div>
+					
+			     <div class="card-header" *ngIf="isAddvendor">
+            <i class="fa fa-align-justify"></i> Add Vendor
+          </div>
+          
+           <div class="card-body" *ngIf="isAddvendor">
+           <div class="row">
+						<div class="col-md-6">
+								<div class="form-group row">
+									<label class="col-md-5 col-form-label">Add New Vendor</label>
+									<div class="col-md-7">
+										<input type="text" id="newVendor" name="newVendor" class="form-control" [(ngModel)]="newVendor"
+											 >
+									</div>
+								</div>
+						</div>
+						<div class="col-md-6">
+								<div class="form-group row">
+									<button   class="btn btn-sm btn-primary" (click)="SubmitVendor()">
+						<i class="fa fa-dot-circle-o"></i> Submit</button>
+								</div>
+								</div>
+						</div>
+					</div>		
+					
+					
+					<div class="card-header" *ngIf="isvoucherSerialFound">
+            <i class="fa fa-align-justify" ></i> Number Of Digits In Voucher Serial
+          </div>
+		
+		<div class="card-body" *ngIf="isvoucherSerialFound">
+              <table class="table table-bordered table-striped table-sm">
+                <thead>
+                  <tr>
+                    <th>Voucher Serial ID</th>
+                    <th>Voucher Serial  Name</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let aTask of listvoucherserialdigits">
+                            <tr>
+                                <td>{{aTask.id}}</td>
+                                <td>{{aTask.groupName}}</td>
+                                <td> <a  href="#" (click)="clearVoucherSerial(aTask.id);$event.preventDefault();" role="button">Delete</a> </td>
+                            </tr>
+                </tbody>
+              </table>
+              
+            </div>
+            <div class="card-footer text-right"  *ngIf="isvoucherSerialFound">
+            
+            <button type="reset" class="btn btn-sm btn-primary"(click)="addVoucherSerial()">Add
+					</button>
+            </div>
+					
+			     <div class="card-header" *ngIf="isAddVoucherSerial">
+            <i class="fa fa-align-justify"></i> Add Number Of Digits In Voucher Serial
+          </div>
+          
+           <div class="card-body" *ngIf="isAddVoucherSerial">
+           <div class="row">
+						<div class="col-md-6">
+								<div class="form-group row">
+									<label class="col-md-5 col-form-label">Add Voucher Serial</label>
+									<div class="col-md-7">
+										<input type="number" id="newVoucherSerial" name="newVoucherSerial" class="form-control" [(ngModel)]="newVoucherSerial"
+											 >
+									</div>
+								</div>
+						</div>
+						<div class="col-md-6">
+								<div class="form-group row">
+									<button   class="btn btn-sm btn-primary" (click)="SubmitVoucherSerial()">
+						<i class="fa fa-dot-circle-o"></i> Submit</button>
+								</div>
+								</div>
+						</div>
+					</div>			
+					
+			
+			<div class="card-header" *ngIf="isCardGroupFound">
+            <i class="fa fa-align-justify" ></i> CardGroup
+          </div>
+		
+		<div class="card-body" *ngIf="isCardGroupFound">
+              <table class="table table-bordered table-striped table-sm">
+                <thead>
+                  <tr>
+                    <th>CardGroup ID</th>
+                    <th>CardGroup Name</th>
+                    <th>Denomination  Mapping Id</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let aTask of listCardGroup">
+                            <tr>
+                                <td>{{aTask.id}}</td>
+                                <td>{{aTask.groupName}}</td>
+                                <td>{{aTask.denominationId}}</td>
+                                <td> <a  href="#" (click)="clearCardGroup(aTask.id);$event.preventDefault();" role="button">Delete</a> </td>
+                            </tr>
+                </tbody>
+              </table>
+              
+            </div>
+            <div class="card-footer text-right"  *ngIf="isCardGroupFound">
+            
+            <button type="reset" class="btn btn-sm btn-primary"(click)="addCardGroup()">Add
+					</button>
+            </div>
+					
+			     <div class="card-header" *ngIf="isAddCardGroup">
+            <i class="fa fa-align-justify"></i> Add  CardGroup
+          </div>
+          
+           <div class="card-body" *ngIf="isAddCardGroup">
+           <div class="row">
+						<div class="col-md-6">
+								<div class="form-group row">
+									<label class="col-md-5 col-form-label">Add CardGroup</label>
+									<div class="col-md-7">
+										<input type="text" id="newCardGroup" name="newCardGroup" class="form-control" maxlength="10" [(ngModel)]="newCardGroup"
+											 >
+									</div>
+								</div>
+						</div>
+						<div class="col-md-6">
+								<div class="form-group row">
+									<label class="col-md-5 col-form-label">Add Mapping Denomination</label>
+									<div class="col-md-7">
+										<input type="number" id="newMapDenomination" name="newMapDenomination" class="form-control" [(ngModel)]="newMapDenomination"
+											 >
+									</div>
+								</div>
+						</div>
+						</div>
+						 <div class="row">
+						<div class="col-md-6">
+								<div class="form-group row">
+									<button   class="btn btn-sm btn-primary" (click)="SubmitCardGroup()">
+						<i class="fa fa-dot-circle-o"></i> Submit</button>
+								</div>
+								</div>
+						</div>
+					</div>		
+					
+					
+						
+					<div class="card-header" *ngIf="ishiddenSerialFound">
+            <i class="fa fa-align-justify" ></i> Number of digits in voucher hidden number
+          </div>
+		
+		<div class="card-body" *ngIf="ishiddenSerialFound">
+              <table class="table table-bordered table-striped table-sm">
+                <thead>
+                  <tr>
+                    <th>Hidden Serial ID</th>
+                    <th>Hidden Serial  Name</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let aTask of listvoucherserialdigitshidden">
+                            <tr>
+                                <td>{{aTask.id}}</td>
+                                <td>{{aTask.groupName}}</td>
+                                <td> <a  href="#" (click)="clearHiddenSerial(aTask.id);$event.preventDefault();" role="button">Delete</a> </td>
+                            </tr>
+                </tbody>
+              </table>
+              
+            </div>
+            <div class="card-footer text-right"  *ngIf="ishiddenSerialFound">
+            
+            <button type="reset" class="btn btn-sm btn-primary"(click)="addHiddenSerial()">Add
+					</button>
+            </div>
+					
+			     <div class="card-header" *ngIf="isAddHiddenSerial">
+            <i class="fa fa-align-justify"></i> Add voucher hidden number
+          </div>
+          
+           <div class="card-body" *ngIf="isAddHiddenSerial">
+           <div class="row">
+						<div class="col-md-6">
+								<div class="form-group row">
+									<label class="col-md-5 col-form-label">Add Hidden Serial</label>
+									<div class="col-md-7">
+										<input type="number" id="newHiddenSerial" name="newHiddenSerial" class="form-control" [(ngModel)]="newHiddenSerial"
+											 >
+									</div>
+								</div>
+						</div>
+						<div class="col-md-6">
+								<div class="form-group row">
+									<button   class="btn btn-sm btn-primary" (click)="SubmitHiddenSerial()">
+						<i class="fa fa-dot-circle-o"></i> Submit</button>
+								</div>
+								</div>
+						</div>
+					</div>			
+					
+					
+					<div class="card-header" *ngIf="isSftpFound">
+            <i class="fa fa-align-justify" ></i> Vendor Wise SFTP
+          </div>
+		
+		<div class="card-body" *ngIf="isSftpFound">
+              <table class="table table-bordered table-striped table-sm">
+                <thead>
+                  <tr>
+                    <th>Vendor Wise SFTP ID</th>
+                    <th>Vendor Wise SFTP Name</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let aTask of listVendorwiseSFTP">
+                            <tr>
+                                <td>{{aTask.id}}</td>
+                                <td>{{aTask.groupName}}</td>
+                                <td> <a  href="#" (click)="clearSftp(aTask.id);$event.preventDefault();" role="button">Delete</a> </td>
+                            </tr>
+                </tbody>
+              </table>
+              
+            </div>
+            <div class="card-footer text-right"  *ngIf="isSftpFound">
+            
+            <button type="reset" class="btn btn-sm btn-primary"(click)="addSftp()">Add
+					</button>
+            </div>
+					
+			     <div class="card-header" *ngIf="isAddSftp">
+            <i class="fa fa-align-justify"></i> Add Vendor Wise SFTP
+          </div>
+          
+           <div class="card-body" *ngIf="isAddSftp">
+           <div class="row">
+						<div class="col-md-6">
+								<div class="form-group row">
+									<label class="col-md-5 col-form-label">Add Vendor Wise SFTP</label>
+									<div class="col-md-7">
+										<input type="text" id="newSftp" max="200"name=newSftp class="form-control" [(ngModel)]="newSftp"
+											 >
+									</div>
+								</div>
+						</div>
+						<div class="col-md-6">
+								<div class="form-group row">
+									<button   class="btn btn-sm btn-primary" (click)="SubmitSftp()">
+						<i class="fa fa-dot-circle-o"></i> Submit</button>
+								</div>
+								</div>
+						</div>
+					</div>		
+           </div>
+          </div>
+            <div  *ngIf="!noDropdownSelected">
+          <button   class="btn btn-sm btn-danger" (click)="cancel()"> Cancel</button>
+          </div>
+          </div>
+          

@@ -122,7 +122,7 @@ submitVoucher(){
 }
  
 //Fetch Dropdown value
-getVendor(){ console.log("Vendor")
+getVendor(){ 
 this.ssmService.getAllVendor().subscribe(
 	data => {
 				//console.log(data);
@@ -156,7 +156,6 @@ this.ssmService.getDenoMination().subscribe(
     
     getCardGroup(){ 
 	this.listCardGroup=[];
-		console.log("card"+this.voucherGenrationForm.controls.Denomination.value)
 this.ssmService.getCardGroup(this.voucherGenrationForm.controls.Denomination.value).subscribe(
 	data => {
 				//console.log(data);
@@ -341,8 +340,10 @@ ShowData(){
 	,start,objToInsert['requestDate'],objToInsert['BatchQty'],objToInsert['Vendor']
 	,objToInsert['Pr'],objToInsert['nwExpireDate'],objToInsert['ExpireDate'],objToInsert['CardGroup'],
 	objToInsert['voucherserialdigits'],objToInsert['voucherserialdigitshidden'],objToInsert['VendorwiseSFTP'],this.userName).subscribe(
-		data=>{if(data!=""){this.successAlertShow=true;
-			this.successAlertMessage="Data Saved Sucessfully"
+		data=>{if(data!=""){
+			alert("Data saved Sucessfully and notification mail has been triggerd");
+			this.isDataFound=false;
+			this.voucherGenrationForm.reset
 			
 		}
 			
