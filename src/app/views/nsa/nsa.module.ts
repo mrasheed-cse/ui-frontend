@@ -131,6 +131,7 @@ import { InputFileProcessing } from '../SSM/inputfileprocessing.component';
 import{AucProcessor} from '../SSM/auc.component';
 
 import{VoucherGeneration} from '../SSM/ScratchCard/voucher_generation.component';
+import{VoucherAdmin} from '../SSM/ScratchCard/voucher_admin.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -243,7 +244,8 @@ import{VoucherGeneration} from '../SSM/ScratchCard/voucher_generation.component'
     SearchPO,
     InputFileProcessing,
     AucProcessor,
-    VoucherGeneration
+    VoucherGeneration,
+    VoucherAdmin
   ]
 })
 export class NsaModule { }

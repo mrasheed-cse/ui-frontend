@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../../environments/environment.prod';
 import { Router } from '@angular/router';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/retry';
-import 'rxjs/add/observable/of';
+import {catchError,} from 'rxjs/operators';
+import {_throw} from 'rxjs/observable/throw';
+
 
 import { AppGlobals } from './../../app.global';
 
@@ -129,5 +128,44 @@ getImsiAndICCID(imsi:string,quantity:string,vendor:string):any	{
 			expirydate:expirydate,cardgroup:cardgroup,serialDigitCount:serialDigitCount,
 			hiddenNumberCount:hiddenNumberCount,sftplocation:sftplocation,createdBy:createdBy});
 	}
+	
+	getAllCard(): any {	
+		return this.http.get(this.serverUrl + 'vouchergeneration/allCard/');
+	}
+	
+	deleteDenomination(linkno: number): Observable<any> {
+        return this.http.get(environment.apiUrl + "admin/deleteDenomination/" + linkno).pipe(catchError(this.handleError));
+    }
+deleteVendor(linkno: number): Observable<any> {
+        return this.http.get(environment.apiUrl + "admin/deleteVendor/" + linkno).pipe(catchError(this.handleError));
+    }
+	
+	deleteVoucherSerial(linkno: number): Observable<any> {
+        return this.http.get(environment.apiUrl + "admin/deletevoucherSerial/" + linkno).pipe(catchError(this.handleError));
+    }
+	
+	deleteCardGroup(linkno: number): Observable<any> {
+        return this.http.get(environment.apiUrl + "admin/deletecardGroup/" + linkno).pipe(catchError(this.handleError));
+    }
+	deleteHiddenSerial(linkno: number): Observable<any> {
+        return this.http.get(environment.apiUrl + "admin/deletehiddenSerial/" + linkno).pipe(catchError(this.handleError));
+    }
+	deleteVendorSftp(linkno: number): Observable<any> {
+        return this.http.get(environment.apiUrl + "admin/vendorSftp/" + linkno).pipe(catchError(this.handleError));
+    }
+	
+	
+	handleError(error: HttpErrorResponse) {
+        if (error instanceof ErrorEvent) {
+        } else {
+            switch (error.status) {
+                case 404:
+                   
+                    break;
+            }
+        }
+        return _throw(error);
+    }
+
 	
 	}
