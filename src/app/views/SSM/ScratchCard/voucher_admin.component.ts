@@ -79,8 +79,11 @@ export class VoucherAdmin implements OnInit {
 	
 }
 denomination(){
+	this.listDenomination=[];
 	this.noDropdownSelected=false;
  	this.isDenominationfound=true;
+ 	this.isaddDenomination=false;
+ 	this.newDenomination=null;
 this.ssmService.getDenoMination().subscribe(
 	data => {
 				for (let index in data) {
@@ -112,11 +115,26 @@ clearDenomination(linkno: number) {
 addDenomination(){this.isaddDenomination=true;
 this.isDenominationfound=false;}  
 
-SubmitDenomination(){}  
+SubmitDenomination(){
+	this.ssmService.saveDenomination(this.newDenomination).subscribe((res => {
+            if (res == false) {
+              alert("Failed to add")
+            } else {
+				alert("Data Saved")
+                this.denomination()
+            }
+        }), err => { console.error(err)
+            
+        });
+	
+}  
 
 vendorName(){ 
 	this.noDropdownSelected=false;
 	this.isVendorFound=true;
+	this.isAddvendor=false;
+	this.listVendor=[];
+	this.newVendor=null;
 this.ssmService.getAllVendor().subscribe(
 	data => {
 				//console.log(data);
@@ -147,12 +165,29 @@ clearVendor (linkno: number) {
 addVendor(){this.isAddvendor=true;
 this.isVendorFound=false;}    
 
-SubmitVendor(){}
+SubmitVendor(){
+	
+	this.ssmService.saveVendor(this.newVendor).subscribe((res => {
+            if (res == false) {
+              alert("Failed to add")
+            } else {
+				alert("Data Saved")
+                this.vendorName()
+            }
+        }), err => { console.error(err)
+            
+        });
+	
+	
+}
 
 
 voucherSerial(){
 	this.noDropdownSelected=false;
 	this.isvoucherSerialFound=true;
+	this.isAddVoucherSerial=false;
+	this.listvoucherserialdigits=[];
+	this.newVoucherSerial=null
 this.ssmService.getvoucherSerial().subscribe(
 	data => {
 				//console.log(data);
@@ -185,7 +220,19 @@ addVoucherSerial(){
 	this.isAddVoucherSerial=true;
 	}
 
-SubmitVoucherSerial(){}
+SubmitVoucherSerial(){
+	this.ssmService.saveVoucherSerial(this.newVoucherSerial).subscribe((res => {
+            if (res == false) {
+              alert("Failed to add")
+            } else {
+				alert("Data Saved")
+                this.voucherSerial()
+            }
+        }), err => { console.error(err)
+            
+        });
+	
+}
 
 
 
@@ -193,6 +240,10 @@ cardGroup(){
 	
 	this.noDropdownSelected=false;
 	this.isCardGroupFound=true;
+	this.isAddCardGroup=false;
+	this.listCardGroup=[];
+	this.newCardGroup=null;
+	this.newMapDenomination=null;
 this.ssmService.getAllCard().subscribe(
 	data => {
 				//console.log(data);
@@ -227,11 +278,24 @@ addCardGroup(){
 	
 	
 }     
-SubmitCardGroup(){}
+SubmitCardGroup(){
+		this.ssmService.saveCardGroup(this.newCardGroup,this.newMapDenomination).subscribe((res => {
+            if (res == false) {
+              alert("Failed to add")
+            } else {
+				alert("Data Saved")
+                this.cardGroup()
+            }
+        }), err => { console.error(err)
+            
+        });}
 
 voucherHiddenNumber(){ 
 	this.noDropdownSelected=false;
 	this.ishiddenSerialFound=true;
+	this.isAddHiddenSerial=false;
+	this.listvoucherserialdigitshidden=[];
+	this.newHiddenSerial=null;
 this.ssmService.getvoucherSerialHidden().subscribe(
 	data => {
 				//console.log(data);
@@ -261,14 +325,28 @@ clearHiddenSerial   (linkno: number) {
     
 addHiddenSerial(){
 	this.ishiddenSerialFound=false;
-	this.isAddHiddenSerial=true
+	this.isAddHiddenSerial=true;
 	
 }    
-SubmitHiddenSerial(){};
+SubmitHiddenSerial(){
+	this.ssmService.saveHiddenSerial(this.newHiddenSerial).subscribe((res => {
+            if (res == false) {
+              alert("Failed to add")
+            } else {
+				alert("Data Saved")
+                this.voucherHiddenNumber()
+            }
+        }), err => { console.error(err)
+            
+        });
+};
 
 vendorWiseSFTP(){
 	 	this.noDropdownSelected=false;
 	 	this.isSftpFound=true;
+	 	this.isAddSftp=false;
+	 	this.newSftp=null
+	 	this.listVendorwiseSFTP=[];
 this.ssmService.getVendorWiseSFTP().subscribe(
 	data => {
 		
@@ -290,7 +368,7 @@ clearSftp (linkno: number) {
             if (res == false) {
               alert("Failed to delete")
             } else {
-                this.voucherHiddenNumber()
+                this.vendorWiseSFTP()
             }
         }), err => { console.error(err)
             
@@ -302,7 +380,20 @@ addSftp(){this.isSftpFound=false;
     this.isAddSftp=true;
 }
 
-SubmitSftp(){}
+SubmitSftp(){
+	
+	this.ssmService.saveVendorSftp(this.newSftp).subscribe((res => {
+            if (res == false) {
+              alert("Failed to add")
+            } else {
+				alert("Data Saved")
+                this.vendorWiseSFTP()
+            }
+        }), err => { console.error(err)
+            
+        });
+	
+}
 
 
 cancel(){
