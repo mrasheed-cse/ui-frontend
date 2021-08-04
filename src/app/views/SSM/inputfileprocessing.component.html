@@ -49,7 +49,7 @@
             
                           
            <div style="padding-bottom: 4px;">
-           <span class="firstLabel"> IMSI TYPE
+           <span class="firstLabel" style="margin-right: 200px;"> IMSI TYPE
           <select id="wgtmsr"   name="Imsi Type"
 									required  [(ngModel)]="ImsiType">
 									<option></option>
@@ -57,12 +57,12 @@
 											</select>
        
                                                                </span>
-		<span class="secondLabel"> Quantity
+		<span class="secondLabel" style="margin-left: 200px;"> Quantity
 		    <input id="wgtmsr"  type="text"  [(ngModel)]="Quantity" required>
 		</span>           
            </div>
            <div style="padding-bottom: 4px;">  
-           <span class="firstLabel">Artwork 
+           <span class="firstLabel" style="margin-right: 200px;">Artwork 
             <select id="wgtmsr"  [(ngModel)]="Artwork" required>
                                                                       	<option></option>
 												<option *ngFor="let aIMSI of listArtwork" [value]="aIMSI.group_name">{{aIMSI.group_name}}</option>
@@ -70,16 +70,16 @@
 
                                                                          
                                                                 </span>
-		<span class="secondLabel"> STK
+		<span class="secondLabel" style="margin-left: 200px;" > STK
 		   <select id="wgtmsr"   [(ngModel)]="STK" required >
-                                       < 	<option></option>
-												<option *ngFor="let aIMSI of listStk" [value]="aIMSI.group_name">{{aIMSI.group_name}}</option>
+                                       	<option></option>
+										<option *ngFor="let aIMSI of listStk" [value]="aIMSI.group_name">{{aIMSI.group_name}}</option>
 											</select>
 		</span>   
            </div>
            
          			  <div style="padding-bottom: 4px;">
-       			  <span class="firstLabel"> Vendor
+       			  <span class="firstLabel" style="margin-right: 200px;"> Vendor
        					     <select id="wgtmsr"  [(ngModel)]="Vendor" required >
                                                                     	<option></option>
 												<option *ngFor="let aIMSI of listVendor" [value]="aIMSI.group_name">{{aIMSI.group_name}}</option>

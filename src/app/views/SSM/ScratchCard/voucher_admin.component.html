@@ -74,14 +74,12 @@
               <table class="table table-bordered table-striped table-sm">
                 <thead>
                   <tr>
-                    <th>Denomination ID</th>
                     <th>Denomination Name</th>
                     <th>Action</th>
                   </tr>
                 </thead>
                 <tbody *ngFor="let aTask of listDenomination">
                             <tr>
-                                <td>{{aTask.id}}</td>
                                 <td>{{aTask.groupName}}</td>
                                 <td> <a  href="#" (click)="clearDenomination(aTask.id);$event.preventDefault();" role="button">Delete</a> </td>
                             </tr>
@@ -127,14 +125,12 @@
               <table class="table table-bordered table-striped table-sm">
                 <thead>
                   <tr>
-                    <th>Vendor ID</th>
                     <th>Vendor Name</th>
                     <th>Action</th>
                   </tr>
                 </thead>
                 <tbody *ngFor="let aTask of listVendor">
                             <tr>
-                                <td>{{aTask.id}}</td>
                                 <td>{{aTask.groupName}}</td>
                                 <td> <a  href="#" (click)="clearVendor(aTask.id);$event.preventDefault();" role="button">Delete</a> </td>
                             </tr>
@@ -181,14 +177,12 @@
               <table class="table table-bordered table-striped table-sm">
                 <thead>
                   <tr>
-                    <th>Voucher Serial ID</th>
                     <th>Voucher Serial  Name</th>
                     <th>Action</th>
                   </tr>
                 </thead>
                 <tbody *ngFor="let aTask of listvoucherserialdigits">
                             <tr>
-                                <td>{{aTask.id}}</td>
                                 <td>{{aTask.groupName}}</td>
                                 <td> <a  href="#" (click)="clearVoucherSerial(aTask.id);$event.preventDefault();" role="button">Delete</a> </td>
                             </tr>
@@ -235,7 +229,6 @@
               <table class="table table-bordered table-striped table-sm">
                 <thead>
                   <tr>
-                    <th>CardGroup ID</th>
                     <th>CardGroup Name</th>
                     <th>Denomination  Mapping Id</th>
                     <th>Action</th>
@@ -243,7 +236,6 @@
                 </thead>
                 <tbody *ngFor="let aTask of listCardGroup">
                             <tr>
-                                <td>{{aTask.id}}</td>
                                 <td>{{aTask.groupName}}</td>
                                 <td>{{aTask.denominationId}}</td>
                                 <td> <a  href="#" (click)="clearCardGroup(aTask.id);$event.preventDefault();" role="button">Delete</a> </td>
@@ -303,14 +295,12 @@
               <table class="table table-bordered table-striped table-sm">
                 <thead>
                   <tr>
-                    <th>Hidden Serial ID</th>
                     <th>Hidden Serial  Name</th>
                     <th>Action</th>
                   </tr>
                 </thead>
                 <tbody *ngFor="let aTask of listvoucherserialdigitshidden">
                             <tr>
-                                <td>{{aTask.id}}</td>
                                 <td>{{aTask.groupName}}</td>
                                 <td> <a  href="#" (click)="clearHiddenSerial(aTask.id);$event.preventDefault();" role="button">Delete</a> </td>
                             </tr>
@@ -357,14 +347,12 @@
               <table class="table table-bordered table-striped table-sm">
                 <thead>
                   <tr>
-                    <th>Vendor Wise SFTP ID</th>
                     <th>Vendor Wise SFTP Name</th>
                     <th>Action</th>
                   </tr>
                 </thead>
                 <tbody *ngFor="let aTask of listVendorwiseSFTP">
                             <tr>
-                                <td>{{aTask.id}}</td>
                                 <td>{{aTask.groupName}}</td>
                                 <td> <a  href="#" (click)="clearSftp(aTask.id);$event.preventDefault();" role="button">Delete</a> </td>
                             </tr>

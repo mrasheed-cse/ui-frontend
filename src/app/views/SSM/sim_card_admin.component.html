@@ -1,0 +1,205 @@
+<div class="row">
+
+    <div class="col-md-12">
+      
+      <div class="card" style="border:0px !important;background:transparent !important">
+      </div>
+      <div class="card">
+      <div class="card-header" *ngIf="noDropdownSelected">
+            <i class="fa fa-align-justify" ></i> Select Dropdown For Modification 
+          </div>
+          <div class="card-body" *ngIf="noDropdownSelected">
+          <div class="row">
+						<div class="col-md-6">
+								<div class="form-group row">
+									<div class="col-md-7">
+										   <button type="button"   (click)=getArtwork()>Artwork</button>
+									</div>
+	
+								</div>
+						</div>
+						
+						<div class="col-md-6">
+								<div class="form-group row">
+									<div class="col-md-7">
+										   <button type="button"   (click)="vendorName()">Vendor</button>
+									</div>
+	
+	
+								</div>
+						</div>
+					</div>	
+					<div class="row">
+						<div class="col-md-6">
+								<div class="form-group row">
+									<div class="col-md-7">
+										   <button type="button"   (click)="getStk()">STK</button>
+									</div>
+	
+								</div>
+						</div>
+						
+					</div>	
+					
+          </div>
+          
+           <div class="card-header" *ngIf="isArtworkFound">
+            <i class="fa fa-align-justify" ></i> Artwork
+          </div>
+        <div class="card-body" *ngIf="isArtworkFound">
+              <table class="table table-bordered table-striped table-sm">
+                <thead>
+                  <tr>
+                    <th>Artwork Name</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let aTask of listArtwork">
+                            <tr>
+                                <td>{{aTask.groupName}}</td>
+                                <td> <a  href="#" (click)="clearArtwork(aTask.id);$event.preventDefault();" role="button">Delete</a> </td>
+                            </tr>
+                </tbody>
+              </table>
+              
+            </div>
+            <div class="card-footer text-right"  *ngIf="isArtworkFound">
+            
+            <button type="reset" class="btn btn-sm btn-primary"(click)="addArtwork()">Add
+					</button>
+            </div>
+            
+              <div class="card-header" *ngIf="isaddArtwork">
+            <i class="fa fa-align-justify"></i> Add Denomination
+          </div>
+          
+           <div class="card-body" *ngIf="isaddArtwork">
+           <div class="row">
+						<div class="col-md-6">
+								<div class="form-group row">
+									<label class="col-md-5 col-form-label">Add New Artwork</label>
+									<div class="col-md-7">
+										<input type="text" id="newArtwork" name="newArtwork" class="form-control" [(ngModel)]="newArtwork"
+											 >
+									</div>
+								</div>
+						</div>
+						<div class="col-md-6">
+								<div class="form-group row">
+									<button   class="btn btn-sm btn-primary" (click)="submitArtwork()">
+						<i class="fa fa-dot-circle-o"></i> Submit</button>
+								</div>
+								</div>
+						</div>
+					</div>	
+					
+					
+					<div class="card-header" *ngIf="isVendorFound">
+            <i class="fa fa-align-justify" ></i> Vendor
+          </div>
+        <div class="card-body" *ngIf="isVendorFound">
+              <table class="table table-bordered table-striped table-sm">
+                <thead>
+                  <tr>
+                    <th>Vendor Name</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let aTask of listVendor">
+                            <tr>
+                                <td>{{aTask.groupName}}</td>
+                                <td> <a  href="#" (click)="clearVendor(aTask.id);$event.preventDefault();" role="button">Delete</a> </td>
+                            </tr>
+                </tbody>
+              </table>
+              
+            </div>
+            <div class="card-footer text-right"  *ngIf="isVendorFound">
+            
+            <button type="reset" class="btn btn-sm btn-primary"(click)="addVendor()">Add
+					</button>
+            </div>
+            
+              <div class="card-header" *ngIf="isAddVendor">
+            <i class="fa fa-align-justify"></i> Add Vendor
+          </div>
+          
+           <div class="card-body" *ngIf="isAddVendor">
+           <div class="row">
+						<div class="col-md-6">
+								<div class="form-group row">
+									<label class="col-md-5 col-form-label">Add New Vendor</label>
+									<div class="col-md-7">
+										<input type="text" id="newVendor" name="newVendor" class="form-control" [(ngModel)]="newVendor"
+											 >
+									</div>
+								</div>
+						</div>
+						<div class="col-md-6">
+								<div class="form-group row">
+									<button   class="btn btn-sm btn-primary" (click)="submitVendor()">
+						<i class="fa fa-dot-circle-o"></i> Submit</button>
+								</div>
+								</div>
+						</div>
+					</div>	
+					
+					<div class="card-header" *ngIf="isStkFound">
+            <i class="fa fa-align-justify" ></i> STK
+          </div>
+        <div class="card-body" *ngIf="isStkFound">
+              <table class="table table-bordered table-striped table-sm">
+                <thead>
+                  <tr>
+                    <th>STK Name</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let aTask of listStk">
+                            <tr>
+                                <td>{{aTask.groupName}}</td>
+                                <td> <a  href="#" (click)="clearStk(aTask.id);$event.preventDefault();" role="button">Delete</a> </td>
+                            </tr>
+                </tbody>
+              </table>
+              
+            </div>
+            <div class="card-footer text-right"  *ngIf="isStkFound">
+            
+            <button type="reset" class="btn btn-sm btn-primary"(click)="addStk()">Add
+					</button>
+            </div>
+            
+              <div class="card-header" *ngIf="isAddStk">
+            <i class="fa fa-align-justify"></i> Add STK
+          </div>
+          
+           <div class="card-body" *ngIf="isAddStk">
+           <div class="row">
+						<div class="col-md-6">
+								<div class="form-group row">
+									<label class="col-md-5 col-form-label">Add New STK</label>
+									<div class="col-md-7">
+										<input type="text" id="newStk" name="newStk" class="form-control" [(ngModel)]="newStk"
+											 >
+									</div>
+								</div>
+						</div>
+						<div class="col-md-6">
+								<div class="form-group row">
+									<button   class="btn btn-sm btn-primary" (click)="submitStk()">
+						<i class="fa fa-dot-circle-o"></i> Submit</button>
+								</div>
+								</div>
+						</div>
+					</div>	
+          
+          
+          </div>
+          </div>
+          <div  *ngIf="!noDropdownSelected">
+          <button   class="btn btn-sm btn-danger" (click)="cancel()"> Cancel</button>
+          </div>
+          </div>
+         
+          

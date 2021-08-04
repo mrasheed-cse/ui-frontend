@@ -153,7 +153,7 @@ getImsiAndICCID(imsi:string,quantity:string,vendor:string):any	{
 	deleteVendorSftp(linkno: number): Observable<any> {
         return this.http.get(environment.apiUrl + "admin/deleteVendorSftp/" + linkno).pipe(catchError(this.handleError));
     }
-	
+
 	
 	saveDenomination(linkno: number): Observable<any> {
         return this.http.get(environment.apiUrl + "admin/saveDenomination/" + linkno).pipe(catchError(this.handleError));
@@ -176,7 +176,19 @@ getImsiAndICCID(imsi:string,quantity:string,vendor:string):any	{
         return this.http.get(environment.apiUrl + "admin/saveVendorSftp/" + linkno).pipe(catchError(this.handleError));
     }
 	
+    	deleteArtwork(linkno: number): Observable<any> {
+        return this.http.get(environment.apiUrl + "simAdmin/deleteArtwork/" + linkno).pipe(catchError(this.handleError));
+    }
+	saveArtwork(linkno: string): Observable<any> {
+        return this.http.get(environment.apiUrl + "simAdmin/saveArtwork/" + linkno).pipe(catchError(this.handleError));
+    }
     
+    deleteSTK(linkno: number): Observable<any> {
+        return this.http.get(environment.apiUrl + "simAdmin/deleteStk/" + linkno).pipe(catchError(this.handleError));
+    }
+    saveStk(linkno: string): Observable<any> {
+        return this.http.get(environment.apiUrl + "simAdmin/saveStk/" + linkno).pipe(catchError(this.handleError));
+    }
     
 	
 	handleError(error: HttpErrorResponse) {
