@@ -129,6 +129,7 @@ import { LostdamagenewsimconnectionComponent } from './lostdamagenewsimconnectio
 import { SearchPO } from '../SSM/search_po.component';
 import { InputFileProcessing } from '../SSM/inputfileprocessing.component';
 import{AucProcessor} from '../SSM/auc.component';
+import{SimAdmin} from '../SSM/sim_card_admin.component';
 
 import{VoucherGeneration} from '../SSM/ScratchCard/voucher_generation.component';
 import{VoucherAdmin} from '../SSM/ScratchCard/voucher_admin.component';
@@ -245,7 +246,8 @@ import{VoucherAdmin} from '../SSM/ScratchCard/voucher_admin.component';
     InputFileProcessing,
     AucProcessor,
     VoucherGeneration,
-    VoucherAdmin
+    VoucherAdmin,
+    SimAdmin
   ]
 })
 export class NsaModule { }

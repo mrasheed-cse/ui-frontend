@@ -14,13 +14,12 @@ import {_throw} from 'rxjs/observable/throw';
 import { AppGlobals } from './../../app.global';
 import { LoginService } from '../pages/LoginService';
 import { LoggedInUser } from '../pages/loggedInUser';
-import { AgGridAngular } from 'ag-grid-angular';
 import{SSMService } from './SSM.service';
 @Component({
     selector: 'app-searchPO',
     templateUrl: './inputfileprocessing.component.html',
       styleUrls: ['./search_po.component.scss'],
-      providers: [AppGlobals,LoginService,SSMService],
+      providers: [AppGlobals,LoginService,SSMService,DatePipe],
 })
 export class InputFileProcessing implements OnInit {
 	 private rowData: any[];
@@ -47,7 +46,7 @@ export class InputFileProcessing implements OnInit {
 			 public listVendor=[];
 			 public listStk=[];
 			FormGroup:{};
-	constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private ssmService: SSMService ) {
+	constructor(private router: Router,private loginService: LoginService,private datePipe: DatePipe,private http: HttpClient, private _global: AppGlobals, private ssmService: SSMService ) {
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
 
     if (this.currentLoggedInUser) {
@@ -69,26 +68,31 @@ this.insertRowData=[];
 	
 	  
 search(){
-	this.isDataFound = true;
+	this.isDataFound = false;
+	this.isDataFoundOther=false;
 	  this.rowData = [];  
-	console.log("Po"+this.PoNumber)
+	  this.listIMSI = [];
+	  this.listArtwork=[];
+	  this.listVendor=[];
+	this.listStk=[];
 	this.ssmService.getPoInformation(this.PoNumber).subscribe(
 		 data => {
 			 this.rawDataFromBackend = data;
           if(data !=null){
+	this.isDataFound = true;
 	this.getImsi();         
 	this.getArtwork();
 	this.getStk();
 	this.getVendor();
-	console.log("DATA= ",data)   
            this.isDataFound = true;
           this.rawDataFromBackend=data;
           if(this.PoNumber==this.rawDataFromBackend['id']){
            var objToInsert = {};
+           var exp=
                   objToInsert['id'] = this.rawDataFromBackend['id'];
                   objToInsert['availableQuantity'] = this.rawDataFromBackend['availableQuantity'];
                   objToInsert['supplier'] = this.rawDataFromBackend['supplier'];
-                  objToInsert['poExpireDate'] = this.rawDataFromBackend['poExpireDate'];
+                  objToInsert['poExpireDate'] = this.datePipe.transform(this.rawDataFromBackend['poExpireDate'],"dd-MM-yyyy");
                   this.rowData.push(objToInsert);
 	       
           }
@@ -108,6 +112,7 @@ search(){
 }
 
 submit(){
+	
 	this.insertRowData=[];
 	if( parseInt(this.rawDataFromBackend['availableQuantity'])>=parseInt(this.Quantity)){
 	if(this.ImsiType!=null&&this.STK!=null&&this.Vendor!=null&&this.Artwork!=null){
@@ -116,10 +121,6 @@ submit(){
 		 data => {
 			if(data !=null){ 
 				this.rawDataFromBackendImsi=data;
-		
-		  console.log("this.Artwork");
-		 console.log(this.Artwork);
-		  console.log(this.STK);
 		 var objToInsert1 = {};
                   objToInsert1['poNumber'] = this.rawDataFromBackend['id'];
                   objToInsert1['description'] = this.rawDataFromBackend['itemDescription'];
@@ -169,7 +170,6 @@ this.ssmService.saveData(this.FormGroup['poNumber'],this.FormGroup['startImsi'],
 	 data => {
 		if(data!=null)
 		alert("Data Saved")
-		console.log("Data Saved Sucessfully")
 		
 	},
 	err => console.error(err),
@@ -199,7 +199,6 @@ this.ssmService.GetAllIMSI().subscribe(
 				}
 			},
     err => console.error(err),
-    () => console.log('done loading IMSI List')
     );
     }
     
@@ -237,7 +236,6 @@ this.ssmService.getAllstk().subscribe(
 				}
 			},
     err => console.error(err),
-    () => console.log('done loading IMSI List')
     );
     }
 	
@@ -256,7 +254,6 @@ this.ssmService.getAllVendor().subscribe(
 				}
 			},
     err => console.error(err),
-    () => console.log('done loading IMSI List')
     );
     }
 	ngOnInit() { 
