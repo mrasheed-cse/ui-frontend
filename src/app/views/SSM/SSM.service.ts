@@ -190,7 +190,34 @@ getImsiAndICCID(imsi:string,quantity:string,vendor:string):any	{
         return this.http.get(environment.apiUrl + "simAdmin/saveStk/" + linkno).pipe(catchError(this.handleError));
     }
     
+    getApproval1HopData(hop:number): Observable<any>{
+	  return this.http.get(environment.apiUrl + "voucherManagement/getScratchVoucherHop/" +hop).pipe(catchError(this.handleError));
 	
+}
+
+setSeccondHop(username:string,Id:number,comment:string){
+	
+	return this.http.post(this.serverUrl + 'voucherManagement/SaveSecondHop/', {
+		username:username,
+		id:Id,
+		comments:comment
+			});
+}
+cancelHop(username:string,Id:number){
+	
+	return this.http.post(this.serverUrl + 'voucherManagement/cancelHop/', {
+		username:username,
+		id:Id,
+			});
+}
+ postFile(fileToUpload: File) {
+        const url = environment.apiUrl + "voucherManagement/uploadstart";
+        const formData: FormData = new FormData();
+        formData.append('file', fileToUpload, fileToUpload.name);
+        return this.http.post(url, formData);
+    }
+
+
 	handleError(error: HttpErrorResponse) {
         if (error instanceof ErrorEvent) {
         } else {
