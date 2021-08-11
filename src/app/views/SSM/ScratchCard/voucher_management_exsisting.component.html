@@ -1,0 +1,65 @@
+ <div class="row">
+	<div class="col-md-1">
+		 
+	</div>
+	<div class="col-md-10">
+		<div class="card">
+		<div class="card-header" *ngIf="firstHop">
+            <i class="fa fa-align-justify"></i>  Voucher Plan Management Approval 
+          </div>
+           <div class="card-body" *ngIf="firstHop">
+           <table class="table table-bordered table-striped table-sm">
+                <thead>
+                  <tr>
+                    <th>Po Number</th>
+                    <th>Batch Quantity</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let aTask of listVoucherHopsdata">
+                            <tr>
+                                <td>{{aTask.ponumber}}</td>
+                                <td>{{aTask.batchNo}}</td>
+                                <td> <a  href="#" (click)="detailsSecondHop(aTask.id);$event.preventDefault();" role="button">Details</a> </td>
+                            </tr>
+                </tbody>
+              </table>
+           
+           
+           </div>
+            
+          <div class="card-body" *ngIf="isbatchTest">
+            
+           	  <div class="row">
+                      <div class="col-md-6">
+                      <label  class="col-md-5 col-form-label">Comment</label>   
+                    <input type="text" class="form-control" [(ngModel)] = "comments"  maxlength="200" />
+                  </div>
+                 </div>
+                 
+                   <div class="col-md-6">
+                     <form [formGroup]="radioTest">
+                     <div class="form-group row">
+                        <label  class="col-md-5 col-form-label">Batch Pass</label>   
+  				<input type="radio" class="form-control" name="batch" value='pass' formControlName="batch" [(ngModel)]='batch'>
+  				</div>
+  				<div class="form-group row">
+  				  <label  class="col-md-5 col-form-label">Batch Fail</label>
+  				<input type="radio" class="form-control" name='batch' value='fail' formControlName="batch" [(ngModel)]='batch'>
+						</div>
+						</form>
+                  </div>
+
+           </div>
+          
+           <div class="card-footer" *ngIf="isButton">
+          
+                 <button   class="btn btn-sm btn-primary" (click)="submit()">Approve</button>
+                  <button   class="btn btn-sm btn-danger" (click)="cancel()"> Cancel</button>
+           </div>
+          
+           </div>
+           </div>
+              
+           
+           </div>
