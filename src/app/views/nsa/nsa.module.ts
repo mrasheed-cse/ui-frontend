@@ -134,6 +134,7 @@ import{SimAdmin} from '../SSM/sim_card_admin.component';
 import{VoucherGeneration} from '../SSM/ScratchCard/voucher_generation.component';
 import{VoucherAdmin} from '../SSM/ScratchCard/voucher_admin.component';
 import{VoucherManagementApproval} from '../SSM/ScratchCard/voucher_management_pending.component';
+import{VoucherGenerationForward} from '../SSM/ScratchCard/voucher_generation_forward_technology.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -249,7 +250,8 @@ import{VoucherManagementApproval} from '../SSM/ScratchCard/voucher_management_pe
     VoucherGeneration,
     VoucherAdmin,
     SimAdmin,
-    VoucherManagementApproval
+    VoucherManagementApproval,
+    VoucherGenerationForward
   ]
 })
 export class NsaModule { }

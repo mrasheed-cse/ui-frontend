@@ -111,6 +111,7 @@ import{SimAdmin} from '../SSM/sim_card_admin.component';
 import{VoucherGeneration} from '../SSM/ScratchCard/voucher_generation.component';
 import{VoucherAdmin}  from '../SSM/ScratchCard/voucher_admin.component';
 import{VoucherManagementApproval} from '../SSM/ScratchCard/voucher_management_pending.component';
+import{VoucherGenerationForward} from '../SSM/ScratchCard/voucher_generation_forward_technology.component';
 const routes: Routes = [
   {
     path: '',
@@ -882,6 +883,14 @@ const routes: Routes = [
      {
         path: 'scratchcardpending',
         component: VoucherManagementApproval,
+        data: {
+            title: 'Pending For Approval'
+        }
+    },
+    
+    {
+        path: 'scratchvoucherFwd',
+        component: VoucherGenerationForward,
         data: {
             title: 'Pending For Approval'
         }
