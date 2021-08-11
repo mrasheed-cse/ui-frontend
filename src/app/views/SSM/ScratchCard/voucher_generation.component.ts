@@ -107,6 +107,7 @@ submitVoucher(){
 	this.ssmService.checkPoExsist(this.voucherGenrationForm.controls.Po.value).subscribe(
 		data =>{ console.log("Da"+data)
 			if(data!=null){
+				alert("Data Saved")
 				this.ShowData();
 				
 			}
@@ -232,7 +233,7 @@ this.ssmService.getVendorWiseSFTP().subscribe(
 	)
 }
 
-getSerial(){ 
+getSerial(){ this.startSerial==null;
 	 var val = {}
 		 for (let index in this.listDenomination) {
 		if(this.listDenomination[index].id==this.voucherGenrationForm.controls.Denomination.value){
@@ -253,13 +254,17 @@ getSerial(){
 	);
 	
 }
-   onquantityChange(){
+   onquantityChange(){this.endSerial=null;
+    this.startSerial==null;
 	this.voucherGenrationForm.get('BatchQty').valueChanges.subscribe(selectab => {
-		var v1=this.voucherGenrationForm.controls.StartSerial.value;
-	var v2=this.voucherGenrationForm.controls.BatchQty.value-1;
-	console.log("V1"+v1+"V2="+v2);
-		var endSerial1=v1+v2;
-	this.endSerial=endSerial1;
+		var v1=null;
+		var v2=null;
+		v1= Number(this.startSerial);
+	v2=this.voucherGenrationForm.controls.BatchQty.value-1;
+	console.log("V1"+v1)
+	console.log("V2="+v2);
+		var num=v1+v2;
+	this.endSerial=num;
 	console.log(this.endSerial)
 		}
 		
@@ -269,13 +274,16 @@ getSerial(){
 }
 
 onDenominationChange(){
+	this.endSerial=null;
+	this.startSerial=null
 	this.voucherGenrationForm.get('Denomination').valueChanges.subscribe(selectab => {
 		this.getCardGroup();
 		
 	});
 	
 }
-onCardChange(){
+onCardChange(){this.endSerial=null;
+	this.startSerial=null
 	this.voucherGenrationForm.get('CardGroup').valueChanges.subscribe(selectab => {
 		this.getSerial();
 		
@@ -327,7 +335,7 @@ ShowData(){
 	 
 	 objToInsert['endSerial']=this.endSerial;
 	objToInsert['BatchNo']=this.batchNo;
-	objToInsert['StartSerial']=this.voucherGenrationForm.controls.StartSerial.value;
+	objToInsert['StartSerial']=this.startSerial;
 	objToInsert['BatchQty']=this.voucherGenrationForm.controls.BatchQty.value;
 	objToInsert['requestDate']=this.datePipe.transform(this.reqDate,"dd-MM-yyyy");
 	objToInsert['Pr']=this.voucherGenrationForm.controls.Pr.value;

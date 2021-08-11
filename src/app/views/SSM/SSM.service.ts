@@ -229,6 +229,20 @@ cancelHop(username:string,Id:number){
         }
         return _throw(error);
     }
+    
+    setHop(username:string,Id:number,comment:string){
+	
+	return this.http.post(this.serverUrl + 'voucherManagement/saveHop/', {
+		username:username,
+		id:Id,
+		comments:comment
+			});
 
+	
+	}
+	 getScratchDatabyId(id:number): any{
+	  return this.http.get(environment.apiUrl + "voucherManagement/getScratchVoucherdataByid/" +id).pipe(catchError(this.handleError));
+	
+}
 	
 	}

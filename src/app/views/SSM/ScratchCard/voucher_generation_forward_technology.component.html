@@ -5,7 +5,7 @@
 	<div class="col-md-10">
 		<div class="card">
 		<div class="card-header" *ngIf="firstHop">
-            <i class="fa fa-align-justify"></i>  Voucher Plan Management Approval 
+            <i class="fa fa-align-justify"></i>  Voucher Plan Management Technology Approval 
           </div>
            <div class="card-body" *ngIf="firstHop">
            <table class="table table-bordered table-striped table-sm">
@@ -25,12 +25,19 @@
                 </tbody>
               </table>
            
-           
            </div>
-            
-          <div class="card-body" *ngIf="isotherHopsApproval">
+           
+           <<div class="card-body" *ngIf="isfirsthopProceed">
             
            	  <div class="row">
+
+                   <div class="col-md-6">
+								<label>Please Select the File:</label>
+                <button class="btn btn-secondary btn-sm" onclick="document.getElementById('getFile').click()">Browse ...</button>
+                <input #fileInput type='file' id="getFile" (click)="fileInput.value = null" accept=".csv" style="position: fixed; left: -200px; top: -200px;" (change)="handleFileInput($event.target.files)">
+                <br>
+
+						</div>
                       <div class="col-md-6">
                       <label>Comment</label>   
                     <input type="text" class="form-control" [(ngModel)] = "comments"  maxlength="200" />
@@ -38,15 +45,16 @@
         <br/>
            
            </div>
+           
+           
+           <div class="card-footer" *ngIf="isfirsthopProceed">
           
-           <div class="card-footer" *ngIf="isotherHopsApproval">
-          
-                 <button   class="btn btn-sm btn-primary" (click)="submit1()">Approve</button>
+                 <button   class="btn btn-sm btn-primary" (click)="submit()">Approve</button>
                   <button   class="btn btn-sm btn-danger" (click)="cancel()"> Cancel</button>
            </div>
-          
-           </div>
-           </div>
-              
+           
            
            </div>
+           </div>
+           </div>
+           

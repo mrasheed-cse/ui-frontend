@@ -24,22 +24,21 @@ import 'rxjs/add/observable/of';
 
 @Component({
     selector: 'app-voucherGen',
-    templateUrl: './voucher_management_pending.component.html',
+    templateUrl: 'voucher_generation_forward_technology.component.html',
       styleUrls: ['../search_po.component.scss'],
-      providers: [AppGlobals,LoginService,SSMService,DatePipe],
-})
-export class VoucherManagementApproval implements OnInit {
-	
+      providers: [AppGlobals,LoginService,SSMService,DatePipe],})
+
+export class VoucherGenerationForward implements OnInit {
 	
 	currentLoggedInUser: LoggedInUser;
 			userName: string;
 			groupID: number;
   			userID: string;
-  			listVoucherHopsdata:any[];
+  			batchNo:string;
+			listVoucherHopsdata:any[];
   			firstHop:boolean=false;
   			isfirsthopProceed:boolean=false;
-  			isotherHopsApproval:boolean=false;
-  			comments:string;
+		comments:string;
   			Id:number;
   			hop:number;
   			fileToUpload: File = null;
@@ -49,45 +48,26 @@ export class VoucherManagementApproval implements OnInit {
    			 filesuccess: boolean = false;
     		uploading: boolean = false;
 
-  			
-  	constructor(private datePipe: DatePipe,private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private ssmService: SSMService ) {
+	constructor(private datePipe: DatePipe,private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private ssmService: SSMService ) {
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
 
     if (this.currentLoggedInUser) {
       this.userName = this.currentLoggedInUser.userName
       this.groupID = this.currentLoggedInUser.groupID
       this.userID = this.currentLoggedInUser.userID
-      console.log("Hello"+this.groupID);
-      if(this.groupID==15){
-	//technology approval
-	this.hop=5;
-	
-}
-if(this.groupID==7){
-
-this.hop=3;
-	
-	
-}
-if(this.groupID==12){
-	//ssmapproval
-	this.hop=4;
-	
-}
-
-
-    this.getData(this.hop);}
+      this.hop=2;
+      this.getData(this.hop);
+    }
     else {
       this.router.navigate(['pages/login']);
     }
+   
     }
-    
-      
+     
     getData(hop:number){
 	this.firstHop=true;
 	this.listVoucherHopsdata=[];
 	this.isfirsthopProceed=false;
-	this.isotherHopsApproval=false;
 	this.ssmService.getApproval1HopData(this.hop).subscribe(data=>{
 		for (let index in data) {
 			
@@ -108,21 +88,34 @@ if(this.groupID==12){
 		
 		
 	})
+	
 }
     
+     
 	detailsSecondHop(id:number){
-		
-			this.isotherHopsApproval=true;
+		this.isfirsthopProceed=true;
 		
 		this.firstHop=false;
 		this.Id=id;
 		
 	}
+	submit(){
+	this.dndUpload();
+			console.log(this.comments);
+	this.ssmService.setSeccondHop(this.userName,this.Id,this.comments).subscribe(
 
-
+		data=>{
+			if(data!=null){
+				alert("DATA Saved And Forwarded");
+				this.getData(this.hop);
+			}
+			
+		}
+	)
 	
-
-
+	
+      }
+      
 cancel(){
 	
 	this.ssmService.cancelHop(this.userName,this.Id).subscribe(
@@ -138,25 +131,43 @@ cancel(){
 	)
 	
 }
- 
- 
- submit1(){
-	
-	this.ssmService.setHop(this.userName,this.Id,this.comments).subscribe(
+    
+dndUpload() {
+        this.fileerror = false;
+        this.filesuccess = false;
+        if (this.fileToUpload == undefined || !this.fileToUpload.name.endsWith(".csv")) {
+            this.fileuploadstatus = 'Please select a csv file';
+            this.fileerror = true;
+        } else {
+            this.uploading = true
+            this.ssmService.postFile(this.fileToUpload).subscribe((res => {
+                this.uploading = false
+                if (res == null) {
+                    this.fileuploadstatus = 'File Upload Fail';
+                    this.fileerror = true;
+                } else {
+                    this.fileuploadstatus = 'File Upload Success';
+                    this.filesuccess = true;
+                }
+            }), err => {
+                this.uploading = false
+                this.fileuploadstatus = err.error.message;
+                this.fileerror = true;
+            })
+            console.log(this.fileToUpload.size);
+        }
+    }
 
-		data=>{
-			if(data!=null){
-				alert("DATA Saved And Forwarded");
-				this.getData(this.hop);
-			}
-			
-		}
-	)
-	
-}
-    
-    
-    ngOnInit(){
+    handleFileInput(files: FileList) {
+        this.fileerror = false;
+        this.filesuccess = false;
+        this.fileToUpload = files.item(0);
+        this.fileName = this.fileToUpload.name;
+    }
+ 
+   ngOnInit(){
 		
 	}
+       
+   
 }
