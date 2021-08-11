@@ -135,6 +135,7 @@ import{VoucherGeneration} from '../SSM/ScratchCard/voucher_generation.component'
 import{VoucherAdmin} from '../SSM/ScratchCard/voucher_admin.component';
 import{VoucherManagementApproval} from '../SSM/ScratchCard/voucher_management_pending.component';
 import{VoucherGenerationForward} from '../SSM/ScratchCard/voucher_generation_forward_technology.component';
+import{VoucherManagementExsisting} from '../SSM/ScratchCard/voucher_management_exsisting.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -251,7 +252,7 @@ import{VoucherGenerationForward} from '../SSM/ScratchCard/voucher_generation_for
     VoucherAdmin,
     SimAdmin,
     VoucherManagementApproval,
-    VoucherGenerationForward
+    VoucherGenerationForward,VoucherManagementExsisting
   ]
 })
 export class NsaModule { }
