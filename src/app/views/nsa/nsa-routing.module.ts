@@ -108,11 +108,13 @@ import { SearchPO } from '../SSM/search_po.component';
 import { InputFileProcessing } from '../SSM/inputfileprocessing.component';
 import{AucProcessor} from '../SSM/auc.component';
 import{SimAdmin} from '../SSM/sim_card_admin.component';
+import{PlanGenerate} from'../SSM/SimCardPlan Management/plangenerate.component'
 import{VoucherGeneration} from '../SSM/ScratchCard/voucher_generation.component';
 import{VoucherAdmin}  from '../SSM/ScratchCard/voucher_admin.component';
 import{VoucherManagementApproval} from '../SSM/ScratchCard/voucher_management_pending.component';
 import{VoucherGenerationForward} from '../SSM/ScratchCard/voucher_generation_forward_technology.component';
 import{VoucherManagementExsisting} from '../SSM/ScratchCard/voucher_management_exsisting.component';
+import{VoucherManagementActivationAndView} from '../SSM/ScratchCard/voucher_management_file_and_clc.component';
 const routes: Routes = [
   {
     path: '',
@@ -903,7 +905,20 @@ const routes: Routes = [
             title: 'Batch Testing'
         }
     },
-    
+     {
+        path: 'vouchermanagementActivate',
+        component: VoucherManagementActivationAndView,
+        data: {
+            title: 'Activation And Vew Voucher'
+        }
+    },
+     {
+        path: 'plangenerate',
+        component: PlanGenerate,
+        data: {
+            title: 'Plan Generate'
+        }
+    },
     
 ];
 

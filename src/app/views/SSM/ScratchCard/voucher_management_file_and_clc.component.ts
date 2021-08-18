@@ -1,0 +1,142 @@
+import {  NgModule,
+  Component,
+  Pipe,
+  OnInit,
+  } from '@angular/core';
+  import {ReactiveFormsModule, FormGroup, FormControl, Validators} from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {environment} from '../../../../environments/environment';
+import {Router} from '@angular/router';
+import {_throw} from 'rxjs/observable/throw';
+import { AppGlobals } from './../../../app.global';
+import { LoginService } from '../../pages/LoginService';
+import { LoggedInUser } from '../../pages/loggedInUser';
+import{SSMService } from '../SSM.service';
+import { Observable } from 'rxjs/Observable';
+import {DatePipe} from '@angular/common';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/retry';
+import 'rxjs/add/observable/of';
+
+@Component({
+    selector: 'app-voucherGen',
+    templateUrl: './voucher_management_file_and _clc.component.html',
+      styleUrls: ['../search_po.component.scss'],
+      providers: [AppGlobals,LoginService,SSMService,DatePipe],
+})
+export class VoucherManagementActivationAndView implements OnInit {
+	
+	
+	currentLoggedInUser: LoggedInUser;
+			userName: string;
+			groupID: number;
+  			userID: string;
+  			listVoucherHopsdata:any[];
+  			firstHop:boolean=false;
+  			isfirsthopProceed:boolean=false;
+  			isotherHopsApproval:boolean=false;
+  			comments:string;
+  			Id:number;
+  			hop:number;
+  			clcHop:boolean=false;
+
+  			
+  	constructor(private datePipe: DatePipe,private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private ssmService: SSMService ) {
+    this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
+
+    if (this.currentLoggedInUser) {
+      this.userName = this.currentLoggedInUser.userName
+      this.groupID = this.currentLoggedInUser.groupID
+      this.userID = this.currentLoggedInUser.userID
+if(this.groupID==7||this.groupID==12){
+
+this.hop=0;
+	
+	
+}
+
+
+
+    this.getData(this.hop);}
+    else {
+      this.router.navigate(['pages/login']);
+    }
+    }
+    getData(hop:number){
+	this.firstHop=true;
+	this.listVoucherHopsdata=[];
+	this.isfirsthopProceed=false;
+	this.isotherHopsApproval=false;
+	this.ssmService.getApproval1HopData(this.hop).subscribe(data=>{
+		for (let index in data) {
+			
+			this.listVoucherHopsdata.push(
+					{
+						
+						ponumber:data[index].ponumber,
+						batchNo: data[index].batchNo,
+						 id:data[index].id,
+						
+						
+					}
+					
+					);
+					console.log(this.listVoucherHopsdata)
+		}
+		
+		
+		
+	})
+}
+
+
+
+
+    
+
+ download() {
+        var nameOfFileToDownload = "VoucherData_"+this.Id+".csv";
+		console.log("nameOfFileToDownload : "+nameOfFileToDownload);
+
+        var result = this.ssmService.DownloadCSV(nameOfFileToDownload);
+		console.log(result);
+        result.subscribe(
+            data => {
+				//saveAs(data, nameOfFileToDownload);
+
+				console.log("ToTOOO");
+				//console.log(data);
+
+				var blob = new Blob([data], { type: 'text/csv' });
+
+                if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+		console.log("ggg")
+                    window.navigator.msSaveOrOpenBlob(blob, nameOfFileToDownload);
+                } else {
+                    var a = document.createElement('a');
+                    a.href = URL.createObjectURL(blob);
+                    a.download = nameOfFileToDownload;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                }
+            },
+            err => {console.error(err),
+                alert("Server error while downloading file.");
+            }
+        );
+    }
+ 
+
+
+ngOnInit(){
+		
+	}
+	
+
+    
+    }

@@ -1,0 +1,210 @@
+ <div class="row">
+	<div class="col-md-1">
+		 
+	</div>
+	<div class="col-md-10">
+		<div class="card">
+		<div class="card-header">
+            <i class="fa fa-align-justify"></i>  Plan Generation
+          </div>
+		<form [formGroup]="planGenrationForm" novalidate (ngSubmit)="submit()" >
+		<div class="card-body">
+					<div class="row">
+							<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label" >Item Code</label>
+									<div class="col-md-7">
+										<select class="form-control" id="ItemCode" formControlName="ItemCode" required >
+											<option></option>
+											<option *ngFor="let aSimType of listitemDropDown" [value]="aSimType.id">{{aSimType.groupName}}</option>
+										</select>
+									</div>
+	
+	
+								</div>
+										</div>
+								<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label" >ProductCode</label>
+									<div class="col-md-7">
+										<select class="form-control" id="ProductCode" formControlName="ProductCode" required >
+											<option></option>
+											<option *ngFor="let aSimType of listDropDownProductCode" [value]="aSimType.id">{{aSimType.groupName}}</option>
+										</select>
+									</div>
+	
+	
+								</div>
+										</div>			
+										
+										
+					</div>	
+					
+					<div class="row">
+							<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label" >Product Name</label>
+									<div class="col-md-7">
+										<select class="form-control" id="ProductName" formControlName="ProductName" required >
+											<option></option>
+											<option *ngFor="let aSimType of listDropDownProductName" [value]="aSimType.id">{{aSimType.groupName}}</option>
+										</select>
+									</div>
+	
+	
+								</div>
+										</div>
+								<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label" >Customer Category</label>
+									<div class="col-md-7">
+										<select class="form-control" id="ProductCode" formControlName="ProductCode" required >
+											<option [value]="0">CORPORATE</option>
+											<option [value]="1">REGULAR</option>
+										</select>
+									</div>
+	
+	
+								</div>
+										</div>			
+										
+										
+					</div>	
+					
+					<div class="row">
+							<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label" >Quantity</label>
+										<div class="col-md-7">
+										<input disabled type="text" class="form-control" 
+									value="{{quantity}}"> 
+			</div>
+	
+								</div>
+										</div>
+								<div class="col-md-6">
+										</div>			
+										
+										
+					</div>
+					
+					<div class="row">
+							<div class="col-md-6">
+										</div>
+								<div class="col-md-6">
+													<div class="form-group row">
+								<label class="col-md-5 col-form-label">MSISDN:</label>
+                <button class="btn btn-secondary btn-sm" onclick="document.getElementById('getFile').click()">Browse ...</button>
+                <input #fileInput type='file' id="getFile" (click)="fileInput.value = null" accept=".csv" style="position: fixed; left: -200px; top: -200px;" (change)="handleFileInput($event.target.files)">
+                <br>
+                <button  class="btn btn-sm "(click)="getQuantity()">Check Quantity</button>
+
+	
+	
+								</div>
+										</div>			
+										
+										
+					</div>
+					
+					
+					
+							
+					<div class="row">
+							<div class="col-md-6">
+								<div class="form-group row">
+									<label class="col-md-5 col-form-label">Start Kit Serial .</label>
+									<div class="col-md-7">
+									<input disabled type="text" class="form-control" 
+									value="{{startKit}}">
+								</div>
+								</div>
+						</div>
+						
+								<div class="col-md-6">
+								<div class="form-group row">
+									<label class="col-md-5 col-form-label">End Kit Serial.</label>
+									<div class="col-md-7">
+									<input disabled type="text" class="form-control" 
+									value="{{endKit}}">
+								</div>
+								</div>
+						</div>		
+										
+										
+					</div>	
+					
+					
+					<div class="row">
+							<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label" >Sharer Name </label>
+									<div class="col-md-7">
+										<select class="form-control" id="SharerName" formControlName="SharerName" required >
+											<option></option>
+											<option *ngFor="let aSimType of listDropDownSharerName" [value]="aSimType.id">{{aSimType.groupName}}</option>
+										</select>
+									</div>
+	
+	
+								</div>
+										</div>
+								<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label" >Plan Circle </label>
+									<div class="col-md-7">
+										<select class="form-control" id="PlanCircle" formControlName="PlanCircle" required >
+											<option></option>
+											<option *ngFor="let aSimType of listDropDownPlanCircle" [value]="aSimType.id">{{aSimType.groupName}}</option>
+										</select>
+									</div>
+	
+	
+								</div>
+										</div>			
+										
+										
+					</div>		
+						
+				<div class="row">
+							<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label" >Requester </label>
+									<div class="col-md-7">
+										<select class="form-control" id="Requester" formControlName="Requester" required >
+											<option></option>
+											<option *ngFor="let aSimType of listDropDownRequester" [value]="aSimType.id">{{aSimType.groupName}}</option>
+										</select>
+									</div>
+	
+	
+								</div>
+										</div>
+								<div class="col-md-6">
+								<div class="form-group row">
+									<label class="col-md-5 col-form-label">WR#.</label>
+									<div class="col-md-7">
+										<input type="number" id="wrname" name="wrname" class="form-control" autocomplete="off"  formControlName="wrname"  required
+											 >
+									</div>
+								</div>
+						</div>		
+										
+										
+					</div>				
+									
+					
+            </div>
+            
+            	<div class="card-footer text-right">
+					<button type="submit" [disabled]="!planGenrationForm.valid  && !isDisableBtn"  class="btn btn-sm btn-primary">
+						<i class="fa fa-dot-circle-o"></i> Submit</button>
+					<button type="reset" class="btn btn-sm btn-danger"(click)="clearForm($event)">clear
+					</button>
+					</div>
+            </form>
+					
+					
+					</div>
+					</div>
+					</div>
