@@ -4,10 +4,12 @@
 	</div>
 	<div class="col-md-10">
 		<div class="card">
+		 <div class="div_cust_loading_sign" *ngIf="isLoading"> <div style="position:fixed;width:100%;height:100%;left:0px;top:0px;z-index:50000;background-color:#536c79;opacity:0.95"></div> <div style="position:fixed;width:100%;height:100%;left:0px;top:0px;z-index:60000"><div style="width:25%;height:25%;margin:0px auto;margin-top:20%"><i class="fa fa-spinner fa-pulse fa-4x fa-fw" ></i></div></div> </div>
+   
 		<div class="card-header">
             <i class="fa fa-align-justify"></i>  Plan Generation
           </div>
-		<form [formGroup]="planGenrationForm" novalidate (ngSubmit)="submit()" >
+		<form [formGroup]="planGenrationForm" novalidate (ngSubmit)="submit1()" >
 		<div class="card-body">
 					<div class="row">
 							<div class="col-md-6">
@@ -16,49 +18,50 @@
 									<div class="col-md-7">
 										<select class="form-control" id="ItemCode" formControlName="ItemCode" required >
 											<option></option>
-											<option *ngFor="let aSimType of listitemDropDown" [value]="aSimType.id">{{aSimType.groupName}}</option>
+											<option *ngFor="let aSimType of listitemDropDown" [value]="aSimType.groupName">{{aSimType.groupName}}</option>
 										</select>
 									</div>
 	
 	
 								</div>
 										</div>
-								<div class="col-md-6">
-													<div class="form-group row">
-									<label class="col-md-5 col-form-label" >ProductCode</label>
-									<div class="col-md-7">
-										<select class="form-control" id="ProductCode" formControlName="ProductCode" required >
-											<option></option>
-											<option *ngFor="let aSimType of listDropDownProductCode" [value]="aSimType.id">{{aSimType.groupName}}</option>
-										</select>
-									</div>
-	
-	
-								</div>
-										</div>			
-										
-										
-					</div>	
-					
-					<div class="row">
 							<div class="col-md-6">
 													<div class="form-group row">
 									<label class="col-md-5 col-form-label" >Product Name</label>
 									<div class="col-md-7">
 										<select class="form-control" id="ProductName" formControlName="ProductName" required >
 											<option></option>
-											<option *ngFor="let aSimType of listDropDownProductName" [value]="aSimType.id">{{aSimType.groupName}}</option>
+											<option *ngFor="let aSimType of listDropDownProductName" [value]="aSimType.groupName">{{aSimType.groupName}}</option>
 										</select>
 									</div>
 	
 	
 								</div>
 										</div>
+								
+								
+										
+					</div>	
+					
+					<div class="row">
+							<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label" >Sim Input File</label>
+									<div class="col-md-7">
+										<select class="form-control" id="inputFile" formControlName="inputFile" required >
+											<option></option>
+											<option *ngFor="let aSimType of listDropDowninputFile" [value]="aSimType.id">{{aSimType.id}}</option>
+										</select>
+									</div>
+	
+	
+								</div>
+										</div> 
 								<div class="col-md-6">
 													<div class="form-group row">
 									<label class="col-md-5 col-form-label" >Customer Category</label>
 									<div class="col-md-7">
-										<select class="form-control" id="ProductCode" formControlName="ProductCode" required >
+										<select class="form-control" id="CustomerCategory" formControlName="CustomerCategory" required >
 											<option [value]="0">CORPORATE</option>
 											<option [value]="1">REGULAR</option>
 										</select>
@@ -74,6 +77,48 @@
 					<div class="row">
 							<div class="col-md-6">
 													<div class="form-group row">
+									<label class="col-md-5 col-form-label" >ProductCode</label>
+									<div class="col-md-7">
+										<select class="form-control" id="ProductCode" formControlName="ProductCode" required >
+											<option></option>
+											<option *ngFor="let aSimType of listDropDownProductCode" [value]="aSimType.groupName">{{aSimType.groupName}}</option>
+										</select>
+									</div>
+	
+	
+								</div>
+										</div>	
+							<div class="col-md-6">
+								<div class="form-group row">
+									<label class="col-md-5 col-form-label">Start Kit Serial .</label>
+									<div class="col-md-7">
+									<input  type="text" class="form-control" 
+									value="{{startKit}}">
+								</div>
+								</div>
+						</div>	
+										
+										
+					</div>
+					
+					<div class="row">
+							
+										
+							
+								<div class="col-md-6">
+													<div class="form-group row">
+								<label class="col-md-5 col-form-label">MSISDN:</label>
+                <a  onclick="document.getElementById('getFile').click()">Browse ...</a>
+                <input #fileInput type='file' id="getFile" (click)="fileInput.value = null" accept=".csv" style="position: fixed; left: -200px; top: -200px;" (change)="handleFileInput($event.target.files)">
+                <br>
+                <a  class="btn btn-sm "(click)="getQuantity()">Check Quantity</a>
+
+	
+	
+								</div>
+										</div>	
+										<div class="col-md-6">
+													<div class="form-group row">
 									<label class="col-md-5 col-form-label" >Quantity</label>
 										<div class="col-md-7">
 										<input disabled type="text" class="form-control" 
@@ -81,28 +126,8 @@
 			</div>
 	
 								</div>
-										</div>
-								<div class="col-md-6">
-										</div>			
-										
-										
-					</div>
-					
-					<div class="row">
-							<div class="col-md-6">
-										</div>
-								<div class="col-md-6">
-													<div class="form-group row">
-								<label class="col-md-5 col-form-label">MSISDN:</label>
-                <button class="btn btn-secondary btn-sm" onclick="document.getElementById('getFile').click()">Browse ...</button>
-                <input #fileInput type='file' id="getFile" (click)="fileInput.value = null" accept=".csv" style="position: fixed; left: -200px; top: -200px;" (change)="handleFileInput($event.target.files)">
-                <br>
-                <button  class="btn btn-sm "(click)="getQuantity()">Check Quantity</button>
-
-	
-	
-								</div>
-										</div>			
+										</div>	
+											
 										
 										
 					</div>
@@ -111,15 +136,7 @@
 					
 							
 					<div class="row">
-							<div class="col-md-6">
-								<div class="form-group row">
-									<label class="col-md-5 col-form-label">Start Kit Serial .</label>
-									<div class="col-md-7">
-									<input disabled type="text" class="form-control" 
-									value="{{startKit}}">
-								</div>
-								</div>
-						</div>
+							
 						
 								<div class="col-md-6">
 								<div class="form-group row">
@@ -142,7 +159,7 @@
 									<div class="col-md-7">
 										<select class="form-control" id="SharerName" formControlName="SharerName" required >
 											<option></option>
-											<option *ngFor="let aSimType of listDropDownSharerName" [value]="aSimType.id">{{aSimType.groupName}}</option>
+											<option *ngFor="let aSimType of listDropDownSharerName" [value]="aSimType.groupName">{{aSimType.groupName}}</option>
 										</select>
 									</div>
 	
@@ -155,7 +172,7 @@
 									<div class="col-md-7">
 										<select class="form-control" id="PlanCircle" formControlName="PlanCircle" required >
 											<option></option>
-											<option *ngFor="let aSimType of listDropDownPlanCircle" [value]="aSimType.id">{{aSimType.groupName}}</option>
+											<option *ngFor="let aSimType of listDropDownPlanCircle" [value]="aSimType.groupName">{{aSimType.groupName}}</option>
 										</select>
 									</div>
 	
@@ -173,7 +190,7 @@
 									<div class="col-md-7">
 										<select class="form-control" id="Requester" formControlName="Requester" required >
 											<option></option>
-											<option *ngFor="let aSimType of listDropDownRequester" [value]="aSimType.id">{{aSimType.groupName}}</option>
+											<option *ngFor="let aSimType of listDropDownRequester" [value]="aSimType.groupName">{{aSimType.groupName}}</option>
 										</select>
 									</div>
 	

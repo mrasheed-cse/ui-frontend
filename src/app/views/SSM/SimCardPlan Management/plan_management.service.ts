@@ -36,14 +36,22 @@ private headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf
     }
     
     getDropdown(linkno: string):any {
-        return this.http.get(environment.apiUrl + "plangenerate/dropdown/" + linkno).pipe(catchError(this.handleError));
+        return this.http.get(this.serverUrl + "plangenerate/dropdown/" + linkno).pipe(catchError(this.handleError));
     }
     
-    getkitSerial(itemNo:string,):any{
-		return this.http.get(this.serverUrl +'planGenerate/getkitSerial/'+itemNo).pipe(catchError(this.handleError));
+    getkitSerial(itemNo:string):any{
+		return this.http.get(this.serverUrl  +"plangenerate/simkit/"+itemNo).pipe(catchError(this.handleError));
 		
 	}
     
+    getSimInputFile():any{
+	
+			return this.http.get(this.serverUrl  +"plangenerate/getInputFile/").pipe(catchError(this.handleError));
+}
+    
+    generatePlan(Object :{}):any{
+	return this.http.post(this.serverUrl+"plangenerate/genratePlan/",Object);
+}
     
     handleError(error: HttpErrorResponse) {
         if (error instanceof ErrorEvent) {
@@ -57,6 +65,12 @@ private headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf
         return _throw(error);
     }
     
+    uploadCsv(fileToUpload: File,id:string) {
+        const url = environment.apiUrl + "plangeneration/uploadCSv/"+id;
+        const formData: FormData = new FormData();
+        formData.append('file', fileToUpload, fileToUpload.name);
+        return this.http.post(url, formData);
+    }
     
 	
 	}
