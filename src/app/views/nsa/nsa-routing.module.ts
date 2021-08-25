@@ -115,6 +115,8 @@ import{VoucherManagementApproval} from '../SSM/ScratchCard/voucher_management_pe
 import{VoucherGenerationForward} from '../SSM/ScratchCard/voucher_generation_forward_technology.component';
 import{VoucherManagementExsisting} from '../SSM/ScratchCard/voucher_management_exsisting.component';
 import{VoucherManagementActivationAndView} from '../SSM/ScratchCard/voucher_management_file_and_clc.component';
+import{SimConfiguration} from '../SSM/SimCardPlan Management/simconfiguration.component';
+import{SimPackaging} from '../SSM/SimCardPlan Management/simpackaging.compontent';
 const routes: Routes = [
   {
     path: '',
@@ -917,6 +919,20 @@ const routes: Routes = [
         component: PlanGenerate,
         data: {
             title: 'Plan Generate'
+        }
+    },
+    {
+        path: 'simconfiguration',
+        component: SimConfiguration,
+        data: {
+            title: 'Sim Configuration'
+        }
+    },
+    {
+        path: 'simpakaging',
+        component: SimPackaging,
+        data: {
+            title: 'Sim Packaging'
         }
     },
     

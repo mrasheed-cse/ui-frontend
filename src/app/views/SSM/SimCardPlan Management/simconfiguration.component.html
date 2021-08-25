@@ -1,0 +1,59 @@
+ <div class="row">
+	<div class="col-md-1">
+		 
+	</div>
+	<div class="col-md-10">
+		<div class="card">
+		<div class="card-header" *ngIf="isConfig">
+            <i class="fa fa-align-justify"></i> SIM Configuration 
+          </div>
+           <div class="card-body" *ngIf="isConfig">
+           <table class="table table-bordered table-striped table-sm">
+                <thead>
+                  <tr>
+                    <th>WR Number</th>
+                    <th>Item Code</th>
+                    <th>Creator Name</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let aTask of listPlangenerateData">
+                            <tr>
+                                <td>{{aTask.wrnumber}}</td>
+                                <td>{{aTask.itemcode}}</td>
+                                <td>{{aTask.creatorname}}</td>
+                                <td> <a  href="#" (click)="details(aTask.id);$event.preventDefault();" role="button">Details</a> </td>
+                            </tr>
+                </tbody>
+              </table>
+           
+           
+           </div>
+            
+          <div class="card-body" *ngIf="isProceed">
+            
+           	  <div class="row">
+                      <div class="col-md-6">
+                      <label l class="col-md-5 col-form-label">Comment</label>   
+                    <input type="text" class="form-control" [(ngModel)] = "comments"  maxlength="200" />
+                  </div>
+                   <div class="col-md-6">
+                      <label l class="col-md-5 col-form-label">Download File ...</label>   
+                       <button   class="btn btn-sm " (click)="downloadCSVFiles()">Finalize & Download</button> 
+                  </div>
+                  </div>
+        <br/>
+           
+           </div>
+          
+           <div class="card-footer" *ngIf="isProceed">
+          
+                 <button   class="btn btn-sm btn-primary" (click)="submit()">Approve</button>
+                  <button   class="btn btn-sm btn-danger" (click)="cancel()"> Cancel</button>
+           </div>
+          
+           </div>
+           </div>
+              
+           
+           </div>
