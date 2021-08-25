@@ -82,7 +82,6 @@ export class VoucherGenerationForward implements OnInit {
 					}
 					
 					);
-					console.log(this.listVoucherHopsdata)
 		}
 		
 		
