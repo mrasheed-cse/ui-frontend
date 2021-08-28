@@ -133,6 +133,7 @@ import{SimAdmin} from '../SSM/sim_card_admin.component';
 import{PlanGenerate} from'../SSM/SimCardPlan Management/plangenerate.component'
 import{SimConfiguration} from '../SSM/SimCardPlan Management/simconfiguration.component';
 import{SimPackaging} from '../SSM/SimCardPlan Management/simpackaging.compontent';
+import{PlanGenerateApproval} from '../SSM/SimCardPlan Management/batchtesting_and_activation_approval.component';
 
 import{VoucherGeneration} from '../SSM/ScratchCard/voucher_generation.component';
 import{VoucherAdmin} from '../SSM/ScratchCard/voucher_admin.component';
@@ -260,7 +261,8 @@ import{VoucherManagementActivationAndView} from '../SSM/ScratchCard/voucher_mana
     VoucherGenerationForward,VoucherManagementExsisting,VoucherManagementActivationAndView,
     PlanGenerate,
     SimConfiguration,
-    SimPackaging
+    SimPackaging,
+    PlanGenerateApproval
   ]
 })
 export class NsaModule { }

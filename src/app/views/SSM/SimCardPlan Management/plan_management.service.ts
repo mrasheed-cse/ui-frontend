@@ -113,4 +113,16 @@ setPackeging(username:string,Id:number,comment:string,printing:any,packaging:any
 	
 	}
 	
+	
+	setplanApproval(username:string,Id:number,comment:string,hop:number):any{
+	
+	return this.http.post(this.serverUrl + 'plangenerate/approvals/', {
+		username:username,
+		id:Id,
+		comments:comment,
+		lastHopID:hop
+			});
+
+	
+	}
 	}

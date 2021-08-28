@@ -117,6 +117,8 @@ import{VoucherManagementExsisting} from '../SSM/ScratchCard/voucher_management_e
 import{VoucherManagementActivationAndView} from '../SSM/ScratchCard/voucher_management_file_and_clc.component';
 import{SimConfiguration} from '../SSM/SimCardPlan Management/simconfiguration.component';
 import{SimPackaging} from '../SSM/SimCardPlan Management/simpackaging.compontent';
+
+import{PlanGenerateApproval} from '../SSM/SimCardPlan Management/batchtesting_and_activation_approval.component';
 const routes: Routes = [
   {
     path: '',
@@ -935,7 +937,13 @@ const routes: Routes = [
             title: 'Sim Packaging'
         }
     },
-    
+     {
+        path: 'planapprovals',
+        component: PlanGenerateApproval,
+        data: {
+            title: 'Plan Approvals'
+        }
+    },
 ];
 
 @NgModule({
