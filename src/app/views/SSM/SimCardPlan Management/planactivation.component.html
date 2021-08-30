@@ -5,7 +5,7 @@
 	<div class="col-md-10">
 		<div class="card">
 		<div class="card-header" *ngIf="isConfig">
-            <i class="fa fa-align-justify"></i> SIM Configuration 
+            <i class="fa fa-align-justify"></i> Activation
           </div>
            <div class="card-body" *ngIf="isConfig">
            <table class="table table-bordered table-striped table-sm">
@@ -34,14 +34,24 @@
             
            	  <div class="row">
                       <div class="col-md-6">
-                      <label l class="col-md-5 col-form-label">Comment</label>   
+                      <label class="col-md-5 col-form-label">Comment</label>   
                     <input type="text" class="form-control" [(ngModel)] = "comments"  maxlength="200" />
                   </div>
+                  
                    <div class="col-md-6">
-                      <label  class="col-md-5 col-form-label">Download File ...</label>   
-                       <button   class="btn btn-sm " (click)="downloadCSVFiles()">Download</button> 
+                     
+                  <div class="form-group row">
+								<label class="col-md-5 col-form-label">Upload :</label>
+                <a  onclick="document.getElementById('getFile').click()">Browse ...</a>
+                <input #fileInput type='file' id="getFile" (click)="fileInput.value = null" accept=".csv" style="position: fixed; left: -200px; top: -200px;" (change)="handleFileInput($event.target.files)">
+	
+								</div>
+								</div>
+                   
                   </div>
-                  </div>
+                  
+                 
+									  
         <br/>
            
            </div>

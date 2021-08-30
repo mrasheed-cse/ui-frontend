@@ -118,7 +118,10 @@ import{VoucherManagementActivationAndView} from '../SSM/ScratchCard/voucher_mana
 import{SimConfiguration} from '../SSM/SimCardPlan Management/simconfiguration.component';
 import{SimPackaging} from '../SSM/SimCardPlan Management/simpackaging.compontent';
 
+import{BatchTesting} from '../SSM/SimCardPlan Management/batchtesting.component';
+import{PlanActivation} from '../SSM/SimCardPlan Management/planactivation.component';
 import{PlanGenerateApproval} from '../SSM/SimCardPlan Management/batchtesting_and_activation_approval.component';
+import{UploadDataWh} from'../SSM/DataWarehouse Management/uploaddata.component'
 const routes: Routes = [
   {
     path: '',
@@ -942,6 +945,27 @@ const routes: Routes = [
         component: PlanGenerateApproval,
         data: {
             title: 'Plan Approvals'
+        }
+    },
+    {
+        path: 'batchtesting',
+        component: BatchTesting,
+        data: {
+            title: 'Batch Testing'
+        }
+    },
+    {
+        path: 'activation',
+        component: PlanActivation,
+        data: {
+            title: 'Plan Activation'
+        }
+    },
+	{
+        path: 'datawarehouseupload',
+        component: UploadDataWh,
+        data: {
+            title: 'Data WareHouse Upload'
         }
     },
 ];

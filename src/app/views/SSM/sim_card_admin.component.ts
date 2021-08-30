@@ -15,6 +15,7 @@ import { AppGlobals } from './../../app.global';
 import { LoginService } from '../pages/LoginService';
 import { LoggedInUser } from '../pages/loggedInUser';
 import{SSMService } from './SSM.service';
+import{PlanManagementService} from'./SimCardPlan Management/plan_management.service'
 import { Observable } from 'rxjs/Observable';
 import {DatePipe} from '@angular/common';
 import 'rxjs/add/operator/map';
@@ -26,7 +27,7 @@ import 'rxjs/add/observable/of';
     selector: 'app-voucherGen',
     templateUrl: './sim_card_admin.component.html',
       styleUrls: ['./search_po.component.scss'],
-      providers: [AppGlobals,LoginService,SSMService,DatePipe],
+      providers: [AppGlobals,LoginService,SSMService,DatePipe,PlanManagementService],
 })
 export class SimAdmin implements OnInit {
 	 	currentLoggedInUser: LoggedInUser;
@@ -46,8 +47,33 @@ export class SimAdmin implements OnInit {
   			listArtwork=[];
   			listStk=[];
   			listVendor=[];
+  			listDropDownitemCode=[]
+  			listno:string;
+  			isItemcodeFound:boolean=false;
+  			isAddItemcode:boolean=false;
+  			ItemCode:string;
+  			isproductnameFound:boolean=false;
+  			listDropDownproductname=[];
+  			isAddproductname:boolean=false;
+  			productname:string;
+  			isproductcodeFound:boolean=false;
+  			listDropDownproductCode=[];
+  			isAddproductcode:boolean=false;
+  			productCode:string;
+  			isAddSharerName:boolean=false;
+  			isSharerNameFound:boolean=false;
+  			listDropDownSharerName=[];
+  			SharerName:string;
+  			isCircleFound:boolean=false;
+  			listDropDownCircle=[];
+  			isAddcircle:boolean=false;
+  			circle:string;
+  			isrequesterFound:boolean=false;
+  			listDropDownrequester=[];
+  			isAddrequester:boolean=false;
+  			requester:string;
   			 			
-  	constructor(private datePipe: DatePipe,private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private ssmService: SSMService ) {
+  	constructor(private datePipe: DatePipe,private router: Router,private loginService: LoginService,private http: HttpClient, private planManagemetService:PlanManagementService,private _global: AppGlobals, private ssmService: SSMService ) {
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
 
     if (this.currentLoggedInUser) {
@@ -176,7 +202,8 @@ vendorName(){
 	this.isAddVendor=false;
 	this.listVendor=[];
 	this.newVendor=null;
-this.ssmService.getAllVendor().subscribe(
+	this.listno="7";
+this.planManagemetService.getDropdown(this.listno).subscribe(
 	data => {
 				//console.log(data);
 				for (let index in data) {
@@ -222,6 +249,35 @@ submitVendor(){
 	
 }
 
+getitemCode(){
+	this.noDropdownSelected=false;
+	this.isItemcodeFound=true;
+	this.listno="1";
+	this.planManagemetService.getDropdown(this.listno).subscribe(
+		data=>
+			{
+				//console.log(data);
+				for (let index in data) {
+					this.listDropDownitemCode.push(
+					{
+						id:data[index].id,
+						groupName: data[index].groupName,
+					}
+					);
+				}
+			},
+    err => console.error(err));
+			
+	
+}
+addItemCode(){
+	
+	this.isAddItemcode=true;
+	this.isItemcodeFound=false;
+}
+submitItemCode(){}
+
+clearItemid(linkno: number){}
 cancel(){
 			this.noDropdownSelected=true;
   			this.isArtworkFound=false;
@@ -230,10 +286,173 @@ cancel(){
   			this.isAddVendor=false;
   			this.isStkFound=false;
   			this.isAddStk=false;
+  			this.isItemcodeFound=false;
+  			this.isAddItemcode=false;
+  			this.isAddproductname=false;
+  			this.isproductnameFound=false;
+  			this.isAddproductcode=false;
+  			this.isproductcodeFound=false;
+  			this.isSharerNameFound=false;
+  			this.isAddSharerName=false;
+  			this.isAddcircle=false;
+  			this.isCircleFound=false;
+  			this.isAddrequester=false;
+  			this.isrequesterFound=false;
   			this.listArtwork=[];
   			this.listStk=[];
   			this.listVendor=[];
+  			this.listDropDownitemCode=[];
+  			this.listDropDownproductname=[];
+  			this.listDropDownproductCode=[];
+  			this.listDropDownCircle=[];
+  			this.listDropDownrequester=[];
+  			this.listDropDownSharerName=[]
 	
 }    
+
+getProductname(){
+	this.noDropdownSelected=false;
+	this.isproductnameFound=true;
+	this.listno="3";
+	this.planManagemetService.getDropdown(this.listno).subscribe(
+		data=>
+			{
+				//console.log(data);
+				for (let index in data) {
+					this.listDropDownproductname.push(
+					{
+						id:data[index].id,
+						groupName: data[index].groupName,
+					}
+					);
+				}
+			},
+    err => console.error(err));
+}
+
+addProductName(){
+	this.isAddproductname=true;
+	this.isproductnameFound=false;
 	
+}
+clearproductname(linkno: number){}
+
+submitProductname(){}
+	
+	getProductCode(){
+	this.noDropdownSelected=false;
+	this.isproductcodeFound=true;
+	this.listno="2";
+	this.planManagemetService.getDropdown(this.listno).subscribe(
+		data=>
+			{
+				//console.log(data);
+				for (let index in data) {
+					this.listDropDownproductCode.push(
+					{
+						id:data[index].id,
+						groupName: data[index].groupName,
+					}
+					);
+				}
+			},
+    err => console.error(err));
+}
+
+clearproductCode(linkno:number){}
+
+addProductCode(){
+	this.isAddproductcode=true;
+	this.isproductcodeFound=false;
+	
+}
+
+submitProductcode(){}
+
+
+getSharerCode(){
+	this.noDropdownSelected=false;
+	this.isSharerNameFound=true;
+	this.listno="4";
+	this.planManagemetService.getDropdown(this.listno).subscribe(
+		data=>
+			{
+				//console.log(data);
+				for (let index in data) {
+					this.listDropDownSharerName.push(
+					{
+						id:data[index].id,
+						groupName: data[index].groupName,
+					}
+					);
+				}
+			},
+    err => console.error(err));
+}
+
+addSharerName(){
+	
+	this.isAddSharerName=true;
+	this.isSharerNameFound=false;
+}
+	clearSharerName(linkno:number){}
+	
+	submitSharerName(){}
+	
+	getCircle(){
+	this.noDropdownSelected=false;
+	this.isCircleFound=true;
+	this.listno="5";
+	this.planManagemetService.getDropdown(this.listno).subscribe(
+		data=>
+			{
+				//console.log(data);
+				for (let index in data) {
+					this.listDropDownCircle.push(
+					{
+						id:data[index].id,
+						groupName: data[index].groupName,
+					}
+					);
+				}
+			},
+    err => console.error(err));
+}
+addcircle(){
+	this.isAddcircle=true;
+	this.isCircleFound=false;
+
+}
+clearcircle(linkno:number){}
+
+submitPlanCircle(){}
+
+	getRequester(){
+	this.noDropdownSelected=false;
+	this.isrequesterFound=true;
+	this.listno="6";
+	this.planManagemetService.getDropdown(this.listno).subscribe(
+		data=>
+			{
+				//console.log(data);
+				for (let index in data) {
+					this.listDropDownrequester.push(
+					{
+						id:data[index].id,
+						groupName: data[index].groupName,
+					}
+					);
+				}
+			},
+    err => console.error(err));
+}
+
+addRequester(){
+	this.isAddrequester=true;
+	this.isrequesterFound=false;
+	}
+submitRequester(){}
+
+clearRequester(linkno:number){}
+
 }
