@@ -15,11 +15,12 @@ import { AppGlobals } from './../../app.global';
 import { LoginService } from '../pages/LoginService';
 import { LoggedInUser } from '../pages/loggedInUser';
 import{SSMService } from './SSM.service';
+import{PlanManagementService } from '../SSM/SimCardPlan Management/plan_management.service';
 @Component({
     selector: 'app-searchPO',
     templateUrl: './inputfileprocessing.component.html',
       styleUrls: ['./search_po.component.scss'],
-      providers: [AppGlobals,LoginService,SSMService,DatePipe],
+      providers: [AppGlobals,LoginService,SSMService,DatePipe,PlanManagementService],
 })
 export class InputFileProcessing implements OnInit {
 	 private rowData: any[];
@@ -46,7 +47,8 @@ export class InputFileProcessing implements OnInit {
 			 public listVendor=[];
 			 public listStk=[];
 			FormGroup:{};
-	constructor(private router: Router,private loginService: LoginService,private datePipe: DatePipe,private http: HttpClient, private _global: AppGlobals, private ssmService: SSMService ) {
+			listno:string;
+	constructor(private router: Router, private planManagemetService: PlanManagementService ,private loginService: LoginService,private datePipe: DatePipe,private http: HttpClient, private _global: AppGlobals, private ssmService: SSMService ) {
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
 
     if (this.currentLoggedInUser) {
@@ -240,7 +242,10 @@ this.ssmService.getAllstk().subscribe(
     }
 	
 	getVendor(){ 
-this.ssmService.getAllVendor().subscribe(
+		
+		this.listno="7";
+	this.planManagemetService.getDropdown(this.listno).subscribe(
+		
 	data => {
 				//console.log(data);
 				for (let index in data) {

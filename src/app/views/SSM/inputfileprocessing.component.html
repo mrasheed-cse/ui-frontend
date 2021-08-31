@@ -46,47 +46,87 @@
                      " (click) ="submit()" >Generate</label>
               <label style="float:right" (click)="save()"> <button >Finalize & Download</button> </label>
             </div>
-            
-                          
-           <div style="padding-bottom: 4px;">
-           <span class="firstLabel" style="margin-right: 200px;"> IMSI TYPE
-          <select id="wgtmsr"   name="Imsi Type"
-									required  [(ngModel)]="ImsiType">
+            <div class="card-body"  *ngIf="isDataFound">
+					<div class="row">
+						<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label" >IMSI TYPE</label>
+									<div class="col-md-7">
+										<select class="form-control" name="Imsi Type" required  [(ngModel)]="ImsiType">
 									<option></option>
 												<option *ngFor="let aIMSI of listIMSI" [value]="aIMSI.group_name">{{aIMSI.group_name}}</option>
 											</select>
-       
-                                                               </span>
-		<span class="secondLabel" style="margin-left: 200px;"> Quantity
-		    <input id="wgtmsr"  type="text"  [(ngModel)]="Quantity" required>
-		</span>           
-           </div>
-           <div style="padding-bottom: 4px;">  
-           <span class="firstLabel" style="margin-right: 200px;">Artwork 
-            <select id="wgtmsr"  [(ngModel)]="Artwork" required>
+									</div>
+	
+	
+								</div>
+										</div>
+										
+					<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label" >Quantity</label>
+									<div class="col-md-7">
+										<input  type="text" class="form-control"  [(ngModel)]="Quantity" required>
+									</div>
+	
+	
+								</div>
+										</div>
+										</div>
+										
+					<div class="row">
+							<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label" >Artwork</label>
+									<div class="col-md-7">
+										<select class="form-control" [(ngModel)]="Artwork" required>
                                                                       	<option></option>
 												<option *ngFor="let aIMSI of listArtwork" [value]="aIMSI.group_name">{{aIMSI.group_name}}</option>
 											</select>
-
-                                                                         
-                                                                </span>
-		<span class="secondLabel" style="margin-left: 200px;" > STK
-		   <select id="wgtmsr"   [(ngModel)]="STK" required >
+									</div>
+	
+	
+								</div>
+										</div>
+							<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label" >STK</label>
+									<div class="col-md-7">
+										<select class="form-control"  [(ngModel)]="STK" required >
                                        	<option></option>
 										<option *ngFor="let aIMSI of listStk" [value]="aIMSI.group_name">{{aIMSI.group_name}}</option>
 											</select>
-		</span>   
-           </div>
+									</div>
+	
+	
+								</div>
+										</div>
+								
+								
+										
+					</div>	
+                          
            
-         			  <div style="padding-bottom: 4px;">
-       			  <span class="firstLabel" style="margin-right: 200px;"> Vendor
-       					     <select id="wgtmsr"  [(ngModel)]="Vendor" required >
+           
+           <div class="row">
+							<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label" >Vendor</label>
+									<div class="col-md-7">
+										<select class="form-control"[(ngModel)]="Vendor" required >
                                                                     	<option></option>
 												<option *ngFor="let aIMSI of listVendor" [value]="aIMSI.group_name">{{aIMSI.group_name}}</option>
 											</select>       
-                                                               </span>
-
-           </div>
+									</div>
+	
+	
+								</div>
+										</div>
+							<div class="col-md-6">
+										</div>
+										
+					</div>	
+					</div>
                    
            <div *ngIf="isDataFoundOther">
            <table class="table table-bordered table-striped table-sm">

@@ -19,7 +19,7 @@ import{SSMService } from './SSM.service';
     selector: 'app-searchPO',
     templateUrl: './search_po.component.html',
     styleUrls: ['./search_po.component.scss'],
-    providers: [AppGlobals,LoginService,SSMService],
+    providers: [AppGlobals,LoginService,SSMService,DatePipe],
 })
 export class SearchPO implements OnInit {
 	
@@ -34,9 +34,11 @@ export class SearchPO implements OnInit {
  			todayDate: Date;
 			routerUrlAndParams: string;
   			isDataFound: boolean ;
+  			isInitial:boolean=true;
   			isDataFoundOther: boolean = true;
+  			 isLoading:boolean = false;
 			PoNumber: string;
-	constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private ssmService: SSMService ) {
+	constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private ssmService: SSMService ,private datepipe:DatePipe) {
 		this.serverUrl = environment.apiUrl; 
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
 
@@ -60,8 +62,9 @@ export class SearchPO implements OnInit {
   
 search(){
 	this.isDataFound = true;
+	this.isInitial=false;
+	 this.isLoading = true;
 	this.rowData = [];    
-	console.log("Po"+this.PoNumber)
 	this.ssmService.getPoInformation(this.PoNumber).subscribe(
 		 data => {
 			 this.rawDataFromBackend = data;
@@ -71,11 +74,11 @@ search(){
           this.rawDataFromBackend=data;
           if(this.PoNumber==this.rawDataFromBackend['id']){
            var objToInsert = {};
-                  objToInsert['poDate'] = this.rawDataFromBackend['poDate'];
+                  objToInsert['poDate'] = this.datepipe.transform(this.rawDataFromBackend['poDate'],"dd-MM-yyyy");
                   objToInsert['id'] = this.rawDataFromBackend['id'];
                   objToInsert['itemNumber'] = this.rawDataFromBackend['itemNumber'];
                   objToInsert['itemDescription'] = this.rawDataFromBackend['itemDescription'];
-                  objToInsert['poExpireDate'] = this.rawDataFromBackend['poExpireDate'];
+                  objToInsert['poExpireDate'] = this.datepipe.transform(this.rawDataFromBackend['poExpireDate'],"dd-MM-yyyy");
                   objToInsert['totalQuantity'] = this.rawDataFromBackend['totalQuantity'];
                    objToInsert['supplier'] = this.rawDataFromBackend['supplier'];
                   objToInsert['price'] = this.rawDataFromBackend['price'];
@@ -85,14 +88,17 @@ search(){
 	       this.rowData.push(objToInsert);
 	       
           }
-          else{
-					 this.isDataFound = false; this.isDataFound = false;
+          else{ 
+						this.isInitial = true;
+					 this.isDataFound = false;
 					
 			}
+			 this.isLoading = false;
           }
           else{
-            this.isDataFound = false;
-            //this.isLoading = false;
+	 		this.isDataFound = false;
+            this.isInitial = true;
+            this.isLoading = false;
           }
         },
       err => console.error(err),
@@ -108,15 +114,14 @@ search(){
 		console.log(result);
         result.subscribe(
             data => {
-				//saveAs(data, nameOfFileToDownload);
+				
 
-				console.log("ToTOOO");
-				//console.log(data);
+				
 
 				var blob = new Blob([data], { type: 'text/csv' });
 
                 if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-		console.log("ggg")
+		
                     window.navigator.msSaveOrOpenBlob(blob, nameOfFileToDownload);
                 } else {
                     var a = document.createElement('a');
@@ -133,6 +138,11 @@ search(){
         );
     }
  
+ Back(){
+	
+	this.isInitial=true;
+	this.isDataFound=false;
+}
 
     ngOnInit() {
     this.offset = 0; 
