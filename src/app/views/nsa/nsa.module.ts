@@ -137,7 +137,8 @@ import{PlanGenerateApproval} from '../SSM/SimCardPlan Management/batchtesting_an
 import{BatchTesting} from '../SSM/SimCardPlan Management/batchtesting.component';
 import{PlanActivation} from '../SSM/SimCardPlan Management/planactivation.component';
 
-import{UploadDataWh} from'../SSM/DataWarehouse Management/uploaddata.component'
+import{UploadDataWh} from'../SSM/DataWarehouse Management/uploaddata.component';
+import{ViewDatawarehouse} from'../SSM/DataWarehouse Management/showdatawarehouse.component';
 import{VoucherGeneration} from '../SSM/ScratchCard/voucher_generation.component';
 import{VoucherAdmin} from '../SSM/ScratchCard/voucher_admin.component';
 import{VoucherManagementApproval} from '../SSM/ScratchCard/voucher_management_pending.component';
@@ -268,7 +269,8 @@ import{VoucherManagementActivationAndView} from '../SSM/ScratchCard/voucher_mana
     PlanGenerateApproval,
     BatchTesting,
     PlanActivation,
-    UploadDataWh
+    UploadDataWh,
+    ViewDatawarehouse
   ]
 })
 export class NsaModule { }
