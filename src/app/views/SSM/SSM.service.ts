@@ -165,7 +165,12 @@ getImsiAndICCID(imsi:string,quantity:string,vendor:string):any	{
 	saveVoucherSerial(linkno: number): Observable<any> {
         return this.http.get(environment.apiUrl + "admin/saveVoucherSerial/" + linkno).pipe(catchError(this.handleError));
     }
-	
+	getDenominationId(name:number):any{
+		
+		return this.http.get(environment.apiUrl + "admin/getdenominationby/" + name).pipe(catchError(this.handleError));
+		
+		
+	}
 	saveCardGroup(value: string,mapValue:number): Observable<any> {
         return this.http.get(environment.apiUrl + "admin/saveCardGroup/" + value+"/"+mapValue).pipe(catchError(this.handleError));
     }
@@ -208,6 +213,24 @@ cancelHop(username:string,Id:number){
 	return this.http.post(this.serverUrl + 'voucherManagement/cancelHop/', {
 		username:username,
 		id:Id,
+			});
+}
+
+SaveBatch(username:string,Id:number,batchComment:string,comment:string){
+	
+	return this.http.post(this.serverUrl + 'sctrachVoucher/batchcomment/', {
+		username:username,
+		id:Id,
+		batchComment:batchComment,comments:comment
+			});
+}
+
+SaveFinal(username:string,Id:number,comment:string){
+	
+	return this.http.post(this.serverUrl + 'sctrachVoucher/savefinalhop/', {
+		username:username,
+		id:Id,
+		comments:comment
 			});
 }
  postFile(fileToUpload: File) {

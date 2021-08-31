@@ -62,7 +62,7 @@ export class VoucherManagementExsisting implements OnInit {
 	this.hop=6;
 	
 }
-if(this.groupID==7){
+if(this.groupID==13){
 //CLC
 this.hop=7;
 	
@@ -95,7 +95,6 @@ this.hop=7;
 					}
 					
 					);
-					console.log(this.listVoucherHopsdata)
 		}
 		
 		
@@ -104,14 +103,19 @@ this.hop=7;
 }
     
 	detailsSecondHop(id:number){
-		if(this.groupID=12){
+		console.log(this.groupID)
+		if(this.groupID==12){
 			this.isbatchTest=true;
+			this.isButton=true;
+			console.log(this.isbatchTest)
 		}
-		else{
+		else if (this.groupID==13){
+			this.isbatchTest=false
+			console.log(this.isbatchTest)
 			this.isActivation=true;
 			
 		}
-		this.isButton=true;
+		
 
 		this.firstHop=false;
 		this.Id=id;
@@ -121,8 +125,33 @@ this.hop=7;
 
 	
 submit(){
-	
-	console.log(this.batch);
+	this.ssmService.SaveBatch(this.userName,this.Id,this.batch,this.comments).subscribe(
+		data=>{if(data!=null){
+			alert("Scratch Card Is Batch Testing sucess")
+			
+		}
+		else{
+			alert("Unable to Perform the action")
+			
+		}
+		}
+		
+	)
+}
+
+submitActivate(){
+	this.ssmService.SaveFinal(this.userName,this.Id,this.comments).subscribe(
+		data=>{if(data!=null){
+			alert("Scratch Card Is Activated")
+			
+		}
+		else{
+			alert("Unable to Perform the action")
+			
+		}
+		}
+		
+	)
 }
 
 cancel(){

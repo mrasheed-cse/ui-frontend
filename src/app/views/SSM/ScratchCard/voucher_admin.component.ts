@@ -59,6 +59,7 @@ export class VoucherAdmin implements OnInit {
   			listDenomination=[];
   			listVendor=[];
   			listCardGroup=[];
+  			denominationid:number;
   	
   	
 	  			
@@ -279,16 +280,19 @@ addCardGroup(){
 	
 }     
 SubmitCardGroup(){
-		this.ssmService.saveCardGroup(this.newCardGroup,this.newMapDenomination).subscribe((res => {
-            if (res == false) {
-              alert("Failed to add")
-            } else {
-				alert("Data Saved")
-                this.cardGroup()
-            }
-        }), err => { console.error(err)
-            
-        });}
+	
+	
+	this.ssmService.getDenominationId(this.newMapDenomination).subscribe(
+		
+		data=>{
+			this.denominationid=Number(data);
+			this.SaveTheCardGroup(this.denominationid);			
+		}
+	)
+	
+	
+	
+		;}
 
 voucherHiddenNumber(){ 
 	this.noDropdownSelected=false;
@@ -395,6 +399,22 @@ SubmitSftp(){
 	
 }
 
+
+SaveTheCardGroup(Denoid:number){
+	
+	
+	this.ssmService.saveCardGroup(this.newCardGroup,Denoid).subscribe((res => {
+            if (res == false) {
+              alert("Failed to add")
+            } else {
+				alert("Data Saved")
+                this.cardGroup()
+            }
+        }), err => { console.error(err)
+            
+        })
+	
+}
 
 cancel(){
 	
