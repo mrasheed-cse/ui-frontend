@@ -1,0 +1,319 @@
+<div class="row">
+	<div class="col-md-1">
+		 
+	</div>
+	<div class="col-md-10">
+		<div class="card">
+		<div class="card-header">
+            <i class="fa fa-align-justify"></i> Data Warehouse Manage
+          </div>
+          
+          <div class="card-body" *ngIf="isInitial">
+					<div class="row">
+							<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label" >Please Choose a Value</label>
+									<div class="col-md-7">
+										<select class="form-control" id="ItemCode" [(ngModel)]="searchFor" >
+											<option [value]="0">AUC</option>
+											<option [value]="1">ADC</option>
+											<option [value]="3">Sim Master</option>
+										</select>
+									</div>
+	
+	
+								</div>
+										</div>
+					</div>	
+					
+					</div>
+					   <div class="card-footer" *ngIf="isInitial">
+          
+                 <button   class="btn btn-sm btn-primary" (click)="search()">Search</button>
+                 </div>
+                 
+                 <div class="card-body" *ngIf="isDataFoundADC">
+              <i class="fa fa-align-justify"></i> > Output:
+              <table class="table table-bordered table-striped table-sm">
+                <thead>
+                  <tr>
+                    <th>ADC Data ID.</th>
+                    <th>ICC Number</th>
+                    <th>IMSI</th>
+                     <th>KI</th>
+                      <th>PIN1 </th>
+                    <th>Pin2</th>
+                    <th>PUK1</th>
+                     <th>PUK2</th>
+                     <th>Action</th>
+                     
+                  </tr>
+                </thead>
+                <tbody *ngFor="let aTask of rowData ">
+                            <tr>
+                               <td>{{aTask.id}}</td>
+                                <td>{{aTask.iccnumber}}</td>
+                                <td>{{aTask.imsi}}</td>
+                                <td>{{aTask.ki}}</td>
+                                <td>{{aTask.pin1}}</td>
+                                <td>{{aTask.pin2}}</td>
+                                <td>{{aTask.puk1}}</td>
+                                <td>{{aTask.puk2}}</td>
+                                <td> <a  href="#" (click)="editADC(aTask.id);$event.preventDefault();" role="button">Edit</a> <br>
+                                 <a  href="#" (click)="deleteADC(aTask.id);$event.preventDefault();" role="button">Delete</a>
+                                
+                                 </td>
+                            </tr>
+                </tbody>
+              </table>
+              
+            </div> 
+            <div class="card-body" *ngIf="isDataFoundAUC">
+              <i class="fa fa-align-justify"></i> > Output:
+              <table class="table table-bordered table-striped table-sm">
+                <thead>
+                  <tr>
+                    <th>AUC Data ID.</th>
+                    <th>IMSI</th>
+                     <th>EKI</th>
+                      <th>KIND </th>
+                    <th>A3A8IND</th>
+                    
+                     <th>Action</th>
+                     
+                  </tr>
+                </thead>
+                <tbody *ngFor="let aTask of rowData ">
+                            <tr>
+                               <td>{{aTask.id}}</td>
+                                <td>{{aTask.imsi}}</td>
+                                <td>{{aTask.eki}}</td>
+                                <td>{{aTask.kind}}</td>
+                                <td>{{aTask.a3a8ind}}</td>
+                                <td> <a  href="#" (click)="editAUC(aTask.id);$event.preventDefault();" role="button">Edit</a> <br>
+                                 <a  href="#" (click)="deleteAUC(aTask.id);$event.preventDefault();" role="button">Delete</a>
+                                
+                                 </td>
+                            </tr>
+                </tbody>
+              </table>
+              
+            </div>  
+            
+            <div class="card-body" *ngIf="isDataFoundSimmaster">
+              <i class="fa fa-align-justify"></i> > Output:
+              <table class="table table-bordered table-striped table-sm">
+                <thead>
+                  <tr>
+                    <th>AUC Data ID.</th>
+                    <th>IMSI</th>
+                     <th>EKI</th>
+                      <th>KIND </th>
+                    <th>A3A8IND</th>
+                    
+                     <th>Action</th>
+                     
+                  </tr>
+                </thead>
+                <tbody *ngFor="let aTask of rowData ">
+                            <tr>
+                               <td>{{aTask.id}}</td>
+                                <td>{{aTask.imsi}}</td>
+                                <td>{{aTask.eki}}</td>
+                                <td>{{aTask.kind}}</td>
+                                <td>{{aTask.a3a8ind}}</td>
+                                <td> <a  href="#" (click)="editSimmaster(aTask.id);$event.preventDefault();" role="button">Edit</a> <br>
+                                 <a  href="#" (click)="deleteSimmaster(aTask.id);$event.preventDefault();" role="button">Delete</a>
+                                
+                                 </td>
+                            </tr>
+                </tbody>
+              </table>
+              
+            </div>  
+              <div class="card-body" *ngIf="isEditADC">
+              <div class="row">
+							<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label" >ICC Number</label>
+									<div class="col-md-7">
+										<input  type="text" class="form-control" 
+									 [(ngModel)]="icc_number">
+									</div>
+	
+	
+								</div>
+										</div>
+							<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label" >IMSI</label>
+									<div class="col-md-7">
+										<input  type="text" class="form-control" 
+									 [(ngModel)]="imsi">
+									</div>
+	
+	
+								</div>
+										</div>
+								
+								
+										
+					</div>	
+					
+					<div class="row">
+							<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label" >KI</label>
+									<div class="col-md-7">
+										<input  type="text" class="form-control" 
+									 [(ngModel)]="ki">
+									</div>
+	
+	
+								</div>
+										</div>
+							<div class="col-md-6">
+												
+										</div>
+								
+								
+										
+					</div>	
+					
+					<div class="row">
+							<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label" >Pin1</label>
+									<div class="col-md-7">
+										<input  type="text" class="form-control" 
+									 [(ngModel)]="pin1">
+									</div>
+	
+	
+								</div>
+										</div>
+							<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label" >Pin2</label>
+									<div class="col-md-7">
+										<input  type="text" class="form-control" 
+									 [(ngModel)]="pin2">
+									</div>
+	
+	
+								</div>
+										</div>
+								
+								
+										
+					</div>	
+					
+					<div class="row">
+							<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label" >PUK1</label>
+									<div class="col-md-7">
+										<input  type="text" class="form-control" 
+									 [(ngModel)]="puk1">
+									</div>
+	
+	
+								</div>
+										</div>
+							<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label" >PUK2</label>
+									<div class="col-md-7">
+										<input  type="text" class="form-control" 
+									 [(ngModel)]="puk2">
+									</div>
+	
+	
+								</div>
+										</div>
+								
+								
+										
+					</div>	
+					
+					</div>
+					<div class="card-footer" *ngIf="isEditADC">
+          
+                 <button   class="btn btn-sm btn-primary" (click)="submitADC()">Submit</button>
+                 </div>
+            
+            
+            
+            <div class="card-body" *ngIf="isEditAUC">
+              <div class="row">
+							<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label" >IMSI</label>
+									<div class="col-md-7">
+										<input  type="text" class="form-control" 
+									 [(ngModel)]="imsi">
+									</div>
+	
+	
+								</div>
+										</div>
+							<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label" >KIND</label>
+									<div class="col-md-7">
+										<input  type="text" class="form-control" 
+									 [(ngModel)]="kind">
+									</div>
+	
+	
+								</div>
+										</div>
+								
+								
+										
+					</div>	
+					
+					<div class="row">
+							<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label" >A3A8IND</label>
+									<div class="col-md-7">
+										<input  type="text" class="form-control" 
+									 [(ngModel)]="a3a8ind">
+									</div>
+	
+	
+								</div>
+										</div>
+							<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label" >EKI</label>
+									<div class="col-md-7">
+										<input  type="text" class="form-control" 
+									 [(ngModel)]="eki">
+									</div>
+	
+	
+								</div>
+										</div>
+								
+								
+										
+					</div>	
+					
+					</div>
+					<div class="card-footer" *ngIf="isEditAUC">
+          
+                 <button   class="btn btn-sm btn-primary" (click)="submitAUC()">Submit</button>
+                 </div>
+            
+            
+                 
+                 </div>
+                 <div class="card-footer" *ngIf="!isInitial">
+          
+                 <button   class="btn btn-sm btn-danger" (click)="Back()">Back</button>
+                 </div>
+                 </div>
+                 </div>
+                 

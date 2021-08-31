@@ -121,7 +121,8 @@ import{SimPackaging} from '../SSM/SimCardPlan Management/simpackaging.compontent
 import{BatchTesting} from '../SSM/SimCardPlan Management/batchtesting.component';
 import{PlanActivation} from '../SSM/SimCardPlan Management/planactivation.component';
 import{PlanGenerateApproval} from '../SSM/SimCardPlan Management/batchtesting_and_activation_approval.component';
-import{UploadDataWh} from'../SSM/DataWarehouse Management/uploaddata.component'
+import{UploadDataWh} from'../SSM/DataWarehouse Management/uploaddata.component';
+import{ViewDatawarehouse} from'../SSM/DataWarehouse Management/showdatawarehouse.component';
 const routes: Routes = [
   {
     path: '',
@@ -968,6 +969,14 @@ const routes: Routes = [
             title: 'Data WareHouse Upload'
         }
     },
+    {
+        path: 'manageSimData',
+        component: ViewDatawarehouse,
+        data: {
+            title: 'Data WareHouse Manage'
+        }
+    },
+    
 ];
 
 @NgModule({
