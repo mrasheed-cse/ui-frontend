@@ -62,7 +62,8 @@ export class BatchTesting implements OnInit {
   			tester:string;
   			TestDate:Date;
   			ApprovalDate:Date;
-  			
+  			isAllfilesSubmitted:boolean=false;
+			batchId:number=0;  			
     		constructor(private datePipe: DatePipe,private router: Router,private loginService:
   			 LoginService,private http: HttpClient, private _global: AppGlobals, private planManagemetService: PlanManagementService ) {
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
@@ -83,6 +84,7 @@ export class BatchTesting implements OnInit {
        ngOnInit() {
 	this.createForm();
 	this.getproductName();
+	
 	}
 	
 	details(id:number){
@@ -90,6 +92,7 @@ export class BatchTesting implements OnInit {
 		this.isProceed=true;
 		this.isConfig=false;
 		this.ID=id;
+		this.getBatchFileStatus(id);
 		
 	}
 		
@@ -154,11 +157,13 @@ getData(){
 	)
 	
 	}
-	clearForm(event: any){
+	
+	
+clearForm(event: any){
 	this.batchTesting.reset
 	}
 	
-	 cancel(){
+cancel(){
 	
 		this.planManagemetService.cancelHop(this.userName,this.ID).subscribe(
 		
@@ -172,6 +177,21 @@ getData(){
 		}
 	)
 }
+
+getBatchFileStatus(id:number){
+	this.planManagemetService.getBatchFileStatus(id).subscribe(
+		
+		data=>{
+			if(data!=null){
+				this.isAllfilesSubmitted=true;
+				
+			}
+			
+		})
+	
+}
+
+
 handleFileInput(files: FileList) {
         this.fileerror = false;
         this.filesuccess = false;
@@ -179,6 +199,63 @@ handleFileInput(files: FileList) {
         this.fileName = this.fileToUpload.name;
     }
 	
-	submit(){}
+	submit(){
+		//Save batch test
+		this.planManagemetService.saveBatch(this.NumberSeries,)
+		
+		
+	}
+
+uploadProv(){
+	this.uploadCsv("provision")
+}
+
+uploadINC(){
+        this.uploadCsv("incoming");
+}
+
+uploadOut(){
+        this.uploadCsv("outgoing");
+}
+
+uploadNet(){
+	
+	this.uploadCsv("internet")
+}
+uploadErs(){
+	this.uploadCsv("ers")
+}
+uploadSecurity()
+{
+	this.uploadCsv("Security")
+}
+
+uploadCsv(type:string){
+        if (this.fileToUpload == undefined || !this.fileToUpload.name.endsWith(".csv")) {
+          alert("Please Select A csv file");
+        } else {
+            this.uploading = true
+            var uploadFor=type+","+JSON.stringify(this.ID);
+            this.planManagemetService.postBatchFile(this.fileToUpload,uploadFor).subscribe((res => {
+                this.uploading = false
+                if (res == null) {
+                   alert("Failed to Upload File")
+                } else {
+                   alert("Upload Sucessfull")
+                    this.isProceed=false;
+                    this.isConfig=true;
+                   
+                    
+                
+                }
+            }), err => {
+                this.uploading = false
+                this.fileuploadstatus = err.error.message;
+                this.fileerror = true;
+            })
+            console.log(this.fileToUpload.size);
+        }
+}
+
 	
 }
