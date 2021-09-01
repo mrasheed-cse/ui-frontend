@@ -167,7 +167,7 @@
 													<div class="form-group row">
 									<label class="col-md-5 col-form-label" >SIM Vendor Name</label>
 									<div class="col-md-7">
-										<input disabled type="text" class="form-control" 
+										<input  type="text" class="form-control" 
 									value="{{simVendorName}}"  autocomplete="off">
 									</div>
 	
@@ -182,7 +182,7 @@
 													<div class="form-group row">
 									<label class="col-md-5 col-form-label" >Tested By </label>
 									<div class="col-md-7">
-										<input disabled type="text" class="form-control" 
+										<input  type="text" class="form-control" 
 									value="{{tester}}" autocomplete="off">
 									</div>
 	
@@ -289,11 +289,11 @@
 										
 										<div class="col-md-6">
 													<div class="form-group row">
-								<label class="col-md-5 col-form-label">Upload Provision:</label>
+								<label class="col-md-5 col-form-label">Select  Provision:</label>
                 <a  onclick="document.getElementById('getFile').click()">Browse..</a>
-                <input #fileInput type='file' id="getFile" (click)="fileInputProvision.value = null" accept=".csv" style="position: fixed; left: -200px; top: -200px;" (change)="handleFileInput($event.target.files)">
+                <input #fileInput type='file' id="getFile" (click)="fileInput.value = null" accept=".csv" style="position: fixed; left: -200px; top: -200px;" (change)="handleFileInput($event.target.files)">
                 <br>
-
+				<a  class="btn btn-sm "(click)="uploadProv()">Upload</a>
 	
 	
 								</div>
@@ -303,20 +303,22 @@
 					<div class="row">
 							<div class="col-md-6">
 													<div class="form-group row">
-								<label class="col-md-5 col-form-label">Upload Incoming:</label>
+								<label class="col-md-5 col-form-label">Select  Incoming:</label>
                 <a  onclick="document.getElementById('getFile').click()">Browse..</a>
-                <input #fileInput type='file' id="getFile" (click)="fileInputIncoming.value = null" accept=".csv" style="position: fixed; left: -200px; top: -200px;" (change)="handleFileInput($event.target.files)">
+                <input #fileInput type='file' id="getFile" (click)="fileInput.value = null" accept=".csv" style="position: fixed; left: -200px; top: -200px;" (change)="handleFileInput($event.target.files)">
                 <br>
+								<a  class="btn btn-sm "(click)="uploadINC()">Upload</a>
 								</div>
 										</div>	
 										
 										
 										<div class="col-md-6">
 													<div class="form-group row">
-								<label class="col-md-5 col-form-label">Upload Outgoing:</label>
+								<label class="col-md-5 col-form-label">Select  Outgoing:</label>
                 <a  onclick="document.getElementById('getFile').click()">Browse..</a>
-                <input #fileInput type='file' id="getFile" (click)="fileInputOutgoing.value = null" accept=".csv" style="position: fixed; left: -200px; top: -200px;" (change)="handleFileInput($event.target.files)">
+                <input #fileInput type='file' id="getFile" (click)="fileInput.value = null" accept=".csv" style="position: fixed; left: -200px; top: -200px;" (change)="handleFileInput($event.target.files)">
                 <br>
+                	<a  class="btn btn-sm "(click)="uploadOut()">Upload</a>
 								</div>
 										</div>	
 					</div>				
@@ -324,27 +326,44 @@
 				<div class="row">
 							<div class="col-md-6">
 													<div class="form-group row">
-								<label class="col-md-5 col-form-label">Upload Internet (EDGE ):</label>
+								<label class="col-md-5 col-form-label">Select Internet (EDGE ):</label>
                 <a  onclick="document.getElementById('getFile').click()">Browse..</a>
-                <input #fileInput type='file' id="getFile" (click)="fileInputInternet.value = null" accept=".csv" style="position: fixed; left: -200px; top: -200px;" (change)="handleFileInput($event.target.files)">
+                <input #fileInput type='file' id="getFile" (click)="fileInput.value = null" accept=".csv" style="position: fixed; left: -200px; top: -200px;" (change)="handleFileInput($event.target.files)">
                 <br>
+                	<a  class="btn btn-sm "(click)="uploadNet()">Upload</a>
 								</div>
 										</div>	
 										
 										
 										<div class="col-md-6">
 													<div class="form-group row">
-								<label class="col-md-5 col-form-label">Upload ERS:</label>
+								<label class="col-md-5 col-form-label">Select ERS:</label>
                 <a  onclick="document.getElementById('getFile').click()">Browse..</a>
-                <input #fileInput type='file' id="getFile" (click)="fileInputErs.value = null" accept=".csv" style="position: fixed; left: -200px; top: -200px;" (change)="handleFileInput($event.target.files)">
+                <input #fileInput type='file' id="getFile" (click)="fileInput.value = null" accept=".csv" style="position: fixed; left: -200px; top: -200px;" (change)="handleFileInput($event.target.files)">
                 <br>
+                	<a  class="btn btn-sm "(click)="uploadErs()">Upload</a>
 								</div>
 										</div>	
 					</div>	
 					
+					<div class="row">
+							<div class="col-md-6">
+													<div class="form-group row">
+								<label class="col-md-5 col-form-label">Select Security & Configuration:</label>
+                <a  onclick="document.getElementById('getFile').click()">Browse..</a>
+                <input #fileInput type='file' id="getFile" (click)="fileInputI.value = null" accept=".csv" style="position: fixed; left: -200px; top: -200px;" (change)="handleFileInput($event.target.files)">
+                <br>
+                	<a  class="btn btn-sm "(click)="uploadSecurity()">Upload</a>
+								</div>
+										</div>	
+										
+										
+										
+					</div>	
+					
             </div>
             
-            	<div class="card-footer text-right">
+            	<div class="card-footer text-right" *ngIf="isAllfilesSubmitted">
 					<button type="submit" [disabled]="!batchTesting.valid  && !isDisableBtn"  class="btn btn-sm btn-primary">
 						<i class="fa fa-dot-circle-o"></i> Submit</button>
 					<button type="reset" class="btn btn-sm btn-danger"(click)="clearForm($event)">clear

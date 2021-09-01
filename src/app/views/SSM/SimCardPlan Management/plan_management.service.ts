@@ -125,4 +125,20 @@ setPackeging(username:string,Id:number,comment:string,printing:any,packaging:any
 
 	
 	}
+	
+	getBatchFileStatus(id:number):any{
+		return this.http.get(this.serverUrl + 'plangenerate/batchFilestatus/'+id)
+		
+	}
+	
+	postBatchFile(fileToUpload: File,type:string) {
+        const url = environment.apiUrl + "plangeneration/uploadBatchFile/"+type;
+        const formData: FormData = new FormData();
+        formData.append('file', fileToUpload, fileToUpload.name);
+        return this.http.post(url, formData);
+    }
+ 
+		
+	
+    
 	}
