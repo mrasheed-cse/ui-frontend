@@ -50,7 +50,7 @@ export class ReProvisionComponent implements OnInit {
 
   wrstatuses: string[] = [
     'In Progress',
-    'Complete'
+    'Completed'
   ];
 
 	wrNamePattern:string = "(REPROV).\*";
