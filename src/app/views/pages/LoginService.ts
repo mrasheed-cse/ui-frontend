@@ -34,9 +34,7 @@ export class LoginService {
 			userID: "",
 			userName: "",
 			groupName: "",
-			groupID: 0,
-			groupNames: null,
-			groupIDs: null
+			groupID: 0
 		};
 
 		this.userStr = "";
@@ -87,7 +85,6 @@ export class LoginService {
 	GetCurrentLoggedInUser() {
 		this.userStr = localStorage.getItem('currentLoggedInUser');
 		try {
-			console.log(JSON.parse(this.userStr));
 			return JSON.parse(this.userStr);
 		} catch (ex) {
 			return null; // or do some other error handling
@@ -95,17 +92,6 @@ export class LoginService {
 
 	}
 
-	UpdateCurrentLoggedInUserUserGroup(userGroupId: number, userGroupName: string) {
-		console.log('updating usergroup to '+userGroupName);
-		this.userStr = localStorage.getItem('currentLoggedInUser');
-		this.currentLoggedInUser=JSON.parse(this.userStr);
-		
-		this.currentLoggedInUser.groupID=userGroupId;
-		this.currentLoggedInUser.groupName=userGroupName;		
-		console.log(this.currentLoggedInUser);
-        localStorage.setItem('currentLoggedInUser', JSON.stringify(this.currentLoggedInUser));
-        
-	}
 
 	LogOut() {
 
@@ -114,23 +100,12 @@ export class LoginService {
 		this.router.navigate(['pages/login']);
 	}
 
-	LoadMenu(usersGroupIds: any): any {
-		console.log("Fetching menu for userGroupIDs: "+JSON.stringify(usersGroupIds)+"  from the API : "+this.serverUrl + 'LoadFullMmenu' );
+	LoadMenu(usersGroupId: number): any {
+		console.log("Fetching menu for userGroupID: "+usersGroupId+  " from the API : "+this.serverUrl + 'LoadFullMmenu' );
 		return this.http.post(this.serverUrl + 'LoadFullMmenu',{
-			//userGroupIDs:JSON.stringify(usersGroupIds),
-			usersGroupIds:usersGroupIds
+			userGroupID: usersGroupId
 		});
 	}
-
-
-	AuthenticatePageAccess(link: string, usersGroupIds: any): any {
-		console.log("Authentication current user for link: "+link+"  from the API : "+this.serverUrl + 'AuthenticatePageAccess' );
-		return this.http.post(this.serverUrl + 'AuthenticatePageAccess',{
-			link:link,
-			usersGroupIds:usersGroupIds
-		});
-	}
-	
 
 
 }

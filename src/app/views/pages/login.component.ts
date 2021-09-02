@@ -32,9 +32,7 @@ export class LoginComponent {
     userName: "",
     groupName: "",
     groupID: 0,
-    userID: "",
-    groupNames: null,
-    groupIDs: null,
+    userID: ""
   };
   }
   username : string ;
@@ -55,17 +53,12 @@ export class LoginComponent {
               userID: this.username,
               userName: res.usersName,
               groupName: res.usersGroupName,
-              groupID: res.usersGroupId,
-              groupNames: res.usersGroupNames,
-              groupIDs: res.usersGroupIds
+              groupID: res.usersGroupId
             };
-            console.log(this.currentLoggedInUser);
             localStorage.setItem('currentLoggedInUser', JSON.stringify(this.currentLoggedInUser));
           
             this.isLoading = false;
             this.router.navigateByUrl('/nsa/testsimdashboard')
-            //this.router.navigateByUrl('/nsa/landingpage')
-            
           }
         },
         err => {
@@ -87,12 +80,10 @@ export class LoginComponent {
               userID: this.username,
               userName: res.usersName,
               groupName: res.usersGroupName,
-              groupID: res.usersGroupId,
-              groupNames: res.usersGroupNames,
-              groupIDs: res.usersGroupIds
+              groupID: res.usersGroupId
             };
             localStorage.setItem('currentLoggedInUser', JSON.stringify(this.currentLoggedInUser));
-            console.log(this.currentLoggedInUser);
+          
             this.isLoading = false;
             this.router.navigateByUrl('/nsa/testsimdashboard')
           }
