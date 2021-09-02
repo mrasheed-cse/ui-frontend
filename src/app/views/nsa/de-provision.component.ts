@@ -49,7 +49,7 @@ import {
   
 	wrstatuses: string[] = [
 	  'In Progress',
-	  'Complete'
+	  'Completed'
 	];
   
 	  wrNamePattern:string = "(DEPROV).\*";

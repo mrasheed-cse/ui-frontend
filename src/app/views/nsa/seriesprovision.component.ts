@@ -49,7 +49,7 @@ export class SeriesprovisionComponent implements OnInit {
 
   wrstatuses: string[] = [
     'In Progress',
-    'Complete'
+    'Completed'
   ];
 
 	wrNamePattern:string = "(PROV).\*";
