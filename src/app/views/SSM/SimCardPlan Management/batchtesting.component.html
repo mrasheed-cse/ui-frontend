@@ -39,7 +39,7 @@
 									<label class="col-md-5 col-form-label" >Test For (Number Series)</label>
 									<div class="col-md-7">
 										<input  type="text" class="form-control" 
-									value="{{NumberSeries}}">
+									 formControlName="testFor">
 									</div>
 	
 	
@@ -49,12 +49,12 @@
 													<div class="form-group row">
 									<label class="col-md-5 col-form-label" >MSISDN Type</label>
 									<div class="col-md-7">
-										<select class="form-control" id="msisdntype" formControlName="msisdntype" required >
+										<select class="form-control" id="msisdntype" formControlName="msisdnType" required >
 										<option [value]="0">Recycle MSISDN</option>
 											<option [value]="1">New MSISDN</option>
 												<option [value]="2">Virtual MSISDN</option>
 											<option [value]="3">MNP</option>
-											<option [value]="3">MY SIM</option>
+											<option [value]="4">MY SIM</option>
 											</select>
 									</div>
 	
@@ -72,7 +72,7 @@
 									<label class="col-md-5 col-form-label" >Start Mobile</label>
 									<div class="col-md-7">
 											<input  type="text" class="form-control" 
-									value="{{startMobile}}" disable>
+									 formControlName="startMob" disable>
 									</div>
 	
 	
@@ -83,7 +83,7 @@
 									<label class="col-md-5 col-form-label" >End Mobile</label>
 									<div class="col-md-7">
 											<input  type="text" class="form-control" 
-									value="{{endMobile}}" disable>
+									 formControlName="endMob" disable>
 									</div>
 	
 	
@@ -99,7 +99,7 @@
 									<label class="col-md-5 col-form-label" >Start ICCID</label>
 									<div class="col-md-7">
 											<input  type="text" class="form-control" 
-									value="{{startIccid}}" disable>
+									 formControlName="startICCID" disable>
 									</div>
 	
 	
@@ -110,7 +110,7 @@
 									<label class="col-md-5 col-form-label" >End ICCID</label>
 									<div class="col-md-7">
 											<input  type="text" class="form-control" 
-									value="{{endIccid}}" disable>
+									 formControlName="endICCID" >
 									</div>
 	
 	
@@ -127,7 +127,7 @@
 									<label class="col-md-5 col-form-label" >Test MSISDN</label>
 									<div class="col-md-7">
 											<input  type="text" class="form-control" 
-									value="{{TestMSISDN}}" autocomplete="off" >
+									 formControlName="testMSISDN" autocomplete="off" >
 									</div>
 	
 	
@@ -138,7 +138,7 @@
 									<label class="col-md-5 col-form-label" >Handset Used</label>
 									<div class="col-md-7">
 											<input  type="text" class="form-control" 
-									value="{{handsetUsed}}" autocomplete="off">
+									 formControlName="handsetUsed" autocomplete="off">
 									</div>
 	
 	
@@ -154,7 +154,7 @@
 													<div class="form-group row">
 									<label class="col-md-5 col-form-label" >Product Name </label>
 									<div class="col-md-7">
-										<select class="form-control" id="product" formControlName="productName" required >
+										<select class="form-control" id="product" formControlName="Product" required >
 											<option></option>
 											<option *ngFor="let aSimType of listDropDownproduct" [value]="aSimType.groupName">{{aSimType.groupName}}</option>
 										</select>
@@ -168,7 +168,7 @@
 									<label class="col-md-5 col-form-label" >SIM Vendor Name</label>
 									<div class="col-md-7">
 										<input  type="text" class="form-control" 
-									value="{{simVendorName}}"  autocomplete="off">
+									 formControlName="SIMVendorName"  autocomplete="off">
 									</div>
 	
 	
@@ -183,7 +183,7 @@
 									<label class="col-md-5 col-form-label" >Tested By </label>
 									<div class="col-md-7">
 										<input  type="text" class="form-control" 
-									value="{{tester}}" autocomplete="off">
+									 formControlName="testedBy" autocomplete="off">
 									</div>
 	
 	
@@ -193,7 +193,7 @@
 								<div class="form-group row">
 									<label class="col-md-5 col-form-label">Approved By Signature</label>
 									<div class="col-md-7">
-										<input type="text" id="wrname" name="Approved" class="form-control" autocomplete="off"  formControlName="Approved"  required
+										<input type="text" id="wrname" name="approvedBySignature" class="form-control" autocomplete="off"  formControlName="approvedBySignature"  required
 											 >
 									</div>
 								</div>
@@ -208,7 +208,7 @@
 													<div class="form-group row">
 									<label class="col-md-5 col-form-label" >Test Status </label>
 									<div class="col-md-7">
-										<select class="form-control" id="product" formControlName="TestStatus" required >
+										<select class="form-control" id="product" formControlName="testStatus" required >
 											<option [value]="0">Complete</option>
 											<option [value]="1">In Progress</option></select>
 									</div>
@@ -218,10 +218,10 @@
 										</div>
 								<div class="col-md-6">
 													<div class="form-group row">
-									<label class="col-md-5 col-form-label" >Test Date	</label>
+									<label class="col-md-5 col-form-label" >Test Done Date	</label>
 									<div class="col-md-7">
 										<div class="col-md-7">									
-												<input type="text" class="form-control calendar-container" autocomplete="off"  id="TestDate" formControlName="ApprovalDate" name="endDate" 
+												<input type="text" class="form-control calendar-container" autocomplete="off"  id="TestDate" formControlName="TestDate" name="endDate" 
 												required bsDatepicker  placement="right"  [(ngModel)]="TestDate"
 												 [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-green',  showWeekNumbers:false }"
 												>
@@ -240,7 +240,7 @@
 									<label class="col-md-5 col-form-label" >Test Start Date	</label>
 									<div class="col-md-7">
 										<div class="col-md-7">									
-												<input type="text" class="form-control calendar-container" autocomplete="off"  id="startDate" formControlName="startDate" name="startDate" 
+												<input type="text" class="form-control calendar-container" autocomplete="off"  id="startDate" formControlName="testStartDate" name="startDate" 
 												required bsDatepicker  placement="right"  [(ngModel)]="startDate"
 												 [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-green',  showWeekNumbers:false }"
 												>
@@ -256,7 +256,7 @@
 									<label class="col-md-5 col-form-label" >Test End Date	</label>
 									<div class="col-md-7">
 										<div class="col-md-7">									
-												<input type="text" class="form-control calendar-container" autocomplete="off"  id="endDate" formControlName="endDate" name="endDate" 
+												<input type="text" class="form-control calendar-container" autocomplete="off"  id="endDate" formControlName="testEndDate" name="endDate" 
 												required bsDatepicker  placement="right"  [(ngModel)]="endDate"
 												 [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-green',  showWeekNumbers:false }"
 												>
@@ -276,7 +276,7 @@
 									<label class="col-md-5 col-form-label" >Approval Date	</label>
 									<div class="col-md-7">
 										<div class="col-md-7">									
-												<input type="text" class="form-control calendar-container" autocomplete="off"  id="ApprovalDate" formControlName="ApprovalDate" name="endDate" 
+												<input type="text" class="form-control calendar-container" autocomplete="off"  id="ApprovalDate" formControlName="approvalDate" name="endDate" 
 												required bsDatepicker  placement="right"  [(ngModel)]="ApprovalDate"
 												 [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-green',  showWeekNumbers:false }"
 												>

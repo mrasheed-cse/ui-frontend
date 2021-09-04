@@ -39,6 +39,12 @@ export class PlanActivation implements OnInit {
   			hop:number;
   			isProceed:boolean=false;
   			comments:string;
+  			fileToUpload: File = null;
+    		fileuploadstatus: string;
+    		fileName: string;
+    		fileerror: boolean = false;
+   		    filesuccess: boolean = false;
+    		uploading: boolean = false;
   			
 constructor(private datePipe: DatePipe,private router: Router,private loginService:
   			 LoginService,private http: HttpClient, private _global: AppGlobals, private planManagemetService: PlanManagementService ) {
@@ -65,21 +71,7 @@ constructor(private datePipe: DatePipe,private router: Router,private loginServi
 		
 	}
 	
-	submit(){
 	
-	
-	this.planManagemetService.setplanApproval(this.userName,this.ID,this.comments,this.hop).subscribe(
-
-		data=>{
-			if(data!=null){
-				alert("Request has been Approved and Forwarded Sucessfully");
-				this.getData();
-			}
-			
-		}
-	)
-	
-}
     cancel(){
 	
 		this.planManagemetService.cancelHop(this.userName,this.ID).subscribe(
@@ -104,7 +96,7 @@ constructor(private datePipe: DatePipe,private router: Router,private loginServi
 	this.isProceed=false;
 	console.log(this.hop)
 	this.planManagemetService.getConfig(this.hop).subscribe(
-		data=>{
+		data=>{ console.log(data)
 			for (let index in data) {
 				this.listPlangenerateData.push(
 					
@@ -123,5 +115,55 @@ constructor(private datePipe: DatePipe,private router: Router,private loginServi
 	)
 	
 	}
-  			
+
+
+handleFileInput(files: FileList) {
+        this.fileerror = false;
+        this.filesuccess = false;
+        this.fileToUpload = files.item(0);
+        this.fileName = this.fileToUpload.name;
+    }  		
+    
+    
+    
+submit(){
+        if (this.fileToUpload == undefined || !this.fileToUpload.name.endsWith(".csv")) {
+          alert("Please Select A csv file");
+        } else {
+            this.uploading = true
+            var user=JSON.stringify(this.userName).replace(".","!");
+            console.log(user)
+            var uploadFor=this.comments+","+user+","+JSON.stringify(this.ID);
+            this.planManagemetService.postfaultyFile(this.fileToUpload,uploadFor).subscribe((res => {
+                this.uploading = false
+                if (res != null) {
+					if(JSON.stringify(res)==="1"){
+                   alert("Faulty Kit marked Sucessfully")
+                   this.getData();
+                }
+                else if(JSON.stringify(res)==="2"){
+	
+			alert("Unable to Perform Activity please check The uploaded File again")
+			this.getData();
+}
+               
+                
+                } 
+                
+                else {
+                   alert("Upload Sucessfull")
+                    this.isProceed=false;
+                    this.isConfig=true;
+                   
+                    
+                
+                }
+            }), err => {
+                this.uploading = false
+                this.fileuploadstatus = err.error.message;
+                this.fileerror = true;
+            })
+            console.log(this.fileToUpload.size);
+        }
+}    	
   			}

@@ -138,6 +138,28 @@ setPackeging(username:string,Id:number,comment:string,printing:any,packaging:any
         return this.http.post(url, formData);
     }
  
+ 
+ saveBatch(testFor:string,startMob:string,endMob:string,startICCID:string,endICCID:string,msisdnType:string,Product:string,handsetUsed:string,SIMVendorName:string,approvalDate:any,
+ testedBy:string,testStartDate:any,testEndDate: any,testDate:any,approvedBySignature:string,testStatus:string,username:string,Id:number){
+return 	this.http.post(this.serverUrl+"plangenerate/savebatchtest/",{
+	testFor:testFor,startMob:startMob,endMob:endMob,startICCID:startICCID,
+	endICCID:endICCID,msisdnType:msisdnType,Product:Product,handsetUsed:handsetUsed,SIMVendorName:SIMVendorName,
+	username:username,testedBy:testedBy,planId:Id,testStartDate:testStartDate,approvalDate:approvalDate,
+	testEndDate:testEndDate,testDate:testDate,approvedBySignature:approvedBySignature,testStatus:testStatus
+	
+})
+	
+}
+
+postfaultyFile(fileToUpload: File,Comments:string){
+	
+	
+        const url = environment.apiUrl + "plangeneration/uploadfaultyFile/"+Comments;
+        const formData: FormData = new FormData();
+        formData.append('file', fileToUpload, fileToUpload.name);
+        return this.http.post(url, formData);
+	
+}
 		
 	
     
