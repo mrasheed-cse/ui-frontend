@@ -31,7 +31,7 @@ import 'rxjs/add/observable/of';
 export class BatchTesting implements OnInit {
 	
 		currentLoggedInUser: LoggedInUser;
-			userName: string;
+			username: string;
 			groupID: number;
   			userID: string;
   			batchTesting:FormGroup;
@@ -69,7 +69,7 @@ export class BatchTesting implements OnInit {
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
 
     if (this.currentLoggedInUser) {
-      this.userName = this.currentLoggedInUser.userName
+      this.username = this.currentLoggedInUser.userName
       this.groupID = this.currentLoggedInUser.groupID
       this.userID = this.currentLoggedInUser.userID
     }
@@ -117,17 +117,24 @@ getproductName(){
 	
 	  createForm(){	
 	this.batchTesting= new FormGroup({
-		msisdntype:new FormControl({value: ''}),
-		startDate:new FormControl(''),
-		endDate:new FormControl(''),
-		productName:new FormControl({value: ''}),
-		TestStatus:new FormControl({value: ''}),
-		ApprovalDate:new FormControl(''),
-		Approved:new FormControl(''),
+		msisdnType:new FormControl({value: ''}),
+		testStartDate:new FormControl(''),
+		testEndDate:new FormControl(''),
+		Product:new FormControl({value: ''}),
+		testStatus:new FormControl({value: ''}),
+		approvalDate:new FormControl(''),
+		approvedBySignature:new FormControl(''),
 		TestDate:new FormControl(''),
-		CustomerCategory:new FormControl({value: ''}),
-		Requester:new FormControl({value: ''}),
-		
+		testFor:new FormControl(''),
+		startMob: new FormControl(''),
+		endMob: new FormControl(''),
+		startICCID: new FormControl(''),
+		endICCID: new FormControl(''),
+		testMSISDN:new FormControl(''),
+		handsetUsed:new FormControl(''),
+		SIMVendorName: new FormControl(''),
+		testedBy: new FormControl(''),
+				
 	});
 	
 }
@@ -165,7 +172,7 @@ clearForm(event: any){
 	
 cancel(){
 	
-		this.planManagemetService.cancelHop(this.userName,this.ID).subscribe(
+		this.planManagemetService.cancelHop(this.username,this.ID).subscribe(
 		
 		data=>{
 			if(data!=null){
@@ -200,8 +207,62 @@ handleFileInput(files: FileList) {
     }
 	
 	submit(){
-		//Save batch test
-		this.planManagemetService.saveBatch(this.NumberSeries,)
+			  var msisdnType;
+			  var testStatus;
+			  if(this.batchTesting.controls.msisdnType.value==="0"){
+				
+				msisdnType="Recycle MSISDN";
+			}
+			else if(this.batchTesting.controls.msisdnType.value==="1"){
+				msisdnType="New MSISDN";
+			}
+			
+			else if(this.batchTesting.controls.msisdnType.value==="2"){
+				msisdnType="Virtual MSISDN"
+			}
+			
+			else if(this.batchTesting.controls.msisdnType.value==="3"){
+				msisdnType="MNP";
+			}
+			
+			else if(this.batchTesting.controls.msisdnType.value==="4"){
+				msisdnType="MY SIM";
+				
+			}
+			
+			if(this.batchTesting.controls.testStatus.value==="0"){
+				testStatus="Complete";
+			}
+			
+			else	if(this.batchTesting.controls.testStatus.value==="1"){
+				testStatus="In Progress";
+			}
+		this.planManagemetService.saveBatch(
+			this.batchTesting.controls.testFor.value,this.batchTesting.controls.startMob.value,
+		this.batchTesting.controls.endMob.value,this.batchTesting.controls.startICCID.value,
+		this.batchTesting.controls.endICCID.value,
+		msisdnType,
+		this.batchTesting.controls.Product.value,this.batchTesting.controls.handsetUsed.value,this.batchTesting.controls.SIMVendorName.value,
+		this.batchTesting.controls.approvalDate.value,
+		this.batchTesting.controls.testedBy.value,this.batchTesting.controls.testStartDate.value,
+		this.batchTesting.controls.testEndDate.value,this.batchTesting.controls.TestDate.value,
+		this.batchTesting.controls.approvedBySignature.value,testStatus,
+		this.username,this.ID
+		).subscribe(
+			data=>{
+				if(data!=null)
+				{
+					alert("Batch Testing Sucessfull")
+					this.getData();
+				}
+				else{
+					
+					alert("Failed to save Data")
+				}
+				
+			}
+			
+		)
 		
 		
 	}
