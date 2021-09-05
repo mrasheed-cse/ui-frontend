@@ -219,7 +219,7 @@ this.planManagemetService.getDropdown(this.listno).subscribe(
     }
     
 clearVendor (linkno: number) {
-        this.ssmService.deleteVendor(linkno).subscribe((res => {
+        this.ssmService.deleteSimdropdown(linkno).subscribe((res => {
             if (res == false) {
               alert("Failed to delete")
             } else {
@@ -234,8 +234,8 @@ addVendor(){this.isAddVendor=true;
 this.isVendorFound=false;}    
 
 submitVendor(){
-	
-	this.ssmService.saveVendor(this.newVendor).subscribe((res => {
+	var type="7"
+	this.ssmService.addSimdropdown(this.newVendor,type).subscribe((res => {
             if (res == false) {
               alert("Failed to add")
             } else {
@@ -252,7 +252,10 @@ submitVendor(){
 getitemCode(){
 	this.noDropdownSelected=false;
 	this.isItemcodeFound=true;
+	this.isAddItemcode=false;
+	this.ItemCode=null;
 	this.listno="1";
+	this.listDropDownitemCode=[];
 	this.planManagemetService.getDropdown(this.listno).subscribe(
 		data=>
 			{
@@ -275,9 +278,37 @@ addItemCode(){
 	this.isAddItemcode=true;
 	this.isItemcodeFound=false;
 }
-submitItemCode(){}
+submitItemCode(){
+	
+	var type="1"
+	this.ssmService.addSimdropdown(this.ItemCode,type).subscribe((res => {
+            if (res == false) {
+              alert("Failed to add")
+            } else {
+				alert("Data Saved")
+                this.getitemCode()
+            }
+        }), err => { console.error(err)
+            
+        });
+	
+	
+	
+}
 
-clearItemid(linkno: number){}
+clearItemid(linkno: number){
+	
+	
+        this.ssmService.deleteSimdropdown(linkno).subscribe((res => {
+            if (res == false) {
+              alert("Failed to delete")
+            } else {
+                this.getitemCode()
+            }
+        }), err => { console.error(err)
+            
+        });
+}
 cancel(){
 			this.noDropdownSelected=true;
   			this.isArtworkFound=false;
@@ -313,6 +344,9 @@ cancel(){
 getProductname(){
 	this.noDropdownSelected=false;
 	this.isproductnameFound=true;
+	this.isAddproductname=false;
+	this.productname=null;
+	this.listDropDownproductname=[];
 	this.listno="3";
 	this.planManagemetService.getDropdown(this.listno).subscribe(
 		data=>
@@ -335,13 +369,44 @@ addProductName(){
 	this.isproductnameFound=false;
 	
 }
-clearproductname(linkno: number){}
+clearproductname(linkno: number){
+	
+	
+        this.ssmService.deleteSimdropdown(linkno).subscribe((res => {
+            if (res == false) {
+              alert("Failed to delete")
+            } else {
+                this.getProductname()
+            }
+        }), err => { console.error(err)
+            
+        });
+}
 
-submitProductname(){}
+submitProductname(){
+	
+	var type="3"
+	this.ssmService.addSimdropdown(this.productname,type).subscribe((res => {
+            if (res == false) {
+              alert("Failed to add")
+            } else {
+				alert("Data Saved")
+                this.getProductname()
+            }
+        }), err => { console.error(err)
+            
+        });
+	
+	
+	
+}
 	
 	getProductCode(){
 	this.noDropdownSelected=false;
 	this.isproductcodeFound=true;
+	this.isAddproductcode=false;
+	this.productCode=null;
+	this.listDropDownproductCode=[];
 	this.listno="2";
 	this.planManagemetService.getDropdown(this.listno).subscribe(
 		data=>
@@ -359,7 +424,19 @@ submitProductname(){}
     err => console.error(err));
 }
 
-clearproductCode(linkno:number){}
+clearproductCode(linkno:number){
+	
+	
+        this.ssmService.deleteSimdropdown(linkno).subscribe((res => {
+            if (res == false) {
+              alert("Failed to delete")
+            } else {
+                this.getProductCode()
+            }
+        }), err => { console.error(err)
+            
+        });
+}
 
 addProductCode(){
 	this.isAddproductcode=true;
@@ -367,12 +444,30 @@ addProductCode(){
 	
 }
 
-submitProductcode(){}
+submitProductcode(){
+	
+	var type="3"
+	this.ssmService.addSimdropdown(this.productCode,type).subscribe((res => {
+            if (res == false) {
+              alert("Failed to add")
+            } else {
+				alert("Data Saved")
+                this.vendorName()
+            }
+        }), err => { console.error(err)
+            
+        });
+	
+	
+}
 
 
 getSharerCode(){
 	this.noDropdownSelected=false;
 	this.isSharerNameFound=true;
+	this.isAddSharerName=false;
+	this.SharerName=null;
+	this.listDropDownSharerName=[];
 	this.listno="4";
 	this.planManagemetService.getDropdown(this.listno).subscribe(
 		data=>
@@ -395,13 +490,43 @@ addSharerName(){
 	this.isAddSharerName=true;
 	this.isSharerNameFound=false;
 }
-	clearSharerName(linkno:number){}
+	clearSharerName(linkno:number){
+		
+        this.ssmService.deleteSimdropdown(linkno).subscribe((res => {
+            if (res == false) {
+              alert("Failed to delete")
+            } else {
+                this.getSharerCode()
+            }
+        }), err => { console.error(err)
+            
+        });
+	}
 	
-	submitSharerName(){}
+	submitSharerName(){
+		
+	var type="4"
+	this.ssmService.addSimdropdown(this.SharerName,type).subscribe((res => {
+            if (res == false) {
+              alert("Failed to add")
+            } else {
+				alert("Data Saved")
+                this.getSharerCode()
+            }
+        }), err => { console.error(err)
+            
+        });
+	
+	
+		
+	}
 	
 	getCircle(){
 	this.noDropdownSelected=false;
 	this.isCircleFound=true;
+	this.isAddcircle=false;
+	this.circle=null;
+	this.listDropDownCircle=[];
 	this.listno="5";
 	this.planManagemetService.getDropdown(this.listno).subscribe(
 		data=>
@@ -423,13 +548,44 @@ addcircle(){
 	this.isCircleFound=false;
 
 }
-clearcircle(linkno:number){}
+clearcircle(linkno:number){
+	
+	
+        this.ssmService.deleteSimdropdown(linkno).subscribe((res => {
+            if (res == false) {
+              alert("Failed to delete")
+            } else {
+                this.getCircle()
+            }
+        }), err => { console.error(err)
+            
+        });
+}
 
-submitPlanCircle(){}
+submitPlanCircle(){
+	
+	
+	var type="5"
+	this.ssmService.addSimdropdown(this.circle,type).subscribe((res => {
+            if (res == false) {
+              alert("Failed to add")
+            } else {
+				alert("Data Saved")
+                this.getCircle()
+            }
+        }), err => { console.error(err)
+            
+        });
+	
+	
+}
 
 	getRequester(){
 	this.noDropdownSelected=false;
 	this.isrequesterFound=true;
+	this.isAddrequester=false;
+	this.requester=null;
+	this.listDropDownrequester=[];
 	this.listno="6";
 	this.planManagemetService.getDropdown(this.listno).subscribe(
 		data=>
@@ -451,8 +607,36 @@ addRequester(){
 	this.isAddrequester=true;
 	this.isrequesterFound=false;
 	}
-submitRequester(){}
+submitRequester(){
+	
+	var type="6"
+	this.ssmService.addSimdropdown(this.requester,type).subscribe((res => {
+            if (res == false) {
+              alert("Failed to add")
+            } else {
+				alert("Data Saved")
+                this.getRequester()
+            }
+        }), err => { console.error(err)
+            
+        });
+	
+	
+	
+}
 
-clearRequester(linkno:number){}
+clearRequester(linkno:number){
+	
+	
+        this.ssmService.deleteSimdropdown(linkno).subscribe((res => {
+            if (res == false) {
+              alert("Failed to delete")
+            } else {
+                this.getRequester()
+            }
+        }), err => { console.error(err)
+            
+        });
+}
 
 }

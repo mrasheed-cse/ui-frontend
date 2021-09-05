@@ -160,7 +160,19 @@ postfaultyFile(fileToUpload: File,Comments:string){
         return this.http.post(url, formData);
 	
 }
-		
+
+
+
+returnandReciceve(Object :{}):any{
+	return this.http.post(this.serverUrl+"plangenerate/lasthop/",Object);
+}
+    
+		postReturnFile(fileToUpload: File,type:number) {
+        const url = environment.apiUrl + "plangeneration/uploadlasthopfile/"+type;
+        const formData: FormData = new FormData();
+        formData.append('file', fileToUpload, fileToUpload.name);
+        return this.http.post(url, formData);
+    }
 	
     
 	}
