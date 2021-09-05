@@ -267,5 +267,14 @@ SaveFinal(username:string,Id:number,comment:string){
 	  return this.http.get(environment.apiUrl + "voucherManagement/getScratchVoucherdataByid/" +id).pipe(catchError(this.handleError));
 	
 }
+
+
+deleteSimdropdown(id:number) :Observable<any> {
+        return this.http.get(environment.apiUrl + "simAdmin/deleteDropdown/" + id).pipe(catchError(this.handleError));
+    }
+    
+    addSimdropdown(value:string ,type:string) :Observable<any> {
+        return this.http.get(environment.apiUrl + "simAdmin/addDropdown/" + value +"/"+type).pipe(catchError(this.handleError));
+    }
 	
 	}
