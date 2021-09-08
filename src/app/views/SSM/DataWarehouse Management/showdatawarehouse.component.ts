@@ -52,6 +52,7 @@ export class ViewDatawarehouse implements OnInit {
   			eki:string;
   			kind:string;
   			a3a8ind:string;
+  			isDataFoundSimmaster:boolean=false;
   			
 constructor(private datePipe: DatePipe,private router: Router,private loginService:LoginService,private http: HttpClient, private _global: AppGlobals, private datawarehouseservice:DatawarehouseService ) {
 	this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
@@ -112,6 +113,36 @@ else if(this.searchFor=="1"){
 				}
 			},
     err => console.error(err),);
+	
+}
+
+else if(this.searchFor==="2"){
+	this.datawarehouseservice.SimmasterData().subscribe(
+		
+	data => {this.isDataFoundSimmaster=true;
+				for (let index in data) {
+					this.rowData.push(
+					{
+						id:data[index].id,
+						currenthop: data[index].currenthop,
+						itemcode: data[index].itemcode,
+						productcode: data[index].productcode,
+						productname :data[index].productname,
+						customercategory :data[index].customercategory,
+						sharername :data[index].sharername,
+						circle:data[index].circle,
+						requester: data[index].productcode,
+						wrnumber :data[index].wr_number,
+						printingdate :this.datePipe.transform(data[index].printingdate,"dd-MM-yyyy"),
+						packagingdate :this.datePipe.transform(data[index].packagingdate,"dd-MM-yyyy"),
+						deliverydate:this.datePipe.transform(data[index].deliverydate,"dd-MM-yyyy"),
+					}
+					);
+				}
+			},
+    err => console.error(err),);
+		
+		
 	
 }
 
@@ -226,6 +257,7 @@ Back(){
 	this.isEditAUC=false;
 	this.isDataFoundADC=false;
 	this.isEditADC=false;
+	this.isDataFoundSimmaster=false;
 	this.rowData=[];
 	
 }
