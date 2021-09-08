@@ -73,4 +73,9 @@ private headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf
 	}
 	
 	
+	
+	SimmasterData(): any {	
+		return this.http.get(this.serverUrl + 'datawarehouse/getSimmasterdata/');
+	}
+	
     }

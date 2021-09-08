@@ -24,14 +24,15 @@
                      </div>
                      </div>
                      
-                   <div  class="col-md-6">
+                   
+                    </div>
+                    </div>
+             <div class="card-body" *ngIf="isDataFound">
+             <div  class="col-md-6">
                     <div class="col-md-7">
                    <button type="button"   (click)="downloadCSVFiles()">Download</button>
                     </div> 
                     </div>
-                    </div>
-                    </div>
-             <div class="card-body" *ngIf="isDataFound">
               <table class="table table-bordered table-striped table-sm">
                 <thead>
                   <tr>

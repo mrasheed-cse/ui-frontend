@@ -17,7 +17,7 @@
 										<select class="form-control" id="ItemCode" [(ngModel)]="searchFor" >
 											<option [value]="0">AUC</option>
 											<option [value]="1">ADC</option>
-											<option [value]="3">Sim Master</option>
+											<option [value]="2">Sim Master</option>
 										</select>
 									</div>
 	
@@ -105,27 +105,36 @@
               <table class="table table-bordered table-striped table-sm">
                 <thead>
                   <tr>
-                    <th>AUC Data ID.</th>
-                    <th>IMSI</th>
-                     <th>EKI</th>
-                      <th>KIND </th>
-                    <th>A3A8IND</th>
-                    
-                     <th>Action</th>
-                     
+                    <th>Sim Master ID.</th>
+                    <th>Current Hop</th>
+                     <th>Item Code</th>
+                      <th>Product Code </th>
+                    <th>Product Name</th>
+                  <th>Customer Category</th>
+                  <th> Sharer Name</th>
+                  <th> Plan Circle</th>
+                  <th> Requester </th>
+                  <th> WR_Number </th>
+                  <th> Printing Date</th>
+                  <th> Packaging Date</th>
+                  <th> Delivery Date</th>
                   </tr>
                 </thead>
                 <tbody *ngFor="let aTask of rowData ">
                             <tr>
                                <td>{{aTask.id}}</td>
-                                <td>{{aTask.imsi}}</td>
-                                <td>{{aTask.eki}}</td>
-                                <td>{{aTask.kind}}</td>
-                                <td>{{aTask.a3a8ind}}</td>
-                                <td> <a  href="#" (click)="editSimmaster(aTask.id);$event.preventDefault();" role="button">Edit</a> <br>
-                                 <a  href="#" (click)="deleteSimmaster(aTask.id);$event.preventDefault();" role="button">Delete</a>
-                                
-                                 </td>
+                                <td>{{aTask.currenthop}}</td>
+                                <td>{{aTask.itemcode}}</td>
+                                <td>{{aTask.productcode}}</td>
+                                <td>{{aTask.productname}}</td>
+                              <td>{{aTask.customercategory}}</td>
+                                <td>{{aTask.sharername}}</td>
+                                <td>{{aTask.circle}}</td>
+                                <td>{{aTask.requester}}</td>
+                               <td> {{aTask.wrnumber}}</td>
+                                <td>{{aTask.printingdate}}</td>
+                                <td>{{aTask.packagingdate}}</td>
+                                <td>{{aTask.deliverydate}}</td>
                             </tr>
                 </tbody>
               </table>
