@@ -28,33 +28,40 @@ import {Router} from '@angular/router';
     providers: [LoginService, AppGlobals]
 })
 export class AppSidebarNavComponent {
-    public navigation2 = navigation;
-    public navigation = null;
-    currentLoggedInUser: LoggedInUser;
-    groupID: number;
 
-    constructor(private loginService: LoginService, private _global: AppGlobals) {
-        this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
-        if (this.currentLoggedInUser) {
-            this.groupID = this.currentLoggedInUser.groupID;
-            console.log('Current user groupID : ' + this.groupID);
+  public navigation2 = navigation;  
+  public navigation = null;
+  currentLoggedInUser: LoggedInUser;	
+ 
 
-            this.loginService.LoadMenu(this.groupID).subscribe(
-                data => {
-
-                    if (data != null) {
-                        this.navigation = data;
-                    } else {
-
-                    }
-                },
-                err => console.error(err),
-                () => console.log('Done loading menu')
-            );
-        }
-        console.log("this.navigation");
-        console.log(this.navigation);
+  groupIDs : Array<number>;
+  groupID: number;
+  constructor(private loginService: LoginService, private _global: AppGlobals) { 
+	
+  this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
+  
+  if (this.currentLoggedInUser) {		
+		this.groupIDs = this.currentLoggedInUser.groupIDs;
+    console.log('Current user groupID : ' + this.groupIDs);
+    
+      this.loginService.LoadMenu(this.groupIDs).subscribe(
+        data => {
+          
+          if(data !=null){
+            this.navigation = data;
+            
+          }
+          else{
+            
+          }
+        },
+      err => console.error(err),
+      () => console.log('Done loading menu')
+      );
     }
+    console.log("this.navigation");
+    console.log(this.navigation);
+}
 
     public isDivider(item) {
         return item.divider ? true : false

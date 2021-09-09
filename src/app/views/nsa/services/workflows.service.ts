@@ -49,7 +49,7 @@ export class WorkflowsService {
 	//http://localhost:8019/nsa/PendingTasks/1/3
 	
 	LoadPendingTask(wr_id: number,userGroup_id: number) : any {
-		//return this.http.post(this.serverUrl + 'PendingTasks/'+wr_id+'/'+userGroup_id, {
+		console.log(this.serverUrl + 'PendingTasks/'+wr_id+'/'+userGroup_id);
 		return this.http.post(this.serverUrl + 'PendingTasks', {
 			wrID: wr_id,
 			userGroupID: userGroup_id

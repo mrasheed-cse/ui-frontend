@@ -49,7 +49,7 @@ export class SeriesDefinitionComponent implements OnInit {
 
   wrstatuses: string[] = [
     'In Progress',
-    'Complete'
+    'Completed'
   ];
 
 	wrNamePattern:string = "(DEF).\*";
