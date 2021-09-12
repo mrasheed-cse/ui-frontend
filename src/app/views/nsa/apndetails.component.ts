@@ -4,25 +4,14 @@ import {
   Pipe,
   OnInit
 } from '@angular/core';
-import {ReactiveFormsModule, FormGroup, FormControl, Validators} from '@angular/forms';
-import {BrowserModule} from '@angular/platform-browser';
-import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
-import {BsDatepickerConfig} from 'ngx-bootstrap/datepicker';
 import {Router, ActivatedRoute} from '@angular/router';
-import {HttpClient} from '@angular/common/http';
-import { HttpClientModule } from '@angular/common/http';
-import { environment } from '../../../environments/environment.prod';
-import { DefinitionDataService } from './services/definitiondata.service';
 import { WorkflowsService } from './services/workflows.service';
 import { FileoperationService } from './services/fileoperation.service';
-import { Observable } from 'rxjs/Observable';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/retry';
 import 'rxjs/add/observable/of';
-//import { Observable, Subscription } from 'rxjs/Rx';
-//import { Subject } from 'rxjs/Rx';
 import { AppGlobals } from './../../app.global';
 import PreviousHopFieldNameValue from './models/PreviousHopFieldNameValue';
 import { LoginService } from '../pages/LoginService';

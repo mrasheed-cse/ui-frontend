@@ -20,8 +20,16 @@ export class AppHeaderComponent {
 	this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
 	
 	if (this.currentLoggedInUser) {
+		this.groupName="";
 		this.userName = this.currentLoggedInUser.userName
-		this.groupName = this.currentLoggedInUser.groupName
+		for (var index in this.currentLoggedInUser.groupNames) {
+			//console.log(this.currentLoggedInUser.groupNames[index]); 
+			if(this.groupName.length>0)
+				this.groupName =this.groupName +", "+ this.currentLoggedInUser.groupNames[index];
+			else
+				this.groupName =this.currentLoggedInUser.groupNames[index];	
+		  }
+		//this.groupName = this.currentLoggedInUser.groupName
 		//console.log('Current user: ' + this.userName);
 		
 	} 
