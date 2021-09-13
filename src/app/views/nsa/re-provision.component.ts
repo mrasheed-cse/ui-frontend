@@ -89,7 +89,7 @@ export class ReProvisionComponent implements OnInit {
 					console.log(data);
 					this.isDataFound = true;
 					this.pendingTasksList = data;
-						
+					/*	
 					for (let index in data) {
 						//console.log (data[index]);
 						
@@ -101,7 +101,8 @@ export class ReProvisionComponent implements OnInit {
 						console.log('wr_BriefName is : '+index +' ' +this.pendingTasksList[index].wr_BriefName);
 						console.log('hopSequence is : '+index +' ' +this.pendingTasksList[index].hopSequence);
 						console.log('index is : '+index);
-					}		
+					}	
+					*/	
 				}
 				else{
 					this.isDataFound = false;
