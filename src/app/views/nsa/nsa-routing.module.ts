@@ -894,14 +894,16 @@ const routes: Routes = [
         component: SearchPO,
         data: {
             title: 'PO Information'
-        }
+        },
+        canActivate: [AuthGuard]
     },
     {
         path: 'inputFileprocessing',
         component: InputFileProcessing,
         data: {
             title: 'InputFileProcessing'
-        }
+        },
+        canActivate: [AuthGuard]
     },
 
   {
@@ -909,7 +911,8 @@ const routes: Routes = [
         component: AucProcessor,
         data: {
             title: 'Auc Conversion'
-        }
+        },
+        canActivate: [AuthGuard]
     },
     
      {
@@ -917,14 +920,16 @@ const routes: Routes = [
         component: VoucherGeneration,
         data: {
             title: 'VoucherGeneration'
-        }
+        },
+        canActivate: [AuthGuard]
     },
      {
         path: 'scratchcardadmin',
         component: VoucherAdmin,
         data: {
             title: 'Scratch Card Admin'
-        }
+        },
+        canActivate: [AuthGuard]
     },
     
     {
@@ -932,14 +937,16 @@ const routes: Routes = [
         component: SimAdmin,
         data: {
             title: 'Sim Card Admin'
-        }
+        },
+        canActivate: [AuthGuard]
     },
      {
         path: 'scratchcardpending',
         component: VoucherManagementApproval,
         data: {
             title: 'Pending For Approval'
-        }
+        },
+        canActivate: [AuthGuard]
     },
     
     {
@@ -947,77 +954,88 @@ const routes: Routes = [
         component: VoucherGenerationForward,
         data: {
             title: 'Pending For Approval'
-        }
+        },
+        canActivate: [AuthGuard]
     },
      {
         path: 'scratchcardexsisting',
         component: VoucherManagementExsisting,
         data: {
             title: 'Batch Testing'
-        }
+        },
+        canActivate: [AuthGuard]
     },
      {
         path: 'vouchermanagementActivate',
         component: VoucherManagementActivationAndView,
         data: {
             title: 'Activation And Vew Voucher'
-        }
+        },
+        canActivate: [AuthGuard]
     },
      {
         path: 'plangenerate',
         component: PlanGenerate,
         data: {
             title: 'Plan Generate'
-        }
+        },
+        canActivate: [AuthGuard]
     },
     {
         path: 'simconfiguration',
         component: SimConfiguration,
         data: {
             title: 'Sim Configuration'
-        }
+        },
+        canActivate: [AuthGuard]
     },
     {
         path: 'simpakaging',
         component: SimPackaging,
         data: {
             title: 'Sim Packaging'
-        }
+        },
+        canActivate: [AuthGuard]
     },
      {
         path: 'planapprovals',
         component: PlanGenerateApproval,
         data: {
             title: 'Plan Approvals'
-        }
+        },
+        canActivate: [AuthGuard]
     },
     {
         path: 'batchtesting',
         component: BatchTesting,
         data: {
             title: 'Batch Testing'
-        }
+        },
+        canActivate: [AuthGuard]
     },
     {
         path: 'activation',
         component: PlanActivation,
         data: {
             title: 'Plan Activation'
-        }
+        },
+        canActivate: [AuthGuard]
     },
 	{
         path: 'datawarehouseupload',
         component: UploadDataWh,
         data: {
             title: 'Data WareHouse Upload'
-        }
+        },
+        canActivate: [AuthGuard]
     },
     {
         path: 'manageSimData',
         component: ViewDatawarehouse,
         data: {
             title: 'Data WareHouse Manage'
-        }
+        },
+        canActivate: [AuthGuard]
     },
     
      {
@@ -1025,7 +1043,8 @@ const routes: Routes = [
         component: ReturnAndReceive,
         data: {
             title: 'Return And Receive'
-        }
+        },
+        canActivate: [AuthGuard]
     },
     
 ];
