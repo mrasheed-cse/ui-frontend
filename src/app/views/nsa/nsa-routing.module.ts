@@ -104,6 +104,9 @@ import {LostdamagenewsimconnectionComponent} from './lostdamagenewsimconnection/
 import {UploadRecycleComponent} from "../recycle/uploadrecycle.component";
 import {GenerateanalyzeComponent} from "../recycle/generateanalyze.component";
 import {GenerateComponent} from "../recycle/generate.component";
+
+import {AuthGuard} from './services/AuthGuard.service';
+
 import { SearchPO } from '../SSM/search_po.component';
 import { InputFileProcessing } from '../SSM/inputfileprocessing.component';
 import{AucProcessor} from '../SSM/auc.component';
@@ -136,14 +139,16 @@ const routes: Routes = [
         component: DiscreteprovisionComponent,
         data: {
             title: 'Discreteprovision'
-        }
+        },
+        canActivate: [AuthGuard]
     },
     {
         path: 'discprovisionform',
         component: DiscreteprovisionformComponent,
         data: {
             title: 'Discreteprovision form'
-        }
+        },
+        canActivate: [AuthGuard]
     },
     {
         path: 'discprovisiondetail/:wr_BriefName/:wr_BriefId/:hopSequence',
@@ -171,14 +176,16 @@ const routes: Routes = [
         component: SeriesDefinitionComponent,
         data: {
             title: 'Series Definition'
-        }
+        },
+        canActivate: [AuthGuard]
     },
     {
         path: 'seriesdefintionform',
         component: SeriesDefinitionFormComponent,
         data: {
             title: 'Series Definition Form'
-        }
+        },
+        canActivate: [AuthGuard]
     },
     {
         path: 'seriesdefinitiondetail/:wr_BriefName/:wr_BriefId/:hopSequence',
@@ -192,14 +199,16 @@ const routes: Routes = [
         component: DeProvisionComponent,
         data: {
             title: 'De-Provision'
-        }
+        },
+        canActivate: [AuthGuard]
     },
     {
         path: 'deprovisionform',
         component: DeProvisionFormComponent,
         data: {
             title: 'De-Provision Form'
-        }
+        },
+        canActivate: [AuthGuard]
     },
     {
         path: 'deprovisiondetail/:wr_BriefName/:wr_BriefId/:hopSequence',
@@ -213,21 +222,24 @@ const routes: Routes = [
         component: ReProvisionComponent,
         data: {
             title: 'Re-Provision'
-        }
+        },
+        canActivate: [AuthGuard]
     },
     {
         path: 'reprovisionform',
         component: ReProvisionFormComponent,
         data: {
             title: 'Re-Provision Form'
-        }
+        },
+        canActivate: [AuthGuard]
     },
     {
         path: 'reprovisionsearch',
         component: ReprovisionsearchComponent,
         data: {
             title: 'Re-Provision Search Form'
-        }
+        },
+        canActivate: [AuthGuard]
     },
 
     {
@@ -274,14 +286,16 @@ const routes: Routes = [
         component: SeriesprovisionComponent,
         data: {
             title: 'Series Provision'
-        }
+        },
+        canActivate: [AuthGuard]
     },
     {
         path: 'seriesprovisionform',
         component: SeriesprovisionformComponent,
         data: {
             title: 'Series Provision Form'
-        }
+        },
+        canActivate: [AuthGuard]
     },
     {
         path: 'seriesprovisiondetail/:wr_BriefName/:wr_BriefId/:hopSequence',
@@ -295,7 +309,8 @@ const routes: Routes = [
         component: DiscreteprovisionComponent,
         data: {
             title: 'Discrete Provision'
-        }
+        },
+        canActivate: [AuthGuard]
     },
     {
         path: 'apn',
@@ -870,6 +885,10 @@ const routes: Routes = [
             title: 'Upload MSISDN Recycle CSV'
         }
     },
+    {
+        path: '**', 
+        redirectTo: '/pages/404'
+  }, 
   {
         path: 'poInformation',
         component: SearchPO,
