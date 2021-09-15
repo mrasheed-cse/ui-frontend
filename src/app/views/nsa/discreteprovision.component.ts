@@ -50,7 +50,7 @@ export class DiscreteprovisionComponent implements OnInit {
 
   wrstatuses: string[] = [
     'In Progress',
-    'Complete'
+    'Completed'
   ];
 
 	wrNamePattern:string = "(DISC_PROV).\*";
