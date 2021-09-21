@@ -145,6 +145,9 @@ import{VoucherManagementApproval} from '../SSM/ScratchCard/voucher_management_pe
 import{VoucherGenerationForward} from '../SSM/ScratchCard/voucher_generation_forward_technology.component';
 import{VoucherManagementExsisting} from '../SSM/ScratchCard/voucher_management_exsisting.component';
 import{VoucherManagementActivationAndView} from '../SSM/ScratchCard/voucher_management_file_and_clc.component';
+import {AuthGuard} from './services/AuthGuard.service';
+
+import {LoginService} from '../pages/LoginService';
 
 @NgModule({
   imports: [
@@ -276,7 +279,5 @@ import{VoucherManagementActivationAndView} from '../SSM/ScratchCard/voucher_mana
     GenerateanalyzeComponent,
     GenerateComponent
   ],
-  providers:[DatePipe]
-
-})
+  providers:[DatePipe, LoginService, AuthGuard]})
 export class NsaModule { }

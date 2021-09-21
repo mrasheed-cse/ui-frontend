@@ -31,6 +31,7 @@ private headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf
 	
 	
 	getPoInformation(poNumber:string): any{
+		console.log(this.serverUrl)
 	return this.http.post(this.serverUrl + 'poInformation/search/', {
 			poNumber:poNumber});
 	}
