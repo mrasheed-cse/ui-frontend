@@ -885,10 +885,6 @@ const routes: Routes = [
             title: 'Upload MSISDN Recycle CSV'
         }
     },
-    {
-        path: '**', 
-        redirectTo: '/pages/404'
-  }, 
   {
         path: 'poInformation',
         component: SearchPO,
@@ -1047,6 +1043,10 @@ const routes: Routes = [
         canActivate: [AuthGuard]
     },
     
+     {
+        path: '**', 
+        redirectTo: '/pages/404'
+  }, 
 ];
 
 @NgModule({
