@@ -80,7 +80,7 @@ private headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf
 	
 	return this.http.post(this.serverUrl + 'plangenerate/cancelHop/', {
 		username:username,
-		hopId:Id,
+		id:Id,
 			});
 }
 setHop(username:string,Id:number,comment:string){
@@ -99,12 +99,11 @@ setHop(username:string,Id:number,comment:string){
         return this.http.post(this.serverUrl +"plangenerate/downloadCSV/", fileNameToDownload,this.options);
     }
 
-setPackeging(username:string,Id:number,comment:string,printing:any,packaging:any,delivery:any):any{
+setPackeging(username:string,Id:number,printing:any,packaging:any,delivery:any):any{
 	
 	return this.http.post(this.serverUrl + 'plangenerate/simpackaginghop/', {
 		username:username,
 		id:Id,
-		comments:comment,
 		printingDate: printing,
 		packagingDate:packaging,
 		deliveryDate:delivery

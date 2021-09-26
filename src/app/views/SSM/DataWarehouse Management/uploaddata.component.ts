@@ -40,6 +40,7 @@ export class UploadDataWh implements OnInit {
     		fileerror: boolean = false;
    			 filesuccess: boolean = false;
     		uploading: boolean = false;
+    		 isLoading:boolean=false
   constructor(private datePipe: DatePipe,private router: Router,private loginService:
   			 LoginService,private http: HttpClient, private _global: AppGlobals, private datawarehouseservice:DatawarehouseService ) {
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
@@ -56,6 +57,7 @@ export class UploadDataWh implements OnInit {
 	    }
 submit(){
 	var val;
+	this.isLoading=true;
 	console.log("Selected for"+this.uploadFor)
 	if(this.uploadFor==="0"){
 		val="AUC";
@@ -72,7 +74,15 @@ submit(){
 			alert("Data Saved  Sucessfully"); this.fileerror = false;
         this.filesuccess = false;
         this.fileToUpload = null;
-		}}
+        this.isLoading=false
+		}
+		 else{
+			alert("Please Select Valid File")
+			 this.isLoading=false
+		}
+		
+		},err => {alert("Please Select Valid File")
+		 this.isLoading=false}
 	)
 	
 	

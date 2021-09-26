@@ -64,6 +64,14 @@ export class BatchTesting implements OnInit {
   			ApprovalDate:Date;
   			isAllfilesSubmitted:boolean=false;
 			batchId:number=0;  			
+			securityUploaded :boolean=false;
+			internetUploaded : boolean=false;
+			ersUploaded: boolean=false;
+			incomingUploaded: boolean=false;
+			outGoingUploaded: boolean=false;
+			provisionUplodaed: boolean=false;
+			isLoading:boolean=false;
+			response=[];
     		constructor(private datePipe: DatePipe,private router: Router,private loginService:
   			 LoginService,private http: HttpClient, private _global: AppGlobals, private planManagemetService: PlanManagementService ) {
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
@@ -166,10 +174,6 @@ getData(){
 	}
 	
 	
-clearForm(event: any){
-	this.batchTesting.reset
-	}
-	
 cancel(){
 	
 		this.planManagemetService.cancelHop(this.username,this.ID).subscribe(
@@ -190,7 +194,49 @@ getBatchFileStatus(id:number){
 		
 		data=>{
 			if(data!=null){
-				this.isAllfilesSubmitted=true;
+				
+				this.response=data
+				console.log("data "+this.response);
+				if(this.response['provision']==true){
+					this.provisionUplodaed=true;
+					console.log("1")
+					
+				}
+				if(this.response['incoming']==true){
+					this.incomingUploaded=true;
+					console.log("2")
+					
+					
+				}
+				if(this.response['ers']==true){
+					this.ersUploaded=true;
+					console.log("3")
+					
+					
+				}
+				if(this.response['outgoing']==true){
+					this.outGoingUploaded=true;
+					console.log("4")
+					
+					
+				}
+				if(this.response['internet']==true){
+					this.internetUploaded=true;
+					console.log("5")
+					
+					
+				}
+				if(this.response['security']==true){
+					this.securityUploaded=true;
+					console.log("6")
+					
+					
+				}
+				 if(this.response['provision']==true&&this.response['security']==true
+				&&this.response['internet']==true&&this.response['outgoing']==true
+				&&this.response['ers']==true&&this.response['incoming']==true){ 
+					console.log("All")
+				this.isAllfilesSubmitted=true;}
 				
 			}
 			
@@ -237,6 +283,7 @@ handleFileInput(files: FileList) {
 			else	if(this.batchTesting.controls.testStatus.value==="1"){
 				testStatus="In Progress";
 			}
+			this.isLoading=true;
 		this.planManagemetService.saveBatch(
 			this.batchTesting.controls.testFor.value,this.batchTesting.controls.startMob.value,
 		this.batchTesting.controls.endMob.value,this.batchTesting.controls.startICCID.value,
@@ -259,7 +306,7 @@ handleFileInput(files: FileList) {
 					
 					alert("Failed to save Data")
 				}
-				
+				this.isLoading=false;
 			}
 			
 		)
@@ -292,8 +339,10 @@ uploadSecurity()
 }
 
 uploadCsv(type:string){
+	this.isLoading=true;
         if (this.fileToUpload == undefined || !this.fileToUpload.name.endsWith(".csv")) {
           alert("Please Select A csv file");
+          this.isLoading=false;
         } else {
             this.uploading = true
             var uploadFor=type+","+JSON.stringify(this.ID);
@@ -305,6 +354,7 @@ uploadCsv(type:string){
                    alert("Upload Sucessfull")
                     this.isProceed=false;
                     this.isConfig=true;
+                  
                    
                     
                 
@@ -315,6 +365,7 @@ uploadCsv(type:string){
                 this.fileerror = true;
             })
             console.log(this.fileToUpload.size);
+            this.isLoading=false;
         }
 }
 

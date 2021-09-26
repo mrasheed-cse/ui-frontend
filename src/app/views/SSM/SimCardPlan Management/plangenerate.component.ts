@@ -102,9 +102,7 @@ export class PlanGenerate implements OnInit {
 	
 }
 
- clearForm(event: any){
-	this.planGenrationForm.reset
-	}
+ 
 	
 	dndUpload(check:string) {
         this.fileerror = false;

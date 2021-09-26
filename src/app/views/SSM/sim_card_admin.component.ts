@@ -411,7 +411,7 @@ submitProductname(){
 	this.planManagemetService.getDropdown(this.listno).subscribe(
 		data=>
 			{
-				//console.log(data);
+				console.log(data);
 				for (let index in data) {
 					this.listDropDownproductCode.push(
 					{
@@ -452,7 +452,7 @@ submitProductcode(){
               alert("Failed to add")
             } else {
 				alert("Data Saved")
-                this.vendorName()
+                this.getProductCode()
             }
         }), err => { console.error(err)
             

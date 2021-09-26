@@ -40,6 +40,7 @@ export class SimConfiguration implements OnInit {
   			hop:number;
   			isProceed:boolean=false;
   			comments:string;
+  			isLoading:boolean=false;
   			
   			constructor(private datePipe: DatePipe,private router: Router,private loginService:
   			 LoginService,private http: HttpClient, private _global: AppGlobals, private planManagemetService: PlanManagementService ) {
@@ -102,12 +103,12 @@ export class SimConfiguration implements OnInit {
     }
     
  submit(){
-	
+	this.isLoading=true;
 	this.planManagemetService.setHop(this.userName,this.ID,this.comments).subscribe(
 
 		data=>{
 			if(data!=null){
-				alert("DATA Saved And Forwarded");
+				this.isLoading=false;
 				this.getData();
 			}
 			

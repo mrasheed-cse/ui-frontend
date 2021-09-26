@@ -4,6 +4,8 @@
 	</div>
 	<div class="col-md-10">
 		<div class="card">
+		 <div class="div_cust_loading_sign" *ngIf="isLoading"> <div style="position:fixed;width:100%;height:100%;left:0px;top:0px;z-index:50000;background-color:#536c79;opacity:0.95"></div> <div style="position:fixed;width:100%;height:100%;left:0px;top:0px;z-index:60000"><div style="width:25%;height:25%;margin:0px auto;margin-top:20%"><i class="fa fa-spinner fa-pulse fa-4x fa-fw" ></i></div></div> </div>
+   
 		<div class="card-header" *ngIf="isConfig">
             <i class="fa fa-align-justify"></i> SIM Configuration 
           </div>
@@ -287,9 +289,10 @@
 								</div>
 										</div>	
 										
-										<div class="col-md-6">
+										<div class="col-md-6"   *ngIf="!provisionUplodaed">
 													<div class="form-group row">
 								<label class="col-md-5 col-form-label">Select  Provision:</label>
+                
                 <a  onclick="document.getElementById('getFile').click()">Browse..</a>
                 <input #fileInput type='file' id="getFile" (click)="fileInput.value = null" accept=".csv" style="position: fixed; left: -200px; top: -200px;" (change)="handleFileInput($event.target.files)">
                 <br>
@@ -298,10 +301,16 @@
 	
 								</div>
 										</div>	
+										
+										<div class="col-md-6"   *ngIf="provisionUplodaed">
+													<div class="form-group row">
+								<label class="col-md-5 col-form-label">Provision Data Already Uploaded Uploaded</label>
+								</div>
+										</div>	
 					</div>	
 					
 					<div class="row">
-							<div class="col-md-6">
+							<div class="col-md-6" *ngIf="!incomingUploaded">
 													<div class="form-group row">
 								<label class="col-md-5 col-form-label">Select  Incoming:</label>
                 <a  onclick="document.getElementById('getFile').click()">Browse..</a>
@@ -310,9 +319,15 @@
 								<a  class="btn btn-sm "(click)="uploadINC()">Upload</a>
 								</div>
 										</div>	
+										<div class="col-md-6" *ngIf="incomingUploaded">
+													<div class="form-group row">
+								<label class="col-md-5 col-form-label">  Incoming File is already Uploaded</label>
+                
+								</div>
+										</div>	
 										
 										
-										<div class="col-md-6">
+										<div class="col-md-6" *ngIf="!outGoingUploaded">
 													<div class="form-group row">
 								<label class="col-md-5 col-form-label">Select  Outgoing:</label>
                 <a  onclick="document.getElementById('getFile').click()">Browse..</a>
@@ -321,10 +336,15 @@
                 	<a  class="btn btn-sm "(click)="uploadOut()">Upload</a>
 								</div>
 										</div>	
+										<div class="col-md-6" *ngIf="outGoingUploaded">
+													<div class="form-group row">
+								<label class="col-md-5 col-form-label">  Outgoing File is already Uploaded</label>
+								</div>
+										</div>	
 					</div>				
 									
 				<div class="row">
-							<div class="col-md-6">
+							<div class="col-md-6" *ngIf="!internetUploaded">
 													<div class="form-group row">
 								<label class="col-md-5 col-form-label">Select Internet (EDGE ):</label>
                 <a  onclick="document.getElementById('getFile').click()">Browse..</a>
@@ -333,9 +353,14 @@
                 	<a  class="btn btn-sm "(click)="uploadNet()">Upload</a>
 								</div>
 										</div>	
+										<div class="col-md-6" *ngIf="internetUploaded">
+													<div class="form-group row">
+								<label class="col-md-5 col-form-label">Internet (EDGE ) File Already Uploaded:</label>
+                								</div>
+										</div>
 										
 										
-										<div class="col-md-6">
+										<div class="col-md-6"  *ngIf="!ersUploaded">
 													<div class="form-group row">
 								<label class="col-md-5 col-form-label">Select ERS:</label>
                 <a  onclick="document.getElementById('getFile').click()">Browse..</a>
@@ -344,16 +369,28 @@
                 	<a  class="btn btn-sm "(click)="uploadErs()">Upload</a>
 								</div>
 										</div>	
+										
+										<div class="col-md-6"  *ngIf="ersUploaded">
+													<div class="form-group row">
+								<label class="col-md-5 col-form-label">ERS File is already Uploaded</label>
+								</div>
+										</div>	
 					</div>	
 					
 					<div class="row">
-							<div class="col-md-6">
+							<div class="col-md-6" *ngIf="!securityUploaded">
 													<div class="form-group row">
 								<label class="col-md-5 col-form-label">Select Security & Configuration:</label>
                 <a  onclick="document.getElementById('getFile').click()">Browse..</a>
                 <input #fileInput type='file' id="getFile" (click)="fileInputI.value = null" accept=".csv" style="position: fixed; left: -200px; top: -200px;" (change)="handleFileInput($event.target.files)">
                 <br>
                 	<a  class="btn btn-sm "(click)="uploadSecurity()">Upload</a>
+								</div>
+										</div>	
+										<div class="col-md-6" *ngIf="securityUploaded">
+													<div class="form-group row">
+								<label class="col-md-5 col-form-label">  Security & Configuration File is Already Uploaded</label>
+          
 								</div>
 										</div>	
 										
@@ -366,8 +403,7 @@
             	<div class="card-footer text-right" *ngIf="isAllfilesSubmitted">
 					<button type="submit" [disabled]="!batchTesting.valid  && !isDisableBtn"  class="btn btn-sm btn-primary">
 						<i class="fa fa-dot-circle-o"></i> Submit</button>
-					<button type="reset" class="btn btn-sm btn-danger"(click)="clearForm($event)">clear
-					</button>
+					
 					</div>
             </form>
            </div>

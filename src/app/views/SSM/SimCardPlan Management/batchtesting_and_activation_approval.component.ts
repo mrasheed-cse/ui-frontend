@@ -39,6 +39,7 @@ export class PlanGenerateApproval implements OnInit {
   			hop:number;
   			isProceed:boolean=false;
   			comments:string;
+  			isLoading:boolean=false;
   			
 constructor(private datePipe: DatePipe,private router: Router,private loginService:
   			 LoginService,private http: HttpClient, private _global: AppGlobals, private planManagemetService: PlanManagementService ) {
@@ -72,11 +73,12 @@ constructor(private datePipe: DatePipe,private router: Router,private loginServi
 	
 	submit(){
 	
-	
+	this.isLoading=true;
 	this.planManagemetService.setplanApproval(this.userName,this.ID,this.comments,this.hop).subscribe(
 
 		data=>{
 			if(data!=null){
+				this.isLoading=false;
 				alert("Request has been Approved and Forwarded Sucessfully");
 				this.getData();
 			}

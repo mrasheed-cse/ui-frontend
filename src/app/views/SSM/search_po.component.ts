@@ -33,6 +33,7 @@ export class SearchPO implements OnInit {
 			routerUrlAndParams: string;
   			isDataFound: boolean ;
   			isInitial:boolean=true;
+  			nodataFound:boolean=false;
   			isDataFoundOther: boolean = true;
   			 isLoading:boolean = false;
 			PoNumber: string;
@@ -69,6 +70,8 @@ search(){
           if(data !=null){         
 	console.log("DATA= ",data)   
            this.isDataFound = true;
+           
+           this.nodataFound=false;
           this.rawDataFromBackend=data;
           if(this.PoNumber==this.rawDataFromBackend['id']){
            var objToInsert = {};
@@ -89,7 +92,7 @@ search(){
           else{ 
 						this.isInitial = true;
 					 this.isDataFound = false;
-					
+					this.nodataFound=true;
 			}
 			 this.isLoading = false;
           }
@@ -97,6 +100,7 @@ search(){
 	 		this.isDataFound = false;
             this.isInitial = true;
             this.isLoading = false;
+            this.nodataFound=true;
           }
         },
       err => console.error(err),
@@ -140,6 +144,7 @@ search(){
 	
 	this.isInitial=true;
 	this.isDataFound=false;
+	this.nodataFound=false;
 }
 
     ngOnInit() {
