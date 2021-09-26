@@ -39,10 +39,10 @@ export class SimPackaging implements OnInit {
   			ID:number;
   			hop:number;
   			isProceed:boolean=false;
-  			comments:string;
   			printingDate:Date;
   			packagingDate:Date;
   			deliveryDate:Date;
+  			isLoading:boolean=false;
 constructor(private datePipe: DatePipe,private router: Router,private loginService:
   			 LoginService,private http: HttpClient, private _global: AppGlobals, private planManagemetService: PlanManagementService ) {
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
@@ -107,11 +107,11 @@ constructor(private datePipe: DatePipe,private router: Router,private loginServi
 	var delivery=this.datePipe.transform(this.deliveryDate,"dd-MM-yyyy");
 	var packaging=this.datePipe.transform(this.packagingDate,"dd-MM-yyyy");
 	var printing=this.datePipe.transform(this.printingDate,"dd-MM-yyyy");
-	
-	this.planManagemetService.setPackeging(this.userName,this.ID,this.comments,printing,packaging,delivery).subscribe(
+	this.isLoading=true;
+	this.planManagemetService.setPackeging(this.userName,this.ID,printing,packaging,delivery).subscribe(
 
 		data=>{
-			if(data!=null){
+			if(data!=null){this.isLoading=false;
 				alert("DATA Saved And Forwarded");
 				this.getData();
 			}

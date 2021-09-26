@@ -38,13 +38,13 @@ export class PlanActivation implements OnInit {
   			ID:number;
   			hop:number;
   			isProceed:boolean=false;
-  			comments:string;
   			fileToUpload: File = null;
     		fileuploadstatus: string;
     		fileName: string;
     		fileerror: boolean = false;
    		    filesuccess: boolean = false;
     		uploading: boolean = false;
+    		isLoading:boolean=false;
   			
 constructor(private datePipe: DatePipe,private router: Router,private loginService:
   			 LoginService,private http: HttpClient, private _global: AppGlobals, private planManagemetService: PlanManagementService ) {
@@ -126,14 +126,15 @@ handleFileInput(files: FileList) {
     
     
     
-submit(){
+submit(){ this.isLoading=true;
         if (this.fileToUpload == undefined || !this.fileToUpload.name.endsWith(".csv")) {
           alert("Please Select A csv file");
+          this.isLoading=false;
         } else {
             this.uploading = true
             var user=JSON.stringify(this.userName).replace(".","!");
             console.log(user)
-            var uploadFor=this.comments+","+user+","+JSON.stringify(this.ID);
+            var uploadFor=user+","+JSON.stringify(this.ID);
             this.planManagemetService.postfaultyFile(this.fileToUpload,uploadFor).subscribe((res => {
                 this.uploading = false
                 if (res != null) {
@@ -144,6 +145,10 @@ submit(){
                 else if(JSON.stringify(res)==="2"){
 	
 			alert("Unable to Perform Activity please check The uploaded File again")
+			this.getData();
+} else if(JSON.stringify(res)==="3"){
+	
+			alert("Data Does not Exsist Please check File Again")
 			this.getData();
 }
                
@@ -164,6 +169,7 @@ submit(){
                 this.fileerror = true;
             })
             console.log(this.fileToUpload.size);
+           this.isLoading=false;
         }
 }    	
   			}

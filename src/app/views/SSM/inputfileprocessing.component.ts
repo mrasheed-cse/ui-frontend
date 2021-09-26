@@ -103,7 +103,7 @@ search(){
           }
           else{
             this.isDataFound = false;
-            //this.isLoading = false;
+            alert("PO Not Found");
           }
         },
       err => console.error(err),
@@ -144,7 +144,6 @@ submit(){
 					}
                   },
 		err => {console.error(err),
-		alert("No Data Found1"),console.log(err),
       this.isDataFoundOther = false
      	});
 		}
