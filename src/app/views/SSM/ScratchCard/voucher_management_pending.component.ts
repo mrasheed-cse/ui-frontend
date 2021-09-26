@@ -58,7 +58,7 @@ export class VoucherManagementApproval implements OnInit {
       this.groupID = this.currentLoggedInUser.groupID
       this.userID = this.currentLoggedInUser.userID
       console.log("Hello"+this.groupID);
-      if(this.groupID==15){
+      if(this.groupID==16){
 	//technology approval
 	this.hop=5;
 	
