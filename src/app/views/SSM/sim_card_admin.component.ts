@@ -446,7 +446,8 @@ addProductCode(){
 
 submitProductcode(){
 	
-	var type="3"
+	var type="2"
+	if(this.productCode.length==8){
 	this.ssmService.addSimdropdown(this.productCode,type).subscribe((res => {
             if (res == false) {
               alert("Failed to add")
@@ -457,7 +458,11 @@ submitProductcode(){
         }), err => { console.error(err)
             
         });
-	
+	}
+	else{
+		alert("Please Add Product Code of length 8")
+		
+	}
 	
 }
 

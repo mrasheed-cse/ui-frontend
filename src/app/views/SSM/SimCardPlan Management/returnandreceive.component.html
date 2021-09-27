@@ -171,7 +171,7 @@
 								<div class="form-group row">
 									<label class="col-md-5 col-form-label">WR#.</label>
 									<div class="col-md-7">
-										<input type="number" id="wrname" name="wrname" class="form-control" autocomplete="off"  [(ngModel)]="wrname"  required
+										<input type="text" id="wrname" name="wrname" class="form-control" autocomplete="off"  [(ngModel)]="wrname"  required
 											value={{wrname}} >
 									</div>
 								</div>
@@ -189,16 +189,21 @@
 								</div>		
 									</div>
 									
+									
 									<div class="col-md-6">
-													<div class="form-group row">
-									<label class="col-md-5 col-form-label" >Comments</label>
-										<div class="col-md-7">
-										<input disabled type="text" class="form-control" 
-									 [(ngModel)]="comments" > 
-			</div>
-	
-								</div>
-										</div>	
+						
+										<div class="form-group row">
+											<label class="col-md-5 col-form-label" for="deliveryDate">Delivery Date</label>
+											<div class="col-md-7">									
+												<input type="text" class="form-control calendar-container" autocomplete="off"  id="deliveryDate"  name="deliveryDate" 
+												required bsDatepicker  placement="right"  [(ngModel)]="deliveryDate" [value]="deliveryDate"
+												 [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-green',  showWeekNumbers:false }"
+												>
+											</div>
+										</div>
+			
+									</div>
+									
 									</div>
 									
 									
@@ -232,22 +237,7 @@
 									</div>
 									</div>
 									
-									<div class="row">
-									  <div class="col-md-6">
-						
-										<div class="form-group row">
-											<label class="col-md-5 col-form-label" for="deliveryDate">Delivery Date</label>
-											<div class="col-md-7">									
-												<input type="text" class="form-control calendar-container" autocomplete="off"  id="deliveryDate"  name="deliveryDate" 
-												required bsDatepicker  placement="right"  [(ngModel)]="deliveryDate" [value]="deliveryDate"
-												 [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-green',  showWeekNumbers:false }"
-												>
-											</div>
-										</div>
-			
-									</div>
-									  
-									  </div>
+									
 					
             </div>
            

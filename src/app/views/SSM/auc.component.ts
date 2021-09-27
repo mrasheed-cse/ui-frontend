@@ -27,6 +27,14 @@ export class AucProcessor implements OnInit {
  			todayDate: Date;
 			routerUrlAndParams: string;
   			isDataFound: boolean ;
+  			fileToUpload: File = null;
+    		fileuploadstatus: string;
+    		fileName: string;
+    		fileerror: boolean = false;
+   		    filesuccess: boolean = false;
+    		uploading: boolean = false;
+    		isConverted:boolean=false;
+    		 readonly environment = environment
   			
 	constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private ssmService: SSMService ) {
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
@@ -44,5 +52,36 @@ export class AucProcessor implements OnInit {
 
    ngOnInit() { 
    
+    }
+     dndUpload() {
+        this.fileerror = false;
+        this.filesuccess = false;
+        if (this.fileToUpload == undefined || !this.fileToUpload.name.endsWith(".auc")) {
+            this.fileuploadstatus = 'Please select a auc file';
+            this.fileerror = true;
+        } else {
+            this.uploading = true
+            this.ssmService.aucFileConersion(this.fileToUpload).subscribe((res => {
+                this.uploading = false
+                if (res == null) {
+                    this.fileuploadstatus = 'File Upload Fail';
+                    this.fileerror = true;
+                } else {
+                   this.isConverted=true;
+                    this.filesuccess = true;
+                }
+            }), err => {
+                this.uploading = false
+                this.fileuploadstatus = err.error.message;
+                this.fileerror = true;
+            })
+            console.log(this.fileToUpload.size);
+        }
+    }
+    handleFileInput(files: FileList) {
+        this.fileerror = false;
+        this.filesuccess = false;
+        this.fileToUpload = files.item(0);
+        this.fileName = this.fileToUpload.name;
     }
 }
