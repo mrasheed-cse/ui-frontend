@@ -59,12 +59,13 @@ submit(){
 	var val;
 	this.isLoading=true;
 	console.log("Selected for"+this.uploadFor)
-	if(this.uploadFor==="0"){
+	if(this.uploadFor!=null){if(this.uploadFor==="0"){
 		val="AUC";
 	}
-	else{
+	else if(this.uploadFor==="1"){
 		val="ADC"
 	}
+	
 	this.datawarehouseservice.uploadCsv(this.fileToUpload,val).subscribe(
 	
 		data=>{ 	console.log(data)
@@ -84,7 +85,11 @@ submit(){
 		},err => {alert("Please Select Valid File")
 		 this.isLoading=false}
 	)
-	
+	}
+	else{
+		alert("Please Select a Value")
+		 this.isLoading=false
+	}
 	
 }	
  handleFileInput(files: FileList) {

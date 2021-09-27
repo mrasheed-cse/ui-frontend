@@ -16,12 +16,15 @@ export class SSMService {
 	
 private headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
 
- 
+ private header2=new HttpHeaders().set('Content-Type', 'application/octet-stream');
  private options = {
     headers: this.headers,
 	responseType: 'text' as 'json'
  }
-
+private options2 = {
+    headers: this.header2,
+	responseType: 'text' as 'text'
+ }
 
 	serverUrl: string;
 	
@@ -276,6 +279,19 @@ deleteSimdropdown(id:number) :Observable<any> {
     
     addSimdropdown(value:string ,type:string) :Observable<any> {
         return this.http.get(environment.apiUrl + "simAdmin/addDropdown/" + value +"/"+type).pipe(catchError(this.handleError));
+    }
+    
+    aucFileConersion(fileToUpload: File) {
+        const url = environment.apiUrl + "auc_conversion/start";
+        const formData: FormData = new FormData();
+        formData.append('file', fileToUpload, fileToUpload.name);
+        return this.http.post(url, formData);
+    }
+    
+    downloadAucFile() {
+        const url = environment.apiUrl + "auc_conversion/download";
+        
+        return this.http.post(url,this.options2);
     }
 	
 	}

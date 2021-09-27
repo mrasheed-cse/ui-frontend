@@ -103,7 +103,14 @@ search(){
             this.nodataFound=true;
           }
         },
-      err => console.error(err),
+      err =>{ console.error(err)
+     	alert("Please Enter PO Number ")
+     	this.isLoading=false;
+     	this.isDataFound = false;
+            this.isInitial = true;
+     	
+      
+      }
      	);
 }
 
