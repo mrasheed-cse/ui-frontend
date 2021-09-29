@@ -104,7 +104,7 @@ search(){
           }
         },
       err =>{ console.error(err)
-     	alert("Please Enter PO Number ")
+     	alert("Please Enter Valid PO Number ")
      	this.isLoading=false;
      	this.isDataFound = false;
             this.isInitial = true;
