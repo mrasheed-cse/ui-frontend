@@ -74,6 +74,11 @@ ngOnInit(){
 search(){
 	this.isInitial=false;
 	this.rowData=[];
+	if(this.searchFor==null){
+		alert("Select Value From Dropdown")
+		this.isInitial=true;
+	}
+	else{
 	if(this.searchFor=="0"){
 	this.datawarehouseservice.getDataAuc().subscribe(
 	data => {this.isDataFoundAUC=true;
@@ -142,9 +147,10 @@ else if(this.searchFor==="2"){
 			},
     err => console.error(err),);
 		
-		
+		}
 	
 }
+
 
 }
 

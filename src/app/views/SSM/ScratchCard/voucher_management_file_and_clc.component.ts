@@ -40,7 +40,6 @@ export class VoucherManagementActivationAndView implements OnInit {
   			isfirsthopProceed:boolean=false;
   			isotherHopsApproval:boolean=false;
   			comments:string;
-  			Id:number;
   			hop:number;
   			clcHop:boolean=false;
 
@@ -52,7 +51,7 @@ export class VoucherManagementActivationAndView implements OnInit {
       this.userName = this.currentLoggedInUser.userName
       this.groupID = this.currentLoggedInUser.groupID
       this.userID = this.currentLoggedInUser.userID
-if(this.groupID==7||this.groupID==12){
+if(this.groupID==7||this.groupID==12||this.groupID==17){
 
 this.hop=0;
 	
@@ -98,8 +97,8 @@ this.hop=0;
 
     
 
- download() {
-        var nameOfFileToDownload = "VoucherData_"+this.Id+".csv";
+ download(Id:number) {
+        var nameOfFileToDownload = "VoucherData_"+Id+".csv";
 		console.log("nameOfFileToDownload : "+nameOfFileToDownload);
 
         var result = this.ssmService.DownloadCSV(nameOfFileToDownload);

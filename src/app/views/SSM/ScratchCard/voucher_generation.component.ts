@@ -107,7 +107,6 @@ submitVoucher(){
 	this.ssmService.checkPoExsist(this.voucherGenrationForm.controls.Po.value).subscribe(
 		data =>{ console.log("Da"+data)
 			if(data!=null){
-				alert("Data Saved")
 				this.ShowData();
 				
 			}
@@ -293,7 +292,7 @@ onCardChange(){this.endSerial=null;
 
 
 ShowData(){ 
-	this.isDataFound=true;
+	this.isDataFound=false;
 	 var objToInsert = {};
 	 var start=""+this.startSerial;
 	 for (let index in this.listDenomination) {
@@ -349,9 +348,10 @@ ShowData(){
 	,objToInsert['Pr'],objToInsert['nwExpireDate'],objToInsert['ExpireDate'],objToInsert['CardGroup'],
 	objToInsert['voucherserialdigits'],objToInsert['voucherserialdigitshidden'],objToInsert['VendorwiseSFTP'],this.userName).subscribe(
 		data=>{if(data!=""){
-			alert("Data saved Sucessfully and notification mail has been triggerd");
-			this.isDataFound=false;
 			this.voucherGenrationForm.reset
+			alert("Data saved Sucessfully and notification mail has been triggerd");
+			this.isDataFound=true;
+			
 			
 		}
 			

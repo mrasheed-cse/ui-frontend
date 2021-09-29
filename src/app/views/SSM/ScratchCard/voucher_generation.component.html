@@ -219,10 +219,8 @@
 						</div>
 						</div>
 									<div class="card-footer text-right">
-					<button type="submit" [disabled]="!voucherGenrationForm.valid  && !isDisableBtn"  class="btn btn-sm btn-primary">
+					<button type="submit" [disabled]="!voucherGenrationForm.valid  && !isDisableBtn"  class="btn btn-sm btn-primary" *ngIf="!isDataFound">
 						<i class="fa fa-dot-circle-o"></i> Submit</button>
-					<button type="reset" class="btn btn-sm btn-danger"(click)="clearForm($event)">clear
-					</button>
 					</div>
 					</form>
 					

@@ -237,8 +237,8 @@ SaveFinal(username:string,Id:number,comment:string){
 		comments:comment
 			});
 }
- postFile(fileToUpload: File) {
-        const url = environment.apiUrl + "voucherManagement/uploadstart";
+ postFile(fileToUpload: File, id:number) {
+        const url = environment.apiUrl + "voucherManagement/uploadstart/"+id;
         const formData: FormData = new FormData();
         formData.append('file', fileToUpload, fileToUpload.name);
         return this.http.post(url, formData);
