@@ -68,6 +68,8 @@ export class VoucherGenerationForward implements OnInit {
 	this.firstHop=true;
 	this.listVoucherHopsdata=[];
 	this.isfirsthopProceed=false;
+	this.comments="";
+	this.fileToUpload=null;
 	this.ssmService.getApproval1HopData(this.hop).subscribe(data=>{
 		for (let index in data) {
 			
@@ -132,6 +134,7 @@ cancel(){
 }
     
 dndUpload() {
+	console.log("File iuploading")
         this.fileerror = false;
         this.filesuccess = false;
         if (this.fileToUpload == undefined || !this.fileToUpload.name.endsWith(".csv")) {
@@ -139,7 +142,7 @@ dndUpload() {
             this.fileerror = true;
         } else {
             this.uploading = true
-            this.ssmService.postFile(this.fileToUpload).subscribe((res => {
+            this.ssmService.postFile(this.fileToUpload,this.Id).subscribe((res => {
                 this.uploading = false
                 if (res == null) {
                     this.fileuploadstatus = 'File Upload Fail';

@@ -34,6 +34,7 @@ export class AucProcessor implements OnInit {
    		    filesuccess: boolean = false;
     		uploading: boolean = false;
     		isConverted:boolean=false;
+    		isLoading:boolean=false;
     		 readonly environment = environment
   			
 	constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private ssmService: SSMService ) {
@@ -56,24 +57,37 @@ export class AucProcessor implements OnInit {
      dndUpload() {
         this.fileerror = false;
         this.filesuccess = false;
-        if (this.fileToUpload == undefined || !this.fileToUpload.name.endsWith(".auc")) {
+        if (this.fileToUpload == undefined || !this.fileToUpload.name.endsWith(".AUC")) {
             this.fileuploadstatus = 'Please select a auc file';
             this.fileerror = true;
         } else {
             this.uploading = true
+            this.isLoading=true
             this.ssmService.aucFileConersion(this.fileToUpload).subscribe((res => {
                 this.uploading = false
                 if (res == null) {
                     this.fileuploadstatus = 'File Upload Fail';
                     this.fileerror = true;
-                } else {
+                    this.isLoading=false;
+                } 
+               else if(res['message']==="2"){
+			console.log(res['message']+"  111")
+	  this.fileuploadstatus = 'File Size is Greater Than 50000';
+                    this.fileerror = true;
+                    this.isLoading=false;
+	
+}
+                else {
+	console.log(res['message']+"  222")
                    this.isConverted=true;
                     this.filesuccess = true;
+                    this.isLoading=false;
                 }
             }), err => {
                 this.uploading = false
                 this.fileuploadstatus = err.error.message;
                 this.fileerror = true;
+                this.isLoading=false;
             })
             console.log(this.fileToUpload.size);
         }

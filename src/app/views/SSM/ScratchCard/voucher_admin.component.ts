@@ -117,6 +117,10 @@ addDenomination(){this.isaddDenomination=true;
 this.isDenominationfound=false;}  
 
 SubmitDenomination(){
+	if(this.newDenomination==null){
+		alert("Please insert some value")
+	}
+	else{
 	this.ssmService.saveDenomination(this.newDenomination).subscribe((res => {
             if (res == false) {
               alert("Failed to add")
@@ -127,7 +131,7 @@ SubmitDenomination(){
         }), err => { console.error(err)
             
         });
-	
+	}
 }  
 
 vendorName(){ 
@@ -167,7 +171,10 @@ addVendor(){this.isAddvendor=true;
 this.isVendorFound=false;}    
 
 SubmitVendor(){
-	
+	if(this.newVendor===null){
+		alert("Please insert some value")
+	}
+	else{
 	this.ssmService.saveVendor(this.newVendor).subscribe((res => {
             if (res == false) {
               alert("Failed to add")
@@ -178,7 +185,7 @@ SubmitVendor(){
         }), err => { console.error(err)
             
         });
-	
+	}
 	
 }
 
@@ -222,6 +229,10 @@ addVoucherSerial(){
 	}
 
 SubmitVoucherSerial(){
+	if(this.newVoucherSerial===null){
+		alert("Please insert some value")
+	}
+	else{
 	this.ssmService.saveVoucherSerial(this.newVoucherSerial).subscribe((res => {
             if (res == false) {
               alert("Failed to add")
@@ -232,7 +243,7 @@ SubmitVoucherSerial(){
         }), err => { console.error(err)
             
         });
-	
+	}
 }
 
 
@@ -280,7 +291,10 @@ addCardGroup(){
 	
 }     
 SubmitCardGroup(){
-	
+		if(this.newMapDenomination==null){
+		alert("Please insert some value")
+	}
+	else{
 	
 	this.ssmService.getDenominationId(this.newMapDenomination).subscribe(
 		
@@ -289,7 +303,7 @@ SubmitCardGroup(){
 			this.SaveTheCardGroup(this.denominationid);			
 		}
 	)
-	
+	}
 	
 	
 		;}
@@ -300,6 +314,7 @@ voucherHiddenNumber(){
 	this.isAddHiddenSerial=false;
 	this.listvoucherserialdigitshidden=[];
 	this.newHiddenSerial=null;
+	
 this.ssmService.getvoucherSerialHidden().subscribe(
 	data => {
 				//console.log(data);
@@ -333,6 +348,10 @@ addHiddenSerial(){
 	
 }    
 SubmitHiddenSerial(){
+	if(this.newHiddenSerial===null){
+		alert("Please insert some value")
+	}
+	else{
 	this.ssmService.saveHiddenSerial(this.newHiddenSerial).subscribe((res => {
             if (res == false) {
               alert("Failed to add")
@@ -342,7 +361,7 @@ SubmitHiddenSerial(){
             }
         }), err => { console.error(err)
             
-        });
+        });}
 };
 
 vendorWiseSFTP(){
@@ -385,7 +404,10 @@ addSftp(){this.isSftpFound=false;
 }
 
 SubmitSftp(){
-	
+		if(this.newSftp===null){
+		alert("Please insert some value")
+	}
+	else{
 	this.ssmService.saveVendorSftp(this.newSftp).subscribe((res => {
             if (res == false) {
               alert("Failed to add")
@@ -395,14 +417,17 @@ SubmitSftp(){
             }
         }), err => { console.error(err)
             
-        });
+        });}
 	
 }
 
 
 SaveTheCardGroup(Denoid:number){
 	
-	
+	if(this.newCardGroup===null){
+		alert("Please insert some value")
+	}
+	else{
 	this.ssmService.saveCardGroup(this.newCardGroup,Denoid).subscribe((res => {
             if (res == false) {
               alert("Failed to add")
@@ -413,7 +438,7 @@ SaveTheCardGroup(Denoid:number){
         }), err => { console.error(err)
             
         })
-	
+	}
 }
 
 cancel(){

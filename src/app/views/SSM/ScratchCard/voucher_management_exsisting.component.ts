@@ -128,10 +128,12 @@ submit(){
 	this.ssmService.SaveBatch(this.userName,this.Id,this.batch,this.comments).subscribe(
 		data=>{if(data!=null){
 			alert("Scratch Card Is Batch Testing sucess")
+			this.getData(this.hop);
 			
 		}
 		else{
 			alert("Unable to Perform the action")
+			this.getData(this.hop);
 			
 		}
 		}
@@ -143,11 +145,11 @@ submitActivate(){
 	this.ssmService.SaveFinal(this.userName,this.Id,this.comments).subscribe(
 		data=>{if(data!=null){
 			alert("Scratch Card Is Activated")
-			
+			this.getData(this.hop);
 		}
 		else{
 			alert("Unable to Perform the action")
-			
+			this.getData(this.hop);
 		}
 		}
 		
