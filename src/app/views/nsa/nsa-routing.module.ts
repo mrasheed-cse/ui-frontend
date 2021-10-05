@@ -126,6 +126,8 @@ import{PlanActivation} from '../SSM/SimCardPlan Management/planactivation.compon
 import{PlanGenerateApproval} from '../SSM/SimCardPlan Management/batchtesting_and_activation_approval.component';
 import{UploadDataWh} from'../SSM/DataWarehouse Management/uploaddata.component';
 import{ViewDatawarehouse} from'../SSM/DataWarehouse Management/showdatawarehouse.component';
+
+import{UploadForcast} from'../SSM/Report/uploadforcast.component'
 const routes: Routes = [
     {
         path: '',
@@ -1039,6 +1041,14 @@ const routes: Routes = [
         component: ReturnAndReceive,
         data: {
             title: 'Return And Receive'
+        },
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'ssmreportupload',
+        component: UploadForcast,
+        data: {
+            title: 'Forecast'
         },
         canActivate: [AuthGuard]
     },

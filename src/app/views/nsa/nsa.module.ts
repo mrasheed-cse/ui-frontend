@@ -146,7 +146,7 @@ import{VoucherGenerationForward} from '../SSM/ScratchCard/voucher_generation_for
 import{VoucherManagementExsisting} from '../SSM/ScratchCard/voucher_management_exsisting.component';
 import{VoucherManagementActivationAndView} from '../SSM/ScratchCard/voucher_management_file_and_clc.component';
 import {AuthGuard} from './services/AuthGuard.service';
-
+import{UploadForcast} from'../SSM/Report/uploadforcast.component'
 import {LoginService} from '../pages/LoginService';
 
 @NgModule({
@@ -277,7 +277,8 @@ import {LoginService} from '../pages/LoginService';
     ReturnAndReceive,
     UploadRecycleComponent,
     GenerateanalyzeComponent,
-    GenerateComponent
+    GenerateComponent,
+    UploadForcast
   ],
   providers:[DatePipe, LoginService, AuthGuard]})
 export class NsaModule { }

@@ -46,6 +46,7 @@ getImsiAndICCID(imsi:string,quantity:string,vendor:string):any	{
 }
 	
 	saveData(poNumber:string,startImsi:string,quantity:string,startIccid:string,stk:string,artwork:string,vendor:string,ImsiType:string):any{
+		console.log(startImsi)
 		return this.http.post(this.serverUrl + 'inputFileprocessing/SaveData/', {
 			poNumber:poNumber,
 			startImsi:startImsi,
@@ -54,7 +55,7 @@ getImsiAndICCID(imsi:string,quantity:string,vendor:string):any	{
 			stk:stk,
 			artwork:artwork,
 			vendor:vendor,
-			ImsiType:ImsiType
+			imsiType:ImsiType
 		});
 		
 	}
