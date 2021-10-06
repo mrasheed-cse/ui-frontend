@@ -46,11 +46,11 @@
 					<div class="row">
 							<div class="col-md-6">
 													<div class="form-group row">
-									<label class="col-md-5 col-form-label" >Sim Input File</label>
+									<label class="col-md-5 col-form-label" >Vendor Initial-IMSI Type-PO Number</label>
 									<div class="col-md-7">
 										<select class="form-control" id="inputFile" formControlName="inputFile" required >
 											<option></option>
-											<option *ngFor="let aSimType of listDropDowninputFile" [value]="aSimType.id">{{aSimType.id}}</option>
+											<option *ngFor="let aSimType of listDropDowninputFile" [value]="aSimType.id">{{aSimType.name}}</option>
 										</select>
 									</div>
 	
@@ -93,7 +93,7 @@
 									<label class="col-md-5 col-form-label">Start Kit Serial .</label>
 									<div class="col-md-7">
 									<input  type="text" class="form-control" 
-									value="{{startKit}}">
+									value="{{startKit}}" disabled>
 								</div>
 								</div>
 						</div>	

@@ -45,6 +45,7 @@ export class VoucherManagementExsisting implements OnInit {
   			isButton:boolean=false;
   			radioTest:FormGroup;
   			batch;
+  			isLoading:boolean = false;
   				
   	constructor(private datePipe: DatePipe,private router: Router,private fb:FormBuilder,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private ssmService: SSMService ) {
     
@@ -89,7 +90,17 @@ this.hop=7;
 						
 						ponumber:data[index].ponumber,
 						batchNo: data[index].batchNo,
-						 id:data[index].id,
+						 id: data[index].id,
+						serial: data[index].serial,
+						denomination:  data[index].denomination,
+						networkexpiredate:this.datePipe.transform( data[index].networkexpiredate,"dd-MM-yyyy"),
+						expirydate:this.datePipe.transform( data[index].expirydate,"dd-MM-yyyy"),
+						cardgroup: data[index].cardgroup,
+						serialDigitCount: data[index].serialDigitCount,
+						hiddenNumberCount: data[index].hiddenNumberCount,
+						sftplocation: data[index].sftplocation,
+						vendor:data[index].vendor
+						
 						
 						
 					}
@@ -125,14 +136,17 @@ this.hop=7;
 
 	
 submit(){
+	this.isLoading=true;
 	this.ssmService.SaveBatch(this.userName,this.Id,this.batch,this.comments).subscribe(
 		data=>{if(data!=null){
 			alert("Scratch Card Is Batch Testing sucess")
+			this.isLoading=false;
 			this.getData(this.hop);
 			
 		}
 		else{
 			alert("Unable to Perform the action")
+			this.isLoading=false;
 			this.getData(this.hop);
 			
 		}
@@ -141,14 +155,16 @@ submit(){
 	)
 }
 
-submitActivate(){
+submitActivate(){this.isLoading=true;
 	this.ssmService.SaveFinal(this.userName,this.Id,this.comments).subscribe(
 		data=>{if(data!=null){
 			alert("Scratch Card Is Activated")
+			this.isLoading=false;
 			this.getData(this.hop);
 		}
 		else{
 			alert("Unable to Perform the action")
+			this.isLoading=false;
 			this.getData(this.hop);
 		}
 		}
@@ -157,12 +173,13 @@ submitActivate(){
 }
 
 cancel(){
-	
+	this.isLoading=true;
 	this.ssmService.cancelHop(this.userName,this.Id).subscribe(
 		
 		data=>{
 			if(data!=null){
 				alert("Voucher Request is Cancled");
+				this.isLoading=false;
 				this.getData(this.hop);
 				
 			}

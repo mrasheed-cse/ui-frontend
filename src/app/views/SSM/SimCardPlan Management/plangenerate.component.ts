@@ -112,12 +112,14 @@ export class PlanGenerate implements OnInit {
             this.fileerror = true;
         } else {
             this.uploading = true
-            this.planManagemetService.postFile(this.fileToUpload).subscribe((res => {
+            this.planManagemetService.postFile(this.fileToUpload,this.planGenrationForm.controls.inputFile.value).subscribe((res => {
                 this.uploading = false
                 if (res == null) {
                     this.fileuploadstatus = 'File Upload Fail';
                     this.fileerror = true;
-                } else {if(check=="Quantity"){
+                    alert("File Content Is  Greater Then Available Quantity")
+                } else {
+			if(check=="Quantity"){
                     this.fileuploadstatus = 'File Upload Success';
                     this.filesuccess = true;
                     
@@ -298,7 +300,10 @@ getStartSerial(){
 	
 		val['inputFile']=this.planGenrationForm.controls.inputFile.value;
 		this.planManagemetService.getkitSerial(val['inputFile']).subscribe(
-			data=>{this.startICCID=JSON.stringify(data)
+			data=>{
+				console.log(data)
+				this.startICCID=data.toString;
+			console.log(this.startICCID)
 		
 			}
 			
@@ -326,6 +331,8 @@ getStartSerial(){
 					this.listDropDowninputFile.push(
 					{
 						id:data[index].id,
+						name:data[index].vendorInitial+"-"+data[index].imsiType+"-"+data[index].poNumber
+						
 					}
 					);
 				}
@@ -380,6 +387,14 @@ SubmitCsv(number:string){
 			this.startKit=null;
 			this.quantity=null;
 			this.startICCID=null}
+		},
+		err=> {this.isLoading=false;
+		alert("Unable to Process")
+		this.createForm();
+			this.endKit=null;
+			this.startKit=null;
+			this.quantity=null;
+			this.startICCID=null
 		}
 	)
 	

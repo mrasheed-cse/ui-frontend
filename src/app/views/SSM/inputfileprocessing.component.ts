@@ -167,7 +167,7 @@ submit(){
 save(){if(this.isDataFoundOther){
 	console.log(this.FormGroup);
 	
-this.ssmService.saveData(this.FormGroup['poNumber'],this.FormGroup['endImsi'],this.FormGroup['quantity'],this.FormGroup['endIccid'],this.FormGroup['stk'],this.FormGroup['artwork'],this.FormGroup['vendor'],this.FormGroup['imsiType']).subscribe(
+this.ssmService.saveData(this.FormGroup['poNumber'],this.FormGroup['startImsi'],this.FormGroup['quantity'],this.FormGroup['startIccid'],this.FormGroup['stk'],this.FormGroup['artwork'],this.FormGroup['vendor'],this.FormGroup['imsiType']).subscribe(
 	 data => {
 		if(data!=null)
 		alert("Data Saved")

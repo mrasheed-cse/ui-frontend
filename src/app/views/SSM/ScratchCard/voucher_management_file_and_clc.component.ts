@@ -42,7 +42,7 @@ export class VoucherManagementActivationAndView implements OnInit {
   			comments:string;
   			hop:number;
   			clcHop:boolean=false;
-
+isLoading:boolean = false;
   			
   	constructor(private datePipe: DatePipe,private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private ssmService: SSMService ) {
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();

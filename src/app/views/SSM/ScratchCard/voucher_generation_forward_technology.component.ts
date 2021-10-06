@@ -47,7 +47,8 @@ export class VoucherGenerationForward implements OnInit {
     		fileerror: boolean = false;
    			 filesuccess: boolean = false;
     		uploading: boolean = false;
-
+			listDataByid=[];
+			isLoading:boolean=false;
 	constructor(private datePipe: DatePipe,private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private ssmService: SSMService ) {
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
 
@@ -67,6 +68,7 @@ export class VoucherGenerationForward implements OnInit {
     getData(hop:number){
 	this.firstHop=true;
 	this.listVoucherHopsdata=[];
+	this.listDataByid=[];
 	this.isfirsthopProceed=false;
 	this.comments="";
 	this.fileToUpload=null;
@@ -78,9 +80,16 @@ export class VoucherGenerationForward implements OnInit {
 						
 						ponumber:data[index].ponumber,
 						batchNo: data[index].batchNo,
-						 id:data[index].id,
-						
-						
+						 id: data[index].id,
+						serial: data[index].serial,
+						denomination:  data[index].denomination,
+						networkexpiredate: data[index].networkexpiredate,
+						expirydate: data[index].expirydate,
+						cardgroup: data[index].cardgroup,
+						serialDigitCount: data[index].serialDigitCount,
+						hiddenNumberCount: data[index].hiddenNumberCount,
+						sftplocation: data[index].sftplocation,
+						vendor:data[index].vendor
 					}
 					
 					);
@@ -95,12 +104,40 @@ export class VoucherGenerationForward implements OnInit {
      
 	detailsSecondHop(id:number){
 		this.isfirsthopProceed=true;
+				console.log(this.listVoucherHopsdata[0].ponumber)
 		
-		this.firstHop=false;
+		
+			for (let index in this.listVoucherHopsdata) {
+			if(Number(this.listVoucherHopsdata[index].id)==id){
+				console.log(this.listVoucherHopsdata[index].ponumber)
+			this.listDataByid.push(
+					{
+						
+						ponumber: this.listVoucherHopsdata[index].ponumber,
+						batchNo: this.listVoucherHopsdata[index].batchNo,
+						 id: this.listVoucherHopsdata[index].id,
+						 serial: this.listVoucherHopsdata[index].serial,
+						denomination: this.listVoucherHopsdata[index].denomination,
+						networkexpiredate: this.datePipe.transform(this.listVoucherHopsdata[index].networkexpiredate,"dd-MM-yyyy"),
+						expirydate:this.datePipe.transform( this.listVoucherHopsdata[index].expirydate,"dd-MM-yyyy"),
+						cardgroup: this.listVoucherHopsdata[index].cardgroup,
+						serialDigitCount: this.listVoucherHopsdata[index].serialDigitCount,
+						hiddenNumberCount: this.listVoucherHopsdata[index].hiddenNumberCount,
+						sftplocation: this.listVoucherHopsdata[index].sftplocation,
+						vendor:this.listVoucherHopsdata[index].vendor
+						
+						
+					}
+					
+					);
+					console.log("Sr "+this.listDataByid)
+					this.firstHop=false;
 		this.Id=id;
-		
+		}
+		}
 	}
 	submit(){
+		this.isLoading=true;
 	this.dndUpload();
 			console.log(this.comments);
 	this.ssmService.setSeccondHop(this.userName,this.Id,this.comments).subscribe(
@@ -108,6 +145,7 @@ export class VoucherGenerationForward implements OnInit {
 		data=>{
 			if(data!=null){
 				alert("DATA Saved And Forwarded");
+				this.isLoading=false;
 				this.getData(this.hop);
 			}
 			
@@ -118,12 +156,13 @@ export class VoucherGenerationForward implements OnInit {
       }
       
 cancel(){
-	
+	this.isLoading=true;
 	this.ssmService.cancelHop(this.userName,this.Id).subscribe(
 		
 		data=>{
 			if(data!=null){
 				alert("Voucher Request is Cancled");
+				this.isLoading=false;
 				this.getData(this.hop);
 				
 			}

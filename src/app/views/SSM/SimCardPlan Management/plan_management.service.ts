@@ -28,8 +28,8 @@ private headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf
 	constructor(private router: Router, private http: HttpClient, private _global: AppGlobals) { 
 		this.serverUrl = environment.apiUrl;  		
 	}
-	postFile(fileToUpload: File) {
-        const url = environment.apiUrl + "plangeneration/getcsvData";
+	postFile(fileToUpload: File, Inputfileid:number) {
+        const url = environment.apiUrl + "plangeneration/getcsvData/"+Inputfileid;
         const formData: FormData = new FormData();
         formData.append('file', fileToUpload, fileToUpload.name);
         return this.http.post(url, formData);
