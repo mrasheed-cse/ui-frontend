@@ -1,6 +1,6 @@
 export const environment = {
 	production: false,
-	apiUrl: '/',
+	apiUrl: '/gmg',
 	pendingRequestMarker: 'PENDING',
 	approvedRequestMarker: 'APPROVED',
 	rejectedRequestMarker: 'REJECTED',
