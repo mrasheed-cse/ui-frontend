@@ -959,7 +959,7 @@ const routes: Routes = [
         path: 'scratchcardexsisting',
         component: VoucherManagementExsisting,
         data: {
-            title: 'Batch Testing'
+            title: 'Batch Testing Aand Activation'
         },
         canActivate: [AuthGuard]
     },

@@ -42,6 +42,7 @@ export class VoucherManagementApproval implements OnInit {
   			comments:string;
   			Id:number;
   			hop:number;
+  			isLoading:boolean = false;
   			fileToUpload: File = null;
     		fileuploadstatus: string;
     		fileName: string;
@@ -96,7 +97,16 @@ if(this.groupID==12){
 						
 						ponumber:data[index].ponumber,
 						batchNo: data[index].batchNo,
-						 id:data[index].id,
+						 id: data[index].id,
+						serial: data[index].serial,
+						denomination:  data[index].denomination,
+						networkexpiredate:this.datePipe.transform( data[index].networkexpiredate,"dd-MM-yyyy"),
+						expirydate:this.datePipe.transform( data[index].expirydate,"dd-MM-yyyy"),
+						cardgroup: data[index].cardgroup,
+						serialDigitCount: data[index].serialDigitCount,
+						hiddenNumberCount: data[index].hiddenNumberCount,
+						sftplocation: data[index].sftplocation,
+						vendor:data[index].vendor
 						
 						
 					}
@@ -124,12 +134,13 @@ if(this.groupID==12){
 
 
 cancel(){
-	
+	this.isLoading = true;
 	this.ssmService.cancelHop(this.userName,this.Id).subscribe(
 		
 		data=>{
 			if(data!=null){
 				alert("Voucher Request is Cancled");
+				this.isLoading  = false;
 				this.getData(this.hop);
 				
 			}
@@ -141,12 +152,13 @@ cancel(){
  
  
  submit1(){
-	
+	this.isLoading = true
 	this.ssmService.setHop(this.userName,this.Id,this.comments).subscribe(
 
 		data=>{
 			if(data!=null){
-				alert("DATA Saved And Forwarded");
+				alert("Data Saved And Forwarded");
+				this.isLoading = false
 				this.getData(this.hop);
 			}
 			
