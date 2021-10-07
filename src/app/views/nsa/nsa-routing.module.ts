@@ -127,7 +127,8 @@ import{PlanGenerateApproval} from '../SSM/SimCardPlan Management/batchtesting_an
 import{UploadDataWh} from'../SSM/DataWarehouse Management/uploaddata.component';
 import{ViewDatawarehouse} from'../SSM/DataWarehouse Management/showdatawarehouse.component';
 
-import{UploadForcast} from'../SSM/Report/uploadforcast.component'
+import{UploadForcast} from'../SSM/Report/uploadforcast.component';
+import{VoucherJourney} from '../SSM/ScratchCard/viewvoucher_journey.component'
 const routes: Routes = [
     {
         path: '',
@@ -1049,6 +1050,15 @@ const routes: Routes = [
         component: UploadForcast,
         data: {
             title: 'Forecast'
+        },
+        canActivate: [AuthGuard]
+    },
+    
+     {
+        path: 'viewvoucherjourney',
+        component: VoucherJourney,
+        data: {
+            title: ''
         },
         canActivate: [AuthGuard]
     },

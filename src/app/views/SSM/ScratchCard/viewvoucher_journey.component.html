@@ -1,0 +1,77 @@
+<div class="row">
+	<div class="col-md-1">
+		 
+	</div>
+	<div class="col-md-10">
+		<div class="card">
+   
+		<div class="card-header" *ngIf="viewall">
+            <i class="fa fa-align-justify"></i>  Voucher Plan Management
+          </div>
+           <div class="card-body" *ngIf="viewall">
+           <table class="table table-bordered table-striped table-sm">
+                <thead>
+                  <tr>
+                    <th>PO Number</th>
+                    <th>Serial No</th>
+                     <th>Current HOP</th>
+                      <th>Last HOP</th>
+                      <th>Pending At</th>
+                      <th>Vendor</th>
+                      <th> Card Group</th>
+                   	 <th>Details</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let aTask of listVoucherHopsdata">
+                            <tr>
+                                <td>{{aTask.ponumber}}</td>
+                                <td>{{aTask.batchNo}}</td>
+                                <td>{{aTask.currentHop}}</td>
+                                <td>{{aTask.lastHop}}</td>
+                                <td>{{aTask.pendingFor}}</td>
+                                <td>{{aTask.vendor}}</td>
+                                <td>{{aTask.cardGroup}}</td>
+                                <td> <a  href="#" (click)="details(aTask.id);$event.preventDefault();" role="button">Details</a> </td>
+                            </tr>
+                </tbody>
+              </table>
+           </div>
+         <div class="card-body" *ngIf="isDetail">
+           <table class="table table-bordered table-striped table-sm">
+               <thead>
+                  <tr>
+                    <th>Po Number</th>
+                    <th>Batch Quantity</th>
+                    <th>Serial</th>
+                    <th>Denomination</th>
+                    <th>NetworkExpireDate</th>
+                    <th>Expiry Date</th>
+                    <th>Card Group</th>
+                    <th>HiddenNumberCount</th>
+                    <th>VoucherDigitCount</th>
+                    <th>SFTPlocation</th>
+                    <th>Vendor</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let aTask of voucherDetail">
+                            <tr>
+                                <td>{{aTask.ponumber}}</td>
+                                <td>{{aTask.batchNo}}</td>
+                                <td>{{aTask.serial}}</td>
+                                <td>{{aTask.denomination}}  </td>
+                           		<td>{{aTask.networkexpiredate}}</td>
+                                <td>{{aTask.expirydate}}</td>
+                                <td> {{aTask.cardgroup}}</td>
+                                <td>{{aTask.serialDigitCount}}</td>
+                                <td>{{aTask.hiddenNumberCount}}</td>
+                                <td> {{aTask.sftplocation}}</td>
+                                 <td> {{aTask.vendor}}</td>
+                            </tr>
+                </tbody>
+              </table>
+           </div>
+           
+             
+          
+           </div>
+           </div>
