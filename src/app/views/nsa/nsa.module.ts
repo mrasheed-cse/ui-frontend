@@ -149,6 +149,8 @@ import {AuthGuard} from './services/AuthGuard.service';
 import{UploadForcast} from'../SSM/Report/uploadforcast.component'
 import {LoginService} from '../pages/LoginService';
 
+import{VoucherJourney} from '../SSM/ScratchCard/viewvoucher_journey.component'
+
 @NgModule({
   imports: [
     CommonModule,
@@ -278,7 +280,8 @@ import {LoginService} from '../pages/LoginService';
     UploadRecycleComponent,
     GenerateanalyzeComponent,
     GenerateComponent,
-    UploadForcast
+    UploadForcast,
+    VoucherJourney
   ],
   providers:[DatePipe, LoginService, AuthGuard]})
 export class NsaModule { }
