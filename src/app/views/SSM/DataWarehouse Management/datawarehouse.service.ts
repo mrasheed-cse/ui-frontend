@@ -41,10 +41,8 @@ export class DatawarehouseService {
         }
         formData.append('searchType', data.searchType);
         formData.append('searchOn', data.searchOn);
-        if(data.searchType == "discrete" && data.selectedFile) {
+        if(data.searchType == "sequence") {
             formData.append('searchStart', data.searchStart);
-        }
-        if(data.searchType == "discrete" && data.selectedFile) {
             formData.append('searchEnd', data.searchEnd);
         }
         return formData;
