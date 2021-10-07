@@ -1,22 +1,10 @@
-import {
-    NgModule,
-    Component,
-    Pipe,
-    OnInit,
-} from '@angular/core';
-import {ReactiveFormsModule, FormGroup, FormControl, Validators} from '@angular/forms';
-import {BrowserModule} from '@angular/platform-browser';
-import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
-import {BsDatepickerConfig} from 'ngx-bootstrap/datepicker';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {environment} from '../../../../environments/environment';
+import {Component, OnInit,} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
-import {_throw} from 'rxjs/observable/throw';
 import {DatawarehouseService} from '../DataWarehouse Management/datawarehouse.service'
 import {AppGlobals} from './../../../app.global';
 import {LoginService} from '../../pages/LoginService';
 import {LoggedInUser} from '../../pages/loggedInUser';
-import {Observable} from 'rxjs/Observable';
 import {DatePipe} from '@angular/common';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -30,7 +18,6 @@ import 'rxjs/add/observable/of';
     providers: [AppGlobals, LoginService, DatePipe, DatawarehouseService],
 })
 export class ViewDatawarehouse implements OnInit {
-
     currentLoggedInUser: LoggedInUser;
     userName: string;
     groupID: number;
@@ -58,33 +45,36 @@ export class ViewDatawarehouse implements OnInit {
     searchEnd: any;
     searchStart: any;
     searchFile: any;
+    selectedFile: any;
+    searchOn: any;
 
     constructor(private datePipe: DatePipe, private router: Router, private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private datawarehouseservice: DatawarehouseService) {
         this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
-
         if (this.currentLoggedInUser) {
             this.userName = this.currentLoggedInUser.userName
             this.groupID = this.currentLoggedInUser.groupID
             this.userID = this.currentLoggedInUser.userID
-
         } else {
             this.router.navigate(['pages/login']);
         }
     }
 
     ngOnInit() {
-
     }
 
     search() {
         this.isInitial = false;
         this.rowData = [];
-        if (this.searchType == null || ((this.searchType == "discrete" && !this.searchFile) || (this.searchType == "discrete" && (!this.searchStart || !this.searchEnd)))) {
+        if (this.searchType == null || ((this.searchType == "discrete" && !this.searchFile) || (this.searchType == "sequence" && (!this.searchStart || !this.searchEnd)))) {
             alert("Select All Required Values")
             this.isInitial = true;
         } else {
+            let inputs = {
+                searchType: this.searchType,
+
+            }
             if (this.searchFor == "auc") {
-                this.datawarehouseservice.getDataAuc().subscribe(
+                this.datawarehouseservice.getDataAuc(this).subscribe(
                     data => {
                         this.isDataFoundAUC = true;
                         for (let index in data) {
@@ -102,7 +92,7 @@ export class ViewDatawarehouse implements OnInit {
                     },
                     err => console.error(err),);
             } else if (this.searchFor == "adc") {
-                this.datawarehouseservice.getDataAdc().subscribe(
+                this.datawarehouseservice.getDataAdc(this).subscribe(
                     data => {
                         this.isDataFoundADC = true;
                         for (let index in data) {
@@ -122,7 +112,7 @@ export class ViewDatawarehouse implements OnInit {
                     },
                     err => console.error(err),);
             } else if (this.searchFor === "sim") {
-                this.datawarehouseservice.SimmasterData().subscribe(
+                this.datawarehouseservice.SimmasterData(this).subscribe(
                     data => {
                         this.isDataFoundSimmaster = true;
                         for (let index in data) {

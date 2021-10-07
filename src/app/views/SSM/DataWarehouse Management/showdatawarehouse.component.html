@@ -23,13 +23,13 @@
                         Search Using
                     </div>
                     <div class="col-3">
-                        <input type="radio" value="kit" name="search_on" class="form-control form-control-radio"> &nbsp; KIT
+                        <input type="radio" value="kit" name="search_on" class="form-control form-control-radio" [(ngModel)]="searchOn"> &nbsp; KIT
                     </div>
                     <div class="col-3">
-                        <input type="radio" value="msisdn" name="search_on" class="form-control form-control-radio"> &nbsp; MSISDN
+                        <input type="radio" value="msisdn" name="search_on" class="form-control form-control-radio" [(ngModel)]="searchOn"> &nbsp; MSISDN
                     </div>
                     <div class="col-3">
-                        <input type="radio" value="imsi" name="search_on" class="form-control form-control-radio"> &nbsp; IMSI
+                        <input type="radio" value="imsi" name="search_on" class="form-control form-control-radio" [(ngModel)]="searchOn"> &nbsp; IMSI
                     </div>
                 </div>
                 <div class="row form-row" *ngIf="searchType=='sequence'">
@@ -48,7 +48,7 @@
                 </div>
                 <div class="row form-row" *ngIf="searchType=='discrete'">
                     <div class="col-12">
-                        <input type="file" name="search_ranges" class="form-control" [(ngModel)]="searchFile">
+                        <input type="file" name="search_ranges" class="form-control" [(ngModel)]="searchFile" (change)="selectedFile = $event.target.files.item(0)">
                     </div>
                 </div>
                 <div class="row form-row">
