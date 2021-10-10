@@ -94,8 +94,48 @@ export class VoucherJourney implements OnInit {
 	details(id:number){
 		
 		this.viewall=false;
+		this.getVoucherDetail(id);
 		this.isDetail=true;
 		
 	}
+  			
+  	getVoucherDetail(id:number){
+	this.isDetail=true;
+	this.viewService.getVoucher(id).subscribe(
+		data=>{
+		for (let index in data) {
+			
+			this.voucherDetail.push(
+					{
+						
+					ponumber: this.listVoucherHopsdata[index].ponumber,
+						batchNo: this.listVoucherHopsdata[index].batchNo,
+						 id: this.listVoucherHopsdata[index].id,
+						 serial: this.listVoucherHopsdata[index].serial,
+						denomination: this.listVoucherHopsdata[index].denomination,
+						networkexpiredate: this.datePipe.transform(this.listVoucherHopsdata[index].networkexpiredate,"dd-MM-yyyy"),
+						expirydate:this.datePipe.transform( this.listVoucherHopsdata[index].expirydate,"dd-MM-yyyy"),
+						cardgroup: this.listVoucherHopsdata[index].cardgroup,
+						serialDigitCount: this.listVoucherHopsdata[index].serialDigitCount,
+						hiddenNumberCount: this.listVoucherHopsdata[index].hiddenNumberCount,
+						sftplocation: this.listVoucherHopsdata[index].sftplocation,
+						vendor:this.listVoucherHopsdata[index].vendor
+					}
+					
+					);
+		}
+		
+		
+		
+	})
+	
+}	
+
+back(){
+	this.isDetail=false;
+	this.viewall=true;
+	this.voucherDetail=[];
+	
+}	
   			
   			}
