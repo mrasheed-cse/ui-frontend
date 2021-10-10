@@ -31,4 +31,8 @@ private headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf
 	getAllVoucher(): any {	
 		return this.http.get(this.serverUrl + 'vouchergeneration/getallvoucher/');
 	}
+	
+	getVoucher(id:number): any {	
+		return this.http.get(this.serverUrl + 'vouchergeneration/getvoucherdetailsbyId/'+id);
+	}
 	}
