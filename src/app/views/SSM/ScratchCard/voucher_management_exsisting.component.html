@@ -15,13 +15,12 @@
                   <tr>
                     <th>Po Number</th>
                     <th>Batch Quantity</th>
-                    <th>Serial</th>
+                    <th>Start Serial</th>
                     <th>Denomination</th>
                     <th>NetworkExpireDate</th>
                     <th>Expiry Date</th>
+                    <th>Requested Date</th>
                     <th>Card Group</th>
-                    <th>HiddenNumberCount</th>
-                    <th>VoucherDigitCount</th>
                     <th>SFTPlocation</th>
                     <th>Vendor</th>
                     <th>Action</th>
@@ -35,9 +34,9 @@
                                 <td>{{aTask.denomination}}  </td>
                            		<td>{{aTask.networkexpiredate}}</td>
                                 <td>{{aTask.expirydate}}</td>
+                                <td>{{aTask.requestDate}}</td>
                                 <td> {{aTask.cardgroup}}</td>
-                                <td>{{aTask.serialDigitCount}}</td>
-                                <td>{{aTask.hiddenNumberCount}}</td>
+                              
                                 <td> {{aTask.sftplocation}}</td>
                                  <td> {{aTask.vendor}}</td>
                                 <td> <a  href="#" (click)="detailsSecondHop(aTask.id);$event.preventDefault();" role="button">Details</a> </td>

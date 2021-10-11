@@ -105,6 +105,7 @@ if(this.groupID==12){
 						cardgroup: data[index].cardgroup,
 						serialDigitCount: data[index].serialDigitCount,
 						hiddenNumberCount: data[index].hiddenNumberCount,
+						requestDate: this.datePipe.transform(data[index]. requestDate,"dd-MM-yyyy"),
 						sftplocation: data[index].sftplocation,
 						vendor:data[index].vendor
 						

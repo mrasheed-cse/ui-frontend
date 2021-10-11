@@ -38,6 +38,7 @@ export class VoucherGeneration implements OnInit {
   			reqDate: Date
   			nwDate: Date;
  			exDate: Date;
+ 			todayDate:Date;
  			public successAlertShow:boolean = false;
 	 		public successAlertMessage:string = "";
 			routerUrlAndParams: string;
@@ -53,6 +54,7 @@ export class VoucherGeneration implements OnInit {
 			listDenomination=[];
 			public listVendor=[];
 			private rowData: any[];
+			isLoading:boolean=false;
 			
 			
 	constructor(private datePipe: DatePipe,private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private ssmService: SSMService ) {
@@ -64,6 +66,7 @@ export class VoucherGeneration implements OnInit {
       this.userID = this.currentLoggedInUser.userID
       this.isDataFound = false;
       this.isDataFoundOther=false;
+      this.todayDate = new Date()
     }
     else {
       this.router.navigate(['pages/login']);
@@ -105,7 +108,7 @@ export class VoucherGeneration implements OnInit {
 }
 submitVoucher(){
 	this.ssmService.checkPoExsist(this.voucherGenrationForm.controls.Po.value).subscribe(
-		data =>{ console.log("Da"+data)
+		data =>{
 			if(data!=null){
 				this.ShowData();
 				
@@ -292,9 +295,10 @@ onCardChange(){this.endSerial=null;
 
 
 ShowData(){ 
+	this.isLoading=true;
 	this.isDataFound=false;
 	 var objToInsert = {};
-	 var start=""+this.startSerial;
+	 var start=""+this.endSerial;
 	 for (let index in this.listDenomination) {
 		if(this.listDenomination[index].id==this.voucherGenrationForm.controls.Denomination.value){
 		objToInsert['Denomination']=this.listDenomination[index].groupName;
@@ -317,11 +321,19 @@ ShowData(){
 		if(this.listvoucherserialdigits[index].id==this.voucherGenrationForm.controls.voucherserialdigits.value){
 		objToInsert['voucherserialdigits']=this.listvoucherserialdigits[index].groupName;
 		}
+		else{
+			
+			objToInsert['voucherserialdigits']=0; 
+		}
 		
 	}
 	for (let index in this.listvoucherserialdigitshidden) {
 		if(this.listvoucherserialdigitshidden[index].id==this.voucherGenrationForm.controls.voucherserialdigitshidden.value){
 		objToInsert['voucherserialdigitshidden']=this.listvoucherserialdigitshidden[index].groupName;
+		}
+		else{
+			objToInsert['voucherserialdigitshidden']= 0;
+			
 		}
 		
 	}
@@ -335,23 +347,34 @@ ShowData(){
 	 objToInsert['endSerial']=this.endSerial;
 	objToInsert['BatchNo']=this.batchNo;
 	objToInsert['StartSerial']=this.startSerial;
+	console.log
 	objToInsert['BatchQty']=this.voucherGenrationForm.controls.BatchQty.value;
 	objToInsert['requestDate']=this.datePipe.transform(this.reqDate,"dd-MM-yyyy");
+	if(this.voucherGenrationForm.controls.Pr.value==null){
+		objToInsert['Pr']=" ";
+		
+	}
 	objToInsert['Pr']=this.voucherGenrationForm.controls.Pr.value;
+	
 	objToInsert['Po']=this.voucherGenrationForm.controls.Po.value;
 	objToInsert['nwExpireDate']=this.datePipe.transform(this.nwDate,"dd-MM-yyyy");
 	objToInsert['ExpireDate']=this.datePipe.transform(this.exDate,"dd-MM-yyyy");
 	  this.rowData.push(objToInsert);
 	
-	this.ssmService.saveScratch(objToInsert['Po'],objToInsert['BatchNo'],objToInsert['Denomination']
+	
+	this.ssmService.saveScratch(
+		objToInsert['Po'],objToInsert['BatchNo'],objToInsert['Denomination']
 	,start,objToInsert['requestDate'],objToInsert['BatchQty'],objToInsert['Vendor']
 	,objToInsert['Pr'],objToInsert['nwExpireDate'],objToInsert['ExpireDate'],objToInsert['CardGroup'],
-	objToInsert['voucherserialdigits'],objToInsert['voucherserialdigitshidden'],objToInsert['VendorwiseSFTP'],this.userName).subscribe(
+	
+	objToInsert['voucherserialdigits'],
+	objToInsert['voucherserialdigitshidden'],
+		objToInsert['VendorwiseSFTP'],this.userName).subscribe(
 		data=>{if(data!=""){
 			this.voucherGenrationForm.reset
 			alert("Data saved Sucessfully and notification mail has been triggerd");
 			this.isDataFound=true;
-			
+			this.isLoading=false
 			
 		}
 			

@@ -9,20 +9,42 @@
             <i class="fa fa-align-justify"></i>  Voucher Plan Management
           </div>
            <div class="card-body" *ngIf="viewall">
+          
+
            <table class="table table-bordered table-striped table-sm">
                 <thead>
                   <tr>
-                    <th>PO Number</th>
-                    <th>Serial No</th>
-                     <th>Current HOP</th>
-                      <th>Last HOP</th>
-                      <th>Pending At</th>
-                      <th>Vendor</th>
-                      <th> Card Group</th>
-                   	 <th>Details</th>
+                    <th>PO Number
+                    <p></p>
+                     <input  class="form-control" [(ngModel)]="searchText" (change)="poChange()"placeholder="Search PO Number.." class="advancedSearchTextbox">
+                     </th>
+                    <th>Serial No
+                     <p></p></th>
+                     <th>Current HOP
+                      <p></p></th>
+                      <th>Last HOP
+                       <p></p></th>
+                      <th>Pending At/Status
+                      
+                      <select class="form-control" [(ngModel)]="Status"  (change)="statusChanged()">
+                      <option value="0"></option>
+                    <option value="1">CLOSED</option>
+                    <option value="2">RAFM</option>
+                    <option value="3">Canceled</option>
+                    <option  value="4">SSM</option>
+                       <option  value="5">Technology</option>
+                       <option  value="6">CLC</option>
+                </select>
+                      </th>
+                      <th>Vendor
+                       <p></p></th>
+                      <th> Card Group
+                       <p></p></th>
+                   	 <th>Details
+                   	  <p></p></th>
                   </tr>
                 </thead>
-                <tbody *ngFor="let aTask of listVoucherHopsdata">
+                <tbody *ngFor="let aTask of listVoucherHopsdata ">
                             <tr>
                                 <td>{{aTask.ponumber}}</td>
                                 <td>{{aTask.batchNo}}</td>
@@ -42,30 +64,30 @@
                   <tr>
                     <th>Po Number</th>
                     <th>Batch Quantity</th>
-                    <th>Serial</th>
+                    <th>Start Serial</th>
+                    <th>End Serial</th>
                     <th>Denomination</th>
                     <th>NetworkExpireDate</th>
                     <th>Expiry Date</th>
                     <th>Card Group</th>
-                    <th>HiddenNumberCount</th>
-                    <th>VoucherDigitCount</th>
                     <th>SFTPlocation</th>
                     <th>Vendor</th>
-                  </tr>
+                    <th>Batch Comment</th>
+                    </tr>
                 </thead>
                 <tbody *ngFor="let aTask of voucherDetail">
                             <tr>
                                 <td>{{aTask.ponumber}}</td>
                                 <td>{{aTask.batchNo}}</td>
                                 <td>{{aTask.serial}}</td>
+                                <td>{{endSerial}}</td>
                                 <td>{{aTask.denomination}}  </td>
                            		<td>{{aTask.networkexpiredate}}</td>
                                 <td>{{aTask.expirydate}}</td>
                                 <td> {{aTask.cardgroup}}</td>
-                                <td>{{aTask.serialDigitCount}}</td>
-                                <td>{{aTask.hiddenNumberCount}}</td>
                                 <td> {{aTask.sftplocation}}</td>
                                  <td> {{aTask.vendor}}</td>
+                                 <td> {{aTask.batchtestresult}}</td>
                             </tr>
                 </tbody>
               </table>
