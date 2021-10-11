@@ -47,6 +47,7 @@ export class ViewDatawarehouse implements OnInit {
     searchFile: any;
     selectedFile: any;
     searchOn: any;
+    searchSequence: any;
 
     constructor(private datePipe: DatePipe, private router: Router, private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private datawarehouseservice: DatawarehouseService) {
         this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
@@ -65,14 +66,10 @@ export class ViewDatawarehouse implements OnInit {
     search() {
         this.isInitial = false;
         this.rowData = [];
-        if (this.searchType == null || ((this.searchType == "discrete" && !this.searchFile) || (this.searchType == "sequence" && (!this.searchStart || !this.searchEnd)))) {
+        if (this.searchSequence == null || this.searchType == null || ((this.searchType == "discrete" && !this.searchFile) || (this.searchType == "sequence" && (!this.searchStart || !this.searchEnd)))) {
             alert("Select All Required Values")
             this.isInitial = true;
         } else {
-            let inputs = {
-                searchType: this.searchType,
-
-            }
             if (this.searchFor == "auc") {
                 this.datawarehouseservice.getDataAuc(this).subscribe(
                     data => {
@@ -115,24 +112,11 @@ export class ViewDatawarehouse implements OnInit {
                 this.datawarehouseservice.SimmasterData(this).subscribe(
                     data => {
                         this.isDataFoundSimmaster = true;
-                        for (let index in data) {
-                            this.rowData.push(
-                                {
-                                    id: data[index].id,
-                                    currenthop: data[index].currenthop,
-                                    itemcode: data[index].itemcode,
-                                    productcode: data[index].productcode,
-                                    productname: data[index].productname,
-                                    customercategory: data[index].customercategory,
-                                    sharername: data[index].sharername,
-                                    circle: data[index].circle,
-                                    requester: data[index].productcode,
-                                    wrnumber: data[index].wr_number,
-                                    printingdate: this.datePipe.transform(data[index].printingdate, "dd-MM-yyyy"),
-                                    packagingdate: this.datePipe.transform(data[index].packagingdate, "dd-MM-yyyy"),
-                                    deliverydate: this.datePipe.transform(data[index].deliverydate, "dd-MM-yyyy"),
-                                }
-                            );
+                        this.rowData = data;
+                        for (let entry of data) {
+                            entry.Print_Date = this.datePipe.transform(entry.Print_Date, "dd-MM-yyyy")
+                            entry.Pckg_Date = this.datePipe.transform(entry.Pckg_Date, "dd-MM-yyyy")
+                            entry.Deliv_Date = this.datePipe.transform(entry.Deliv_Date, "dd-MM-yyyy")
                         }
                     },
                     err => console.error(err),);

@@ -1,16 +1,10 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../../../environments/environment.prod';
 import {Router} from '@angular/router';
-import {catchError,} from 'rxjs/operators';
-import {_throw} from 'rxjs/observable/throw';
-
 
 import {AppGlobals} from './../../../app.global';
 import {ViewDatawarehouse} from "./showdatawarehouse.component";
-
 
 @Injectable()
 export class DatawarehouseService {
@@ -45,6 +39,7 @@ export class DatawarehouseService {
             formData.append('searchStart', data.searchStart);
             formData.append('searchEnd', data.searchEnd);
         }
+        formData.append('sequence', data.searchSequence);
         return formData;
     }
 
