@@ -95,6 +95,7 @@ this.hop=7;
 						denomination:  data[index].denomination,
 						networkexpiredate:this.datePipe.transform( data[index].networkexpiredate,"dd-MM-yyyy"),
 						expirydate:this.datePipe.transform( data[index].expirydate,"dd-MM-yyyy"),
+						requestDate: this.datePipe.transform(data[index].requestDate,"dd-MM-yyyy"),
 						cardgroup: data[index].cardgroup,
 						serialDigitCount: data[index].serialDigitCount,
 						hiddenNumberCount: data[index].hiddenNumberCount,

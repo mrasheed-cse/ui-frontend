@@ -32,7 +32,7 @@ private headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf
 		return this.http.get(this.serverUrl + 'vouchergeneration/getallvoucher/');
 	}
 	
-	getVoucher(id:number): any {	
+	getVoucher(id:number): Observable<any> {	
 		return this.http.get(this.serverUrl + 'vouchergeneration/getvoucherdetailsbyId/'+id);
 	}
 	}
