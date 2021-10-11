@@ -21,13 +21,12 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/retry';
 import 'rxjs/add/observable/of';
-import{SSMFilter}from '../../pages/ssmfilter';
 
 @Component({
     selector: 'app-voucherGen',
     templateUrl: './viewvoucher_journey.component.html',
       styleUrls: ['../search_po.component.scss'],
-      providers: [AppGlobals,LoginService,ViewJourney,DatePipe,SSMFilter],
+      providers: [AppGlobals,LoginService,ViewJourney,DatePipe],
 })
 export class VoucherJourney implements OnInit {
 	
@@ -44,7 +43,7 @@ export class VoucherJourney implements OnInit {
   			public searchText : string;
   			Status: string
   			endSerial:number;
-  			constructor(private datePipe: DatePipe,private router: Router,private fb:FormBuilder,private loginService: LoginService,private filter :SSMFilter,private http: HttpClient, private _global: AppGlobals, private viewService: ViewJourney ) {
+  			constructor(private datePipe: DatePipe,private router: Router,private fb:FormBuilder,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private viewService: ViewJourney ) {
     
  
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
