@@ -29,7 +29,7 @@
 													<div class="form-group row">
 									<label class="col-md-5 col-form-label" >Product Name</label>
 									<div class="col-md-7">
-										<select class="form-control" id="ProductName" formControlName="ProductName" required >
+										<select class="form-control" id="ProductName" formControlName="ProductName" required  >
 											<option></option>
 											<option *ngFor="let aSimType of listDropDownProductName" [value]="aSimType.groupName">{{aSimType.groupName}}</option>
 										</select>
@@ -42,22 +42,33 @@
 								
 										
 					</div>	
-					
 					<div class="row">
 							<div class="col-md-6">
 													<div class="form-group row">
-									<label class="col-md-5 col-form-label" >Vendor Initial-IMSI Type-PO Number</label>
-									<div class="col-md-7">
-										<select class="form-control" id="inputFile" formControlName="inputFile" required >
+									<label class="col-md-5 col-form-label" >IMSI Type</label>
+									<div class="col-md-7" >
+										<select class="form-control" id="inputFile" formControlName="inputFile" required multiple >
 											<option></option>
-											<option *ngFor="let aSimType of listDropDowninputFile" [value]="aSimType.id">{{aSimType.name}}</option>
+											<option *ngFor="let aSimType of listDropDownimsiType" [value]="aSimType.group_name">{{aSimType.group_name}}</option>
 										</select>
+									</div>
+									</div>
+									</div>
+							<div class="col-md-6" *ngIf="imsiChanged">
+									<div class="form-group row" *ngIf="imsiChanged">
+									<label class="col-md-5 col-form-label" >Available Quantity:</label>
+									<div class="col-md-7" >
+									
+										<p  class="form-control"style="color:blue;">{{avalibleQuantity}}</p>
 									</div>
 	
 	
 								</div>
-										</div> 
-								<div class="col-md-6">
+								</div>
+								</div>
+					<div class="row">
+					
+					<div class="col-md-6">
 													<div class="form-group row">
 									<label class="col-md-5 col-form-label" >Customer Category</label>
 									<div class="col-md-7">
@@ -69,13 +80,9 @@
 	
 	
 								</div>
-										</div>			
+										</div>
 										
-										
-					</div>	
-					
-					<div class="row">
-							<div class="col-md-6">
+					<div class="col-md-6">
 													<div class="form-group row">
 									<label class="col-md-5 col-form-label" >ProductCode</label>
 									<div class="col-md-7">
@@ -87,8 +94,10 @@
 	
 	
 								</div>
-										</div>	
-							<div class="col-md-6">
+										</div>
+										</div>
+						<div class="row">
+						<div class="col-md-6">
 								<div class="form-group row">
 									<label class="col-md-5 col-form-label">Start Kit Serial .</label>
 									<div class="col-md-7">
@@ -97,11 +106,22 @@
 								</div>
 								</div>
 						</div>	
-										
-										
-					</div>
-					
-					<div class="row">
+						
+						<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label" >Category Name</label>
+									<div class="col-md-7">
+										<select class="form-control" id="catName" formControlName="CategoryName" required >
+											<option></option>
+											<option *ngFor="let aSimType of listCategoryName" [value]="aSimType.groupName">{{aSimType.groupName}}</option>
+										</select>
+									</div>
+	
+	
+								</div>
+										</div>
+						</div>		
+<div class="row">
 							
 										
 							
@@ -139,13 +159,7 @@
 							
 						
 								<div class="col-md-6">
-								<div class="form-group row">
-									<label class="col-md-5 col-form-label">End Kit Serial.</label>
-									<div class="col-md-7">
-									<input disabled type="text" class="form-control" 
-									value="{{endKit}}">
-								</div>
-								</div>
+								
 						</div>		
 										
 										
@@ -155,7 +169,7 @@
 					<div class="row">
 							<div class="col-md-6">
 													<div class="form-group row">
-									<label class="col-md-5 col-form-label" >Sharer Name </label>
+									<label class="col-md-5 col-form-label" >Name who share plan </label>
 									<div class="col-md-7">
 										<select class="form-control" id="SharerName" formControlName="SharerName" required >
 											<option></option>
@@ -208,7 +222,9 @@
 						</div>		
 										
 										
-					</div>				
+					</div>		
+					
+					
 									
 					
             </div>
@@ -217,7 +233,12 @@
 					<button type="submit" [disabled]="!planGenrationForm.valid  && !isDisableBtn"  class="btn btn-sm btn-primary">
 						<i class="fa fa-dot-circle-o"></i> Submit</button>
 					</div>
-            </form>
+            </form>					
+					
+					
+					
+					
+					
 					
 					
 					</div>
