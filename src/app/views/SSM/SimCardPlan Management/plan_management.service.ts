@@ -39,15 +39,15 @@ private headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf
         return this.http.get(this.serverUrl + "plangenerate/dropdown/" + linkno).pipe(catchError(this.handleError));
     }
     
-    getkitSerial(itemNo:string):any{
+    getkitSerial(itemNo:any[]):any{
 		return this.http.get(this.serverUrl  +"plangenerate/simkit/"+itemNo).pipe(catchError(this.handleError));
 		
 	}
     
-    getSimInputFile():any{
-	
-			return this.http.get(this.serverUrl  +"plangenerate/getInputFile/").pipe(catchError(this.handleError));
-}
+  GetAllIMSI(): any {	
+		//console.log("In GetAllIMSI()"); 		
+		return this.http.get(this.serverUrl + 'IMSI_Group/');
+	}
     
     generatePlan(Object :{}):any{
 	return this.http.post(this.serverUrl+"plangenerate/genratePlan/",Object);
@@ -160,6 +160,11 @@ postfaultyFile(fileToUpload: File,Comments:string){
 	
 }
 
+getTotalQuantiy(imsitype:any[]):any{
+	console.log(imsitype)
+	return this.http.get(this.serverUrl+"plangenerate/gettotalquantity/"+imsitype)
+	
+}
 
 
 returnandReciceve(Object :{}):any{

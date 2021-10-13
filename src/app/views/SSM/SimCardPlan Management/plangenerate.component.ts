@@ -40,10 +40,11 @@ export class PlanGenerate implements OnInit {
   			listDropDownSharerName=[];
   			listDropDownPlanCircle=[];
   			listDropDownRequester=[];
-  			listDropDowninputFile=[];
+  			listDropDownimsiType=[];
   			quantity:string;
   			startKit:string;
   			endKit:string;
+  			imsiChanged:boolean=false;
   			msisdnPlanid:string;
   			 public isDisableBtn:boolean = false;
   			 fileToUpload: File = null;
@@ -56,6 +57,10 @@ export class PlanGenerate implements OnInit {
     		listno:string;
     		startICCID:string;
     		public isLoading:boolean = false;
+    		avalibleQuantity:string;
+    		listCategoryName=[];
+    		imsiType:any=[];
+    		private kit:any=[];
   			
   			constructor(private datePipe: DatePipe,private router: Router,private loginService:
   			 LoginService,private http: HttpClient, private _global: AppGlobals, private planManagemetService: PlanManagementService ) {
@@ -78,10 +83,11 @@ export class PlanGenerate implements OnInit {
 	this.getPlanCircle();
 	this.getproductCode();
 	this.getSharerName();
+	this.getCategoryName();
 	this.getproductName();
 	this.getRequester();
-	this.onItemChange();
-	this.getAllSimInputFile();
+	this.OnImsiChange();
+	this.getImsi();
 	this.onProductcodeChange();
 }
     
@@ -96,6 +102,7 @@ export class PlanGenerate implements OnInit {
 		requestDate:new FormControl(''),
 		wrname:new FormControl(''),
 		CustomerCategory:new FormControl({value: ''}),
+		CategoryName:new FormControl({value: ''}),
 		Requester:new FormControl({value: ''}),
 		
 	});
@@ -124,15 +131,7 @@ export class PlanGenerate implements OnInit {
                     this.filesuccess = true;
                     
                     this.quantity=JSON.stringify(res) ;
-                    var num=Number(this.startICCID);
-					console.log(num)
-					var qty=Number(this.quantity);
-	
-						console.log(qty)
-							var val=num+qty;
-	
-						this.endKit=this.planGenrationForm.controls.ProductCode.value+JSON.stringify(val);
-                    
+                  
                 }
                 
                 }
@@ -270,12 +269,53 @@ getRequester(){
 			
 		}
 		
+		
+		getCategoryName(){
+	this.listno="8";
+	this.planManagemetService.getDropdown(this.listno).subscribe(
+		data=>
+			{
+				//console.log(data);
+				for (let index in data) {
+					this.listCategoryName.push(
+					{
+						id:data[index].id,
+						groupName: data[index].groupName,
+					}
+					);
+				}
+			},
+    err => console.error(err));
+			
+		}
+		
 				
-onItemChange(){
+OnImsiChange(){
 	this.startKit=null;
-	this.endKit=null
+	this.endKit=null;
+	this.imsiType=[];
+	console.log("Avaliable "+this.avalibleQuantity)
+	this.avalibleQuantity="";
 	
 	this.planGenrationForm.get('inputFile').valueChanges.subscribe(selectab => {
+		console.log("Avaliable "+this.avalibleQuantity)
+		
+		this.imsiChanged=true;
+		this.planManagemetService.getTotalQuantiy(this.planGenrationForm.controls.inputFile.value).subscribe(
+			data=>
+			{
+				if(data!=null){
+					this.avalibleQuantity=data;
+					
+				}
+				else{
+					this.avalibleQuantity="NO Data Found";
+					
+				}
+				
+				}
+			
+		)
 		this.getStartSerial();
 		
 	});
@@ -299,10 +339,10 @@ getStartSerial(){
 	 
 	
 		val['inputFile']=this.planGenrationForm.controls.inputFile.value;
-		this.planManagemetService.getkitSerial(val['inputFile']).subscribe(
+		this.planManagemetService.getkitSerial(this.planGenrationForm.controls.inputFile.value).subscribe(
 			data=>{
-				console.log(data)
-				this.startICCID=data.toString;
+				this.kit=data;
+				this.startICCID=this.kit['simKit'];
 			console.log(this.startICCID)
 		
 			}
@@ -321,27 +361,24 @@ getStartSerial(){
         this.fileName = this.fileToUpload.name;
     }
     
-    getAllSimInputFile(){
-	
-	this.planManagemetService.getSimInputFile().subscribe(
-		data=>
-			{
+   getImsi(){ 
+this.planManagemetService.GetAllIMSI().subscribe(
+	data => {
 				//console.log(data);
 				for (let index in data) {
-					this.listDropDowninputFile.push(
+					this.listDropDownimsiType.push(
 					{
 						id:data[index].id,
-						name:data[index].vendorInitial+"-"+data[index].imsiType+"-"+data[index].poNumber
-						
+						group_name: data[index].groupName,
+					
 					}
 					);
 				}
 			},
-    err => console.error(err));
-			
-		
-	
-}
+    err => console.error(err),
+    );
+    }
+    
 	submit1(){this.isLoading=true;
 			this.isDataFound=true;
 	 var objToInsert = {};
@@ -356,6 +393,7 @@ getStartSerial(){
 		objToInsert['requester']=this.planGenrationForm.controls.Requester.value;
 		objToInsert['wr_number']=this.planGenrationForm.controls.wrname.value;
 		objToInsert['username']=this.userName;
+		objToInsert['CategoryName']=this.planGenrationForm.controls.CategoryName.value;
 		console.log(objToInsert )
 		this.planManagemetService.generatePlan(objToInsert).subscribe(
 			
