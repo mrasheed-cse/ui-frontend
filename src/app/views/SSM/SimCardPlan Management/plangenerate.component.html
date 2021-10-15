@@ -47,7 +47,7 @@
 													<div class="form-group row">
 									<label class="col-md-5 col-form-label" >IMSI Type</label>
 									<div class="col-md-7" >
-										<select class="form-control" id="inputFile" formControlName="inputFile" required multiple >
+										<select class="form-control"  id="inputFile" formControlName="inputFile" required multiple >
 											<option></option>
 											<option *ngFor="let aSimType of listDropDownimsiType" [value]="aSimType.group_name">{{aSimType.group_name}}</option>
 										</select>
@@ -75,6 +75,7 @@
 										<select class="form-control" id="CustomerCategory" formControlName="CustomerCategory" required >
 											<option [value]="0">CORPORATE</option>
 											<option [value]="1">REGULAR</option>
+										<option [value]="2">UNPAIR</option>
 										</select>
 									</div>
 	
@@ -129,9 +130,9 @@
 													<div class="form-group row">
 								<label class="col-md-5 col-form-label">MSISDN:</label>
                 <a  onclick="document.getElementById('getFile').click()">Browse ...</a>
-                <input #fileInput type='file' id="getFile" (click)="fileInput.value = null" accept=".csv" style="position: fixed; left: -200px; top: -200px;" (change)="handleFileInput($event.target.files)">
+                <input #fileInput type='file' id="getFile"  (click)="fileInput.value = null" accept=".csv" style="position: fixed; left: -200px; top: -200px;" (change)="handleFileInput($event.target.files)">
                 <br>
-                <a  class="btn btn-sm "(click)="getQuantity()">Check Quantity</a>
+                <a  class="btn btn-sm " (click)="getQuantity()" >{{fileName}}</a>
 
 	
 	
