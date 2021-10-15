@@ -45,7 +45,7 @@ export class PlanGenerate implements OnInit {
   			startKit:string;
   			endKit:string;
   			imsiChanged:boolean=false;
-  			msisdnPlanid:string;
+  			msisdnPlanid: string;
   			 public isDisableBtn:boolean = false;
   			 fileToUpload: File = null;
     		fileuploadstatus: string;
@@ -59,9 +59,10 @@ export class PlanGenerate implements OnInit {
     		public isLoading:boolean = false;
     		avalibleQuantity:string;
     		listCategoryName=[];
-    		imsiType:any=[];
+    		imsiType :any;
     		private kit:any=[];
-  			
+    		
+    		planID :any;
   			constructor(private datePipe: DatePipe,private router: Router,private loginService:
   			 LoginService,private http: HttpClient, private _global: AppGlobals, private planManagemetService: PlanManagementService ) {
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
@@ -111,45 +112,6 @@ export class PlanGenerate implements OnInit {
 
  
 	
-	dndUpload(check:string) {
-        this.fileerror = false;
-        this.filesuccess = false;
-        if (this.fileToUpload == undefined || !this.fileToUpload.name.endsWith(".csv")) {
-            this.fileuploadstatus = 'Please select a csv file';
-            this.fileerror = true;
-        } else {
-            this.uploading = true
-            this.planManagemetService.postFile(this.fileToUpload,this.planGenrationForm.controls.inputFile.value).subscribe((res => {
-                this.uploading = false
-                if (res == null) {
-                    this.fileuploadstatus = 'File Upload Fail';
-                    this.fileerror = true;
-                    alert("File Content Is  Greater Then Available Quantity")
-                } else {
-			if(check=="Quantity"){
-                    this.fileuploadstatus = 'File Upload Success';
-                    this.filesuccess = true;
-                    
-                    this.quantity=JSON.stringify(res) ;
-                  
-                }
-                
-                }
-            }), err => {
-                this.uploading = false
-                this.fileuploadstatus = err.error.message;
-                this.fileerror = true;
-            })
-            console.log(this.fileToUpload.size);
-            
-        }
-    }
-
-getQuantity(){
-	this.dndUpload("Quantity");
-	
-	
-}
 
 getItem(){
 	this.listno="1";
@@ -293,13 +255,11 @@ getRequester(){
 OnImsiChange(){
 	this.startKit=null;
 	this.endKit=null;
-	this.imsiType=[];
-	console.log("Avaliable "+this.avalibleQuantity)
+	console.log("Imsi= "+this.imsiType)
 	this.avalibleQuantity="";
 	
 	this.planGenrationForm.get('inputFile').valueChanges.subscribe(selectab => {
-		console.log("Avaliable "+this.avalibleQuantity)
-		
+		this.imsiType=this.planGenrationForm.controls.inputFile.value;
 		this.imsiChanged=true;
 		this.planManagemetService.getTotalQuantiy(this.planGenrationForm.controls.inputFile.value).subscribe(
 			data=>
@@ -384,7 +344,7 @@ this.planManagemetService.GetAllIMSI().subscribe(
 	 var objToInsert = {};
 		objToInsert['itemcode']=this.planGenrationForm.controls.ItemCode.value;
 		objToInsert['productname']=this.planGenrationForm.controls.ProductName.value;
-		objToInsert['siminputfileid']=this.planGenrationForm.controls.inputFile.value;
+		
 		objToInsert['customercategory']	=this.planGenrationForm.controls.CustomerCategory.value;
 		objToInsert['productcode']=this.planGenrationForm.controls.ProductCode.value;
 		objToInsert['quantity']=this.quantity;
@@ -393,13 +353,12 @@ this.planManagemetService.GetAllIMSI().subscribe(
 		objToInsert['requester']=this.planGenrationForm.controls.Requester.value;
 		objToInsert['wr_number']=this.planGenrationForm.controls.wrname.value;
 		objToInsert['username']=this.userName;
-		objToInsert['CategoryName']=this.planGenrationForm.controls.CategoryName.value;
+		objToInsert['categoryName']=this.planGenrationForm.controls.CategoryName.value;
 		console.log(objToInsert )
 		this.planManagemetService.generatePlan(objToInsert).subscribe(
 			
 			data=>{
-				this.msisdnPlanid=JSON.stringify(data);
-				this.SubmitCsv(this.msisdnPlanid);
+				this.SubmitCsv(JSON.stringify(data));
 				
 			}
 		)
@@ -411,32 +370,88 @@ this.planManagemetService.GetAllIMSI().subscribe(
     
 
 SubmitCsv(number:string){
-	var x=number+","+this.startKit;
-	this.planManagemetService.uploadCsv(this.fileToUpload,x).subscribe(
+
+console.log("ID= "+number)
+this.planID=number;
+	this.planManagemetService.uploadCsv(this).subscribe(
 	
 		data=>{ 	console.log(data)
 			if(data!=null){
 				console.log("Data Saved")
 			this.isLoading=false;
 			
-			this.createForm();
+			this.ngOnInit();
 			alert("Data Saved And forwarded Sucessfully");
 			this.endKit=null;
 			this.startKit=null;
 			this.quantity=null;
-			this.startICCID=null}
-		},
-		err=> {this.isLoading=false;
+			this.startICCID=null
+			this.avalibleQuantity=null;}
+			else
+					{
+						this.isLoading=false;
 		alert("Unable to Process")
-		this.createForm();
+		this.ngOnInit();
 			this.endKit=null;
 			this.startKit=null;
 			this.quantity=null;
 			this.startICCID=null
+			this.avalibleQuantity=null;
+						
+					}
+		},
+		err=> {
+			console.error(err);
+			this.isLoading=false;
+		alert("Unable to Process")
+		this.ngOnInit();
+			this.endKit=null;
+			this.startKit=null;
+			this.quantity=null;
+			this.startICCID=null
+			this.avalibleQuantity=null;
 		}
 	)
 	
 	
 }	
-  		}	
+dndUpload(check:string) {
+        this.fileerror = false;
+        this.filesuccess = false;
+        if (this.fileToUpload == undefined || !this.fileToUpload.name.endsWith(".csv")) {
+            this.fileuploadstatus = 'Please select a csv file';
+            this.fileerror = true;
+        } else {
+            this.uploading = true
+            this.planManagemetService.postFile(this.fileToUpload).subscribe((res => {
+                this.uploading = false
+                if (res == null) {
+                    this.fileuploadstatus = 'File Upload Fail';
+                    this.fileerror = true;
+                    alert("File Content Is  Greater Then Available Quantity")
+                } else {
+			if(check=="Quantity"){
+                    this.fileuploadstatus = 'File Upload Success';
+                    this.filesuccess = true;
+                    
+                    this.quantity=JSON.stringify(res) ;
+                  
+                }
+                
+                }
+            }), err => {
+                this.uploading = false
+                this.fileuploadstatus = err.error.message;
+                this.fileerror = true;
+            })
+            console.log(this.fileToUpload.size);
+            
+        }
+    }
+
+getQuantity(){
+	this.dndUpload("Quantity");
+
+
+  		}	}
   			

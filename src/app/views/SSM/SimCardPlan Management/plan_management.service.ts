@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import {catchError,} from 'rxjs/operators';
 import {_throw} from 'rxjs/observable/throw';
 
+import{PlanGenerate} from"./plangenerate.component"
 
 import { AppGlobals } from './../../../app.global';
 
@@ -16,6 +17,16 @@ export class PlanManagementService {
 	
 private headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
 
+ 
+  private prepareSearchFormdata(data: PlanGenerate) : any {
+        const formData: FormData = new FormData();
+  console.log("Daat "+data.imsiType)
+            formData.append('file',data.fileToUpload, data.fileToUpload.name);
+            formData.append('planID',data.planID)
+       
+        return formData;
+    }
+	
  
  private options = {
     headers: this.headers,
@@ -28,8 +39,8 @@ private headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf
 	constructor(private router: Router, private http: HttpClient, private _global: AppGlobals) { 
 		this.serverUrl = environment.apiUrl;  		
 	}
-	postFile(fileToUpload: File, Inputfileid:number) {
-        const url = environment.apiUrl + "plangeneration/getcsvData/"+Inputfileid;
+	postFile(fileToUpload: File) {
+        const url = environment.apiUrl + "plangeneration/getcsvData/";
         const formData: FormData = new FormData();
         formData.append('file', fileToUpload, fileToUpload.name);
         return this.http.post(url, formData);
@@ -65,11 +76,10 @@ private headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf
         return _throw(error);
     }
     
-    uploadCsv(fileToUpload: File,id:string) {
-        const url = environment.apiUrl + "plangeneration/uploadCSv/"+id;
-        const formData: FormData = new FormData();
-        formData.append('file', fileToUpload, fileToUpload.name);
-        return this.http.post(url, formData);
+    uploadCsv(data:PlanGenerate) {
+        const url = environment.apiUrl + "plangeneration/uploadCSv/"+data.imsiType;
+     
+        return this.http.post(url, this.prepareSearchFormdata(data));
     }
     
      getConfig(hop:number): Observable<any>{
