@@ -67,17 +67,6 @@
 					</div>	
 					
 					<div class="row">
-							<div class="col-md-6">
-													<div class="form-group row">
-									<label class="col-md-5 col-form-label" >Sim Input File</label>
-									<div class="col-md-7">
-											<input disabled type="text" class="form-control"  
-									value="{{simInputfile}}"> 
-									</div>
-	
-	
-								</div>
-										</div> 
 								<div class="col-md-6">
 													<div class="form-group row">
 									<label class="col-md-5 col-form-label" >Customer Category</label>
@@ -86,6 +75,7 @@
 										<option [value]="">{{CustomerCategory}}</option>
 											<option [value]="0">CORPORATE</option>
 											<option [value]="1">REGULAR</option>
+											<option [value]="2">UNPAIR</option>
 										</select>
 									</div>
 	
@@ -93,34 +83,20 @@
 								</div>
 										</div>			
 										
-										
-					</div>	
-					
-					<div class="row">
-							<div class="col-md-6">
+										<div class="col-md-6">
 													<div class="form-group row">
 									<label class="col-md-5 col-form-label" >ProductCode</label>
 									<div class="col-md-7">
-										<select class="form-control" id="ProductCode" [(ngModel)]="ProductCode" required >
+										<select class="form-control" id="ProductCode" [(ngModel)]="ProductCode" required  disable>
 											<option  [value]="">{{ProductCode}}</option>
-											<option *ngFor="let aSimType of listDropDownProductCode" [value]="aSimType.groupName">{{aSimType.groupName}}</option>
 										</select>
 									</div>
 								</div>
 										</div>	
 										
-										<div class="col-md-6">
-													<div class="form-group row">
-									<label class="col-md-5 col-form-label" >Quantity</label>
-										<div class="col-md-7">
-										<input disabled type="text" class="form-control" 
-									value="{{quantity}}"> 
-			</div>
-	
-								</div>
-										</div>	
 										
-					</div>
+					</div>	
+					
 					
 					<div class="row">
 							<div class="col-md-6">

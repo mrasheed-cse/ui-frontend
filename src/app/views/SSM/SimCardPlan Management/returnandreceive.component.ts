@@ -317,13 +317,16 @@ submit(){
 	{
 		objToInsert['customercategory']="REGULAR"
 	}
+	else if(this.CustomerCategory==="2")
+	{
+		objToInsert['customercategory']="UNPAIR"
+	}
 	else{
 		
 		objToInsert['customercategory']	=this.CustomerCategory;
 	}
 		
 		objToInsert['productcode']=this.ProductCode;
-		objToInsert['quantity']=this.quantity;
 		objToInsert['sharername']=this.SharerName;
 		objToInsert['circle']=this.PlanCircle;
 		objToInsert['requester']=this.Requester;
