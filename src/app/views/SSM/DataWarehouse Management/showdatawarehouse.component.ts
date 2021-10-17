@@ -69,6 +69,9 @@ export class ViewDatawarehouse implements OnInit {
         if (this.searchSequence == null || this.searchType == null || ((this.searchType == "discrete" && !this.searchFile) || (this.searchType == "sequence" && (!this.searchStart || !this.searchEnd)))) {
             alert("Select All Required Values")
             this.isInitial = true;
+        } else if(this.searchOn == "iccid" && this.searchType == "sequence" && !(this.searchStart.length == 26 && this.searchEnd.length == 26 && this.searchStart.substring(0, 14) == this.searchEnd.substring(0, 14))) {
+            alert("Product code should be same for search start and search end")
+            this.isInitial = true;
         } else {
             if (this.searchFor == "auc") {
                 this.datawarehouseservice.getDataAuc(this).subscribe(
