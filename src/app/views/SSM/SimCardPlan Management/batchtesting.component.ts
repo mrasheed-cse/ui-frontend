@@ -162,6 +162,9 @@ getData(){
 						wrnumber:data[index].wr_number,
 						creatorname: data[index].creatorname,
 						 id:data[index].id,
+						  printingdate: this.datePipe.transform(data[index].printingdate,"dd-MM-yyyy"),
+						 packagingdate: this.datePipe.transform(data[index].packagingdate,"dd-MM-yyyy"),
+						 deliverydate:  this.datePipe.transform(data[index].deliverydate,"dd-MM-yyyy"),
 						
 					}
 				);

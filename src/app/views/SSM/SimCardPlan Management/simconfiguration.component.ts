@@ -149,7 +149,7 @@ export class SimConfiguration implements OnInit {
 						wrnumber:data[index].wr_number,
 						creatorname: data[index].creatorname,
 						 id:data[index].id,
-						
+						productname: data[index].productname,
 					}
 				);
 			}

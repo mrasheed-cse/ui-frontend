@@ -109,14 +109,15 @@ setHop(username:string,Id:number,comment:string){
         return this.http.post(this.serverUrl +"plangenerate/downloadCSV/", fileNameToDownload,this.options);
     }
 
-setPackeging(username:string,Id:number,printing:any,packaging:any,delivery:any):any{
+setPackeging(username:string,Id:number,printing:any,packaging:any,delivery:any,comments: any):any{
 	
 	return this.http.post(this.serverUrl + 'plangenerate/simpackaginghop/', {
 		username:username,
 		id:Id,
 		printingDate: printing,
 		packagingDate:packaging,
-		deliveryDate:delivery
+		deliveryDate:delivery,
+		comments:comments
 			});
 
 	

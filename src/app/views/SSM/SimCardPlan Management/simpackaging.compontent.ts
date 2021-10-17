@@ -43,6 +43,7 @@ export class SimPackaging implements OnInit {
   			packagingDate:Date;
   			deliveryDate:Date;
   			isLoading:boolean=false;
+  			Comments:any;
 constructor(private datePipe: DatePipe,private router: Router,private loginService:
   			 LoginService,private http: HttpClient, private _global: AppGlobals, private planManagemetService: PlanManagementService ) {
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
@@ -108,30 +109,42 @@ constructor(private datePipe: DatePipe,private router: Router,private loginServi
 	var packaging=this.datePipe.transform(this.packagingDate,"dd-MM-yyyy");
 	var printing=this.datePipe.transform(this.printingDate,"dd-MM-yyyy");
 	this.isLoading=true;
-	this.planManagemetService.setPackeging(this.userName,this.ID,printing,packaging,delivery).subscribe(
+	this.planManagemetService.setPackeging(this.userName,this.ID,printing,packaging,delivery,this.Comments).subscribe(
 
 		data=>{
-			if(data!=null){this.isLoading=false;
+			if(data!=null){
+				this.isLoading=false;
 				alert("DATA Saved And Forwarded");
 				this.getData();
 			}
+			
+		},
+		err=>{
+			console.log("Unable to Process")
+			this.isLoading=false;
+			this.getData();
 			
 		}
 	)
 	
 }
     cancel(){
-	
+	this.isLoading=true;
 		this.planManagemetService.cancelHop(this.userName,this.ID).subscribe(
 		
 		data=>{
 			if(data!=null){
+				this.isLoading=false;
 				alert("Voucher Request is Cancled");
 				this.getData();
 				
 			}
 			
-		}
+		},err=>{
+			console.log("Unable to Process")
+			this.isLoading=false;
+			this.getData();
+			
 	)
 }
     
@@ -153,6 +166,7 @@ constructor(private datePipe: DatePipe,private router: Router,private loginServi
 						wrnumber:data[index].wr_number,
 						creatorname: data[index].creatorname,
 						 id:data[index].id,
+						productname: data[index].productname,
 						
 					}
 				);
