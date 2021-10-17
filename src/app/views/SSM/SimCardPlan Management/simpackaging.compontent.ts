@@ -144,7 +144,7 @@ constructor(private datePipe: DatePipe,private router: Router,private loginServi
 			console.log("Unable to Process")
 			this.isLoading=false;
 			this.getData();
-			
+	}		
 	)
 }
     
