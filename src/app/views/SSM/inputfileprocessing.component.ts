@@ -40,6 +40,7 @@ export class InputFileProcessing implements OnInit {
 			Artwork:string;
 			STK:string;
 			Vendor:string;
+			isLoading:boolean=false
 			 public listIMSI = [];
 			 public listArtwork=[];
 			 public listVendor=[];
@@ -114,6 +115,7 @@ search(){
 submit(){
 	
 	this.insertRowData=[];
+	
 	if( parseInt(this.rawDataFromBackend['availableQuantity'])>=parseInt(this.Quantity)){
 	if(this.ImsiType!=null&&this.STK!=null&&this.Vendor!=null&&this.Artwork!=null){
 		 this.isDataFoundOther=true;
@@ -122,7 +124,6 @@ submit(){
 			if(data !=null){ 
 				this.rawDataFromBackendImsi=data;
 		 var objToInsert1 = {};
-		 console.log(this.rawDataFromBackendImsi['EndIccid']+"sasa")
                   objToInsert1['poNumber'] = this.rawDataFromBackend['id'];
                   objToInsert1['description'] = this.rawDataFromBackend['itemDescription'];
                   objToInsert1['startImsi'] = this.rawDataFromBackendImsi['startImsi'];
@@ -135,7 +136,6 @@ submit(){
                   objToInsert1['vendor']=this.Vendor;
                   objToInsert1['imsiType']=this.ImsiType;
                   this.FormGroup=objToInsert1;
-                   console.log(this.FormGroup['endIccid']+"sasas")
                   this.insertRowData.push(objToInsert1);
                  
                   }
@@ -165,16 +165,16 @@ submit(){
 
 
 save(){if(this.isDataFoundOther){
-	console.log(this.FormGroup);
-	
+this.isLoading=true;	
 this.ssmService.saveData(this.FormGroup['poNumber'],this.FormGroup['startImsi'],this.FormGroup['quantity'],this.FormGroup['startIccid'],this.FormGroup['stk'],this.FormGroup['artwork'],this.FormGroup['vendor'],this.FormGroup['imsiType']).subscribe(
 	 data => {
 		if(data!=null)
 		alert("Data Saved")
-		
+		this.isLoading=false;
 	},
-	err => console.error(err),
-);
+	err => {console.error(err),
+	this.isLoading=false;
+});
 }
 	else{
 		

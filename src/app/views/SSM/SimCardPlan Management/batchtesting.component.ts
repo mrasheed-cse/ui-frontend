@@ -197,51 +197,8 @@ getBatchFileStatus(id:number){
 		
 		data=>{
 			if(data!=null){
-				
-				this.response=data
-				console.log("data "+this.response);
-				if(this.response['provision']==true){
-					this.provisionUplodaed=true;
-					console.log("1")
-					
-				}
-				if(this.response['incoming']==true){
-					this.incomingUploaded=true;
-					console.log("2")
-					
-					
-				}
-				if(this.response['ers']==true){
-					this.ersUploaded=true;
-					console.log("3")
-					
-					
-				}
-				if(this.response['outgoing']==true){
-					this.outGoingUploaded=true;
-					console.log("4")
-					
-					
-				}
-				if(this.response['internet']==true){
-					this.internetUploaded=true;
-					console.log("5")
-					
-					
-				}
-				if(this.response['security']==true){
-					this.securityUploaded=true;
-					console.log("6")
-					
-					
-				}
-				 if(this.response['provision']==true&&this.response['security']==true
-				&&this.response['internet']==true&&this.response['outgoing']==true
-				&&this.response['ers']==true&&this.response['incoming']==true){ 
-					console.log("All")
 				this.isAllfilesSubmitted=true;}
 				
-			}
 			
 		})
 	
@@ -355,8 +312,7 @@ uploadCsv(type:string){
                    alert("Failed to Upload File")
                 } else {
                    alert("Upload Sucessfull")
-                    this.isProceed=false;
-                    this.isConfig=true;
+                    this.isConfig=false;
                   
                    
                     
