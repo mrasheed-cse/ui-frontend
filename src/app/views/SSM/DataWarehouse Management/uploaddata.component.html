@@ -29,8 +29,9 @@
                   <div class="form-group row">
 								<label class="col-md-5 col-form-label">Upload File:</label>
                 <a  onclick="document.getElementById('getFile').click()">Browse ...</a>
+               
                 <input #fileInput type='file' id="getFile" (click)="fileInput.value = null" style="position: fixed; left: -200px; top: -200px;" (change)="handleFileInput($event.target.files)">
-	
+	 {{fileName}}
 								</div>
 								</div>
 								

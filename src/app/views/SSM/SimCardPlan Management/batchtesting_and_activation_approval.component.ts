@@ -35,12 +35,15 @@ export class PlanGenerateApproval implements OnInit {
   			userID: string;
   			isConfig:boolean=true;
   			listPlangenerateData=[];
+  			listData=[];
   			ID:number;
+  			isBatch:boolean
   			hop:number;
+  			approvalType:any;
   			isProceed:boolean=false;
   			comments:string;
   			isLoading:boolean=false;
-  			
+  			currenthop:number;
 constructor(private datePipe: DatePipe,private router: Router,private loginService:
   			 LoginService,private http: HttpClient, private _global: AppGlobals, private planManagemetService: PlanManagementService ) {
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
@@ -49,12 +52,8 @@ constructor(private datePipe: DatePipe,private router: Router,private loginServi
       this.userName = this.currentLoggedInUser.userName
       this.groupID = this.currentLoggedInUser.groupID
       this.userID = this.currentLoggedInUser.userID
-      if(this.groupID==12){//BatchApproval
-      this.hop=4;
-      }
-      if(this.groupID==7){
-	this.hop=6
-}
+      this.hop=0;
+     
       this.getData();
     }
     else {
@@ -63,18 +62,27 @@ constructor(private datePipe: DatePipe,private router: Router,private loginServi
    
     }
     
-    	details(id:number){
+    	details(id:number,hop:number){
 		
 		this.isProceed=true;
 		this.isConfig=false;
 		this.ID=id;
+		if(hop==4){
+			
+			this.isBatch=true;
+			this.currenthop=4;
+		}
+		else{
+			this.isBatch=false;
+			this.currenthop=6;
+		}
 		
 	}
 	
 	submit(){
 	
 	this.isLoading=true;
-	this.planManagemetService.setplanApproval(this.userName,this.ID,this.comments,this.hop).subscribe(
+	this.planManagemetService.setplanApproval(this.userName,this.ID,this.comments,this.currenthop).subscribe(
 
 		data=>{
 			if(data!=null){
@@ -109,6 +117,7 @@ constructor(private datePipe: DatePipe,private router: Router,private loginServi
 	this.isConfig=true;
 	this.listPlangenerateData=[];
 	this.isProceed=false;
+	this.comments	=""
 	console.log(this.hop)
 	this.planManagemetService.getConfig(this.hop).subscribe(
 		data=>{
@@ -123,15 +132,23 @@ constructor(private datePipe: DatePipe,private router: Router,private loginServi
 						 printingdate: this.datePipe.transform(data[index].printingdate,"dd-MM-yyyy"),
 						 packagingdate: this.datePipe.transform(data[index].packagingdate,"dd-MM-yyyy"),
 						 deliverydate:  this.datePipe.transform(data[index].deliverydate,"dd-MM-yyyy"),
-						
+						currenthop:data[index].currenthop,
 					}
 				);
+				
 			}
 			
+			
+			
+			
 		}
+		
+		
 		
 	)
 	
 	}
+	
+	
   			
   			}
