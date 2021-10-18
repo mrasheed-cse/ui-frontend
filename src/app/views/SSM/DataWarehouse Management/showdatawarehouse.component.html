@@ -76,7 +76,7 @@
                 </div>
             </div>
             <div class="card-footer" *ngIf="isInitial">
-                <button class="btn btn-sm btn-primary" (click)="search()">Search</button>
+                <button class="btn btn-sm btn-primary" (click)="search(false)">Search</button>
             </div>
             <div class="card-body" *ngIf="isDataFoundADC" style="overflow-y: auto">
                 <i class="fa fa-align-justify"></i> Output:
@@ -301,7 +301,6 @@
 
             </div>
             <div class="card-footer" *ngIf="isEditADC">
-
                 <button class="btn btn-sm btn-primary" (click)="submitADC()">Submit</button>
             </div>
 
@@ -359,14 +358,13 @@
 
 
                 </div>
-
             </div>
             <div class="card-footer" *ngIf="isEditAUC">
-
                 <button class="btn btn-sm btn-primary" (click)="submitAUC()">Submit</button>
             </div>
         </div>
         <div class="card-footer" *ngIf="!isInitial">
+            <button class="btn btn-sm btn-danger float-right" (click)="search(true)">Export</button>
             <button class="btn btn-sm btn-danger" (click)="Back()">Back</button>
         </div>
     </div>

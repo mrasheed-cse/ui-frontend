@@ -28,7 +28,7 @@ export class DatawarehouseService {
         return this.http.post(url, formData);
     }
 
-    private prepareSearchFormdata(data: ViewDatawarehouse) : any {
+    private prepareSearchFormdata(data: ViewDatawarehouse, isExport: boolean) : any {
         const formData: FormData = new FormData();
         if(data.searchType == "discrete" && data.selectedFile) {
             formData.append('searchFile', data.selectedFile, data.selectedFile.name);
@@ -40,15 +40,18 @@ export class DatawarehouseService {
             formData.append('searchEnd', data.searchEnd);
         }
         formData.append('sequence', data.searchSequence);
+        formData.append('export', isExport ? "1" : "0");
         return formData;
     }
 
-    getDataAdc(data: ViewDatawarehouse): any {
-        return this.http.post(this.serverUrl + 'datawarehouse/getdataADC/', this.prepareSearchFormdata(data));
+    getDataAdc(data: ViewDatawarehouse, isExport: boolean): any {
+        // @ts-ignore
+        return this.http.post(this.serverUrl + 'datawarehouse/getdataADC/', this.prepareSearchFormdata(data, isExport), {responseType: isExport ? "blob" : "json"});
     }
 
-    getDataAuc(data: ViewDatawarehouse): any {
-        return this.http.post(this.serverUrl + 'datawarehouse/getdataAUC/', this.prepareSearchFormdata(data));
+    getDataAuc(data: ViewDatawarehouse, isExport: boolean): any {
+        // @ts-ignore
+        return this.http.post(this.serverUrl + 'datawarehouse/getdataAUC/', this.prepareSearchFormdata(data, isExport), {responseType: isExport ? "blob" : "json"});
     }
 
     editADCData(icc_number: string, imsi: string, ki: string, pin1: string, pin2: string, puk1: string, puk2: string, id: number): any {
@@ -58,12 +61,10 @@ export class DatawarehouseService {
             ki: ki,
             pin1: pin1, pin2: pin2, puk1: puk1, puk2: puk2
         })
-
     }
 
     deleteAdcData(id: number): any {
         return this.http.get(this.serverUrl + 'datawarehouse/deleteADC/' + id)
-
     }
 
     editAUCData(id: number, imsi: string, eki: string, kind: string, a3a8ind: string): any {
@@ -80,7 +81,8 @@ export class DatawarehouseService {
         return this.http.get(this.serverUrl + 'datawarehouse/deleteAUC/' + id)
     }
 
-    SimmasterData(data: ViewDatawarehouse): any {
-        return this.http.post(this.serverUrl + 'datawarehouse/getSimmasterdata/', this.prepareSearchFormdata(data));
+    SimmasterData(data: ViewDatawarehouse, isExport: boolean): any {
+        // @ts-ignore
+        return this.http.post(this.serverUrl + 'datawarehouse/getSimmasterdata/', this.prepareSearchFormdata(data, isExport), {responseType: isExport ? "blob" : "json"});
     }
 }
