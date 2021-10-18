@@ -101,7 +101,8 @@ constructor(private datePipe: DatePipe,private router: Router,private loginServi
 				this.listPlangenerateData.push(
 					
 					{
-						itemcode:data[index].itemcode,
+						productname: data[index].productname,
+						quantity: data[index].quantity,
 						wrnumber:data[index].wr_number,
 						creatorname: data[index].creatorname,
 						 id:data[index].id,

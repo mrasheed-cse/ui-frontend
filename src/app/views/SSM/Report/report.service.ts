@@ -35,4 +35,19 @@ private headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf
         return this.http.post(url, formData);
     }
     
+    getDropdown(linkno: string):any {
+        return this.http.get(this.serverUrl + "plangenerate/dropdown/" + linkno).pipe(catchError(this.handleError));
+    }
+     handleError(error: HttpErrorResponse) {
+        if (error instanceof ErrorEvent) {
+        } else {
+            switch (error.status) {
+                case 404:
+                   
+                    break;
+            }
+        }
+        return _throw(error);
+    }
+    
     }

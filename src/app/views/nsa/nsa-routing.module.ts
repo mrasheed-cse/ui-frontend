@@ -128,7 +128,8 @@ import{UploadDataWh} from'../SSM/DataWarehouse Management/uploaddata.component';
 import{ViewDatawarehouse} from'../SSM/DataWarehouse Management/showdatawarehouse.component';
 
 import{UploadForcast} from'../SSM/Report/uploadforcast.component';
-import{VoucherJourney} from '../SSM/ScratchCard/viewvoucher_journey.component'
+import{VoucherJourney} from '../SSM/ScratchCard/viewvoucher_journey.component';
+import{ViewProductReport} from'../SSM/Report/viewProductReport.component'
 const routes: Routes = [
     {
         path: '',
@@ -1057,6 +1058,14 @@ const routes: Routes = [
      {
         path: 'viewvoucherjourney',
         component: VoucherJourney,
+        data: {
+            title: ''
+        },
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'ssmreportview',
+        component: ViewProductReport,
         data: {
             title: ''
         },

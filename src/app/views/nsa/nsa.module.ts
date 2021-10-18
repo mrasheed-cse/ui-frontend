@@ -148,8 +148,10 @@ import{VoucherManagementActivationAndView} from '../SSM/ScratchCard/voucher_mana
 import {AuthGuard} from './services/AuthGuard.service';
 import{UploadForcast} from'../SSM/Report/uploadforcast.component'
 import {LoginService} from '../pages/LoginService';
+import{ViewProductReport} from'../SSM/Report/viewProductReport.component'
+import{VoucherJourney} from '../SSM/ScratchCard/viewvoucher_journey.component';
 
-import{VoucherJourney} from '../SSM/ScratchCard/viewvoucher_journey.component'
+
 
 @NgModule({
   imports: [
@@ -281,7 +283,7 @@ import{VoucherJourney} from '../SSM/ScratchCard/viewvoucher_journey.component'
     GenerateanalyzeComponent,
     GenerateComponent,
     UploadForcast,
-    VoucherJourney
+    VoucherJourney,ViewProductReport
   ],
   providers:[DatePipe, LoginService, AuthGuard]})
 export class NsaModule { }

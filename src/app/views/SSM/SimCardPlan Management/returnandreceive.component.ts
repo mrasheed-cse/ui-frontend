@@ -57,6 +57,7 @@ export class ReturnAndReceive implements OnInit {
 			Requester : string;
 			wrname :string;
 			listno:string;
+			isLoading :boolean=false;
 			printingDate:Date;
   			packagingDate:Date;
   			deliveryDate:Date;
@@ -305,6 +306,7 @@ getRequester(){
 
 
 submit(){
+	this.isLoading=true;
 	
 	
 	 var objToInsert = {};
@@ -341,12 +343,19 @@ submit(){
 			this.planManagemetService.returnandReciceve(objToInsert).subscribe(
 			
 			data=>{ if(data!=null){
+				this.isLoading=false;
 							alert("Plan Has Been Sucessfully generated")
-							
-				this.uploadCsv(this.ID);
+							this.getData()
+							this.isProceed=false;
+                    this.isConfig=true;
 			}
 				
 				
+			},
+			
+			err=>{
+				console.error(err)
+				this.isLoading=false;
 			}
 		)
 	
@@ -356,7 +365,9 @@ submit(){
 
 
 
-uploadCsv(id:number){
+uploadCsv(){
+	var id=this.ID;
+	
         if (this.fileToUpload == undefined || !this.fileToUpload.name.endsWith(".csv")) {
           alert("Please Select A csv file");
         } else {
@@ -367,10 +378,8 @@ uploadCsv(id:number){
                    alert("Failed to Upload File")
                    this.getData();
                 } else {
-	
-						this.getData();
-                    this.isProceed=false;
-                    this.isConfig=true;
+						alert("File Uploaded")	
+                    
                    
                     
                 
