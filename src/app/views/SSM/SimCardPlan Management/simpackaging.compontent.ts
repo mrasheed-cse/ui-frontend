@@ -167,6 +167,7 @@ constructor(private datePipe: DatePipe,private router: Router,private loginServi
 						creatorname: data[index].creatorname,
 						 id:data[index].id,
 						productname: data[index].productname,
+						quantity: data[index].quantity,
 						
 					}
 				);

@@ -14,7 +14,8 @@
                 <thead>
                   <tr>
                     <th>WR Number</th>
-                    <th>Item Code</th>
+                    <th>Product Name</th>
+                    <th>Quantity</th>
                     <th>Creator Name</th>
                      <th>Printing Date</th>
                     <th> Packaging Date</th>
@@ -25,7 +26,8 @@
                 <tbody *ngFor="let aTask of listPlangenerateData">
                             <tr>
                                 <td>{{aTask.wrnumber}}</td>
-                                <td>{{aTask.itemcode}}</td>
+                               <td>{{aTask.productname}}</td>
+                                 <td>{{aTask.quantity}}</td>
                                 <td>{{aTask.creatorname}}</td>
                                   <td>{{aTask.printingdate}}</td>
                                  <td>{{aTask.packagingdate}}</td>

@@ -145,11 +145,11 @@ export class SimConfiguration implements OnInit {
 				this.listPlangenerateData.push(
 					
 					{
-						itemcode:data[index].itemcode,
 						wrnumber:data[index].wr_number,
 						creatorname: data[index].creatorname,
-						 id:data[index].id,
-						productname: data[index].productname,
+						 id:data[index].id
+						 ,productname: data[index].productname,
+						quantity: data[index].quantity,
 					}
 				);
 			}
