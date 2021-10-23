@@ -150,8 +150,7 @@ import{UploadForcast} from'../SSM/Report/uploadforcast.component'
 import {LoginService} from '../pages/LoginService';
 import{ViewProductReport} from'../SSM/Report/viewProductReport.component'
 import{VoucherJourney} from '../SSM/ScratchCard/viewvoucher_journey.component';
-
-
+import { ChartsModule } from 'ng2-charts/ng2-charts'
 
 @NgModule({
   imports: [
@@ -163,7 +162,8 @@ import{VoucherJourney} from '../SSM/ScratchCard/viewvoucher_journey.component';
     CollapseModule.forRoot(),
     BsDatepickerModule.forRoot(),
     AgGridModule.withComponents([]),
-    NsaRoutingModule
+    NsaRoutingModule,
+    ChartsModule
   ],
   declarations: [
     LandingpageComponent,

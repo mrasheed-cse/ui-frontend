@@ -72,6 +72,26 @@
 					<button class="btn btn-sm btn-primary" (click)="search()">Search</button>
 					</div>
 					
+					<div class="card-body " *ngIf="!isInitial">
+					<div>
+    <div style="display: block">
+      <canvas baseChart
+              [datasets]="barChartData"
+              [labels]="barChartLabels"
+              [options]="barChartOptions"
+              [legend]="barChartLegend"
+              [chartType]="barChartType">
+      </canvas>
+    </div>
+  </div>
+					
+					</div>
+					
+					<div class="card-body " *ngIf="!isInitial">
+					 <button class="btn btn-sm btn-danger" (click)="Back()">Back</button>
+					<button class="btn btn-sm btn-primary float-right" (click)="Download()">Download</button>
+					</div>
+					
 					</div>
 					
 					</div>

@@ -4,7 +4,6 @@ import {Router} from '@angular/router';
 import {AppGlobals} from './../../../app.global';
 import {LoginService} from '../../pages/LoginService';
 import {LoggedInUser} from '../../pages/loggedInUser';
-import { ChartsModule } from 'ng2-charts/ng2-charts';
 import {ReportService} from'./report.service';
 import {DatePipe} from '@angular/common';
 import 'rxjs/add/operator/map';
@@ -14,22 +13,42 @@ import 'rxjs/add/observable/of';
 @Component({
     selector: 'bar-chart',
     templateUrl: './viewProductReport.component.html',
-    providers: [AppGlobals, LoginService, DatePipe, ReportService,ChartsModule],
+    providers: [AppGlobals, LoginService, DatePipe, ReportService],
 })
 export class ViewProductReport implements OnInit {
 	currentLoggedInUser: LoggedInUser;
 			userName: string;
 			groupID: number;
   			userID: string;
-  		 isInitial:boolean=true;
+  		 isInitial: boolean=true;
    		StartDate:Date;
    		startMon:string;
    		endMon: string;
    		EndDate: Date;
 		listproductDropDown=[];
-		productName:string;
+		dataVal=[];
+		productName: any;
+		Forecast=[];
+		actual=[];
+		public barChartOptions = {
+    scaleShowVerticalLines: false,
+    responsive: true,
+    scales: {
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true
+          }
+        }
+      ]
+    }
+  };
+  public barChartLabels :any;
+  public barChartType = 'bar';
+  public barChartLegend = true;
+  public barChartData = [ ]
 		
-    constructor(private report: ReportService,private loginService:
+    constructor(private datePipe: DatePipe,private report: ReportService,private loginService:
   			 LoginService,private router: Router) {this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
 
     if (this.currentLoggedInUser) {
@@ -47,12 +66,47 @@ export class ViewProductReport implements OnInit {
     
     	
 	search(){
-		 const monthNames = ["January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"
-];
-		var endyear=this.EndDate.getFullYear()
-		this.startMon=monthNames[this.StartDate.getMonth()]
-		console.log(endyear);
+		
+		var strtDate=this.datePipe.transform(this.StartDate,"dd-MM-yyyy")
+		var enDate=this.datePipe.transform(this.EndDate,"dd-MM-yyyy")
+		this.report.getTotalQuantiy(this.productName,strtDate,enDate).subscribe(
+			
+			data=>{
+				for (let index in data) {
+					this.dataVal.push(
+					{
+						productName:data[index].productName,
+						forcastQuantity: data[index].forcastQuantity,
+						actualQuantity: data[index].actualQuantity
+						
+					})
+					}
+					
+					for(let index in this.dataVal){
+				console.log("Forecast data for "+this.dataVal[index].productName+"  is " +this.dataVal[index].forcastQuantity+" Actual is" +this.dataVal[index].actualQuantity)
+				this.actual.push(this.dataVal[index].actualQuantity);
+			this.Forecast.push(this.dataVal[index].forcastQuantity)
+		}
+				console.log("A")
+			console.log(this.actual)
+			console.log(this.Forecast)
+			
+			this.isInitial=false;
+		this.barChartData=[{data: this.Forecast, label: 'Forecast Data'},
+    {data:this.actual, label: 'Actual Data'}]
+		this.barChartLabels=this.productName;
+			
+				
+			}
+			
+			
+			
+			
+			
+		)
+		
+		
+		
 	}
 
     ngOnInit(): void {
@@ -79,7 +133,69 @@ export class ViewProductReport implements OnInit {
 			
 		}
 		
+		Back(){
+			this.isInitial=true;
+			this.barChartLabels=[];
+			this.actual=[];
+			this.Forecast=[];
+			this.StartDate=null
+			this.EndDate=null
+			this.dataVal=[];
+		}
 		
+		Download(){
+			
+     this.report.generateCSV(this.dataVal).subscribe(
+	
+	data=>{if(data!=null){
+		this.downloadFile();
+		console.log("Saved")
+	
+	}
+		
+	}
+     
+     
+     );
+		
+		}
+		
+		
+		downloadFile(){
+			
+			
+			
+        var nameOfFileToDownload = "ProductReport"+".csv";
+		console.log("nameOfFileToDownload : "+nameOfFileToDownload);
+
+        var result = this.report.DownloadCSV(nameOfFileToDownload);
+		console.log(result);
+        result.subscribe(
+            data => {
+				
+
+				
+
+				var blob = new Blob([data], { type: 'text/csv' });
+
+                if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+		
+                    window.navigator.msSaveOrOpenBlob(blob, nameOfFileToDownload);
+                } else {
+                    var a = document.createElement('a');
+                    a.href = URL.createObjectURL(blob);
+                    a.download = nameOfFileToDownload;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                }
+            },
+            err => {console.error(err),
+                alert("Server error while downloading file.");
+            }
+        );
+			
+		}
 		
     
     }
