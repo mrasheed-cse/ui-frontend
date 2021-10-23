@@ -50,4 +50,24 @@ private headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf
         return _throw(error);
     }
     
+    getTotalQuantiy(product :any[], startDate :any,endDate :any):any{
+	console.log(product)
+	return this.http.post(this.serverUrl+"ssmreport/gettotalquantity/"+product,{
+		startDate: startDate,
+		endDate:endDate,
+			})
+	
+}
+
+generateCSV(data:any[]):any{
+	  console.log(this.serverUrl +"ssmreport/generatecsv/");
+        return this.http.post(this.serverUrl +"ssmreport/generatecsv/",data);
+    }
+    
+    DownloadCSV(fileNameToDownload: string){
+	  console.log(this.serverUrl +"ssmreport/downloadCSV/");
+	  console.log(fileNameToDownload);
+        return this.http.post(this.serverUrl +"ssmreport/downloadCSV/", fileNameToDownload,this.options);
+    }
+    
     }
