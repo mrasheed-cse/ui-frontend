@@ -160,7 +160,7 @@ getImsiAndICCID(imsi:string,quantity:string,vendor:string):any	{
     }
 
 	
-	saveDenomination(linkno: number): Observable<any> {
+	saveDenomination(linkno: string): Observable<any> {
         return this.http.get(environment.apiUrl + "admin/saveDenomination/" + linkno).pipe(catchError(this.handleError));
     }
     saveVendor(linkno: string): Observable<any> {
