@@ -36,7 +36,7 @@ export class VoucherAdmin implements OnInit {
   			public noDropdownSelected:boolean=true;
   			isDenominationfound:boolean=false;
   			isaddDenomination:boolean=false;
-  			newDenomination:number;
+  			newDenomination: string;
   			isVendorFound:boolean=false;
   			isAddvendor:boolean=false;
   			newVendor:string;
