@@ -1,0 +1,102 @@
+<div class="row">
+	<div class="col-md-1">
+		 
+	</div>
+	<div class="col-md-10">
+		<div class="card">
+   
+		<div class="card-header" *ngIf="viewall">
+            <i class="fa fa-align-justify"></i>  Voucher Plan Management
+          </div>
+           <div class="card-body" *ngIf="viewall">
+          
+
+           <table class="table table-bordered table-striped table-sm">
+                <thead>
+                  <tr>
+                    <th>PO Number
+                    <p></p>
+                     <input  class="form-control" [(ngModel)]="searchText" (change)="poChange()"placeholder="Search PO Number.." class="advancedSearchTextbox">
+                     </th>
+                    <th>Serial No
+                     <p></p></th>
+                     <th>Current HOP
+                      <p></p></th>
+                      <th>Last HOP
+                       <p></p></th>
+                      <th>Pending At/Status
+                      
+                      <select class="form-control" [(ngModel)]="Status"  (change)="statusChanged()">
+                      <option value="0"></option>
+                    <option value="1">CLOSED</option>
+                    <option value="2">RAFM</option>
+                    <option value="3">Canceled</option>
+                    <option  value="4">SSM</option>
+                       <option  value="5">Technology</option>
+                       <option  value="6">CLC</option>
+                </select>
+                      </th>
+                      <th>Vendor
+                       <p></p></th>
+                      <th> Card Group
+                       <p></p></th>
+                   	 <th>Details
+                   	  <p></p></th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let aTask of listVoucherHopsdata ">
+                            <tr>
+                                <td>{{aTask.ponumber}}</td>
+                                <td>{{aTask.batchNo}}</td>
+                                <td>{{aTask.currentHop}}</td>
+                                <td>{{aTask.lastHop}}</td>
+                                <td>{{aTask.pendingFor}}</td>
+                                <td>{{aTask.vendor}}</td>
+                                <td>{{aTask.cardGroup}}</td>
+                                <td> <a  href="#" (click)="details(aTask.id);$event.preventDefault();" role="button">Details</a> </td>
+                            </tr>
+                </tbody>
+              </table>
+           </div>
+         <div class="card-body" *ngIf="isDetail">
+           <table class="table table-bordered table-striped table-sm">
+               <thead>
+                  <tr>
+                    <th>Po Number</th>
+                    <th>Batch Quantity</th>
+                    <th>Start Serial</th>
+                    <th>End Serial</th>
+                    <th>Denomination</th>
+                    <th>NetworkExpireDate</th>
+                    <th>Expiry Date</th>
+                    <th>Card Group</th>
+                    <th>SFTPlocation</th>
+                    <th>Vendor</th>
+                    <th>Batch Comment</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let aTask of voucherDetail">
+                            <tr>
+                                <td>{{aTask.ponumber}}</td>
+                                <td>{{aTask.batchNo}}</td>
+                                <td>{{aTask.serial}}</td>
+                                <td>{{endSerial}}</td>
+                                <td>{{aTask.denomination}}  </td>
+                           		<td>{{aTask.networkexpiredate}}</td>
+                                <td>{{aTask.expirydate}}</td>
+                                <td> {{aTask.cardgroup}}</td>
+                                <td> {{aTask.sftplocation}}</td>
+                                 <td> {{aTask.vendor}}</td>
+                                 <td> {{aTask.batchtestresult}}</td>
+                            </tr>
+                </tbody>
+              </table>
+           </div>
+           
+                <div class="card-footer" *ngIf="isDetail">
+          
+                  <button   class="btn btn-sm btn-danger" (click)="back()"> Back</button>
+           </div>
+          
+           </div>
+           </div>

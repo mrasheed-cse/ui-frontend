@@ -1,0 +1,98 @@
+<div class="row">
+    <div class="col-md-1">
+    </div>
+    <div class="col-md-10">
+        <div class="card">
+            <div class="card-header">
+                <i class="fa fa-align-justify"></i> View Report
+            </div>
+            <div class="card-body " *ngIf="isInitial">
+					
+					<div class="row">
+						
+								<div class="col-md-6">
+						
+										<div class="form-group row">
+											<label class="col-md-5 col-form-label" for="requestDate">Start Date</label>
+											<div class="col-md-7">									
+												<input type="text" class="form-control calendar-container" autocomplete="off"  
+												required bsDatepicker  placement="right"  [(ngModel)]="StartDate"
+												 [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-green',  showWeekNumbers:false }"
+												
+												>
+											</div>
+										</div>
+			
+									</div>
+									<div class="col-md-6">
+						
+										<div class="form-group row">
+											<label class="col-md-5 col-form-label" for="requestDate">End Date</label>
+											<div class="col-md-7">									
+												<input type="text" class="form-control calendar-container" autocomplete="off"  id="requestDate" name="requestDate" 
+												required bsDatepicker  placement="left"  [(ngModel)]="EndDate" 
+												[minDate]="StartDate" [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-green',  showWeekNumbers:false }"
+												
+												>
+											</div>
+										</div>
+			
+									</div>
+						</div>
+						
+						<div class="row">
+						
+						<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label" >Product Name</label>
+									<div class="col-md-7">
+										<select class="form-control" id="productName" [(ngModel)]="productName" multiple>
+											<option></option>
+											<option *ngFor="let aSimType of listproductDropDown" [value]="aSimType.groupName">{{aSimType.groupName}}</option>
+										</select>
+									</div>
+	
+	
+								</div>
+										</div>
+										
+								
+						</div>
+					
+						
+							
+						</div>
+						
+						<div class="card-body " *ngIf="!isInitial">
+						<div style="display: block">
+							</div>
+							</div>
+						
+									<div class="card-footer text-right" *ngIf="isInitial">
+					<button class="btn btn-sm btn-primary" (click)="search()">Search</button>
+					</div>
+					
+					<div class="card-body " *ngIf="!isInitial">
+					<div>
+    <div style="display: block">
+      <canvas baseChart
+              [datasets]="barChartData"
+              [labels]="barChartLabels"
+              [options]="barChartOptions"
+              [legend]="barChartLegend"
+              [chartType]="barChartType">
+      </canvas>
+    </div>
+  </div>
+					
+					</div>
+					
+					<div class="card-body " *ngIf="!isInitial">
+					 <button class="btn btn-sm btn-danger" (click)="Back()">Back</button>
+					<button class="btn btn-sm btn-primary float-right" (click)="Download()">Download</button>
+					</div>
+					
+					</div>
+					
+					</div>
+					</div>

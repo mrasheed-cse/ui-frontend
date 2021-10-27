@@ -1,0 +1,236 @@
+ <div class="row">
+	<div class="col-md-1">
+		 
+	</div>
+	<div class="col-md-10">
+		<div class="card">
+    <div class="div_cust_loading_sign" *ngIf="isLoading"> <div style="position:fixed;width:100%;height:100%;left:0px;top:0px;z-index:50000;background-color:#536c79;opacity:0.95"></div> <div style="position:fixed;width:100%;height:100%;left:0px;top:0px;z-index:60000"><div style="width:25%;height:25%;margin:0px auto;margin-top:20%"><i class="fa fa-spinner fa-pulse fa-4x fa-fw" ></i></div></div> </div>
+   
+		<div class="card-header">
+            <i class="fa fa-align-justify"></i>  Plan Return Receive
+          </div>
+          
+          <div class="card-body" *ngIf="isConfig">
+           <table class="table table-bordered table-striped table-sm">
+                <thead>
+                  <tr>
+                    <th>WR Number</th>
+                   <th>Product Name</th>
+                    <th>Quantity</th>
+                    <th>Creator Name</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let aTask of listPlangenerateData">
+                            <tr>
+                                <td>{{aTask.wrnumber}}</td>
+                                <td>{{aTask.productname}}</td>
+                                 <td>{{aTask.quantity}}</td>
+                                <td>{{aTask.creatorname}}</td>
+                                <td> <a  href="#" (click)="details(aTask.id);$event.preventDefault();" role="button">Details</a> </td>
+                            </tr>
+                </tbody>
+              </table>
+           
+           
+           </div>
+           
+           <div class="card-body" *ngIf="isProceed">
+           <div class="card-body">
+					<div class="row">
+							<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label" >Item Code</label>
+									<div class="col-md-7">
+										<select class="form-control" id="ItemCode" [(ngModel)]="ItemCode" required >
+											<option [value]="">{{ItemCode}}</option>
+											<option *ngFor="let aSimType of listitemDropDown" [value]="aSimType.groupName">{{aSimType.groupName}}</option>
+										</select>
+									</div>
+	
+	
+								</div>
+										</div>
+							<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label" >Product Name</label>
+									<div class="col-md-7">
+										<select class="form-control" id="ProductName" [(ngModel)]="ProductName" required >
+											<option [value]="" >{{ProductName}}</option>
+											<option *ngFor="let aSimType of listDropDownProductName" [value]="aSimType.groupName">{{aSimType.groupName}}</option>
+										</select>
+									</div>
+	
+	
+								</div>
+										</div>
+								
+								
+										
+					</div>	
+					
+					<div class="row">
+								<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label" >Customer Category</label>
+									<div class="col-md-7">
+										<select class="form-control" id="CustomerCategory" [(ngModel)]="CustomerCategory" required >
+										<option [value]="">{{CustomerCategory}}</option>
+											<option [value]="0">CORPORATE</option>
+											<option [value]="1">REGULAR</option>
+											<option [value]="2">UNPAIR</option>
+										</select>
+									</div>
+	
+	
+								</div>
+										</div>			
+										
+										<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label" >ProductCode</label>
+									<div class="col-md-7">
+										<select class="form-control" id="ProductCode" [(ngModel)]="ProductCode" required  disable>
+											<option  [value]="">{{ProductCode}}</option>
+										</select>
+									</div>
+								</div>
+										</div>	
+										
+										
+					</div>	
+					
+					
+					<div class="row">
+							<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label" >Sharer Name </label>
+									<div class="col-md-7">
+										<select class="form-control" id="SharerName"  [(ngModel)]="SharerName" required >
+											<option [value]="">{{SharerName}}</option>
+											<option *ngFor="let aSimType of listDropDownSharerName" [value]="aSimType.groupName">{{aSimType.groupName}}</option>
+										</select>
+									</div>
+	
+	
+								</div>
+										</div>
+								<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label" >Plan Circle </label>
+									<div class="col-md-7">
+										<select class="form-control" id="PlanCircle"  [(ngModel)]="PlanCircle" required >
+											<option [value]="">{{PlanCircle}}</option>
+											<option *ngFor="let aSimType of listDropDownPlanCircle" [value]="aSimType.groupName">{{aSimType.groupName}}</option>
+										</select>
+									</div>
+	
+	
+								</div>
+										</div>			
+										
+										
+					</div>		
+						
+				<div class="row">
+							<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label" >Requester </label>
+									<div class="col-md-7">
+										<select class="form-control" id="Requester" [(ngModel)]="Requester" required >
+											<option value="">{{Requester}}</option>
+											<option *ngFor="let aSimType of listDropDownRequester" >{{aSimType.groupName}}</option>
+										</select>
+									</div>
+	
+	
+								</div>
+										</div>
+								<div class="col-md-6">
+								<div class="form-group row">
+									<label class="col-md-5 col-form-label">WR#.</label>
+									<div class="col-md-7">
+										<input type="text" id="wrname" name="wrname" class="form-control" autocomplete="off"  [(ngModel)]="wrname"  required
+											value={{wrname}} >
+									</div>
+								</div>
+						</div>		
+										
+										
+					</div>	
+					<div class="row">
+							<div class="col-md-6">
+					<div class="form-group row">
+								<label class="col-md-5 col-form-label">Upload :</label>
+                <a  onclick="document.getElementById('getFile').click()">Browse ...</a>
+                <input #fileInput type='file' id="getFile" (click)="fileInput.value = null" accept=".csv" style="position: fixed; left: -200px; top: -200px;" (change)="handleFileInput($event.target.files)">
+	<a  class="btn btn-sm " (click)="uploadCsv()" >{{fileName}}</a>
+								</div>		
+									</div>
+									
+									
+									<div class="col-md-6">
+						
+										<div class="form-group row">
+											<label class="col-md-5 col-form-label" for="deliveryDate">Delivery Date</label>
+											<div class="col-md-7">									
+												<input type="text" class="form-control calendar-container" autocomplete="off"  id="deliveryDate"  name="deliveryDate" 
+												required bsDatepicker  placement="right"  [(ngModel)]="deliveryDate" [value]="deliveryDate"
+												 [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-green',  showWeekNumbers:false }"
+												>
+											</div>
+										</div>
+			
+									</div>
+									
+									</div>
+									
+									
+									<div class="row">
+						
+								<div class="col-md-6">
+						
+										<div class="form-group row">
+											<label class="col-md-5 col-form-label" for="printingDate">Printing Date</label>
+											<div class="col-md-7">									
+												<input type="text" class="form-control calendar-container" autocomplete="off"  id="printingDate"  name="printingDate" 
+												required bsDatepicker  placement="right"  [(ngModel)]="printingDate"
+												 [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-green',  showWeekNumbers:false }"
+											[value]="printingDate">
+											</div>
+										</div>
+			
+									</div>
+									<div class="col-md-6">
+						
+										<div class="form-group row">
+											<label class="col-md-5 col-form-label" for="packagingDate">Packaging Date</label>
+											<div class="col-md-7">									
+												<input type="text" class="form-control calendar-container" autocomplete="off"  id="packagingDate"  name="packagingDate" 
+												required bsDatepicker  placement="right"  [(ngModel)]="packagingDate"
+												 [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-green',  showWeekNumbers:false }"
+												[value]="packagingDate">
+											</div>
+										</div>
+			
+									</div>
+									</div>
+									
+									
+					
+            </div>
+           
+           
+           
+           </div>
+              <div class="card-footer" *ngIf="isProceed">
+          
+                 <button   class="btn btn-sm btn-primary" (click)="submit()">Approve</button>
+                  <button   class="btn btn-sm btn-danger" (click)="cancel()"> Cancel</button>
+           </div>
+          
+          
+          </div>
+          </div>
+          </div>
+          

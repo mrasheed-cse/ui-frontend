@@ -1,0 +1,374 @@
+<div class="row">
+    <div class="col-md-1">
+    </div>
+    <div class="col-md-10">
+        <div class="card">
+            <div class="card-header">
+                <i class="fa fa-align-justify"></i> Data Warehouse Manage
+            </div>
+            <div class="card-body warehouse-card" *ngIf="isInitial">
+                <div class="row form-row">
+                    <div class="col-3">
+                        Search Type
+                    </div>
+                    <div class="col-4">
+                        <input type="radio" value="sequence" name="search_type" class="form-control form-control-radio" [(ngModel)]="searchType"> &nbsp; Sequential
+                    </div>
+                    <div class="col-5">
+                        <input type="radio" value="discrete" name="search_type" class="form-control form-control-radio" [(ngModel)]="searchType"> &nbsp; Discrete
+                    </div>
+                </div>
+                <div class="row form-row">
+                    <div class="col-3">
+                        Search Using
+                    </div>
+                    <div class="col-3">
+                        <input type="radio" value="iccid" name="search_on" class="form-control form-control-radio" [(ngModel)]="searchOn"> &nbsp; KIT
+                    </div>
+                    <div class="col-3">
+                        <input type="radio" value="msisdn" name="search_on" class="form-control form-control-radio" [(ngModel)]="searchOn"> &nbsp; MSISDN
+                    </div>
+                    <div class="col-3">
+                        <input type="radio" value="imsi" name="search_on" class="form-control form-control-radio" [(ngModel)]="searchOn"> &nbsp; IMSI
+                    </div>
+                </div>
+                <div class="row form-row">
+                    <div class="col-3">
+                        <input type="radio" value="all" name="sequence" class="form-control form-control-radio" [(ngModel)]="searchSequence"> &nbsp; All Sequences
+                    </div>
+                    <div class="col-4">
+                        <input type="radio" value="first" name="sequence" class="form-control form-control-radio" [(ngModel)]="searchSequence"> &nbsp; First Sequence
+                    </div>
+                    <div class="col-5">
+                        <input type="radio" value="last" name="sequence" class="form-control form-control-radio" [(ngModel)]="searchSequence"> &nbsp; Last Sequence
+                    </div>
+                </div>
+                <div class="row form-row" *ngIf="searchType=='sequence'">
+                    <div class="col-2">
+                        Start Value
+                    </div>
+                    <div class="col-4">
+                        <input type="text" name="search_start" class="form-control" [(ngModel)]="searchStart">
+                    </div>
+                    <div class="col-2">
+                        End Value
+                    </div>
+                    <div class="col-4">
+                        <input type="text" name="search_end" class="form-control" [(ngModel)]="searchEnd">
+                    </div>
+                </div>
+                <div class="row form-row" *ngIf="searchType=='discrete'">
+                    <div class="col-12">
+                        <input type="file" name="search_ranges" class="form-control" [(ngModel)]="searchFile" (change)="selectedFile = $event.target.files.item(0)">
+                    </div>
+                </div>
+                <div class="row form-row">
+                    <div class="col-3">View Result As</div>
+                    <div class="col-3">
+                        <input type="radio" value="adc" name="view_result_as" class="form-control form-control-radio" [(ngModel)]="searchFor"> &nbsp; ADC
+                    </div>
+                    <div class="col-3">
+                        <input type="radio" value="auc" name="view_result_as" class="form-control form-control-radio" [(ngModel)]="searchFor"> &nbsp; AUC
+                    </div>
+                    <div class="col-3">
+                        <input type="radio" value="sim" name="view_result_as" class="form-control form-control-radio" [(ngModel)]="searchFor"> &nbsp; Master Record
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer" *ngIf="isInitial">
+                <button class="btn btn-sm btn-primary" (click)="search(false)">Search</button>
+            </div>
+            <div class="card-body" *ngIf="isDataFoundADC" style="overflow-y: auto">
+                <i class="fa fa-align-justify"></i> Output:
+                <table class="table table-bordered table-striped table-sm">
+                    <thead>
+                    <tr>
+                        <th>ICC Number</th>
+                        <th>IMSI</th>
+                        <th>KI</th>
+                        <th>PIN1</th>
+                        <th>Pin2</th>
+                        <th>PUK1</th>
+                        <th>PUK2</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody *ngFor="let aTask of rowData ">
+                    <tr>
+                        <td>{{aTask.iccnumber}}</td>
+                        <td>{{aTask.imsi}}</td>
+                        <td>{{aTask.ki}}</td>
+                        <td>{{aTask.pin1}}</td>
+                        <td>{{aTask.pin2}}</td>
+                        <td>{{aTask.puk1}}</td>
+                        <td>{{aTask.puk2}}</td>
+                        <td><a href="#" (click)="editADC(aTask.id);$event.preventDefault();" role="button">Edit</a> <br>
+                            <a href="#" (click)="deleteADC(aTask.id);$event.preventDefault();" role="button">Delete</a>
+
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="card-body" *ngIf="isDataFoundAUC" style="overflow-y: auto">
+                <i class="fa fa-align-justify"></i> Output:
+                <table class="table table-bordered table-striped table-sm">
+                    <thead>
+                    <tr>
+                        <th>IMSI</th>
+                        <th>EKI</th>
+                        <th>KIND</th>
+                        <th>A3A8IND</th>
+
+                        <th>Action</th>
+
+                    </tr>
+                    </thead>
+                    <tbody *ngFor="let aTask of rowData ">
+                    <tr>
+                        <td>{{aTask.imsi}}</td>
+                        <td>{{aTask.eki}}</td>
+                        <td>{{aTask.kind}}</td>
+                        <td>{{aTask.a3a8ind}}</td>
+                        <td><a href="#" (click)="editAUC(aTask.id);$event.preventDefault();" role="button">Edit</a> <br>
+                            <a href="#" (click)="deleteAUC(aTask.id);$event.preventDefault();" role="button">Delete</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="card-body" *ngIf="isDataFoundSimmaster" style="overflow-y: auto">
+                <i class="fa fa-align-justify"></i> Output:
+                <table class="table table-bordered table-striped table-sm">
+                    <thead>
+                    <tr>
+                        <th>IMSI_No</th>
+                        <th>ICCID_No</th>
+                        <th>Mobile_No</th>
+                        <th>IMSI_Type</th>
+                        <th>Product_Code</th>
+                        <th>Item_Code</th>
+                        <th>SKIT_No</th>
+                        <th>PIN 1</th>
+                        <th>PIN 2</th>
+                        <th>PUK 1</th>
+                        <th>PUK 2</th>
+                        <th>Print_Date</th>
+                        <th>Pckg_Date</th>
+                        <th>Deliv_Date</th>
+                        <th>SIM_Type</th>
+                        <th>SIM_Status</th>
+                        <th>ICCID18_No</th>
+                        <th>Prod_Sequence</th>
+                        <th>CategoryName</th>
+                        <th>PlanCircle</th>
+                        <th>Requested By</th>
+                        <th>Name Who Share</th>
+                        <th>WR Number</th>
+                    </tr>
+                    </thead>
+                    <tbody *ngFor="let aTask of rowData">
+                    <tr>
+                        <td>{{aTask.IMSI_No}}</td>
+                        <td>{{aTask.ICCID_No}}</td>
+                        <td>{{aTask.Mobile_No}}</td>
+                        <td>{{aTask.IMSI_Type}}</td>
+                        <td>{{aTask.Product_Code}}</td>
+                        <td>{{aTask.Item_Code}}</td>
+                        <td>{{aTask.SKIT_No}}</td>
+                        <td>{{aTask.PIN1}}</td>
+                        <td>{{aTask.PIN2}}</td>
+                        <td>{{aTask.PUK1}}</td>
+                        <td>{{aTask.PUK2}}</td>
+                        <td>{{aTask.Print_Date}}</td>
+                        <td>{{aTask.Pckg_Date}}</td>
+                        <td>{{aTask.Deliv_Date}}</td>
+                        <td>{{aTask.SIM_Type}}</td>
+                        <td>{{aTask.SIM_Status}}</td>
+                        <td>{{aTask.ICCID18_No}}</td>
+                        <td>{{aTask.Prod_Sequence}}</td>
+                        <td>{{aTask.CategoryName}}</td>
+                        <td>{{aTask.PlanCircle}}</td>
+                        <td>{{aTask.RequestedBy}}</td>
+                        <td>{{aTask.SharerName}}</td>
+                        <td>{{aTask.WorkRequest}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-body" *ngIf="isEditADC">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-md-5 col-form-label">ICC Number</label>
+                            <div class="col-md-7">
+                                <input type="text" class="form-control"
+                                       [(ngModel)]="icc_number">
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-md-5 col-form-label">IMSI</label>
+                            <div class="col-md-7">
+                                <input type="text" class="form-control"
+                                       [(ngModel)]="imsi">
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-md-5 col-form-label">KI</label>
+                            <div class="col-md-7">
+                                <input type="text" class="form-control"
+                                       [(ngModel)]="ki">
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+
+                    </div>
+
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-md-5 col-form-label">Pin1</label>
+                            <div class="col-md-7">
+                                <input type="text" class="form-control"
+                                       [(ngModel)]="pin1">
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-md-5 col-form-label">Pin2</label>
+                            <div class="col-md-7">
+                                <input type="text" class="form-control"
+                                       [(ngModel)]="pin2">
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-md-5 col-form-label">PUK1</label>
+                            <div class="col-md-7">
+                                <input type="text" class="form-control"
+                                       [(ngModel)]="puk1">
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-md-5 col-form-label">PUK2</label>
+                            <div class="col-md-7">
+                                <input type="text" class="form-control"
+                                       [(ngModel)]="puk2">
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+            <div class="card-footer" *ngIf="isEditADC">
+                <button class="btn btn-sm btn-primary" (click)="submitADC()">Submit</button>
+            </div>
+
+            <div class="card-body" *ngIf="isEditAUC">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-md-5 col-form-label">IMSI</label>
+                            <div class="col-md-7">
+                                <input type="text" class="form-control"
+                                       [(ngModel)]="imsi">
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-md-5 col-form-label">KIND</label>
+                            <div class="col-md-7">
+                                <input type="text" class="form-control"
+                                       [(ngModel)]="kind">
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-md-5 col-form-label">A3A8IND</label>
+                            <div class="col-md-7">
+                                <input type="text" class="form-control"
+                                       [(ngModel)]="a3a8ind">
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-md-5 col-form-label">EKI</label>
+                            <div class="col-md-7">
+                                <input type="text" class="form-control"
+                                       [(ngModel)]="eki">
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="card-footer" *ngIf="isEditAUC">
+                <button class="btn btn-sm btn-primary" (click)="submitAUC()">Submit</button>
+            </div>
+        </div>
+        <div class="card-footer" *ngIf="!isInitial">
+            <button class="btn btn-sm btn-danger float-right" (click)="search(true)">Export</button>
+            <button class="btn btn-sm btn-danger" (click)="Back()">Back</button>
+        </div>
+    </div>
+    <div class="col-md-1">
+    </div>
+</div>
+                 

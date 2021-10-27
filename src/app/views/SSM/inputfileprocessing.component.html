@@ -1,0 +1,172 @@
+<div class="row">
+
+    <div class="col-md-12">
+      
+      <div class="card" style="border:0px !important;background:transparent !important">
+      </div>
+      <div class="card">
+      <div class="div_cust_loading_sign" *ngIf="isLoading"> <div style="position:fixed;width:100%;height:100%;left:0px;top:0px;z-index:50000;background-color:#536c79;opacity:0.95"></div> <div style="position:fixed;width:100%;height:100%;left:0px;top:0px;z-index:60000"><div style="width:25%;height:25%;margin:0px auto;margin-top:20%"><i class="fa fa-spinner fa-pulse fa-4x fa-fw" ></i></div></div> </div>
+   
+      <div class="card-header">
+            <i class="fa fa-align-justify"></i>Input File
+          </div>
+          <div class="card-body">
+            <div class="row mt-5 form-inline ">
+                <div class="form-group mx-sm-3">
+                    <input type="text" placeholder="PO Number" [(ngModel)]="PoNumber">
+                     <label style="font-size:0.8em;width:80px;height:30px;margin-left: 20px;border-style: double;background-color: #0F3869;color: white
+                     " (click) ="search()" >Find</label>
+                </div>
+                </div>
+             <div class="card-body" *ngIf="isDataFound">
+              <i class="fa fa-align-justify"></i> > PO Details
+              <table class="table table-bordered table-striped table-sm">
+                <thead>
+                  <tr>
+                    <th>PO Number</th>
+                    <th>Available Quantity</th>
+                    <th>Vendor Name</th>
+                     <th>PO Expire Date</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let aTask of rowData ">
+                            <tr>
+                               <td>{{aTask.id}}</td>
+                                <td>{{aTask.availableQuantity}}</td>
+                                <td>{{aTask.supplier}}</td>
+                                <td>{{aTask.poExpireDate}}</td>
+                            </tr>
+                </tbody>
+              </table>
+              
+            </div>
+            
+             <div class="card-header" *ngIf="isDataFound">
+            <div style="padding-bottom: 4px;">
+              <label> <b>Input File </b></label>
+                <label style="font-size:0.8em;width:60px;height:30px;margin-left: 20px;border-style: double;background-color: #0F3869;color: white
+                     " (click) ="submit()" >Generate</label>
+              <label style="float:right" (click)="save()"> <button >Finalize</button> </label>
+            </div>
+            <div class="card-body"  *ngIf="isDataFound">
+					<div class="row">
+						<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label" >IMSI TYPE</label>
+									<div class="col-md-7">
+										<select class="form-control" name="Imsi Type" required  [(ngModel)]="ImsiType">
+									<option></option>
+												<option *ngFor="let aIMSI of listIMSI" [value]="aIMSI.group_name">{{aIMSI.group_name}}</option>
+											</select>
+									</div>
+	
+	
+								</div>
+										</div>
+										
+					<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label" >Quantity</label>
+									<div class="col-md-7">
+										<input  type="text" class="form-control"  [(ngModel)]="Quantity" required>
+									</div>
+	
+	
+								</div>
+										</div>
+										</div>
+										
+					<div class="row">
+							<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label" >Artwork</label>
+									<div class="col-md-7">
+										<select class="form-control" [(ngModel)]="Artwork" required>
+                                                                      	<option></option>
+												<option *ngFor="let aIMSI of listArtwork" [value]="aIMSI.group_name">{{aIMSI.group_name}}</option>
+											</select>
+									</div>
+	
+	
+								</div>
+										</div>
+							<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label" >STK</label>
+									<div class="col-md-7">
+										<select class="form-control"  [(ngModel)]="STK" required >
+                                       	<option></option>
+										<option *ngFor="let aIMSI of listStk" [value]="aIMSI.group_name">{{aIMSI.group_name}}</option>
+											</select>
+									</div>
+	
+	
+								</div>
+										</div>
+								
+								
+										
+					</div>	
+                          
+           
+           
+           <div class="row">
+							<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label" >Vendor</label>
+									<div class="col-md-7">
+										<select class="form-control"[(ngModel)]="Vendor" required >
+                                                                    	<option></option>
+												<option *ngFor="let aIMSI of listVendor" [value]="aIMSI.group_name">{{aIMSI.group_name}}</option>
+											</select>       
+									</div>
+	
+	
+								</div>
+										</div>
+							<div class="col-md-6">
+										</div>
+										
+					</div>	
+					</div>
+                   
+           <div *ngIf="isDataFoundOther">
+           <table class="table table-bordered table-striped table-sm">
+                <thead>
+                  <tr>
+                    <th>PO Number</th>
+                    <th>Item Description</th>
+                    <th>Start IMSI</th>
+                     <th>End IMSI</th>
+                     <th>Start ICCID</th>
+                    <th>End ICCID</th>
+                     <th>Quantity</th>
+                     <th>STK </th>
+                     <th>Artwork</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let bTask of insertRowData ">
+                            <tr>
+                               <td>{{bTask.poNumber}}</td>
+                                <td>{{bTask.description}}</td>
+                                <td>{{bTask.startImsi}}</td>
+                                <td>{{bTask.endImsi}}</td>
+                                 <td>{{bTask.startIccid}}</td>
+                                <td>{{bTask.endIccid}}</td>
+                                <td>{{bTask.quantity}}</td>
+                                <td>{{bTask.stk}}</td>
+                            	<td>{{bTask.artwork}}</td>
+                            </tr>
+                </tbody>
+              </table>
+           
+            </div>
+          <div class="card-body"  *ngIf="!isDataFound" >
+            <div class="alert alert-primary" role="alert" ><b>System found no data</b></div>
+          </div>
+     	 </div>
+  </div>
+    </div>
+  
+  </div>
+  
