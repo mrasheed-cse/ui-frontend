@@ -125,10 +125,32 @@ import { LostSimComponent } from './isms-reports/lost-sim.component';
 import { TestSimTransferComponent } from './isms-reports/test-sim-transfer.component';
 import { LostdamagedetailsdeliveryComponent } from './lostdamagedetailsdelivery/lostdamagedetailsdelivery.component';
 import { LostdamagenewsimconnectionComponent } from './lostdamagenewsimconnection/lostdamagenewsimconnection.component';
+import { SearchPO } from '../SSM/search_po.component';
+import { InputFileProcessing } from '../SSM/inputfileprocessing.component';
+import{AucProcessor} from '../SSM/auc.component';
+import{SimAdmin} from '../SSM/sim_card_admin.component';
+import{PlanGenerate} from'../SSM/SimCardPlan Management/plangenerate.component'
+import{SimConfiguration} from '../SSM/SimCardPlan Management/simconfiguration.component';
+import{SimPackaging} from '../SSM/SimCardPlan Management/simpackaging.compontent';
+import{PlanGenerateApproval} from '../SSM/SimCardPlan Management/batchtesting_and_activation_approval.component';
+import{BatchTesting} from '../SSM/SimCardPlan Management/batchtesting.component';
+import{PlanActivation} from '../SSM/SimCardPlan Management/planactivation.component';
+import{ReturnAndReceive} from '../SSM/SimCardPlan Management/returnandreceive.component';
 
+import{UploadDataWh} from'../SSM/DataWarehouse Management/uploaddata.component';
+import{ViewDatawarehouse} from'../SSM/DataWarehouse Management/showdatawarehouse.component';
+import{VoucherGeneration} from '../SSM/ScratchCard/voucher_generation.component';
+import{VoucherAdmin} from '../SSM/ScratchCard/voucher_admin.component';
+import{VoucherManagementApproval} from '../SSM/ScratchCard/voucher_management_pending.component';
+import{VoucherGenerationForward} from '../SSM/ScratchCard/voucher_generation_forward_technology.component';
+import{VoucherManagementExsisting} from '../SSM/ScratchCard/voucher_management_exsisting.component';
+import{VoucherManagementActivationAndView} from '../SSM/ScratchCard/voucher_management_file_and_clc.component';
+import {AuthGuard} from './services/AuthGuard.service';
+import{UploadForcast} from'../SSM/Report/uploadforcast.component'
 import {LoginService} from '../pages/LoginService';
-import { AuthGuard } from './services/AuthGuard.service';
-
+import{ViewProductReport} from'../SSM/Report/viewProductReport.component'
+import{VoucherJourney} from '../SSM/ScratchCard/viewvoucher_journey.component';
+import { ChartsModule } from 'ng2-charts/ng2-charts'
 
 @NgModule({
   imports: [
@@ -140,7 +162,8 @@ import { AuthGuard } from './services/AuthGuard.service';
     CollapseModule.forRoot(),
     BsDatepickerModule.forRoot(),
     AgGridModule.withComponents([]),
-    NsaRoutingModule
+    NsaRoutingModule,
+    ChartsModule
   ],
   declarations: [
     LandingpageComponent,
@@ -239,9 +262,28 @@ import { AuthGuard } from './services/AuthGuard.service';
     TestSimActionListDeactivateComponent,
     LostdamagedetailsdeliveryComponent,
     LostdamagenewsimconnectionComponent,
+    SearchPO,
+    InputFileProcessing,
+    AucProcessor,
+    VoucherGeneration,
+    VoucherAdmin,
+    SimAdmin,
+    VoucherManagementApproval,
+    VoucherGenerationForward,VoucherManagementExsisting,VoucherManagementActivationAndView,
+    PlanGenerate,
+    SimConfiguration,
+    SimPackaging,
+    PlanGenerateApproval,
+    BatchTesting,
+    PlanActivation,
+    UploadDataWh,
+    ViewDatawarehouse,
+    ReturnAndReceive,
     UploadRecycleComponent,
     GenerateanalyzeComponent,
-    GenerateComponent
+    GenerateComponent,
+    UploadForcast,
+    VoucherJourney,ViewProductReport
   ],
   providers:[DatePipe, LoginService, AuthGuard]})
 export class NsaModule { }

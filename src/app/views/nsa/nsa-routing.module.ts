@@ -107,6 +107,29 @@ import {GenerateComponent} from "../recycle/generate.component";
 
 import {AuthGuard} from './services/AuthGuard.service';
 
+import { SearchPO } from '../SSM/search_po.component';
+import { InputFileProcessing } from '../SSM/inputfileprocessing.component';
+import{AucProcessor} from '../SSM/auc.component';
+import{SimAdmin} from '../SSM/sim_card_admin.component';
+import{PlanGenerate} from'../SSM/SimCardPlan Management/plangenerate.component'
+import{VoucherGeneration} from '../SSM/ScratchCard/voucher_generation.component';
+import{VoucherAdmin}  from '../SSM/ScratchCard/voucher_admin.component';
+import{VoucherManagementApproval} from '../SSM/ScratchCard/voucher_management_pending.component';
+import{VoucherGenerationForward} from '../SSM/ScratchCard/voucher_generation_forward_technology.component';
+import{VoucherManagementExsisting} from '../SSM/ScratchCard/voucher_management_exsisting.component';
+import{VoucherManagementActivationAndView} from '../SSM/ScratchCard/voucher_management_file_and_clc.component';
+import{SimConfiguration} from '../SSM/SimCardPlan Management/simconfiguration.component';
+import{SimPackaging} from '../SSM/SimCardPlan Management/simpackaging.compontent';
+import{ReturnAndReceive} from '../SSM/SimCardPlan Management/returnandreceive.component';
+import{BatchTesting} from '../SSM/SimCardPlan Management/batchtesting.component';
+import{PlanActivation} from '../SSM/SimCardPlan Management/planactivation.component';
+import{PlanGenerateApproval} from '../SSM/SimCardPlan Management/batchtesting_and_activation_approval.component';
+import{UploadDataWh} from'../SSM/DataWarehouse Management/uploaddata.component';
+import{ViewDatawarehouse} from'../SSM/DataWarehouse Management/showdatawarehouse.component';
+
+import{UploadForcast} from'../SSM/Report/uploadforcast.component';
+import{VoucherJourney} from '../SSM/ScratchCard/viewvoucher_journey.component';
+import{ViewProductReport} from'../SSM/Report/viewProductReport.component'
 const routes: Routes = [
     {
         path: '',
@@ -865,10 +888,191 @@ const routes: Routes = [
         data: {
             title: 'Upload MSISDN Recycle CSV'
         }
-    }, 
-    /* {path: '**', redirectTo: 'NOT FOUND PAGE'}, 
-    ** should be the last route in the list */
+    },
+  {
+        path: 'poInformation',
+        component: SearchPO,
+        data: {
+            title: 'PO Information'
+        },
+        canActivate: [AuthGuard]
+    },
     {
+        path: 'inputFileprocessing',
+        component: InputFileProcessing,
+        data: {
+            title: 'InputFileProcessing'
+        },
+        canActivate: [AuthGuard]
+    },
+
+  {
+        path: 'aucConversion',
+        component: AucProcessor,
+        data: {
+            title: 'Auc Conversion'
+        },
+        canActivate: [AuthGuard]
+    },
+    
+     {
+        path: 'vouchergeneration',
+        component: VoucherGeneration,
+        data: {
+            title: 'VoucherGeneration'
+        },
+        canActivate: [AuthGuard]
+    },
+     {
+        path: 'scratchcardadmin',
+        component: VoucherAdmin,
+        data: {
+            title: 'Scratch Card Admin'
+        },
+        canActivate: [AuthGuard]
+    },
+    
+    {
+        path: 'simcardadmin',
+        component: SimAdmin,
+        data: {
+            title: 'Sim Card Admin'
+        },
+        canActivate: [AuthGuard]
+    },
+     {
+        path: 'scratchcardpending',
+        component: VoucherManagementApproval,
+        data: {
+            title: 'Pending For Approval'
+        },
+        canActivate: [AuthGuard]
+    },
+    
+    {
+        path: 'scratchvoucherFwd',
+        component: VoucherGenerationForward,
+        data: {
+            title: 'Pending For Approval'
+        },
+        canActivate: [AuthGuard]
+    },
+     {
+        path: 'scratchcardexsisting',
+        component: VoucherManagementExsisting,
+        data: {
+            title: 'Batch Testing Aand Activation'
+        },
+        canActivate: [AuthGuard]
+    },
+     {
+        path: 'vouchermanagementActivate',
+        component: VoucherManagementActivationAndView,
+        data: {
+            title: 'Activation And Vew Voucher'
+        },
+        canActivate: [AuthGuard]
+    },
+     {
+        path: 'plangenerate',
+        component: PlanGenerate,
+        data: {
+            title: 'Plan Generate'
+        },
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'simconfiguration',
+        component: SimConfiguration,
+        data: {
+            title: 'Sim Configuration'
+        },
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'simpakaging',
+        component: SimPackaging,
+        data: {
+            title: 'Sim Packaging'
+        },
+        canActivate: [AuthGuard]
+    },
+     {
+        path: 'planapprovals',
+        component: PlanGenerateApproval,
+        data: {
+            title: 'Plan Approvals'
+        },
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'batchtesting',
+        component: BatchTesting,
+        data: {
+            title: 'Batch Testing'
+        },
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'activation',
+        component: PlanActivation,
+        data: {
+            title: 'Plan Activation'
+        },
+        canActivate: [AuthGuard]
+    },
+	{
+        path: 'datawarehouseupload',
+        component: UploadDataWh,
+        data: {
+            title: 'Data WareHouse Upload'
+        },
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'manageSimData',
+        component: ViewDatawarehouse,
+        data: {
+            title: 'Data WareHouse Manage'
+        },
+        canActivate: [AuthGuard]
+    },
+    
+     {
+        path: 'returnandreceive',
+        component: ReturnAndReceive,
+        data: {
+            title: 'Return And Receive'
+        },
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'ssmreportupload',
+        component: UploadForcast,
+        data: {
+            title: 'Forecast'
+        },
+        canActivate: [AuthGuard]
+    },
+    
+     {
+        path: 'viewvoucherjourney',
+        component: VoucherJourney,
+        data: {
+            title: ''
+        },
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'ssmreportview',
+        component: ViewProductReport,
+        data: {
+            title: ''
+        },
+        canActivate: [AuthGuard]
+    },
+    
+     {
         path: '**', 
         redirectTo: '/pages/404'
   }, 

@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
-import { LoginService } from './LoginService';
-import { Router } from '@angular/router';
+import {Component} from '@angular/core';
+import {LoginService} from './LoginService';
+import {Router} from '@angular/router';
 import {FormsModule} from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { LoggedInUser } from './loggedInUser';
-import { Observable } from 'rxjs/Observable';
-import { AppGlobals } from './../../app.global';
+import {CommonModule} from '@angular/common';
+import {LoggedInUser} from './loggedInUser';
+import {Observable} from 'rxjs/Observable';
+import {AppGlobals} from './../../app.global';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -14,113 +14,106 @@ import 'rxjs/add/observable/of';
 
 
 @Component({
-  templateUrl: 'login.component.html',
-  providers: [AppGlobals,LoginService],
+    templateUrl: 'login.component.html',
+    providers: [AppGlobals, LoginService],
 })
 
 export class LoginComponent {
 
-  currentLoggedInUser: LoggedInUser;
-  isValidUser : boolean = true;
-  isDelegateAccess : boolean = false;
-  public isLoading:boolean = false;
+    currentLoggedInUser: LoggedInUser;
+    isValidUser: boolean = true;
+    isDelegateAccess: boolean = false;
+    public isLoading: boolean = false;
 
-  constructor(private loginService: LoginService, private router: Router, private _global: AppGlobals) { 
-  this.loginService.LogOut();
-  
-  this.currentLoggedInUser = {
-    userName: "",
-    groupName: "",
-    groupID: 0,
-    userID: "",
-    groupNames: null,
-    groupIDs: null,
-  };
-  }
-  username : string ;
-  password : string ;
-  delegateusername: string;
-  
-  ValidateUser(){
-    this.isLoading = true;
-    
-    if(this.isDelegateAccess){
-      this.loginService.ValidateDelegateUser(this.username, this.delegateusername, this.password).subscribe(
-        res => {
-          if (res != null && res) {
-            this.isValidUser = true;
-            
-          
-            this.currentLoggedInUser = {
-              userID: this.username,
-              userName: res.usersName,
-              groupName: res.usersGroupName,
-              groupID: res.usersGroupId,
-              groupNames: res.usersGroupNames,
-              groupIDs: res.usersGroupIds
-            };
-            console.log(this.currentLoggedInUser);
-            localStorage.setItem('currentLoggedInUser', JSON.stringify(this.currentLoggedInUser));
-          
-            this.isLoading = false;
-            this.router.navigateByUrl('/nsa/testsimdashboard')
-            //this.router.navigateByUrl('/nsa/landingpage')
-            
-          }
-        },
-        err => {
-          this.isValidUser = false;
-          this.isLoading = false;
-          this.router.navigateByUrl('/pages/login');    
-        }
-    
-        );
-    }
-    else{
-      this.loginService.ValidateUser(this.username, this.password).subscribe(
-        res => {
-          if (res != null && res) {
-            this.isValidUser = true;
-            
-          
-            this.currentLoggedInUser = {
-              userID: this.username,
-              userName: res.usersName,
-              groupName: res.usersGroupName,
-              groupID: res.usersGroupId,
-              groupNames: res.usersGroupNames,
-              groupIDs: res.usersGroupIds
-            };
-            localStorage.setItem('currentLoggedInUser', JSON.stringify(this.currentLoggedInUser));
-            console.log(this.currentLoggedInUser);
-            this.isLoading = false;
-            this.router.navigateByUrl('/nsa/testsimdashboard')
-          }
-        },
-        err => {
-          this.isValidUser = false;
-          this.isLoading = false;
-          this.router.navigateByUrl('/pages/login');    
-        }
-    
-        );
+    constructor(private loginService: LoginService, private router: Router, private _global: AppGlobals) {
+        this.loginService.LogOut();
+
+        this.currentLoggedInUser = {
+            userName: "",
+            groupName: "",
+            groupID: 0,
+            userID: "",
+            groupNames: null,
+            groupIDs: null,
+        };
     }
 
-    //let res : any;
-    //res = this._global.dataTempForLogin;
+    username: string;
+    password: string;
+    delegateusername: string;
 
-    //this.isValidUser = true;
-            
-    /*this.currentLoggedInUser = {
-        userID: this.username,
-        userName: res.usersName,
-        groupName: res.usersGroupName,
-        groupID: res.usersGroupId
-    };
-    localStorage.setItem('currentLoggedInUser', JSON.stringify(this.currentLoggedInUser));
-      
-    this.isLoading = false;
-    this.router.navigateByUrl('/nsa')*/
-  } //end of function validateuser()
-  
+    ValidateUser() {
+        this.isLoading = true;
+        if (this.isDelegateAccess) {
+            this.loginService.ValidateDelegateUser(this.username, this.delegateusername, this.password).subscribe(
+                res => {
+                    if (res != null && res) {
+                        this.isValidUser = true;
+                        this.currentLoggedInUser = {
+                            userID: this.username,
+                            userName: res.usersName,
+                            groupName: res.usersGroupName,
+                            groupID: res.usersGroupId,
+                            groupNames: res.usersGroupNames,
+                            groupIDs: res.usersGroupIds
+                        };
+                        console.log(this.currentLoggedInUser);
+                        localStorage.setItem('currentLoggedInUser', JSON.stringify(this.currentLoggedInUser));
+
+                        this.isLoading = false;
+                        this.router.navigateByUrl('/nsa/testsimdashboard')
+                    }
+                },
+                err => {
+                    this.isValidUser = false;
+                    this.isLoading = false;
+                    this.router.navigateByUrl('/pages/login');
+                }
+            );
+        } else {
+            this.loginService.ValidateUser(this.username, this.password).subscribe(
+                res => {
+                    if (res != null && res) {
+                        this.isValidUser = true;
+
+
+                        this.currentLoggedInUser = {
+                            userID: this.username,
+                            userName: res.usersName,
+                            groupName: res.usersGroupName,
+                            groupID: res.usersGroupId,
+                            groupNames: res.usersGroupNames,
+                            groupIDs: res.usersGroupIds
+                        };
+                        localStorage.setItem('currentLoggedInUser', JSON.stringify(this.currentLoggedInUser));
+                        console.log(this.currentLoggedInUser);
+                        this.isLoading = false;
+                        this.router.navigateByUrl('/nsa/testsimdashboard')
+                    }
+                },
+                err => {
+                    this.isValidUser = false;
+                    this.isLoading = false;
+                    this.router.navigateByUrl('/pages/login');
+                }
+            );
+        }
+
+        //let res : any;
+        //res = this._global.dataTempForLogin;
+
+        //this.isValidUser = true;
+
+        /*this.currentLoggedInUser = {
+            userID: this.username,
+            userName: res.usersName,
+            groupName: res.usersGroupName,
+            groupID: res.usersGroupId
+        };
+        localStorage.setItem('currentLoggedInUser', JSON.stringify(this.currentLoggedInUser));
+
+        this.isLoading = false;
+        this.router.navigateByUrl('/nsa')*/
+    } //end of function validateuser()
+
 }

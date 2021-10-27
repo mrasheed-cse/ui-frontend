@@ -356,7 +356,7 @@ ChaeckDefinitionValidity (startMSISDNs, endMSISDNs) {
   //console.log(this.formFieldData);
   //{wr_id}/{userGroup_id}/{user_id}/[{workflowFieldsValueSeqWise}]
   this.workFlowsService.CreateNewWorkRequest(this._global.wrid_NumberSeriesDefinition, this.groupID,this.userID,this.formFieldData).subscribe(
-      res => {
+      res  =>  {
 		//console.log('response is : '+res.message);
 
 		if(res !== ""){
@@ -365,7 +365,7 @@ ChaeckDefinitionValidity (startMSISDNs, endMSISDNs) {
 			this.isLoading = false;
 		}
       },
-      err => {
+      err  =>  {
 		  console.log("err.status : "+err.status);
 		  this.dangerAlertShow = true;
 		this.dangerAlertMessage = " .";

@@ -1,0 +1,566 @@
+<div class="row">
+
+    <div class="col-md-12">
+      
+      <div class="card" style="border:0px !important;background:transparent !important">
+      </div>
+      <div class="card">
+      <div class="card-header" *ngIf="noDropdownSelected">
+            <i class="fa fa-align-justify" ></i> Select Dropdown For Modification 
+          </div>
+          <div class="card-body" *ngIf="noDropdownSelected">
+          <div class="row">
+						<div class="col-md-6">
+								<div class="form-group row">
+									<div class="col-md-7">
+										   <button type="button"   (click)=getArtwork()>Artwork</button>
+									</div>
+	
+								</div>
+						</div>
+						
+						<div class="col-md-6">
+								<div class="form-group row">
+									<div class="col-md-7">
+										   <button type="button"   (click)="vendorName()">Vendor</button>
+									</div>
+	
+	
+								</div>
+						</div>
+					</div>	
+					<div class="row">
+						<div class="col-md-6">
+								<div class="form-group row">
+									<div class="col-md-7">
+										   <button type="button"   (click)="getStk()">STK</button>
+									</div>
+	
+								</div>
+						</div>
+						
+						<div class="col-md-6">
+								<div class="form-group row">
+									<div class="col-md-7">
+										   <button type="button"   (click)="getitemCode()">Item Code</button>
+									</div>
+	
+								</div>
+						</div>
+						
+					</div>	
+					<div class="row">
+						<div class="col-md-6">
+								<div class="form-group row">
+									<div class="col-md-7">
+										   <button type="button"   (click)="getProductname()">Product Name</button>
+									</div>
+	
+								</div>
+						</div>
+						
+						<div class="col-md-6">
+								<div class="form-group row">
+									<div class="col-md-7">
+										   <button type="button"   (click)="getProductCode()">Product Code</button>
+									</div>
+	
+								</div>
+						</div>
+						
+					</div>	
+					<div class="row">
+						<div class="col-md-6">
+								<div class="form-group row">
+									<div class="col-md-7">
+										   <button type="button"   (click)="getSharerCode()">Sharer Name</button>
+									</div>
+	
+								</div>
+						</div>
+						
+						<div class="col-md-6">
+								<div class="form-group row">
+									<div class="col-md-7">
+										   <button type="button"   (click)="getCircle()">Plan Circle</button>
+									</div>
+	
+								</div>
+						</div>
+						
+					</div>	
+					
+					<div class="row">
+						<div class="col-md-6">
+								<div class="form-group row">
+									<div class="col-md-7">
+										   <button type="button"   (click)="getRequester()">Requester</button>
+									</div>
+	
+								</div>
+						</div>
+						
+						
+						
+					</div>	
+					
+          </div>
+          
+           <div class="card-header" *ngIf="isArtworkFound">
+            <i class="fa fa-align-justify" ></i> Artwork
+          </div>
+        <div class="card-body" *ngIf="isArtworkFound">
+              <table class="table table-bordered table-striped table-sm">
+                <thead>
+                  <tr>
+                    <th>Artwork Name</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let aTask of listArtwork">
+                            <tr>
+                                <td>{{aTask.groupName}}</td>
+                                <td> <a  href="#" (click)="clearArtwork(aTask.id);$event.preventDefault();" role="button">Delete</a> </td>
+                            </tr>
+                </tbody>
+              </table>
+              
+            </div>
+            <div class="card-footer text-right"  *ngIf="isArtworkFound">
+            
+            <button type="reset" class="btn btn-sm btn-primary"(click)="addArtwork()">Add
+					</button>
+            </div>
+            
+              <div class="card-header" *ngIf="isaddArtwork">
+            <i class="fa fa-align-justify"></i> Add Denomination
+          </div>
+          
+           <div class="card-body" *ngIf="isaddArtwork">
+           <div class="row">
+						<div class="col-md-6">
+								<div class="form-group row">
+									<label class="col-md-5 col-form-label">Add New Artwork</label>
+									<div class="col-md-7">
+										<input type="text" id="newArtwork" name="newArtwork" class="form-control" [(ngModel)]="newArtwork"
+											 >
+									</div>
+								</div>
+						</div>
+						<div class="col-md-6">
+								<div class="form-group row">
+									<button   class="btn btn-sm btn-primary" (click)="submitArtwork()">
+						<i class="fa fa-dot-circle-o"></i> Submit</button>
+								</div>
+								</div>
+						</div>
+					</div>	
+					
+					
+					<div class="card-header" *ngIf="isVendorFound">
+            <i class="fa fa-align-justify" ></i> Vendor
+          </div>
+        <div class="card-body" *ngIf="isVendorFound">
+              <table class="table table-bordered table-striped table-sm">
+                <thead>
+                  <tr>
+                    <th>Vendor Name</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let aTask of listVendor">
+                            <tr>
+                                <td>{{aTask.groupName}}</td>
+                                <td> <a  href="#" (click)="clearVendor(aTask.id);$event.preventDefault();" role="button">Delete</a> </td>
+                            </tr>
+                </tbody>
+              </table>
+              
+            </div>
+            <div class="card-footer text-right"  *ngIf="isVendorFound">
+            
+            <button type="reset" class="btn btn-sm btn-primary"(click)="addVendor()">Add
+					</button>
+            </div>
+            
+              <div class="card-header" *ngIf="isAddVendor">
+            <i class="fa fa-align-justify"></i> Add Vendor
+          </div>
+          
+           <div class="card-body" *ngIf="isAddVendor">
+           <div class="row">
+						<div class="col-md-6">
+								<div class="form-group row">
+									<label class="col-md-5 col-form-label">Add New Vendor</label>
+									<div class="col-md-7">
+										<input type="text" id="newVendor" name="newVendor" class="form-control" [(ngModel)]="newVendor"
+											 >
+									</div>
+								</div>
+						</div>
+						<div class="col-md-6">
+								<div class="form-group row">
+									<button   class="btn btn-sm btn-primary" (click)="submitVendor()">
+						<i class="fa fa-dot-circle-o"></i> Submit</button>
+								</div>
+								</div>
+						</div>
+					</div>	
+					<div class="card-header" *ngIf="isItemcodeFound">
+            <i class="fa fa-align-justify" ></i> Item Code
+          </div>
+          <div class="card-body" *ngIf="isItemcodeFound">
+              <table class="table table-bordered table-striped table-sm">
+                <thead>
+                  <tr>
+                    <th>Item Code</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let aTask of listDropDownitemCode">
+                            <tr>
+                                <td>{{aTask.groupName}}</td>
+                                <td> <a  href="#" (click)="clearItemid(aTask.id);$event.preventDefault();" role="button">Delete</a> </td>
+                            </tr>
+                </tbody>
+              </table>
+              
+            </div>
+            <div class="card-footer text-right"  *ngIf="isItemcodeFound">
+            
+            <button type="reset" class="btn btn-sm btn-primary"(click)="addItemCode()">Add
+					</button>
+            </div>
+            
+              <div class="card-header" *ngIf="isAddItemcode">
+            <i class="fa fa-align-justify"></i> Add Item Code
+          </div>
+          <div class="card-body" *ngIf="isAddItemcode">
+           <div class="row">
+						<div class="col-md-6">
+								<div class="form-group row">
+									<label class="col-md-5 col-form-label">Add New Item Code</label>
+									<div class="col-md-7">
+										<input type="text" id="ItemCode" name="ItemCode" class="form-control" [(ngModel)]="ItemCode"
+											 >
+									</div>
+								</div>
+						</div>
+						<div class="col-md-6">
+								<div class="form-group row">
+									<button   class="btn btn-sm btn-primary" (click)="submitItemCode()">
+						<i class="fa fa-dot-circle-o"></i> Submit</button>
+								</div>
+								</div>
+						</div>
+					</div>	
+					
+					
+					<div class="card-header" *ngIf="isproductnameFound">
+            <i class="fa fa-align-justify" ></i> Product Name
+          </div>
+          <div class="card-body" *ngIf="isproductnameFound">
+              <table class="table table-bordered table-striped table-sm">
+                <thead>
+                  <tr>
+                    <th>Item Code</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let aTask of listDropDownproductname">
+                            <tr>
+                                <td>{{aTask.groupName}}</td>
+                                <td> <a  href="#" (click)="clearproductname(aTask.id);$event.preventDefault();" role="button">Delete</a> </td>
+                            </tr>
+                </tbody>
+              </table>
+              
+            </div>
+            <div class="card-footer text-right"  *ngIf="isproductnameFound">
+            
+            <button type="reset" class="btn btn-sm btn-primary"(click)="addProductName()">Add
+					</button>
+            </div>
+            
+              <div class="card-header" *ngIf="isAddproductname">
+            <i class="fa fa-align-justify"></i> Add Product Name
+          </div>
+          <div class="card-body" *ngIf="isAddproductname">
+           <div class="row">
+						<div class="col-md-6">
+								<div class="form-group row">
+									<label class="col-md-5 col-form-label">Add New Product Name</label>
+									<div class="col-md-7">
+										<input type="text" id="productname" name="productname" class="form-control" [(ngModel)]="productname"
+											 >
+									</div>
+								</div>
+						</div>
+						<div class="col-md-6">
+								<div class="form-group row">
+									<button   class="btn btn-sm btn-primary" (click)="submitProductname()">
+						<i class="fa fa-dot-circle-o"></i> Submit</button>
+								</div>
+								</div>
+						</div>
+					</div>	
+					
+					
+						
+					<div class="card-header" *ngIf="isproductcodeFound">
+            <i class="fa fa-align-justify" ></i> Product Code
+          </div>
+          <div class="card-body" *ngIf="isproductcodeFound">
+              <table class="table table-bordered table-striped table-sm">
+                <thead>
+                  <tr>
+                    <th>Item Code</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let aTask of listDropDownproductCode">
+                            <tr>
+                                <td>{{aTask.groupName}}</td>
+                                <td> <a  href="#" (click)="clearproductCode(aTask.id);$event.preventDefault();" role="button">Delete</a> </td>
+                            </tr>
+                </tbody>
+              </table>
+              
+            </div>
+            <div class="card-footer text-right"  *ngIf="isproductcodeFound">
+            
+            <button type="reset" class="btn btn-sm btn-primary"(click)="addProductCode()">Add
+					</button>
+            </div>
+            
+              <div class="card-header" *ngIf="isAddproductcode">
+            <i class="fa fa-align-justify"></i> Add Product Code
+          </div>
+          <div class="card-body" *ngIf="isAddproductcode">
+           <div class="row">
+						<div class="col-md-6">
+								<div class="form-group row">
+									<label class="col-md-5 col-form-label">Add New Product Code</label>
+									<div class="col-md-7">
+										<input type="text" id="productCode" name="productCode" class="form-control" [(ngModel)]="productCode"
+											 >
+									</div>
+								</div>
+						</div>
+						<div class="col-md-6">
+								<div class="form-group row">
+									<button   class="btn btn-sm btn-primary" (click)="submitProductcode()">
+						<i class="fa fa-dot-circle-o"></i> Submit</button>
+								</div>
+								</div>
+						</div>
+					</div>	
+					
+					
+					<div class="card-header" *ngIf="isSharerNameFound">
+            <i class="fa fa-align-justify" ></i> Sharer Name
+          </div>
+          <div class="card-body" *ngIf="isSharerNameFound">
+              <table class="table table-bordered table-striped table-sm">
+                <thead>
+                  <tr>
+                    <th>Item Code</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let aTask of listDropDownSharerName">
+                            <tr>
+                                <td>{{aTask.groupName}}</td>
+                                <td> <a  href="#" (click)="clearSharerName(aTask.id);$event.preventDefault();" role="button">Delete</a> </td>
+                            </tr>
+                </tbody>
+              </table>
+              
+            </div>
+            <div class="card-footer text-right"  *ngIf="isSharerNameFound">
+            
+            <button type="reset" class="btn btn-sm btn-primary"(click)="addSharerName()">Add
+					</button>
+            </div>
+            
+              <div class="card-header" *ngIf="isAddSharerName">
+            <i class="fa fa-align-justify"></i> Add Sharer Name
+          </div>
+          <div class="card-body" *ngIf="isAddSharerName">
+           <div class="row">
+						<div class="col-md-6">
+								<div class="form-group row">
+									<label class="col-md-5 col-form-label">Add New Sharer Name</label>
+									<div class="col-md-7">
+										<input type="text" id="SharerName" name="SharerName" class="form-control" [(ngModel)]="SharerName"
+											 >
+									</div>
+								</div>
+						</div>
+						<div class="col-md-6">
+								<div class="form-group row">
+									<button   class="btn btn-sm btn-primary" (click)="submitSharerName()">
+						<i class="fa fa-dot-circle-o"></i> Submit</button>
+								</div>
+								</div>
+						</div>
+					</div>	
+					
+					<div class="card-header" *ngIf="isCircleFound">
+            <i class="fa fa-align-justify" ></i>Plan Circle
+          </div>
+          <div class="card-body" *ngIf="isCircleFound">
+              <table class="table table-bordered table-striped table-sm">
+                <thead>
+                  <tr>
+                    <th>Item Code</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let aTask of listDropDownCircle">
+                            <tr>
+                                <td>{{aTask.groupName}}</td>
+                                <td> <a  href="#" (click)="clearcircle(aTask.id);$event.preventDefault();" role="button">Delete</a> </td>
+                            </tr>
+                </tbody>
+              </table>
+              
+            </div>
+            <div class="card-footer text-right"  *ngIf="isCircleFound">
+            
+            <button type="reset" class="btn btn-sm btn-primary"(click)="addcircle()">Add
+					</button>
+            </div>
+            
+              <div class="card-header" *ngIf="isAddcircle">
+            <i class="fa fa-align-justify"></i> Add  Plan Circle
+          </div>
+          <div class="card-body" *ngIf="isAddcircle">
+           <div class="row">
+						<div class="col-md-6">
+								<div class="form-group row">
+									<label class="col-md-5 col-form-label">Add New Plan Circle</label>
+									<div class="col-md-7">
+										<input type="text" id="circle" name="circle" class="form-control" [(ngModel)]="circle"
+											 >
+									</div>
+								</div>
+						</div>
+						<div class="col-md-6">
+								<div class="form-group row">
+									<button   class="btn btn-sm btn-primary" (click)="submitPlanCircle()">
+						<i class="fa fa-dot-circle-o"></i> Submit</button>
+								</div>
+								</div>
+						</div>
+					</div>	
+					
+					<div class="card-header" *ngIf="isrequesterFound">
+            <i class="fa fa-align-justify" ></i>Plan Circle
+          </div>
+          <div class="card-body" *ngIf="isrequesterFound">
+              <table class="table table-bordered table-striped table-sm">
+                <thead>
+                  <tr>
+                    <th>Item Code</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let aTask of listDropDownrequester">
+                            <tr>
+                                <td>{{aTask.groupName}}</td>
+                                <td> <a  href="#" (click)="clearRequester(aTask.id);$event.preventDefault();" role="button">Delete</a> </td>
+                            </tr>
+                </tbody>
+              </table>
+              
+            </div>
+            <div class="card-footer text-right"  *ngIf="isrequesterFound">
+            
+            <button type="reset" class="btn btn-sm btn-primary"(click)="addRequester()">Add
+					</button>
+            </div>
+            
+              <div class="card-header" *ngIf="isAddrequester">
+            <i class="fa fa-align-justify"></i> Add  Requester
+          </div>
+          <div class="card-body" *ngIf="isAddrequester">
+           <div class="row">
+						<div class="col-md-6">
+								<div class="form-group row">
+									<label class="col-md-5 col-form-label">Add New Requester</label>
+									<div class="col-md-7">
+										<input type="text" id="circle" name="circle" class="form-control" [(ngModel)]="requester"
+											 >
+									</div>
+								</div>
+						</div>
+						<div class="col-md-6">
+								<div class="form-group row">
+									<button   class="btn btn-sm btn-primary" (click)="submitRequester()">
+						<i class="fa fa-dot-circle-o"></i> Submit</button>
+								</div>
+								</div>
+						</div>
+					</div>
+					
+					
+					<div class="card-header" *ngIf="isStkFound">
+            <i class="fa fa-align-justify" ></i> STK
+          </div>
+        <div class="card-body" *ngIf="isStkFound">
+              <table class="table table-bordered table-striped table-sm">
+                <thead>
+                  <tr>
+                    <th>STK Name</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let aTask of listStk">
+                            <tr>
+                                <td>{{aTask.groupName}}</td>
+                                <td> <a  href="#" (click)="clearStk(aTask.id);$event.preventDefault();" role="button">Delete</a> </td>
+                            </tr>
+                </tbody>
+              </table>
+              
+            </div>
+            <div class="card-footer text-right"  *ngIf="isStkFound">
+            
+            <button type="reset" class="btn btn-sm btn-primary"(click)="addStk()">Add
+					</button>
+            </div>
+            
+              <div class="card-header" *ngIf="isAddStk">
+            <i class="fa fa-align-justify"></i> Add STK
+          </div>
+          
+           <div class="card-body" *ngIf="isAddStk">
+           <div class="row">
+						<div class="col-md-6">
+								<div class="form-group row">
+									<label class="col-md-5 col-form-label">Add New STK</label>
+									<div class="col-md-7">
+										<input type="text" id="newStk" name="newStk" class="form-control" [(ngModel)]="newStk"
+											 >
+									</div>
+								</div>
+						</div>
+						<div class="col-md-6">
+								<div class="form-group row">
+									<button   class="btn btn-sm btn-primary" (click)="submitStk()">
+						<i class="fa fa-dot-circle-o"></i> Submit</button>
+								</div>
+								</div>
+						</div>
+					</div>	
+          
+          
+          </div>
+          </div>
+          <div  *ngIf="!noDropdownSelected">
+          <button   class="btn btn-sm btn-danger" (click)="cancel()"> Cancel</button>
+          </div>
+          </div>
+         
+          

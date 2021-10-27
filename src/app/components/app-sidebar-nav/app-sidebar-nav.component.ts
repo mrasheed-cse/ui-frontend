@@ -46,7 +46,7 @@ export class AppSidebarNavComponent {
     
       this.loginService.LoadMenu(this.groupIDs).subscribe(
         data => {
-          
+          console.log("this.navigation"+data);
           if(data !=null){
             this.navigation = data;
             

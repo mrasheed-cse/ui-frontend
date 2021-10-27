@@ -67,9 +67,6 @@ import {
   
   constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {	
   
-  var time = new Date();	
-  console.log('1');	 
-		console.log( time.getTime())
 	  // Get Current User Profile
 	  
 	  this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
@@ -77,10 +74,8 @@ import {
 	  if (this.currentLoggedInUser) {
 		  this.userName = this.currentLoggedInUser.userName
 		  this.groupID = this.currentLoggedInUser.groupID
-		  console.log('Current page usergroup: ' + this.currentLoggedInUser.groupID);
-								
-		 	console.log('2');	 
-		console.log( time.getTime())
+		  //console.log('Current user: ' + this.userName);
+		  
 	  } 
 	  else {
 		//console.log('Current user not found');
@@ -138,7 +133,7 @@ import {
 	  this.dangerAlertShow = false;
 	  
 	  this.workFlowsService.SearchWorkRequest(this.wrname.value, this.startDate.value,this.endDate.value,this.wrstatus.value).subscribe(
-		res=>{
+		res  =>  {
 		  console.log('response is : '+res);
 		  this.successSearchShow = true;
 		  /*
@@ -155,7 +150,7 @@ import {
 		  this.searchHopSequence = res["currentHopSeq"];
 		  
 		},
-		err=>	{		  
+		err  =>  {		  
 			console.log("err.status : "+err.status);		  
 			this.dangerAlertShow = true;
 			if(err.status==404)
