@@ -189,5 +189,12 @@ returnandReciceve(Object :{}):any{
         return this.http.post(url, formData);
     }
 	
+	
+	uploadunpairedfile(fileToUpload: File) {
+        const url = environment.apiUrl + "unpairedupload/start/";
+        const formData: FormData = new FormData();
+        formData.append('file', fileToUpload, fileToUpload.name);
+        return this.http.post(url, formData);
+    }
     
 	}
