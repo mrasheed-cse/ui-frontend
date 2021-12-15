@@ -8,7 +8,7 @@ import {catchError,} from 'rxjs/operators';
 import {_throw} from 'rxjs/observable/throw';
 
 
-import { AppGlobals } from './../../app.global';
+//import { AppGlobals } from './../../app.global';
 
 
 @Injectable()
@@ -28,7 +28,7 @@ private options2 = {
 
 	serverUrl: string;
 	
-	constructor(private router: Router, private http: HttpClient, private _global: AppGlobals) { 
+	constructor(private router: Router, private http: HttpClient) { 
 		this.serverUrl = environment.apiUrl;  		
 	}
 	
@@ -293,6 +293,17 @@ deleteSimdropdown(id:number) :Observable<any> {
         const url = environment.apiUrl + "auc_conversion/download";
         
         return this.http.post(url,this.options2);
-    }
+	}
+	
+
+	getFilteredInputFiles(artWork:string ,vendor:string,imsiType:number,filterFor:number): any{
+		return this.http.post(this.serverUrl + 'FilterInputFile/', {
+            artWork: artWork,
+			vendor: vendor,
+			imsiType: imsiType,
+			filterFor: filterFor
+        });
+  }
+
 	
 	}
