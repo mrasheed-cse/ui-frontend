@@ -129,7 +129,10 @@ import{ViewDatawarehouse} from'../SSM/DataWarehouse Management/showdatawarehouse
 
 import{UploadForcast} from'../SSM/Report/uploadforcast.component';
 import{VoucherJourney} from '../SSM/ScratchCard/viewvoucher_journey.component';
-import{ViewProductReport} from'../SSM/Report/viewProductReport.component'
+import{ViewProductReport} from'../SSM/Report/viewProductReport.component';
+
+import { ReceivedQuantityManipulation } from '../SSM/SimCardPlan Management/received-quantity-manipulation.component'
+
 const routes: Routes = [
     {
         path: '',
@@ -986,6 +989,14 @@ const routes: Routes = [
         component: SimConfiguration,
         data: {
             title: 'Sim Configuration'
+        },
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'receivedQuantityManipulation',
+        component: ReceivedQuantityManipulation,
+        data: {
+            title: 'Received Quantity Manipulation'
         },
         canActivate: [AuthGuard]
     },
