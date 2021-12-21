@@ -41,7 +41,9 @@ export class UnplannedSimManagement implements OnInit {
     		fileerror: boolean = false;
    		    filesuccess: boolean = false;
     		uploading: boolean = false;
-  			
+			id:string;
+			
+			  			
 constructor(private datePipe: DatePipe,private router: Router,private loginService:
   			 LoginService,private http: HttpClient, private _global: AppGlobals, private planManagemetService: PlanManagementService ) {
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
@@ -50,6 +52,8 @@ constructor(private datePipe: DatePipe,private router: Router,private loginServi
       this.userName = this.currentLoggedInUser.userName
       this.groupID = this.currentLoggedInUser.groupID
       this.userID = this.currentLoggedInUser.userID
+      
+      this.getUserDetails();
      
     }
     else {
@@ -68,20 +72,17 @@ constructor(private datePipe: DatePipe,private router: Router,private loginServi
         } else {
             this.uploading = true
             this.isLoading=true
-            this.planManagemetService.uploadunpairedfile(this.fileToUpload).subscribe((res => {
+            this.planManagemetService.uploadunpairedfile(this.fileToUpload,this.id).subscribe((res => {
                 this.uploading = false
                 if (res == null) {
                     this.fileuploadstatus = 'File Upload Fail';
                     this.fileerror = true;
                     this.isLoading=false;this.uploading=true;
-                    console.log("AA");
                 } 
                 else {
 	this.fileuploadstatus="Data Saved Sucessfully"
                     this.filesuccess = true;
                     this.isLoading=false;
-                    console.log("BBAS");
-                    alert("Data Saved")
                 }
             }), err => {
                 this.uploading = false
@@ -100,6 +101,18 @@ constructor(private datePipe: DatePipe,private router: Router,private loginServi
           this.isLoading=false;
         this.fileName = this.fileToUpload.name;
     }
+    
+    getUserDetails(){
+	 this.planManagemetService.getUser(this.userName).subscribe(res => {
+		
+		if(res!=null){
+			
+			this.id=res;
+		}
+		
+	})
+	
+}
     
        ngOnInit(){
 	

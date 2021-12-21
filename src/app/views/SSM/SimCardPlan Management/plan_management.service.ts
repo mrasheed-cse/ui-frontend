@@ -190,11 +190,16 @@ returnandReciceve(Object :{}):any{
     }
 	
 	
-	uploadunpairedfile(fileToUpload: File) {
-        const url = environment.apiUrl + "unpairedupload/start/";
+	uploadunpairedfile(fileToUpload: File,id:string) {
+        const url = environment.apiUrl + "unpairedupload/start/"+id;
         const formData: FormData = new FormData();
         formData.append('file', fileToUpload, fileToUpload.name);
         return this.http.post(url, formData);
     }
+    
+    getUser(username:string):any{
+	
+	return 	this.http.put(this.serverUrl+"unpaired/getuser",{username:username});
+}
     
 	}
