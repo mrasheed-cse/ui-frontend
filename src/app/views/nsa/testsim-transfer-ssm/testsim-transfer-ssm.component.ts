@@ -198,9 +198,14 @@ export class TestsimTransferSsmComponent implements OnInit {
         }
       },
       err  =>  {
-
-      }
+        var msg ="There occurs a problem during this submission";
+            alert(msg);
+        this.isLoading = false;
+      },
+      () => {this.isLoading = false;}
     );
+
+    
 
   }
 
