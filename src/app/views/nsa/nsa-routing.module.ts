@@ -129,7 +129,8 @@ import{ViewDatawarehouse} from'../SSM/DataWarehouse Management/showdatawarehouse
 
 import{UploadForcast} from'../SSM/Report/uploadforcast.component';
 import{VoucherJourney} from '../SSM/ScratchCard/viewvoucher_journey.component';
-import{ViewProductReport} from'../SSM/Report/viewProductReport.component'
+import{ViewProductReport} from'../SSM/Report/viewProductReport.component';
+import{UnplannedSimManagement} from '../SSM/SimCardPlan Management/unpairedsimmanagement.component';
 const routes: Routes = [
     {
         path: '',
@@ -1066,6 +1067,15 @@ const routes: Routes = [
     {
         path: 'ssmreportview',
         component: ViewProductReport,
+        data: {
+            title: ''
+        },
+        canActivate: [AuthGuard]
+    },
+    
+    {
+        path: 'unpairedsimmanagement',
+        component: UnplannedSimManagement,
         data: {
             title: ''
         },
