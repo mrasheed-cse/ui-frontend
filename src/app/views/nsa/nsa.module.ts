@@ -285,6 +285,7 @@ import{UnplannedSimManagement} from '../SSM/SimCardPlan Management/unpairedsimma
     GenerateComponent,
     UploadForcast,
     VoucherJourney,ViewProductReport,
+    ReceivedQuantityManipulation,
     UnplannedSimManagement
   ],
   providers:[DatePipe, LoginService, AuthGuard]})
