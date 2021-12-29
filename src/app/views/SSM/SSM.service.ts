@@ -296,12 +296,14 @@ deleteSimdropdown(id:number) :Observable<any> {
 	}
 	
 
-	getFilteredInputFiles(artWork:string ,vendor:string,imsiType:number,filterFor:number): any{
+	getFilteredInputFiles(artWork:string ,vendor:string,imsiType:number,filterFor:number,currPage:number,pageSize:number): any{
 		return this.http.post(this.serverUrl + 'FilterInputFile/', {
             artWork: artWork,
 			vendor: vendor,
 			imsiType: imsiType,
-			filterFor: filterFor
+			filterFor: filterFor,
+			currentPage: currPage,
+			pageSize: pageSize
         });
   }
   
@@ -309,6 +311,12 @@ deleteSimdropdown(id:number) :Observable<any> {
 	
 	return this.http.get(environment.apiUrl + "vouchergeneration/getpodetail").pipe(catchError(this.handleError));
 }
+
+  UpdateReceivedQuantity(data:any):any {
+	  
+	  console.log(this.serverUrl+'ReceivedQuantityManipulation/,{updateReceivedQuantityRequests: '+data+'});');
+	  return this.http.post(this.serverUrl+'ReceivedQuantityManipulation/',data);
+  }
 
 	
 	}

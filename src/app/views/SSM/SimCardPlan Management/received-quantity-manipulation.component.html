@@ -48,13 +48,16 @@
 					<button type="submit" [disabled]="!updateReceivedQuantityForm.valid  && !isDisableBtn"  class="btn btn-sm btn-primary">
 						<i class="fa fa-dot-circle-o"></i> Filter Input File</button>
 					</div>
-            </form>					
+						</form>		
+						
+						
 
             <div class="card-body" *ngIf="isDataFound ">
               <table class="table table-bordered table-striped table-sm">
                 <thead>
                   <tr>
-                    <th>PO Number</th>
+											<th style="display: none">ID Number</th>
+                    <th >PO Number</th>
                     <th>IMSI Type</th>
                     <th>Quantity Total From PO</th>
                     <th>Quantity Yet To Receive</th>
@@ -63,23 +66,36 @@
                 </thead>
               <tbody *ngFor="let aFileData of inputFileList;  index as i">
                   <tr>
-                      
+										<td style="display: none">{{aFileData.id}}</td>
                       <td>{{aFileData.poNumber}}</td>
                       <td>{{aFileData.imsiType}}</td>                          
                       <td>{{aFileData.totalQuantity}}</td>
                       <td>{{aFileData.totalQuantity-aFileData.receivedQuantity}}</td>                      
                       <td>
-                          <input type="text" class="form-control" [(ngModel)] = "aFileData.receivedQuantity" />
+                          <input type="text" type="number" class="form-control" [(ngModel)] = "aFileData.newReceivedQuantity" />
                       </td>                                                                              
                   </tr>
               </tbody>
               </table>
-              <!--
-              <br /><br />
-      
-              <a style="width:140px" class="btn btn-success" (click) = "approve()" >Approve</a>
-              <a style="width:140px" class="btn btn-danger" (click) = "reject()" >Reject</a>-->
-            </div>
+              
+							<br /><br />
+							
+							<a style="width:140px" class="btn btn-success" (click) = "UpdateReceivedQunatity()" >Update</a>
+		  <a style="width:140px" class="btn btn-danger" (click) = "cancel()" >Cancel</a>
+		  <div id="div_pagination">
+			<a (click)="prevPage()">&lt;&lt;</a>
+			&nbsp;
+			&nbsp;
+			&nbsp;
+			Page {{currPage}} of {{totalPages}}
+			&nbsp;
+			&nbsp;
+			&nbsp;
+			<a (click)="nextPage()">&gt;&gt;</a>              
+		</div>
+						</div>
+						
+						
 
 					</div>
 					</div>
