@@ -12,17 +12,7 @@
 		<form [formGroup]="voucherGenrationForm" novalidate (ngSubmit)="submitVoucher()" >
 		<div class="card-body">
 					<div class="row">
-						<div class="col-md-6">
-								<div class="form-group row">
-									<label class="col-md-5 col-form-label">Batch No.</label>
-									<div class="col-md-7">
-										<input disabled type="text" class="form-control calendar-container"
-									value="{{batchNo}}">
-									</div>
-	
-								</div>
-						</div>
-						
+											
 						<div class="col-md-6">
 								<div class="form-group row">
 									<label class="col-md-5 col-form-label" >Denomination</label>
@@ -36,10 +26,7 @@
 	
 								</div>
 						</div>
-					</div>		
-									
-					<div class="row">
-					<div class="col-md-6">
+						<div class="col-md-6">
 													<div class="form-group row">
 									<label class="col-md-5 col-form-label" for="CardGroup">Card Group</label>
 									<div class="col-md-7">
@@ -52,6 +39,10 @@
 	
 								</div>
 										</div>
+					</div>		
+									
+					<div class="row">
+					
 						<div class="col-md-6">
 								<div class="form-group row">
 									<label class="col-md-5 col-form-label">Start Serial.</label>
@@ -62,6 +53,16 @@
 	
 	
 								
+								</div>
+						</div>
+						
+						<div class="col-md-6">
+								<div class="form-group row">
+									<label class="col-md-5 col-form-label">End Serial.</label>
+									<div class="col-md-7">
+									<input disabled type="text" class="form-control calendar-container"
+									value="{{endSerial}}">
+								</div>
 								</div>
 						</div>
 						
@@ -79,24 +80,12 @@
 								</div>
 						</div>
 						<div class="col-md-6">
-								<div class="form-group row">
-									<label class="col-md-5 col-form-label">End Serial.</label>
-									<div class="col-md-7">
-									<input disabled type="text" class="form-control calendar-container"
-									value="{{endSerial}}">
-								</div>
-								</div>
-						</div>
-					</div>		
-					<div class="row">
-						
-								<div class="col-md-6">
 						
 										<div class="form-group row">
 											<label class="col-md-5 col-form-label" for="requestDate">HRN Generation request date</label>
 											<div class="col-md-7">									
 												<input type="text" class="form-control calendar-container" autocomplete="off"  id="requestDate" formControlName="requestDate" name="requestDate" 
-												required bsDatepicker  placement="right"  [(ngModel)]="reqDate"
+												required bsDatepicker  placement="left"  [(ngModel)]="reqDate"
 												 [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-green',  showWeekNumbers:false }"
 												 [minDate]="todayDate"
 												>
@@ -104,6 +93,11 @@
 										</div>
 			
 									</div>
+						
+					</div>		
+					<div class="row">
+						
+								
 									<div class="col-md-6">
 													<div class="form-group row">
 									<label class="col-md-5 col-form-label">PR</label>
@@ -115,21 +109,26 @@
 									
 								</div>
 										</div>
-						</div>
-						
-						<div class="row">
-						
-						<div class="col-md-6">
+										
+										<div class="col-md-6">
 													<div class="form-group row">
-									<label class="col-md-5 col-form-label">PO</label>
+									<label class="col-md-5 col-form-label">ItemNo(PO)</label>
 									<div class="col-md-7">
-										<input type="text" id="Po" name="Po" class="form-control" autocomplete="off"   formControlName="Po"  required
-											 >
+										<select class="form-control" id="Po" formControlName="Po" required >
+											<option></option>
+											<option *ngFor="let aSimType of listPo" [value]="aSimType.id">{{aSimType.groupName}}</option>
+										</select>
 									</div>
 	
 	
 								</div>
 										</div>
+										
+						</div>
+						
+						<div class="row">
+						
+						
 										
 								<div class="col-md-6">
 										<div class="form-group row">
@@ -144,10 +143,8 @@
 										</div>
 			
 									</div>
-						</div>
-					<div class="row">
-						
-								<div class="col-md-6">
+									
+									<div class="col-md-6">
 						
 										<div class="form-group row">
 											<label class="col-md-5 col-form-label" for="ExpireDate">Expire Date</label>
@@ -161,6 +158,10 @@
 										</div>
 			
 									</div>
+						</div>
+					<div class="row">
+						
+								
 									<div class="col-md-6">
 								<div class="form-group row">
 									<label class="col-md-5 col-form-label" >Vendor</label>
@@ -172,11 +173,8 @@
 									</div>
 								</div>
 						</div>
-									
-						</div>
-						<div class="row">
 						
-								<div class="col-md-6">
+						<div class="col-md-6">
 													<div class="form-group row">
 									<label class="col-md-5 col-form-label" for="voucherserialdigits">Number of digits in voucher serial</label>
 									<div class="col-md-7">
@@ -187,6 +185,11 @@
 									</div>
 								</div>
 										</div>
+									
+						</div>
+						<div class="row">
+						
+								
 										
 									<div class="col-md-6">
 													<div class="form-group row">
@@ -199,11 +202,7 @@
 									</div>
 								</div>
 										</div>
-						</div>
-						
-							<div class="row">
-						
-								<div class="col-md-6">
+										<div class="col-md-6">
 													<div class="form-group row">
 									<label class="col-md-5 col-form-label" for="VendorwiseSFTP">Vendor wise SFTP</label>
 									<div class="col-md-7">
@@ -216,10 +215,9 @@
 	
 								</div>
 										</div>
-										
-									<div class="col-md-6">
-										</div>
 						</div>
+						
+							
 						</div>
 									<div class="card-footer text-right">
 					<button type="submit" [disabled]="!voucherGenrationForm.valid  && !isDisableBtn"  class="btn btn-sm btn-primary" *ngIf="!isDataFound">
