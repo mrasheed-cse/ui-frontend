@@ -5,13 +5,13 @@ import { LoginService } from '../../pages/LoginService';
 import { SSMService } from '../../SSM/SSM.service';
 import { LoggedInUser } from '../../pages/loggedInUser';
 import {ReactiveFormsModule, FormGroup, FormControl, Validators} from '@angular/forms';
-
+import { AppGlobals } from './../../../app.global';
 
 @Component({
   selector: 'app-received-quantity-manipulation',
   templateUrl: './received-quantity-manipulation.component.html',
   styles: ['./nsa_styles.css'],
-  providers: [SSMService,LoginService]
+  providers: [SSMService,LoginService,AppGlobals]
 })
 export class ReceivedQuantityManipulation implements OnInit {
 
@@ -26,6 +26,10 @@ export class ReceivedQuantityManipulation implements OnInit {
  
   public isDisableBtn:boolean = false; 
   public isDataFound:boolean = false;
+  public isValidInput:boolean = false;
+  private offset: number;
+  private currPage: number;
+	private totalPages: number;
 
 
   updateReceivedQuantityForm: FormGroup;
@@ -39,7 +43,7 @@ export class ReceivedQuantityManipulation implements OnInit {
   inputFileList: Array<Object>;
 
   constructor(private router: Router,private loginService: LoginService, private http: HttpClient,
-    private ssmService: SSMService) {
+    private ssmService: SSMService, private _global: AppGlobals) {
 
     // Get Current User Profile
   
@@ -124,16 +128,28 @@ export class ReceivedQuantityManipulation implements OnInit {
 		
 	this.isLoading = true;
   this.isDisableBtn = true;
+  this.currPage = 1;
+  this.LoadFilteredInputFiles();
+  }
+}
+
+LoadFilteredInputFiles(){
 
   var selectedArtwork = this.updateReceivedQuantityForm.controls.artWork.value;
   var selectedVendor = this.updateReceivedQuantityForm.controls.vendor.value;
 
-  this.ssmService.getFilteredInputFiles(selectedArtwork,selectedVendor,-1,1).subscribe(
+
+  this.ssmService.getFilteredInputFiles(selectedArtwork,selectedVendor,-1,1,this.currPage, this._global.defaultPageSize2).subscribe(
     data => {
       if(data !=null){
         console.log(data);
         this.isDataFound = true;
         this.inputFileList = data;
+
+        for (let index in data){
+          this.inputFileList[index]['newReceivedQuantity']=0;
+        }
+        this.totalPages = Math.ceil(data.length/this._global.defaultPageSize2);
         this.isLoading = false;
       }
       else{
@@ -144,9 +160,98 @@ export class ReceivedQuantityManipulation implements OnInit {
   err => console.error(err),
   () => console.log('Done loading FilteredInputFiles List')
   );
+  this.isLoading = false;
 
+}
+
+prevPage(){
+  if(this.currPage <= 0){
+    //first page .. do nothing
+  }
+  else{
+    this.isLoading = true;    
+    this.currPage--;
+    this.LoadFilteredInputFiles();
   }
 }
 
-
+nextPage(){
+  if(this.currPage >= this.totalPages){
+    //last page .. do nothing
+  }
+  else{
+    this.isLoading = true;    
+    this.currPage++;
+    this.LoadFilteredInputFiles();
+  }
 }
+
+UpdateReceivedQunatity(){
+  this.isLoading = true;
+  
+  var obj={};
+  obj['request'] = [];
+  var size= this.inputFileList.length;
+ // alert(size);
+  var count=0;
+  this.isValidInput=true;
+  
+  for(var i = 0; i < size; i++){
+    
+    console.log(this.inputFileList[i]);
+    console.log(this.inputFileList[i]['newReceivedQuantity']);
+
+     if(this.inputFileList[i]['newReceivedQuantity']>0){
+      
+
+      if(Number(this.inputFileList[i]['newReceivedQuantity'])>Number(this.inputFileList[i]['totalQuantity'])-Number(this.inputFileList[i]['receivedQuantity'])){
+        //alert(Number(this.inputFileList[i]['newReceivedQuantity'])); 
+        //alert(Number(this.inputFileList[i]['totalQuantity'])-Number(this.inputFileList[i]['receivedQuantity']));
+        alert("At row "+(i+1)+", ‘Quantity Received’ can’t be greater than ‘Quantity Yet To Receive’");
+        this.isValidInput=false;
+        this.isLoading = false;
+        count=0;
+        return;
+       }
+      var obj2={};
+      console.log(this.inputFileList[i]['id']);
+      obj2['fileInputId']=this.inputFileList[i]['id'];
+      console.log(obj2['fileInputId']);
+      obj2['receivedQuantity']=Number(this.inputFileList[i]['newReceivedQuantity']);
+      console.log(obj2['newReceivedQuantity']);
+      console.log(obj2);
+      obj['request'].push(obj2);
+      count++;
+     }     
+  }
+  
+  if(count>0){
+  console.log(obj);
+  console.log("Selected Received Quantity is "+count);
+
+  this.ssmService.UpdateReceivedQuantity(obj).subscribe(
+    res  =>  {
+      console.log('response is : '+res.message);
+				this.isLoading = false;
+				if(res !== ""){
+          alert(res.message);
+        
+          this.LoadFilteredInputFiles();
+        
+      }
+    },
+    err  =>  {
+      this.isLoading = false;
+    },
+    () => {
+      
+      this.isLoading = false;
+      
+    }
+  );
+}
+  
+}
+}
+
+

@@ -105,6 +105,7 @@ export class AppGlobals {
 	};
 
 	defaultPageSize = 100;
+	defaultPageSize2 = 10;
 
 	listSimStatus = [
 		{
