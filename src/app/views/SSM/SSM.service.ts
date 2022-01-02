@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { environment } from '../../../environments/environment.prod';
+import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
 import {catchError,} from 'rxjs/operators';
 import {_throw} from 'rxjs/observable/throw';
@@ -124,10 +124,10 @@ getImsiAndICCID(imsi:string,quantity:string,vendor:string):any	{
 			poNumber:poNumber});
 	}
 	
-	saveScratch(ponumber:string,batchNo:string,denomination:string,serial:string,requestDate:any,quantity:string,vendor:string,pr:string
+	saveScratch(ponumber:string,denomination:string,serial:string,requestDate:any,quantity:string,vendor:string,pr:string
 	,networkexpiredate:any,expirydate:any,cardgroup:string,serialDigitCount:string,hiddenNumberCount:string,sftplocation:string,createdBy:string): any{
 	return this.http.post(this.serverUrl + 'sctrachVoucher/Save/', {
-			ponumber:ponumber,batchNo:batchNo,denomination:denomination,
+			ponumber:ponumber,denomination:denomination,
 			serial:serial,requestDate:requestDate,quantity:quantity,
 			vendor:vendor,pr:pr,networkexpiredate:networkexpiredate,
 			expirydate:expirydate,cardgroup:cardgroup,serialDigitCount:serialDigitCount,
@@ -304,6 +304,11 @@ deleteSimdropdown(id:number) :Observable<any> {
 			filterFor: filterFor
         });
   }
+  
+  getAllPoInputfiles():any{
+	
+	return this.http.get(environment.apiUrl + "vouchergeneration/getpodetail").pipe(catchError(this.handleError));
+}
 
 	
 	}
