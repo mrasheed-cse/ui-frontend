@@ -306,8 +306,10 @@ SubmitForPlanGenerationFromMsisdnFile(){
 					console.log("Data Saved")
 				this.isLoading=false;
 				
-				this.ngOnInit();
+				//this.ngOnInit();
 				alert("Data Saved And forwarded Sucessfully");
+				this.router.navigateByUrl('/nsa/preplangenerate');
+
 				}
 				else
 						{
