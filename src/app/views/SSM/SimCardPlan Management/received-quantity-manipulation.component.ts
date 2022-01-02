@@ -143,19 +143,30 @@ LoadFilteredInputFiles(){
     data => {
       if(data !=null){
         console.log(data);
+        var dataSize = Number(data.totalFilteredInputFiles);
+        if(dataSize>0){        
         this.isDataFound = true;
-        this.inputFileList = data;
+        this.inputFileList = data.filteredInputFiles;
 
-        for (let index in data){
+        for (let index in data.filteredInputFiles){
           this.inputFileList[index]['newReceivedQuantity']=0;
         }
-        this.totalPages = Math.ceil(data.length/this._global.defaultPageSize2);
+        
+        var resultOfMod = dataSize%Number(this._global.defaultPageSize2);        
+        this.totalPages = Math.floor(dataSize/Number(this._global.defaultPageSize2));
+        
+        if(resultOfMod>0)
+          this.totalPages=this.totalPages+1;
+        console.log("Total Page "+this.totalPages);
         this.isLoading = false;
+        //alert(dataSize);
       }
       else{
         this.isDataFound = false;
         this.isLoading = false;
       }
+      console.log("this.isDataFound "+this.isDataFound);
+    }
     },
   err => console.error(err),
   () => console.log('Done loading FilteredInputFiles List')
@@ -164,19 +175,40 @@ LoadFilteredInputFiles(){
 
 }
 
-prevPage(){
-  if(this.currPage <= 0){
-    //first page .. do nothing
-  }
-  else{
+firstPage(){
+  
+  
     this.isLoading = true;    
-    this.currPage--;
+    this.currPage=1;
     this.LoadFilteredInputFiles();
-  }
+  
+  
 }
 
+lastPage(){
+  
+  
+    this.isLoading = true;    
+    this.currPage=this.totalPages;
+    this.LoadFilteredInputFiles();
+  
+  
+}
+prevPage(){
+  
+if(this.currPage <= 0){
+  //first page .. do nothing
+}
+else{
+  this.isLoading = true;    
+  this.currPage--;
+  this.LoadFilteredInputFiles();
+}
+
+}
 nextPage(){
-  if(this.currPage >= this.totalPages){
+  
+  if(this.currPage == this.totalPages){
     //last page .. do nothing
   }
   else{
@@ -184,6 +216,7 @@ nextPage(){
     this.currPage++;
     this.LoadFilteredInputFiles();
   }
+  
 }
 
 UpdateReceivedQunatity(){

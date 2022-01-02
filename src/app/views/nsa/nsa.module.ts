@@ -153,6 +153,8 @@ import{VoucherJourney} from '../SSM/ScratchCard/viewvoucher_journey.component';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { ReceivedQuantityManipulation } from '../SSM/SimCardPlan Management/received-quantity-manipulation.component'
 import{UnplannedSimManagement} from '../SSM/SimCardPlan Management/unpairedsimmanagement.component';
+import { PrePlanGenerate } from '../SSM/SimCardPlan Management/pre-plangenerate.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -286,7 +288,8 @@ import{UnplannedSimManagement} from '../SSM/SimCardPlan Management/unpairedsimma
     UploadForcast,
     VoucherJourney,ViewProductReport,
     ReceivedQuantityManipulation,
-    UnplannedSimManagement
+    UnplannedSimManagement,
+    PrePlanGenerate
   ],
   providers:[DatePipe, LoginService, AuthGuard]})
 export class NsaModule { }
