@@ -20,7 +20,7 @@ private headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf
  
   private prepareSearchFormdata(data: PlanGenerate) : any {
         const formData: FormData = new FormData();
-  console.log("Daat "+data.imsiType)
+  //console.log("Daat "+data.imsiType)
             formData.append('file',data.fileToUpload, data.fileToUpload.name);
             formData.append('planID',data.planID)
        
@@ -75,11 +75,18 @@ private headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf
         }
         return _throw(error);
     }
-    
+    /*
     uploadCsv(data:PlanGenerate) {
         const url = environment.apiUrl + "plangeneration/uploadCSv/"+data.imsiType;
      
         return this.http.post(url, this.prepareSearchFormdata(data));
+    }
+*/
+    uploadCSvAndGeneratePlan(object :any):any{
+        
+        return this.http.post(this.serverUrl+"plangenerate/uploadCSvAndGeneratePlan/",object);
+       
+
     }
     
      getConfig(hop:number): Observable<any>{

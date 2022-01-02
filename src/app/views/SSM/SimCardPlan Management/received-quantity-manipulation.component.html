@@ -83,16 +83,26 @@
 							<a style="width:140px" class="btn btn-success" (click) = "UpdateReceivedQunatity()" >Update</a>
 		  <a style="width:140px" class="btn btn-danger" (click) = "cancel()" >Cancel</a>
 		  <div id="div_pagination">
-			<a (click)="prevPage()">&lt;&lt;</a>
+			<a class="btn btn-link" (click)="firstPage()">&lt;&lt;</a>			
 			&nbsp;
+			&nbsp;
+			<a class="btn btn-link" (click)="prevPage()">&lt;</a>
 			&nbsp;
 			&nbsp;
 			Page {{currPage}} of {{totalPages}}
 			&nbsp;
 			&nbsp;
+			<a class="btn btn-link" (click)="nextPage()">&gt;</a>
 			&nbsp;
-			<a (click)="nextPage()">&gt;&gt;</a>              
+			&nbsp;
+			<a class="btn btn-link" (click)="lastPage()">&gt;&gt;</a>              
 		</div>
+	
+		<div class="card-body" *ngIf="!isDataFound && updateReceivedQuantityForm.valid">
+                                
+				No data found...
+		
+	</div>
 						</div>
 						
 						
