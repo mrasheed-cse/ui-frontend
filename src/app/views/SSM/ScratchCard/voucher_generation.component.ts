@@ -52,6 +52,7 @@ export class VoucherGeneration implements OnInit {
 			listvoucherserialdigits=[];
 			listCardGroup=[];
 			listDenomination=[];
+			listPo=[];
 			public listVendor=[];
 			private rowData: any[];
 			isLoading:boolean=false;
@@ -76,7 +77,6 @@ export class VoucherGeneration implements OnInit {
     }
     
     ngOnInit() {
-    this.getMaxBatchNo();
     this.getDenoMination();
     this.getVendor();
     this.getVendorWiseSFTP();
@@ -84,6 +84,7 @@ export class VoucherGeneration implements OnInit {
     this.getvoucherSerialHidden();
 	this.createForm(); 
 	this.onquantityChange();
+	this.getItemNo();
    this.onDenominationChange();
    this.onCardChange();
        }
@@ -95,7 +96,7 @@ export class VoucherGeneration implements OnInit {
 		Vendor:new FormControl({value: ''}),
 		requestDate:new FormControl(''),
 		Pr:new FormControl(''),
-		Po:new FormControl(''),
+		Po:new FormControl({value: ''}),
 		nwExpireDate:new FormControl(''),
 		ExpireDate:new FormControl(''),
 		CardGroup:new FormControl({value: ''}),
@@ -107,6 +108,7 @@ export class VoucherGeneration implements OnInit {
 	
 }
 submitVoucher(){
+	console.log(this.voucherGenrationForm.controls.Po.value)
 	this.ssmService.checkPoExsist(this.voucherGenrationForm.controls.Po.value).subscribe(
 		data =>{
 			if(data!=null){
@@ -141,6 +143,24 @@ this.ssmService.getAllVendor().subscribe(
     err => console.error(err),);
     }
 
+
+getItemNo(){
+	
+this.ssmService.getAllPoInputfiles().subscribe(
+	data => {
+				console.log(data);
+				for (let index in data) {
+					this.listPo.push(
+					{
+						id:data[index].id,
+						groupName: data[index].itemSupplier,
+					}
+					);
+				}
+			},
+    err => console.error(err),);
+	
+}
 getDenoMination(){ 
 this.ssmService.getDenoMination().subscribe(
 	data => {
@@ -263,11 +283,8 @@ getSerial(){ this.startSerial==null;
 		var v2=null;
 		v1= Number(this.startSerial);
 	v2=this.voucherGenrationForm.controls.BatchQty.value-1;
-	console.log("V1"+v1)
-	console.log("V2="+v2);
 		var num=v1+v2;
 	this.endSerial=num;
-	console.log(this.endSerial)
 		}
 		
 	);
@@ -298,7 +315,7 @@ ShowData(){
 	this.isLoading=true;
 	this.isDataFound=false;
 	 var objToInsert = {};
-	 var start=""+this.endSerial;
+	 var start=""+this.startSerial;
 	 for (let index in this.listDenomination) {
 		if(this.listDenomination[index].id==this.voucherGenrationForm.controls.Denomination.value){
 		objToInsert['Denomination']=this.listDenomination[index].groupName;
@@ -363,7 +380,7 @@ ShowData(){
 	
 	
 	this.ssmService.saveScratch(
-		objToInsert['Po'],objToInsert['BatchNo'],objToInsert['Denomination']
+		objToInsert['Po'],objToInsert['Denomination']
 	,start,objToInsert['requestDate'],objToInsert['BatchQty'],objToInsert['Vendor']
 	,objToInsert['Pr'],objToInsert['nwExpireDate'],objToInsert['ExpireDate'],objToInsert['CardGroup'],
 	
