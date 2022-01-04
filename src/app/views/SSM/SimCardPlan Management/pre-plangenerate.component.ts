@@ -32,7 +32,7 @@ export class PrePlanGenerate implements OnInit {
   private offset: number;
   private currPage: number;
     private totalPages: number;
-    private totalUploadableQuantity: number;
+    public totalUploadableQuantity: number;
     private ifids: string="";
 
 
