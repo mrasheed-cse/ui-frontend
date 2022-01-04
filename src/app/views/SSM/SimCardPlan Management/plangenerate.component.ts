@@ -56,7 +56,7 @@ export class PlanGenerate implements OnInit {
     		listno:string;
     		
     		public isLoading:boolean = false;
-    		avalibleQuantity:string;
+    		public avalibleQuantity:string;
     		listCategoryName=[];
     		
 			private kit:any=[];
@@ -265,6 +265,11 @@ LoadQueryStringData(){
   
 }
 SubmitForPlanGenerationFromMsisdnFile(){
+
+	if(! (this.planGenrationForm.valid  && !this.isDisableBtn)){
+		alert('Please provide all inputs');
+		return;
+	}
 
 	this.isLoading=true;
 	const formData: FormData = new FormData();
