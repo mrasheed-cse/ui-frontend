@@ -25,6 +25,7 @@ export class ReceivedQuantityManipulation implements OnInit {
 	public isLoading:boolean = false;
  
   public isDisableBtn:boolean = false; 
+  public isNoDataFound:boolean = false;
   public isDataFound:boolean = false;
   public isValidInput:boolean = false;
   private offset: number;
@@ -148,6 +149,8 @@ LoadFilteredInputFiles(){
         this.isDataFound = true;
         this.inputFileList = data.filteredInputFiles;
 
+        this.isNoDataFound=false;
+
         for (let index in data.filteredInputFiles){
           this.inputFileList[index]['newReceivedQuantity']=0;
         }
@@ -163,9 +166,10 @@ LoadFilteredInputFiles(){
       }
       else{
         this.isDataFound = false;
-        this.isLoading = false;
+        this.isLoading = false ;
+        this.isNoDataFound=true;
       }
-      console.log("this.isDataFound "+this.isDataFound);
+      console.log("this.isNoDataFound "+this.isNoDataFound);
     }
     },
   err => console.error(err),
