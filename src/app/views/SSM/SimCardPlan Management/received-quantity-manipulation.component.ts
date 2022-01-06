@@ -289,6 +289,8 @@ UpdateReceivedQunatity(){
 }
 else{
   this.isDataFound = false;
+  this.isLoading = false;
+  alert("There is no data to update.");
 }
 }
 }
