@@ -49,6 +49,8 @@ export class VoucherGenerationForward implements OnInit {
     		uploading: boolean = false;
 			listDataByid=[];
 			isLoading:boolean=false;
+			public masterSelected:boolean = false;
+
 	constructor(private datePipe: DatePipe,private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private ssmService: SSMService ) {
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
 
@@ -73,6 +75,7 @@ export class VoucherGenerationForward implements OnInit {
 	this.comments="";
 	this.fileToUpload=null;
 	this.ssmService.getApproval1HopData(this.hop).subscribe(data=>{
+		console.log(data);
 		for (let index in data) {
 			
 			this.listVoucherHopsdata.push(
@@ -90,7 +93,8 @@ export class VoucherGenerationForward implements OnInit {
 						serialDigitCount: data[index].serialDigitCount,
 						hiddenNumberCount: data[index].hiddenNumberCount,
 						sftplocation: data[index].sftplocation,
-						vendor:data[index].vendor
+						vendor:data[index].vendor,
+						quantity:data[index].quantity
 					}
 					
 					);
@@ -212,5 +216,12 @@ dndUpload() {
 		
 	}
        
-   
-}
+	checkUncheckAll() {
+		
+		
+		for (let i = 0; i < this.listVoucherHopsdata.length; i++) {
+		  this.listVoucherHopsdata[i]['checked'] =this.masterSelected;
+		  
+	  }
+	}
+	}  
