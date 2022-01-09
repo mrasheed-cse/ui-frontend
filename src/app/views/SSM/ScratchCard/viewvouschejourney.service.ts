@@ -28,8 +28,8 @@ private headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf
 		this.serverUrl = environment.apiUrl;  		
 	}
 	
-	getAllVoucher(): any {	
-		return this.http.get(this.serverUrl + 'vouchergeneration/getallvoucher/');
+	getAllVoucher(currPage:number,page:number): Observable<any> {	
+		return this.http.get(this.serverUrl + 'vouchergeneration/getallvoucher/'+currPage+"/"+page);
 	}
 	
 	getVoucher(id:number): Observable<any> {	
