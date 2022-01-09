@@ -221,7 +221,11 @@ dndUpload() {
 		
 		for (let i = 0; i < this.listVoucherHopsdata.length; i++) {
 		  this.listVoucherHopsdata[i]['checked'] =this.masterSelected;
+		  console.log(this.listVoucherHopsdata[i]['checked']);
 		  
 	  }
+	  
 	}
+	
+		
 	}  
