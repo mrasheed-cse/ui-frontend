@@ -12,7 +12,8 @@
            <div class="card-body" *ngIf="firstHop">
            <table class="table table-bordered table-striped table-sm">
                 <thead>
-                  <tr>                    
+                  <tr>                  
+                      <th style="display: none">ID Number</th>  
                     <th>Batch ID</th>
                     <th>Denomination</th>
                     <th>Start Serial</th>
@@ -31,7 +32,7 @@
                 </thead>
                 <tbody *ngFor="let aTask of listVoucherHopsdata">
                             <tr>
-                                
+                                <td style="display: none">{{aTask.id}}</td>             
                                 <td>{{aTask.batchNo}}</td>
                                 <td>{{aTask.denomination}}  </td>
                                 <td>{{aTask.serial}}</td>
@@ -43,7 +44,9 @@
                                 <td> {{aTask.cardgroup}}</td>
                                 <td> {{aTask.sftplocation}}</td>
                                  
-                                <td><input type="checkbox" value="{{listVoucherHopsdata.id}}" [(ngModel)]="listVoucherHopsdata.checked"></td>
+                                <td><input type="checkbox" value="{{aTask.id}}" [(ngModel)]="aTask.checked"></td>
+                                
+                                
                             </tr>
                 </tbody>
               </table>
