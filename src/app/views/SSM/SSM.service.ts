@@ -205,19 +205,19 @@ getImsiAndICCID(imsi:string,quantity:string,vendor:string):any	{
 	
 }
 
-setSeccondHop(username:string,Id:number,comment:string){
+setSeccondHop(username:string,idList:string,comment:string){
 	
 	return this.http.post(this.serverUrl + 'voucherManagement/SaveSecondHop/', {
 		username:username,
-		id:Id,
+		idList:idList,
 		comments:comment
 			});
 }
-cancelHop(username:string,Id:number){
+cancelHop(username:string,idList:string){
 	
 	return this.http.post(this.serverUrl + 'voucherManagement/cancelHop/', {
 		username:username,
-		id:Id,
+		idList:idList,
 			});
 }
 
@@ -238,8 +238,8 @@ SaveFinal(username:string,Id:number,comment:string){
 		comments:comment
 			});
 }
- postFile(fileToUpload: File, id:number) {
-        const url = environment.apiUrl + "voucherManagement/uploadstart/"+id;
+ postFile(fileToUpload: File, idList:string) {
+        const url = environment.apiUrl + "voucherManagement/uploadstart/"+idList;
         const formData: FormData = new FormData();
         formData.append('file', fileToUpload, fileToUpload.name);
         return this.http.post(url, formData);

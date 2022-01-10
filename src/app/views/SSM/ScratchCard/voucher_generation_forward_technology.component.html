@@ -38,9 +38,9 @@
                                 <td>{{aTask.serial}}</td>
                                 <td>{{aTask.quantity}}</td>
                                 <td> {{aTask.vendor}}</td>
-                           		<td>{{aTask.networkexpiredate}}</td>
-                                <td>{{aTask.expirydate}}</td>
-                                <td>{{aTask.requestDate}}</td>
+                           		<td>{{aTask.networkexpiredate | date:'yyyy-MM-dd'}}</td>
+                                <td>{{aTask.expirydate| date:'yyyy-MM-dd' }}   </td>
+                                <td>{{aTask.requestDate | date:'yyyy-MM-dd' }}   </td>
                                 <td> {{aTask.cardgroup}}</td>
                                 <td> {{aTask.sftplocation}}</td>
                                  
