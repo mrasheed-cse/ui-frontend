@@ -44,7 +44,8 @@ export class VoucherGenerationForward implements OnInit {
   			fileToUpload: File = null;
     		fileuploadstatus: string;
     		fileName: string;
-    		fileerror: boolean = false;
+			fileerror: boolean = false;
+			selectedIdList: string;
    			 filesuccess: boolean = false;
     		uploading: boolean = false;
 			listDataByid=[];
@@ -75,7 +76,7 @@ export class VoucherGenerationForward implements OnInit {
 	this.comments="";
 	this.fileToUpload=null;
 	this.ssmService.getApproval1HopData(this.hop).subscribe(data=>{
-		console.log(data);
+		//console.log(data);
 		for (let index in data) {
 			
 			this.listVoucherHopsdata.push(
@@ -107,46 +108,21 @@ export class VoucherGenerationForward implements OnInit {
 }
     
      
-	detailsSecondHop(id:number){
-		this.isfirsthopProceed=true;
-				console.log(this.listVoucherHopsdata[0].ponumber)
-		
-		
-			for (let index in this.listVoucherHopsdata) {
-			if(Number(this.listVoucherHopsdata[index].id)==id){
-				console.log(this.listVoucherHopsdata[index].ponumber)
-			this.listDataByid.push(
-					{
-						
-						ponumber: this.listVoucherHopsdata[index].ponumber,
-						batchNo: this.listVoucherHopsdata[index].batchNo,
-						 id: this.listVoucherHopsdata[index].id,
-						 serial: this.listVoucherHopsdata[index].serial,
-						denomination: this.listVoucherHopsdata[index].denomination,
-						networkexpiredate: this.datePipe.transform(this.listVoucherHopsdata[index].networkexpiredate,"dd-MM-yyyy"),
-						expirydate:this.datePipe.transform( this.listVoucherHopsdata[index].expirydate,"dd-MM-yyyy"),
-						requestDate: this.datePipe.transform( this.listVoucherHopsdata[index].requestDate,"dd-MM-yyyy"),
-						cardgroup: this.listVoucherHopsdata[index].cardgroup,
-						serialDigitCount: this.listVoucherHopsdata[index].serialDigitCount,
-						hiddenNumberCount: this.listVoucherHopsdata[index].hiddenNumberCount,
-						sftplocation: this.listVoucherHopsdata[index].sftplocation,
-						vendor:this.listVoucherHopsdata[index].vendor
-						
-						
-					}
-					
-					);
-					console.log("Sr "+this.listDataByid)
-					this.firstHop=false;
-		this.Id=id;
-		}
-		}
-	}
+
 	submit(){
 		this.isLoading=true;
+		for (let i = 0; i < this.listVoucherHopsdata.length; i++) {
+			if(this.listVoucherHopsdata[i]['checked']){		
+			
+			if(this.selectedIdList.length>0)
+			  this.selectedIdList=this.selectedIdList+"_";
+			this.selectedIdList =this.selectedIdList+this.listVoucherHopsdata[i]['id'];
+		}
+	}
+	console.log(this.selectedIdList);
 	this.dndUpload();
 			console.log(this.comments);
-	this.ssmService.setSeccondHop(this.userName,this.Id,this.comments).subscribe(
+	this.ssmService.setSeccondHop(this.userName,this.selectedIdList,this.comments).subscribe(
 
 		data=>{
 			if(data!=null){
@@ -163,7 +139,7 @@ export class VoucherGenerationForward implements OnInit {
       
 cancel(){
 	this.isLoading=true;
-	this.ssmService.cancelHop(this.userName,this.Id).subscribe(
+	this.ssmService.cancelHop(this.userName,this.selectedIdList).subscribe(
 		
 		data=>{
 			if(data!=null){
@@ -187,7 +163,7 @@ dndUpload() {
             this.fileerror = true;
         } else {
             this.uploading = true
-            this.ssmService.postFile(this.fileToUpload,this.Id).subscribe((res => {
+            this.ssmService.postFile(this.fileToUpload,this.selectedIdList).subscribe((res => {
                 this.uploading = false
                 if (res == null) {
                     this.fileuploadstatus = 'File Upload Fail';
