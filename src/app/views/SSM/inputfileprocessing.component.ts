@@ -24,8 +24,8 @@ export class InputFileProcessing implements OnInit {
 	 private rowData: any[];
 	 private insertRowData: any[];
   private offset: number;
-  private rawDataFromBackend : any[];
-  private rawDataFromBackendImsi : any[];
+  private rawDataFromBackend :Array<Object>;
+  private rawDataFromBackendImsi :  any[];
 		  	currentLoggedInUser: LoggedInUser;
 			userName: string;
 			groupID: number;
@@ -39,6 +39,7 @@ export class InputFileProcessing implements OnInit {
 			Quantity:string;
 			Artwork:string;
 			STK:string;
+			AvailableQty:number;
 			Vendor:string;
 			isLoading:boolean=false
 			 public listIMSI = [];
@@ -79,6 +80,7 @@ search(){
 	this.ssmService.getPoInformation(this.PoNumber).subscribe(
 		 data => {
 			 this.rawDataFromBackend = data;
+			 console.log(this.rawDataFromBackend)
           if(data !=null){
 	this.isDataFound = true;
 	this.getImsi();         
@@ -86,21 +88,21 @@ search(){
 	this.getStk();
 	this.getVendor();
            this.isDataFound = true;
-          this.rawDataFromBackend=data;
-          if(this.PoNumber==this.rawDataFromBackend['id']){
-           var objToInsert = {};
-           var exp=
-                  objToInsert['id'] = this.rawDataFromBackend['id'];
-                  objToInsert['availableQuantity'] = this.rawDataFromBackend['availableQuantity'];
-                  objToInsert['supplier'] = this.rawDataFromBackend['supplier'];
-                  objToInsert['poExpireDate'] = this.datePipe.transform(this.rawDataFromBackend['poExpireDate'],"dd-MM-yyyy");
-                  this.rowData.push(objToInsert);
-	       
-          }
-          else{
-					 this.isDataFound = false;
-					
-			}
+          
+          
+           for (let index in data) {
+					this.rowData.push(
+					{
+						id:data[index].id,
+						availableQuantity: data[index].availableQuantity,
+						supplier: data[index].supplier,
+						poExpireDate: this.datePipe.transform(data[index].poExpireDate,"dd-MM-yyyy"),
+					itemDescription: data[index].itemDescription
+					}
+					);
+				}
+				console.log(this.rowData[0].itemDescription)
+				this.AvailableQty=this.rowData[0].availableQuantity
           }
           else{
             this.isDataFound = false;
@@ -115,8 +117,7 @@ search(){
 submit(){
 	
 	this.insertRowData=[];
-	
-	if( parseInt(this.rawDataFromBackend['availableQuantity'])>=parseInt(this.Quantity)){
+	if( parseInt(this.rowData[0].availableQuantity)>=parseInt(this.Quantity)){
 	if(this.ImsiType!=null&&this.STK!=null&&this.Vendor!=null&&this.Artwork!=null){
 		 this.isDataFoundOther=true;
 			this.ssmService.getImsiAndICCID(this.ImsiType,this.Quantity,this.Vendor).subscribe(
@@ -124,8 +125,9 @@ submit(){
 			if(data !=null){ 
 				this.rawDataFromBackendImsi=data;
 		 var objToInsert1 = {};
-                  objToInsert1['poNumber'] = this.rawDataFromBackend['id'];
-                  objToInsert1['description'] = this.rawDataFromBackend['itemDescription'];
+		 console.log(this.rowData[0].itemDescription," Desc ")
+                  objToInsert1['poNumber'] = this.rowData[0].id;
+                  objToInsert1['description'] = this.rowData[0].itemDescription;
                   objToInsert1['startImsi'] = this.rawDataFromBackendImsi['startImsi'];
                   objToInsert1['endImsi'] = this.rawDataFromBackendImsi['endImsi'];
                    objToInsert1['startIccid'] = this.rawDataFromBackendImsi['startIccid'];
@@ -136,6 +138,8 @@ submit(){
                   objToInsert1['vendor']=this.Vendor;
                   objToInsert1['imsiType']=this.ImsiType;
                   this.FormGroup=objToInsert1;
+                  console.log(objToInsert1)
+                  console.log(this.FormGroup);
                   this.insertRowData.push(objToInsert1);
                  
                   }
@@ -164,9 +168,12 @@ submit(){
 };
 
 
-save(){if(this.isDataFoundOther){
+save(){
+	if(this.isDataFoundOther){
 this.isLoading=true;	
-this.ssmService.saveData(this.FormGroup['poNumber'],this.FormGroup['startImsi'],this.FormGroup['quantity'],this.FormGroup['startIccid'],this.FormGroup['stk'],this.FormGroup['artwork'],this.FormGroup['vendor'],this.FormGroup['imsiType']).subscribe(
+this.ssmService.saveData(this.FormGroup['poNumber'],this.FormGroup['startImsi'],this.Quantity
+,this.FormGroup['startIccid'],this.FormGroup['stk'],this.FormGroup['artwork']
+,this.FormGroup['vendor'],this.FormGroup['imsiType']).subscribe(
 	 data => {
 		if(data!=null)
 		alert("Data Saved")

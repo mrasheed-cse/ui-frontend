@@ -125,13 +125,14 @@ getImsiAndICCID(imsi:string,quantity:string,vendor:string):any	{
 	}
 	
 	saveScratch(ponumber:string,denomination:string,serial:string,requestDate:any,quantity:string,vendor:string,pr:string
-	,networkexpiredate:any,expirydate:any,cardgroup:string,serialDigitCount:string,hiddenNumberCount:string,sftplocation:string,createdBy:string): any{
+	,networkexpiredate:any,expirydate:any,cardgroup:string,serialDigitCount:string,hiddenNumberCount:string,sftplocation:string,createdBy:string,itemName:string): any{
 	return this.http.post(this.serverUrl + 'sctrachVoucher/Save/', {
 			ponumber:ponumber,denomination:denomination,
 			serial:serial,requestDate:requestDate,quantity:quantity,
 			vendor:vendor,pr:pr,networkexpiredate:networkexpiredate,
 			expirydate:expirydate,cardgroup:cardgroup,serialDigitCount:serialDigitCount,
-			hiddenNumberCount:hiddenNumberCount,sftplocation:sftplocation,createdBy:createdBy});
+			hiddenNumberCount:hiddenNumberCount,sftplocation:sftplocation,createdBy:createdBy
+			,itemName:itemName});
 	}
 	
 	getAllCard(): any {	
