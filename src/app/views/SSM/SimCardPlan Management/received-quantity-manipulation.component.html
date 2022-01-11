@@ -25,19 +25,19 @@
 	
 								</div>
 										</div>
-							<div class="col-md-6">
-													<div class="form-group row">
-									<label class="col-md-5 col-form-label" >Vendors</label>
-									<div class="col-md-7">
-										<select class="form-control" id="vendor" formControlName="vendor" required  >
-											<option></option>
-											<option *ngFor="let aVendor of listVendors" [value]="aVendor.id">{{aVendor.vendorName}}</option>
-										</select>
-									</div>
-	
-	
+								<div class="col-md-6">
+												<div class="form-group row">
+								<label class="col-md-5 col-form-label" >Vendor</label>
+								<div class="col-md-7">
+									<select class="form-control"[(ngModel)]="vendor" formControlName="vendor" required >
+																	<option></option>
+											<option *ngFor="let aIMSI of listVendors" [value]="aIMSI.group_name">{{aIMSI.group_name}}</option>
+										</select>       
 								</div>
-										</div>
+
+
+							</div>
+									</div>
 								
 								
 										

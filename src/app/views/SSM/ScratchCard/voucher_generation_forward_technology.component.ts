@@ -51,6 +51,7 @@ export class VoucherGenerationForward implements OnInit {
 			listDataByid=[];
 			isLoading:boolean=false;
 			public masterSelected:boolean = false;
+			public isDataFound:boolean = false;
 
 	constructor(private datePipe: DatePipe,private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private ssmService: SSMService ) {
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
@@ -75,8 +76,12 @@ export class VoucherGenerationForward implements OnInit {
 	this.isfirsthopProceed=false;
 	this.comments="";
 	this.fileToUpload=null;
+	this.isDataFound=false;
 	this.ssmService.getApproval1HopData(this.hop).subscribe(data=>{
 		//console.log(data);
+		if(data!=null && data.length>0){
+			this.isDataFound=true;
+		}
 		for (let index in data) {
 			
 			this.listVoucherHopsdata.push(
@@ -100,10 +105,11 @@ export class VoucherGenerationForward implements OnInit {
 					
 					);
 		}
-		
-		
-		
-	})
+		this.comments="";
+	}
+	
+
+)
 	
 }
     
@@ -111,18 +117,22 @@ export class VoucherGenerationForward implements OnInit {
 
 	submit(){
 		this.isLoading=true;
+		this.selectedIdList="";
+		//alert(this.listVoucherHopsdata.length);
 		for (let i = 0; i < this.listVoucherHopsdata.length; i++) {
+			
 			if(this.listVoucherHopsdata[i]['checked']){		
 			
 			if(this.selectedIdList.length>0)
 			  this.selectedIdList=this.selectedIdList+"_";
 			this.selectedIdList =this.selectedIdList+this.listVoucherHopsdata[i]['id'];
+			//alert(this.selectedIdList);
 		}
 	}
 	console.log(this.selectedIdList);
-	this.dndUpload();
+	if(!this.dndUpload()){
 			console.log(this.comments);
-	this.ssmService.setSeccondHop(this.userName,this.selectedIdList,this.comments).subscribe(
+	this.ssmService.setSeccondHop(this.userName,this.selectedIdList,this.comments,this.fileToUpload.name).subscribe(
 
 		data=>{
 			if(data!=null){
@@ -133,29 +143,39 @@ export class VoucherGenerationForward implements OnInit {
 			
 		}
 	)
-	
-	
+}
+	this.isLoading=false;
       }
-      
-cancel(){
-	this.isLoading=true;
-	this.ssmService.cancelHop(this.userName,this.selectedIdList).subscribe(
-		
-		data=>{
-			if(data!=null){
-				alert("Voucher Request is Cancled");
-				this.isLoading=false;
-				this.getData(this.hop);
+	  cancel(){
+		this.isLoading = true;
+		this.selectedIdList="";
+			//alert(this.listVoucherHopsdata.length);
+			for (let i = 0; i < this.listVoucherHopsdata.length; i++) {
+				if(this.listVoucherHopsdata[i]['checked']){		
+				if(this.selectedIdList.length>0)
+				  this.selectedIdList=this.selectedIdList+"_";
+				this.selectedIdList =this.selectedIdList+this.listVoucherHopsdata[i]['id'];
+				//alert(this.selectedIdList);
+			}
+		}
+		console.log(this.selectedIdList);
+		this.ssmService.cancelHop(this.userName,this.selectedIdList,this.comments).subscribe(		
+			data=>{
+				if(data!=null){
+					alert("Voucher Request is Cancled");
+					this.isLoading  = false;
+					this.getData(this.hop);
+					
+				}
 				
 			}
-			
-		}
-	)
+		)
+		this.isLoading = false;
+		
+	}
 	
-}
-    
-dndUpload() {
-	console.log("File iuploading")
+	dndUpload():boolean {
+	console.log("File is uploading")
         this.fileerror = false;
         this.filesuccess = false;
         if (this.fileToUpload == undefined || !this.fileToUpload.name.endsWith(".csv")) {
@@ -178,7 +198,9 @@ dndUpload() {
                 this.fileerror = true;
             })
             console.log(this.fileToUpload.size);
-        }
+		}
+		//alert(this.fileuploadstatus);
+        return this.fileerror;
     }
 
     handleFileInput(files: FileList) {

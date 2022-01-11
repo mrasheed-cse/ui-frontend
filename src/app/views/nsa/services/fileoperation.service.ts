@@ -39,6 +39,13 @@ export class FileoperationService {
 	  var result = this.http.post(this.serverUrl +'NsaFileUpload/', fd);
 		return result;
 	 }
+
+
+	 uploadSSMCSV(fd: FormData):any{
+		console.log("In uploadSSMCSV");
+		var result = this.http.post(this.serverUrl +'SSMFileUpload/', fd);
+		  return result;
+	   }
   
   downloadCSV(fileNameToDownload: string){
 	  console.log(this.serverUrl +"NsaFileDownload/downloadNsaCSV");

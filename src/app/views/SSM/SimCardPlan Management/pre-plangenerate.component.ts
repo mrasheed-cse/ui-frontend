@@ -6,12 +6,12 @@ import { SSMService } from '../../SSM/SSM.service';
 import { LoggedInUser } from '../../pages/loggedInUser';
 import {ReactiveFormsModule, FormGroup, FormControl, Validators} from '@angular/forms';
 import { AppGlobals } from './../../../app.global';
-
+import{PlanManagementService } from '../../SSM/SimCardPlan Management/plan_management.service';
 @Component({
   selector: 'app-pre-PlanGenerate',
   templateUrl: './pre-plangenerate.component.html',
   styles: ['./nsa_styles.css'],
-  providers: [SSMService,LoginService,AppGlobals]
+  providers: [SSMService,LoginService,AppGlobals,PlanManagementService]
 })
 export class PrePlanGenerate implements OnInit {
 
@@ -48,7 +48,7 @@ export class PrePlanGenerate implements OnInit {
 
   inputFileList: Array<Object>;
 
-  constructor(private router: Router,private loginService: LoginService, private http: HttpClient,
+  constructor(private router: Router, private planManagemetService: PlanManagementService,private loginService: LoginService, private http: HttpClient,
     private ssmService: SSMService, private _global: AppGlobals) {
 
     // Get Current User Profile
@@ -86,22 +86,23 @@ export class PrePlanGenerate implements OnInit {
 			);
 
        //GetAllVendor
-	this.ssmService.getAllVendor().subscribe(
-		data => {
-					//console.log(data);
-					for (let index in data) {
-						//console.log (data[index]);
-						this.listVendors.push(
-						{
-							id:data[index].id,
-							vendorName: data[index].groupName
-						}
-						);
-					}
-				},
-			err => console.error(err),
-			() => console.log('Vendor loading done.')
-      );
+       this.planManagemetService.getDropdown("7").subscribe(
+		
+        data => {
+              //console.log(data);
+              for (let index in data) {
+                this.listVendors.push(
+                {
+                  id:data[index].id,
+                  group_name: data[index].groupName,
+                
+                }
+                );
+              }
+            },
+          err => console.error(err),
+          () => console.log('Vendor loading done.')
+          );
       //GetAllIMSI()
 
       this.ssmService.GetAllIMSI().subscribe(

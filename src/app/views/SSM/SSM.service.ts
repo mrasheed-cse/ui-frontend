@@ -206,37 +206,39 @@ getImsiAndICCID(imsi:string,quantity:string,vendor:string):any	{
 	
 }
 
-setSeccondHop(username:string,idList:string,comment:string){
+setSeccondHop(username:string,idList:string,comment:string,fileName:string){
 	
 	return this.http.post(this.serverUrl + 'voucherManagement/SaveSecondHop/', {
-		username:username,
+		userName:username,
 		idList:idList,
-		comments:comment
+		batchComment:comment,
+		fileName:fileName
 			});
 }
-cancelHop(username:string,idList:string){
+cancelHop(username:string,idList:string,comment:string){
 	
 	return this.http.post(this.serverUrl + 'voucherManagement/cancelHop/', {
-		username:username,
+		userName:username,
 		idList:idList,
+		batchComment:comment
 			});
 }
 
-SaveBatch(username:string,Id:number,batchComment:string,comment:string){
+SaveBatch(username:string,idList:string,batchComment:string,comment:string){
 	
 	return this.http.post(this.serverUrl + 'sctrachVoucher/batchcomment/', {
-		username:username,
-		id:Id,
-		batchComment:batchComment,comments:comment
+		userName:username,
+		idList:idList,
+		batchComment:batchComment
 			});
 }
 
-SaveFinal(username:string,Id:number,comment:string){
+SaveFinal(username:string,idList:string,comment:string){
 	
 	return this.http.post(this.serverUrl + 'sctrachVoucher/savefinalhop/', {
-		username:username,
-		id:Id,
-		comments:comment
+		userName:username,
+		idList:idList,
+		batchComment:comment
 			});
 }
  postFile(fileToUpload: File, idList:string) {
@@ -259,12 +261,12 @@ SaveFinal(username:string,Id:number,comment:string){
         return _throw(error);
     }
     
-    setHop(username:string,Id:number,comment:string){
+    setHop(username:string,selectedIdList:string,comment:string){
 	
 	return this.http.post(this.serverUrl + 'voucherManagement/saveHop/', {
-		username:username,
-		id:Id,
-		comments:comment
+		userName:username,
+		idList:selectedIdList,
+		batchComment:comment
 			});
 
 	

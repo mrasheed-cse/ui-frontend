@@ -274,11 +274,11 @@ SubmitForPlanGenerationFromMsisdnFile(){
 	this.isLoading=true;
 	const formData: FormData = new FormData();
 		
-	formData.append('nsa-file',this.fileToUpload,this.fileToUpload.name);
+	formData.append('ssm-file',this.fileToUpload,this.fileToUpload.name);
 	
 	console.log(formData);
 	
-	var result = this.fileoperationService.uploadCSV(formData);
+	var result = this.fileoperationService.uploadSSMCSV(formData);
 	console.log(result);
 
 	result.subscribe(res => {
@@ -306,31 +306,28 @@ SubmitForPlanGenerationFromMsisdnFile(){
 
 		this.planManagemetService.uploadCSvAndGeneratePlan(objToInsert).subscribe(
 	
-			data=>{ 	console.log(data)
-				if(data!=null){
-					console.log("Data Saved")
-				this.isLoading=false;
+			data=>{ 	
 				
-				//this.ngOnInit();
-				alert("Data Saved And forwarded Sucessfully");
-				this.router.navigateByUrl('/nsa/preplangenerate');
+				console.log(data.message);
+				if(data.message === "1"){
+					console.log("Data Saved")
+					this.isLoading=false;
+					alert("Data Saved And forwarded Sucessfully");
+					this.router.navigateByUrl('/nsa/preplangenerate');
 
 				}
-				else
-						{
-							this.isLoading=false;
-			alert("Unable to Process")
-			this.ngOnInit();
-							
-						}
+				else{
+					this.isLoading=false;
+					alert(data.message);
+					this.ngOnInit();
+					}
 			},
 			err=> {
+				
 				console.error(err);
 				this.isLoading=false;
-			alert("Unable to Process")
-			this.ngOnInit();
-				
-				
+				alert("Unable to process.");
+				this.ngOnInit();				
 			}
 		)
 		
