@@ -42,7 +42,7 @@
 									<div class="col-md-7">
 										<select class="form-control" id="vendor" formControlName="vendor" required  >
 											<option></option>
-											<option *ngFor="let aVendor of listVendors" [value]="aVendor.id">{{aVendor.vendorName}}</option>
+											<option *ngFor="let aIMSI of listVendors" [value]="aIMSI.group_name">{{aIMSI.group_name}}</option>
 										</select>
 									</div>
 	
