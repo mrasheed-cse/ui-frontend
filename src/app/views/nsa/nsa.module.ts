@@ -157,6 +157,7 @@ import { PrePlanGenerate } from '../SSM/SimCardPlan Management/pre-plangenerate.
 
 import{SearchVoucherHistory} from '../SSM/ScratchCard/search_voucher_history.component';
 
+import{StockReport}  from'../SSM/Report/stockreport.component';
 
 @NgModule({
   imports: [
@@ -292,7 +293,9 @@ import{SearchVoucherHistory} from '../SSM/ScratchCard/search_voucher_history.com
     VoucherJourney,ViewProductReport,
     ReceivedQuantityManipulation,
     UnplannedSimManagement,
-    PrePlanGenerate,SearchVoucherHistory
+    PrePlanGenerate,
+    SearchVoucherHistory,
+    StockReport
   ],
   providers:[DatePipe, LoginService, AuthGuard]})
 export class NsaModule { }

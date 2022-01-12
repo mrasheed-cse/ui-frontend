@@ -33,10 +33,11 @@ private options2 = {
 	}
 	
 	
-	getPoInformation(poNumber:string): any{
+	getPoInformation(poNumber:string,filter:string): any{
 		console.log(this.serverUrl)
 	return this.http.post(this.serverUrl + 'poInformation/search/', {
-			poNumber:poNumber});
+			poNumber:poNumber,
+			filter:filter});
 	}
 	
 getImsiAndICCID(imsi:string,quantity:string,vendor:string):any	{
