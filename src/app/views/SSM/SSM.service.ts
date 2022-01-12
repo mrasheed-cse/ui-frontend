@@ -318,6 +318,12 @@ deleteSimdropdown(id:number) :Observable<any> {
 	  console.log(this.serverUrl+'ReceivedQuantityManipulation/,{updateReceivedQuantityRequests: '+data+'});');
 	  return this.http.post(this.serverUrl+'ReceivedQuantityManipulation/',data);
   }
-
+getBatchDetails(batchNumber:number):any{
+	
+	return this.http.get(environment.apiUrl + "sctrachVoucher/getvoucherhistory/"+batchNumber).pipe(catchError(this.handleError));
+	
+	
+	
+}
 	
 	}
