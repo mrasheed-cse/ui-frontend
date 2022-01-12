@@ -5,14 +5,20 @@
 	<div class="col-md-10">
 		<div class="card">
 		 <div class="div_cust_loading_sign" *ngIf="isLoading"> <div style="position:fixed;width:100%;height:100%;left:0px;top:0px;z-index:50000;background-color:#536c79;opacity:0.95"></div> <div style="position:fixed;width:100%;height:100%;left:0px;top:0px;z-index:60000"><div style="width:25%;height:25%;margin:0px auto;margin-top:20%"><i class="fa fa-spinner fa-pulse fa-4x fa-fw" ></i></div></div> </div>
-   
+    
 		<div class="card-header" *ngIf="firstHop">
             <i class="fa fa-align-justify"></i>  Voucher Plan Management Technology Approval 
           </div>
-           <div class="card-body" *ngIf="firstHop">
+          <div class="card-body" *ngIf="!isDataFound">
+                                
+              No data found...
+      
+      </div>	
+           <div class="card-body" *ngIf="firstHop && isDataFound">
            <table class="table table-bordered table-striped table-sm">
                 <thead>
-                  <tr>                    
+                  <tr>                  
+                      <th style="display: none">ID Number</th>  
                     <th>Batch ID</th>
                     <th>Denomination</th>
                     <th>Start Serial</th>
@@ -31,19 +37,21 @@
                 </thead>
                 <tbody *ngFor="let aTask of listVoucherHopsdata">
                             <tr>
-                                
+                                <td style="display: none">{{aTask.id}}</td>             
                                 <td>{{aTask.batchNo}}</td>
                                 <td>{{aTask.denomination}}  </td>
                                 <td>{{aTask.serial}}</td>
                                 <td>{{aTask.quantity}}</td>
                                 <td> {{aTask.vendor}}</td>
-                           		<td>{{aTask.networkexpiredate}}</td>
-                                <td>{{aTask.expirydate}}</td>
-                                <td>{{aTask.requestDate}}</td>
+                           		<td>{{aTask.networkexpiredate | date:'yyyy-MM-dd'}}</td>
+                                <td>{{aTask.expirydate| date:'yyyy-MM-dd' }}   </td>
+                                <td>{{aTask.requestDate | date:'yyyy-MM-dd' }}   </td>
                                 <td> {{aTask.cardgroup}}</td>
                                 <td> {{aTask.sftplocation}}</td>
                                  
-                                <td><input type="checkbox" value="{{listVoucherHopsdata.id}}" [(ngModel)]="listVoucherHopsdata.checked"></td>
+                                <td><input type="checkbox" value="{{aTask.id}}" [(ngModel)]="aTask.checked"></td>
+                                
+                                
                             </tr>
                 </tbody>
               </table>
@@ -53,7 +61,7 @@
           
             
             
-           	  <div class="row">
+           	  <div class="row" *ngIf="isDataFound">
 
                    <div class="col-md-6">
 								<label>Please Select the File:</label>
@@ -69,14 +77,17 @@
        
            
            
-           <div class="card-footer" >
+           <div class="card-footer" *ngIf="isDataFound">
           
                  <button   class="btn btn-sm btn-primary" (click)="submit()">Approve</button>
                   <button   class="btn btn-sm btn-danger" (click)="cancel()"> Cancel</button>
            </div>
            
+          </div>
+
+ </div>
+          
+          
            
-           </div>
-           </div>
            </div>
            
