@@ -135,6 +135,8 @@ import{UnplannedSimManagement} from '../SSM/SimCardPlan Management/unpairedsimma
 import { PrePlanGenerate } from '../SSM/SimCardPlan Management/pre-plangenerate.component';
 import{SearchVoucherHistory} from '../SSM/ScratchCard/search_voucher_history.component';
 
+import{StockReport}  from'../SSM/Report/stockreport.component';
+
 const routes: Routes = [
     {
         path: '',
@@ -1104,6 +1106,14 @@ const routes: Routes = [
      {
         path: 'scratchvoucherhistory',
         component: SearchVoucherHistory,
+        data: {
+            title: ''
+        },
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'stockreport',
+        component: StockReport,
         data: {
             title: ''
         },

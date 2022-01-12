@@ -77,7 +77,7 @@ search(){
 	  this.listArtwork=[];
 	  this.listVendor=[];
 	this.listStk=[];
-	this.ssmService.getPoInformation(this.PoNumber).subscribe(
+	this.ssmService.getPoInformation(this.PoNumber,"Input").subscribe(
 		 data => {
 			 this.rawDataFromBackend = data;
 			 console.log(this.rawDataFromBackend)

@@ -64,7 +64,7 @@ search(){
 	this.isInitial=false;
 	 this.isLoading = true;
 	this.rowData = [];    
-	this.ssmService.getPoInformation(this.PoNumber).subscribe(
+	this.ssmService.getPoInformation(this.PoNumber,"PO").subscribe(
 		 data => {
           if(data !=null){         
 	console.log("DATA= ",data)   
@@ -118,7 +118,7 @@ search(){
 
 
   downloadCSVFiles() {
-        var nameOfFileToDownload = "Purchase Order_"+this.rawDataFromBackend['id']+".csv";
+        var nameOfFileToDownload = "Purchase Order_"+this.rowData[0].id+".csv";
 		console.log("nameOfFileToDownload : "+nameOfFileToDownload);
 
         var result = this.ssmService.DownloadCSV(nameOfFileToDownload);
