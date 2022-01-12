@@ -64,7 +64,7 @@ search(){
 	this.isInitial=false;
 	 this.isLoading = true;
 	this.rowData = [];    
-	this.ssmService.getPoInformation(this.PoNumber).subscribe(
+	this.ssmService.getPoInformation(this.PoNumber,"PO").subscribe(
 		 data => {
           if(data !=null){         
 	console.log("DATA= ",data)   
