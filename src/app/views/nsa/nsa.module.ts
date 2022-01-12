@@ -155,6 +155,9 @@ import { ReceivedQuantityManipulation } from '../SSM/SimCardPlan Management/rece
 import{UnplannedSimManagement} from '../SSM/SimCardPlan Management/unpairedsimmanagement.component';
 import { PrePlanGenerate } from '../SSM/SimCardPlan Management/pre-plangenerate.component';
 
+import{SearchVoucherHistory} from '../SSM/ScratchCard/search_voucher_history.component';
+
+
 @NgModule({
   imports: [
     CommonModule,
@@ -289,7 +292,7 @@ import { PrePlanGenerate } from '../SSM/SimCardPlan Management/pre-plangenerate.
     VoucherJourney,ViewProductReport,
     ReceivedQuantityManipulation,
     UnplannedSimManagement,
-    PrePlanGenerate
+    PrePlanGenerate,SearchVoucherHistory
   ],
   providers:[DatePipe, LoginService, AuthGuard]})
 export class NsaModule { }

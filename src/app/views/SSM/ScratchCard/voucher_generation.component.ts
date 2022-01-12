@@ -335,26 +335,8 @@ ShowData(){
 		}
 		
 	}
-	for (let index in this.listvoucherserialdigits) {
-		if(this.listvoucherserialdigits[index].id==this.voucherGenrationForm.controls.voucherserialdigits.value){
-		objToInsert['voucherserialdigits']=this.listvoucherserialdigits[index].groupName;
-		}
-		else{
-			
-			objToInsert['voucherserialdigits']=0; 
-		}
-		
-	}
-	for (let index in this.listvoucherserialdigitshidden) {
-		if(this.listvoucherserialdigitshidden[index].id==this.voucherGenrationForm.controls.voucherserialdigitshidden.value){
-		objToInsert['voucherserialdigitshidden']=this.listvoucherserialdigitshidden[index].groupName;
-		}
-		else{
-			objToInsert['voucherserialdigitshidden']= 0;
-			
-		}
-		
-	}
+	
+	
 	 for (let index in this.listVendorwiseSFTP) {
 		if(this.listVendorwiseSFTP[index].id==this.voucherGenrationForm.controls.VendorwiseSFTP.value){
 		objToInsert['VendorwiseSFTP']=this.listVendorwiseSFTP[index].groupName;
@@ -391,8 +373,7 @@ ShowData(){
 	,start,objToInsert['requestDate'],objToInsert['BatchQty'],objToInsert['Vendor']
 	,objToInsert['Pr'],objToInsert['nwExpireDate'],objToInsert['ExpireDate'],objToInsert['CardGroup'],
 	
-	objToInsert['voucherserialdigits'],
-	objToInsert['voucherserialdigitshidden'],
+	this.voucherGenrationForm.controls.voucherserialdigits.value,this.voucherGenrationForm.controls.voucherserialdigitshidden.value,
 		objToInsert['VendorwiseSFTP'],this.userName,objToInsert['Itemnumber']).subscribe(
 		data=>{if(data!=""){
 			this.voucherGenrationForm.reset

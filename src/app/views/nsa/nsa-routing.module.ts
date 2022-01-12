@@ -133,6 +133,7 @@ import{ViewProductReport} from'../SSM/Report/viewProductReport.component'
 import { ReceivedQuantityManipulation } from '../SSM/SimCardPlan Management/received-quantity-manipulation.component';
 import{UnplannedSimManagement} from '../SSM/SimCardPlan Management/unpairedsimmanagement.component';
 import { PrePlanGenerate } from '../SSM/SimCardPlan Management/pre-plangenerate.component';
+import{SearchVoucherHistory} from '../SSM/ScratchCard/search_voucher_history.component';
 
 const routes: Routes = [
     {
@@ -1099,6 +1100,16 @@ const routes: Routes = [
         },
         canActivate: [AuthGuard]
     },
+    
+     {
+        path: 'scratchvoucherhistory',
+        component: SearchVoucherHistory,
+        data: {
+            title: ''
+        },
+        canActivate: [AuthGuard]
+    },
+    
     
      {
         path: '**', 
