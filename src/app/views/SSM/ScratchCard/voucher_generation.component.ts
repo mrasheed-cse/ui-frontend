@@ -329,20 +329,10 @@ ShowData(){
 		}
 		
 	}
-	for (let index in this.listVendor) {
-		if(this.listVendor[index].id==this.voucherGenrationForm.controls.Vendor.value){
-		objToInsert['Vendor']=this.listVendor[index].groupName;
-		}
-		
-	}
 	
 	
-	 for (let index in this.listVendorwiseSFTP) {
-		if(this.listVendorwiseSFTP[index].id==this.voucherGenrationForm.controls.VendorwiseSFTP.value){
-		objToInsert['VendorwiseSFTP']=this.listVendorwiseSFTP[index].groupName;
-		}
-		
-	}
+	
+	 
 	for(let index in this.listPo){
 		if(this.listPo[index].id=this.voucherGenrationForm.controls.Po.value){
 			
@@ -370,11 +360,11 @@ ShowData(){
 	
 	this.ssmService.saveScratch(
 		objToInsert['Po'],objToInsert['Denomination']
-	,start,objToInsert['requestDate'],objToInsert['BatchQty'],objToInsert['Vendor']
+	,start,objToInsert['requestDate'],objToInsert['BatchQty'],this.voucherGenrationForm.controls.Vendor.value
 	,objToInsert['Pr'],objToInsert['nwExpireDate'],objToInsert['ExpireDate'],objToInsert['CardGroup'],
 	
 	this.voucherGenrationForm.controls.voucherserialdigits.value,this.voucherGenrationForm.controls.voucherserialdigitshidden.value,
-		objToInsert['VendorwiseSFTP'],this.userName,objToInsert['Itemnumber']).subscribe(
+		this.voucherGenrationForm.controls.VendorwiseSFTP.value,this.userName,objToInsert['Itemnumber']).subscribe(
 		data=>{if(data!=""){
 			this.voucherGenrationForm.reset
 			alert("Data saved Sucessfully and notification mail has been triggerd");
