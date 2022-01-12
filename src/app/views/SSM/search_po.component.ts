@@ -118,7 +118,7 @@ search(){
 
 
   downloadCSVFiles() {
-        var nameOfFileToDownload = "Purchase Order_"+this.rawDataFromBackend['id']+".csv";
+        var nameOfFileToDownload = "Purchase Order_"+this.rowData[0].id+".csv";
 		console.log("nameOfFileToDownload : "+nameOfFileToDownload);
 
         var result = this.ssmService.DownloadCSV(nameOfFileToDownload);
