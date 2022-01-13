@@ -46,8 +46,8 @@ export class VoucherJourney implements OnInit {
   			item:string
   			endSerial:number;
   			  private offset: number;
-  private currPage: number;
-	private totalPages: number;
+  public currPage: number;
+	public totalPages: number;
   			constructor(private datePipe: DatePipe,private router: Router,private fb:FormBuilder,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private viewService: ViewJourney ) {
     
  
