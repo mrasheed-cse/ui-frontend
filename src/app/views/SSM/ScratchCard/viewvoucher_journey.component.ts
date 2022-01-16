@@ -112,7 +112,10 @@ poChange(){
 						batchNo: this.filteredData[index].batchNo,
 						vendor: this.filteredData[index].vendor,
 						batchQuantity: this.filteredData[index].batchQuantity,
-						ItemNumber: this.filteredData[index].ItemNumber
+						ItemNumber: this.filteredData[index].ItemNumber,
+						poQuantity:this.filteredData[index].poQuantity,
+						deliveredQuantity:this.filteredData[index].deliveredQuantity
+						
 					}
 					);
 			
@@ -174,7 +177,9 @@ vendorChange(){
 						batchNo: this.filteredData[index].batchNo,
 						vendor: this.filteredData[index].vendor,
 						batchQuantity: this.filteredData[index].batchQuantity,
-						ItemNumber: this.filteredData[index].ItemNumber
+						ItemNumber: this.filteredData[index].ItemNumber,
+						poQuantity:this.filteredData[index].poQuantity,
+						deliveredQuantity:this.filteredData[index].deliveredQuantity
 					}
 					);
 			
@@ -198,7 +203,9 @@ itemChange(){
 						batchNo: this.filteredData[index].batchNo,
 						vendor: this.filteredData[index].vendor,
 						batchQuantity: this.filteredData[index].batchQuantity,
-						ItemNumber: this.filteredData[index].ItemNumber
+						ItemNumber: this.filteredData[index].ItemNumber,
+						poQuantity:this.filteredData[index].poQuantity,
+						deliveredQuantity:this.filteredData[index].deliveredQuantity
 					}
 					);
 			
@@ -210,4 +217,19 @@ itemChange(){
 else{this.firstPage()}
 	
 }	
+download(ponumber: any,batchNo: any ,vendor :any ,batchQuantity :any,ItemNumber:any,poQuantity:any,deliveredQuantity:any){
+	
+ this.viewService.downloadFile(ponumber,batchNo,vendor,batchQuantity,ItemNumber,poQuantity,deliveredQuantity,true).subscribe(
+                    data => {
+                            var link = document.createElement('a');
+                            link.href = window.URL.createObjectURL(data);
+                            link.download = "Scratch Card.xlsx";
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
+                        })
+	
+}
+	
+
   			}

@@ -25,8 +25,15 @@
                         <input  class="form-control" [(ngModel)]="vendor" (change)="vendorChange()"placeholder="Search Vendor" class="advancedSearchTextbox"></th>
                       <th>Batch Quantity
                        <p></p></th>
+                      <th>PO Quantity
+                       <p></p></th>
+                    <th>Delivered Quantity
+                       <p></p></th>
                        <th>Item Number
                        <p></p><input  class="form-control" [(ngModel)]="item" (change)="itemChange()"placeholder="Search Vendor" class="advancedSearchTextbox"></th>
+                    <th>Action
+                       <p></p></th>
+                    
                   </tr>
                 </thead>
                 <tbody *ngFor="let aTask of listVoucherHopsdata ">
@@ -34,8 +41,12 @@
                                 <td>{{aTask.ponumber}}</td>
                                 <td>{{aTask.batchNo}}</td>
                                 <td>{{aTask.vendor}}</td>
+                                <td>{{aTask.poQuantity}}</td>
+                                <td>{{aTask.deliveredQuantity}}</td>
                                 <td>{{aTask.batchQuantity}}</td>
                                  <td>{{aTask.ItemNumber}}</td>
+                                 <td> <a  href="#" (click)="download(aTask.ponumber,aTask.batchNo,aTask.vendor,aTask.poQuantity,aTask.deliveredQuantity,aTask.batchQuantity,aTask.ItemNumber);$event.preventDefault();" role="button">Download</a> </td>
+               
                             </tr>
                 </tbody>
               </table>
