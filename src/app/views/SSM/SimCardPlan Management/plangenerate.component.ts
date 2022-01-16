@@ -309,7 +309,7 @@ SubmitForPlanGenerationFromMsisdnFile(){
 			data=>{ 	
 				
 				console.log(data.message);
-				if(data.message ==="1"){
+				if(data.message === "1"){
 					console.log("Data Saved")
 					this.isLoading=false;
 					alert("Data Saved And forwarded Sucessfully");
