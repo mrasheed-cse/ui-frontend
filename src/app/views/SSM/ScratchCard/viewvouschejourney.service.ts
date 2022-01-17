@@ -39,7 +39,7 @@ private headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf
 	downloadFile(ponumber: any,batchNo: any ,vendor :any ,batchQuantity :any,ItemNumber:any,poQuantity:any,deliveredQuantity:any,isExport:boolean):any{
 		
 		  return this.http.post(this.serverUrl + 'vouchergeneration/downloadcsv/', this.prepareSearchFormdata(ponumber,batchNo,vendor,batchQuantity,
-			ItemNumber,poQuantity,deliveredQuantity),{responseType: isExport ? "blob" : "json"})
+			ItemNumber,poQuantity,deliveredQuantity),{responseType:  "blob" })
 		
 	}
 	
