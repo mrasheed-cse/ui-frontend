@@ -356,6 +356,8 @@ ShowData(){
 	objToInsert['Po']=this.voucherGenrationForm.controls.Po.value;
 	objToInsert['nwExpireDate']=this.datePipe.transform(this.nwDate,"dd-MM-yyyy");
 	objToInsert['ExpireDate']=this.datePipe.transform(this.exDate,"dd-MM-yyyy");
+	objToInsert['Vendor']=this.voucherGenrationForm.controls.Vendor.value;
+	objToInsert['VendorwiseSFTP']=this.voucherGenrationForm.controls.VendorwiseSFTP.value;
 	  this.rowData.push(objToInsert);
 	
 	this.ssmService.saveScratch(

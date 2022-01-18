@@ -223,7 +223,7 @@ download(ponumber: any,batchNo: any ,vendor :any ,batchQuantity :any,ItemNumber:
                     data => {
                             var link = document.createElement('a');
                             link.href = window.URL.createObjectURL(data);
-                            link.download = "Scratch Card.xlsx";
+                            link.download = "Scratch Card.csv";
                             document.body.appendChild(link);
                             link.click();
                             document.body.removeChild(link);

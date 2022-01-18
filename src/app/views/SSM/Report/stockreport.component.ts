@@ -183,6 +183,7 @@ LoadFilteredInputFiles(){
 
   this.reportsService.getFilteredInputFiles(selectedArtwork,selectedVendor,selectedIMSI,this.currPage, this._global.defaultPageSize2).subscribe(
     data => {
+	console.log("data "+data)
         if(data !=null){
           console.log(data);
           var dataSize = Number(data.totalQuantity);
