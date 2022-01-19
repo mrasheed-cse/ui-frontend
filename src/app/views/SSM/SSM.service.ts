@@ -328,5 +328,11 @@ getBatchDetails(batchNumber:number):any{
 	
 	
 }
+getFilenameFromDB(id:number):any{
+	
+	return this.http.get(environment.apiUrl + "sctrachVoucher/getfilenamefromdb/"+id).pipe(catchError(this.handleError));
+	
+	
+}
 	
 	}
