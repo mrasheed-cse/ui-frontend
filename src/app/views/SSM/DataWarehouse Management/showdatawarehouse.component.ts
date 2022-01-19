@@ -81,7 +81,9 @@ export class ViewDatawarehouse implements OnInit {
             !(this.searchStart.length == 12 || this.searchStart.length == 18 || this.searchStart.length == 20 || 
                 this.searchStart.length == 26 || this.searchStart.length == 28)
         ) {
-            alert("KIT input should be in either 12, 18, 20, 26, 28 digits")
+            alert("KIT input should be in either 12, 18, 20, 26, 28 digits");
+            console.log("Length of searchStart is "+this.searchStart.trim().length);
+            console.log("Length of searchEnd is "+this.searchEnd.trim().length);
             this.isInitial = true;
         }
          else {
