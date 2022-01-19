@@ -68,14 +68,25 @@ export class ViewDatawarehouse implements OnInit {
             this.isInitial = false;
             this.rowData = [];
         }
-        if (this.searchSequence == null || this.searchType == null || ((this.searchType == "discrete" && !this.searchFile) || (this.searchType == "sequence" && (!this.searchStart || !this.searchEnd)))) {
+        if ((this.searchSequence == null && this.searchFor=='sim') || this.searchType == null || ((this.searchType == "discrete" && !this.searchFile) || (this.searchType == "sequence" && (!this.searchStart || !this.searchEnd)))) {            
             alert("Select All Required Values")
             this.isInitial = true;
-        } else if (this.searchOn == "iccid" && this.searchType == "sequence" && !(this.searchStart.length == 26 && this.searchEnd.length == 26 && this.searchStart.substring(0, 14) == this.searchEnd.substring(0, 14))) {
-            alert("Product code should be same for search start and search end")
+        } else if (this.searchType == "sequence" && !(this.searchStart.length == this.searchEnd.length) )
+         {
+            alert("Start and end value length should be same.")
             this.isInitial = true;
-        } else {
-            if (this.searchFor == "auc") {
+        }
+        else if (this.searchOn == "iccid" && this.searchType == "sequence" && 
+            (this.searchStart.length == this.searchEnd.length)  &&
+            !(this.searchStart.length == 12 || this.searchStart.length == 18 || this.searchStart.length == 20 || 
+                this.searchStart.length == 26 || this.searchStart.length == 28)
+        ) {
+            alert("KIT input should be in either 12, 18, 20, 26, 28 digits")
+            this.isInitial = true;
+        }
+         else {
+            if (this.searchFor == "auc") {  
+                this.searchSequence='all';              
                 this.datawarehouseservice.getDataAuc(this, isExport).subscribe(
                     data => {
                         this.isDataFoundAUC = true;
@@ -103,6 +114,7 @@ export class ViewDatawarehouse implements OnInit {
                     },
                     err => console.error(err),);
             } else if (this.searchFor == "adc") {
+                this.searchSequence='all';              
                 this.datawarehouseservice.getDataAdc(this, isExport).subscribe(
                     data => {
                         this.isDataFoundADC = true;
