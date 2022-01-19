@@ -35,4 +35,29 @@ private headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf
 	getVoucher(id:number): Observable<any> {	
 		return this.http.get(this.serverUrl + 'vouchergeneration/getvoucherdetailsbyId/'+id);
 	}
+	
+	downloadFile(ponumber: any,batchNo: any ,vendor :any ,batchQuantity :any,ItemNumber:any,poQuantity:any,deliveredQuantity:any,isExport:boolean):any{
+		
+		  return this.http.post(this.serverUrl + 'vouchergeneration/downloadcsv/', this.prepareSearchFormdata(ponumber,batchNo,vendor,batchQuantity,
+			ItemNumber,poQuantity,deliveredQuantity),{responseType:  "blob" })
+		
 	}
+	
+	 private prepareSearchFormdata(ponumber: any,batchNo: any ,vendor :any ,batchQuantity :any,ItemNumber:any,poQuantity:any,deliveredQuantity:any) : any {
+        const formData: FormData = new FormData();
+      
+            formData.append('ponumber',ponumber);
+             formData.append('batchNo', batchNo);
+        formData.append('vendor',vendor);
+      
+            formData.append('batchQuantity',batchQuantity);
+            formData.append('ItemNumber', ItemNumber);
+       
+        formData.append('poQuantity', poQuantity);
+        formData.append('deliveredQuantity', deliveredQuantity);
+        return formData;
+    }
+	
+	
+}	 
+	
