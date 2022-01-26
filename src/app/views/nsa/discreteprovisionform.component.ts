@@ -350,6 +350,10 @@ topFunction() {
 
 		}
 
+		else{
+			alert("Please Provide all required informations.");
+		}
+
 }
 
 

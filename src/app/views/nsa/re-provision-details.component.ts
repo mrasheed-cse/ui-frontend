@@ -152,9 +152,17 @@ import {
 			  else
 					this.successAlertMessage = " has been saved successfully ";
 					
-				if(res.message!=""){
-					this.successAlertMessage = this.successAlertMessage +"	and forwarded to "+res.message+" .";
-				}
+					if(res.message!=""){
+						if(res.message.indexOf("HOP:") !== -1){
+							
+							var rs = res.message.replace("HOP:", "");
+							alert(rs);
+							
+						this.successAlertMessage = this.successAlertMessage +"	and forwarded to "+rs+" .";
+						}
+						else
+						this.successAlertMessage = this.successAlertMessage +"	"+res.message+" .";
+					}
 		  }
 		},
 		err  =>  {		  
