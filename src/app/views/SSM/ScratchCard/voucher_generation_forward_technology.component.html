@@ -14,41 +14,46 @@
               No data found...
       
       </div>	
+     
            <div class="card-body" *ngIf="firstHop && isDataFound">
            <table class="table table-bordered table-striped table-sm">
                 <thead>
                   <tr>                  
                       <th style="display: none">ID Number</th>  
-                    <th>Batch ID</th>
-                    <th>Denomination</th>
-                    <th>Start Serial</th>
+                      <th>PO Number</th>
+                    <th>Batch No</th>
                     <th>Batch Quantity</th>
-                    <th>Vendor</th>
-                    <th>NetworkExpireDate</th>
+                    <th>Start Serial</th>
+                    <th>End Serial</th>
+                    <th>Denomination</th>
+                    <th>Card Group</th>                    
+                    <th>Voucher serial digit</th>
+                    <th>Hidden number digit</th>
                     <th>Expiry Date</th>
-                    <th> Requested Date</th>
-                    <th>Card Group</th>
-                    <th>SFTPlocation</th>
                     <th><a>
                         <input type="checkbox" [(ngModel)]="masterSelected" (change)="checkUncheckAll()" />
                       </a></th>
                    
                   </tr>
                 </thead>
+                 <!--
+PO number, Batch No, Batch Quantity, Start serial, End serial, Denomination, 
+Card group, Voucher serial digit, Hidden number digit, Expairy Date
+
+      -->
                 <tbody *ngFor="let aTask of listVoucherHopsdata">
                             <tr>
-                                <td style="display: none">{{aTask.id}}</td>             
+                                <td style="display: none">{{aTask.id}}</td>    
+                                <td>{{aTask.ponumber}}</td>    
                                 <td>{{aTask.batchNo}}</td>
-                                <td>{{aTask.denomination}}  </td>
-                                <td>{{aTask.serial}}</td>
                                 <td>{{aTask.quantity}}</td>
-                                <td> {{aTask.vendor}}</td>
-                           		<td>{{aTask.networkexpiredate | date:'yyyy-MM-dd'}}</td>
-                                <td>{{aTask.expirydate| date:'yyyy-MM-dd' }}   </td>
-                                <td>{{aTask.requestDate | date:'yyyy-MM-dd' }}   </td>
+                                <td>{{aTask.serial}}</td>
+                                <td>{{aTask.serial + aTask.quantity}}</td>
+                                <td>{{aTask.denomination}}  </td>
                                 <td> {{aTask.cardgroup}}</td>
-                                <td> {{aTask.sftplocation}}</td>
-                                 
+                                <td> {{aTask.serialDigitCount}}</td>
+                                <td> {{aTask.hiddenNumberCount}}</td>
+                                <td>{{aTask.expirydate| date:'yyyy-MM-dd' }}   </td>
                                 <td><input type="checkbox" value="{{aTask.id}}" [(ngModel)]="aTask.checked"></td>
                                 
                                 

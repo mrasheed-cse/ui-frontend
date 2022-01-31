@@ -18,16 +18,16 @@
            <table class="table table-bordered table-striped table-sm">
                 <thead>
                   <tr>
-                    <th>Po Number</th>
+                    <th>PO Number</th>
+                    <th>Batch No</th>
                     <th>Batch Quantity</th>
                     <th>Start Serial</th>
+                    <th>End Serial</th>
                     <th>Denomination</th>
-                    <th>NetworkExpireDate</th>
+                    <th>Card Group</th>                    
+                    <th>Voucher serial digit</th>
+                    <th>Hidden number digit</th>
                     <th>Expiry Date</th>
-                    <th>Requested Date</th>
-                    <th>Card Group</th>
-                    <th>SFTPlocation</th>
-                    <th>Vendor</th>
                     <th><a>
                         <input type="checkbox" [(ngModel)]="masterSelected" (change)="checkUncheckAll()" />
                       </a></th>
@@ -35,17 +35,16 @@
                 </thead>
                 <tbody *ngFor="let aTask of listVoucherHopsdata">
                             <tr>
-                                <td>{{aTask.ponumber}}</td>
-                                <td>{{aTask.batchNo}}</td>
-                                <td>{{aTask.serial}}</td>
-                                <td>{{aTask.denomination}}  </td>
-                           		<td>{{aTask.networkexpiredate}}</td>
-                                <td>{{aTask.expirydate}}</td>
-                                <td>{{aTask.requestDate}}</td>
-                                <td> {{aTask.cardgroup}}</td>
-                              
-                                <td> {{aTask.sftplocation}}</td>
-                                 <td> {{aTask.vendor}}</td>
+                              <td>{{aTask.ponumber}}</td>    
+                              <td>{{aTask.batchNo}}</td>
+                              <td>{{aTask.quantity}}</td>
+                              <td>{{aTask.serial}}</td>
+                              <td>{{aTask.serial + aTask.quantity}}</td>
+                              <td>{{aTask.denomination}}  </td>
+                              <td> {{aTask.cardgroup}}</td>
+                              <td> {{aTask.serialDigitCount}}</td>
+                              <td> {{aTask.hiddenNumberCount}}</td>
+                              <td>{{aTask.expirydate }}   </td>  
                                  <td><input type="checkbox" value="{{aTask.id}}" [(ngModel)]="aTask.checked"></td>
                                
                             </tr>

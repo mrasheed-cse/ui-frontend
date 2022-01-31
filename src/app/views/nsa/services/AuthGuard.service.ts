@@ -54,14 +54,20 @@ export class AuthGuard implements CanActivate {
 	
 							if (undefined !== this.groupIDs && this.groupIDs.length == 1) {
 								this.groupID = this.groupIDs[0];
+								this.groupName = this.groupNames[0];
 								console.log('Current page usergroup: ' + this.groupID);
 								if (this.groupID == 0) {
 									//console.log('Current user not found');
 									this.router.navigate(['pages/404']);
 									resolve(false);
 								}
-								else
+								else{
+									this.loginService.UpdateCurrentLoggedInUserUserGroup(this.groupID, this.groupName);
+									this.loginService.GetCurrentLoggedInUser();
+									var time = new Date();
+									console.log( time.getTime())
 									resolve(true);
+								}
 							}
 							else {
 								var optStr = "";
