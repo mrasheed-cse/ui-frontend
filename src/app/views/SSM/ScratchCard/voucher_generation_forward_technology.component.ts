@@ -129,10 +129,13 @@ export class VoucherGenerationForward implements OnInit {
 			//alert(this.selectedIdList);
 		}
 	}
-	console.log(this.selectedIdList);
-	if(!this.dndUpload()){
-			console.log(this.comments);
-	this.ssmService.setSeccondHop(this.userName,this.selectedIdList,this.comments,this.fileToUpload.name).subscribe(
+	//console.log(this.selectedIdList);
+	
+	this.dndUpload();
+	//alert('Returned');
+	console.log(this.comments);
+	var theFileName=this.fileToUpload==null?"No File Provided":this.fileToUpload.name;
+	this.ssmService.setSeccondHop(this.userName,this.selectedIdList,this.comments,theFileName).subscribe(
 
 		data=>{
 			if(data!=null){
@@ -143,7 +146,7 @@ export class VoucherGenerationForward implements OnInit {
 			
 		}
 	)
-}
+
 	this.isLoading=false;
       }
 	  cancel(){
@@ -176,6 +179,16 @@ export class VoucherGenerationForward implements OnInit {
 	
 	dndUpload():boolean {
 	console.log("File is uploading")
+	console.log(this.fileToUpload);
+	if (this.fileToUpload == null){
+		alert('No File');
+		return true;
+	}
+	if (this.fileToUpload == undefined){
+		alert('Undefined File');
+		return true;
+	}
+alert('1');
         this.fileerror = false;
         this.filesuccess = false;
         if (this.fileToUpload == undefined || !this.fileToUpload.name.endsWith(".csv")) {

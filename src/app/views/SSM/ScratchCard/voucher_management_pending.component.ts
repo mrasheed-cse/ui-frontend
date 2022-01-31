@@ -62,29 +62,27 @@ export class VoucherManagementApproval implements OnInit {
       this.groupID = this.currentLoggedInUser.groupID
       this.userID = this.currentLoggedInUser.userID
       console.log("Hello"+this.groupID);
-      if(this.groupID==16){
-	//technology approval
-	this.hop=5;
-	
-}
-if(this.groupID==7){
-
-this.hop=3;
-	
-	
-}
-if(this.groupID==12){
-	//ssmapproval
-	this.hop=4;
-	
-}
-
+	 
+	  if(this.groupID==16){
+		//technology approval
+		this.hop=4;
+	}
+	/*
+	RAFM REMOVAL
+	if(this.groupID==7){
+		this.hop=3;
+	}
+	*/
+	if(this.groupID==12){
+		//ssmapproval
+		this.hop=3;
+	}
 
     this.getData(this.hop);}
     else {
       this.router.navigate(['pages/login']);
     }
-    }
+  }
     
       
     getData(hop:number){
@@ -97,6 +95,7 @@ if(this.groupID==12){
 		if(data!=null && data.length>0){
 			this.isDataFound=true;
 		}
+		console.log(data);
 		for (let index in data) {
 			
 			this.listVoucherHopsdata.push(
@@ -113,7 +112,8 @@ if(this.groupID==12){
 						hiddenNumberCount: data[index].hiddenNumberCount,
 						requestDate: this.datePipe.transform(data[index]. requestDate,"dd-MM-yyyy"),
 						sftplocation: data[index].sftplocation,
-						vendor:data[index].vendor
+						vendor:data[index].vendor,
+						quantity:data[index].quantity
 					}
 					
 					);
