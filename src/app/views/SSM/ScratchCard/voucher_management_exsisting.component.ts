@@ -119,8 +119,8 @@ this.hop=7;
 						serialDigitCount: data[index].serialDigitCount,
 						hiddenNumberCount: data[index].hiddenNumberCount,
 						sftplocation: data[index].sftplocation,
-						vendor:data[index].vendor
-						
+						vendor:data[index].vendor,
+						quantity:data[index].quantity				
 						
 						
 					}

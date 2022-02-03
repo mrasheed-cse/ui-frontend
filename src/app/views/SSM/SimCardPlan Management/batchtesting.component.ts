@@ -300,6 +300,7 @@ uploadSecurity()
 }
 
 uploadCsv(type:string){
+	alert(type);
 	this.isLoading=true;
         if (this.fileToUpload == undefined || !this.fileToUpload.name.endsWith(".csv")) {
           alert("Please Select A csv file");
