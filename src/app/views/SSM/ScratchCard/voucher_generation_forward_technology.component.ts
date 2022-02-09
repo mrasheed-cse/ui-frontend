@@ -135,6 +135,7 @@ export class VoucherGenerationForward implements OnInit {
 	//alert('Returned');
 	console.log(this.comments);
 	var theFileName=this.fileToUpload==null?"No File Provided":this.fileToUpload.name;
+	//alert(theFileName);
 	this.ssmService.setSeccondHop(this.userName,this.selectedIdList,this.comments,theFileName).subscribe(
 
 		data=>{
@@ -181,14 +182,14 @@ export class VoucherGenerationForward implements OnInit {
 	console.log("File is uploading")
 	console.log(this.fileToUpload);
 	if (this.fileToUpload == null){
-		alert('No File');
+		//alert('No File');
 		return true;
 	}
 	if (this.fileToUpload == undefined){
-		alert('Undefined File');
+		//alert('Undefined File');
 		return true;
 	}
-alert('1');
+//alert('1');
         this.fileerror = false;
         this.filesuccess = false;
         if (this.fileToUpload == undefined || !this.fileToUpload.name.endsWith(".csv")) {

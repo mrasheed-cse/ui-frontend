@@ -48,7 +48,7 @@ Card group, Voucher serial digit, Hidden number digit, Expairy Date
                                 <td>{{aTask.batchNo}}</td>
                                 <td>{{aTask.quantity}}</td>
                                 <td>{{aTask.serial}}</td>
-                                <td>{{aTask.serial + aTask.quantity}}</td>
+                                <td>{{aTask.serial + aTask.quantity -1}}</td>
                                 <td>{{aTask.denomination}}  </td>
                                 <td> {{aTask.cardgroup}}</td>
                                 <td> {{aTask.serialDigitCount}}</td>
@@ -68,13 +68,16 @@ Card group, Voucher serial digit, Hidden number digit, Expairy Date
             
            	  <div class="row" *ngIf="isDataFound">
 
-                   <div class="col-md-6">
-								<label>Please Select the File:</label>
-                <button class="btn btn-secondary btn-sm" onclick="document.getElementById('getFile').click()">Browse ...</button>
-                <input #fileInput type='file' id="getFile" (click)="fileInput.value = null" accept=".csv" style="position: fixed; left: -200px; top: -200px;" (change)="handleFileInput($event.target.files)">
-                <br>
+                  <div class="col-md-6">
+                      <div class="form-group row">
+                        <label class="col-md-5 col-form-label" for="getFile">Please Select the File:</label>
+                        <div class="col-md-7">
+                        <input #fileInput type='file' id="getFile"  (click)="fileInput.value = null" accept=".csv" (change)="handleFileInput($event.target.files)" required>
+                        </div>
+                      </div>
+                    </div>
 
-						</div>
+                 
                       <div class="col-md-6">
                       <label>Comment</label>   
                     <input type="text" class="form-control" [(ngModel)] = "comments"  maxlength="200" />

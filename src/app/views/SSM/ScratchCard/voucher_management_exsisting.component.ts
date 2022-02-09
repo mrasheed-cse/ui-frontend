@@ -64,12 +64,12 @@ export class VoucherManagementExsisting implements OnInit {
       this.userID = this.currentLoggedInUser.userID
       if(this.groupID==12){
 	//BatchTesting
-	this.hop=6;
+	this.hop=5;
 	
 }
 if(this.groupID==13){
 //CLC
-this.hop=7;
+this.hop=6;
 	
 	
 }
