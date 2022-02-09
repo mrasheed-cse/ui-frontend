@@ -130,7 +130,7 @@ getArtwork(){
     
     submitArtwork(){
 		if(this.newArtwork==null)
-		alert("Input cannot be blank"); return;
+		{alert("Input cannot be blank"); return;}
 
 		this.ssmService.saveArtwork(this.newArtwork).subscribe((res => {
             if (res == false) {
@@ -185,7 +185,7 @@ this.isStkFound=false;}
 
 submitStk(){
 	if(this.newStk==null)
-		alert("Input cannot be blank"); return;
+		{alert("Input cannot be blank"); return;}
 	this.ssmService.saveStk(this.newStk).subscribe((res => {
             if (res == false) {
               alert("Failed to add")
@@ -238,8 +238,8 @@ addVendor(){this.isAddVendor=true;
 this.isVendorFound=false;}    
 
 submitVendor(){
-	if(this.newStk==null)
-		alert("Input cannot be blank"); return;
+	if(this.newVendor==null)
+		{alert("Input cannot be blank"); return;}
 	var type="7"
 	this.ssmService.addSimdropdown(this.newVendor,type).subscribe((res => {
             if (res == false) {
@@ -285,8 +285,8 @@ addItemCode(){
 	this.isItemcodeFound=false;
 }
 submitItemCode(){
-	if(this.newStk==null)
-		alert("Input cannot be blank"); return;
+	if(this.ItemCode==null)
+		{alert("Input cannot be blank"); return;}
 	var type="1"
 	this.ssmService.addSimdropdown(this.ItemCode,type).subscribe((res => {
             if (res == false) {
@@ -392,7 +392,7 @@ clearproductname(linkno: number){
 
 submitProductname(){
 	if(this.productname==null)
-		alert("Input cannot be blank"); return;
+		{alert("Input cannot be blank"); return;}
 	var type="3"
 	this.ssmService.addSimdropdown(this.productname,type).subscribe((res => {
             if (res == false) {
@@ -453,8 +453,8 @@ addProductCode(){
 }
 
 submitProductcode(){
-	if(this.newStk==null)
-		alert("Input cannot be blank"); return;
+	if(this.productCode==null)
+		{alert("Input cannot be blank"); return;}
 	var type="2"
 	if(this.productCode.length==8){
 	this.ssmService.addSimdropdown(this.productCode,type).subscribe((res => {
@@ -519,7 +519,7 @@ addSharerName(){
 	
 	submitSharerName(){
 		if(this.SharerName==null)
-		alert("Input cannot be blank"); return;
+		{alert("Input cannot be blank"); return;}
 	var type="4"
 	this.ssmService.addSimdropdown(this.SharerName,type).subscribe((res => {
             if (res == false) {
@@ -579,7 +579,7 @@ clearcircle(linkno:number){
 
 submitPlanCircle(){
 	if(this.circle==null)
-		alert("Input cannot be blank"); return;
+		{alert("Input cannot be blank"); return;}
 	
 	var type="5"
 	this.ssmService.addSimdropdown(this.circle,type).subscribe((res => {
@@ -625,7 +625,7 @@ addRequester(){
 	}
 submitRequester(){
 	if(this.requester==null)
-		alert("Input cannot be blank"); return;
+		{alert("Input cannot be blank"); return;}
 	var type="6"
 	this.ssmService.addSimdropdown(this.requester,type).subscribe((res => {
             if (res == false) {
