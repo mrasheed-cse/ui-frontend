@@ -182,7 +182,9 @@ submitActivate(){
 	console.log(this.selectedIdList);
 
 	this.ssmService.SaveFinal(this.userName,this.selectedIdList,this.comments).subscribe(
-		data=>{if(data!=null){
+		data=>{
+			this.isLoading=false;
+			if(data!=null){
 			alert("Scratch Card Is Activated")
 			this.isLoading=false;
 			this.getData(this.hop);
@@ -195,7 +197,7 @@ submitActivate(){
 		}
 		
 	)
-	this.isLoading=false;
+	//this.isLoading=false;
 }
 
 cancel(){
