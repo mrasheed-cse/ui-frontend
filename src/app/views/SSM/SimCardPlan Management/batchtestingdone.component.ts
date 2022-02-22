@@ -24,28 +24,26 @@ import 'rxjs/add/observable/of';
 
 @Component({
     selector: 'app-voucherGen',
-    templateUrl: './planactivation.component.html',
+    templateUrl: './batchtestingdone.component.html',
       styleUrls: ['../search_po.component.scss'],
       providers: [AppGlobals,LoginService,PlanManagementService,DatePipe],
 })
-export class PlanActivation implements OnInit {
+export class BatchTestingDone implements OnInit {
 		  	currentLoggedInUser: LoggedInUser;
 			userName: string;
 			groupID: number;
   			userID: string;
   			isConfig:boolean=true;
   			listPlangenerateData=[];
+  			listData=[];
   			ID:number;
+  			isBatch:boolean
   			hop:number;
+  			approvalType:any;
   			isProceed:boolean=false;
-  			fileToUpload: File = null;
-    		fileuploadstatus: string;
-    		fileName: string;
-    		fileerror: boolean = false;
-   		    filesuccess: boolean = false;
-    		uploading: boolean = false;
-    		isLoading:boolean=false;
-  			
+  			comments:string;
+  			isLoading:boolean=false;
+  			currenthop:number;
 constructor(private datePipe: DatePipe,private router: Router,private loginService:
   			 LoginService,private http: HttpClient, private _global: AppGlobals, private planManagemetService: PlanManagementService ) {
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
@@ -54,7 +52,8 @@ constructor(private datePipe: DatePipe,private router: Router,private loginServi
       this.userName = this.currentLoggedInUser.userName
       this.groupID = this.currentLoggedInUser.groupID
       this.userID = this.currentLoggedInUser.userID
-    this.hop=5;
+      this.hop=0;
+     
       this.getData();
     }
     else {
@@ -63,29 +62,8 @@ constructor(private datePipe: DatePipe,private router: Router,private loginServi
    
     }
     
-    	details(id:number){
-		
-		this.isProceed=true;
-		this.isConfig=false;
-		this.ID=id;
-		
-	}
 	
-	
-    cancel(){
-	
-		this.planManagemetService.cancelHop(this.userName,this.ID).subscribe(
-		
-		data=>{
-			if(data!=null){
-				alert("Voucher Request is Cancled");
-				this.getData();
-				
-			}
-			
-		}
-	)
-}
+
     
     ngOnInit(){
 	
@@ -94,9 +72,11 @@ constructor(private datePipe: DatePipe,private router: Router,private loginServi
 	this.isConfig=true;
 	this.listPlangenerateData=[];
 	this.isProceed=false;
-	console.log(this.hop)
+	this.comments	=""
+	console.log(this.hop);
+	alert(this.hop);
 	this.planManagemetService.getConfig(this.hop).subscribe(
-		data=>{ console.log(data)
+		data=>{
 			for (let index in data) {
 				this.listPlangenerateData.push(
 					
@@ -109,72 +89,22 @@ constructor(private datePipe: DatePipe,private router: Router,private loginServi
 						 printingdate: this.datePipe.transform(data[index].printingdate,"dd-MM-yyyy"),
 						 packagingdate: this.datePipe.transform(data[index].packagingdate,"dd-MM-yyyy"),
 						 deliverydate:  this.datePipe.transform(data[index].deliverydate,"dd-MM-yyyy"),
-						
-						
+						currenthop:data[index].currenthop,
 					}
 				);
+				
 			}
 			
+			
+			
+			
 		}
+		
+		
 		
 	)
 	
 	}
-
-
-handleFileInput(files: FileList) {
-        this.fileerror = false;
-        this.filesuccess = false;
-        this.fileToUpload = files.item(0);
-        this.fileName = this.fileToUpload.name;
-    }  		
-    
-    
-    
-submit(){ this.isLoading=true;
-        if (this.fileToUpload == undefined || !this.fileToUpload.name.endsWith(".csv")) {
-          alert("Please Select A csv file");
-          this.isLoading=false;
-        } else {
-            this.uploading = true
-            var user=JSON.stringify(this.userName).replace(".","!");
-            console.log(user)
-            var uploadFor=user+","+JSON.stringify(this.ID);
-            this.planManagemetService.postfaultyFile(this.fileToUpload,uploadFor).subscribe((res => {
-                this.uploading = false
-                if (res != null) {
-					if(JSON.stringify(res)==="1"){
-                   alert("Faulty Kit marked Sucessfully")
-                   this.getData();
-                }
-                else if(JSON.stringify(res)==="2"){
 	
-			alert("Unable to Perform Activity please check The uploaded File again")
-			this.getData();
-} else if(JSON.stringify(res)==="3"){
-	
-			alert("Data Does not Exsist Please check File Again")
-			this.getData();
-}
-               
-                
-                } 
-                
-                else {
-                   alert("Upload Sucessfull")
-                    this.isProceed=false;
-                    this.isConfig=true;
-                   
-                    
-                
-                }
-            }), err => {
-                this.uploading = false
-                this.fileuploadstatus = err.error.message;
-                this.fileerror = true;
-            })
-            console.log(this.fileToUpload.size);
-           this.isLoading=false;
-        }
-}    	
+  			
   			}

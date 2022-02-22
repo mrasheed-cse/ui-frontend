@@ -85,7 +85,7 @@ export class BatchTesting implements OnInit {
       this.router.navigate(['pages/login']);
       
       }
-      this.hop=5;
+      this.hop=4;
       this.getData();
       
     }
