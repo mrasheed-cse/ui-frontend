@@ -49,8 +49,12 @@
 													<div class="form-group row">
 									<label class="col-md-5 col-form-label" >Test For (Number Series)</label>
 									<div class="col-md-7">
-										<input  type="text" class="form-control" 
-									 formControlName="testFor">
+										
+									 <select class="form-control" id="testFor" formControlName="testFor" required >
+											<option [value]="017">017</option>
+												<option [value]="013">013</option>
+												</select>
+
 									</div>
 	
 	
@@ -77,32 +81,7 @@
 										
 					</div>	
 					
-					<div class="row">
-							<div class="col-md-6">
-													<div class="form-group row">
-									<label class="col-md-5 col-form-label" >Start Mobile</label>
-									<div class="col-md-7">
-											<input  type="text" class="form-control" 
-									 formControlName="startMob" disable>
-									</div>
-	
-	
-								</div>
-										</div> 
-								<div class="col-md-6">
-													<div class="form-group row">
-									<label class="col-md-5 col-form-label" >End Mobile</label>
-									<div class="col-md-7">
-											<input  type="text" class="form-control" 
-									 formControlName="endMob" disable>
-									</div>
-	
-	
-								</div>
-										</div> 		
-										
-										
-					</div>	
+					
 					
 					<div class="row">
 							<div class="col-md-6">
@@ -191,115 +170,29 @@
 				<div class="row">
 							<div class="col-md-6">
 													<div class="form-group row">
-									<label class="col-md-5 col-form-label" >Tested By </label>
+									<label class="col-md-5 col-form-label" >Tested & Approved By </label>
 									<div class="col-md-7">
 										<input  type="text" class="form-control" 
 									 formControlName="testedBy" autocomplete="off">
 									</div>
-	
-	
 								</div>
-										</div>
-								<div class="col-md-6">
-								<div class="form-group row">
-									<label class="col-md-5 col-form-label">Approved By Signature</label>
-									<div class="col-md-7">
-										<input type="text" id="wrname" name="approvedBySignature" class="form-control" autocomplete="off"  formControlName="approvedBySignature"  required
-											 >
-									</div>
-								</div>
-						</div>		
-										
-										
-					</div>	
+							</div>		
 					
-					
-					<div class="row">
 							<div class="col-md-6">
 													<div class="form-group row">
 									<label class="col-md-5 col-form-label" >Test Status </label>
 									<div class="col-md-7">
 										<select class="form-control" id="product" formControlName="testStatus" required >
 											<option [value]="0">Complete</option>
-											<option [value]="1">In Progress</option></select>
+											<option [value]="1">In Progress</option>
+											<option [value]="2">Failed</option></select>
 									</div>
-	
-	
 								</div>
-										</div>
-								<div class="col-md-6">
-													<div class="form-group row">
-									<label class="col-md-5 col-form-label" >Approval Date</label>
-									<div class="col-md-7">
-										<div class="col-md-7">									
-												<input type="text" class="form-control calendar-container" autocomplete="off"  id="TestDate" formControlName="ApprovalDate" name="endDate" 
-												required bsDatepicker  placement="right"  [(ngModel)]="ApprovalDate"
-												 [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-green',  showWeekNumbers:false }"
-												>
-											</div>
-									</div>
-	
-	
-								</div>
-										</div>			
-										
-										
+							</div>		
 					</div>	
-					<div class="row">
-							<div class="col-md-6">
-													<div class="form-group row">
-									<label class="col-md-5 col-form-label" >Test Start Date	</label>
-									<div class="col-md-7">
-										<div class="col-md-7">									
-												<input type="text" class="form-control calendar-container" autocomplete="off"  id="startDate" formControlName="testStartDate" name="startDate" 
-												required bsDatepicker  placement="right"  [(ngModel)]="startDate"
-												 [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-green',  showWeekNumbers:false }"
-												[minDate]="ApprovalDate"
-												>
-											</div>
-									</div>
-	
-	
-								</div>
-										</div>	
-							
-												<div class="col-md-6">
-													<div class="form-group row">
-									<label class="col-md-5 col-form-label" >Test End Date	</label>
-									<div class="col-md-7">
-										<div class="col-md-7">									
-												<input type="text" class="form-control calendar-container" autocomplete="off"  id="endDate" formControlName="testEndDate" name="endDate" 
-												required bsDatepicker  placement="right"  [(ngModel)]="endDate"
-												 [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-green',  showWeekNumbers:false }"
-												[minDate]="startDate">
-											</div>
-									</div>
-	
-	
-								</div>
-										</div>	
-										
-										
-					</div>
 					
 					<div class="row">
-							<div class="col-md-6">
-													<div class="form-group row">
-									<label class="col-md-5 col-form-label" >Test Done Date</label>
-									<div class="col-md-7">
-										<div class="col-md-7">									
-												<input type="text" class="form-control calendar-container" autocomplete="off"  id="TestDate" formControlName="TestDate" name="TestDate" 
-												required bsDatepicker  placement="right"  [(ngModel)]="TestDate"
-												 [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-green',  showWeekNumbers:false }"
-												[minDate]="endDate"
-												>
-											</div>
-									</div>
-	
-	
-								</div>
-										</div>	
-										
+						
 										<div class="col-md-6"   *ngIf="!provisionUplodaed">
 													<div class="form-group row">
 								<label class="col-md-5 col-form-label">Select  Provision:</label>
@@ -317,102 +210,8 @@
 													<div class="form-group row">
 								<label class="col-md-5 col-form-label">Provision Data Already Uploaded Uploaded</label>
 								</div>
-										</div>	
+							</div>	
 					</div>	
-					
-					<div class="row">
-							<div class="col-md-6" *ngIf="!incomingUploaded">
-													<div class="form-group row">
-								<label class="col-md-5 col-form-label">Select  Incoming:</label>
-								<div class="col-md-7">
-                <input #fileInput type='file' id="getFile" (click)="fileInput.value = null" accept=".csv"  (change)="handleFileInput($event.target.files)">
-                
-								<a  class="btn btn-sm "(click)="uploadINC()">Upload</a>
-								</div>
-										</div>	
-										</div>
-										<div class="col-md-6" *ngIf="incomingUploaded">
-													<div class="form-group row">
-								<label class="col-md-5 col-form-label">  Incoming File is already Uploaded</label>
-                
-								</div>
-										</div>	
-										
-										
-										<div class="col-md-6" *ngIf="!outGoingUploaded">
-													<div class="form-group row">
-								<label class="col-md-5 col-form-label">Select  Outgoing:</label>
-								<div class="col-md-7">
-                <input #fileInput type='file' id="getFile" (click)="fileInput.value = null" accept=".csv"  (change)="handleFileInput($event.target.files)">
-                
-                	<a  class="btn btn-sm "(click)="uploadOut()">Upload</a>
-								</div>
-										</div>	
-										</div>
-										<div class="col-md-6" *ngIf="outGoingUploaded">
-													<div class="form-group row">
-								<label class="col-md-5 col-form-label">  Outgoing File is already Uploaded</label>
-								</div>
-										</div>	
-					</div>				
-									
-				<div class="row">
-						<div class="col-md-6" *ngIf="!internetUploaded">
-								<div class="form-group row">
-									<label class="col-md-5 col-form-label" for="getFile">Select Internet (EDGE ):</label>
-									<div class="col-md-7">
-									<input #fileInput type='file' id="getFile"  (click)="fileInput.value = null" accept=".csv" (change)="handleFileInput($event.target.files)">
-									<a  class="btn btn-sm "(click)="uploadNet()">Upload</a>
-									</div>
-								</div>
-							</div>
-								
-										<div class="col-md-6" *ngIf="internetUploaded">
-													<div class="form-group row">
-								<label class="col-md-5 col-form-label">Internet (EDGE ) File Already Uploaded:</label>
-                								</div>
-										</div>
-										
-										
-										<div class="col-md-6"  *ngIf="!ersUploaded">
-													<div class="form-group row">
-								<label class="col-md-5 col-form-label">Select ERS:</label>
-								<div class="col-md-7">               
-                	<input #fileInput type='file' id="getFile" (click)="fileInput.value = null" accept=".csv" (change)="handleFileInput($event.target.files)">
-                
-                	<a  class="btn btn-sm "(click)="uploadErs()">Upload</a>
-								</div></div>
-										</div>	
-										
-										<div class="col-md-6"  *ngIf="ersUploaded">
-													<div class="form-group row">
-								<label class="col-md-5 col-form-label">ERS File is already Uploaded</label>
-								</div>
-										</div>	
-					</div>	
-					
-					<div class="row">
-								<div class="col-md-6" *ngIf="!securityUploaded">
-												<div class="form-group row">
-													<label class="col-md-5 col-form-label" for="getFile">Select Security & Configuration:</label>
-													<div class="col-md-7">
-													<input #fileInput type='file' id="getFile"  (click)="fileInputI.value = null" accept=".csv" (change)="handleFileInput($event.target.files)">
-													<a  class="btn btn-sm "(click)="uploadSecurity()">Upload</a>
-													</div>
-												</div>
-											</div>
-
-										<div class="col-md-6" *ngIf="securityUploaded">
-													<div class="form-group row">
-								<label class="col-md-5 col-form-label">  Security & Configuration File is Already Uploaded</label>
-          
-								</div>
-										</div>	
-										
-										
-										
-					</div>	
-					
             </div>
             
             	<div class="card-footer text-right" *ngIf="isAllfilesSubmitted">

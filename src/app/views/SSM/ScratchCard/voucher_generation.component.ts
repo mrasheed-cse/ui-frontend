@@ -111,6 +111,11 @@ export class VoucherGeneration implements OnInit {
 submitVoucher(){
 	this.isLoading=true;
 	console.log(this.voucherGenrationForm.controls.Po.value)
+	if(this.voucherGenrationForm.controls.Po.value==''||(this.voucherGenrationForm.controls.Po.value)){
+		alert("Please provide the Item No(PO)");
+		this.isLoading=false;
+		return;
+	}
 	this.ssmService.checkPoExsist(this.voucherGenrationForm.controls.Po.value).subscribe(
 		data =>{
 			this.isLoading=false;
