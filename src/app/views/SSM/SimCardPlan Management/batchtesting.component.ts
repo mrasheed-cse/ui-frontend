@@ -35,7 +35,7 @@ export class BatchTesting implements OnInit {
 			groupID: number;
   			userID: string;
   			batchTesting:FormGroup;
-			listDropDownproduct=[];
+			
 			public isDisableBtn:boolean = false;
   			fileToUpload: File = null;
     		fileuploadstatus: string;
@@ -50,14 +50,14 @@ export class BatchTesting implements OnInit {
   			hop:number;
   			isProceed:boolean=false;
   			NumberSeries:string;
-  			startMobile:string;
-  			endMobile:string;
+  			
   			startIccid:string;
   			endIccid:string;
   			startDate:Date;
   			endDate:Date;
   			TestMSISDN:string;
-  			handsetUsed:string;
+			  handsetUsed:string;
+			  Product:string;
   			simVendorName:string;
   			tester:string;
   			TestDate:Date;
@@ -91,7 +91,7 @@ export class BatchTesting implements OnInit {
     }
        ngOnInit() {
 	this.createForm();
-	this.getproductName();
+	
 	
 	}
 	
@@ -100,42 +100,19 @@ export class BatchTesting implements OnInit {
 		this.isProceed=true;
 		this.isConfig=false;
 		this.ID=id;
-		this.getBatchFileStatus(id);
+		this.getBatchTestAutoFetchData(id);
 		
 	}
-		
-getproductName(){
-	this.listno="3";
-	this.planManagemetService.getDropdown(this.listno).subscribe(
-		data=>
-			{
-				//console.log(data);
-				for (let index in data) {
-					this.listDropDownproduct.push(
-					{
-						id:data[index].id,
-						groupName: data[index].groupName,
-					}
-					);
-				}
-			},
-    err => console.error(err));
-			
-		}
-	
-	  createForm(){	
+	createForm(){	
 	this.batchTesting= new FormGroup({
 		msisdnType:new FormControl({value: ''}),
 		testStartDate:new FormControl(''),
 		testEndDate:new FormControl(''),
 		Product:new FormControl({value: ''}),
 		testStatus:new FormControl({value: ''}),
-		approvalDate:new FormControl(''),
-		approvedBySignature:new FormControl(''),
+		approvalDate:new FormControl(''),		
 		TestDate:new FormControl(''),
-		testFor:new FormControl(''),
-		startMob: new FormControl(''),
-		endMob: new FormControl(''),
+		testFor:new FormControl(''),		
 		startICCID: new FormControl(''),
 		endICCID: new FormControl(''),
 		testMSISDN:new FormControl(''),
@@ -193,17 +170,23 @@ cancel(){
 	)
 }
 
-getBatchFileStatus(id:number){
-	this.planManagemetService.getBatchFileStatus(id).subscribe(
+getBatchTestAutoFetchData(id:number){
+	this.planManagemetService.getBatchTestAutoFetchData(id).subscribe(
 		
 		data=>{
 			if(data!=null){
-				this.isAllfilesSubmitted=true;}
+				this.batchTesting.get('startICCID').setValue(data.startICCID);
+				this.batchTesting.get('endIccid').setValue(data.endICCID);
+					this.batchTesting.get('Product').setValue(data.productName);
+						this.batchTesting.get('simVendorName').setValue(data.vendorName);
+			}
 				
 			
 		})
 	
 }
+
+
 
 
 handleFileInput(files: FileList) {
