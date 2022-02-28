@@ -87,9 +87,9 @@
 							<div class="col-md-6">
 													<div class="form-group row">
 									<label class="col-md-5 col-form-label" >Start ICCID</label>
-									<div class="col-md-7">
-											<input  type="text" class="form-control" 
-									 formControlName="startICCID" disable>
+									<div class="col-md-7">											
+									 <input disabled type="text" class="form-control"  formControlName="startICCID" 
+								> 
 									</div>
 	
 	
@@ -99,8 +99,9 @@
 													<div class="form-group row">
 									<label class="col-md-5 col-form-label" >End ICCID</label>
 									<div class="col-md-7">
-											<input  type="text" class="form-control" 
-									 formControlName="endICCID" >
+																	 											
+									 <input disabled type="text" class="form-control" formControlName="endICCID" 
+								> 
 									</div>
 	
 	
@@ -144,10 +145,8 @@
 													<div class="form-group row">
 									<label class="col-md-5 col-form-label" >Product Name </label>
 									<div class="col-md-7">
-										<select class="form-control" id="product" formControlName="Product" required >
-											<option></option>
-											<option *ngFor="let aSimType of listDropDownproduct" [value]="aSimType.groupName">{{aSimType.groupName}}</option>
-										</select>
+											<input disabled type="text" class="form-control" formControlName="Product"
+									> 
 									</div>
 	
 	
@@ -157,8 +156,9 @@
 													<div class="form-group row">
 									<label class="col-md-5 col-form-label" >SIM Vendor Name</label>
 									<div class="col-md-7">
-										<input  type="text" class="form-control" 
-									 formControlName="SIMVendorName"  autocomplete="off">
+																				
+									 <input disabled type="text" class="form-control" formControlName="SIMVendorName"
+								> 
 									</div>
 	
 	

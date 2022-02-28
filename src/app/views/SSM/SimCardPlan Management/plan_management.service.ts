@@ -146,6 +146,11 @@ setPackeging(username:string,Id:number,printing:any,packaging:any,delivery:any,c
 	getBatchFileStatus(id:number):any{
 		return this.http.get(this.serverUrl + 'plangenerate/batchFilestatus/'+id)
 		
+    }
+    
+    getBatchTestAutoFetchData(id:number):any{
+		return this.http.get(this.serverUrl + 'plangenerate/batchTestAutoFetchData/'+id)
+		
 	}
 	
 	postBatchFile(fileToUpload: File,type:string) {
