@@ -152,7 +152,12 @@ import {
 					this.successAlertMessage = " has been saved successfully ";
 					
 				if(res.message!=""){
+					if(res.message.indexOf("HOP:") !== -1){
+						res.message = res.message.replace("HOP:", "")
 					this.successAlertMessage = this.successAlertMessage +"	and forwarded to "+res.message+" .";
+					}
+					else
+					this.successAlertMessage = this.successAlertMessage +"	"+res.message+" .";
 				}
 		  }
 		},
