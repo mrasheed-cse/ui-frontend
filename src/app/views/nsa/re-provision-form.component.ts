@@ -350,6 +350,8 @@ console.log('this.isDisableBtn'+this.isDisableBtn);
 
 			this.workFlowsService.CreateNewWorkRequest(this._global.wrid_ReProvisioning, this.groupID,this.userID,this.formFieldData).subscribe(
 				res  =>  {
+					if(res.message.indexOf("HOP:") !== -1)
+						res.message = res.message.replace("HOP:", "")
 				console.log('response is : '+res.message);
 				this.isLoading = false;
 			if(res !== ""){

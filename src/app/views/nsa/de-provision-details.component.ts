@@ -141,11 +141,13 @@ import {
 			this.workFlowsService.UpdateExistiongWorkRequest(this.workFlowsService.FormatWorkRequestNameForAPI(this.wrBriefName),this._global.wrid_DeProvisioning, this.groupID,this.userID,this.hop_sequence,"",this.isDone).subscribe(
 		res  =>  {
 		  console.log('response is : '+res.message);
-		  
+		  if(res.message.indexOf("HOP:") !== -1)
+				res.message = res.message.replace("HOP:", "")
 		
 if(this.hop_sequence!==4){
  console.log("HOP11= "+this.hop_sequence)
 		if(res !== ""){	
+			
 			  this.isLoading = false;
 			  this.successAlertShow = true;
 			 
@@ -158,7 +160,7 @@ if(this.hop_sequence!==4){
 			  this.successAlertShow = true;
 			  console.log("HOP22= "+this.hop_sequence)
 			  
-				  this.successAlertMessage = " has been completed successfully.";
+				  this.successAlertMessage = " has been completed successfully	"+res.message+" .";
 		  }
 		},
 		err  =>  {		  
