@@ -93,6 +93,11 @@ private headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf
 	  return this.http.get(environment.apiUrl + "plangenerate/getsimconfighops/" +hop).pipe(catchError(this.handleError));
 	
 }
+
+getAllBatchTestDone(): Observable<any>{
+    return this.http.get(environment.apiUrl + "plangenerate/loadbatchtestdone/" ).pipe(catchError(this.handleError));
+  
+}
     cancelHop(username:string,Id:number){
 	
 	return this.http.post(this.serverUrl + 'plangenerate/cancelHop/', {
@@ -160,14 +165,26 @@ setPackeging(username:string,Id:number,printing:any,packaging:any,delivery:any,c
         return this.http.post(url, formData);
     }
  
- 
- saveBatch(testFor:string,startMob:string,endMob:string,startICCID:string,endICCID:string,msisdnType:string,Product:string,handsetUsed:string,SIMVendorName:string,approvalDate:any,
- testedBy:string,testStartDate:any,testEndDate: any,testDate:any,approvedBySignature:string,testStatus:string,username:string,Id:number){
+ /*this.batchTesting.controls.testFor.value,
+ msisdnType,
+ this.batchTesting.controls.testMSISDN.value,
+ this.batchTesting.controls.handsetUsed.value,			
+ this.batchTesting.controls.testedBy.value,
+ testStatus,
+ this.username,this.ID
+ */
+ saveBatch(testFor:string,msisdnType:string,testMSISDN:string,handsetUsed:string,
+ testedBy:string,testStatus:string,username:string,Id:number,fileName:string){
 return 	this.http.post(this.serverUrl+"plangenerate/savebatchtest/",{
-	testFor:testFor,startMob:startMob,endMob:endMob,startICCID:startICCID,
-	endICCID:endICCID,msisdnType:msisdnType,Product:Product,handsetUsed:handsetUsed,SIMVendorName:SIMVendorName,
-	username:username,testedBy:testedBy,planId:Id,testStartDate:testStartDate,approvalDate:approvalDate,
-	testEndDate:testEndDate,testDate:testDate,approvedBySignature:approvedBySignature,testStatus:testStatus
+    testFor:testFor,
+    msisdnType:msisdnType,
+    handsetUsed:handsetUsed,
+    username:username,
+    testedBy:testedBy,
+    planId:Id,
+    testStatus:testStatus,
+    fileName:fileName,
+    testMSISDN:testMSISDN
 	
 })
 	

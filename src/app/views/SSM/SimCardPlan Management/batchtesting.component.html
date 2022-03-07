@@ -40,8 +40,53 @@
            
            
            </div>
-            
+		   <div class="card">
           <div class="card-body" *ngIf="isProceed">
+				<div class="card-header">
+						<strong>Plan Details</strong>
+					</div>
+					<div class="card-body">			
+							<div class="row" >
+							  <div class="col-md-12">
+								<table style="width:100%" border="1">        
+								  <tr>
+									<td style="width:25%">Product</td>
+									<td style="width:25%;" >{{Product}}</td>
+									<td style="width:25%">Vendor</td>
+									<td style="width:25%" >{{simVendorName}}</td>
+								  </tr>	
+								  <tr>
+										<td style="width:25%">Start ICCID(s)</td>
+										<td style="width:25%;" >
+												
+														<table class="table-sm">
+															 
+															 <tbody *ngFor="let id of startIccids;  index as i">
+																		 <tr>
+																			 <td><b>{{(i+1)}}.</b>{{id}}</td>
+																		</tr>
+															 </tbody>
+														   </table>
+										</td>
+										<td style="width:25%">End ICCID(s)</td>
+										<td style="width:25%" >
+												<table class="table-sm">
+													 
+													 <tbody *ngFor="let id of endIccids ; index as i">
+															<tr>
+																<td><b>{{(i+1)}}.</b>{{id}}</td>
+														   </tr>
+													 </tbody>
+												   </table>
+												</td>
+									  </tr>								              
+								</table>						
+							  </div>				
+							</div>
+						  </div>
+						  </div>
+						  </div>
+						  <div class="card" *ngIf="isProceed">
             <form [formGroup]="batchTesting" novalidate (ngSubmit)="submit()" >
 		<div class="card-body">
 					<div class="row">
@@ -65,52 +110,16 @@
 									<label class="col-md-5 col-form-label" >MSISDN Type</label>
 									<div class="col-md-7">
 										<select class="form-control" id="msisdntype" formControlName="msisdnType" required >
-										<option [value]="0">Recycle MSISDN</option>
-											<option [value]="1">New MSISDN</option>
-												<option [value]="2">Virtual MSISDN</option>
-											<option [value]="3">MNP</option>
-											<option [value]="4">MY SIM</option>
+												
+												<option *ngFor="let atype of msisdnTypes" [value]="atype">{{atype}}</option>
 											</select>
 									</div>
 	
 	
 								</div>
 										</div>
-								
-								
-										
 					</div>	
-					
-					
-					
-					<div class="row">
-							<div class="col-md-6">
-													<div class="form-group row">
-									<label class="col-md-5 col-form-label" >Start ICCID</label>
-									<div class="col-md-7">											
-									 <input disabled type="text" class="form-control"  formControlName="startICCID" 
-								> 
-									</div>
-	
-	
-								</div>
-										</div> 
-								<div class="col-md-6">
-													<div class="form-group row">
-									<label class="col-md-5 col-form-label" >End ICCID</label>
-									<div class="col-md-7">
-																	 											
-									 <input disabled type="text" class="form-control" formControlName="endICCID" 
-								> 
-									</div>
-	
-	
-								</div>
-										</div> 		
-										
-										
-					</div>	
-					
+				
 					
 					<div class="row">
 							<div class="col-md-6">
@@ -138,35 +147,7 @@
 										
 										
 					</div>	
-					
-					
-					<div class="row">
-							<div class="col-md-6">
-													<div class="form-group row">
-									<label class="col-md-5 col-form-label" >Product Name </label>
-									<div class="col-md-7">
-											<input disabled type="text" class="form-control" formControlName="Product"
-									> 
-									</div>
-	
-	
-								</div>
-										</div>
-								<div class="col-md-6">
-													<div class="form-group row">
-									<label class="col-md-5 col-form-label" >SIM Vendor Name</label>
-									<div class="col-md-7">
-																				
-									 <input disabled type="text" class="form-control" formControlName="SIMVendorName"
-								> 
-									</div>
-	
-	
-								</div>
-										</div>			
-										
-										
-					</div>		
+							
 				<div class="row">
 							<div class="col-md-6">
 													<div class="form-group row">
@@ -182,10 +163,9 @@
 													<div class="form-group row">
 									<label class="col-md-5 col-form-label" >Test Status </label>
 									<div class="col-md-7">
-										<select class="form-control" id="product" formControlName="testStatus" required >
-											<option [value]="0">Complete</option>
-											<option [value]="1">In Progress</option>
-											<option [value]="2">Failed</option></select>
+										<select class="form-control" id="testStatus" formControlName="testStatus" required >												
+												<option *ngFor="let astatus of testStatuses" [value]="astatus">{{astatus}}</option>
+										</select>
 									</div>
 								</div>
 							</div>		
@@ -193,28 +173,24 @@
 					
 					<div class="row">
 						
-										<div class="col-md-6"   *ngIf="!provisionUplodaed">
+										<div class="col-md-6"  >
 													<div class="form-group row">
 								<label class="col-md-5 col-form-label">Select  Provision:</label>
 								<div class="col-md-7">
-                <input #fileInput type='file' id="getFile" (click)="fileInput.value = null" accept=".csv"  (change)="handleFileInput($event.target.files)">
-                
-				<a  class="btn btn-sm "(click)="uploadProv()">Upload</a>
-	
-	
-								</div>
+								<input #fileInput type='file' id="getFile" (click)="fileInput.value = null" accept=".csv"  (change)="handleFileInput($event.target.files)">
+									</div>
 										</div>	
 										</div>
 										
-										<div class="col-md-6"   *ngIf="provisionUplodaed">
+										<div class="col-md-6">
 													<div class="form-group row">
-								<label class="col-md-5 col-form-label">Provision Data Already Uploaded Uploaded</label>
+								
 								</div>
 							</div>	
 					</div>	
             </div>
             
-            	<div class="card-footer text-right" *ngIf="isAllfilesSubmitted">
+            	<div class="card-footer text-right" >
 					<button type="submit" [disabled]="!batchTesting.valid  && !isDisableBtn"  class="btn btn-sm btn-primary">
 						<i class="fa fa-dot-circle-o"></i> Submit</button>
 					
@@ -224,7 +200,8 @@
           
            <div class="card-footer" *ngIf="isProceed">
           
-                  <button   class="btn btn-sm btn-danger" (click)="cancel()"> Cancel</button>
+				  <button   class="btn btn-sm btn-danger" (click)="cancel()"> Cancel</button>
+				  <button   class="btn btn-sm btn-primary" (click)="getData()"> Back To List</button>
            </div>
           
            </div>
