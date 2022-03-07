@@ -13,27 +13,28 @@
            <table class="table table-bordered table-striped table-sm">
                 <thead>
                   <tr>
-                    <th>WR Number</th>
-                    <th>Product Name</th>
-                    <th>Quantity</th>
-                    <th>Creator Name</th>
-                    <th>Printing Date</th>
-                    <th> Packaging Date</th>
-                    <th>Delivery Date</th> 
+                    <th>Test For</th>
+                    <th>Msisdn Type</th>
+                    <th>Test MSISDN</th>
+                    <th>Handset Used</th>
+                    <th>Tested By</th>
+                    <th>Test Status</th>
+                    <th>Test Done</th> 
                     <th>DownLoad</th>
                   </tr>
                 </thead>
-                <tbody *ngFor="let aTask of listPlangenerateData">
+                <tbody *ngFor="let aTask of listBatchTestDoneData">
                             <tr>
-                                <td>{{aTask.wrnumber}}</td>
-                                <td>{{aTask.productname}}</td>
-                                 <td>{{aTask.quantity}}</td>
-                                <td>{{aTask.creatorname}}</td>
-                                 <td>{{aTask.printingdate}}</td>
-                                 <td>{{aTask.packagingdate}}</td>
-                                   <td>{{aTask.deliverydate}}</td>
-                                
-                                <td> DownLoad </td>
+                                <td>{{aTask.testFor}}</td>
+                                <td>{{aTask.msisdnType}}</td>
+                                 <td>{{aTask.testMSISDN}}</td>
+                                <td>{{aTask.handsetUsed}}</td>
+                                 <td>{{aTask.testedBy}}</td>
+                                 <td>{{aTask.testStatus}}</td>
+                                   <td>{{aTask.testDoneDate}}</td>
+                                  <td  *ngIf="aTask.fileName!=null && aTask.fileName!=''"><button   class="btn btn-sm  " (click)="downloadCSVFiles(aTask.planId)">Download</button> </td>
+                                    <td  *ngIf="aTask.fileName==null || aTask.fileName==''"> No File Available
+                                  </td> 
                             </tr>
                 </tbody>
               </table>
