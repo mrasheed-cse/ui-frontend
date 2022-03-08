@@ -57,6 +57,7 @@ export class VoucherGeneration implements OnInit {
 			private rowData: any[];
 			itemName:string;
 			isLoading:boolean=false;
+			Po: FormControl;
 			
 			
 	constructor(private datePipe: DatePipe,private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private ssmService: SSMService ) {
@@ -90,14 +91,15 @@ export class VoucherGeneration implements OnInit {
    this.onCardChange();
        }
     
-   createForm(){	console.log("Hello"),
+   createForm(){	
+	   
 	this.voucherGenrationForm= new FormGroup({
 		StartSerial:new  FormControl(''),
 		BatchQty:new FormControl(''),
 		Vendor:new FormControl({value: ''}),
 		requestDate:new FormControl(''),
 		Pr:new FormControl(''),
-		Po:new FormControl({value: ''}),
+		Po:new FormControl({value: ''}, Validators.required),
 		nwExpireDate:new FormControl(''),
 		ExpireDate:new FormControl(''),
 		CardGroup:new FormControl({value: ''}),
@@ -110,8 +112,21 @@ export class VoucherGeneration implements OnInit {
 }
 submitVoucher(){
 	this.isLoading=true;
-	console.log(this.voucherGenrationForm.controls.Po.value)
-	if(this.voucherGenrationForm.controls.Po.value==''||(this.voucherGenrationForm.controls.Po.value)){
+	let po_val: string  = this.voucherGenrationForm.controls.Po.value;
+	console.log(po_val);
+	//alert(po_val);
+	console.log(po_val.length);
+if(undefined == po_val.length){
+
+	let val: string = JSON.stringify(po_val);
+	//alert(val);
+	console.log(JSON.parse(val).value);
+	//alert(JSON.parse(val).value);
+	po_val = JSON.parse(val).value;
+console.log(po_val.length);
+}
+	//if(this.voucherGenrationForm.controls.Po.value==''||this.voucherGenrationForm.controls.Po.value==""){
+		if(po_val==''|| po_val.length==0){
 		alert("Please provide the Item No(PO)");
 		this.isLoading=false;
 		return;
@@ -129,6 +144,10 @@ submitVoucher(){
 			}
 			
 			
+		},
+		err  =>  {	
+			this.isLoading=false;
+		 alert("Voucher could not be generated.");
 		}
 		);
 	
@@ -157,7 +176,7 @@ getItemNo(){
 	
 this.ssmService.getAllPoInputfiles().subscribe(
 	data => {
-				console.log(data);
+				//console.log(data);
 				for (let index in data) {
 					this.listPo.push(
 					{
