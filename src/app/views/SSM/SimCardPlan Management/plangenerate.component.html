@@ -81,7 +81,7 @@
 													<div class="form-group row">
 									<label class="col-md-5 col-form-label" >Category Name</label>
 									<div class="col-md-7">
-										<select class="form-control" id="catName" formControlName="CategoryName" required >
+										<select class="form-control" id="catName" formControlName="CategoryName" >
 											<option></option>
 											<option *ngFor="let aSimType of listCategoryName" [value]="aSimType.groupName">{{aSimType.groupName}}</option>
 										</select>
