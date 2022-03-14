@@ -48,7 +48,7 @@
                      
                   <div class="form-group row">
 								<label class="col-md-5 col-form-label">Upload :</label>
-                <a  onclick="document.getElementById('getFile').click()">Browse ...</a>
+               
                 <input #fileInput type='file' id="getFile" (click)="fileInput.value = null" accept=".csv" (change)="handleFileInput($event.target.files)">
               <div class="form-group row">
                     <a href="assets/file/SampleFaulty.csv" download>Download sample file</a>
