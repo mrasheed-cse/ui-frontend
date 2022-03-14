@@ -35,7 +35,8 @@ export class AucProcessor implements OnInit {
     		uploading: boolean = false;
     		isConverted:boolean=false;
     		isLoading:boolean=false;
-    		 readonly environment = environment
+             readonly environment = environment;
+            xmlDownloadUrl = this.environment.apiUrl+"/auc_conversion/download";
   			
 	constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private ssmService: SSMService ) {
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
@@ -45,6 +46,8 @@ export class AucProcessor implements OnInit {
       this.groupID = this.currentLoggedInUser.groupID
       this.userID = this.currentLoggedInUser.userID
       this.isDataFound = false;
+      this.xmlDownloadUrl = this.environment.apiUrl+"/auc_conversion/download";
+      console.log(this.xmlDownloadUrl);
     }
     else {
       this.router.navigate(['pages/login']);
@@ -52,9 +55,16 @@ export class AucProcessor implements OnInit {
     }
 
    ngOnInit() { 
-   
+   console.log(this.xmlDownloadUrl);
     }
-     dndUpload() {
+
+    downloadXMLFile(){
+        alert('1');
+        this.ssmService.downloadAucFile();
+        alert('2');
+    }
+     
+   dndUpload() {
         this.fileerror = false;
         this.filesuccess = false;
         if (this.fileToUpload == undefined || !this.fileToUpload.name.endsWith(".AUC")) {

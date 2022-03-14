@@ -295,8 +295,8 @@ deleteSimdropdown(id:number) :Observable<any> {
     
     downloadAucFile() {
         const url = environment.apiUrl + "auc_conversion/download";
-        
-        return this.http.post(url,this.options2);
+        console.log(environment.apiUrl + "auc_conversion/download");
+        return this.http.get(environment.apiUrl + 'auc_conversion/download',this.options2);
 	}
 	
 

@@ -149,13 +149,13 @@ submit(){ this.isLoading=true;
                 }
                 else if(JSON.stringify(res)==="2"){
 	
-			alert("Unable to Perform Activity please check The uploaded File again")
-			this.getData();
-} else if(JSON.stringify(res)==="3"){
-	
-			alert("Data Does not Exsist Please check File Again")
-			this.getData();
-}
+					alert("Unable to Perform Activity please check The uploaded File again")
+					this.getData();
+				} else if(JSON.stringify(res)==="3"){
+			
+					alert("Data Does not Exsist Please check File Again")
+					this.getData();
+				}
                
                 
                 } 

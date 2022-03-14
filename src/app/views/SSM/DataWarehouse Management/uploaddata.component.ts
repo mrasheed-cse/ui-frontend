@@ -68,7 +68,8 @@ submit(){
 	
 	this.datawarehouseservice.uploadCsv(this.fileToUpload,val).subscribe(
 	
-		data=>{ 	console.log(data)
+		data=>{ 	
+			console.log(data)
 			if(data!=null){
 				console.log("Data Sucessfully Saved")
 			

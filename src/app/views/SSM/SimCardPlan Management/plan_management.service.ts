@@ -200,6 +200,14 @@ postfaultyFile(fileToUpload: File,Comments:string){
 	
 }
 
+PlanActivationWOFileUpload(Comments:string){
+	
+
+    
+    return this.http.post(environment.apiUrl + "plangeneration/PlanActivationWOFileUpload/"+Comments,{});
+
+}
+
 getTotalQuantiy(imsitype:any[]):any{
 	console.log(imsitype)
 	return this.http.get(this.serverUrl+"plangenerate/gettotalquantity/"+imsitype)

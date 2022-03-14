@@ -28,17 +28,20 @@
                      
                   <div class="form-group row">
 								<label class="col-md-5 col-form-label">Upload File:</label>
-                <a  onclick="document.getElementById('getFile').click()">Browse ...</a>
-               
-                <input #fileInput type='file' id="getFile" (click)="fileInput.value = null" style="position: fixed; left: -200px; top: -200px;" (change)="handleFileInput($event.target.files)">
+                <a  onclick="document.getElementById('getFile').click()">Browse ...</a>				
+                <input #fileInput type='file' id="getFile" (click)="fileInput.value = null" (change)="handleFileInput($event.target.files)">
 	 {{fileName}}
 								</div>
-								</div>
-								
-								
-										
-					</div>	
-					
+								</div>	
+					</div>
+					<div class="row">
+					<div classs="col-md-12">
+
+							<a href="assets/file/SampleADC.ADC" download>Download ADC sample file</a><br/>
+							<a href="assets/file/SampleAUC.AUC" download>Download sample file</a>
+			
+						  </div>
+						</div>
 					</div>
 					   <div class="card-footer">
           

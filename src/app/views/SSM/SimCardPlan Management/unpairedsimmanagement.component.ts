@@ -73,17 +73,30 @@ constructor(private datePipe: DatePipe,private router: Router,private loginServi
             this.uploading = true
             this.isLoading=true
             this.planManagemetService.uploadunpairedfile(this.fileToUpload,this.id).subscribe((res => {
-                this.uploading = false
-                if (res == null) {
+                this.uploading = false;
+                this.isLoading=false;
+                console.log(res);
+                
+                if (res === "") {
                     this.fileuploadstatus = 'File Upload Fail';
                     this.fileerror = true;
-                    this.isLoading=false;this.uploading=true;
+                    this.uploading=true;
                 } 
-                else {
+                else if (res === "1") {
 	this.fileuploadstatus="Data Saved Sucessfully"
                     this.filesuccess = true;
                     this.isLoading=false;
                 }
+                if(res !== ""){
+                    this.fileuploadstatus="Data Saved Sucessfully"
+                    this.filesuccess = true;
+                    this.isLoading=false;
+                }
+                else {
+                    this.fileuploadstatus = 'File Upload Fail';
+                    this.fileerror = true;
+                    this.uploading=true;
+                } 
             }), err => {
                 this.uploading = false
                 this.fileuploadstatus = 'File Upload Fail';
