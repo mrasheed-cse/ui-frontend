@@ -7,6 +7,9 @@
         <p style="color: #005500; margin-left: 10px; font-weight: bold;" *ngIf="filesuccess">{{fileuploadstatus}}</p>
     </div>
     <p style="font-size: 20px; font-family: sans-serif;">AUC Conversion</p>
+    <a href="{{xmlDownloadUrl}}"> XML  </a>
+    <button type="button" class="btn btn-link" (click)="downloadXMLFile()">
+            <i class="fa fa-download" ></i>Download XML File</button>
     <div class="recycle-bar"></div>
     <div id="recycle-download" class="recycle-download" style="border-radius: 10px 10px 0 0">
         <i class="fa fa-chevron-circle-right" aria-expanded="true" aria-controls="collapseOne" style="font-size:20px; color:#1b91c1; margin-left: 2px" aria-hidden="true"></i>
@@ -14,8 +17,7 @@
         <div id="collapseOne" style="background-color: white;" aria-labelledby="headingOne" data-parent="#recycle-download">
             <div class="card-body">
                 <sub>Please Select the File:</sub>
-                <button class="btn btn-secondary btn-sm" onclick="document.getElementById('getFile').click()">Browse ...</button>
-                <input #fileInput type='file' id="getFile" (click)="fileInput.value = null" accept=".auc" style="position: fixed; left: -200px; top: -200px;" (change)="handleFileInput($event.target.files)">
+                <input #fileInput type='file' id="getFile" (click)="fileInput.value = null" accept=".auc"  (change)="handleFileInput($event.target.files)">
                 <br>
                 <button *ngIf="fileName && !uploading" type="button" class="btn btn-info btn-sm" style="border-radius: 10px; color: white" (click)="dndUpload()">
                     Click Here To Upload <span style="color: yellow; text-decoration: underline;">{{fileName}}</span>
@@ -24,12 +26,17 @@
         </div>
     </div>
 </div>
-
+<a href="{{xmlDownloadUrl}}"> XML  </a>
 <div class="recycle" *ngIf="isConverted">
     <h5>Download XML File</h5>
     
     <div class="recycle-bar"></div>
     <div id="recycle-download" class="recycle-download" style="border-radius: 10px 10px 0 0">
-       <a  download="" href="{{environment.apiUrl + '/auc_conversion/download' }}" class="mx-sm-3" role="button">Download</a>
+       <a  download="" href={xmlDownloadUrl} class="mx-sm-3" role="button">Download</a>
+       <a  download="" href={{xmlDownloadUrl} class="mx-sm-3" role="button">Download</a>
+       
+       <a href="{{xmlDownloadUrl}}"> Send Mail </a>
+       <button type="button" class="btn btn-link" (click)="downloadXMLFile()">
+            <i class="fa fa-download" ></i>Download XML File</button>
     </div>
 </div>

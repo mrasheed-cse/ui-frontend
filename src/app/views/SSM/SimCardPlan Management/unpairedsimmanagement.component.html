@@ -13,10 +13,20 @@
         Upload  File
         <div id="collapseOne" style="background-color: white;" aria-labelledby="headingOne" data-parent="#recycle-download">
             <div class="card-body">
+                    <div class="row">
+							<div class="col-md-6">
+													<div class="form-group row">
                 <sub>Please Select the File:</sub>
-                <button class="btn btn-secondary btn-sm" onclick="document.getElementById('getFile').click()">Browse ...</button>
-                <input #fileInput type='file' id="getFile" (click)="fileInput.value = null"  style="position: fixed; left: -200px; top: -200px;" (change)="handleFileInput($event.target.files)">
-                <br>
+                                <input #fileInput type='file' id="getFile" (click)="fileInput.value = null" (change)="handleFileInput($event.target.files)">
+
+            </div>
+        </div>
+        <div classs="col-md-6">
+
+                <a href="assets/file/SampleUnpairSim.csv" download>Download sample file</a>
+
+              </div>
+    </div>
                 <button *ngIf="fileName && !uploading" type="button" class="btn btn-info btn-sm" style="border-radius: 10px; color: white" (click)="dndUpload()">
                     Click Here To Upload <span style="color: yellow; text-decoration: underline;">{{fileName}}</span>
                 </button>
