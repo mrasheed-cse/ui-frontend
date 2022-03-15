@@ -86,6 +86,7 @@ export class VoucherManagementApproval implements OnInit {
     
       
     getData(hop:number){
+	this.isLoading=true;
 	this.firstHop=true;
 	this.listVoucherHopsdata=[];
 	this.isfirsthopProceed=false;
@@ -121,6 +122,7 @@ export class VoucherManagementApproval implements OnInit {
 		}
 	})
 	this.comments="";
+	this.isLoading=false;
 }	
 
 cancel(){

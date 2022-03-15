@@ -81,6 +81,7 @@ this.hop=6;
   			
   			
   	getData(hop:number){
+		  this.isLoading=true;
 	this.firstHop=true;
 	this.listVoucherHopsdata=[];
 	this.isActivation=false;
@@ -130,6 +131,7 @@ this.hop=6;
 		
 		
 	})
+	this.isLoading=false;
 }
     
 
