@@ -67,6 +67,7 @@ this.hop=0;
     }
     }
     getData(hop:number){
+		this.isLoading=true;
 	this.firstHop=true;
 	this.listVoucherHopsdata=[];
 	this.isfirsthopProceed=false;
@@ -91,6 +92,7 @@ this.hop=0;
 		
 		
 	})
+	this.isLoading=false;
 }
 
 

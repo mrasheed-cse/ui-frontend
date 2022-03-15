@@ -70,6 +70,7 @@ export class VoucherGenerationForward implements OnInit {
     }
      
     getData(hop:number){
+	this.isLoading=true;
 	this.firstHop=true;
 	this.listVoucherHopsdata=[];
 	this.listDataByid=[];
@@ -110,6 +111,7 @@ export class VoucherGenerationForward implements OnInit {
 	
 
 )
+this.isLoading=false;
 	
 }
     
