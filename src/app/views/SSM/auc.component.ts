@@ -67,8 +67,10 @@ export class AucProcessor implements OnInit {
    dndUpload() {
         this.fileerror = false;
         this.filesuccess = false;
-        if (this.fileToUpload == undefined || !this.fileToUpload.name.endsWith(".AUC")) {
-            this.fileuploadstatus = 'Please select a auc file';
+        console.log(this.fileToUpload.name);
+        
+        if (this.fileToUpload == undefined || !(this.fileToUpload.name.toUpperCase().endsWith(".AUC"))) {
+            this.fileuploadstatus = 'Please select a .auc file';
             this.fileerror = true;
         } else {
             this.uploading = true
