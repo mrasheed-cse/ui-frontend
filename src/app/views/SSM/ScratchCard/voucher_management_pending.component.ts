@@ -119,10 +119,11 @@ export class VoucherManagementApproval implements OnInit {
 					
 					);
 					console.log(this.listVoucherHopsdata)
+					this.isLoading=false;
 		}
 	})
 	this.comments="";
-	this.isLoading=false;
+	
 }	
 
 cancel(){
@@ -165,7 +166,7 @@ checkUncheckAll() {
 }
  
  submit1(){
-	this.isLoading = true;
+	
 	this.selectedIdList="";
 		//alert(this.listVoucherHopsdata.length);
 		for (let i = 0; i < this.listVoucherHopsdata.length; i++) {
@@ -178,7 +179,12 @@ checkUncheckAll() {
 			//alert(this.selectedIdList);
 		}
 	}
-	console.log(this.selectedIdList);
+	console.log("Selected Ids "+this.selectedIdList);
+	if(this.selectedIdList.length==0){
+		alert("Please select at least one voucher");
+		return;
+	}
+	this.isLoading = true;
 	this.ssmService.setHop(this.userName,this.selectedIdList,this.comments).subscribe(
 
 		data=>{

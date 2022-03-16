@@ -103,6 +103,7 @@ this.hop=6;
 			this.isActivation=true;
 			
 		}
+		this.isLoading=false;
 		for (let index in data) {
 			
 			this.listVoucherHopsdata.push(
@@ -127,18 +128,19 @@ this.hop=6;
 					}
 					
 					);
+					
 		}
 		
 		
 	})
-	this.isLoading=false;
+	
 }
     
 
 
 	
 submit(){
-	this.isLoading=true;
+	
 	this.selectedIdList="";
 		//alert(this.listVoucherHopsdata.length);
 		for (let i = 0; i < this.listVoucherHopsdata.length; i++) {
@@ -149,7 +151,12 @@ submit(){
 			//alert(this.selectedIdList);
 		}
 	}
-	console.log(this.selectedIdList);
+	console.log("Selected Ids "+this.selectedIdList);
+	if(this.selectedIdList.length==0){
+		alert("Please select at least one voucher");
+		return;
+	}
+	this.isLoading = true;
 	this.ssmService.SaveBatch(this.userName,this.selectedIdList,this.batch,this.comments).subscribe(
 		data=>{if(data!=null){
 			alert("Scratch Card Is Batch Testing sucess")
