@@ -177,7 +177,7 @@ submit(){
 }
 
 submitActivate(){
-	this.isLoading=true;
+	
 	this.selectedIdList="";
 		//alert(this.listVoucherHopsdata.length);
 		for (let i = 0; i < this.listVoucherHopsdata.length; i++) {
@@ -188,7 +188,12 @@ submitActivate(){
 			//alert(this.selectedIdList);
 		}
 	}
-	console.log(this.selectedIdList);
+	console.log("Selected Ids "+this.selectedIdList);
+	if(this.selectedIdList.length==0){
+		alert("Please select at least one voucher");
+		return;
+	}
+	this.isLoading = true;
 
 	this.ssmService.SaveFinal(this.userName,this.selectedIdList,this.comments).subscribe(
 		data=>{
