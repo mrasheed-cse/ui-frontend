@@ -53,6 +53,7 @@ export class VoucherGeneration implements OnInit {
 			listCardGroup=[];
 			listDenomination=[];
 			listPo=[];
+			
 			public listVendor=[];
 			private rowData: any[];
 			itemName:string;
@@ -85,17 +86,19 @@ export class VoucherGeneration implements OnInit {
     this.getvoucherSerial();
     this.getvoucherSerialHidden();
 	this.createForm(); 
-	this.onquantityChange();
+	this.onQuantityChange();
 	this.getItemNo();
    this.onDenominationChange();
-   this.onCardChange();
+   //this.onCardChange();
+   this.getMaxSerial();
+   this.onPoSelectionChange();
        }
     
    createForm(){	
 	   
 	this.voucherGenrationForm= new FormGroup({
 		StartSerial:new  FormControl(''),
-		BatchQty:new FormControl(''),
+		Quantity:new FormControl(''),
 		Vendor:new FormControl({value: ''}),
 		requestDate:new FormControl(''),
 		Pr:new FormControl(''),
@@ -131,7 +134,12 @@ console.log(po_val.length);
 		this.isLoading=false;
 		return;
 	}
-	this.ssmService.checkPoExsist(this.voucherGenrationForm.controls.Po.value).subscribe(
+	var splitted = po_val.split("-", 1); 
+	let thePo:string=splitted[0];
+	console.log(thePo);
+	
+	this.ssmService.checkPoExsist(thePo).subscribe(
+
 		data =>{
 			this.isLoading=false;
 			if(data!=null){
@@ -180,10 +188,13 @@ this.ssmService.getAllPoInputfiles().subscribe(
 				for (let index in data) {
 					this.listPo.push(
 					{
-						id:data[index].id,
-						groupName: data[index].itemSupplier,
-					}
-					);
+						id:data[index].id+'-'+data[index].itemNumber,
+						groupName: data[index].id+'-'+data[index].itemDescription,
+							itemName: data[index].itemNumber,
+							quantity: data[index].quantity,
+							itemDescription: data[index].itemDescription
+						}
+						);
 				}
 			},
     err => console.error(err),);
@@ -304,20 +315,61 @@ getSerial(){ this.startSerial==null;
 	);
 	
 }
-   onquantityChange(){this.endSerial=null;
-    this.startSerial==null;
-	this.voucherGenrationForm.get('BatchQty').valueChanges.subscribe(selectab => {
-		var v1=null;
+
+getMaxSerial(){ 
+	this.startSerial==null;
+	
+   this.ssmService.getMaxSerial().subscribe(
+	   data =>{
+		   this.startSerial=data.serial;		   
+	   }
+   );
+}
+
+
+
+onQuantityChange(){
+	/*
+	this.endSerial=null;
+    var v1=null;
 		var v2=null;
 		v1= Number(this.startSerial);
-	v2=this.voucherGenrationForm.controls.BatchQty.value-1;
+		v2=this.voucherGenrationForm.controls.Quantity.value-1;
 		var num=v1+v2;
-	this.endSerial=num;
-		}
-		
-	);
+		this.endSerial=num;
+*/
+		this.voucherGenrationForm.get('Quantity').valueChanges
+		.subscribe(selectedQuantity => {
+			if (selectedQuantity!=null && selectedQuantity.toString().length>0 ){
+				this.endSerial=Number(this.startSerial)+Number(selectedQuantity)-1 ;
+			}
+	
+		});
 	
 	
+}
+
+onPoSelectionChange(){
+	
+	this.voucherGenrationForm.get('Po').valueChanges
+		.subscribe(selectedPo => {
+			if (selectedPo!=null){							
+				for(let index in this.listPo){		
+					
+					if(this.listPo[index].id==this.voucherGenrationForm.controls.Po.value) {					
+						console.log(this.listPo[index].groupName);
+						console.log(this.listPo[index].id+'-'+this.listPo[index].itemDescription);
+						console.log(this.listPo[index].quantity);
+						console.log(this.voucherGenrationForm.controls.Po.value);
+						this.voucherGenrationForm.get('Quantity').setValue(Number(this.listPo[index].quantity));			
+						console.log(this.voucherGenrationForm.controls.Quantity.value);
+						break;
+					}		
+				}
+				
+			}
+	
+		});
 }
 
 onDenominationChange(){
@@ -340,7 +392,7 @@ onCardChange(){this.endSerial=null;
 
 
 ShowData(){ 
-	this.isLoading=true;
+	
 	this.isDataFound=false;
 	 var objToInsert = {};
 	 var start=""+this.startSerial;
@@ -361,19 +413,20 @@ ShowData(){
 	
 	 
 	for(let index in this.listPo){
-		if(this.listPo[index].id=this.voucherGenrationForm.controls.Po.value){
-			
-			objToInsert['Itemnumber']=this.listPo[index].groupName;
-			
-		}
-		
+		if(this.listPo[index].id==this.voucherGenrationForm.controls.Po.value){			
+			objToInsert['Itemnumber']=this.listPo[index].itemName;			
+			if(Number(this.voucherGenrationForm.controls.Quantity.value)>Number(this.listPo[index].quantity)){
+				alert('Quantity can not be larger than the available quantity '+this.listPo[index].quantity);
+				return;
+			}
+		}		
 	}
 	 
-	 objToInsert['endSerial']=this.endSerial;
+	objToInsert['endSerial']=this.endSerial;
 	objToInsert['BatchNo']=this.batchNo;
 	objToInsert['StartSerial']=this.startSerial;
 	console.log("Item is ",objToInsert['Itemnumber'])
-	objToInsert['BatchQty']=this.voucherGenrationForm.controls.BatchQty.value;
+	objToInsert['Quantity']=this.voucherGenrationForm.controls.Quantity.value;
 	objToInsert['requestDate']=this.datePipe.transform(this.reqDate,"dd-MM-yyyy");
 	if(this.voucherGenrationForm.controls.Pr.value==null){
 		objToInsert['Pr']=" ";
@@ -386,10 +439,12 @@ ShowData(){
 	objToInsert['Vendor']=this.voucherGenrationForm.controls.Vendor.value;
 	objToInsert['VendorwiseSFTP']=this.voucherGenrationForm.controls.VendorwiseSFTP.value;
 	  this.rowData.push(objToInsert);
-	
+
+	  
+	  this.isLoading=true;
 	this.ssmService.saveScratch(
 		objToInsert['Po'],objToInsert['Denomination']
-	,start,objToInsert['requestDate'],objToInsert['BatchQty'],this.voucherGenrationForm.controls.Vendor.value
+	,start,objToInsert['requestDate'],objToInsert['Quantity'],this.voucherGenrationForm.controls.Vendor.value
 	,objToInsert['Pr'],objToInsert['nwExpireDate'],objToInsert['ExpireDate'],objToInsert['CardGroup'],
 	
 	this.voucherGenrationForm.controls.voucherserialdigits.value,this.voucherGenrationForm.controls.voucherserialdigitshidden.value,
