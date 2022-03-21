@@ -119,6 +119,11 @@ getImsiAndICCID(imsi:string,quantity:string,vendor:string):any	{
 		});
 		
 	}
+
+	getMaxSerial():any{
+		return this.http.get(this.serverUrl +'vouchergeneration/getMaxSerial');
+		
+	}
 	
 	checkPoExsist(poNumber:string): any{
 	return this.http.post(this.serverUrl + 'sctrachVoucher/searchPo/', {
@@ -312,8 +317,7 @@ deleteSimdropdown(id:number) :Observable<any> {
   }
   
   getAllPoInputfiles():any{
-	
-	return this.http.get(environment.apiUrl + "vouchergeneration/getpodetail").pipe(catchError(this.handleError));
+	return this.http.get(this.serverUrl + 'vouchergeneration/getpodetail');
 }
 
   UpdateReceivedQuantity(data:any):any {
