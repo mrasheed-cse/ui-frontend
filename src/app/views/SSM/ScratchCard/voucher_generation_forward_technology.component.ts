@@ -79,7 +79,7 @@ export class VoucherGenerationForward implements OnInit {
 	this.fileToUpload=null;
 	this.isDataFound=false;
 	this.ssmService.getApproval1HopData(this.hop).subscribe(data=>{
-		//console.log(data);
+		console.log(data);
 		if(data!=null && data.length>0){
 			this.isDataFound=true;
 		}
