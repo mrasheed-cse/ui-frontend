@@ -41,7 +41,8 @@ export class SearchVoucherHistory implements OnInit {
   			confirmationLog :string;
   			confirmationTech:string;
   			requestActivation:string;
-  			dataSendToVendor:string;
+			  dataSendToVendor:string;
+			  vendor:string;
   			hrnDate:string;
   			quantity:string;
   			startSerial:string;
@@ -78,13 +79,15 @@ search(){
   			
   			this.confirmationTech=this.datePipe.transform(data['confirmationTech']);
   			this.requestActivation=this.datePipe.transform(data['requestActivation']);
-  			this.dataSendToVendor=this.datePipe.transform(data['dataSendToVendor']);
+			  this.dataSendToVendor=this.datePipe.transform(data['dataSendToVendor']);
+			  this.vendor=data['vendor'];
   			this.hrnDate=this.datePipe.transform(data['hrnDate']);
   			this.quantity=data['quantity']
   			this.startSerial=data['startSerial']
   			this.endSerial=data['endSerial']
   			this.denomination=data['denomination'];
-  			this.po=data['po']
+			  this.po=data['po']
+			console.log(data);
 	}
 	
 	}

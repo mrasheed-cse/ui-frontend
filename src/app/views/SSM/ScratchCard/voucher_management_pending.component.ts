@@ -119,10 +119,11 @@ export class VoucherManagementApproval implements OnInit {
 					
 					);
 					console.log(this.listVoucherHopsdata)
-					this.isLoading=false;
+					
 		}
 	})
 	this.comments="";
+	this.isLoading=false;
 	
 }	
 

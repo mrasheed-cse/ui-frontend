@@ -432,8 +432,10 @@ ShowData(){
 		objToInsert['Pr']=" ";
 		
 	}
+	
 	objToInsert['Pr']=this.voucherGenrationForm.controls.Pr.value;
 	objToInsert['Po']=this.voucherGenrationForm.controls.Po.value;
+	objToInsert['Po']=objToInsert['Po'].substr(0, objToInsert['Po'].indexOf('-')); 
 	objToInsert['nwExpireDate']=this.datePipe.transform(this.nwDate,"dd-MM-yyyy");
 	objToInsert['ExpireDate']=this.datePipe.transform(this.exDate,"dd-MM-yyyy");
 	objToInsert['Vendor']=this.voucherGenrationForm.controls.Vendor.value;
@@ -443,7 +445,7 @@ ShowData(){
 	  
 	  this.isLoading=true;
 	this.ssmService.saveScratch(
-		objToInsert['Po'],objToInsert['Denomination']
+		this.voucherGenrationForm.controls.Po.value,objToInsert['Denomination']
 	,start,objToInsert['requestDate'],objToInsert['Quantity'],this.voucherGenrationForm.controls.Vendor.value
 	,objToInsert['Pr'],objToInsert['nwExpireDate'],objToInsert['ExpireDate'],objToInsert['CardGroup'],
 	
