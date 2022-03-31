@@ -88,6 +88,13 @@ private headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf
        
 
     }
+
+    uploadCSvAndGeneratePlanForUnpaired(object :any):any{
+        
+        return this.http.post(this.serverUrl+"unpairedUploadAndPlanGenerate/start/",object);
+       
+
+    }
     
      getConfig(hop:number): Observable<any>{
 	  return this.http.get(environment.apiUrl + "plangenerate/getsimconfighops/" +hop).pipe(catchError(this.handleError));
@@ -227,12 +234,6 @@ returnandReciceve(Object :{}):any{
     }
 	
 	
-	uploadunpairedfile(fileToUpload: File,id:string) {
-        const url = environment.apiUrl + "unpairedupload/start/"+id;
-        const formData: FormData = new FormData();
-        formData.append('file', fileToUpload, fileToUpload.name);
-        return this.http.post(url, formData);
-    }
     
     getUser(username:string):any{
 	
