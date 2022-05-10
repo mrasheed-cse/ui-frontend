@@ -10,6 +10,7 @@ import {SeriesDefinitionDetailsComponent} from './series-definition-details.comp
 import {DeProvisionComponent} from './de-provision.component';
 import {DeProvisionFormComponent} from './de-provision-form.component';
 import {DeProvisionDetailsComponent} from './de-provision-details.component';
+import{UploadfileswithBatchIdComponent} from './uploadfileswith-batch-id.component';
 import {ReProvisionComponent} from './re-provision.component';
 import {ReProvisionFormComponent} from './re-provision-form.component';
 import {ReProvisionDetailsComponent} from './re-provision-details.component';
@@ -129,7 +130,10 @@ import{ViewDatawarehouse} from'../SSM/DataWarehouse Management/showdatawarehouse
 
 import{UploadForcast} from'../SSM/Report/uploadforcast.component';
 import{VoucherJourney} from '../SSM/ScratchCard/viewvoucher_journey.component';
-import{ViewProductReport} from'../SSM/Report/viewProductReport.component'
+import{ViewProductReport} from'../SSM/Report/viewProductReport.component';
+
+
+
 const routes: Routes = [
     {
         path: '',
@@ -203,6 +207,14 @@ const routes: Routes = [
         component: DeProvisionComponent,
         data: {
             title: 'De-Provision'
+        },
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'deprovisionfileupload',
+        component: UploadfileswithBatchIdComponent,
+        data: {
+            title: 'De-Provision File Upload'
         },
         canActivate: [AuthGuard]
     },

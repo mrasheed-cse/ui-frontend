@@ -26,6 +26,7 @@ import { SeriesDefinitionDetailsComponent } from './series-definition-details.co
 import { DeProvisionComponent } from './de-provision.component';
 import { DeProvisionFormComponent } from './de-provision-form.component';
 import { DeProvisionDetailsComponent } from './de-provision-details.component';
+import{UploadfileswithBatchIdComponent} from './uploadfileswith-batch-id.component';
 import { ReProvisionComponent } from './re-provision.component';
 import { ReProvisionFormComponent } from './re-provision-form.component';
 import { ReProvisionDetailsComponent } from './re-provision-details.component';
@@ -150,7 +151,8 @@ import{UploadForcast} from'../SSM/Report/uploadforcast.component'
 import {LoginService} from '../pages/LoginService';
 import{ViewProductReport} from'../SSM/Report/viewProductReport.component'
 import{VoucherJourney} from '../SSM/ScratchCard/viewvoucher_journey.component';
-import { ChartsModule } from 'ng2-charts/ng2-charts'
+import { ChartsModule } from 'ng2-charts/ng2-charts';
+
 
 @NgModule({
   imports: [
@@ -177,6 +179,7 @@ import { ChartsModule } from 'ng2-charts/ng2-charts'
     DeProvisionComponent,
     DeProvisionFormComponent,
     DeProvisionDetailsComponent,
+    UploadfileswithBatchIdComponent,
     ReProvisionComponent,
     ReProvisionFormComponent,
     ReProvisionDetailsComponent,
@@ -283,7 +286,7 @@ import { ChartsModule } from 'ng2-charts/ng2-charts'
     GenerateanalyzeComponent,
     GenerateComponent,
     UploadForcast,
-    VoucherJourney,ViewProductReport
+    VoucherJourney,ViewProductReport, UploadfileswithBatchIdComponent
   ],
   providers:[DatePipe, LoginService, AuthGuard]})
 export class NsaModule { }
