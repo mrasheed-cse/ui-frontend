@@ -47,6 +47,7 @@ private headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf
     }
     
     getDropdown(linkno: string):any {
+        console.log(this.serverUrl + "plangenerate/dropdown/" + linkno);
         return this.http.get(this.serverUrl + "plangenerate/dropdown/" + linkno).pipe(catchError(this.handleError));
     }
     
