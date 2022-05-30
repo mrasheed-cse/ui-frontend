@@ -271,6 +271,11 @@ SubmitForPlanGenerationFromMsisdnFile(){
 		return;
 	}
 
+	if(this.fileToUpload.name==null || this.fileToUpload.name.length==0){
+		alert('Please provide plan generation file.');
+		return;
+	}
+
 	this.isLoading=true;
 	const formData: FormData = new FormData();
 		
