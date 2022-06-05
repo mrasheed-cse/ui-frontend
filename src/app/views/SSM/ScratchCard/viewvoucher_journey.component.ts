@@ -37,12 +37,17 @@ export class VoucherJourney implements OnInit {
   			userID: string;
   			viewall:boolean=false;
   			isDetail:boolean=false;
-  			listVoucherHopsdata=[];
+  			listVoucherHopsdata: Array<Object>;
   			voucherDetail:any[]=[];
   			filteredData:any[];
   			public searchText : string;
+  			public vendor:string;
   			Status: string
+  			item:string
   			endSerial:number;
+  			  private offset: number;
+  public currPage: number;
+	public totalPages: number;
   			constructor(private datePipe: DatePipe,private router: Router,private fb:FormBuilder,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private viewService: ViewJourney ) {
     
  
@@ -61,152 +66,42 @@ export class VoucherJourney implements OnInit {
   					 
     ngOnInit(){
 	
-	 this.getAllData();
+	 this.firstPage();
 		
 	}
 	
 	getAllData(){
 		this.viewall=true;
-		this.viewService.getAllVoucher().subscribe(
-			data=>{
+		this.viewService.getAllVoucher(this.currPage,this._global.ScratchvoucherPageSize).subscribe(
+			data=>{ 
+				 var dataSize = Number(data.totalSize);
+				  if(dataSize>0){    this.filteredData=data.response;
+				  this.listVoucherHopsdata=data.response;
+				  
+				  
+        var resultOfMod = dataSize%Number(this._global.ScratchvoucherPageSize);        
+        this.totalPages = Math.floor(dataSize/Number(this._global.ScratchvoucherPageSize));
+        
+        if(resultOfMod>0)
+          this.totalPages=this.totalPages+1;
+        console.log("Total Page "+this.totalPages);
+        //alert(dataSize);
+      }
+      else{
+	alert("No Data Found")
+      }
+				 
 				
-				this.filteredData=data;
-					for (let index in data) {
-			
-			this.listVoucherHopsdata.push(
-					{
-						
-						ponumber: data[index].ponumber,
-						batchNo: data[index].batchNo,
-						currentHop: data[index].currentHop,
-						lastHop: data[index].lastHop,
-						pendingFor: data[index].pendingFor,
-						vendor: data[index].vendor,
-						cardGroup: data[index].cardGroup,
-						id:data[index].id,
-					}
-					);
-					
-				}
 				
 			})
 			}
 	
 	
-	details(id:number){
-		
-		this.viewall=false;
-		this.getVoucherDetail(id);
-		this.isDetail=true;
-		
-	}
+	
   			
-  	getVoucherDetail(id:number){
-	
-	this.isDetail=true;
-	this.viewService.getVoucher(id).subscribe(
-		data=>{
-		console.log(data.ponumber)
-		
-		console.log("AA "+data['ponumber'])
-			this.voucherDetail.push(
-					{ponumber: data.ponumber,
-						batchNo: data.batchNo,
-						 id: data.id,
-						 serial: data.serial,
-						 quantity: data.quantity,
-						denomination: data.denomination,
-						networkexpiredate: this.datePipe.transform(data.networkexpiredate,"dd-MM-yyyy"),
-						expirydate:this.datePipe.transform( data.expirydate,"dd-MM-yyyy"),
-						cardgroup: data.cardgroup,
-						sftplocation: data.sftplocation,
-						vendor:data.vendor,
-						batchtestresult: data.batchtestresult
-						
-					}					
-					);
-		this.endSerial=Number(this.voucherDetail[0].serial)+Number(this.voucherDetail[0].quantity)-1
-		console.log(this.endSerial )
-		
-		
-		
-	})
-	
-}	
-
-statusChanged(){
-	this.listVoucherHopsdata=[];
-	console.log("Status" +this.Status)
-	var status="";
-	if(this.Status==="1"){
-		status="CLOSED";
-		
-	}
-	else if(this.Status==="2"){
-		status="RAFM ";
-		
-	}
-	else if(this.Status==="3"){
-		status="Canceled ";
-		
-	}
-	else if(this.Status==="4"){
-		status="SSM ";
-		
-	}
-	else if(this.Status==="5"){
-		status="Technology ";
-		
-	}
-	else if(this.Status==="6"){
-		status="CLC ";
-		
-	}
-	else{
-		status="All";
-	}
-	for(let index in this.filteredData){
-			
-		if(this.filteredData[index].pendingFor.trim()===status.trim()){
-			console.log("Abc")
-			this.listVoucherHopsdata.push(
-					{
-						
-						ponumber: this.filteredData[index].ponumber,
-						batchNo: this.filteredData[index].batchNo,
-						currentHop: this.filteredData[index].currentHop,
-						lastHop: this.filteredData[index].lastHop,
-						pendingFor: this.filteredData[index].pendingFor,
-						vendor: this.filteredData[index].vendor,
-						cardGroup: this.filteredData[index].cardGroup,
-						id: this.filteredData[index].id,
-					}
-					);
-			
-		}
-		
-		else if(status==="All"){
-			this.listVoucherHopsdata.push(
-					{
-						
-						ponumber: this.filteredData[index].ponumber,
-						batchNo: this.filteredData[index].batchNo,
-						currentHop: this.filteredData[index].currentHop,
-						lastHop: this.filteredData[index].lastHop,
-						pendingFor: this.filteredData[index].pendingFor,
-						vendor: this.filteredData[index].vendor,
-						cardGroup: this.filteredData[index].cardGroup,
-						id: this.filteredData[index].id,
-					}
-					);
-			
-		}
-		
-	}
-	
-}
+  	
 poChange(){
-	this.listVoucherHopsdata=[];
+	if(this.searchText!=null){this.listVoucherHopsdata=[];
 	for(let index in this.filteredData){
 			
 		if(this.filteredData[index].ponumber===this.searchText){
@@ -215,25 +110,126 @@ poChange(){
 						
 						ponumber: this.filteredData[index].ponumber,
 						batchNo: this.filteredData[index].batchNo,
-						currentHop: this.filteredData[index].currentHop,
-						lastHop: this.filteredData[index].lastHop,
-						pendingFor: this.filteredData[index].pendingFor,
 						vendor: this.filteredData[index].vendor,
-						cardGroup: this.filteredData[index].cardGroup,
-						id: this.filteredData[index].id,
+						batchQuantity: this.filteredData[index].batchQuantity,
+						ItemNumber: this.filteredData[index].ItemNumber,
+						poQuantity:this.filteredData[index].poQuantity,
+						deliveredQuantity:this.filteredData[index].deliveredQuantity
+						
 					}
 					);
 			
 		}
 		
+}}
+else{this.firstPage()}
+	
+}
+
+firstPage(){
+  
+  
+    this.currPage=1;
+    this.getAllData();
+  
+  
+}
+
+lastPage(){
+  
+    this.currPage=this.totalPages;
+    this.getAllData();
+}
+
+
+prevPage(){
+if(this.currPage <= 0){
+  //first page .. do nothing
+}
+else{
+  this.currPage--;
+  this.getAllData();
 }
 }
-back(){
-	this.isDetail=false;
-	this.viewall=true;
-	this.voucherDetail=[];
-	this.endSerial=null;
+
+
+nextPage(){
+  
+  if(this.currPage == this.totalPages){
+    //last page .. do nothing
+  }
+  else{
+    this.currPage++;
+    this.getAllData();
+  }
+  
+}
+
+vendorChange(){
+	if(this.vendor!=null){this.listVoucherHopsdata=[];
+	for(let index in this.filteredData){
+			
+		if(this.filteredData[index].vendor===this.vendor){
+			this.listVoucherHopsdata.push(
+					{
+						
+						ponumber: this.filteredData[index].ponumber,
+						batchNo: this.filteredData[index].batchNo,
+						vendor: this.filteredData[index].vendor,
+						batchQuantity: this.filteredData[index].batchQuantity,
+						ItemNumber: this.filteredData[index].ItemNumber,
+						poQuantity:this.filteredData[index].poQuantity,
+						deliveredQuantity:this.filteredData[index].deliveredQuantity
+					}
+					);
+			
+		}
+		
+}}
+
+
+else{this.firstPage()}
+	
+}
+itemChange(){
+	if(this.item!=null){this.listVoucherHopsdata=[];
+	for(let index in this.filteredData){
+			
+		if(this.filteredData[index].ItemNumber===this.item){
+			this.listVoucherHopsdata.push(
+					{
+						
+						ponumber: this.filteredData[index].ponumber,
+						batchNo: this.filteredData[index].batchNo,
+						vendor: this.filteredData[index].vendor,
+						batchQuantity: this.filteredData[index].batchQuantity,
+						ItemNumber: this.filteredData[index].ItemNumber,
+						poQuantity:this.filteredData[index].poQuantity,
+						deliveredQuantity:this.filteredData[index].deliveredQuantity
+					}
+					);
+			
+		}
+		
+}}
+
+
+else{this.firstPage()}
 	
 }	
-  			
+download(ponumber: any,batchNo: any ,vendor :any ,batchQuantity :any,ItemNumber:any,poQuantity:any,deliveredQuantity:any){
+	
+ this.viewService.downloadFile(ponumber,batchNo,vendor,batchQuantity,ItemNumber,poQuantity,deliveredQuantity,true).subscribe(
+                    data => {
+                            var link = document.createElement('a');
+                            link.href = window.URL.createObjectURL(data);
+                            link.download = "Scratch Card.csv";
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
+                        })
+	
+}
+	
+
   			}

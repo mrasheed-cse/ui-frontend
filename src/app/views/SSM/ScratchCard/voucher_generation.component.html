@@ -12,17 +12,7 @@
 		<form [formGroup]="voucherGenrationForm" novalidate (ngSubmit)="submitVoucher()" >
 		<div class="card-body">
 					<div class="row">
-						<div class="col-md-6">
-								<div class="form-group row">
-									<label class="col-md-5 col-form-label">Batch No.</label>
-									<div class="col-md-7">
-										<input disabled type="text" class="form-control calendar-container"
-									value="{{batchNo}}">
-									</div>
-	
-								</div>
-						</div>
-						
+											
 						<div class="col-md-6">
 								<div class="form-group row">
 									<label class="col-md-5 col-form-label" >Denomination</label>
@@ -36,10 +26,7 @@
 	
 								</div>
 						</div>
-					</div>		
-									
-					<div class="row">
-					<div class="col-md-6">
+						<div class="col-md-6">
 													<div class="form-group row">
 									<label class="col-md-5 col-form-label" for="CardGroup">Card Group</label>
 									<div class="col-md-7">
@@ -52,6 +39,10 @@
 	
 								</div>
 										</div>
+					</div>		
+									
+					<div class="row">
+					
 						<div class="col-md-6">
 								<div class="form-group row">
 									<label class="col-md-5 col-form-label">Start Serial.</label>
@@ -65,19 +56,6 @@
 								</div>
 						</div>
 						
-						
-					</div>
-					
-					<div class="row">
-						<div class="col-md-6">
-								<div class="form-group row">
-									<label class="col-md-5 col-form-label">Batch Qty.</label>
-									<div class="col-md-7">
-										<input type="number" id="BatchQty" name="BatchQty" class="form-control" autocomplete="off"  formControlName="BatchQty"  required
-											 >
-									</div>
-								</div>
-						</div>
 						<div class="col-md-6">
 								<div class="form-group row">
 									<label class="col-md-5 col-form-label">End Serial.</label>
@@ -87,16 +65,27 @@
 								</div>
 								</div>
 						</div>
-					</div>		
-					<div class="row">
 						
-								<div class="col-md-6">
+						
+					</div>
+					
+					<div class="row">
+						<div class="col-md-6">
+								<div class="form-group row">
+									<label class="col-md-5 col-form-label">Quantity.</label>
+									<div class="col-md-7">
+										<input type="number" id="Quantity" name="Quantity" class="form-control" autocomplete="off"  formControlName="Quantity"  required
+											 >
+									</div>
+								</div>
+						</div>
+						<div class="col-md-6">
 						
 										<div class="form-group row">
 											<label class="col-md-5 col-form-label" for="requestDate">HRN Generation request date</label>
 											<div class="col-md-7">									
 												<input type="text" class="form-control calendar-container" autocomplete="off"  id="requestDate" formControlName="requestDate" name="requestDate" 
-												required bsDatepicker  placement="right"  [(ngModel)]="reqDate"
+												required bsDatepicker  placement="left"  [(ngModel)]="reqDate"
 												 [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-green',  showWeekNumbers:false }"
 												 [minDate]="todayDate"
 												>
@@ -104,6 +93,11 @@
 										</div>
 			
 									</div>
+						
+					</div>		
+					<div class="row">
+						
+								
 									<div class="col-md-6">
 													<div class="form-group row">
 									<label class="col-md-5 col-form-label">PR</label>
@@ -115,21 +109,26 @@
 									
 								</div>
 										</div>
+										
+										<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label">ItemNo(PO)</label>
+									<div class="col-md-7">
+										<select class="form-control" id="Po" formControlName="Po" required >
+											<option></option>
+											<option *ngFor="let aSimType of listPo" [value]="aSimType.id">{{aSimType.groupName}}</option>
+										</select>
+									</div>
+								
+	
+								</div>
+										</div>
+										
 						</div>
 						
 						<div class="row">
 						
-						<div class="col-md-6">
-													<div class="form-group row">
-									<label class="col-md-5 col-form-label">PO</label>
-									<div class="col-md-7">
-										<input type="text" id="Po" name="Po" class="form-control" autocomplete="off"   formControlName="Po"  required
-											 >
-									</div>
-	
-	
-								</div>
-										</div>
+						
 										
 								<div class="col-md-6">
 										<div class="form-group row">
@@ -144,10 +143,8 @@
 										</div>
 			
 									</div>
-						</div>
-					<div class="row">
-						
-								<div class="col-md-6">
+									
+									<div class="col-md-6">
 						
 										<div class="form-group row">
 											<label class="col-md-5 col-form-label" for="ExpireDate">Expire Date</label>
@@ -161,32 +158,38 @@
 										</div>
 			
 									</div>
+						</div>
+					<div class="row">
+						
+								
 									<div class="col-md-6">
 								<div class="form-group row">
 									<label class="col-md-5 col-form-label" >Vendor</label>
 									<div class="col-md-7">
 										<select class="form-control" id="Vendor" formControlName="Vendor" required >
 											<option></option>
-											<option *ngFor="let aSimType of listVendor" [value]="aSimType.id">{{aSimType.groupName}}</option>
+											<option *ngFor="let aSimType of listVendor" [value]="aSimType.groupName">{{aSimType.groupName}}</option>
 										</select>
 									</div>
 								</div>
 						</div>
-									
-						</div>
-						<div class="row">
 						
-								<div class="col-md-6">
+						<div class="col-md-6">
 													<div class="form-group row">
 									<label class="col-md-5 col-form-label" for="voucherserialdigits">Number of digits in voucher serial</label>
 									<div class="col-md-7">
 										<select class="form-control" id="voucherserialdigits" formControlName="voucherserialdigits"   >
 											<option></option>
-											<option *ngFor="let aSimType of listvoucherserialdigits" [value]="aSimType.id">{{aSimType.groupName}}</option>
+											<option *ngFor="let aSimType of listvoucherserialdigits" [value]="aSimType.groupName">{{aSimType.groupName}}</option>
 										</select>
 									</div>
 								</div>
 										</div>
+									
+						</div>
+						<div class="row">
+						
+								
 										
 									<div class="col-md-6">
 													<div class="form-group row">
@@ -194,32 +197,27 @@
 									<div class="col-md-7">
 										<select class="form-control" id="voucherserialdigitshidden" formControlName="voucherserialdigitshidden"  >
 											<option></option>
-											<option *ngFor="let aSimType of listvoucherserialdigitshidden" [value]="aSimType.id">{{aSimType.groupName}}</option>
+											<option *ngFor="let aSimType of listvoucherserialdigitshidden" [value]="aSimType.groupName">{{aSimType.groupName}}</option>
 										</select>
 									</div>
 								</div>
 										</div>
-						</div>
-						
-							<div class="row">
-						
-								<div class="col-md-6">
+										<div class="col-md-6">
 													<div class="form-group row">
 									<label class="col-md-5 col-form-label" for="VendorwiseSFTP">Vendor wise SFTP</label>
 									<div class="col-md-7">
 										<select class="form-control" id="VendorwiseSFTP" formControlName="VendorwiseSFTP" required >
 											<option></option>
-											<option *ngFor="let aSimType of listVendorwiseSFTP" [value]="aSimType.id">{{aSimType.groupName}}</option>
+											<option *ngFor="let aSimType of listVendorwiseSFTP" [value]="aSimType.groupName">{{aSimType.groupName}}</option>
 										</select>
 									</div>
 	
 	
 								</div>
 										</div>
-										
-									<div class="col-md-6">
-										</div>
 						</div>
+						
+							
 						</div>
 									<div class="card-footer text-right">
 					<button type="submit" [disabled]="!voucherGenrationForm.valid  && !isDisableBtn"  class="btn btn-sm btn-primary" *ngIf="!isDataFound">
@@ -232,11 +230,10 @@
               <table class="table table-bordered table-striped table-sm">
                 <thead>
                   <tr>
-                    <th>Batch No.</th>
                     <th>Denomination</th>
                     <th>Start Serial</th>
                      <th>End Serial</th>
-                      <th>Batch Qty </th>
+                      <th>Quantity </th>
                     <th>Vendor name</th>
                     <th>HRN Generation request date</th>
                      <th>PR</th>
@@ -249,11 +246,10 @@
                 </thead>
                 <tbody *ngFor="let aTask of rowData ">
                             <tr>
-                               <td>{{aTask.BatchNo}}</td>
                                 <td>{{aTask.Denomination}}</td>
                                 <td>{{aTask.StartSerial}}</td>
                                 <td>{{aTask.endSerial}}</td>
-                                <td>{{aTask.BatchQty}}</td>
+                                <td>{{aTask.Quantity}}</td>
                                 <td>{{aTask.Vendor}}</td>
                                 <td>{{aTask.requestDate}}</td>
                                 <td>{{aTask.Pr}}</td>

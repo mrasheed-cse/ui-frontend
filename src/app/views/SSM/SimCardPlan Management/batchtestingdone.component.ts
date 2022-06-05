@@ -24,17 +24,17 @@ import 'rxjs/add/observable/of';
 
 @Component({
     selector: 'app-voucherGen',
-    templateUrl: './batchtesting_and_activation_approval.component.html',
+    templateUrl: './batchtestingdone.component.html',
       styleUrls: ['../search_po.component.scss'],
       providers: [AppGlobals,LoginService,PlanManagementService,DatePipe],
 })
-export class PlanGenerateApproval implements OnInit {
+export class BatchTestingDone implements OnInit {
 		  	currentLoggedInUser: LoggedInUser;
 			userName: string;
 			groupID: number;
   			userID: string;
   			isConfig:boolean=true;
-  			listPlangenerateData=[];
+  			listBatchTestDoneData=[];
   			listData=[];
   			ID:number;
   			isBatch:boolean
@@ -52,8 +52,7 @@ constructor(private datePipe: DatePipe,private router: Router,private loginServi
       this.userName = this.currentLoggedInUser.userName
       this.groupID = this.currentLoggedInUser.groupID
       this.userID = this.currentLoggedInUser.userID
-      this.hop=0;
-     
+    
       this.getData();
     }
     else {
@@ -62,78 +61,68 @@ constructor(private datePipe: DatePipe,private router: Router,private loginServi
    
     }
     
-    	details(id:number,hop:number){
-		
-		this.isProceed=true;
-		this.isConfig=false;
-		this.ID=id;
-		if(hop==4){
-			
-			this.isBatch=true;
-			this.currenthop=4;
-		}
-		else{
-			this.isBatch=false;
-			this.currenthop=6;
-		}
-		
-	}
 	
-	submit(){
-	
-	this.isLoading=true;
-	this.planManagemetService.setplanApproval(this.userName,this.ID,this.comments,this.currenthop).subscribe(
 
-		data=>{
-			if(data!=null){
-				this.isLoading=false;
-				alert("Request has been Approved and Forwarded Sucessfully");
-				this.getData();
-			}
-			
-		}
-	)
-	
-}
-    cancel(){
-	
-		this.planManagemetService.cancelHop(this.userName,this.ID).subscribe(
-		
-		data=>{
-			if(data!=null){
-				alert("Voucher Request is Cancled");
-				this.getData();
-				
-			}
-			
-		}
-	)
-}
     
     ngOnInit(){
 	
 }
+
+downloadCSVFiles(id:number) {
+	var nameOfFileToDownload = 'BatchTest_PlanID_'+id+".csv";
+	console.log("nameOfFileToDownload : "+nameOfFileToDownload);
+
+	var result = this.planManagemetService.DownloadCSV(nameOfFileToDownload);
+	result.subscribe(
+		data => {
+			//saveAs(data, nameOfFileToDownload);
+
+			console.log("ToTOOO");
+			//console.log(data);
+
+			var blob = new Blob([data], { type: 'text/csv' });
+
+			if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+	console.log("ggg")
+				window.navigator.msSaveOrOpenBlob(blob, nameOfFileToDownload);
+			} else {
+				var a = document.createElement('a');
+				a.href = URL.createObjectURL(blob);
+				a.download = nameOfFileToDownload;
+				document.body.appendChild(a);
+				a.click();
+				document.body.removeChild(a);
+			}
+		},
+		err => {console.error(err),
+			alert("Server error while downloading file.");
+		}
+	);
+}
+
     getData(){
 	this.isConfig=true;
-	this.listPlangenerateData=[];
+	this.listBatchTestDoneData=[];
 	this.isProceed=false;
-	this.comments	=""
-	console.log(this.hop)
-	this.planManagemetService.getConfig(this.hop).subscribe(
+	this.planManagemetService.getAllBatchTestDone().subscribe(
 		data=>{
+			console.log(data);
 			for (let index in data) {
-				this.listPlangenerateData.push(
+				this.listBatchTestDoneData.push(
 					
 					{
-						productname: data[index].productname,
-						quantity: data[index].quantity,
-						wrnumber:data[index].wr_number,
-						creatorname: data[index].creatorname,
+
+
+						   testFor: data[index].testFor,
+						   msisdnType: data[index].msisdnType,
+						   testMSISDN:data[index].testMSISDN,
+						   handsetUsed: data[index].handsetUsed,
 						 id:data[index].id,
-						 printingdate: this.datePipe.transform(data[index].printingdate,"dd-MM-yyyy"),
-						 packagingdate: this.datePipe.transform(data[index].packagingdate,"dd-MM-yyyy"),
-						 deliverydate:  this.datePipe.transform(data[index].deliverydate,"dd-MM-yyyy"),
-						currenthop:data[index].currenthop,
+						 testedBy: data[index].testedBy,
+						 testStatus: data[index].testStatus,
+						 testDoneDate:  this.datePipe.transform(data[index].testDoneDate,"dd-MM-yyyy"),
+						 planId:data[index].planId,
+						 fileName:data[index].fileName
 					}
 				);
 				
@@ -149,13 +138,6 @@ constructor(private datePipe: DatePipe,private router: Router,private loginServi
 	)
 	
 	}
-	
-	back(){
-		this.isProceed=false;
-		this.comments="";
-		this.isConfig=true;
-	}
-	
 	
   			
   			}

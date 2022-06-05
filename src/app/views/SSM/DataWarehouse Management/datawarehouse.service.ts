@@ -21,7 +21,7 @@ export class DatawarehouseService {
         this.serverUrl = environment.apiUrl;
     }
 
-    uploadCsv(fileToUpload: File, type: string) {
+    uploadCsv(fileToUpload: File, type: string):any {
         const url = environment.apiUrl + "datawarehouse/uploadCSv/" + type;
         const formData: FormData = new FormData();
         formData.append('file', fileToUpload, fileToUpload.name);

@@ -56,7 +56,8 @@
 												<input type="text" class="form-control calendar-container" autocomplete="off"  id="printingDate"  name="printingDate" 
 												required bsDatepicker  placement="right"  [(ngModel)]="printingDate"
 												 [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-green',  showWeekNumbers:false }"
-												>
+													[minDate] = "todayDate"
+												 >
 											</div>
 										</div>
 			

@@ -48,7 +48,10 @@ export class VoucherManagementApproval implements OnInit {
     		fileName: string;
     		fileerror: boolean = false;
    			 filesuccess: boolean = false;
-    		uploading: boolean = false;
+			uploading: boolean = false;
+			public masterSelected:boolean = false;
+			selectedIdList: string;
+			public isDataFound:boolean = false;
 
   			
   	constructor(private datePipe: DatePipe,private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private ssmService: SSMService ) {
@@ -59,42 +62,45 @@ export class VoucherManagementApproval implements OnInit {
       this.groupID = this.currentLoggedInUser.groupID
       this.userID = this.currentLoggedInUser.userID
       console.log("Hello"+this.groupID);
-      if(this.groupID==16){
-	//technology approval
-	this.hop=5;
-	
-}
-if(this.groupID==7){
-
-this.hop=3;
-	
-	
-}
-if(this.groupID==12){
-	//ssmapproval
-	this.hop=4;
-	
-}
-
+	 
+	  if(this.groupID==16){
+		//technology approval
+		this.hop=4;
+	}
+	/*
+	RAFM REMOVAL
+	if(this.groupID==7){
+		this.hop=3;
+	}
+	*/
+	if(this.groupID==12){
+		//ssmapproval
+		this.hop=3;
+	}
 
     this.getData(this.hop);}
     else {
       this.router.navigate(['pages/login']);
     }
-    }
+  }
     
       
     getData(hop:number){
+	this.isLoading=true;
 	this.firstHop=true;
 	this.listVoucherHopsdata=[];
 	this.isfirsthopProceed=false;
 	this.isotherHopsApproval=false;
+	this.isDataFound=false;
 	this.ssmService.getApproval1HopData(this.hop).subscribe(data=>{
+		if(data!=null && data.length>0){
+			this.isDataFound=true;
+		}
+		console.log(data);
 		for (let index in data) {
 			
 			this.listVoucherHopsdata.push(
 					{
-						
 						ponumber:data[index].ponumber,
 						batchNo: data[index].batchNo,
 						 id: data[index].id,
@@ -107,37 +113,34 @@ if(this.groupID==12){
 						hiddenNumberCount: data[index].hiddenNumberCount,
 						requestDate: this.datePipe.transform(data[index]. requestDate,"dd-MM-yyyy"),
 						sftplocation: data[index].sftplocation,
-						vendor:data[index].vendor
-						
-						
+						vendor:data[index].vendor,
+						quantity:data[index].quantity
 					}
 					
 					);
 					console.log(this.listVoucherHopsdata)
+					
 		}
-		
-		
-		
 	})
-}
-    
-	detailsSecondHop(id:number){
-		
-			this.isotherHopsApproval=true;
-		
-		this.firstHop=false;
-		this.Id=id;
-		
-	}
-
-
+	this.comments="";
+	this.isLoading=false;
 	
-
+}	
 
 cancel(){
 	this.isLoading = true;
-	this.ssmService.cancelHop(this.userName,this.Id).subscribe(
-		
+	this.selectedIdList="";
+		//alert(this.listVoucherHopsdata.length);
+		for (let i = 0; i < this.listVoucherHopsdata.length; i++) {
+			if(this.listVoucherHopsdata[i]['checked']){		
+			if(this.selectedIdList.length>0)
+			  this.selectedIdList=this.selectedIdList+"_";
+			this.selectedIdList =this.selectedIdList+this.listVoucherHopsdata[i]['id'];
+			//alert(this.selectedIdList);
+		}
+	}
+	console.log(this.selectedIdList);
+	this.ssmService.cancelHop(this.userName,this.selectedIdList,this.comments).subscribe(		
 		data=>{
 			if(data!=null){
 				alert("Voucher Request is Cancled");
@@ -148,13 +151,42 @@ cancel(){
 			
 		}
 	)
+	this.isLoading = false;
 	
 }
  
+checkUncheckAll() {
+		
+		
+	for (let i = 0; i < this.listVoucherHopsdata.length; i++) {
+	  this.listVoucherHopsdata[i]['checked'] =this.masterSelected;
+	  console.log(this.listVoucherHopsdata[i]['checked']);
+	  
+  }
+  
+}
  
  submit1(){
-	this.isLoading = true
-	this.ssmService.setHop(this.userName,this.Id,this.comments).subscribe(
+	
+	this.selectedIdList="";
+		//alert(this.listVoucherHopsdata.length);
+		for (let i = 0; i < this.listVoucherHopsdata.length; i++) {
+			
+			if(this.listVoucherHopsdata[i]['checked']){		
+			
+			if(this.selectedIdList.length>0)
+			  this.selectedIdList=this.selectedIdList+"_";
+			this.selectedIdList =this.selectedIdList+this.listVoucherHopsdata[i]['id'];
+			//alert(this.selectedIdList);
+		}
+	}
+	console.log("Selected Ids "+this.selectedIdList);
+	if(this.selectedIdList.length==0){
+		alert("Please select at least one voucher");
+		return;
+	}
+	this.isLoading = true;
+	this.ssmService.setHop(this.userName,this.selectedIdList,this.comments).subscribe(
 
 		data=>{
 			if(data!=null){
@@ -164,7 +196,8 @@ cancel(){
 			}
 			
 		}
-	)
+	);
+	this.isLoading = false;
 	
 }
     

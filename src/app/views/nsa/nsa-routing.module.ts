@@ -123,13 +123,20 @@ import{SimPackaging} from '../SSM/SimCardPlan Management/simpackaging.compontent
 import{ReturnAndReceive} from '../SSM/SimCardPlan Management/returnandreceive.component';
 import{BatchTesting} from '../SSM/SimCardPlan Management/batchtesting.component';
 import{PlanActivation} from '../SSM/SimCardPlan Management/planactivation.component';
-import{PlanGenerateApproval} from '../SSM/SimCardPlan Management/batchtesting_and_activation_approval.component';
+import{BatchTestingDone} from '../SSM/SimCardPlan Management/batchtestingdone.component';
 import{UploadDataWh} from'../SSM/DataWarehouse Management/uploaddata.component';
 import{ViewDatawarehouse} from'../SSM/DataWarehouse Management/showdatawarehouse.component';
 
 import{UploadForcast} from'../SSM/Report/uploadforcast.component';
 import{VoucherJourney} from '../SSM/ScratchCard/viewvoucher_journey.component';
 import{ViewProductReport} from'../SSM/Report/viewProductReport.component'
+import { ReceivedQuantityManipulation } from '../SSM/SimCardPlan Management/received-quantity-manipulation.component';
+import{UnplannedSimManagement} from '../SSM/SimCardPlan Management/unpairedsimmanagement.component';
+import { PrePlanGenerate } from '../SSM/SimCardPlan Management/pre-plangenerate.component';
+import{SearchVoucherHistory} from '../SSM/ScratchCard/search_voucher_history.component';
+
+import{StockReport}  from'../SSM/Report/stockreport.component';
+
 const routes: Routes = [
     {
         path: '',
@@ -974,18 +981,33 @@ const routes: Routes = [
         canActivate: [AuthGuard]
     },
      {
-        path: 'plangenerate',
-        component: PlanGenerate,
+        path: 'preplangenerate',
+        component: PrePlanGenerate,
         data: {
             title: 'Plan Generate'
         },
         canActivate: [AuthGuard]
     },
     {
+       path: 'plangenerate/:totalUploadableQuantity/:ifids',
+       component: PlanGenerate,
+       data: {
+           title: 'Plan Generate'
+       }
+   },
+    {
         path: 'simconfiguration',
         component: SimConfiguration,
         data: {
             title: 'Sim Configuration'
+        },
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'receivedQuantityManipulation',
+        component: ReceivedQuantityManipulation,
+        data: {
+            title: 'Received Quantity Manipulation'
         },
         canActivate: [AuthGuard]
     },
@@ -998,10 +1020,10 @@ const routes: Routes = [
         canActivate: [AuthGuard]
     },
      {
-        path: 'planapprovals',
-        component: PlanGenerateApproval,
+        path: 'batchtestingdone',
+        component: BatchTestingDone,
         data: {
-            title: 'Plan Approvals'
+            title: 'Batch Testing Done'
         },
         canActivate: [AuthGuard]
     },
@@ -1071,6 +1093,33 @@ const routes: Routes = [
         },
         canActivate: [AuthGuard]
     },
+    
+    {
+        path: 'unpairedsimmanagement',
+        component: UnplannedSimManagement,
+        data: {
+            title: ''
+        },
+        canActivate: [AuthGuard]
+    },
+    
+     {
+        path: 'scratchvoucherhistory',
+        component: SearchVoucherHistory,
+        data: {
+            title: ''
+        },
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'stockreport',
+        component: StockReport,
+        data: {
+            title: ''
+        },
+        canActivate: [AuthGuard]
+    },
+    
     
      {
         path: '**', 

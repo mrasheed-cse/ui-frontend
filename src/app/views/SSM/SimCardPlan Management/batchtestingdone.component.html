@@ -1,0 +1,53 @@
+ <div class="row">
+	<div class="col-md-1">
+		 
+	</div>
+	<div class="col-md-10">
+		<div class="card">
+		 <div class="div_cust_loading_sign" *ngIf="isLoading"> <div style="position:fixed;width:100%;height:100%;left:0px;top:0px;z-index:50000;background-color:#536c79;opacity:0.95"></div> <div style="position:fixed;width:100%;height:100%;left:0px;top:0px;z-index:60000"><div style="width:25%;height:25%;margin:0px auto;margin-top:20%"><i class="fa fa-spinner fa-pulse fa-4x fa-fw" ></i></div></div> </div>
+   
+		<div class="card-header" *ngIf="isConfig">
+            <i class="fa fa-align-justify"></i> Batch Testing Complete List
+          </div>
+           <div class="card-body" *ngIf="isConfig">
+           <table class="table table-bordered table-striped table-sm">
+                <thead>
+                  <tr>
+                    <th>Test For</th>
+                    <th>Msisdn Type</th>
+                    <th>Test MSISDN</th>
+                    <th>Handset Used</th>
+                    <th>Tested By</th>
+                    <th>Test Status</th>
+                    <th>Test Done</th> 
+                    <th>DownLoad</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let aTask of listBatchTestDoneData">
+                            <tr>
+                                <td>{{aTask.testFor}}</td>
+                                <td>{{aTask.msisdnType}}</td>
+                                 <td>{{aTask.testMSISDN}}</td>
+                                <td>{{aTask.handsetUsed}}</td>
+                                 <td>{{aTask.testedBy}}</td>
+                                 <td>{{aTask.testStatus}}</td>
+                                   <td>{{aTask.testDoneDate}}</td>
+                                  <td  *ngIf="aTask.fileName!=null && aTask.fileName!=''"><button   class="btn btn-sm  " (click)="downloadCSVFiles(aTask.planId)">Download</button> </td>
+                                    <td  *ngIf="aTask.fileName==null || aTask.fileName==''"> No File Available
+                                  </td> 
+                            </tr>
+                </tbody>
+              </table>
+           
+           
+           </div>
+            
+         
+          
+          
+          
+           </div>
+           </div>
+              
+           
+           </div>

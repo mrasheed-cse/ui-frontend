@@ -110,6 +110,7 @@ export class SimConfiguration implements OnInit {
 			if(data!=null){
 				this.isLoading=false;
 				this.getData();
+				this.comments="";
 			}
 			
 		}

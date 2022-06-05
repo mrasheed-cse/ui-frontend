@@ -132,7 +132,7 @@ import{SimAdmin} from '../SSM/sim_card_admin.component';
 import{PlanGenerate} from'../SSM/SimCardPlan Management/plangenerate.component'
 import{SimConfiguration} from '../SSM/SimCardPlan Management/simconfiguration.component';
 import{SimPackaging} from '../SSM/SimCardPlan Management/simpackaging.compontent';
-import{PlanGenerateApproval} from '../SSM/SimCardPlan Management/batchtesting_and_activation_approval.component';
+import{BatchTestingDone} from '../SSM/SimCardPlan Management/batchtestingdone.component';
 import{BatchTesting} from '../SSM/SimCardPlan Management/batchtesting.component';
 import{PlanActivation} from '../SSM/SimCardPlan Management/planactivation.component';
 import{ReturnAndReceive} from '../SSM/SimCardPlan Management/returnandreceive.component';
@@ -150,7 +150,14 @@ import{UploadForcast} from'../SSM/Report/uploadforcast.component'
 import {LoginService} from '../pages/LoginService';
 import{ViewProductReport} from'../SSM/Report/viewProductReport.component'
 import{VoucherJourney} from '../SSM/ScratchCard/viewvoucher_journey.component';
-import { ChartsModule } from 'ng2-charts/ng2-charts'
+import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { ReceivedQuantityManipulation } from '../SSM/SimCardPlan Management/received-quantity-manipulation.component'
+import{UnplannedSimManagement} from '../SSM/SimCardPlan Management/unpairedsimmanagement.component';
+import { PrePlanGenerate } from '../SSM/SimCardPlan Management/pre-plangenerate.component';
+
+import{SearchVoucherHistory} from '../SSM/ScratchCard/search_voucher_history.component';
+
+import{StockReport}  from'../SSM/Report/stockreport.component';
 
 @NgModule({
   imports: [
@@ -273,7 +280,7 @@ import { ChartsModule } from 'ng2-charts/ng2-charts'
     PlanGenerate,
     SimConfiguration,
     SimPackaging,
-    PlanGenerateApproval,
+    BatchTestingDone,
     BatchTesting,
     PlanActivation,
     UploadDataWh,
@@ -283,7 +290,12 @@ import { ChartsModule } from 'ng2-charts/ng2-charts'
     GenerateanalyzeComponent,
     GenerateComponent,
     UploadForcast,
-    VoucherJourney,ViewProductReport
+    VoucherJourney,ViewProductReport,
+    ReceivedQuantityManipulation,
+    UnplannedSimManagement,
+    PrePlanGenerate,
+    SearchVoucherHistory,
+    StockReport
   ],
   providers:[DatePipe, LoginService, AuthGuard]})
 export class NsaModule { }

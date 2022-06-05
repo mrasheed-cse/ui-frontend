@@ -9,18 +9,18 @@
             <div class="card-body warehouse-card" *ngIf="isInitial">
                 <div class="row form-row">
                     <div class="col-3">
-                        Search Type
+                        <b>Search Type</b>
                     </div>
-                    <div class="col-4">
+                    <div class="col-3">
                         <input type="radio" value="sequence" name="search_type" class="form-control form-control-radio" [(ngModel)]="searchType"> &nbsp; Sequential
                     </div>
-                    <div class="col-5">
+                    <div class="col-3">
                         <input type="radio" value="discrete" name="search_type" class="form-control form-control-radio" [(ngModel)]="searchType"> &nbsp; Discrete
                     </div>
                 </div>
                 <div class="row form-row">
                     <div class="col-3">
-                        Search Using
+                        <b>Search Using</b>
                     </div>
                     <div class="col-3">
                         <input type="radio" value="iccid" name="search_on" class="form-control form-control-radio" [(ngModel)]="searchOn"> &nbsp; KIT
@@ -32,28 +32,18 @@
                         <input type="radio" value="imsi" name="search_on" class="form-control form-control-radio" [(ngModel)]="searchOn"> &nbsp; IMSI
                     </div>
                 </div>
-                <div class="row form-row">
-                    <div class="col-3">
-                        <input type="radio" value="all" name="sequence" class="form-control form-control-radio" [(ngModel)]="searchSequence"> &nbsp; All Sequences
-                    </div>
-                    <div class="col-4">
-                        <input type="radio" value="first" name="sequence" class="form-control form-control-radio" [(ngModel)]="searchSequence"> &nbsp; First Sequence
-                    </div>
-                    <div class="col-5">
-                        <input type="radio" value="last" name="sequence" class="form-control form-control-radio" [(ngModel)]="searchSequence"> &nbsp; Last Sequence
-                    </div>
-                </div>
+               
                 <div class="row form-row" *ngIf="searchType=='sequence'">
-                    <div class="col-2">
-                        Start Value
+                    <div class="col-3">
+                        <b>Start Value</b>
                     </div>
-                    <div class="col-4">
+                    <div class="col-3">
                         <input type="text" name="search_start" class="form-control" [(ngModel)]="searchStart">
                     </div>
-                    <div class="col-2">
-                        End Value
+                    <div class="col-3">
+                        <b>End Value</b>
                     </div>
-                    <div class="col-4">
+                    <div class="col-3">
                         <input type="text" name="search_end" class="form-control" [(ngModel)]="searchEnd">
                     </div>
                 </div>
@@ -63,7 +53,7 @@
                     </div>
                 </div>
                 <div class="row form-row">
-                    <div class="col-3">View Result As</div>
+                    <div class="col-3"><b>View Result As</b></div>
                     <div class="col-3">
                         <input type="radio" value="adc" name="view_result_as" class="form-control form-control-radio" [(ngModel)]="searchFor"> &nbsp; ADC
                     </div>
@@ -74,6 +64,20 @@
                         <input type="radio" value="sim" name="view_result_as" class="form-control form-control-radio" [(ngModel)]="searchFor"> &nbsp; Master Record
                     </div>
                 </div>
+                <div class="row form-row" *ngIf="searchFor=='sim'">
+                        <div class="col-3">
+                                <b>Sequences</b>
+                        </div>
+                        <div class="col-3">
+                                <input type="radio" value="all" name="sequence" class="form-control form-control-radio" [(ngModel)]="searchSequence"> &nbsp; All Sequences
+                            </div>
+                        <div class="col-3">
+                            <input type="radio" value="first" name="sequence" class="form-control form-control-radio" [(ngModel)]="searchSequence"> &nbsp; First Sequence
+                        </div>
+                        <div class="col-3">
+                            <input type="radio" value="last" name="sequence" class="form-control form-control-radio" [(ngModel)]="searchSequence"> &nbsp; Last Sequence
+                        </div>
+                    </div>
             </div>
             <div class="card-footer" *ngIf="isInitial">
                 <button class="btn btn-sm btn-primary" (click)="search(false)">Search</button>
@@ -167,6 +171,8 @@
                         <th>Requested By</th>
                         <th>Name Who Share</th>
                         <th>WR Number</th>
+                        <th>Is Faulty</th>
+                        <th>Is Test</th>
                     </tr>
                     </thead>
                     <tbody *ngFor="let aTask of rowData">
@@ -194,6 +200,8 @@
                         <td>{{aTask.RequestedBy}}</td>
                         <td>{{aTask.SharerName}}</td>
                         <td>{{aTask.WorkRequest}}</td>
+                        <td>{{aTask.isFaulty}}</td>
+                        <td>{{aTask.isTest}}</td>
                     </tr>
                     </tbody>
                 </table>

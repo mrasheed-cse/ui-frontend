@@ -54,7 +54,7 @@ constructor(private datePipe: DatePipe,private router: Router,private loginServi
       this.userName = this.currentLoggedInUser.userName
       this.groupID = this.currentLoggedInUser.groupID
       this.userID = this.currentLoggedInUser.userID
-    this.hop=7;
+    this.hop=5;
       this.getData();
     }
     else {
@@ -131,15 +131,31 @@ handleFileInput(files: FileList) {
     
     
     
-submit(){ this.isLoading=true;
+submit(){ 
+	this.isLoading=true;
+	var user=JSON.stringify(this.userName).replace(".","!");
+            console.log(user)
+			var uploadFor=user+","+JSON.stringify(this.ID);
+			
         if (this.fileToUpload == undefined || !this.fileToUpload.name.endsWith(".csv")) {
-          alert("Please Select A csv file");
+			this.planManagemetService.PlanActivationWOFileUpload(uploadFor).subscribe((res => {
+				if (res != null) {
+					if(JSON.stringify(res)==="1"){
+                   alert("Plan Activation done");
+                   this.getData();
+                }
+                else if(JSON.stringify(res)==="2"){
+					alert("A problem occured for plan activation.");
+				}
+			}
+			}));
           this.isLoading=false;
         } else {
             this.uploading = true
-            var user=JSON.stringify(this.userName).replace(".","!");
+           /* var user=JSON.stringify(this.userName).replace(".","!");
             console.log(user)
-            var uploadFor=user+","+JSON.stringify(this.ID);
+			var uploadFor=user+","+JSON.stringify(this.ID);
+		*/
             this.planManagemetService.postfaultyFile(this.fileToUpload,uploadFor).subscribe((res => {
                 this.uploading = false
                 if (res != null) {
@@ -149,13 +165,13 @@ submit(){ this.isLoading=true;
                 }
                 else if(JSON.stringify(res)==="2"){
 	
-			alert("Unable to Perform Activity please check The uploaded File again")
-			this.getData();
-} else if(JSON.stringify(res)==="3"){
-	
-			alert("Data Does not Exsist Please check File Again")
-			this.getData();
-}
+					alert("Unable to Perform Activity please check The uploaded File again")
+					this.getData();
+				} else if(JSON.stringify(res)==="3"){
+			
+					alert("Data Does not Exsist Please check File Again")
+					this.getData();
+				}
                
                 
                 } 

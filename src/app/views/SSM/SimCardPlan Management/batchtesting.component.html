@@ -40,8 +40,53 @@
            
            
            </div>
-            
+		   <div class="card">
           <div class="card-body" *ngIf="isProceed">
+				<div class="card-header">
+						<strong>Plan Details</strong>
+					</div>
+					<div class="card-body">			
+							<div class="row" >
+							  <div class="col-md-12">
+								<table style="width:100%" border="1">        
+								  <tr>
+									<td style="width:25%">Product</td>
+									<td style="width:25%;" >{{Product}}</td>
+									<td style="width:25%">Vendor</td>
+									<td style="width:25%" >{{simVendorName}}</td>
+								  </tr>	
+								  <tr>
+										<td style="width:25%">Start ICCID(s)</td>
+										<td style="width:25%;" >
+												
+														<table class="table-sm">
+															 
+															 <tbody *ngFor="let id of startIccids;  index as i">
+																		 <tr>
+																			 <td><b>{{(i+1)}}.</b>{{id}}</td>
+																		</tr>
+															 </tbody>
+														   </table>
+										</td>
+										<td style="width:25%">End ICCID(s)</td>
+										<td style="width:25%" >
+												<table class="table-sm">
+													 
+													 <tbody *ngFor="let id of endIccids ; index as i">
+															<tr>
+																<td><b>{{(i+1)}}.</b>{{id}}</td>
+														   </tr>
+													 </tbody>
+												   </table>
+												</td>
+									  </tr>								              
+								</table>						
+							  </div>				
+							</div>
+						  </div>
+						  </div>
+						  </div>
+						  <div class="card" *ngIf="isProceed">
             <form [formGroup]="batchTesting" novalidate (ngSubmit)="submit()" >
 		<div class="card-body">
 					<div class="row">
@@ -49,8 +94,12 @@
 													<div class="form-group row">
 									<label class="col-md-5 col-form-label" >Test For (Number Series)</label>
 									<div class="col-md-7">
-										<input  type="text" class="form-control" 
-									 formControlName="testFor">
+										
+									 <select class="form-control" id="testFor" formControlName="testFor" required >
+											<option [value]="017">017</option>
+												<option [value]="013">013</option>
+												</select>
+
 									</div>
 	
 	
@@ -61,76 +110,16 @@
 									<label class="col-md-5 col-form-label" >MSISDN Type</label>
 									<div class="col-md-7">
 										<select class="form-control" id="msisdntype" formControlName="msisdnType" required >
-										<option [value]="0">Recycle MSISDN</option>
-											<option [value]="1">New MSISDN</option>
-												<option [value]="2">Virtual MSISDN</option>
-											<option [value]="3">MNP</option>
-											<option [value]="4">MY SIM</option>
+												
+												<option *ngFor="let atype of msisdnTypes" [value]="atype">{{atype}}</option>
 											</select>
 									</div>
 	
 	
 								</div>
 										</div>
-								
-								
-										
 					</div>	
-					
-					<div class="row">
-							<div class="col-md-6">
-													<div class="form-group row">
-									<label class="col-md-5 col-form-label" >Start Mobile</label>
-									<div class="col-md-7">
-											<input  type="text" class="form-control" 
-									 formControlName="startMob" disable>
-									</div>
-	
-	
-								</div>
-										</div> 
-								<div class="col-md-6">
-													<div class="form-group row">
-									<label class="col-md-5 col-form-label" >End Mobile</label>
-									<div class="col-md-7">
-											<input  type="text" class="form-control" 
-									 formControlName="endMob" disable>
-									</div>
-	
-	
-								</div>
-										</div> 		
-										
-										
-					</div>	
-					
-					<div class="row">
-							<div class="col-md-6">
-													<div class="form-group row">
-									<label class="col-md-5 col-form-label" >Start ICCID</label>
-									<div class="col-md-7">
-											<input  type="text" class="form-control" 
-									 formControlName="startICCID" disable>
-									</div>
-	
-	
-								</div>
-										</div> 
-								<div class="col-md-6">
-													<div class="form-group row">
-									<label class="col-md-5 col-form-label" >End ICCID</label>
-									<div class="col-md-7">
-											<input  type="text" class="form-control" 
-									 formControlName="endICCID" >
-									</div>
-	
-	
-								</div>
-										</div> 		
-										
-										
-					</div>	
-					
+				
 					
 					<div class="row">
 							<div class="col-md-6">
@@ -158,260 +147,50 @@
 										
 										
 					</div>	
-					
-					
-					<div class="row">
-							<div class="col-md-6">
-													<div class="form-group row">
-									<label class="col-md-5 col-form-label" >Product Name </label>
-									<div class="col-md-7">
-										<select class="form-control" id="product" formControlName="Product" required >
-											<option></option>
-											<option *ngFor="let aSimType of listDropDownproduct" [value]="aSimType.groupName">{{aSimType.groupName}}</option>
-										</select>
-									</div>
-	
-	
-								</div>
-										</div>
-								<div class="col-md-6">
-													<div class="form-group row">
-									<label class="col-md-5 col-form-label" >SIM Vendor Name</label>
-									<div class="col-md-7">
-										<input  type="text" class="form-control" 
-									 formControlName="SIMVendorName"  autocomplete="off">
-									</div>
-	
-	
-								</div>
-										</div>			
-										
-										
-					</div>		
+							
 				<div class="row">
 							<div class="col-md-6">
 													<div class="form-group row">
-									<label class="col-md-5 col-form-label" >Tested By </label>
+									<label class="col-md-5 col-form-label" >Tested & Approved By </label>
 									<div class="col-md-7">
 										<input  type="text" class="form-control" 
 									 formControlName="testedBy" autocomplete="off">
 									</div>
-	
-	
 								</div>
-										</div>
-								<div class="col-md-6">
-								<div class="form-group row">
-									<label class="col-md-5 col-form-label">Approved By Signature</label>
-									<div class="col-md-7">
-										<input type="text" id="wrname" name="approvedBySignature" class="form-control" autocomplete="off"  formControlName="approvedBySignature"  required
-											 >
-									</div>
-								</div>
-						</div>		
-										
-										
-					</div>	
+							</div>		
 					
-					
-					<div class="row">
 							<div class="col-md-6">
 													<div class="form-group row">
 									<label class="col-md-5 col-form-label" >Test Status </label>
 									<div class="col-md-7">
-										<select class="form-control" id="product" formControlName="testStatus" required >
-											<option [value]="0">Complete</option>
-											<option [value]="1">In Progress</option></select>
+										<select class="form-control" id="testStatus" formControlName="testStatus" required >												
+												<option *ngFor="let astatus of testStatuses" [value]="astatus">{{astatus}}</option>
+										</select>
 									</div>
-	
-	
 								</div>
-										</div>
-								<div class="col-md-6">
-													<div class="form-group row">
-									<label class="col-md-5 col-form-label" >Approval Date</label>
-									<div class="col-md-7">
-										<div class="col-md-7">									
-												<input type="text" class="form-control calendar-container" autocomplete="off"  id="TestDate" formControlName="ApprovalDate" name="endDate" 
-												required bsDatepicker  placement="right"  [(ngModel)]="ApprovalDate"
-												 [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-green',  showWeekNumbers:false }"
-												>
-											</div>
-									</div>
-	
-	
-								</div>
-										</div>			
-										
-										
+							</div>		
 					</div>	
-					<div class="row">
-							<div class="col-md-6">
-													<div class="form-group row">
-									<label class="col-md-5 col-form-label" >Test Start Date	</label>
-									<div class="col-md-7">
-										<div class="col-md-7">									
-												<input type="text" class="form-control calendar-container" autocomplete="off"  id="startDate" formControlName="testStartDate" name="startDate" 
-												required bsDatepicker  placement="right"  [(ngModel)]="startDate"
-												 [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-green',  showWeekNumbers:false }"
-												[minDate]="ApprovalDate"
-												>
-											</div>
-									</div>
-	
-	
-								</div>
-										</div>	
-							
-												<div class="col-md-6">
-													<div class="form-group row">
-									<label class="col-md-5 col-form-label" >Test End Date	</label>
-									<div class="col-md-7">
-										<div class="col-md-7">									
-												<input type="text" class="form-control calendar-container" autocomplete="off"  id="endDate" formControlName="testEndDate" name="endDate" 
-												required bsDatepicker  placement="right"  [(ngModel)]="endDate"
-												 [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-green',  showWeekNumbers:false }"
-												[minDate]="startDate">
-											</div>
-									</div>
-	
-	
-								</div>
-										</div>	
-										
-										
-					</div>
 					
 					<div class="row">
-							<div class="col-md-6">
-													<div class="form-group row">
-									<label class="col-md-5 col-form-label" >Test Done Date</label>
-									<div class="col-md-7">
-										<div class="col-md-7">									
-												<input type="text" class="form-control calendar-container" autocomplete="off"  id="TestDate" formControlName="TestDate" name="TestDate" 
-												required bsDatepicker  placement="right"  [(ngModel)]="TestDate"
-												 [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-green',  showWeekNumbers:false }"
-												[minDate]="endDate"
-												>
-											</div>
-									</div>
-	
-	
-								</div>
-										</div>	
-										
-										<div class="col-md-6"   *ngIf="!provisionUplodaed">
+						
+										<div class="col-md-6"  >
 													<div class="form-group row">
 								<label class="col-md-5 col-form-label">Select  Provision:</label>
-                
-                <a  onclick="document.getElementById('getFile').click()">Browse..</a>
-                <input #fileInput type='file' id="getFile" (click)="fileInput.value = null" accept=".csv" style="position: fixed; left: -200px; top: -200px;" (change)="handleFileInput($event.target.files)">
-                <br>
-				<a  class="btn btn-sm "(click)="uploadProv()">Upload</a>
-	
-	
-								</div>
+								<div class="col-md-7">
+								<input #fileInput type='file' id="getFile" (click)="fileInput.value = null" accept=".csv"  (change)="handleFileInput($event.target.files)">
+									</div>
 										</div>	
-										
-										<div class="col-md-6"   *ngIf="provisionUplodaed">
-													<div class="form-group row">
-								<label class="col-md-5 col-form-label">Provision Data Already Uploaded Uploaded</label>
-								</div>
-										</div>	
-					</div>	
-					
-					<div class="row">
-							<div class="col-md-6" *ngIf="!incomingUploaded">
-													<div class="form-group row">
-								<label class="col-md-5 col-form-label">Select  Incoming:</label>
-                <a  onclick="document.getElementById('getFile').click()">Browse..</a>
-                <input #fileInput type='file' id="getFile" (click)="fileInput.value = null" accept=".csv" style="position: fixed; left: -200px; top: -200px;" (change)="handleFileInput($event.target.files)">
-                <br>
-								<a  class="btn btn-sm "(click)="uploadINC()">Upload</a>
-								</div>
-										</div>	
-										<div class="col-md-6" *ngIf="incomingUploaded">
-													<div class="form-group row">
-								<label class="col-md-5 col-form-label">  Incoming File is already Uploaded</label>
-                
-								</div>
-										</div>	
-										
-										
-										<div class="col-md-6" *ngIf="!outGoingUploaded">
-													<div class="form-group row">
-								<label class="col-md-5 col-form-label">Select  Outgoing:</label>
-                <a  onclick="document.getElementById('getFile').click()">Browse..</a>
-                <input #fileInput type='file' id="getFile" (click)="fileInput.value = null" accept=".csv" style="position: fixed; left: -200px; top: -200px;" (change)="handleFileInput($event.target.files)">
-                <br>
-                	<a  class="btn btn-sm "(click)="uploadOut()">Upload</a>
-								</div>
-										</div>	
-										<div class="col-md-6" *ngIf="outGoingUploaded">
-													<div class="form-group row">
-								<label class="col-md-5 col-form-label">  Outgoing File is already Uploaded</label>
-								</div>
-										</div>	
-					</div>				
-									
-				<div class="row">
-							<div class="col-md-6" *ngIf="!internetUploaded">
-													<div class="form-group row">
-								<label class="col-md-5 col-form-label">Select Internet (EDGE ):</label>
-                <a  onclick="document.getElementById('getFile').click()">Browse..</a>
-                <input #fileInput type='file' id="getFile" (click)="fileInput.value = null" accept=".csv" style="position: fixed; left: -200px; top: -200px;" (change)="handleFileInput($event.target.files)">
-                <br>
-                	<a  class="btn btn-sm "(click)="uploadNet()">Upload</a>
-								</div>
-										</div>	
-										<div class="col-md-6" *ngIf="internetUploaded">
-													<div class="form-group row">
-								<label class="col-md-5 col-form-label">Internet (EDGE ) File Already Uploaded:</label>
-                								</div>
 										</div>
 										
-										
-										<div class="col-md-6"  *ngIf="!ersUploaded">
-													<div class="form-group row">
-								<label class="col-md-5 col-form-label">Select ERS:</label>
-                <a  onclick="document.getElementById('getFile').click()">Browse..</a>
-                <input #fileInput type='file' id="getFile" (click)="fileInput.value = null" accept=".csv" style="position: fixed; left: -200px; top: -200px;" (change)="handleFileInput($event.target.files)">
-                <br>
-                	<a  class="btn btn-sm "(click)="uploadErs()">Upload</a>
-								</div>
-										</div>	
-										
-										<div class="col-md-6"  *ngIf="ersUploaded">
-													<div class="form-group row">
-								<label class="col-md-5 col-form-label">ERS File is already Uploaded</label>
-								</div>
+										<div class="col-md-6">
+											<div class="form-group row">
+													<a href="assets/file/SampleProvision.csv" download>Download sample file</a>
+											</div>
 										</div>	
 					</div>	
-					
-					<div class="row">
-							<div class="col-md-6" *ngIf="!securityUploaded">
-													<div class="form-group row">
-								<label class="col-md-5 col-form-label">Select Security & Configuration:</label>
-                <a  onclick="document.getElementById('getFile').click()">Browse..</a>
-                <input #fileInput type='file' id="getFile" (click)="fileInputI.value = null" accept=".csv" style="position: fixed; left: -200px; top: -200px;" (change)="handleFileInput($event.target.files)">
-                <br>
-                	<a  class="btn btn-sm "(click)="uploadSecurity()">Upload</a>
-								</div>
-										</div>	
-										<div class="col-md-6" *ngIf="securityUploaded">
-													<div class="form-group row">
-								<label class="col-md-5 col-form-label">  Security & Configuration File is Already Uploaded</label>
-          
-								</div>
-										</div>	
-										
-										
-										
-					</div>	
-					
             </div>
             
-            	<div class="card-footer text-right" *ngIf="isAllfilesSubmitted">
+            	<div class="card-footer text-right" >
 					<button type="submit" [disabled]="!batchTesting.valid  && !isDisableBtn"  class="btn btn-sm btn-primary">
 						<i class="fa fa-dot-circle-o"></i> Submit</button>
 					
@@ -421,7 +200,8 @@
           
            <div class="card-footer" *ngIf="isProceed">
           
-                  <button   class="btn btn-sm btn-danger" (click)="cancel()"> Cancel</button>
+				  <button   class="btn btn-sm btn-danger" (click)="cancel()"> Cancel</button>
+				  <button   class="btn btn-sm btn-primary" (click)="getData()"> Back To List</button>
            </div>
           
            </div>
