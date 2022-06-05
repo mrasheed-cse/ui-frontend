@@ -15,6 +15,7 @@ import { AppGlobals } from './../../../app.global';
 import { LoginService } from '../../pages/LoginService';
 import { LoggedInUser } from '../../pages/loggedInUser';
 import{PlanManagementService } from './plan_management.service';
+import { FileoperationService } from '../../nsa/services/fileoperation.service';
 import { Observable } from 'rxjs/Observable';
 import {DatePipe} from '@angular/common';
 import 'rxjs/add/operator/map';
@@ -26,7 +27,7 @@ import 'rxjs/add/observable/of';
     selector: 'app-voucherGen',
     templateUrl: './batchtesting.component.html',
       styleUrls: ['../search_po.component.scss'],
-      providers: [AppGlobals,LoginService,PlanManagementService,DatePipe],
+      providers: [AppGlobals,LoginService,PlanManagementService,DatePipe,FileoperationService],
 })
 export class BatchTesting implements OnInit {
 	
@@ -35,7 +36,7 @@ export class BatchTesting implements OnInit {
 			groupID: number;
   			userID: string;
   			batchTesting:FormGroup;
-			listDropDownproduct=[];
+			
 			public isDisableBtn:boolean = false;
   			fileToUpload: File = null;
     		fileuploadstatus: string;
@@ -50,30 +51,41 @@ export class BatchTesting implements OnInit {
   			hop:number;
   			isProceed:boolean=false;
   			NumberSeries:string;
-  			startMobile:string;
-  			endMobile:string;
-  			startIccid:string;
-  			endIccid:string;
+  			
+  			startIccids:string[];
+  			endIccids:string[];
   			startDate:Date;
   			endDate:Date;
   			TestMSISDN:string;
-  			handsetUsed:string;
+			  handsetUsed:string;
+			  Product:string;
   			simVendorName:string;
   			tester:string;
   			TestDate:Date;
   			ApprovalDate:Date;
   			isAllfilesSubmitted:boolean=false;
 			batchId:number=0;  			
-			securityUploaded :boolean=false;
-			internetUploaded : boolean=false;
-			ersUploaded: boolean=false;
-			incomingUploaded: boolean=false;
-			outGoingUploaded: boolean=false;
+			
 			provisionUplodaed: boolean=false;
 			isLoading:boolean=false;
 			response=[];
+
+			testStatuses: string[] = [
+				'In Progress',
+				'Completed',
+				'Failed'
+			  ];
+			  msisdnTypes: string[] = [
+				'Recycle MSISDN',
+				'New MSISDN',
+				'Virtual_MSISDN',
+				'MNP',
+				'MY SIM'
+			  ];
+
     		constructor(private datePipe: DatePipe,private router: Router,private loginService:
-  			 LoginService,private http: HttpClient, private _global: AppGlobals, private planManagemetService: PlanManagementService ) {
+			   LoginService,private http: HttpClient, private _global: AppGlobals, private planManagemetService: PlanManagementService,
+			   private fileoperationService: FileoperationService  ) {
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
 
     if (this.currentLoggedInUser) {
@@ -85,13 +97,13 @@ export class BatchTesting implements OnInit {
       this.router.navigate(['pages/login']);
       
       }
-      this.hop=5;
+      this.hop=4;
       this.getData();
       
     }
        ngOnInit() {
 	this.createForm();
-	this.getproductName();
+	
 	
 	}
 	
@@ -100,49 +112,18 @@ export class BatchTesting implements OnInit {
 		this.isProceed=true;
 		this.isConfig=false;
 		this.ID=id;
-		this.getBatchFileStatus(id);
+		this.getBatchTestAutoFetchData(id);
 		
 	}
-		
-getproductName(){
-	this.listno="3";
-	this.planManagemetService.getDropdown(this.listno).subscribe(
-		data=>
-			{
-				//console.log(data);
-				for (let index in data) {
-					this.listDropDownproduct.push(
-					{
-						id:data[index].id,
-						groupName: data[index].groupName,
-					}
-					);
-				}
-			},
-    err => console.error(err));
-			
-		}
 	
-	  createForm(){	
+	createForm(){	
 	this.batchTesting= new FormGroup({
+		testFor:new FormControl(''),	
 		msisdnType:new FormControl({value: ''}),
-		testStartDate:new FormControl(''),
-		testEndDate:new FormControl(''),
-		Product:new FormControl({value: ''}),
-		testStatus:new FormControl({value: ''}),
-		approvalDate:new FormControl(''),
-		approvedBySignature:new FormControl(''),
-		TestDate:new FormControl(''),
-		testFor:new FormControl(''),
-		startMob: new FormControl(''),
-		endMob: new FormControl(''),
-		startICCID: new FormControl(''),
-		endICCID: new FormControl(''),
 		testMSISDN:new FormControl(''),
-		handsetUsed:new FormControl(''),
-		SIMVendorName: new FormControl(''),
-		testedBy: new FormControl(''),
-				
+		handsetUsed:new FormControl(''),		
+		testStatus:new FormControl({value: ''}),
+		testedBy: new FormControl('')			
 	});
 	
 }
@@ -193,69 +174,97 @@ cancel(){
 	)
 }
 
-getBatchFileStatus(id:number){
-	this.planManagemetService.getBatchFileStatus(id).subscribe(
-		
+getBatchTestAutoFetchData(id:number){
+	this.planManagemetService.getBatchTestAutoFetchData(id).subscribe(		
 		data=>{
 			if(data!=null){
-				this.isAllfilesSubmitted=true;}
-				
-			
-		})
+				this.startIccids=data.startICCID;
+				this.endIccids=data.endICCID;
+				this.Product=data.productName;
+				this.simVendorName=data.vendorName;
+				console.log(this.startIccids);
+				console.log(this.endIccids);
+			}
+			else{
+			alert('No plan data found');
+		}
+		});
 	
 }
 
 
-handleFileInput(files: FileList) {
-        this.fileerror = false;
-        this.filesuccess = false;
-        this.fileToUpload = files.item(0);
-        this.fileName = this.fileToUpload.name;
-    }
 	
 	submit(){
+		this.isLoading=true;
+		if(this.fileToUpload==null || this.fileToUpload.name==''){
+			var msisdnType;
+			var testStatus;
+			msisdnType = this.batchTesting.controls.msisdnType.value;
+		   
+		  testStatus=this.batchTesting.controls.testStatus.value;
+		  
+		  this.isLoading=true;
+		  this.planManagemetService.saveBatch(
+		  this.batchTesting.controls.testFor.value,
+		  msisdnType,
+		  this.batchTesting.controls.testMSISDN.value,
+		  this.batchTesting.controls.handsetUsed.value,			
+		  this.batchTesting.controls.testedBy.value,
+		  testStatus,
+		  this.username,this.ID,
+		  //this.fileToUpload.name
+		  ""
+	  ).subscribe(
+		  data=>{
+			  if(data!=null)
+			  {
+				  alert("Batch Testing Sucessfull")
+				  this.getData();
+			  }
+			  else{
+				  
+				  alert("Failed to save Data")
+			  }
+			  this.isLoading=false;
+		  }			
+	  )	
+		}
+		
+		else{
+
+		
+	const formData: FormData = new FormData();
+		
+	//formData.append('ssm-file',this.fileToUpload,this.fileToUpload.name);
+	formData.append('ssm-file',this.fileToUpload,'BatchTest_PlanID_'+this.ID+".csv");
+	
+	console.log(formData);
+	
+	var result = this.fileoperationService.uploadSSMCSV(formData);
+	console.log(result);
+
+	result.subscribe(res => {
+			console.log(res);
+
+			console.log('batch file uploaded at '+new Date().toString());
+
 			  var msisdnType;
 			  var testStatus;
-			  if(this.batchTesting.controls.msisdnType.value==="0"){
-				
-				msisdnType="Recycle MSISDN";
-			}
-			else if(this.batchTesting.controls.msisdnType.value==="1"){
-				msisdnType="New MSISDN";
-			}
+			  msisdnType = this.batchTesting.controls.msisdnType.value;
+			 
+			testStatus=this.batchTesting.controls.testStatus.value;
 			
-			else if(this.batchTesting.controls.msisdnType.value==="2"){
-				msisdnType="Virtual MSISDN"
-			}
-			
-			else if(this.batchTesting.controls.msisdnType.value==="3"){
-				msisdnType="MNP";
-			}
-			
-			else if(this.batchTesting.controls.msisdnType.value==="4"){
-				msisdnType="MY SIM";
-				
-			}
-			
-			if(this.batchTesting.controls.testStatus.value==="0"){
-				testStatus="Complete";
-			}
-			
-			else	if(this.batchTesting.controls.testStatus.value==="1"){
-				testStatus="In Progress";
-			}
 			this.isLoading=true;
-		this.planManagemetService.saveBatch(
-			this.batchTesting.controls.testFor.value,this.batchTesting.controls.startMob.value,
-		this.batchTesting.controls.endMob.value,this.batchTesting.controls.startICCID.value,
-		this.batchTesting.controls.endICCID.value,
-		msisdnType,
-		this.batchTesting.controls.Product.value,this.batchTesting.controls.handsetUsed.value,this.batchTesting.controls.SIMVendorName.value,
-		this.batchTesting.controls.approvalDate.value,
-		this.batchTesting.controls.testedBy.value,this.batchTesting.controls.testStartDate.value,
-		this.batchTesting.controls.testEndDate.value,this.batchTesting.controls.TestDate.value,
-		this.batchTesting.controls.approvedBySignature.value,testStatus,
-		this.username,this.ID
+			this.planManagemetService.saveBatch(
+			this.batchTesting.controls.testFor.value,
+			msisdnType,
+			this.batchTesting.controls.testMSISDN.value,
+			this.batchTesting.controls.handsetUsed.value,			
+			this.batchTesting.controls.testedBy.value,
+			testStatus,
+			this.username,this.ID,
+			//this.fileToUpload.name
+			'BatchTest_PlanID_'+this.ID+".csv"
 		).subscribe(
 			data=>{
 				if(data!=null)
@@ -268,66 +277,18 @@ handleFileInput(files: FileList) {
 					alert("Failed to save Data")
 				}
 				this.isLoading=false;
-			}
-			
-		)
-		
-		
+			}			
+		)			
 	}
 
-uploadProv(){
-	this.uploadCsv("provision")
+)
+		}
 }
 
-uploadINC(){
-        this.uploadCsv("incoming");
-}
-
-uploadOut(){
-        this.uploadCsv("outgoing");
-}
-
-uploadNet(){
-	
-	this.uploadCsv("internet")
-}
-uploadErs(){
-	this.uploadCsv("ers")
-}
-uploadSecurity()
-{
-	this.uploadCsv("Security")
-}
-
-uploadCsv(type:string){
-	this.isLoading=true;
-        if (this.fileToUpload == undefined || !this.fileToUpload.name.endsWith(".csv")) {
-          alert("Please Select A csv file");
-          this.isLoading=false;
-        } else {
-            this.uploading = true
-            var uploadFor=type+","+JSON.stringify(this.ID);
-            this.planManagemetService.postBatchFile(this.fileToUpload,uploadFor).subscribe((res => {
-                this.uploading = false
-                if (res == null) {
-                   alert("Failed to Upload File")
-                } else {
-                   alert("Upload Sucessfull")
-                    this.isConfig=false;
-                  
-                   
-                    
-                
-                }
-            }), err => {
-                this.uploading = false
-                this.fileuploadstatus = err.error.message;
-                this.fileerror = true;
-            })
-            console.log(this.fileToUpload.size);
-            this.isLoading=false;
-        }
-}
-
-	
+handleFileInput(files: FileList) {
+	this.fileerror = false;
+	this.filesuccess = false;
+	this.fileToUpload = files.item(0);
+	this.fileName = this.fileToUpload.name;
+}	
 }

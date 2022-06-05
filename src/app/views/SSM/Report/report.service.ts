@@ -70,4 +70,18 @@ generateCSV(data:any[]):any{
         return this.http.post(this.serverUrl +"ssmreport/downloadCSV/", fileNameToDownload,this.options);
     }
     
+    
+	getFilteredInputFiles(artWork:string ,vendor:string,imsiType:number,currPage:number,pageSize:number): any{
+		return this.http.post(this.serverUrl + 'ssmreport/getallinputfiles', {
+            artWork: artWork,
+			vendor: vendor,
+			imsiType: imsiType,
+			currentPage: currPage,
+			pageSize: pageSize
+        });
+  }
+  
+    
+    
+    
     }

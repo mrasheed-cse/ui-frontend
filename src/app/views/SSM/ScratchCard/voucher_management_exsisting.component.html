@@ -9,37 +9,44 @@
 		<div class="card-header" *ngIf="firstHop">
             <i class="fa fa-align-justify"></i>  Voucher Plan Management  
           </div>
-           <div class="card-body" *ngIf="firstHop">
+          <div class="card-body" *ngIf="!isDataFound">
+                                
+              No data found...
+      
+      </div>
+           <div class="card-body" *ngIf="firstHop && isDataFound">
            <table class="table table-bordered table-striped table-sm">
                 <thead>
                   <tr>
-                    <th>Po Number</th>
+                    <th>PO Number</th>
+                    <th>Batch No</th>
                     <th>Batch Quantity</th>
                     <th>Start Serial</th>
+                    <th>End Serial</th>
                     <th>Denomination</th>
-                    <th>NetworkExpireDate</th>
+                    <th>Card Group</th>                    
+                    <th>Voucher serial digit</th>
+                    <th>Hidden number digit</th>
                     <th>Expiry Date</th>
-                    <th>Requested Date</th>
-                    <th>Card Group</th>
-                    <th>SFTPlocation</th>
-                    <th>Vendor</th>
-                    <th>Action</th>
+                    <th><a>
+                        <input type="checkbox" [(ngModel)]="masterSelected" (change)="checkUncheckAll()" />
+                      </a></th>
                   </tr>
                 </thead>
                 <tbody *ngFor="let aTask of listVoucherHopsdata">
                             <tr>
-                                <td>{{aTask.ponumber}}</td>
-                                <td>{{aTask.batchNo}}</td>
-                                <td>{{aTask.serial}}</td>
-                                <td>{{aTask.denomination}}  </td>
-                           		<td>{{aTask.networkexpiredate}}</td>
-                                <td>{{aTask.expirydate}}</td>
-                                <td>{{aTask.requestDate}}</td>
-                                <td> {{aTask.cardgroup}}</td>
-                              
-                                <td> {{aTask.sftplocation}}</td>
-                                 <td> {{aTask.vendor}}</td>
-                                <td> <a  href="#" (click)="detailsSecondHop(aTask.id);$event.preventDefault();" role="button">Details</a> </td>
+                              <td>{{aTask.ponumber}}</td>    
+                              <td>{{aTask.batchNo}}</td>
+                              <td>{{aTask.quantity}}</td>
+                              <td>{{aTask.serial}}</td>
+                              <td>{{aTask.serial + aTask.quantity}}</td>
+                              <td>{{aTask.denomination}}  </td>
+                              <td> {{aTask.cardgroup}}</td>
+                              <td> {{aTask.serialDigitCount}}</td>
+                              <td> {{aTask.hiddenNumberCount}}</td>
+                              <td>{{aTask.expirydate }}   </td>  
+                                 <td><input type="checkbox" value="{{aTask.id}}" [(ngModel)]="aTask.checked"></td>
+                               
                             </tr>
                 </tbody>
               </table>
@@ -47,7 +54,7 @@
            
            </div>
             
-          <div class="card-body" *ngIf="isbatchTest">
+          <div class="card-body" *ngIf="isDataFound">
             
            	  <div class="row">
                       <div class="col-md-6">
@@ -56,7 +63,7 @@
                   </div>
                  </div>
                  
-                   <div class="col-md-6">
+                   <div class="col-md-6"  *ngIf="isbatchTest">
                      <form [formGroup]="radioTest">
                      <div class="form-group row">
                         <label  class="col-md-5 col-form-label">Batch Pass</label>   
@@ -71,26 +78,14 @@
 
            </div>
           
-           <div class="card-footer" *ngIf="isButton">
+           <div class="card-footer" *ngIf="isButton && isDataFound">
           
                  <button   class="btn btn-sm btn-primary" (click)="submit()">Approve</button>
                   <button   class="btn btn-sm btn-danger" (click)="cancel()"> Cancel</button>
            </div>
            
            
-            <div class="card-body" *ngIf="isActivation">
-            
-           	  <div class="row">
-                      <div class="col-md-6">
-                      <label  class="col-md-5 col-form-label">Comment</label>   
-                    <input type="text" class="form-control" [(ngModel)] = "comments"  maxlength="200" />
-                  </div>
-                 </div>
-                 
-
-           </div>
-          
-           <div class="card-footer" *ngIf="isActivation">
+           <div class="card-footer" *ngIf="isActivation && isDataFound">
           
                  <button   class="btn btn-sm btn-primary" (click)="submitActivate()">Approve</button>
                   <button   class="btn btn-sm btn-danger" (click)="cancel()"> Cancel</button>

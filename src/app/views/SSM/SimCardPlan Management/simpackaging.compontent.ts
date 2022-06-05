@@ -41,9 +41,13 @@ export class SimPackaging implements OnInit {
   			isProceed:boolean=false;
   			printingDate:Date;
   			packagingDate:Date;
-  			deliveryDate:Date;
+			deliveryDate:Date;
+			todayDate: Date;
   			isLoading:boolean=false;
-  			Comments:any;
+			Comments:any;
+			  
+			  
+
 constructor(private datePipe: DatePipe,private router: Router,private loginService:
   			 LoginService,private http: HttpClient, private _global: AppGlobals, private planManagemetService: PlanManagementService ) {
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
@@ -52,8 +56,11 @@ constructor(private datePipe: DatePipe,private router: Router,private loginServi
       this.userName = this.currentLoggedInUser.userName
       this.groupID = this.currentLoggedInUser.groupID
       this.userID = this.currentLoggedInUser.userID
-      this.hop=3;
-      this.getData();
+	  this.hop=3;
+	  this.getData();
+	  	//Get Today Date
+		this.todayDate = new Date();
+	 
     }
     else {
       this.router.navigate(['pages/login']);
