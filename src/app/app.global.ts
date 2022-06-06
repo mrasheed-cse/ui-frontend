@@ -105,6 +105,8 @@ export class AppGlobals {
 	};
 
 	defaultPageSize = 100;
+	defaultPageSize2 = 3;
+	ScratchvoucherPageSize=10;
 
 	listSimStatus = [
 		{

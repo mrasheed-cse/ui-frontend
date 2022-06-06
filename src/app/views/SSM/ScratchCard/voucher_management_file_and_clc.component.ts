@@ -36,6 +36,7 @@ export class VoucherManagementActivationAndView implements OnInit {
 			groupID: number;
   			userID: string;
   			listVoucherHopsdata:any[];
+  			filename: any[];
   			firstHop:boolean=false;
   			isfirsthopProceed:boolean=false;
   			isotherHopsApproval:boolean=false;
@@ -66,6 +67,7 @@ this.hop=0;
     }
     }
     getData(hop:number){
+		this.isLoading=true;
 	this.firstHop=true;
 	this.listVoucherHopsdata=[];
 	this.isfirsthopProceed=false;
@@ -90,6 +92,7 @@ this.hop=0;
 		
 		
 	})
+	this.isLoading=false;
 }
 
 
@@ -98,10 +101,27 @@ this.hop=0;
     
 
  download(Id:number) {
-        var nameOfFileToDownload = "VoucherData_"+Id+".csv";
+        var nameOfFileToDownload = "";
+        
 		console.log("nameOfFileToDownload : "+nameOfFileToDownload);
-
-        var result = this.ssmService.DownloadCSV(nameOfFileToDownload);
+		this.ssmService.getFilenameFromDB(Id).subscribe(data=>{
+			if(data!=null){
+				
+				
+				nameOfFileToDownload=data.fileName;
+				console.log(nameOfFileToDownload)
+			
+			this.dnwdFile(nameOfFileToDownload)
+		}
+		
+		});		
+		
+       
+    }
+ 
+dnwdFile(filename:string){
+	
+	 var result = this.ssmService.DownloadCSV(filename);
 		console.log(result);
         result.subscribe(
             data => {
@@ -114,11 +134,11 @@ this.hop=0;
 
                 if (window.navigator && window.navigator.msSaveOrOpenBlob) {
 		console.log("ggg")
-                    window.navigator.msSaveOrOpenBlob(blob, nameOfFileToDownload);
+                    window.navigator.msSaveOrOpenBlob(blob, filename);
                 } else {
                     var a = document.createElement('a');
                     a.href = URL.createObjectURL(blob);
-                    a.download = nameOfFileToDownload;
+                    a.download = filename;
                     document.body.appendChild(a);
                     a.click();
                     document.body.removeChild(a);
@@ -128,9 +148,8 @@ this.hop=0;
                 alert("Server error while downloading file.");
             }
         );
-    }
- 
-
+	
+}
 
 ngOnInit(){
 		

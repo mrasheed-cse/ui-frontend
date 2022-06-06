@@ -1,0 +1,112 @@
+<div class="row">
+	<div class="col-md-1">
+		 
+	</div>
+	<div class="col-md-10">
+		<div class="card">
+		 <div class="div_cust_loading_sign" *ngIf="isLoading"> <div style="position:fixed;width:100%;height:100%;left:0px;top:0px;z-index:50000;background-color:#536c79;opacity:0.95"></div> <div style="position:fixed;width:100%;height:100%;left:0px;top:0px;z-index:60000"><div style="width:25%;height:25%;margin:0px auto;margin-top:20%"><i class="fa fa-spinner fa-pulse fa-4x fa-fw" ></i></div></div> </div>
+   
+		<div class="card-header">
+            <i class="fa fa-align-justify"></i>  Update Received Quantity
+          </div>
+		<form [formGroup]="updateReceivedQuantityForm" novalidate (ngSubmit)="Submit()" >
+		<div class="card-body">
+					<div class="row">
+							<div class="col-md-6">
+													<div class="form-group row">
+									<label class="col-md-5 col-form-label" >Art Works</label>
+									<div class="col-md-7">
+										<select class="form-control" id="artWork" formControlName="artWork" required >
+											<option></option>
+											<option *ngFor="let anArtWork of listArtWorks" [value]="anArtWork.id">{{anArtWork.artWorkName}}</option>
+										</select>
+									</div>
+	
+	
+								</div>
+										</div>
+								<div class="col-md-6">
+												<div class="form-group row">
+								<label class="col-md-5 col-form-label" >Vendor</label>
+								<div class="col-md-7">
+									<select class="form-control"[(ngModel)]="vendor" formControlName="vendor" required >
+																	<option></option>
+											<option *ngFor="let aIMSI of listVendors" [value]="aIMSI.group_name">{{aIMSI.group_name}}</option>
+										</select>       
+								</div>
+
+
+							</div>
+									</div>
+								
+								
+										
+					</div>	
+				    </div>
+            
+            	<div class="card-footer text-right">
+					<button type="submit" [disabled]="!updateReceivedQuantityForm.valid  && !isDisableBtn"  class="btn btn-sm btn-primary">
+						<i class="fa fa-dot-circle-o"></i> Filter Input File</button>
+					</div>
+						</form>		
+						
+						
+
+            <div class="card-body" *ngIf="isDataFound ">
+              <table class="table table-bordered table-striped table-sm">
+                <thead>
+                  <tr>
+											<th style="display: none">ID Number</th>
+                    <th >PO Number</th>
+                    <th>IMSI Type</th>
+                    <th>Quantity Total From PO</th>
+                    <th>Quantity Yet To Receive</th>
+                    <th>Quantity Received</th>     
+                  </tr>
+                </thead>
+              <tbody *ngFor="let aFileData of inputFileList;  index as i">
+                  <tr>
+										<td style="display: none">{{aFileData.id}}</td>
+                      <td>{{aFileData.poNumber}}</td>
+                      <td>{{aFileData.imsiType}}</td>                          
+                      <td>{{aFileData.totalQuantity}}</td>
+                      <td>{{aFileData.totalQuantity-aFileData.receivedQuantity}}</td>                      
+                      <td>
+                          <input type="text" type="number" class="form-control" [(ngModel)] = "aFileData.newReceivedQuantity" />
+                      </td>                                                                              
+                  </tr>
+              </tbody>
+              </table>
+              
+							<br /><br />
+							
+							<a style="width:140px" class="btn btn-success" (click) = "UpdateReceivedQunatity()" >Update</a>
+		  <a style="width:140px" class="btn btn-danger" (click) = "cancel()" >Cancel</a>
+		  <div id="div_pagination">
+			<a class="btn btn-link" (click)="firstPage()">&lt;&lt;</a>			
+			&nbsp;
+			&nbsp;
+			<a class="btn btn-link" (click)="prevPage()">&lt;</a>
+			&nbsp;
+			&nbsp;
+			Page {{currPage}} of {{totalPages}}
+			&nbsp;
+			&nbsp;
+			<a class="btn btn-link" (click)="nextPage()">&gt;</a>
+			&nbsp;
+			&nbsp;
+			<a class="btn btn-link" (click)="lastPage()">&gt;&gt;</a>              
+		</div>
+	
+		
+						</div>
+						
+						<div class="card-body" *ngIf="isNoDataFound">
+                                
+								No data found...
+						
+					</div>
+
+					</div>
+					</div>
+					</div>

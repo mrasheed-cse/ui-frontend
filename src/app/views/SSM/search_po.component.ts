@@ -64,36 +64,38 @@ search(){
 	this.isInitial=false;
 	 this.isLoading = true;
 	this.rowData = [];    
-	this.ssmService.getPoInformation(this.PoNumber).subscribe(
+	this.ssmService.getPoInformation(this.PoNumber,"PO").subscribe(
 		 data => {
-			 this.rawDataFromBackend = data;
           if(data !=null){         
 	console.log("DATA= ",data)   
            this.isDataFound = true;
            
            this.nodataFound=false;
           this.rawDataFromBackend=data;
-          if(this.PoNumber==this.rawDataFromBackend['id']){
-           var objToInsert = {};
-                  objToInsert['poDate'] = this.datepipe.transform(this.rawDataFromBackend['poDate'],"dd-MM-yyyy");
-                  objToInsert['id'] = this.rawDataFromBackend['id'];
-                  objToInsert['itemNumber'] = this.rawDataFromBackend['itemNumber'];
-                  objToInsert['itemDescription'] = this.rawDataFromBackend['itemDescription'];
-                  objToInsert['poExpireDate'] = this.datepipe.transform(this.rawDataFromBackend['poExpireDate'],"dd-MM-yyyy");
-                  objToInsert['totalQuantity'] = this.rawDataFromBackend['totalQuantity'];
-                   objToInsert['supplier'] = this.rawDataFromBackend['supplier'];
-                  objToInsert['price'] = this.rawDataFromBackend['price'];
-                  objToInsert['amount'] = this.rawDataFromBackend['amount'];
+         
+          for (let index in data) {
+					this.rowData.push(
+					{
+						id:data[index].id,
+						amount: data[index].amount,
+						availableQuantity: data[index].availableQuantity,
+						itemDescription: data[index].itemDescription,
+						itemNumber: data[index].itemNumber,
+						price: data[index].price,
+						totalQuantity: data[index].totalQuantity,
+						supplier: data[index].supplier,
+						poDate: this.datepipe.transform(data[index].poDate,"dd-MM-yyyy"),
+						poExpireDate: this.datepipe.transform(data[index].poExpireDate,"dd-MM-yyyy")
+					
+					}
+					);
+				}
           
           
-	       this.rowData.push(objToInsert);
 	       
-          }
-          else{ 
-						this.isInitial = true;
-					 this.isDataFound = false;
-					this.nodataFound=true;
-			}
+	       
+          
+          
 			 this.isLoading = false;
           }
           else{
@@ -116,7 +118,7 @@ search(){
 
 
   downloadCSVFiles() {
-        var nameOfFileToDownload = "Purchase Order_"+this.rawDataFromBackend['id']+".csv";
+        var nameOfFileToDownload = "Purchase Order_"+this.rowData[0].id+".csv";
 		console.log("nameOfFileToDownload : "+nameOfFileToDownload);
 
         var result = this.ssmService.DownloadCSV(nameOfFileToDownload);

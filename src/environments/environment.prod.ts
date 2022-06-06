@@ -1,7 +1,7 @@
 export const environment = {
 	production: true,
 	apiUrl: '/nsa/',
-	  pendingRequestMarker : 'PENDING',
+  pendingRequestMarker : 'PENDING',
   approvedRequestMarker : 'APPROVED',
   rejectedRequestMarker : 'REJECTED',
   ssmAssessmentHopMarker : "SSM",

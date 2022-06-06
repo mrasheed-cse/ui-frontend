@@ -44,11 +44,15 @@ export class VoucherGenerationForward implements OnInit {
   			fileToUpload: File = null;
     		fileuploadstatus: string;
     		fileName: string;
-    		fileerror: boolean = false;
+			fileerror: boolean = false;
+			selectedIdList: string;
    			 filesuccess: boolean = false;
     		uploading: boolean = false;
 			listDataByid=[];
 			isLoading:boolean=false;
+			public masterSelected:boolean = false;
+			public isDataFound:boolean = false;
+
 	constructor(private datePipe: DatePipe,private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private ssmService: SSMService ) {
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
 
@@ -66,13 +70,19 @@ export class VoucherGenerationForward implements OnInit {
     }
      
     getData(hop:number){
+	this.isLoading=true;
 	this.firstHop=true;
 	this.listVoucherHopsdata=[];
 	this.listDataByid=[];
 	this.isfirsthopProceed=false;
 	this.comments="";
 	this.fileToUpload=null;
+	this.isDataFound=false;
 	this.ssmService.getApproval1HopData(this.hop).subscribe(data=>{
+		console.log(data);
+		if(data!=null && data.length>0){
+			this.isDataFound=true;
+		}
 		for (let index in data) {
 			
 			this.listVoucherHopsdata.push(
@@ -90,59 +100,50 @@ export class VoucherGenerationForward implements OnInit {
 						serialDigitCount: data[index].serialDigitCount,
 						hiddenNumberCount: data[index].hiddenNumberCount,
 						sftplocation: data[index].sftplocation,
-						vendor:data[index].vendor
+						vendor:data[index].vendor,
+						quantity:data[index].quantity
 					}
 					
 					);
 		}
-		
-		
-		
-	})
+		this.comments="";
+		this.isLoading=false;
+	}
+	
+
+)
+
 	
 }
     
      
-	detailsSecondHop(id:number){
-		this.isfirsthopProceed=true;
-				console.log(this.listVoucherHopsdata[0].ponumber)
+
+	submit(){
 		
-		
-			for (let index in this.listVoucherHopsdata) {
-			if(Number(this.listVoucherHopsdata[index].id)==id){
-				console.log(this.listVoucherHopsdata[index].ponumber)
-			this.listDataByid.push(
-					{
-						
-						ponumber: this.listVoucherHopsdata[index].ponumber,
-						batchNo: this.listVoucherHopsdata[index].batchNo,
-						 id: this.listVoucherHopsdata[index].id,
-						 serial: this.listVoucherHopsdata[index].serial,
-						denomination: this.listVoucherHopsdata[index].denomination,
-						networkexpiredate: this.datePipe.transform(this.listVoucherHopsdata[index].networkexpiredate,"dd-MM-yyyy"),
-						expirydate:this.datePipe.transform( this.listVoucherHopsdata[index].expirydate,"dd-MM-yyyy"),
-						requestDate: this.datePipe.transform( this.listVoucherHopsdata[index].requestDate,"dd-MM-yyyy"),
-						cardgroup: this.listVoucherHopsdata[index].cardgroup,
-						serialDigitCount: this.listVoucherHopsdata[index].serialDigitCount,
-						hiddenNumberCount: this.listVoucherHopsdata[index].hiddenNumberCount,
-						sftplocation: this.listVoucherHopsdata[index].sftplocation,
-						vendor:this.listVoucherHopsdata[index].vendor
-						
-						
-					}
-					
-					);
-					console.log("Sr "+this.listDataByid)
-					this.firstHop=false;
-		this.Id=id;
-		}
+		this.selectedIdList="";
+		//alert(this.listVoucherHopsdata.length);
+		for (let i = 0; i < this.listVoucherHopsdata.length; i++) {
+			
+			if(this.listVoucherHopsdata[i]['checked']){		
+			
+			if(this.selectedIdList.length>0)
+			  this.selectedIdList=this.selectedIdList+"_";
+			this.selectedIdList =this.selectedIdList+this.listVoucherHopsdata[i]['id'];
+			//alert(this.selectedIdList);
 		}
 	}
-	submit(){
-		this.isLoading=true;
+	console.log("Selected Ids "+this.selectedIdList);
+	if(this.selectedIdList.length==0){
+		alert("Please select at least one voucher");
+		return;
+	}
+	this.isLoading = true;
 	this.dndUpload();
-			console.log(this.comments);
-	this.ssmService.setSeccondHop(this.userName,this.Id,this.comments).subscribe(
+	//alert('Returned');
+	console.log(this.comments);
+	var theFileName=this.fileToUpload==null?"No File Provided":this.fileToUpload.name;
+	//alert(theFileName);
+	this.ssmService.setSeccondHop(this.userName,this.selectedIdList,this.comments,theFileName).subscribe(
 
 		data=>{
 			if(data!=null){
@@ -153,29 +154,49 @@ export class VoucherGenerationForward implements OnInit {
 			
 		}
 	)
-	
-	
+
+	this.isLoading=false;
       }
-      
-cancel(){
-	this.isLoading=true;
-	this.ssmService.cancelHop(this.userName,this.Id).subscribe(
-		
-		data=>{
-			if(data!=null){
-				alert("Voucher Request is Cancled");
-				this.isLoading=false;
-				this.getData(this.hop);
+	  cancel(){
+		this.isLoading = true;
+		this.selectedIdList="";
+			//alert(this.listVoucherHopsdata.length);
+			for (let i = 0; i < this.listVoucherHopsdata.length; i++) {
+				if(this.listVoucherHopsdata[i]['checked']){		
+				if(this.selectedIdList.length>0)
+				  this.selectedIdList=this.selectedIdList+"_";
+				this.selectedIdList =this.selectedIdList+this.listVoucherHopsdata[i]['id'];
+				//alert(this.selectedIdList);
+			}
+		}
+		console.log(this.selectedIdList);
+		this.ssmService.cancelHop(this.userName,this.selectedIdList,this.comments).subscribe(		
+			data=>{
+				if(data!=null){
+					alert("Voucher Request is Cancled");
+					this.isLoading  = false;
+					this.getData(this.hop);
+					
+				}
 				
 			}
-			
-		}
-	)
+		)
+		this.isLoading = false;
+		
+	}
 	
-}
-    
-dndUpload() {
-	console.log("File iuploading")
+	dndUpload():boolean {
+	console.log("File is uploading")
+	console.log(this.fileToUpload);
+	if (this.fileToUpload == null){
+		//alert('No File');
+		return true;
+	}
+	if (this.fileToUpload == undefined){
+		//alert('Undefined File');
+		return true;
+	}
+//alert('1');
         this.fileerror = false;
         this.filesuccess = false;
         if (this.fileToUpload == undefined || !this.fileToUpload.name.endsWith(".csv")) {
@@ -183,7 +204,7 @@ dndUpload() {
             this.fileerror = true;
         } else {
             this.uploading = true
-            this.ssmService.postFile(this.fileToUpload,this.Id).subscribe((res => {
+            this.ssmService.postFile(this.fileToUpload,this.selectedIdList).subscribe((res => {
                 this.uploading = false
                 if (res == null) {
                     this.fileuploadstatus = 'File Upload Fail';
@@ -198,7 +219,9 @@ dndUpload() {
                 this.fileerror = true;
             })
             console.log(this.fileToUpload.size);
-        }
+		}
+		//alert(this.fileuploadstatus);
+        return this.fileerror;
     }
 
     handleFileInput(files: FileList) {
@@ -212,5 +235,16 @@ dndUpload() {
 		
 	}
        
-   
-}
+	checkUncheckAll() {
+		
+		
+		for (let i = 0; i < this.listVoucherHopsdata.length; i++) {
+		  this.listVoucherHopsdata[i]['checked'] =this.masterSelected;
+		  console.log(this.listVoucherHopsdata[i]['checked']);
+		  
+	  }
+	  
+	}
+	
+		
+	}  

@@ -20,7 +20,7 @@ private headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf
  
   private prepareSearchFormdata(data: PlanGenerate) : any {
         const formData: FormData = new FormData();
-  console.log("Daat "+data.imsiType)
+  //console.log("Daat "+data.imsiType)
             formData.append('file',data.fileToUpload, data.fileToUpload.name);
             formData.append('planID',data.planID)
        
@@ -47,6 +47,7 @@ private headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf
     }
     
     getDropdown(linkno: string):any {
+        console.log(this.serverUrl + "plangenerate/dropdown/" + linkno);
         return this.http.get(this.serverUrl + "plangenerate/dropdown/" + linkno).pipe(catchError(this.handleError));
     }
     
@@ -75,16 +76,35 @@ private headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf
         }
         return _throw(error);
     }
-    
+    /*
     uploadCsv(data:PlanGenerate) {
         const url = environment.apiUrl + "plangeneration/uploadCSv/"+data.imsiType;
      
         return this.http.post(url, this.prepareSearchFormdata(data));
     }
+*/
+    uploadCSvAndGeneratePlan(object :any):any{
+        
+        return this.http.post(this.serverUrl+"plangenerate/uploadCSvAndGeneratePlan/",object);
+       
+
+    }
+
+    uploadCSvAndGeneratePlanForUnpaired(object :any):any{
+        
+        return this.http.post(this.serverUrl+"unpairedUploadAndPlanGenerate/start/",object);
+       
+
+    }
     
      getConfig(hop:number): Observable<any>{
 	  return this.http.get(environment.apiUrl + "plangenerate/getsimconfighops/" +hop).pipe(catchError(this.handleError));
 	
+}
+
+getAllBatchTestDone(): Observable<any>{
+    return this.http.get(environment.apiUrl + "plangenerate/loadbatchtestdone/" ).pipe(catchError(this.handleError));
+  
 }
     cancelHop(username:string,Id:number){
 	
@@ -139,6 +159,11 @@ setPackeging(username:string,Id:number,printing:any,packaging:any,delivery:any,c
 	getBatchFileStatus(id:number):any{
 		return this.http.get(this.serverUrl + 'plangenerate/batchFilestatus/'+id)
 		
+    }
+    
+    getBatchTestAutoFetchData(id:number):any{
+		return this.http.get(this.serverUrl + 'plangenerate/batchTestAutoFetchData/'+id)
+		
 	}
 	
 	postBatchFile(fileToUpload: File,type:string) {
@@ -148,14 +173,26 @@ setPackeging(username:string,Id:number,printing:any,packaging:any,delivery:any,c
         return this.http.post(url, formData);
     }
  
- 
- saveBatch(testFor:string,startMob:string,endMob:string,startICCID:string,endICCID:string,msisdnType:string,Product:string,handsetUsed:string,SIMVendorName:string,approvalDate:any,
- testedBy:string,testStartDate:any,testEndDate: any,testDate:any,approvedBySignature:string,testStatus:string,username:string,Id:number){
+ /*this.batchTesting.controls.testFor.value,
+ msisdnType,
+ this.batchTesting.controls.testMSISDN.value,
+ this.batchTesting.controls.handsetUsed.value,			
+ this.batchTesting.controls.testedBy.value,
+ testStatus,
+ this.username,this.ID
+ */
+ saveBatch(testFor:string,msisdnType:string,testMSISDN:string,handsetUsed:string,
+ testedBy:string,testStatus:string,username:string,Id:number,fileName:string){
 return 	this.http.post(this.serverUrl+"plangenerate/savebatchtest/",{
-	testFor:testFor,startMob:startMob,endMob:endMob,startICCID:startICCID,
-	endICCID:endICCID,msisdnType:msisdnType,Product:Product,handsetUsed:handsetUsed,SIMVendorName:SIMVendorName,
-	username:username,testedBy:testedBy,planId:Id,testStartDate:testStartDate,approvalDate:approvalDate,
-	testEndDate:testEndDate,testDate:testDate,approvedBySignature:approvedBySignature,testStatus:testStatus
+    testFor:testFor,
+    msisdnType:msisdnType,
+    handsetUsed:handsetUsed,
+    username:username,
+    testedBy:testedBy,
+    planId:Id,
+    testStatus:testStatus,
+    fileName:fileName,
+    testMSISDN:testMSISDN
 	
 })
 	
@@ -169,6 +206,14 @@ postfaultyFile(fileToUpload: File,Comments:string){
         formData.append('file', fileToUpload, fileToUpload.name);
         return this.http.post(url, formData);
 	
+}
+
+PlanActivationWOFileUpload(Comments:string){
+	
+
+    
+    return this.http.post(environment.apiUrl + "plangeneration/PlanActivationWOFileUpload/"+Comments,{});
+
 }
 
 getTotalQuantiy(imsitype:any[]):any{
@@ -189,5 +234,11 @@ returnandReciceve(Object :{}):any{
         return this.http.post(url, formData);
     }
 	
+	
+    
+    getUser(username:string):any{
+	
+	return 	this.http.put(this.serverUrl+"unpaired/getuser",{username:username});
+}
     
 	}

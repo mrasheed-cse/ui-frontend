@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { environment } from '../../../environments/environment.prod';
+import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
 import {catchError,} from 'rxjs/operators';
 import {_throw} from 'rxjs/observable/throw';
 
 
-import { AppGlobals } from './../../app.global';
+//import { AppGlobals } from './../../app.global';
 
 
 @Injectable()
@@ -28,15 +28,16 @@ private options2 = {
 
 	serverUrl: string;
 	
-	constructor(private router: Router, private http: HttpClient, private _global: AppGlobals) { 
+	constructor(private router: Router, private http: HttpClient) { 
 		this.serverUrl = environment.apiUrl;  		
 	}
 	
 	
-	getPoInformation(poNumber:string): any{
+	getPoInformation(poNumber:string,filter:string): any{
 		console.log(this.serverUrl)
 	return this.http.post(this.serverUrl + 'poInformation/search/', {
-			poNumber:poNumber});
+			poNumber:poNumber,
+			filter:filter});
 	}
 	
 getImsiAndICCID(imsi:string,quantity:string,vendor:string):any	{
@@ -118,20 +119,26 @@ getImsiAndICCID(imsi:string,quantity:string,vendor:string):any	{
 		});
 		
 	}
+
+	getMaxSerial():any{
+		return this.http.get(this.serverUrl +'vouchergeneration/getMaxSerial');
+		
+	}
 	
 	checkPoExsist(poNumber:string): any{
 	return this.http.post(this.serverUrl + 'sctrachVoucher/searchPo/', {
 			poNumber:poNumber});
 	}
 	
-	saveScratch(ponumber:string,batchNo:string,denomination:string,serial:string,requestDate:any,quantity:string,vendor:string,pr:string
-	,networkexpiredate:any,expirydate:any,cardgroup:string,serialDigitCount:string,hiddenNumberCount:string,sftplocation:string,createdBy:string): any{
+	saveScratch(ponumber:string,denomination:string,serial:string,requestDate:any,quantity:string,vendor:string,pr:string
+	,networkexpiredate:any,expirydate:any,cardgroup:string,serialDigitCount:string,hiddenNumberCount:string,sftplocation:string,createdBy:string,itemName:string): any{
 	return this.http.post(this.serverUrl + 'sctrachVoucher/Save/', {
-			ponumber:ponumber,batchNo:batchNo,denomination:denomination,
+			ponumber:ponumber,denomination:denomination,
 			serial:serial,requestDate:requestDate,quantity:quantity,
 			vendor:vendor,pr:pr,networkexpiredate:networkexpiredate,
 			expirydate:expirydate,cardgroup:cardgroup,serialDigitCount:serialDigitCount,
-			hiddenNumberCount:hiddenNumberCount,sftplocation:sftplocation,createdBy:createdBy});
+			hiddenNumberCount:hiddenNumberCount,sftplocation:sftplocation,createdBy:createdBy
+			,itemName:itemName});
 	}
 	
 	getAllCard(): any {	
@@ -205,41 +212,43 @@ getImsiAndICCID(imsi:string,quantity:string,vendor:string):any	{
 	
 }
 
-setSeccondHop(username:string,Id:number,comment:string){
+setSeccondHop(username:string,idList:string,comment:string,fileName:string){
 	
 	return this.http.post(this.serverUrl + 'voucherManagement/SaveSecondHop/', {
-		username:username,
-		id:Id,
-		comments:comment
+		userName:username,
+		idList:idList,
+		batchComment:comment,
+		fileName:fileName
 			});
 }
-cancelHop(username:string,Id:number){
+cancelHop(username:string,idList:string,comment:string){
 	
 	return this.http.post(this.serverUrl + 'voucherManagement/cancelHop/', {
-		username:username,
-		id:Id,
+		userName:username,
+		idList:idList,
+		batchComment:comment
 			});
 }
 
-SaveBatch(username:string,Id:number,batchComment:string,comment:string){
+SaveBatch(username:string,idList:string,batchComment:string,comment:string){
 	
 	return this.http.post(this.serverUrl + 'sctrachVoucher/batchcomment/', {
-		username:username,
-		id:Id,
-		batchComment:batchComment,comments:comment
+		userName:username,
+		idList:idList,
+		batchComment:batchComment
 			});
 }
 
-SaveFinal(username:string,Id:number,comment:string){
+SaveFinal(username:string,idList:string,comment:string){
 	
 	return this.http.post(this.serverUrl + 'sctrachVoucher/savefinalhop/', {
-		username:username,
-		id:Id,
-		comments:comment
+		userName:username,
+		idList:idList,
+		batchComment:comment
 			});
 }
- postFile(fileToUpload: File, id:number) {
-        const url = environment.apiUrl + "voucherManagement/uploadstart/"+id;
+ postFile(fileToUpload: File, idList:string) {
+        const url = environment.apiUrl + "voucherManagement/uploadstart/"+idList;
         const formData: FormData = new FormData();
         formData.append('file', fileToUpload, fileToUpload.name);
         return this.http.post(url, formData);
@@ -258,12 +267,12 @@ SaveFinal(username:string,Id:number,comment:string){
         return _throw(error);
     }
     
-    setHop(username:string,Id:number,comment:string){
+    setHop(username:string,selectedIdList:string,comment:string){
 	
 	return this.http.post(this.serverUrl + 'voucherManagement/saveHop/', {
-		username:username,
-		id:Id,
-		comments:comment
+		userName:username,
+		idList:selectedIdList,
+		batchComment:comment
 			});
 
 	
@@ -291,8 +300,43 @@ deleteSimdropdown(id:number) :Observable<any> {
     
     downloadAucFile() {
         const url = environment.apiUrl + "auc_conversion/download";
-        
-        return this.http.post(url,this.options2);
-    }
+        console.log(environment.apiUrl + "auc_conversion/download");
+        return this.http.get(environment.apiUrl + 'auc_conversion/download',this.options2);
+	}
+	
+
+	getFilteredInputFiles(artWork:string ,vendor:string,imsiType:number,filterFor:number,currPage:number,pageSize:number): any{
+		return this.http.post(this.serverUrl + 'FilterInputFile/', {
+            artWork: artWork,
+			vendor: vendor,
+			imsiType: imsiType,
+			filterFor: filterFor,
+			currentPage: currPage,
+			pageSize: pageSize
+        });
+  }
+  
+  getAllPoInputfiles():any{
+	return this.http.get(this.serverUrl + 'vouchergeneration/getpodetail');
+}
+
+  UpdateReceivedQuantity(data:any):any {
+	  
+	  console.log(this.serverUrl+'ReceivedQuantityManipulation/,{updateReceivedQuantityRequests: '+data+'});');
+	  return this.http.post(this.serverUrl+'ReceivedQuantityManipulation/',data);
+  }
+getBatchDetails(batchNumber:number):any{
+	
+	return this.http.get(environment.apiUrl + "sctrachVoucher/getvoucherhistory/"+batchNumber).pipe(catchError(this.handleError));
+	
+	
+	
+}
+getFilenameFromDB(id:number):any{
+	
+	return this.http.get(environment.apiUrl + "sctrachVoucher/getfilenamefromdb/"+id).pipe(catchError(this.handleError));
+	
+	
+}
 	
 	}
