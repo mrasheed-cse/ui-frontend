@@ -58,7 +58,7 @@ export class UploadDataWh implements OnInit {
 submit(){
 	var val;
 	this.isLoading=true;
-	console.log("Selected for"+this.uploadFor)
+	//console.log("Selected for "+this.uploadFor)
 	if(this.uploadFor!=null){if(this.uploadFor==="0"){
 		val="AUC";
 	}
@@ -66,11 +66,20 @@ submit(){
 		val="ADC"
 	}
 	
+	
 	this.datawarehouseservice.uploadCsv(this.fileToUpload,val).subscribe(
 	
-		data=>{ 	console.log(data)
+		data=>{ 
+			
+			const dataStr = JSON.stringify(data);
+
+			JSON.parse(dataStr, (key, value) => {
+				if (typeof value === 'string') {
+					alert(value);
+				}
+			});
 			if(data!=null){
-				console.log("Data Sucessfully Saved")
+
 			
 			alert("Data Saved  Sucessfully"); this.fileerror = false;
         this.filesuccess = false;
@@ -78,12 +87,25 @@ submit(){
         this.isLoading=false
 		}
 		 else{
-			alert("Please Select Valid File")
+			alert("respnse is null")
 			 this.isLoading=false
 		}
 		
-		},err => {alert("Please Select Valid File")
-		 this.isLoading=false}
+		},err => {
+			
+			//alert('err');
+			const dataStr = JSON.stringify(err);
+			JSON.parse(dataStr, (key, value) => {
+				
+				if (typeof value === 'string' ) {
+					if(key==='text'){
+						////alert(key+" : "+value);
+						alert(value);
+					}
+				}
+			});
+		 this.isLoading=false
+		}
 	)
 	}
 	else{

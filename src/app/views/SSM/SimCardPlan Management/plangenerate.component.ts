@@ -9,12 +9,13 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {environment} from '../../../../environments/environment';
-import {Router} from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
 import {_throw} from 'rxjs/observable/throw';
 import { AppGlobals } from './../../../app.global';
 import { LoginService } from '../../pages/LoginService';
 import { LoggedInUser } from '../../pages/loggedInUser';
 import{PlanManagementService } from './plan_management.service';
+import { FileoperationService } from '../../nsa/services/fileoperation.service';
 import { Observable } from 'rxjs/Observable';
 import {DatePipe} from '@angular/common';
 import 'rxjs/add/operator/map';
@@ -26,7 +27,7 @@ import 'rxjs/add/observable/of';
     selector: 'app-voucherGen',
     templateUrl: './plangenerate.component.html',
       styleUrls: ['../search_po.component.scss'],
-      providers: [AppGlobals,LoginService,PlanManagementService,DatePipe],
+      providers: [AppGlobals,LoginService,PlanManagementService,DatePipe,FileoperationService],
 })
 export class PlanGenerate implements OnInit {
 		  	currentLoggedInUser: LoggedInUser;
@@ -40,11 +41,9 @@ export class PlanGenerate implements OnInit {
   			listDropDownSharerName=[];
   			listDropDownPlanCircle=[];
   			listDropDownRequester=[];
-  			listDropDownimsiType=[];
+  			
   			quantity:string;
-  			startKit:string;
-  			endKit:string;
-  			imsiChanged:boolean=false;
+  			
   			msisdnPlanid: string;
   			 public isDisableBtn:boolean = false;
   			 fileToUpload: File = null;
@@ -55,16 +54,19 @@ export class PlanGenerate implements OnInit {
     		uploading: boolean = false;
     		isDataFound:boolean=false;
     		listno:string;
-    		startICCID:string;
+    		
     		public isLoading:boolean = false;
-    		avalibleQuantity:string;
+    		public avalibleQuantity:string;
     		listCategoryName=[];
-    		imsiType :any;
-    		private kit:any=[];
+    		
+			private kit:any=[];
+			inputFileIds:string="";
     		
     		planID :any;
   			constructor(private datePipe: DatePipe,private router: Router,private loginService:
-  			 LoginService,private http: HttpClient, private _global: AppGlobals, private planManagemetService: PlanManagementService ) {
+			   LoginService,private http: HttpClient, private _global: AppGlobals, 
+			   private activatedRoute: ActivatedRoute,			   
+			   private planManagemetService: PlanManagementService, private fileoperationService: FileoperationService ) {
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
 
     if (this.currentLoggedInUser) {
@@ -74,7 +76,9 @@ export class PlanGenerate implements OnInit {
     }
     else {
       this.router.navigate(['pages/login']);
-    }
+	}
+	
+	this.LoadQueryStringData();
    
     }
     
@@ -87,9 +91,9 @@ export class PlanGenerate implements OnInit {
 	this.getCategoryName();
 	this.getproductName();
 	this.getRequester();
-	this.OnImsiChange();
-	this.getImsi();
-	this.onProductcodeChange();
+	this.LoadQueryStringData();
+	this.fileToUpload = null;
+	
 }
     
    createForm(){	
@@ -250,98 +254,44 @@ getRequester(){
     err => console.error(err));
 			
 		}
-		
-				
-OnImsiChange(){
-	this.startKit=null;
-	this.endKit=null;
-	console.log("Imsi= "+this.imsiType)
-	this.avalibleQuantity="";
-	
-	this.planGenrationForm.get('inputFile').valueChanges.subscribe(selectab => {
-		this.imsiType=this.planGenrationForm.controls.inputFile.value;
-		this.imsiChanged=true;
-		this.planManagemetService.getTotalQuantiy(this.planGenrationForm.controls.inputFile.value).subscribe(
-			data=>
-			{
-				if(data!=null){
-					this.avalibleQuantity=data;
-					
-				}
-				else{
-					this.avalibleQuantity="NO Data Found";
-					
-				}
-				
-				}
-			
-		)
-		this.getStartSerial();
-		
-	});
-	
-}
 
-onProductcodeChange(){
-	
-	this.planGenrationForm.get('ProductCode').valueChanges.subscribe(
-		
-		data=>{	this.startKit=null;
-	this.startKit=this.planGenrationForm.controls.ProductCode.value+""+this.startICCID;
-}
-	)
-	
-}
-getStartSerial(){
-	this.startKit=null;
-	this.endKit=null;
-	 var val = {};
-	 
-	
-		val['inputFile']=this.planGenrationForm.controls.inputFile.value;
-		this.planManagemetService.getkitSerial(this.planGenrationForm.controls.inputFile.value).subscribe(
-			data=>{
-				this.kit=data;
-				this.startICCID=this.kit['simKit'];
-			console.log(this.startICCID)
-		
-			}
-			
-		)
-		
 
-		
+LoadQueryStringData(){
+	// LOAD QUERY STRING DATA
+	this.quantity= this.activatedRoute.snapshot.paramMap.get('totalUploadableQuantity');
+	  console.log(this.quantity);
+	  
+	  this.inputFileIds = this.activatedRoute.snapshot.paramMap.get('ifids');
+  
 }
-		
+SubmitForPlanGenerationFromMsisdnFile(){
 
-    handleFileInput(files: FileList) {
-        this.fileerror = false;
-        this.filesuccess = false;
-        this.fileToUpload = files.item(0);
-        this.fileName = this.fileToUpload.name;
-    }
-    
-   getImsi(){ 
-this.planManagemetService.GetAllIMSI().subscribe(
-	data => {
-				//console.log(data);
-				for (let index in data) {
-					this.listDropDownimsiType.push(
-					{
-						id:data[index].id,
-						group_name: data[index].groupName,
-					
-					}
-					);
-				}
-			},
-    err => console.error(err),
-    );
-    }
-    
-	submit1(){this.isLoading=true;
-			this.isDataFound=true;
-	 var objToInsert = {};
+	if(! (this.planGenrationForm.valid  && !this.isDisableBtn)){
+		alert('Please provide all inputs');
+		return;
+	}
+
+	if(this.fileToUpload.name==null || this.fileToUpload.name.length==0){
+		alert('Please provide plan generation file.');
+		return;
+	}
+
+	this.isLoading=true;
+	const formData: FormData = new FormData();
+		
+	formData.append('ssm-file',this.fileToUpload,this.fileToUpload.name);
+	
+	console.log(formData);
+	
+	var result = this.fileoperationService.uploadSSMCSV(formData);
+	console.log(result);
+
+	result.subscribe(res => {
+			console.log(res);
+
+			console.log('file uploaded at '+new Date().toString());
+
+			var objToInsert = {};
 		objToInsert['itemcode']=this.planGenrationForm.controls.ItemCode.value;
 		objToInsert['productname']=this.planGenrationForm.controls.ProductName.value;
 		
@@ -354,104 +304,52 @@ this.planManagemetService.GetAllIMSI().subscribe(
 		objToInsert['wr_number']=this.planGenrationForm.controls.wrname.value;
 		objToInsert['username']=this.userName;
 		objToInsert['categoryName']=this.planGenrationForm.controls.CategoryName.value;
-		console.log(objToInsert )
-		this.planManagemetService.generatePlan(objToInsert).subscribe(
-			
-			data=>{
-				this.SubmitCsv(JSON.stringify(data));
+		objToInsert['inputfileIds']=this.inputFileIds;
+		objToInsert['uploadedFileName']=this.fileToUpload.name;
+		console.log(objToInsert );
+
+
+		this.planManagemetService.uploadCSvAndGeneratePlan(objToInsert).subscribe(
+	
+			data=>{ 	
 				
+				console.log(data.message);
+				if(data.message === "1"){
+					console.log("Data Saved")
+					this.isLoading=false;
+					alert("Data Saved And forwarded Sucessfully");
+					this.router.navigateByUrl('/nsa/preplangenerate');
+
+				}
+				else{
+					this.isLoading=false;
+					alert(data.message);
+					this.ngOnInit();
+					}
+			},
+			err=> {
+				
+				console.error(err);
+				this.isLoading=false;
+				alert("Unable to process.");
+				this.ngOnInit();				
 			}
 		)
 		
-		
 	}
+);
+ 
+	//this.isLoading=false;
+		
+}
+		
 
-    
-    
-
-SubmitCsv(number:string){
-
-console.log("ID= "+number)
-this.planID=number;
-	this.planManagemetService.uploadCsv(this).subscribe(
-	
-		data=>{ 	console.log(data)
-			if(data!=null){
-				console.log("Data Saved")
-			this.isLoading=false;
-			
-			this.ngOnInit();
-			alert("Data Saved And forwarded Sucessfully");
-			this.endKit=null;
-			this.startKit=null;
-			this.quantity=null;
-			this.startICCID=null
-			this.avalibleQuantity=null;}
-			else
-					{
-						this.isLoading=false;
-		alert("Unable to Process")
-		this.ngOnInit();
-			this.endKit=null;
-			this.startKit=null;
-			this.quantity=null;
-			this.startICCID=null
-			this.avalibleQuantity=null;
-						
-					}
-		},
-		err=> {
-			console.error(err);
-			this.isLoading=false;
-		alert("Unable to Process")
-		this.ngOnInit();
-			this.endKit=null;
-			this.startKit=null;
-			this.quantity=null;
-			this.startICCID=null
-			this.avalibleQuantity=null;
-		}
-	)
-	
-	
-}	
-dndUpload(check:string) {
+    handleFileInput(files: FileList) {
         this.fileerror = false;
         this.filesuccess = false;
-        if (this.fileToUpload == undefined || !this.fileToUpload.name.endsWith(".csv")) {
-            this.fileuploadstatus = 'Please select a csv file';
-            this.fileerror = true;
-        } else {
-            this.uploading = true
-            this.planManagemetService.postFile(this.fileToUpload).subscribe((res => {
-                this.uploading = false
-                if (res == null) {
-                    this.fileuploadstatus = 'File Upload Fail';
-                    this.fileerror = true;
-                    alert("File Content Is  Greater Then Available Quantity")
-                } else {
-			if(check=="Quantity"){
-                    this.fileuploadstatus = 'File Upload Success';
-                    this.filesuccess = true;
-                    
-                    this.quantity=JSON.stringify(res) ;
-                  
-                }
-                
-                }
-            }), err => {
-                this.uploading = false
-                this.fileuploadstatus = err.error.message;
-                this.fileerror = true;
-            })
-            console.log(this.fileToUpload.size);
-            
-        }
+        this.fileToUpload = files.item(0);
+        this.fileName = this.fileToUpload.name;
     }
-
-getQuantity(){
-	this.dndUpload("Quantity");
-
-
-  		}	}
+    
+   }
   			

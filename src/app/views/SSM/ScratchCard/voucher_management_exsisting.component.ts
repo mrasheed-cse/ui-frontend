@@ -45,7 +45,11 @@ export class VoucherManagementExsisting implements OnInit {
   			isButton:boolean=false;
   			radioTest:FormGroup;
   			batch;
-  			isLoading:boolean = false;
+			  isLoading:boolean = false;
+			  public masterSelected:boolean = false;
+			selectedIdList: string;
+			public isDataFound:boolean = false;
+
   				
   	constructor(private datePipe: DatePipe,private router: Router,private fb:FormBuilder,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private ssmService: SSMService ) {
     
@@ -60,12 +64,12 @@ export class VoucherManagementExsisting implements OnInit {
       this.userID = this.currentLoggedInUser.userID
       if(this.groupID==12){
 	//BatchTesting
-	this.hop=6;
+	this.hop=5;
 	
 }
 if(this.groupID==13){
 //CLC
-this.hop=7;
+this.hop=6;
 	
 	
 }
@@ -76,13 +80,30 @@ this.hop=7;
     }	
   			
   			
-  			 getData(hop:number){
+  	getData(hop:number){
+		  this.isLoading=true;
 	this.firstHop=true;
 	this.listVoucherHopsdata=[];
 	this.isActivation=false;
 	this.isbatchTest=false;
 	this.isButton=false;
+	this.isDataFound=false;
 	this.ssmService.getApproval1HopData(this.hop).subscribe(data=>{
+		if(data!=null && data.length>0){
+			this.isDataFound=true;
+		}
+		if(this.groupID==12){
+			this.isbatchTest=true;
+			this.isButton=true;
+			console.log(this.isbatchTest)
+		}
+		else if (this.groupID==13){
+			this.isbatchTest=false
+			console.log(this.isbatchTest)
+			this.isActivation=true;
+			
+		}
+		this.isLoading=false;
 		for (let index in data) {
 			
 			this.listVoucherHopsdata.push(
@@ -100,45 +121,43 @@ this.hop=7;
 						serialDigitCount: data[index].serialDigitCount,
 						hiddenNumberCount: data[index].hiddenNumberCount,
 						sftplocation: data[index].sftplocation,
-						vendor:data[index].vendor
-						
+						vendor:data[index].vendor,
+						quantity:data[index].quantity				
 						
 						
 					}
 					
 					);
+					
 		}
-		
 		
 		
 	})
+	
 }
     
-	detailsSecondHop(id:number){
-		console.log(this.groupID)
-		if(this.groupID==12){
-			this.isbatchTest=true;
-			this.isButton=true;
-			console.log(this.isbatchTest)
-		}
-		else if (this.groupID==13){
-			this.isbatchTest=false
-			console.log(this.isbatchTest)
-			this.isActivation=true;
-			
-		}
-		
-
-		this.firstHop=false;
-		this.Id=id;
-		
-	}
 
 
 	
 submit(){
-	this.isLoading=true;
-	this.ssmService.SaveBatch(this.userName,this.Id,this.batch,this.comments).subscribe(
+	
+	this.selectedIdList="";
+		//alert(this.listVoucherHopsdata.length);
+		for (let i = 0; i < this.listVoucherHopsdata.length; i++) {
+			if(this.listVoucherHopsdata[i]['checked']){		
+			if(this.selectedIdList.length>0)
+			  this.selectedIdList=this.selectedIdList+"_";
+			this.selectedIdList =this.selectedIdList+this.listVoucherHopsdata[i]['id'];
+			//alert(this.selectedIdList);
+		}
+	}
+	console.log("Selected Ids "+this.selectedIdList);
+	if(this.selectedIdList.length==0){
+		alert("Please select at least one voucher");
+		return;
+	}
+	this.isLoading = true;
+	this.ssmService.SaveBatch(this.userName,this.selectedIdList,this.batch,this.comments).subscribe(
 		data=>{if(data!=null){
 			alert("Scratch Card Is Batch Testing sucess")
 			this.isLoading=false;
@@ -154,11 +173,32 @@ submit(){
 		}
 		
 	)
+	this.isLoading=false;
 }
 
-submitActivate(){this.isLoading=true;
-	this.ssmService.SaveFinal(this.userName,this.Id,this.comments).subscribe(
-		data=>{if(data!=null){
+submitActivate(){
+	
+	this.selectedIdList="";
+		//alert(this.listVoucherHopsdata.length);
+		for (let i = 0; i < this.listVoucherHopsdata.length; i++) {
+			if(this.listVoucherHopsdata[i]['checked']){		
+			if(this.selectedIdList.length>0)
+			  this.selectedIdList=this.selectedIdList+"_";
+			this.selectedIdList =this.selectedIdList+this.listVoucherHopsdata[i]['id'];
+			//alert(this.selectedIdList);
+		}
+	}
+	console.log("Selected Ids "+this.selectedIdList);
+	if(this.selectedIdList.length==0){
+		alert("Please select at least one voucher");
+		return;
+	}
+	this.isLoading = true;
+
+	this.ssmService.SaveFinal(this.userName,this.selectedIdList,this.comments).subscribe(
+		data=>{
+			this.isLoading=false;
+			if(data!=null){
 			alert("Scratch Card Is Activated")
 			this.isLoading=false;
 			this.getData(this.hop);
@@ -171,23 +211,46 @@ submitActivate(){this.isLoading=true;
 		}
 		
 	)
+	//this.isLoading=false;
 }
 
 cancel(){
-	this.isLoading=true;
-	this.ssmService.cancelHop(this.userName,this.Id).subscribe(
-		
+	this.isLoading = true;
+	this.selectedIdList="";
+		//alert(this.listVoucherHopsdata.length);
+		for (let i = 0; i < this.listVoucherHopsdata.length; i++) {
+			if(this.listVoucherHopsdata[i]['checked']){		
+			if(this.selectedIdList.length>0)
+			  this.selectedIdList=this.selectedIdList+"_";
+			this.selectedIdList =this.selectedIdList+this.listVoucherHopsdata[i]['id'];
+			//alert(this.selectedIdList);
+		}
+	}
+	console.log(this.selectedIdList);
+	this.ssmService.cancelHop(this.userName,this.selectedIdList, this.comments).subscribe(		
 		data=>{
 			if(data!=null){
 				alert("Voucher Request is Cancled");
-				this.isLoading=false;
+				this.isLoading  = false;
 				this.getData(this.hop);
 				
 			}
 			
 		}
 	)
+	this.isLoading = false;
 	
+}
+ 
+checkUncheckAll() {
+		
+		
+	for (let i = 0; i < this.listVoucherHopsdata.length; i++) {
+	  this.listVoucherHopsdata[i]['checked'] =this.masterSelected;
+	  console.log(this.listVoucherHopsdata[i]['checked']);
+	  
+  }
+  
 }
 	 download(){}
   			 

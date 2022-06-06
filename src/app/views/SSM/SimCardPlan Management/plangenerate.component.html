@@ -9,7 +9,7 @@
 		<div class="card-header">
             <i class="fa fa-align-justify"></i>  Plan Generation
           </div>
-		<form [formGroup]="planGenrationForm" novalidate (ngSubmit)="submit1()" >
+		<form [formGroup]="planGenrationForm" novalidate (ngSubmit)="SubmitForPlanGenerationFromMsisdnFile()" >
 		<div class="card-body">
 					<div class="row">
 							<div class="col-md-6">
@@ -42,30 +42,7 @@
 								
 										
 					</div>	
-					<div class="row">
-							<div class="col-md-6">
-													<div class="form-group row">
-									<label class="col-md-5 col-form-label" >IMSI Type</label>
-									<div class="col-md-7" >
-										<select class="form-control"  id="inputFile" formControlName="inputFile" required multiple >
-											<option></option>
-											<option *ngFor="let aSimType of listDropDownimsiType" [value]="aSimType.group_name">{{aSimType.group_name}}</option>
-										</select>
-									</div>
-									</div>
-									</div>
-							<div class="col-md-6" *ngIf="imsiChanged">
-									<div class="form-group row" *ngIf="imsiChanged">
-									<label class="col-md-5 col-form-label" >Available Quantity:</label>
-									<div class="col-md-7" >
-									
-										<p  class="form-control"style="color:blue;">{{avalibleQuantity}}</p>
-									</div>
-	
-	
-								</div>
-								</div>
-								</div>
+					
 					<div class="row">
 					
 					<div class="col-md-6">
@@ -99,21 +76,12 @@
 										</div>
 										</div>
 						<div class="row">
-						<div class="col-md-6">
-								<div class="form-group row">
-									<label class="col-md-5 col-form-label">Start Kit Serial .</label>
-									<div class="col-md-7">
-									<input  type="text" class="form-control" 
-									value="{{startKit}}" disabled>
-								</div>
-								</div>
-						</div>	
 						
 						<div class="col-md-6">
 													<div class="form-group row">
 									<label class="col-md-5 col-form-label" >Category Name</label>
 									<div class="col-md-7">
-										<select class="form-control" id="catName" formControlName="CategoryName" required >
+										<select class="form-control" id="catName" formControlName="CategoryName" >
 											<option></option>
 											<option *ngFor="let aSimType of listCategoryName" [value]="aSimType.groupName">{{aSimType.groupName}}</option>
 										</select>
@@ -122,83 +90,47 @@
 	
 								</div>
 										</div>
-						</div>		
-<div class="row">
-							
-										
-							
-								<div class="col-md-6">
-													<div class="form-group row">
-								<label class="col-md-5 col-form-label">MSISDN:</label>
-                <a  onclick="document.getElementById('getFile').click()">Browse ...</a>
-                <input #fileInput type='file' id="getFile"  (click)="fileInput.value = null" accept=".csv" style="position: fixed; left: -200px; top: -200px;" (change)="handleFileInput($event.target.files)">
-                <br>
-                <a  class="btn btn-sm " (click)="getQuantity()" >{{fileName}}</a>
-
-	
-	
-								</div>
-										</div>	
 										<div class="col-md-6">
-													<div class="form-group row">
-									<label class="col-md-5 col-form-label" >Quantity</label>
+												<div class="form-group row">
+								<label class="col-md-5 col-form-label" >Quantity</label>
+									<div class="col-md-7">
+									<input disabled type="text" class="form-control" 
+								value="{{quantity}}"> 
+		</div>
+
+							</div>
+									</div>	
+						</div>	
+						<div class="row">
+								<div class="col-md-6">
+														<div class="form-group row">
+										<label class="col-md-5 col-form-label" >Name who share plan </label>
 										<div class="col-md-7">
-										<input disabled type="text" class="form-control" 
-									value="{{quantity}}"> 
-			</div>
-	
-								</div>
-										</div>	
-											
-										
-										
-					</div>
-					
-					
-					
-							
-					<div class="row">
-							
-						
-								<div class="col-md-6">
-								
-						</div>		
-										
-										
-					</div>	
-					
-					
-					<div class="row">
-							<div class="col-md-6">
-													<div class="form-group row">
-									<label class="col-md-5 col-form-label" >Name who share plan </label>
-									<div class="col-md-7">
-										<select class="form-control" id="SharerName" formControlName="SharerName" required >
-											<option></option>
-											<option *ngFor="let aSimType of listDropDownSharerName" [value]="aSimType.groupName">{{aSimType.groupName}}</option>
-										</select>
-									</div>
-	
-	
-								</div>
+											<select class="form-control" id="SharerName" formControlName="SharerName" required >
+												<option></option>
+												<option *ngFor="let aSimType of listDropDownSharerName" [value]="aSimType.groupName">{{aSimType.groupName}}</option>
+											</select>
 										</div>
-								<div class="col-md-6">
-													<div class="form-group row">
-									<label class="col-md-5 col-form-label" >Plan Circle </label>
-									<div class="col-md-7">
-										<select class="form-control" id="PlanCircle" formControlName="PlanCircle" required >
-											<option></option>
-											<option *ngFor="let aSimType of listDropDownPlanCircle" [value]="aSimType.groupName">{{aSimType.groupName}}</option>
-										</select>
+		
+		
 									</div>
-	
-	
-								</div>
-										</div>			
-										
-										
-					</div>		
-						
+											</div>
+									<div class="col-md-6">
+														<div class="form-group row">
+										<label class="col-md-5 col-form-label" >Plan Circle </label>
+										<div class="col-md-7">
+											<select class="form-control" id="PlanCircle" formControlName="PlanCircle" required >
+												<option></option>
+												<option *ngFor="let aSimType of listDropDownPlanCircle" [value]="aSimType.groupName">{{aSimType.groupName}}</option>
+											</select>
+										</div>
+		
+		
+									</div>
+											</div>			
+											
+											
+						</div>		
 				<div class="row">
 							<div class="col-md-6">
 													<div class="form-group row">
@@ -227,10 +159,20 @@
 					</div>		
 					
 					
-									
-					
-            </div>
-            
+					<div class="row">
+							<div class="col-md-6">
+								<div class="form-group row">
+									<label class="col-md-5 col-form-label" for="getFile">Msisdn File</label>
+									<div class="col-md-7">
+									<input #fileInput type='file' id="getFile"  (click)="fileInput.value = null" accept=".csv" (change)="handleFileInput($event.target.files)" required>
+									</div>
+								</div>
+								<div class="form-group row">
+									<a href="assets/file/SamplePlanGenerate.csv" download>Download sample file</a>
+							</div>
+						</div>
+		         	</div>
+				</div>
             	<div class="card-footer text-right">
 					<button type="submit" [disabled]="!planGenrationForm.valid  && !isDisableBtn"  class="btn btn-sm btn-primary">
 						<i class="fa fa-dot-circle-o"></i> Submit</button>
