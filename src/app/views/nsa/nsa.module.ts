@@ -133,7 +133,7 @@ import{SimAdmin} from '../SSM/sim_card_admin.component';
 import{PlanGenerate} from'../SSM/SimCardPlan Management/plangenerate.component'
 import{SimConfiguration} from '../SSM/SimCardPlan Management/simconfiguration.component';
 import{SimPackaging} from '../SSM/SimCardPlan Management/simpackaging.compontent';
-import{PlanGenerateApproval} from '../SSM/SimCardPlan Management/batchtesting_and_activation_approval.component';
+import{BatchTestingDone} from '../SSM/SimCardPlan Management/batchtestingdone.component';
 import{BatchTesting} from '../SSM/SimCardPlan Management/batchtesting.component';
 import{PlanActivation} from '../SSM/SimCardPlan Management/planactivation.component';
 import{ReturnAndReceive} from '../SSM/SimCardPlan Management/returnandreceive.component';
@@ -276,7 +276,7 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
     PlanGenerate,
     SimConfiguration,
     SimPackaging,
-    PlanGenerateApproval,
+    BatchTestingDone,
     BatchTesting,
     PlanActivation,
     UploadDataWh,

@@ -12,75 +12,22 @@
 			<div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">An Error occured to create <b>{{WR_Name}}</b> {{dangerAlertMessage}}</div>
 
 			<div class="card-header">
-				<strong>DE provisioning File Upload</strong>
+				<strong>DE provisioning File List Upload</strong>
 			</div>
 
 			<div class="alert alert-danger" role="alert" *ngIf="infoAlertShow"><b>{{infoAlertMessage}}</b></div>
 
-			<form [formGroup]="myDeProvisionForm" novalidate (ngSubmit)="onDeProvisionSubmit()">
+		
 				<div class="card-body">
 					<div class="row">
 						<div class="col-md-6">
-							<div class="form-group row">
-								<label class="col-md-5 col-form-label">Work Request Name</label>
-								<div class="col-md-7">
-									<input disabled type="text" class="form-control calendar-container"
-									value="{{WR_Name}}">
-								</div>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group row">
-								<label class="col-md-5 col-form-label" for="batchID">Batch ID</label>
-								<div class="col-md-7">
-									<input type="text" id="batchID" name="batchID" class="form-control" formControlName="batchID"
-									 >
-
-								</div>
-							</div>
-						</div>
-					</div>
-
-
-					<div class="row">
-<!--
-						<div class="col-md-6">
-							<div class="form-group row">
-								<label class="col-md-5 col-form-label" for="simType">Provisioning Type</label>
-								<div class="col-md-7">
-									<select class="form-control" id="simType" formControlName="simType" required [ngClass]="{
-														'is-invalid': simType.invalid && (simType.dirty || simType.touched),
-														'is-valid': simType.valid && (simType.dirty || simType.touched)
-													 }">
-										<option></option>
-										<option *ngFor="let aSimType of listSimType" [value]="aSimType.id">{{aSimType.simTypeName}}</option>
-
-									</select>
-								</div>
-
-
-								<div class="invalid-feedback" *ngIf="simType.errors && (simType.dirty || simType.touched)">
-									<p *ngIf="simType.errors.required">Provisioning Type required</p>
-
-								</div>
-
-
-							</div>
-						</div>
-					-->
-						<div class="col-md-6">
 										<div class="form-group row">
-										<label class="col-md-5 col-form-label" for="deProvisionFile">De Provision File</label>
-										<div class="col-md-7">
-											<input type="file" id="deProvisionFile" name="deProvisionFile" class="form-control" formControlName="deProvisionFile" required
-											 [ngClass]="{
-												'is-invalid': deProvisionFile.invalid && (deProvisionFile.dirty || deProvisionFile.touched),
-												'is-valid': deProvisionFile.valid && (deProvisionFile.dirty || deProvisionFile.touched)
-										   }" (change)="onFileChange($event)" >
-											<div class="invalid-feedback" *ngIf="deProvisionFile.errors && (deProvisionFile.dirty || deProvisionFile.touched)">
-												<p *ngIf="deProvisionFile.errors.required">De Provision File is required</p>
-											</div>
+										
+										<label class="col-md-3 col-form-label" >Upload file</label>
+										<div class="col-md-9">
+											<input type="file" #csvReader name="Upload File" id="csvFileUpload" (change)="uploadListener($event)" accept=".csv" />
 										</div>
+
 										</div>
 								</div>
 								<div class="col-md-6">
@@ -88,39 +35,55 @@
 									</div>
 					</div>
 
-					<!-- ///
-					<div class="row">
-						<div class="col-md-6">
-
-						</div>
-						<div class="col-md-6">
-
-						</div>
-					</div>
-					/// -->
-
-
-
-					<div class="form-group row">
-						<label class="col-md-5 col-form-label" for="cnpComment">Comment</label>
-						<div class="col-md-12">
-							<textarea id="cnpComment" name="cnpComment" class="form-control" formControlName="cnpComment" rows="5">
-				</textarea>
-						</div>
-					</div>
-
+					<a href="assets/file/SampleDeProvisionFileList.csv" download>Download sample file</a>
 				</div>
-				<!-- <div class="card-body"> -->
-				<div class="card-footer text-right">
-					<button type="submit" [disabled]="isDisableBtn" class="btn btn-sm btn-primary">
-						<i class="fa fa-dot-circle-o"></i> Submit</button>
-					<button type="reset" class="btn btn-sm btn-danger"(click)="clearForm($event)">
-						<i class="fa fa-ban"></i> Reset</button>
-					<button type="button" class="btn btn-link" (click)="backButton($event)"><i class="fa fa-link" ></i>&nbsp; Back</button>
+				
+				<div class="card-body" *ngIf="isFileInfoValid">
+					<form [formGroup]="myDeProvisionListForm" novalidate (ngSubmit)="onDeProvisionSubmit()">
+						<div class="card-body">
+		
+		
+							<div class="row">
+								<div class="col-md-6">
+												<div class="form-group row">
+												<label class="col-md-5 col-form-label" for="deProvisionFile">De Provision File</label>
+												<div class="col-md-7">
+													<input type="file" id="deProvisionFile" name="deProvisionFile" class="form-control" formControlName="deProvisionFile" required
+													 [ngClass]="{
+														'is-invalid': deProvisionFile.invalid && (deProvisionFile.dirty || deProvisionFile.touched),
+														'is-valid': deProvisionFile.valid && (deProvisionFile.dirty || deProvisionFile.touched)
+												   }" (change)="onFileChange($event)" >
+													<div class="invalid-feedback" *ngIf="deProvisionFile.errors && (deProvisionFile.dirty || deProvisionFile.touched)">
+														<p *ngIf="deProvisionFile.errors.required">De Provision File is required</p>
+													</div>
+												</div>
+												</div>
+										</div>
+										<div class="col-md-6">
+		
+											</div>
+							</div>
+		
+							</div>
+		
+						</div>
+						<!-- <div class="card-body"> -->
+						<div class="card-footer text-right">
+							<button type="submit" [disabled]="isDisableBtn" class="btn btn-sm btn-primary">
+								<i class="fa fa-dot-circle-o"></i> Submit</button>
+							<button type="reset" class="btn btn-sm btn-danger"(click)="clearForm($event)">
+								<i class="fa fa-ban"></i> Reset</button>
+							<button type="button" class="btn btn-link" (click)="backButton($event)"><i class="fa fa-link" ></i>&nbsp; Back</button>
+		
+						</div>
+						<!-- <div class="card-footer"> -->
+					</form>
+			</div>
+				
 
-				</div>
-				<!-- <div class="card-footer"> -->
-			</form>
+			<!-- <div class="card-body"> -->
+				
+		
 
 		</div>
 		<!-- <div class="card"> -->

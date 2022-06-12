@@ -433,8 +433,15 @@ export class WorkflowsService {
 		});
 	}
 
-
-
-
+	UploadFileNameVsBatchId(mapData: Array<any>, user_name : String):any{
+		console.log(environment.apiUrl);
+console.log(this.serverUrl+'FileNameVsBatchIdUpload');
+		return this.http.post(this.serverUrl+'FileNameVsBatchIdUpload',
+			{
+				filenameBatchId:mapData, 
+				userName:user_name
+			}
+		)
+	}
 
 }
