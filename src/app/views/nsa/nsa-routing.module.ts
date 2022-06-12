@@ -124,7 +124,8 @@ import{SimPackaging} from '../SSM/SimCardPlan Management/simpackaging.compontent
 import{ReturnAndReceive} from '../SSM/SimCardPlan Management/returnandreceive.component';
 import{BatchTesting} from '../SSM/SimCardPlan Management/batchtesting.component';
 import{PlanActivation} from '../SSM/SimCardPlan Management/planactivation.component';
-import{PlanGenerateApproval} from '../SSM/SimCardPlan Management/batchtesting_and_activation_approval.component';
+//import{PlanGenerateApproval} from '../SSM/SimCardPlan Management/batchtesting_and_activation_approval.component';
+import{BatchTestingDone} from '../SSM/SimCardPlan Management/batchtestingdone.component';
 import{UploadDataWh} from'../SSM/DataWarehouse Management/uploaddata.component';
 import{ViewDatawarehouse} from'../SSM/DataWarehouse Management/showdatawarehouse.component';
 
@@ -1009,11 +1010,11 @@ const routes: Routes = [
         },
         canActivate: [AuthGuard]
     },
-     {
-        path: 'planapprovals',
-        component: PlanGenerateApproval,
+    {
+        path: 'batchtestingdone',
+        component: BatchTestingDone,
         data: {
-            title: 'Plan Approvals'
+            title: 'Batch Testing Done'
         },
         canActivate: [AuthGuard]
     },
