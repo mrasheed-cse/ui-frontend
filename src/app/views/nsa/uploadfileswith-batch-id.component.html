@@ -48,14 +48,9 @@
 												<div class="form-group row">
 												<label class="col-md-5 col-form-label" for="deProvisionFile">De Provision File</label>
 												<div class="col-md-7">
-													<input type="file" id="deProvisionFile" name="deProvisionFile" class="form-control" formControlName="deProvisionFile" required
-													 [ngClass]="{
-														'is-invalid': deProvisionFile.invalid && (deProvisionFile.dirty || deProvisionFile.touched),
-														'is-valid': deProvisionFile.valid && (deProvisionFile.dirty || deProvisionFile.touched)
-												   }" (change)="onFileChange($event)" >
-													<div class="invalid-feedback" *ngIf="deProvisionFile.errors && (deProvisionFile.dirty || deProvisionFile.touched)">
-														<p *ngIf="deProvisionFile.errors.required">De Provision File is required</p>
-													</div>
+													<input type="file" multiple ="multiple" id="deProvisionListFile" name="deProvisionListFile" class="form-control" formControlName="deProvisionFile" required
+										 (change)="onFileChange($event)" >
+													
 												</div>
 												</div>
 										</div>
@@ -64,7 +59,7 @@
 											</div>
 							</div>
 		
-							</div>
+							<span [innerHTML]="fileListDetails"></span>
 		
 						</div>
 						<!-- <div class="card-body"> -->
