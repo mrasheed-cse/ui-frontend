@@ -54,6 +54,10 @@ export class UploadfileswithBatchIdComponent implements OnInit {
 	public isFileInfoValid:boolean = false;
 
 	public recordsFromFile: any[] = [];
+	public uploadedFiles: File[] = null;
+
+
+
 	myDeProvisionListForm: FormGroup;
 
 
@@ -64,6 +68,7 @@ export class UploadfileswithBatchIdComponent implements OnInit {
 	fileName: string = "";
 
 	formFieldData: string;
+	fileListDetails:string='';
 
   constructor(private router: Router,private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private definitionDataService: DefinitionDataService, private workFlowsService: WorkflowsService, private fileoperationService: FileoperationService) {
 
@@ -86,10 +91,24 @@ export class UploadfileswithBatchIdComponent implements OnInit {
 	
 }
 
-  ngOnInit() {
-    
-  }
+ngOnInit() {
+	this.createFormControls();
+	this.createForm();
+}
 
+createFormControls() {
+
+
+this.deProvisionListFile = new FormControl('', Validators.required);
+
+}
+
+createForm() {
+	this.myDeProvisionListForm = new FormGroup({
+
+		deProvisionListFile: this.deProvisionListFile
+	});
+}
   
 	topFunction() {
 		document.body.scrollTop = 0; // For Safari
@@ -166,8 +185,29 @@ onListFileChange(event) {
     }
   }
 
+	onFileChange(event:any) {
+		this.uploadedFiles = event.target.files;
+		alert(this.uploadedFiles.length);
 
+		this.fileListDetails='';	
+		for(var i=0;i<this.uploadedFiles.length;i++){
+		 this.fileListDetails+=this.uploadedFiles[i].name+", Size: "+this.uploadedFiles[i].size+"(bytes)<br/>";
+		}
+
+  }
 	onDeProvisionSubmit() {
+		if(this.recordsFromFile.length==this.uploadedFiles.length){
+			alert("Expected file count is OK.");
+			const fd = new FormData();
+			for(var i=0;i<this.uploadedFiles.length;i++){
+		  	fd.append('nsa-file',this.uploadedFiles[i],this.uploadedFiles[i].name);
+  			console.log(this.uploadedFiles[i].name);
+			}
+   var result = this.fileoperationService.uploadCSV(fd);
+		}
+		else{
+			alert("Please provide "+this.recordsFromFile.length+" files.");
+		}
 
 	}
 clearForm(event: any){
