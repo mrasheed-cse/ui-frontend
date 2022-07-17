@@ -8,6 +8,7 @@ import {
 import {FormGroup, FormControl, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import {HttpClient} from '@angular/common/http';
+import { HttpEventType, HttpResponse  } from '@angular/common/http';
 import { DefinitionDataService } from './services/definitiondata.service';
 import { WorkflowsService } from './services/workflows.service';
 import { FileoperationService } from './services/fileoperation.service';
@@ -69,6 +70,7 @@ export class UploadfileswithBatchIdComponent implements OnInit {
 
 	formFieldData: string;
 	fileListDetails:string='';
+	progress = 0;
 
   constructor(private router: Router,private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private definitionDataService: DefinitionDataService, private workFlowsService: WorkflowsService, private fileoperationService: FileoperationService) {
 
@@ -147,6 +149,7 @@ onListFileChange(event) {
 
 	uploadListener($event: any): void {
 
+		this.fileListDetails="";
     let text = [];
     let files = $event.srcElement.files;
 
@@ -160,7 +163,11 @@ onListFileChange(event) {
         let csvData = reader.result;
         let csvRecordsArray = (<string>csvData).split(/\r\n|\n/);
 
-        this.recordsFromFile = this.getDataRecordsArrayFromCSVFile(csvRecordsArray);
+				this.recordsFromFile = this.getDataRecordsArrayFromCSVFile(csvRecordsArray);
+				if(this.recordsFromFile.length<1){
+					alert("No valid data found. Please refer the sample file.");
+					return;
+				}
         console.log("recordsFromFile");
         console.log(this.recordsFromFile);
 				
@@ -187,12 +194,17 @@ onListFileChange(event) {
 
 	onFileChange(event:any) {
 		this.uploadedFiles = event.target.files;
-		alert(this.uploadedFiles.length);
+		//alert(this.uploadedFiles.length);
 
-		this.fileListDetails='';	
+		this.fileListDetails=this.uploadedFiles.length+" files have been uploaded.<br/>";	
 		for(var i=0;i<this.uploadedFiles.length;i++){
 		 this.fileListDetails+=this.uploadedFiles[i].name+", Size: "+this.uploadedFiles[i].size+"(bytes)<br/>";
 		}
+
+		this.fileListDetails+="<br/>Below "+this.recordsFromFile.length+" files are to be uploaded.<br/>";	
+		for(var i=0;i<this.recordsFromFile.length;i++){
+			this.fileListDetails+=this.recordsFromFile[i].fieldName+"<br/>";
+		 }
 
   }
 	onDeProvisionSubmit() {
@@ -200,10 +212,42 @@ onListFileChange(event) {
 			alert("Expected file count is OK.");
 			const fd = new FormData();
 			for(var i=0;i<this.uploadedFiles.length;i++){
-		  	fd.append('nsa-file',this.uploadedFiles[i],this.uploadedFiles[i].name);
-  			console.log(this.uploadedFiles[i].name);
+				if(this.isValidCsvFile(this.uploadedFiles[i])){ // 					check for .csv
+					var isPresent = this.recordsFromFile.some((el) => { return el.fieldName === this.uploadedFiles[i].name}); // check for the uploaded list
+					console.log(isPresent);
+					  if(isPresent){
+							fd.append('nsamultifiles',this.uploadedFiles[i]);
+							console.log(this.uploadedFiles[i].name);
+						}
+						else{
+							alert(this.uploadedFiles[i].name+" is not the file name list. Please check.");
+							return;
+					}
+				}
+				else{
+					alert(this.uploadedFiles[i].name+" is not a .csv file. Please check.");
+					return;
+				}
 			}
-   var result = this.fileoperationService.uploadCSV(fd);
+	 
+	 
+	 this.fileoperationService.uploadMultipleCSV(fd).subscribe(
+		res => {
+			console.log('response is : '+res.message);
+			alert(res.message);
+			this.isFileInfoValid=false;
+			
+			
+		},
+		err => 
+		{
+			console.log(err);
+
+      alert('Could not upload the file!');
+		}
+		
+
+	);
 		}
 		else{
 			alert("Please provide "+this.recordsFromFile.length+" files.");

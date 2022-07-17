@@ -152,6 +152,13 @@ import {LoginService} from '../pages/LoginService';
 import{ViewProductReport} from'../SSM/Report/viewProductReport.component'
 import{VoucherJourney} from '../SSM/ScratchCard/viewvoucher_journey.component';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { ReceivedQuantityManipulation } from '../SSM/SimCardPlan Management/received-quantity-manipulation.component'
+import{UnplannedSimManagement} from '../SSM/SimCardPlan Management/unpairedsimmanagement.component';
+import { PrePlanGenerate } from '../SSM/SimCardPlan Management/pre-plangenerate.component';
+
+import{SearchVoucherHistory} from '../SSM/ScratchCard/search_voucher_history.component';
+
+import{StockReport}  from'../SSM/Report/stockreport.component';
 
 
 @NgModule({
@@ -286,7 +293,12 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
     GenerateanalyzeComponent,
     GenerateComponent,
     UploadForcast,
-    VoucherJourney,ViewProductReport, UploadfileswithBatchIdComponent
+    VoucherJourney,ViewProductReport, UploadfileswithBatchIdComponent,
+    ReceivedQuantityManipulation,
+    UnplannedSimManagement,
+    PrePlanGenerate,
+    SearchVoucherHistory,
+    StockReport
   ],
   providers:[DatePipe, LoginService, AuthGuard]})
 export class NsaModule { }
