@@ -133,6 +133,12 @@ import{UploadForcast} from'../SSM/Report/uploadforcast.component';
 import{VoucherJourney} from '../SSM/ScratchCard/viewvoucher_journey.component';
 import{ViewProductReport} from'../SSM/Report/viewProductReport.component';
 
+import { ReceivedQuantityManipulation } from '../SSM/SimCardPlan Management/received-quantity-manipulation.component';
+import{UnplannedSimManagement} from '../SSM/SimCardPlan Management/unpairedsimmanagement.component';
+import { PrePlanGenerate } from '../SSM/SimCardPlan Management/pre-plangenerate.component';
+import{SearchVoucherHistory} from '../SSM/ScratchCard/search_voucher_history.component';
+
+import{StockReport}  from'../SSM/Report/stockreport.component';
 
 
 const routes: Routes = [
@@ -987,18 +993,32 @@ const routes: Routes = [
         canActivate: [AuthGuard]
     },
      {
-        path: 'plangenerate',
-        component: PlanGenerate,
+        path: 'preplangenerate',
+        component: PrePlanGenerate,
         data: {
             title: 'Plan Generate'
         },
         canActivate: [AuthGuard]
     },
     {
+       path: 'plangenerate/:totalUploadableQuantity/:ifids',
+       component: PlanGenerate,
+       data: {
+           title: 'Plan Generate'
+       }
+   },{
         path: 'simconfiguration',
         component: SimConfiguration,
         data: {
             title: 'Sim Configuration'
+        },
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'receivedQuantityManipulation',
+        component: ReceivedQuantityManipulation,
+        data: {
+            title: 'Received Quantity Manipulation'
         },
         canActivate: [AuthGuard]
     },
@@ -1084,7 +1104,23 @@ const routes: Routes = [
         },
         canActivate: [AuthGuard]
     },
+    {
+        path: 'unpairedsimmanagement',
+        component: UnplannedSimManagement,
+        data: {
+            title: ''
+        },
+        canActivate: [AuthGuard]
+    },
     
+    {
+        path: 'scratchvoucherhistory',
+        component: SearchVoucherHistory,
+        data: {
+            title: ''
+        },
+        canActivate: [AuthGuard]
+    },
      {
         path: '**', 
         redirectTo: '/pages/404'
