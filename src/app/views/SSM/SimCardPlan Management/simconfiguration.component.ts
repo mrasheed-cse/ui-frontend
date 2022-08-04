@@ -123,7 +123,7 @@ export class SimConfiguration implements OnInit {
 		
 		data=>{
 			if(data!=null){
-				alert("Voucher Request is Cancled");
+				alert("SIM/MSISDN configuration is CANCELED.");
 				this.getData();
 				
 			}

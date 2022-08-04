@@ -9,11 +9,11 @@ import { AppGlobals } from './../../../app.global';
 import{PlanManagementService } from '../../SSM/SimCardPlan Management/plan_management.service';
 @Component({
   selector: 'app-pre-PlanGenerate',
-  templateUrl: './pre-plangenerate.component.html',
+  templateUrl: './rep-pre-plangenerate.component.html',
   styles: ['./nsa_styles.css'],
   providers: [SSMService,LoginService,AppGlobals,PlanManagementService]
 })
-export class PrePlanGenerate implements OnInit {
+export class RepPrePlanGenerate implements OnInit {
 
   serverUrl: string;
 	currentLoggedInUser: LoggedInUser;
@@ -36,11 +36,11 @@ export class PrePlanGenerate implements OnInit {
     private ifids: string="";
 
 
-  prePlanGenerationForm: FormGroup;
+  repprePlanGenerationForm: FormGroup;
 	artWork: FormControl;
     vendor: FormControl;
     IMSI: FormControl;
-    isRep:FormControl;
+   
 
 
   public listArtWorks = [];
@@ -138,24 +138,24 @@ export class PrePlanGenerate implements OnInit {
 	this.artWork = new  FormControl('', Validators.required);
     this.vendor = new FormControl('', Validators.required);
     this.IMSI = new FormControl('');
-    this.isRep=  new FormControl('');
+  
   }
 
   createForm() {
-    this.prePlanGenerationForm = new FormGroup({
+    this.repprePlanGenerationForm = new FormGroup({
 		artWork: this.artWork,
         vendor: this.vendor,
-        IMSI: this.IMSI,
-        isRep: this.isRep
+        IMSI: this.IMSI
+    
     });
   }
 
   // FORM SUBMISSION
   Submit() {
 		console.log("this.isDisableBtn is "+this.isDisableBtn);
-		console.log("this.prePlanGenerationForm.valid is "+this.prePlanGenerationForm.valid);
+		console.log("this.repprePlanGenerationForm.valid is "+this.repprePlanGenerationForm.valid);
         this.totalUploadableQuantity=0;	
-  if (this.prePlanGenerationForm.valid  && !this.isDisableBtn) {		
+  if (this.repprePlanGenerationForm.valid  && !this.isDisableBtn) {		
 	this.isLoading = true;
     //this.isDisableBtn = true;
     this.currPage = 1;
@@ -166,9 +166,9 @@ export class PrePlanGenerate implements OnInit {
 
 LoadFilteredInputFiles(){
   
-  var selectedArtwork = this.prePlanGenerationForm.controls.artWork.value;
-  var selectedVendor = this.prePlanGenerationForm.controls.vendor.value;
-  var selectedIMSI = this.prePlanGenerationForm.controls.IMSI.value;
+  var selectedArtwork = this.repprePlanGenerationForm.controls.artWork.value;
+  var selectedVendor = this.repprePlanGenerationForm.controls.vendor.value;
+  var selectedIMSI = this.repprePlanGenerationForm.controls.IMSI.value;
 
   console.log("SelectedIMSI "+selectedIMSI);
   if(selectedIMSI=="" || selectedIMSI.length==0)
@@ -322,7 +322,7 @@ GoForPlanGenerate(){
     }
 
     //this.router.navigateByUrl('/nsa/plangenerate/');
-    this.router.navigateByUrl('/nsa/plangenerate/'+this.totalUploadableQuantity+'/'+this.ifids);
+    this.router.navigateByUrl('/nsa/rep-plangenerate/'+this.totalUploadableQuantity+'/'+this.ifids);
 }
 }
 
