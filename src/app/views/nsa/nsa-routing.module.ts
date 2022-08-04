@@ -111,7 +111,8 @@ import { SearchPO } from '../SSM/search_po.component';
 import { InputFileProcessing } from '../SSM/inputfileprocessing.component';
 import{AucProcessor} from '../SSM/auc.component';
 import{SimAdmin} from '../SSM/sim_card_admin.component';
-import{PlanGenerate} from'../SSM/SimCardPlan Management/plangenerate.component'
+import{PlanGenerate} from'../SSM/SimCardPlan Management/plangenerate.component';
+import{RepPlanGenerate} from'../SSM/SimCardPlan Management/rep-plangenerate.component';
 import{VoucherGeneration} from '../SSM/ScratchCard/voucher_generation.component';
 import{VoucherAdmin}  from '../SSM/ScratchCard/voucher_admin.component';
 import{VoucherManagementApproval} from '../SSM/ScratchCard/voucher_management_pending.component';
@@ -133,6 +134,7 @@ import{ViewProductReport} from'../SSM/Report/viewProductReport.component'
 import { ReceivedQuantityManipulation } from '../SSM/SimCardPlan Management/received-quantity-manipulation.component';
 import{UnplannedSimManagement} from '../SSM/SimCardPlan Management/unpairedsimmanagement.component';
 import { PrePlanGenerate } from '../SSM/SimCardPlan Management/pre-plangenerate.component';
+import { RepPrePlanGenerate } from '../SSM/SimCardPlan Management/rep-pre-plangenerate.component';
 import{SearchVoucherHistory} from '../SSM/ScratchCard/search_voucher_history.component';
 
 import{StockReport}  from'../SSM/Report/stockreport.component';
@@ -995,6 +997,21 @@ const routes: Routes = [
            title: 'Plan Generate'
        }
    },
+   {
+    path: 'reppreplangenerate',
+    component: RepPrePlanGenerate,
+    data: {
+        title: 'Rep Plan Generate'
+    },
+    canActivate: [AuthGuard]
+},
+{
+   path: 'rep-plangenerate/:totalUploadableQuantity/:ifids',
+   component: RepPlanGenerate,
+   data: {
+       title: 'Rep Plan Generate'
+   }
+},
     {
         path: 'simconfiguration',
         component: SimConfiguration,
