@@ -45,6 +45,7 @@ WR_Name: string;
 	public infoAlertShow:boolean = false;
 	public infoAlertMessage:string = "";
 	public isLoading:boolean = false;
+	public isBatchIdFound:boolean =false;
   public isDisableBtn:boolean = false;
 
 
@@ -146,17 +147,20 @@ WR_Name: string;
 
 
   // FORM SUBMISSION
-   onDeProvisionSubmit() {
+	onDeProvisionSubmit() {
    
 		if(this.selectedFile.name==this.workFlowsService.FormatWorkRequestNameForAPI(this.WR_Name)+".csv"||this.selectedFile.name==this.workFlowsService.FormatWorkRequestNameForAPI(this.WR_Name)+".txt"){
 
   if (this.myDeProvisionForm.valid && !this.isDisableBtn) {
 	this.topFunction();
-		this.isLoading = true;
-    this.isDisableBtn = true;
-    console.log('Form Submitted!');
+	
+		console.log('Form Submitted!');
+	
+	
+		
 
-
+	this.isLoading = true;
+	this.isDisableBtn = true;
   this.formFieldData = this.workFlowsService.FormatWorkRequestNameForAPI(this.WR_Name);
   this.fileName = this.formFieldData;
   console.log(this.formFieldData);
@@ -177,7 +181,21 @@ WR_Name: string;
 
 			console.log('Before work request process time '+new Date().toString());
 			//{wr_id}/{userGroup_id}/{user_id}/[{workflowFieldsValueSeqWise}]
-
+			
+			var res1 = this.workFlowsService.CheckDeProvEligibleBatchId(this.myDeProvisionForm.get('batchID').value, this.fileName);
+	console.log(res1);
+        res1.subscribe(r => {
+			console.log(r.message);
+		if(r.message.includes("Please check.")){
+			alert(r.message);
+			this.isBatchIdFound = false;
+			this.isLoading = false;
+			this.isDisableBtn=false;
+		}
+		else{
+			this.isBatchIdFound = true;			
+		console.log('All msisdns VS batchID found.');
+console.log('Now processing the workflow.');
 			this.workFlowsService.CreateNewWorkRequest(this._global.wrid_DeProvisioning, this.groupID,this.userID,this.formFieldData).subscribe(
 				res  =>  {
 			console.log('response is : '+res.message);
@@ -186,7 +204,7 @@ WR_Name: string;
 			if(res !== ""){
 				this.successAlertShow = true;
 				this.successAlertMessage = " has been created successfully and forwarded to "+res.message+" .";
-		//			this.isLoading = false;
+					this.isLoading = false;
 			}
 				},
 				err  =>  {
@@ -194,22 +212,23 @@ WR_Name: string;
 				console.log("err.status : "+err.status);
 				this.dangerAlertShow = true;
 			this.dangerAlertMessage = " .";
-		//		this.isLoading = false;
+				this.isLoading = false;
 				}
 
 				);
 
-		});
+		
 
 
-	// console.log("this.isLoading "+this.isLoading);
+	}
+});
 
-}
+});
 }
 else{
 alert("FILE NAME DOES NOT Match")}
 	}
-
+}
 
 LogKeyValuePairs(group: FormGroup): void {
 

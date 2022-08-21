@@ -444,4 +444,17 @@ console.log(this.serverUrl+'FileNameVsBatchIdUpload');
 		)
 	}
 
+
+	// Get whether batchId is uploaded
+	CheckDeProvEligibleBatchId(batchId: string, wrName: string): any {		
+		
+		console.log(this.serverUrl + 'DeProvEligibilitySearch/' + batchId);
+		return this.http.post(this.serverUrl + 'DeProvEligibilitySearch/' + batchId+'/' +wrName , {
+			batchID: batchId,
+			wrName: wrName
+			}
+		)
+	}
+	
+
 }
