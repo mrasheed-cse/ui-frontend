@@ -134,6 +134,7 @@ onListFileChange(event) {
 
     for (let i = 1; i < csvRecordsArray.length; i++) {
 			let curruntRecord = (<string>csvRecordsArray[i]).split(',');
+			console.log(curruntRecord);
 			let obj = Object.create(null);
 			obj['fieldName'] = curruntRecord[0].trim();
 			obj['fieldValue'] = curruntRecord[1].trim();
