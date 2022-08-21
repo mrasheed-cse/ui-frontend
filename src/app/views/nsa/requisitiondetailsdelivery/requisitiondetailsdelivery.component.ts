@@ -324,10 +324,13 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
                     return;
                   }
                   if(res[y]['mobile_No'] == this.finalArrayToSubmit[z].msisdnInfo[z1]['mobile_No']){
+                    if(res[y]['mobile_No']!='0'){
                     let innerAlertMsg = "The MSISDN " + res[y]['mobile_No'] + " has been assigned already in a previous line item. Please use new MSISDN.";
                     alert(innerAlertMsg);
                     return;
+                    }
                   }
+                  
                   if(res[y]['imsi_No'] == this.finalArrayToSubmit[z].msisdnInfo[z1]['imsi_No']){
                     let innerAlertMsg = "The IMSI number " + res[y]['imsi_No'] + " has been assigned already in a previous line item. Please specify new IMSI number.";
                     alert(innerAlertMsg);
