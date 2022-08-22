@@ -80,7 +80,8 @@
                     </div>
             </div>
             <div class="card-footer" *ngIf="isInitial">
-                <button class="btn btn-sm btn-primary" (click)="search(false)">Search</button>
+                <button class="btn btn-sm btn-primary" (click)="search(false)">Search</button>                
+                <button class="btn btn-sm btn-danger" (click)="search(true)">Export</button>
             </div>
             <div class="card-body" *ngIf="isDataFoundADC" style="overflow-y: auto">
                 <i class="fa fa-align-justify"></i> Output:
