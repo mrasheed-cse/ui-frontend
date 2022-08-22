@@ -160,6 +160,8 @@ import{SearchVoucherHistory} from '../SSM/ScratchCard/search_voucher_history.com
 
 import{StockReport}  from'../SSM/Report/stockreport.component';
 
+import{RepPlanGenerate} from'../SSM/SimCardPlan Management/rep-plangenerate.component';
+import { RepPrePlanGenerate } from '../SSM/SimCardPlan Management/rep-pre-plangenerate.component';
 
 @NgModule({
   imports: [
@@ -281,6 +283,7 @@ import{StockReport}  from'../SSM/Report/stockreport.component';
     VoucherManagementApproval,
     VoucherGenerationForward,VoucherManagementExsisting,VoucherManagementActivationAndView,
     PlanGenerate,
+    RepPlanGenerate,
     SimConfiguration,
     SimPackaging,
     BatchTestingDone,
@@ -297,6 +300,7 @@ import{StockReport}  from'../SSM/Report/stockreport.component';
     ReceivedQuantityManipulation,
     UnplannedSimManagement,
     PrePlanGenerate,
+    RepPrePlanGenerate,
     SearchVoucherHistory,
     StockReport
   ],
