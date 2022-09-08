@@ -48,6 +48,7 @@ export class ViewDatawarehouse implements OnInit {
     selectedFile: any;
     searchOn: any;
     searchSequence: any;
+    public isLoading:boolean = false;
 
     constructor(private datePipe: DatePipe, private router: Router, private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private datawarehouseservice: DatawarehouseService) {
         this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
@@ -64,6 +65,7 @@ export class ViewDatawarehouse implements OnInit {
     }
 
     search(isExport: boolean) {
+        this.isLoading=true;
         if(!isExport) {
             this.isInitial = false;
             this.rowData = [];
@@ -92,6 +94,7 @@ export class ViewDatawarehouse implements OnInit {
                 this.datawarehouseservice.getDataAuc(this, isExport).subscribe(
                     data => {
                         this.isDataFoundAUC = true;
+                        this.isLoading=false;
                         if(isExport) {
                             var link = document.createElement('a');
                             link.href = window.URL.createObjectURL(data);
@@ -100,6 +103,7 @@ export class ViewDatawarehouse implements OnInit {
                             link.click();
                             document.body.removeChild(link);
                         } else {
+
                             for (let index in data) {
                                 this.rowData.push(
                                     {
@@ -120,6 +124,7 @@ export class ViewDatawarehouse implements OnInit {
                 this.datawarehouseservice.getDataAdc(this, isExport).subscribe(
                     data => {
                         this.isDataFoundADC = true;
+                        this.isLoading=false;
                         if(isExport) {
                             var link = document.createElement('a');
                             link.href = window.URL.createObjectURL(data);
@@ -149,6 +154,7 @@ export class ViewDatawarehouse implements OnInit {
                 this.datawarehouseservice.SimmasterData(this, isExport).subscribe(
                     data => {
                         this.isDataFoundSimmaster = true;
+                        this.isLoading=false;
                         if(isExport) {
                             var link = document.createElement('a');
                             link.href = window.URL.createObjectURL(data);
