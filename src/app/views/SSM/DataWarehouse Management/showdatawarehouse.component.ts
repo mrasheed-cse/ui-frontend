@@ -65,7 +65,7 @@ export class ViewDatawarehouse implements OnInit {
     }
 
     search(isExport: boolean) {
-        this.isLoading=true;
+        
         if(!isExport) {
             this.isInitial = false;
             this.rowData = [];
@@ -89,6 +89,7 @@ export class ViewDatawarehouse implements OnInit {
             this.isInitial = true;
         }
          else {
+            this.isLoading=true;
             if (this.searchFor == "auc") {  
                 this.searchSequence='all';              
                 this.datawarehouseservice.getDataAuc(this, isExport).subscribe(
