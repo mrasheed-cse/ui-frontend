@@ -127,8 +127,8 @@ import{BatchTesting} from '../SSM/SimCardPlan Management/batchtesting.component'
 import{PlanActivation} from '../SSM/SimCardPlan Management/planactivation.component';
 //import{PlanGenerateApproval} from '../SSM/SimCardPlan Management/batchtesting_and_activation_approval.component';
 import{BatchTestingDone} from '../SSM/SimCardPlan Management/batchtestingdone.component';
-import{UploadDataWh} from'../SSM/DataWarehouse Management/uploaddata.component';
-import{ViewDatawarehouse} from'../SSM/DataWarehouse Management/showdatawarehouse.component';
+import{UploadDataWh} from '../SSM/DataWarehouse Management/uploaddata.component';
+import{ViewDatawarehouse} from '../SSM/DataWarehouse Management/showdatawarehouse.component';
 
 import{UploadForcast} from'../SSM/Report/uploadforcast.component';
 import{VoucherJourney} from '../SSM/ScratchCard/viewvoucher_journey.component';
@@ -1008,7 +1008,6 @@ const routes: Routes = [
        data: {
            title: 'Plan Generate'
        }
-   },{
    },
    {
     path: 'reppreplangenerate',
@@ -1089,6 +1088,7 @@ const routes: Routes = [
         },
         canActivate: [AuthGuard]
     },
+    
     
      {
         path: 'returnandreceive',
