@@ -51,6 +51,8 @@ export class ViewDatawarehouse implements OnInit {
     public isLoading:boolean = false;
 
     constructor(private datePipe: DatePipe, private router: Router, private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private datawarehouseservice: DatawarehouseService) {
+       console.log('test');
+       debugger;
         this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
         if (this.currentLoggedInUser) {
             this.userName = this.currentLoggedInUser.userName
@@ -134,6 +136,7 @@ export class ViewDatawarehouse implements OnInit {
                             link.click();
                             document.body.removeChild(link);
                         } else {
+                            console.log('test');
                             for (let index in data) {
                                 this.rowData.push(
                                     {
@@ -144,7 +147,7 @@ export class ViewDatawarehouse implements OnInit {
                                         pin1: data[index].pin1,
                                         pin2: data[index].pin2,
                                         puk1: data[index].puk1,
-                                        puk2: data[index].puk1,
+                                        puk2: data[index].puk2,
                                     }
                                 );
                             }
