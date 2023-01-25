@@ -207,9 +207,14 @@ console.log(res);
     obj['simActionId'] = this.selectedSimActionId;
     obj['userId'] = this.userName;
     obj['msisdnDetails'] = [];
-
     for(var i = 0; i < this.msisdnList.length; i++){
-
+      if(this.msisdnList[i]['isApproved']&&((new Date(this.msisdnList[i]['testEndDate'])<new Date)||new Date(this.msisdnList[i]['newEndDate'])<new Date))
+      {
+        var message = "Cannot approve for " + this.msisdnList[i]['msisdn'] + " as End Date Has Passed";
+        alert(message)
+        this.isLoading = false;
+        return;
+      }
       var obj2 = {};
       obj2['simActionMsisdnId'] = this.msisdnList[i]['simActionMsisdnId'];
       if(this.msisdnList[i]['isRejected']){
