@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 
 import { LoginService } from '../../pages/LoginService';
 import { LoggedInUser } from '../../pages/loggedInUser';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-testsim-creditlimitext-ssm',
@@ -33,7 +34,7 @@ export class TestsimCreditlimitextSsmComponent implements OnInit {
   showDetail: boolean = false;
   selectedSimActionId: number;
 
-  constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {
+  constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService, public datePipe:DatePipe) {
 
     this.isLoading = false;
     this.showDetail = false;
@@ -208,9 +209,27 @@ console.log(res);
     obj['userId'] = this.userName;
     obj['msisdnDetails'] = [];
     for(var i = 0; i < this.msisdnList.length; i++){
-      if(this.msisdnList[i]['isApproved']&&((new Date(this.msisdnList[i]['testEndDate'])<new Date)||new Date(this.msisdnList[i]['newEndDate'])<new Date))
+      var oldEnd = (this.msisdnList[i]['testEndDate']).split('-');
+      var newEnd = (this.msisdnList[i]['newEndDate']).split('-');
+      if(oldEnd.length>1)
       {
-        var message = "Cannot approve for " + this.msisdnList[i]['msisdn'] + " as End Date Has Passed";
+        oldEnd.forEach(a => {
+          a= parseInt(a);
+        });
+      }
+      if(newEnd.length>1)
+      {
+        newEnd.forEach(b => {
+          b= parseInt(b);
+        });
+      }
+      var currDate = new Date();
+      currDate = new Date(currDate.toDateString());
+      var oldDate = new Date(oldEnd[2],oldEnd[1]-1,oldEnd[0]);
+      var newDate = new Date(newEnd[2],newEnd[1]-1,newEnd[0]);
+      if(this.msisdnList[i]['isApproved']&&((oldDate<currDate)||(newDate<currDate)))
+      {
+        var message = "Cannot approve for " + this.msisdnList[i]['msisdn'] + " as End Date has passed";
         alert(message)
         this.isLoading = false;
         return;
