@@ -56,6 +56,7 @@
             <thead>
               <tr>
                 <th style="background-color:green !important">SL</th>
+                <th style="background-color:green !important">Product Name</th>
                 <th style="background-color:green !important">MSISDN</th>
                 <th style="background-color:green !important">Recharge amount</th>
                 <th style="background-color:green !important">Justification</th>
@@ -69,6 +70,7 @@
             <tbody *ngFor="let aTask of msisdnList;  index as i">
                         <tr>
                             <td>{{i + 1}}</td>
+                            <td>{{aTask.productName}}</td>
                             <td>{{aTask.msisdn}}</td>
                             <td>{{aTask.rechargeAmount}}</td>                          
                             <td>{{aTask.justification}}</td>
