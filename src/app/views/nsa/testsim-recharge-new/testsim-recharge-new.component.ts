@@ -96,6 +96,7 @@ export class TestsimRechargeNewComponent implements OnInit {
 
     this.columnDefs = [
         {headerName: 'MSISDN', field: 'msisdn', sortable: true, filter: true, checkboxSelection: true, headerCheckboxSelection: true, width: 160 },
+        {headerName: 'Product Type', field: 'productName', sortable: true, filter: true, width: 130 },
         {headerName: 'RQN #', field: 'requisitionNo', sortable: true, filter: true, width: 200 },
         {headerName: 'RQN Type', field: 'requisitionType', sortable: true, filter: true, width: 200 },
         {headerName: 'SIM Status', field: 'simStatus', sortable: true, filter: true, width: 100 },
