@@ -107,7 +107,8 @@
                       <td>{{aFileData.totalQuantity}}</td>
                       <td>{{aFileData.receivedQuantity}}</td>
                       <td>{{aFileData.totalQuantity-aFileData.receivedQuantity}}</td>
-                      <td>{{aFileData.startIccid}}</td>
+                      <td>{{aFileData.iccidStart}}</td>
+                      <td>{{aFileData.iccidEnd}}</td>
                       <td>{{aFileData.receivedQuantity-aFileData.planQuantity}}</td>  
                       <td><input type="checkbox" value="{{aFileData.id}}" [(ngModel)]="aFileData.checked" (change)="ModifyLoadedAmount($event)"></td>
                   </tr>
