@@ -86,8 +86,11 @@
                     <th >PO Number</th>
                     <th>IMSI Type</th>
                     <th>Art Work</th>
-                    <th>Quantity Total From PO</th>                    
-                    <th>Quantity Received</th>     
+                    <th>Quantity Total From PO</th>
+                    <th>Quantity Received</th>
+                    <th>Quantity Yet To Receive From PO</th>
+                    <th>Start ICCID</th>
+                    <th>End ICCID</th>
                     <th>Quantity Yet To Plan</th>
                     <th><a>
                             <input type="checkbox" [(ngModel)]="masterSelected" (change)="checkUncheckAll()" />
@@ -102,7 +105,9 @@
                       <td>{{aFileData.imsiType}}</td>   
                       <td>{{aFileData.artwork}}</td>   
                       <td>{{aFileData.totalQuantity}}</td>
-                      <td>{{aFileData.receivedQuantity}}</td>                      
+                      <td>{{aFileData.receivedQuantity}}</td>
+                      <td>{{aFileData.totalQuantity-aFileData.receivedQuantity}}</td>
+                      <td>{{aFileData.startIccid}}</td>
                       <td>{{aFileData.receivedQuantity-aFileData.planQuantity}}</td>  
                       <td><input type="checkbox" value="{{aFileData.id}}" [(ngModel)]="aFileData.checked" (change)="ModifyLoadedAmount($event)"></td>
                   </tr>
