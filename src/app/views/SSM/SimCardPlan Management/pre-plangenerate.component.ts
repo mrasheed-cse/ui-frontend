@@ -185,10 +185,10 @@ LoadFilteredInputFiles(){
           this.inputFileList = data.filteredInputFiles;
           this.inputFileList.forEach(x=>
             {
-              x.valueOf['iccidStartnum']= x.valueOf['startIccid'] + x.valueOf['planQuantity'];
-              x.valueOf['iccidEndnum']=x.valueOf['iccidStartnum'] + x.valueOf['receivedQuantity']-1;
-              x.valueOf['iccidStart'] = "898801"+ x.valueOf['iccidOrder']+ "0" + x.valueOf['imsiType']+ x.valueOf['iccidStartnum'];
-              x.valueOf['iccidEnd'] = "898801"+ x.valueOf['iccidOrder']+ "0" + x.valueOf['imsiType']+ x.valueOf['iccidEndnum'];
+              x['iccidStartnum']= x['startIccid'] + x['planQuantity'];
+              x['iccidEndnum']=x['iccidStartnum'] + x['receivedQuantity']-1;
+              x['iccidStart'] = "898801"+ x['iccidOrder']+ "0" + x['imsiType']+ x['iccidStartnum'];
+              x['iccidEnd'] = "898801"+ x['iccidOrder']+ "0" + x['imsiType']+ x['iccidEndnum'];
             }
           )
           this.isNoDataFound=false;
