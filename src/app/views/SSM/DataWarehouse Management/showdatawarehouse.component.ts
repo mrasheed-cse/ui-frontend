@@ -41,6 +41,7 @@ export class ViewDatawarehouse implements OnInit {
     kind: string;
     a3a8ind: string;
     isDataFoundSimmaster: boolean = false;
+    isDataFoundTinTin: boolean = false;
     searchType: any;
     searchEnd: any;
     searchStart: any;
@@ -176,6 +177,24 @@ export class ViewDatawarehouse implements OnInit {
                         }
                     },
                     err => console.error(err));
+            } else if(this.searchFor==="tintin")
+            {
+                this.datawarehouseservice.TinTinData(this, isExport).subscribe(
+                    data => {
+                        this.isDataFoundTinTin = true;
+                        this.isLoading=false;
+                        if(isExport) {
+                            var link = document.createElement('a');
+                            link.href = window.URL.createObjectURL(data);
+                            link.download = "TinTin.csv";
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
+                        } else {
+                            this.rowData = data;
+                        }
+                    },
+                    err => console.error(err));
             }
         }
     }
@@ -281,6 +300,7 @@ export class ViewDatawarehouse implements OnInit {
         this.isDataFoundADC = false;
         this.isEditADC = false;
         this.isDataFoundSimmaster = false;
+        this.isDataFoundTinTin = false;
         this.rowData = [];
     }
 }
