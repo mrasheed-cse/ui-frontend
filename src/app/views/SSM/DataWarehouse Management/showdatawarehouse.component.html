@@ -59,14 +59,17 @@
                 </div>
                 <div class="row form-row">
                     <div class="col-3"><b>View Result As</b></div>
-                    <div class="col-3">
+                    <div class="col-2">
                         <input type="radio" value="adc" name="view_result_as" class="form-control form-control-radio" [(ngModel)]="searchFor"> &nbsp; ADC
                     </div>
-                    <div class="col-3">
+                    <div class="col-2">
                         <input type="radio" value="auc" name="view_result_as" class="form-control form-control-radio" [(ngModel)]="searchFor"> &nbsp; AUC
                     </div>
-                    <div class="col-3">
+                    <div class="col-2">
                         <input type="radio" value="sim" name="view_result_as" class="form-control form-control-radio" [(ngModel)]="searchFor"> &nbsp; Master Record
+                    </div>
+                    <div class="col-2">
+                        <input type="radio" value="tintin" name="view_result_as" class="form-control form-control-radio" [(ngModel)]="searchFor"> &nbsp; Tintin
                     </div>
                 </div>
                 <div class="row form-row" *ngIf="searchFor=='sim'">
@@ -210,6 +213,31 @@
                     </tbody>
                 </table>
             </div>
+            <div class="card-body" *ngIf="isDataFoundTinTin" style="overflow-y: auto">
+                <i class="fa fa-align-justify"></i> Output:
+                <table class="table table-bordered table-striped table-sm">
+                    <thead>
+                    <tr>
+                        <th>IMSI_No</th>
+                        <th>ICCID18</th>
+                        <th>PIN 1</th>
+                        <th>PUK 1</th>
+                        <th>PIN 2</th>
+                        <th>PUK 2</th>
+                    </tr>
+                    </thead>
+                    <tbody *ngFor="let aTask of rowData">
+                    <tr>
+                        <td>{{aTask.IMSI_No}}</td>
+                        <td>{{aTask.ICCID18_No}}</td>
+                        <td>{{aTask.PIN1}}</td>
+                        <td>{{aTask.PUK1}}</td>
+                        <td>{{aTask.PIN2}}</td>
+                        <td>{{aTask.PUK2}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
             <div class="card-body" *ngIf="isEditADC">
                 <div class="row">
                     <div class="col-md-6">
@@ -315,7 +343,6 @@
             <div class="card-footer" *ngIf="isEditADC">
                 <button class="btn btn-sm btn-primary" (click)="submitADC()">Submit</button>
             </div>
-
             <div class="card-body" *ngIf="isEditAUC">
                 <div class="row">
                     <div class="col-md-6">

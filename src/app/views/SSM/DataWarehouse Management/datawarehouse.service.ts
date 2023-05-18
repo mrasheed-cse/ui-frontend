@@ -85,4 +85,8 @@ export class DatawarehouseService {
         // @ts-ignore
         return this.http.post(this.serverUrl + 'datawarehouse/getSimmasterdata/', this.prepareSearchFormdata(data, isExport), {responseType: isExport ? "blob" : "json"});
     }
+    TinTinData(data: ViewDatawarehouse, isExport: boolean): any {
+        // @ts-ignore
+        return this.http.post(this.serverUrl + 'datawarehouse/getTinTinData/', this.prepareSearchFormdata(data, isExport), {responseType: isExport ? "blob" : "json"});
+    }
 }
