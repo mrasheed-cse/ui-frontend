@@ -175,6 +175,8 @@ cancel(){
 }
 
 getBatchTestAutoFetchData(id:number){
+	this.startIccids=['Please Wait'];
+	this.endIccids=['Please Wait'];
 	this.planManagemetService.getBatchTestAutoFetchData(id).subscribe(		
 		data=>{
 			if(data!=null){
