@@ -181,7 +181,7 @@ export class ViewDatawarehouse implements OnInit {
             {
                 this.datawarehouseservice.TinTinData(this, isExport).subscribe(
                     data => {
-                        this.isDataFoundTinTin = true;
+                        if(!isExport){this.isDataFoundTinTin = true;}
                         this.isLoading=false;
                         if(isExport) {
                             var link = document.createElement('a');
