@@ -49,6 +49,7 @@ export class ViewDatawarehouse implements OnInit {
     selectedFile: any;
     searchOn: any;
     searchSequence: any;
+    tintinType:any;
     public isLoading:boolean = false;
 
     constructor(private datePipe: DatePipe, private router: Router, private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private datawarehouseservice: DatawarehouseService) {
@@ -183,14 +184,24 @@ export class ViewDatawarehouse implements OnInit {
                     data => {
                         if(!isExport){this.isDataFoundTinTin = true;}
                         this.isLoading=false;
-                        if(isExport) {
+                        if(isExport && this.tintinType==='kit') {
                             var link = document.createElement('a');
                             link.href = window.URL.createObjectURL(data);
-                            link.download = "TinTin.csv";
+                            link.download = "TinTin_kit.csv";
                             document.body.appendChild(link);
                             link.click();
                             document.body.removeChild(link);
-                        } else {
+                        }
+                        else if(isExport && this.tintinType==='replacement')
+                        {
+                            var link = document.createElement('a');
+                            link.href = window.URL.createObjectURL(data);
+                            link.download = "TinTin_replacement.csv";
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
+                        } 
+                        else {
                             this.rowData = data;
                         }
                     },
