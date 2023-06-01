@@ -86,6 +86,17 @@
                             <input type="radio" value="last" name="sequence" class="form-control form-control-radio" [(ngModel)]="searchSequence"> &nbsp; Last Sequence
                         </div>
                     </div>
+                    <div class="row form-row" *ngIf="searchFor=='tintin'">
+                        <div class="col-3">
+                                <b>Type</b>
+                        </div>
+                        <div class="col-3">
+                                <input type="radio" value="kit" name="tintin_type" class="form-control form-control-radio" [(ngModel)]="tintinType"> &nbsp; Starter KIT
+                            </div>
+                        <div class="col-3">
+                            <input type="radio" value="replacement" name="tintin_type" class="form-control form-control-radio" [(ngModel)]="tintinType"> &nbsp; Replacement SIM
+                        </div>
+                    </div>
             </div>
             <div class="card-footer" *ngIf="isInitial">
                 <button class="btn btn-sm btn-primary" (click)="search(false)">Search</button>                
@@ -215,7 +226,31 @@
             </div>
             <div class="card-body" *ngIf="isDataFoundTinTin" style="overflow-y: auto">
                 <i class="fa fa-align-justify"></i> Output:
-                <table class="table table-bordered table-striped table-sm">
+                <table class="table table-bordered table-striped table-sm" *ngIf="tintinType==='kit'">
+                    <thead>
+                    <tr>
+                        <th>MSISDN</th>
+                        <th>IMSI_No</th>
+                        <th>ICCID</th>
+                        <th>PIN 1</th>
+                        <th>PUK 1</th>
+                        <th>PIN 2</th>
+                        <th>PUK 2</th>
+                    </tr>
+                    </thead>
+                    <tbody *ngFor="let aTask of rowData">
+                    <tr>
+                        <td>{{aTask.msisdn}}</td>
+                        <td>{{aTask.IMSI_No}}</td>
+                        <td>{{aTask.ICCID_No}}</td>
+                        <td>{{aTask.PIN1}}</td>
+                        <td>{{aTask.PUK1}}</td>
+                        <td>{{aTask.PIN2}}</td>
+                        <td>{{aTask.PUK2}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table class="table table-bordered table-striped table-sm" *ngIf="tintinType==='replacement">
                     <thead>
                     <tr>
                         <th>IMSI_No</th>
