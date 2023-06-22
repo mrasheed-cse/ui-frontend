@@ -273,11 +273,11 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
          console.log(arrayObj['endingKitNumber']);
          console.log(arrayObj['quantity']);
 
-      if(this.startingKitNumber == null || this.startingKitNumber == undefined || this.startingKitNumber == "" || this.startingKitNumber.length != 20){
+      if(this.startingKitNumber == null || this.startingKitNumber == undefined || this.startingKitNumber == "" /*|| this.startingKitNumber.length != 20*/){
         alert("Invalid starting KIT number specified. KIT number must be 20 digits.");
         return;
       }
-      if(this.endingKitNumber == null || this.endingKitNumber == undefined || this.endingKitNumber == "" || this.endingKitNumber.length != 20){
+      if(this.endingKitNumber == null || this.endingKitNumber == undefined || this.endingKitNumber == "" /*|| this.endingKitNumber.length != 20*/){
         alert("Invalid ending KIT number specified. KIT number must be 20 digits.");
         return;
       }
