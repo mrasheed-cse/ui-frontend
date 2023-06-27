@@ -53,7 +53,7 @@ export class VoucherGeneration implements OnInit {
 			listCardGroup=[];
 			listDenomination=[];
 			listPo=[];
-			
+			availableQuantity:number;
 			public listVendor=[];
 			private rowData: any[];
 			itemName:string;
@@ -137,7 +137,11 @@ console.log(po_val.length);
 	var splitted = po_val.split("-", 1); 
 	let thePo:string=splitted[0];
 	console.log(thePo);
-	
+	if(isQuantityGreaterThanAvailableQuantity(this.voucherGenrationForm.controls.Quantity.value,this.availableQuantity)){
+		alert("Please Enter the Correct Quantity");
+		this.isLoading=false;
+		return;
+	}
 	this.ssmService.checkPoExsist(thePo).subscribe(
 
 		data =>{
@@ -360,6 +364,7 @@ onPoSelectionChange(){
 						console.log(this.listPo[index].groupName);
 						console.log(this.listPo[index].id+'-'+this.listPo[index].itemDescription);
 						console.log(this.listPo[index].quantity);
+						this.availableQuantity=this.listPo[index].quantity;
 						console.log(this.voucherGenrationForm.controls.Po.value);
 						this.voucherGenrationForm.get('Quantity').setValue(Number(this.listPo[index].quantity));			
 						console.log(this.voucherGenrationForm.controls.Quantity.value);
@@ -476,3 +481,7 @@ ShowData(){
 	}
     
     }
+
+function isQuantityGreaterThanAvailableQuantity(quantity:number,availAbleQuantity:number) {
+	return quantity>availAbleQuantity;
+}
