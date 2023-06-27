@@ -187,7 +187,7 @@ export class ViewDatawarehouse implements OnInit {
                         if(isExport && this.tintinType==='kit') {
                             var link = document.createElement('a');
                             link.href = window.URL.createObjectURL(data);
-                            link.download = "TinTin_kit.csv";
+                            link.download = "TinTin_kit.txt";
                             document.body.appendChild(link);
                             link.click();
                             document.body.removeChild(link);
@@ -196,7 +196,7 @@ export class ViewDatawarehouse implements OnInit {
                         {
                             var link = document.createElement('a');
                             link.href = window.URL.createObjectURL(data);
-                            link.download = "TinTin_replacement.csv";
+                            link.download = "TinTin_replacement.txt";
                             document.body.appendChild(link);
                             link.click();
                             document.body.removeChild(link);
