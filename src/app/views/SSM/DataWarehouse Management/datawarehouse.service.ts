@@ -41,6 +41,10 @@ export class DatawarehouseService {
         }
         formData.append('sequence', data.searchSequence);
         formData.append('export', isExport ? "1" : "0");
+        if(data.searchFor=='tintin')
+        {
+            formData.append('tintinType',data.tintinType);
+        }
         return formData;
     }
 
