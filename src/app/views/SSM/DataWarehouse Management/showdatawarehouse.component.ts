@@ -182,12 +182,12 @@ export class ViewDatawarehouse implements OnInit {
             {
                 this.datawarehouseservice.TinTinData(this, isExport).subscribe(
                     data => {
-                        this.isDataFoundTinTin = true;
+                        if(!isExport){this.isDataFoundTinTin = true;}
                         this.isLoading=false;
                         if(isExport && this.tintinType==='kit') {
                             var link = document.createElement('a');
                             link.href = window.URL.createObjectURL(data);
-                            link.download = "TinTin_kit.csv";
+                            link.download = "TinTin_kit.txt";
                             document.body.appendChild(link);
                             link.click();
                             document.body.removeChild(link);
@@ -196,7 +196,7 @@ export class ViewDatawarehouse implements OnInit {
                         {
                             var link = document.createElement('a');
                             link.href = window.URL.createObjectURL(data);
-                            link.download = "TinTin_replacement.csv";
+                            link.download = "TinTin_replacement.txt";
                             document.body.appendChild(link);
                             link.click();
                             document.body.removeChild(link);
