@@ -7,6 +7,11 @@ import { DefinitionDataService } from '../services/definitiondata.service';
 import { IsmsworkflowsService } from '../services/ismsworkflows.service';
 import { LoggedInUser } from '../../pages/loggedInUser';
 
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/retry';
+import 'rxjs/add/observable/of';
+
 @Component({
   selector: 'app-requisitiondetailsdelivery',
   templateUrl: './requisitiondetailsdelivery.component.html',
@@ -16,6 +21,7 @@ import { LoggedInUser } from '../../pages/loggedInUser';
 export class RequisitiondetailsdeliveryComponent implements OnInit {
 
   public recordsFromFile: any[] = [];
+  public isLoading:boolean = false;
   @ViewChild('csvReader') csvReader: any;
 
   requisition: any;
@@ -215,7 +221,7 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
 
   confirmMsisdnSeriesAssignment(){
     /**/
-
+    this.isLoading=true;
     var responseObj = {};
     responseObj['requisitionLineId'] = this.lineItemBeingConsidered['id'];
     responseObj['searchModel'] = [];
@@ -275,10 +281,12 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
 
       if(this.startingKitNumber == null || this.startingKitNumber == undefined || this.startingKitNumber == "" /*|| this.startingKitNumber.length != 20*/){
         alert("Invalid starting KIT number specified. KIT number must be 20 digits.");
+        this.isLoading=false;
         return;
       }
       if(this.endingKitNumber == null || this.endingKitNumber == undefined || this.endingKitNumber == "" /*|| this.endingKitNumber.length != 20*/){
         alert("Invalid ending KIT number specified. KIT number must be 20 digits.");
+        this.isLoading=false;
         return;
       }
 
@@ -292,6 +300,7 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
     this.ismsworkflowsService.getMsisdnDetailsFromSsm(responseObj).subscribe(
       res  =>  {
         //console.log('response is : '+res.message);
+        this.isLoading=true;
         console.log(res);
         if(res !== ""){
 
@@ -300,11 +309,13 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
           //if(res.length <= 0){
             if(res==null){
             alert("No MSISDNs found with the given KIT numbers specified. Please try again with different KIT numbers.");
+
             return;
           }
           else if(res.length != this.lineItemBeingConsidered['deliverQuantity']){
             let alertMsg = "The requsition line specifies quantity of " + this.lineItemBeingConsidered['deliverQuantity'] + ". However, with specified KIT numbers " + res.length + " number of MSISDN found.";
             alert(alertMsg);
+
             return;
           }
           else{
@@ -327,6 +338,7 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
                     if(res[y]['mobile_No']!='0'){
                     let innerAlertMsg = "The MSISDN " + res[y]['mobile_No'] + " has been assigned already in a previous line item. Please use new MSISDN.";
                     alert(innerAlertMsg);
+        
                     return;
                     }
                   }
@@ -334,6 +346,7 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
                   if(res[y]['imsi_No'] == this.finalArrayToSubmit[z].msisdnInfo[z1]['imsi_No']){
                     let innerAlertMsg = "The IMSI number " + res[y]['imsi_No'] + " has been assigned already in a previous line item. Please specify new IMSI number.";
                     alert(innerAlertMsg);
+        
                     return;
                   }
 
@@ -384,13 +397,14 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
         else{
           alert("An error occured when fetching MSISDN information. Please try again.");
         }
+        this.isLoading=false;
+        console.log('Last');
       },
       err  =>  {
 
       }
-
+      
     );
-
 
     /*var obj = Object.create(null);
     obj['startingKitNumber'] = "K131";
