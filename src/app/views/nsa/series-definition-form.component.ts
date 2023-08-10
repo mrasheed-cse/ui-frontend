@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import { DefinitionDataService } from './services/definitiondata.service';
 import { WorkflowsService } from './services/workflows.service';
+import { FileoperationService } from './services/fileoperation.service';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -24,7 +25,7 @@ import { AppGlobals } from './../../app.global';
   selector: 'app-series-definition-form',
   templateUrl: './series-definition-form.component.html',
   styles: [],
-  providers: [DefinitionDataService,WorkflowsService,AppGlobals,LoginService]
+  providers: [DefinitionDataService,WorkflowsService,AppGlobals,LoginService,FileoperationService]
 })
 export class SeriesDefinitionFormComponent implements OnInit {
 
@@ -45,11 +46,20 @@ export class SeriesDefinitionFormComponent implements OnInit {
 	public infoAlertShow:boolean = false;
 	public infoAlertMessage:string = "";
   public isDisableBtn:boolean = false;
+  
+  //NSA_disc_num -- file upload CR 
+  isInitial: boolean = true;
+  searchType: any;
+  rowData = [];
+  searchEnd: any;
+  searchStart: any;
+  searchFile: any;
 
 
 	mySeriesDefinitionForm: FormGroup;
 	startMSISDN: FormControl;
 	endMSISDN: FormControl;
+	discProvisionFile: FormControl;  // disc num CR -- file upload
 	quantity: FormControl;
 	IMSI: FormControl;
 	productType: FormControl;
@@ -60,6 +70,8 @@ export class SeriesDefinitionFormComponent implements OnInit {
 	srcComment: FormControl;
 	formFieldData: string;
 
+	selectedFile: File = null;  // disc num CR -- file upload
+	fileName: string = "";
 
   public listIMSI = [];
   public listProductType = [];
@@ -68,10 +80,12 @@ export class SeriesDefinitionFormComponent implements OnInit {
   public listCommunityID = [];
   public listZone = [];
 
+  
+
   //listZone = [{'id':1, 'name':'Dhaka'}, {'id':2, 'name': 'Ctd'}, {'id':3, 'name': 'Khulna'}];
 
+  constructor(private router: Router,private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private definitionDataService: DefinitionDataService, private workFlowsService: WorkflowsService, private fileoperationService: FileoperationService) {
 
-  constructor(private router: Router,private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private definitionDataService: DefinitionDataService, private workFlowsService: WorkflowsService) {
 
 	// Get Current User Profile
 
@@ -188,6 +202,7 @@ export class SeriesDefinitionFormComponent implements OnInit {
       Validators.minLength(11) ,
       Validators.maxLength(11)
     ]);
+	this.discProvisionFile = new FormControl('', Validators.required);
 	this.productType = new FormControl('', [Validators.required]);
 	this.quantity =	new FormControl({value: 0, disabled: true}, Validators.required);
 	this.IMSI= new FormControl('', Validators.required);
@@ -202,6 +217,7 @@ export class SeriesDefinitionFormComponent implements OnInit {
     this.mySeriesDefinitionForm = new FormGroup({
 		startMSISDN: this.startMSISDN,
 		endMSISDN: this.endMSISDN,
+		discProvisionFile: this.discProvisionFile,
 		quantity: this.quantity,
 		IMSI: this.IMSI,
 		productType: this.productType,
@@ -347,6 +363,16 @@ ChaeckDefinitionValidity (startMSISDNs, endMSISDNs) {
 		this.topFunction();
 	this.isLoading = true;
 	this.isDisableBtn = true;
+	this.fileName = this.formFieldData; // disc num CR -- file upload
+	const fd = new FormData();
+  fd.append('nsa-file',this.selectedFile,this.fileName+".csv");  
+  console.log('Before file upload, time '+new Date().toString());
+  var result = this.fileoperationService.uploadCSV(fd);
+	  console.log(result);
+	  result
+	
+  // File Name will be the WR_Name in server
+	
    // console.log('Form Submitted!');
     //console.log(this.mySeriesDefinitionForm.value);
 	//console.log("this.isLoading "+this.isLoading);
@@ -405,6 +431,9 @@ LogKeyValuePairs(group: FormGroup): void {
     }
   });
 }
+onFileChange(event) {
+    this.selectedFile = <File>event.target.files[0];
+  }
 
 clearForm(event: any){
 		//console.log(event);
@@ -416,5 +445,7 @@ clearForm(event: any){
 		//console.log(event);
 		this.router.navigateByUrl('/nsa/seriesprovision');
 	}
+
+	
 
 }
