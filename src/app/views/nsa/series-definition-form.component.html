@@ -52,11 +52,24 @@
 
 						</div>
 					</div>
-
-
+					<!--nsa disc num file upload-->
+					
+				<div class="card-body search-type" *ngIf="isInitial">
+					<div class="row form-row">
+						<div class="col-3">
+							Search Type
+						</div>
+						<div class="col-3">
+							<input type="radio" value="sequence" name="search_type" class="form-control form-control-radio" [(ngModel)]="searchType"> &nbsp; Sequential
+						</div>
+						<div class="col-3">
+							<input type="radio" value="discrete" name="search_type" class="form-control form-control-radio" [(ngModel)]="searchType"> &nbsp; Discrete
+						</div>
+					</div>
+				</div>
 					<div class="row">
 						<div class="col-md-6">
-								<div class="form-group row">
+								<div class="form-group row" *ngIf="searchType=='sequence'">
 										<label class="col-md-5 col-form-label" for="startMSISDN">Start MSISDN</label>
 										<div class="col-md-7">
 											<input type="text" id="startMSISDN" name="startMSISDN" class="form-control" formControlName="startMSISDN" pattern="(017|013)\d*" required
@@ -93,7 +106,27 @@
 
 						</div>
 					</div>
-
+					<!-- addition of disc file upload option -- disc num CR  --> 
+					
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group row" *ngIf="searchType=='discrete'">
+							  <label class="col-md-5 col-form-label" for="discProvisionFile">Discrete Provision File</label>
+							  <div class="col-md-7">
+		
+								<input type="file" id="discProvisionFile" name="discProvisionFile" class="form-control" formControlName="discProvisionFile" required
+								 [ngClass]="{
+								  'is-invalid': discProvisionFile.invalid && (discProvisionFile.dirty || discProvisionFile.touched),
+								  'is-valid': discProvisionFile.valid && (discProvisionFile.dirty || discProvisionFile.touched)
+								 }" (change)="onFileChange($event)" >
+								<div class="invalid-feedback" *ngIf="discProvisionFile.errors && (discProvisionFile.dirty || discProvisionFile.touched)">
+								  <p *ngIf="discProvisionFile.errors.required">Discrete Provision File is required</p>
+								</div>
+							  </div>
+							</div>
+						  </div>						
+					</div>
+					
 
 
 					<div class="row">
