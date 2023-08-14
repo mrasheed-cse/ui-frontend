@@ -4,11 +4,23 @@
 	</div>
 	<div class="col-md-10">
 		<div class="card">
-				<div style="text-align: center">
-						<div class="div_cust_loading_sign" *ngIf="isLoading"> <div style="position:fixed;width:100%;height:100%;left:0px;top:0px;z-index:50000;background-color:#536c79;opacity:0.95"></div> <div style="position:fixed;width:100%;height:100%;left:0px;top:0px;z-index:60000"><div style="width:25%;height:25%;margin:0px auto;margin-top:20%"><i class="fa fa-spinner fa-pulse fa-4x fa-fw" ></i></div></div> </div>
+			<div style="text-align: center">
+				<div class="div_cust_loading_sign" *ngIf="isLoading">
+					<div
+						style="position:fixed;width:100%;height:100%;left:0px;top:0px;z-index:50000;background-color:#536c79;opacity:0.95">
 					</div>
-		<div class="alert alert-success" role="alert" *ngIf="successAlertShow">The New Work Request <b>{{WR_Name}}</b> {{successAlertMessage}}</div>
-			<div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">An Error occured to create <b>{{WR_Name}}</b> {{dangerAlertMessage}}</div>
+					<div style="position:fixed;width:100%;height:100%;left:0px;top:0px;z-index:60000">
+						<div style="width:25%;height:25%;margin:0px auto;margin-top:20%"><i
+								class="fa fa-spinner fa-pulse fa-4x fa-fw"></i></div>
+					</div>
+				</div>
+			</div>
+			<div class="alert alert-success" role="alert" *ngIf="successAlertShow">The New Work Request
+				<b>{{WR_Name}}</b> {{successAlertMessage}}
+			</div>
+			<div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">An Error occured to create
+				<b>{{WR_Name}}</b> {{dangerAlertMessage}}
+			</div>
 
 			<div class="card-header">
 				<strong>Number Series Definition (Active number series table)</strong>
@@ -23,110 +35,117 @@
 								<label class="col-md-5 col-form-label">Work Request Name</label>
 								<div class="col-md-7">
 									<input disabled type="text" class="form-control calendar-container"
-									value="{{WR_Name}}">
+										value="{{WR_Name}}">
 								</div>
 							</div>
 						</div>
 						<div class="col-md-6">
-								<div class="form-group row">
-										<label class="col-md-5 col-form-label" for="IMSI">IMSI</label>
-										<div class="col-md-7">
-											<select class="form-control" id="IMSI" formControlName="IMSI" required [ngClass]="{
+							<div class="form-group row">
+								<label class="col-md-5 col-form-label" for="IMSI">IMSI</label>
+								<div class="col-md-7">
+									<select class="form-control" id="IMSI" formControlName="IMSI" required [ngClass]="{
 																'is-invalid': IMSI.invalid && (IMSI.dirty || IMSI.touched),
 																'is-valid': IMSI.valid && (IMSI.dirty || IMSI.touched)
 															 }">
-												<option></option>
-												<option *ngFor="let aIMSI of listIMSI" [value]="aIMSI.id">{{aIMSI.group_name}}</option>
-												<!--											<option *ngFor="let cl of clientOptions" [value]="cl.id">{{cl.client_name}}</option> -->
-											</select>
-										</div>
+										<option></option>
+										<option *ngFor="let aIMSI of listIMSI" [value]="aIMSI.id">{{aIMSI.group_name}}
+										</option>
+										<!--											<option *ngFor="let cl of clientOptions" [value]="cl.id">{{cl.client_name}}</option> -->
+									</select>
+								</div>
 
 
-										<div class="invalid-feedback" *ngIf="IMSI.errors && (IMSI.dirty || IMSI.touched)">
-											<p *ngIf="IMSI.errors.required">IMSI Name required</p>
+								<div class="invalid-feedback" *ngIf="IMSI.errors && (IMSI.dirty || IMSI.touched)">
+									<p *ngIf="IMSI.errors.required">IMSI Name required</p>
 
-										</div>
+								</div>
 
 
-									</div>
+							</div>
 
 						</div>
 					</div>
-					<!--nsa disc num file upload-->
-					
-				<div class="card-body search-type" *ngIf="isInitial">
-					<div class="row form-row">
-						<div class="col-3">
-							Search Type
-						</div>
-						<div class="col-3">
-							<input type="radio" value="sequence" name="search_type" class="form-control form-control-radio" [(ngModel)]="searchType"> &nbsp; Sequential
-						</div>
-						<div class="col-3">
-							<input type="radio" value="discrete" name="search_type" class="form-control form-control-radio" [(ngModel)]="searchType"> &nbsp; Discrete
+
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group row">
+								<label class="col-md-3 col-form-label">Search Type</label>
+								<label class="col-md-3" >
+									<input type="radio" value="sequence" formControlName="searchType">
+									<span> Sequential </span>
+								</label>
+								<label class="col-md-3">
+									<input type="radio" value="discrete" formControlName="searchType">
+									<span> Discrete </span>
+								</label>
+							</div>
 						</div>
 					</div>
-				</div>
 					<div class="row">
 						<div class="col-md-6">
-								<div class="form-group row" *ngIf="searchType=='sequence'">
-										<label class="col-md-5 col-form-label" for="startMSISDN">Start MSISDN</label>
-										<div class="col-md-7">
-											<input type="text" id="startMSISDN" name="startMSISDN" class="form-control" formControlName="startMSISDN" pattern="(017|013)\d*" required
-											 [ngClass]="{
+							<div class="form-group row" *ngIf="searchType.value=='sequence'">
+								<label class="col-md-5 col-form-label" for="startMSISDN">Start MSISDN</label>
+								<div class="col-md-7">
+									<input type="text" id="startMSISDN" name="startMSISDN" class="form-control"
+										formControlName="startMSISDN" pattern="(017|013)\d*" required [ngClass]="{
 												'is-invalid': startMSISDN.invalid && (startMSISDN.dirty || startMSISDN.touched),
 												'is-valid': startMSISDN.valid && (startMSISDN.dirty || startMSISDN.touched)
 										   }">
-											<div class="invalid-feedback" *ngIf="startMSISDN.errors && (startMSISDN.dirty || startMSISDN.touched)">
-												<p *ngIf="startMSISDN.errors.required">Start MSISDN is required</p>
-												<p *ngIf="startMSISDN.errors.pattern">MSISDN starts with 017 or 013 and  contains only digits.</p>
-												<p *ngIf="startMSISDN.errors.minlength">MSISDN must be 11 digit long</p>
-												<p *ngIf="startMSISDN.errors.maxlength">MSISDN must be 11 digit long</p>
-											</div>
-										</div>
+									<div class="invalid-feedback"
+										*ngIf="startMSISDN.errors && (startMSISDN.dirty || startMSISDN.touched)">
+										<p *ngIf="startMSISDN.errors.required">Start MSISDN is required</p>
+										<p *ngIf="startMSISDN.errors.pattern">MSISDN starts with 017 or 013 and contains
+											only digits.</p>
+										<p *ngIf="startMSISDN.errors.minlength">MSISDN must be 11 digit long</p>
+										<p *ngIf="startMSISDN.errors.maxlength">MSISDN must be 11 digit long</p>
 									</div>
+								</div>
+							</div>
 						</div>
 						<div class="col-md-6">
-								<div class="form-group row">
-									<label class="col-md-5 col-form-label" for="endMSISDN">End MSISDN</label>
-									<div class="col-md-7">
-										<input type="text" id="endMSISDN" name="endMSISDN" class="form-control" formControlName="endMSISDN" pattern="(017|013)\d*" required
-										 [ngClass]="{
+							<div class="form-group row" *ngIf="searchType.value=='sequence'">
+								<label class="col-md-5 col-form-label" for="endMSISDN">End MSISDN</label>
+								<div class="col-md-7">
+									<input type="text" id="endMSISDN" name="endMSISDN" class="form-control"
+										formControlName="endMSISDN" pattern="(017|013)\d*" required [ngClass]="{
 											'is-invalid': endMSISDN.invalid && (endMSISDN.dirty || endMSISDN.touched),
 											'is-valid': endMSISDN.valid && (endMSISDN.dirty || endMSISDN.touched)
 									   }">
-										<div class="invalid-feedback" *ngIf="endMSISDN.errors && (endMSISDN.dirty || endMSISDN.touched)">
-											<p *ngIf="endMSISDN.errors.required">End MSISDN is required</p>
-											<p *ngIf="endMSISDN.errors.pattern">MSISDN starts with 017 or 013 and  contains only digits.</p>
-											<p *ngIf="endMSISDN.errors.minlength">MSISDN must be 11 digit long</p>
-											<p *ngIf="endMSISDN.errors.maxlength">MSISDN must be 11 digit long</p>
-										</div>
+									<div class="invalid-feedback"
+										*ngIf="endMSISDN.errors && (endMSISDN.dirty || endMSISDN.touched)">
+										<p *ngIf="endMSISDN.errors.required">End MSISDN is required</p>
+										<p *ngIf="endMSISDN.errors.pattern">MSISDN starts with 017 or 013 and contains
+											only digits.</p>
+										<p *ngIf="endMSISDN.errors.minlength">MSISDN must be 11 digit long</p>
+										<p *ngIf="endMSISDN.errors.maxlength">MSISDN must be 11 digit long</p>
 									</div>
 								</div>
+							</div>
 
 						</div>
 					</div>
-					<!-- addition of disc file upload option -- disc num CR  --> 
-					
 					<div class="row">
 						<div class="col-md-6">
-							<div class="form-group row" *ngIf="searchType=='discrete'">
-							  <label class="col-md-5 col-form-label" for="discProvisionFile">Discrete Provision File</label>
-							  <div class="col-md-7">
-		
-								<input type="file" id="discProvisionFile" name="discProvisionFile" class="form-control" formControlName="discProvisionFile" required
-								 [ngClass]="{
-								  'is-invalid': discProvisionFile.invalid && (discProvisionFile.dirty || discProvisionFile.touched),
-								  'is-valid': discProvisionFile.valid && (discProvisionFile.dirty || discProvisionFile.touched)
-								 }" (change)="onFileChange($event)" >
-								<div class="invalid-feedback" *ngIf="discProvisionFile.errors && (discProvisionFile.dirty || discProvisionFile.touched)">
-								  <p *ngIf="discProvisionFile.errors.required">Discrete Provision File is required</p>
+							<div class="form-group row" *ngIf="searchType.value=='discrete'">
+								<label class="col-md-5 col-form-label" for="discDefFile">Discrete Provision
+									File</label>
+								<div class="col-md-7">
+
+									<input type="file" id="discDefFile" name="discDefFile"
+										class="form-control" formControlName="discDefFile" required [ngClass]="{
+								  'is-invalid': discDefFile.invalid && (discDefFile.dirty || discDefFile.touched),
+								  'is-valid': discDefFile.valid && (discDefFile.dirty || discDefFile.touched)
+								 }" (change)="onFileChange($event)">
+									<div class="invalid-feedback"
+										*ngIf="discDefFile.errors && (discDefFile.dirty || discDefFile.touched)">
+										<p *ngIf="discDefFile.errors.required">Discrete Provision File is required
+										</p>
+									</div>
 								</div>
-							  </div>
 							</div>
-						  </div>						
+						</div>
 					</div>
-					
+
 
 
 					<div class="row">
@@ -134,7 +153,8 @@
 							<div class="form-group row">
 								<label class="col-md-5 col-form-label" for="quantity">Quantity</label>
 								<div class="col-md-7">
-									<input type="text" id="quantity" name="quantity" class="form-control" formControlName="quantity">
+									<input type="text" id="quantity" name="quantity" class="form-control"
+										formControlName="quantity">
 
 								</div>
 							</div>
@@ -143,16 +163,18 @@
 							<div class="form-group row">
 								<label class="col-md-5 col-form-label" for="productType">Product Type</label>
 								<div class="col-md-7">
-									<select class="form-control" id="productType" formControlName="productType" required (change)="onProductTypeSelect($event)"
-									 [ngClass]="{
+									<select class="form-control" id="productType" formControlName="productType" required
+										(change)="onProductTypeSelect($event)" [ngClass]="{
 														'is-invalid': productType.invalid && (productType.dirty || productType.touched),
 														'is-valid': productType.valid && (productType.dirty || productType.touched)
 													 }">
 										<option></option>
-										<option *ngFor="let aProductType of listProductType" [value]="aProductType.id">{{aProductType.productType_name}}</option>
+										<option *ngFor="let aProductType of listProductType" [value]="aProductType.id">
+											{{aProductType.productType_name}}</option>
 									</select>
 								</div>
-								<div class="invalid-feedback" *ngIf="productType.errors && (productType.dirty || productType.touched)">
+								<div class="invalid-feedback"
+									*ngIf="productType.errors && (productType.dirty || productType.touched)">
 									<p *ngIf="productType.errors.required">Product Type Selection required</p>
 
 								</div>
@@ -167,17 +189,19 @@
 							<div class="form-group row">
 								<label class="col-md-5 col-form-label" for="productName">Product Name</label>
 								<div class="col-md-7">
-									<select class="form-control" id="productName" formControlName="productName" required (change)="onProductNameSelects($event)"
-									 [ngClass]="{
+									<select class="form-control" id="productName" formControlName="productName" required
+										(change)="onProductNameSelects($event)" [ngClass]="{
 														'is-invalid': productName.invalid && (productName.dirty || productName.touched),
 														'is-valid': productName.valid && (productName.dirty || productName.touched)
 													 }">
 										<option></option>
-										<option *ngFor="let aProduct of listProduct" [value]="aProduct.id">{{aProduct.productName}}</option>
+										<option *ngFor="let aProduct of listProduct" [value]="aProduct.id">
+											{{aProduct.productName}}</option>
 
 									</select>
 								</div>
-								<div class="invalid-feedback" *ngIf="productName.errors && (productName.dirty || productName.touched)">
+								<div class="invalid-feedback"
+									*ngIf="productName.errors && (productName.dirty || productName.touched)">
 									<p *ngIf="productName.errors.required">Product Name Selection required</p>
 
 								</div>
@@ -187,7 +211,8 @@
 							<div class="form-group row">
 								<label class="col-md-5 col-form-label" for="serviceClassName">Service Class Name</label>
 								<div class="col-md-7">
-									<input type="text" id="serviceClassName" name="serviceClassName" class="form-control" formControlName="serviceClassName">
+									<input type="text" id="serviceClassName" name="serviceClassName"
+										class="form-control" formControlName="serviceClassName">
 
 								</div>
 							</div>
@@ -199,7 +224,8 @@
 							<div class="form-group row">
 								<label class="col-md-5 col-form-label" for="communityID">Community ID</label>
 								<div class="col-md-7">
-									<input type="text" id="communityID" name="communityID" class="form-control" formControlName="communityID">
+									<input type="text" id="communityID" name="communityID" class="form-control"
+										formControlName="communityID">
 
 								</div>
 							</div>
@@ -210,30 +236,19 @@
 								<div class="col-md-7">
 									<select class="form-control" id="zone" formControlName="zone">
 										<option></option>
-										<option *ngFor="let aZone of listZone" [value]="aZone.id">{{aZone.name}}</option>
+										<option *ngFor="let aZone of listZone" [value]="aZone.id">{{aZone.name}}
+										</option>
 									</select>
 								</div>
 							</div>
 						</div>
 					</div>
 
-					<!-- ///
-					<div class="row">
-						<div class="col-md-6">
-
-						</div>
-						<div class="col-md-6">
-
-						</div>
-					</div>
-					/// -->
-
-
-
 					<div class="form-group row">
 						<label class="col-md-5 col-form-label" for="srcComment">Comment</label>
 						<div class="col-md-12">
-							<textarea id="srcComment" name="srcComment" class="form-control" formControlName="srcComment" rows="5">
+							<textarea id="srcComment" name="srcComment" class="form-control"
+								formControlName="srcComment" rows="5">
 				</textarea>
 						</div>
 					</div>
@@ -242,19 +257,20 @@
 				<!-- <div class="card-body"> -->
 				<div class="card-footer text-right">
 
-					<button type="submit" class="btn btn-sm btn-primary " [disabled]="isDisableBtn" >
+					<button type="submit" class="btn btn-sm btn-primary " [disabled]="isDisableBtn">
 						<i class="fa fa-dot-circle-o"></i> Submit</button>
-					<button type="reset" class="btn btn-sm btn-danger"(click)="clearForm($event)">
+					<button type="reset" class="btn btn-sm btn-danger" (click)="clearForm($event)">
 						<i class="fa fa-ban"></i> Reset</button>
-					<button type="button" class="btn btn-link" (click)="backButton($event)"><i class="fa fa-link" ></i>&nbsp; Back</button>
+					<button type="button" class="btn btn-link" (click)="backButton($event)"><i
+							class="fa fa-link"></i>&nbsp; Back</button>
 
 				</div>
 				<!-- <div class="card-footer"> -->
 			</form>
 
 			<div *ngIf="isLoading" class="spinner-border text-primary" role="status">
-					<span class="sr-only">Loading...</span>
-				</div>
+				<span class="sr-only">Loading...</span>
+			</div>
 
 		</div>
 		<!-- <div class="card"> -->
