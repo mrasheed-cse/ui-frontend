@@ -213,7 +213,7 @@ export class SeriesDefinitionFormComponent implements OnInit {
 		this.communityID = new FormControl({ value: '', disabled: true }, Validators.required);
 		this.zone = new FormControl('');
 		this.srcComment = new FormControl('');
-		this.searchType = new FormControl('',Validators.required);
+		this.searchType = new FormControl('', Validators.required);
 	}
 
 	createForm() {
@@ -376,7 +376,7 @@ export class SeriesDefinitionFormComponent implements OnInit {
 				var result = this.fileoperationService.uploadCSV(fd);
 				result.subscribe(res => { console.log(res); this.submittoAPI() });
 			}
-			else{
+			else {
 				this.submittoAPI();
 			}
 		}
@@ -422,7 +422,7 @@ export class SeriesDefinitionFormComponent implements OnInit {
 				if (this.formFieldData) {
 
 					if (key == 'discDefFile') {
-						this.formFieldData = this.formFieldData + "," + this._global.wrid_FileUploadPath + this.fileName + ".csv";
+						this.formFieldData = this.formFieldData + "," + this.fileName + ".csv";
 					}
 					else this.formFieldData = this.formFieldData + "," + abstractControl.value;
 				}
@@ -436,8 +436,32 @@ export class SeriesDefinitionFormComponent implements OnInit {
 		});
 	}
 	onFileChange(event) {
-		console.log(event.target.files);
+		this.isLoading = true;
 		this.selectedFile = <File>event.target.files[0];
+		this.formFieldData = this.workFlowsService.FormatWorkRequestNameForAPI(this.WR_Name);
+		this.fileName = this.formFieldData;
+		const fd = new FormData();
+		fd.append('nsa-file', this.selectedFile, this.fileName + ".csv");
+		var result = this.fileoperationService.uploadCSV(fd);
+		result.subscribe(
+			res => {
+				let index = res.message.lastIndexOf(":");
+				let file = res.message.substring(index);
+				this.workFlowsService.checkFileValidity(this.fileName + ".csv").subscribe(
+					response => {
+						console.log(response);
+						if (response.message === "Valid") {
+							this.infoAlertShow = true;
+							this.isLoading = false;
+						}
+						else {
+							this.infoAlertShow = true;
+							this.infoAlertMessage = "All or some numbers in " + this.selectedFile.name + " already have Definition Work Request";
+							this.isLoading = false;
+						}
+					});
+			}
+		);
 	}
 
 	clearForm(event: any) {

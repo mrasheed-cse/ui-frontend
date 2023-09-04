@@ -456,5 +456,8 @@ console.log(this.serverUrl+'FileNameVsBatchIdUpload');
 		)
 	}
 	
+	checkFileValidity(fileName:String):any{
+		return this.http.post(this.serverUrl+"defFileValidity/",fileName);
+	}
 
 }
