@@ -451,7 +451,7 @@ export class SeriesDefinitionFormComponent implements OnInit {
 					response => {
 						console.log(response);
 						if (response.message === "Valid") {
-							this.infoAlertShow = true;
+							this.infoAlertShow = false;
 							this.isLoading = false;
 						}
 						else {
