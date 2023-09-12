@@ -449,10 +449,11 @@ export class SeriesDefinitionFormComponent implements OnInit {
 				let file = res.message.substring(index);
 				this.workFlowsService.checkFileValidity(this.fileName + ".csv").subscribe(
 					response => {
-						console.log(response);
-						if (response.message === "Valid") {
+						let res = response.message.split(",");
+						if (res[0].trim() === "Valid") {
 							this.infoAlertShow = false;
 							this.isLoading = false;
+							this.mySeriesDefinitionForm.get('quantity').setValue(res[1]);
 						}
 						else {
 							this.infoAlertShow = true;
