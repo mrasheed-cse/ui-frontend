@@ -29,6 +29,11 @@ import {DiscreteprovisionformComponent} from './discreteprovisionform.component'
 import {DiscreteprovisiondetailsComponent} from './discreteprovisiondetails.component';
 import {MasterdatamgmtComponent} from './masterdatamgmt.component';
 import {NewrequisitioninitiateComponent} from './newrequisitioninitiate.component';
+// test sc cr
+import {NewscrequisitioninitiateComponent} from './newscrequisitioninitiate.component';
+import {NewscrequisitiondetailsComponent} from './newscrequisitiondetails.component';
+import {NewscrequisitionComponent} from './newscrequisition.component';
+
 import {NewrequisitiondetailsComponent} from './newrequisitiondetails.component';
 import {NewrequisitionComponent} from './newrequisition.component';
 import {RequisitiondetailsFormComponent} from './requisitiondetails-form/requisitiondetails-form.component';
@@ -379,6 +384,31 @@ const routes: Routes = [
             title: 'New requisition initiate'
         }
     },
+//test sc req cr
+
+    {
+        path: 'newscrequisitioninitiation',
+        component: NewscrequisitioninitiateComponent,
+        data: {
+            title: 'New SC requisition initiate'
+        }
+    },
+    {
+        path: 'newscrequisitiondetails',
+        component: NewscrequisitiondetailsComponent,
+        data: {
+            title: 'My Requests (SC Requisition Details)'
+        }
+    },
+    {
+        path: 'newscrequisition',
+        component: NewscrequisitionComponent,
+        data: {
+            title: 'Pending for Approval'
+        }
+    },
+
+
     {
         path: 'newrequisitiondetails',
         component: NewrequisitiondetailsComponent,
