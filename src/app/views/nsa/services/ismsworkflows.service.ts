@@ -28,15 +28,23 @@ export class IsmsworkflowsService {
   }
   
   CreateNewTestSimRequest(wr_id: number,userGroup_id: number,userID: string,requisitionName: string, reqHeader: any) : any {	
-  	console.log("(this.serverUrl + 'requisition/save', {userID:"+ userID+",	userGroupID: "+userGroup_id+", wrID: "+wr_id+",	requisitionName: "+requisitionName+",reqHeader: "+reqHeader+"	})");
-	return this.http.post(this.serverUrl + 'requisition/save', {
-		userID: userID,
-			userGroupID: userGroup_id, 	
-			wrID: wr_id,
-			requisitionName: requisitionName,
-			reqHeader: reqHeader
-		});
-	}
+	console.log("(this.serverUrl + 'requisition/save', {userID:"+ userID+",	userGroupID: "+userGroup_id+", wrID: "+wr_id+",	requisitionName: "+requisitionName+",reqHeader: "+reqHeader+"	})");
+  return this.http.post(this.serverUrl + 'requisition/save', {
+	  userID: userID,
+		  userGroupID: userGroup_id, 	
+		  wrID: wr_id,
+		  requisitionName: requisitionName,
+		  reqHeader: reqHeader
+	  });
+  }
+
+  // vaidation  API
+  validateMobileAPI(mobileNo: string,) : any {	
+	console.log(this.serverUrl + 'testscratchCard/validate', "mobileNo:"+ mobileNo);
+  return this.http.post(this.serverUrl + 'testscratchCard/validate', {
+	mobileNo: mobileNo
+	  });
+  }
 
 	findRequisitionDetails(id:number) : any{
 		return this.http.post(this.serverUrl+ 'requisition/find',{
