@@ -1,0 +1,371 @@
+<div class="row">
+	<div class="col-md-12">
+		<div class="card">
+			<div style="text-align: center">
+        		<div class="div_cust_loading_sign" *ngIf="isLoading"> <div style="position:fixed;width:100%;height:100%;left:0px;top:0px;z-index:50000;background-color:#536c79;opacity:0.95"></div> <div style="position:fixed;width:100%;height:100%;left:0px;top:0px;z-index:60000"><div style="width:25%;height:25%;margin:0px auto;margin-top:20%"><i class="fa fa-spinner fa-pulse fa-4x fa-fw" ></i></div></div> </div>
+          </div>
+        <div class="alert alert-success" role="alert" *ngIf="successAlertShow">The New Work Request <b>{{WR_Name}}</b> {{successAlertMessage}}</div>
+	<div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">An Error occured to create <b>{{WR_Name}}</b> {{dangerAlertMessage}}</div>
+        <div class="alert alert-danger" role="alert" *ngIf="infoAlertShow"><b>{{infoAlertMessage}}</b></div>
+
+	<div class="card-header">
+	        <strong>Employee Details</strong>
+	</div>
+        <div class="card-body">
+		<div class="row" >
+		<div class="col-md-12">
+                      <table style="width:100%" border="1">
+                <tr> 
+                  <td style="width:25%">Employee ID.</td>
+                  <td style="width:25%;" bgcolor="#dcdcdc">{{employeeID}}</td>
+                  <td style="width:25%">Mobile No.</td>
+                  <td style="width:25%" bgcolor="#dcdcdc">{{mobileNo}}</td>
+                </tr>
+                <tr>
+                  <td style="width:25%">Employee Name</td>
+                  <td style="width:25%;" bgcolor="#dcdcdc">{{fullName}}</td>
+                  <td style="width:25%">Designation</td>
+                  <td style="width:25%" bgcolor="#dcdcdc">{{designation}}</td>
+                </tr> 
+                <tr> 
+                  <td style="width:25%">Department</td>
+                  <td style="width:25%;" bgcolor="#dcdcdc">{{department}}</td>
+                  <td style="width:25%">Division</td>
+                  <td style="width:25%" bgcolor="#dcdcdc">{{division}}</td>
+                </tr>
+                <tr>
+                  <td style="width:25%">Email</td>
+                  <td style="width:25%;" bgcolor="#dcdcdc">{{emailAddress}}</td>
+                  <td style="width:25%"></td>
+                  <td style="width:25%" bgcolor="#dcdcdc"></td>
+                </tr>
+              </table>
+					</div>
+      </div>
+      </div>
+	<div class="col-md-2">
+		<div class="card-body"></div>
+
+        </div>
+
+        <div class="card-header">
+                        <strong>Requisition Header</strong>
+                </div>
+
+                <div class="alert alert-danger" role="alert" *ngIf="infoAlertShow"><b>{{infoAlertMessage}}</b></div>
+
+                <form [formGroup]="newSimRequisitionForm" novalidate (ngSubmit)="onNewSimRequisitionSubmit()">
+                        <div class="card-body">
+                                <div class="row">
+                                        <div class="col-md-6">
+                                               <!-- <div class="form-group row">
+                                                        <label class="col-md-5 col-form-label">Requisition No</label>
+                                                        <div class="col-md-7">
+                                                                {{WR_Name}}
+                                                        </div>
+                                                </div>
+                                        -->
+                                        <div class="form-group row">
+                                                <label class="col-md-5 col-form-label" for="requisitionDate">Requisition Date</label>
+                                                <div class="col-md-7">
+                                                        <input type="text" class="form-control calendar-container" id="requisitionDate" formControlName="requisitionDate" name="requisitionDate"
+                                                        required bsDatepicker  placement="left"
+                                                         [bsConfig]="{ dateInputFormat: 'dd-MM-yyyy', containerClass: 'theme-green',  showWeekNumbers:false }"
+                                                         [minDate]="todayDate"
+
+                                                         value="{{ requisitionDate.value }}"
+                                                         disabled
+                                                        >
+                                                </div>
+                                        </div>
+
+                                        </div>
+
+                                        <div class="col-md-6">
+
+                                                        
+                                                        <div class="form-group row">
+                                                                <label class="col-md-5 col-form-label" for="userIdFirstWay">Notification to</label>
+                                                                <div class="col-md-7">
+                                                                        <input class="form-control" type="text" (keyup)="getUserIdsFirstWay($event)" id="userIdFirstWay" list="dynmicUserIds" formControlName="notificationTo" />
+                                                                        <span (click)="addRecipient()"><i class="fa fa-plus cust-icon-add-to-autocomplete"></i></span>
+                                                                        <datalist id="dynmicUserIds">
+                                                                                <option *ngFor="let item of userList1" [value]="item.userName">{{item.userName}}</option>
+                                                                        </datalist>
+                                                                        <table>
+                                                                                <tr *ngFor="let listObj of finalListOfUsersToSendWithRqn">
+                                                                                        <td>{{listObj.emailAddress}}</td>
+                                                                                        <td><span (click)="deleteRecipient(listObj)"><i class="fa fa-trash-o"></i></span></td>
+                                                                                </tr>
+                                                                        </table>
+                                                                </div>
+                                                        </div>
+
+                                                </div>
+                                        </div>
+                                        <div class="row">
+                                        <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                                <label class="col-md-5 col-form-label" for="requisitionType">Requisition Type</label>
+                                                                <div class="col-md-7">
+                                                                        <select class="form-control" id="requisitionType" formControlName="requisitionType" required [ngClass]="{
+                                                                                                                'is-invalid': requisitionType.invalid && (requisitionType.dirty || requisitionType.touched),
+                                                                                                                'is-valid': requisitionType.valid && (requisitionType.dirty || requisitionType.touched)
+                                                                                                         }">
+                                                                                <option *ngFor="let aRequisitionType of listRequisitionType" [value]="aRequisitionType.id">{{aRequisitionType.ismsMasterDataDetailsName}}</option>
+                                                                        </select>
+                                                                </div>
+
+                                                                <div class="invalid-feedback" *ngIf="requisitionType.errors && (requisitionType.dirty || requisitionType.touched)">
+                                                                        <p *ngIf="requisitionType.errors.required">Requisition Type required</p>
+                                                                </div>
+                                                        </div>
+                                        </div>
+                                                <div class="col-md-6">
+                                                                <div class="form-group row">
+                                                                        <label class="col-md-5 col-form-label" for="purposeCategory">Purpose Category</label>
+                                                                        <div class="col-md-7">
+                                                                                <select class="form-control" id="purposeCategory" formControlName="purposeCategory" required [ngClass]="{
+                                                                                                                        'is-invalid': purposeCategory.invalid && (purposeCategory.dirty || purposeCategory.touched),
+                                                                                                                        'is-valid': purposeCategory.valid && (purposeCategory.dirty || purposeCategory.touched)
+                                                                                                                 }">
+                                                                                        <option *ngFor="let apurposeCategory of listPurposeCategory" [value]="apurposeCategory.id">{{apurposeCategory.ismsMasterDataDetailsName}}</option>
+                                                                                        <!--											<option *ngFor="let cl of clientOptions" [value]="cl.id">{{cl.client_name}}</option> -->
+                                                                                </select>
+                                                                        </div>
+
+
+                                                                        <div class="invalid-feedback" *ngIf="purposeCategory.errors && (purposeCategory.dirty || purposeCategory.touched)">
+                                                                                <p *ngIf="purposeCategory.errors.required">Purpose Category required</p>
+                                                                        </div>
+                                                                </div>
+                                                </div>
+
+                                </div>
+
+                                <div class="row">
+                                        <div class="col-md-6">
+                                                <div class="form-group row">
+                                                        <label class="col-md-5 col-form-label" for="location">Location</label>
+                                                                <div class="col-md-7">
+                                                                        <select class="form-control" id="location" formControlName="location" required [ngClass]="{
+                                                                                'is-invalid': location.invalid && (location.dirty || location.touched),
+                                                                                'is-valid': location.valid && (location.dirty || location.touched)
+                                                                        }">
+                                                                                <option *ngFor="let alocation of listLocation" [value]="alocation.id">{{alocation.ismsMasterDataDetailsName}}</option>
+                                                                                </select>
+                                                                        </div>
+
+                                                                        <div class="invalid-feedback" *ngIf="location.errors && (location.dirty || location.touched)">
+                                                                                <p *ngIf="location.errors.required">Requisition Type required</p>
+                                                                        </div>
+                                                                </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                                <label class="col-md-5 col-form-label" for="testMobileNumber">Test mobile number</label>
+                                                                <div class="col-md-7">
+                                                                        <input class="form-control" type="tel" placeholder="01711081515" (keyup)="getUserIdsFirstWay($event)" id="testMobileNumber" formControlName="testMobileNumber" style="width: 300px;" required />
+                                                                        <button type="submit" class="form-control" style="background-color: #0091d2;
+                                                                        color: white;
+                                                                        font-size: 1.3em; width: 100px;">Validate</button>
+                                                                <!-- <select class="form-control" id="usageCategory" formControlName="usageCategory" required [ngClass]="{
+                                                                       'is-invalid': usageCategory.invalid && (usageCategory.dirty || usageCategory.touched),
+                                                                       'is-valid': usageCategory.valid && (usageCategory.dirty || usageCategory.touched)
+                                                                        }">
+                                                                        <option *ngFor="let ausageCategory of listUsageCategory" [value]="ausageCategory.id">{{ausageCategory.ismsMasterDataDetailsName}}</option>
+                                                                </select> -->
+                                                        </div>
+
+                                                        <div class="invalid-feedback" *ngIf="usageCategory.errors && (usageCategory.dirty || usageCategory.touched)">
+                                                                <p *ngIf="usageCategory.errors.required">Purpose Category required</p>
+                                                        </div>
+                                                        </div>
+                                                </div>
+
+                                        </div>
+
+
+                                <div class="row">
+
+                                                        <div class="col-md-6">
+
+                                                                        <div class="form-group row">
+                                                                                        <label class="col-md-5 col-form-label" for="startDate">Start Date</label>
+                                                                                        <div class="col-md-7">
+                                                                                                <input type="text" class="form-control calendar-container" id="startDate" formControlName="startDate" name="startDate"
+                                                                                                required bsDatepicker  placement="right"
+                                                                                                 [bsConfig]="{ dateInputFormat: 'dd-MM-yyyy', containerClass: 'theme-green',  showWeekNumbers:false }"
+                                                                                                 [minDate]="todayDate"
+                                                                                                style="background-color: #0091d2;
+                                                                                                color: white;
+                                                                                                font-size: 1.3em;"
+                                                                                                 value="{{ startDate.value | date: 'dd-MM-yyyy' }}"
+                                                                                                >
+                                                                                        </div>
+                                                                                </div>
+
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                                <div class="form-group row">
+                                                                                                <label class="col-md-5 col-form-label" for="endDate">End Date</label>
+                                                                                                <div class="col-md-7">
+                                                                                                        <input type="text" class="form-control calendar-container" id="endDate" formControlName="endDate" name="endDate"
+                                                                                                        required bsDatepicker  placement="left"
+                                                                                                         [bsConfig]="{ dateInputFormat: 'dd-MM-yyyy', containerClass: 'theme-green',  showWeekNumbers:false }"
+                                                                                                         [minDate]="todayDate"
+                                                                                                        style="background-color: #0091d2;
+                                                                                                        color: white;
+                                                                                                        font-size: 1.3em;"
+                                                                                                         value="{{ endDate.value | date: 'dd-MM-yyyy' }}"
+                                                                                                        >
+                                                                                                </div>
+                                                                                        </div>
+                                                                        </div>
+                                        </div>
+
+
+
+
+                                <div class="row">
+                                        <div class="col-md-12">
+                                                        <div class="form-group row">
+                                                                        <label class="col-md-5 col-form-label" for="purposeDetails">Purpose Details</label>
+                                                                        <div class="col-md-12">
+                                                                                <textarea id="purposeDetails" name="purposeDetails" class="form-control" formControlName="purposeDetails" rows="5"
+                                                                                placeholder="Please enter minimum 120 characters" required 
+                                                                                [ngClass]="{
+                                                                                        'is-invalid': purposeDetails.invalid && (purposeDetails.dirty || purposeDetails.touched),
+                                                                                        'is-valid': purposeDetails.valid && (purposeDetails.dirty || purposeDetails.touched)
+                                                                           }"></textarea>
+                                                                                <div class="invalid-feedback" *ngIf="purposeDetails.errors && (purposeDetails.dirty || purposeDetails.touched)">
+                                                                                        <p *ngIf="purposeDetails.errors.required">Purpose Details is required</p>                                                                                        
+                                                                                        <p *ngIf="purposeDetails.errors.minlength">Purpose Details must be minimum 120 characters long, we need another
+                                                                                                {{purposeDetails.errors.minlength.requiredLength -
+                                                                                                        purposeDetails.errors.minlength.actualLength}}
+                                                                                                characters</p>                                                                                        
+                                                                                </div>
+                                                        
+                                                                        </div>
+                                                                </div>
+                                        </div>
+
+                                        <!--<div class="col-md-6">
+                                                <div class="form-group row">
+                                                        <label class="col-md-5 col-form-label" for="userIdFirstWay">Notification to</label>
+                                                        <div class="col-md-7">
+                                                                <input class="form-control" type="text" (keyup)="getUserIdsFirstWay($event)" id="userIdFirstWay" list="dynmicUserIds" formControlName="notificationTo" />
+                                                                <span (click)="addRecipient()"><i class="fa fa-plus cust-icon-add-to-autocomplete"></i></span>
+                                                                <datalist id="dynmicUserIds">
+                                                                        <option *ngFor="let item of userList1" [value]="item.userName">{{item.userName}}</option>
+                                                                </datalist>
+                                                                <table>
+                                                                        <tr *ngFor="let listObj of finalListOfUsersToSendWithRqn">
+                                                                                <td>{{listObj.emailAddress}}</td>
+                                                                                <td><span (click)="deleteRecipient(listObj)"><i class="fa fa-trash-o"></i></span></td>
+                                                                        </tr>
+                                                                </table>
+                                                        </div>
+                                                </div>
+                                        </div>-->
+
+                                </div>
+                                <div class="card-header">
+                                                <strong>Requisition Line</strong>
+                                        </div>
+
+                        <div class="row">
+
+                                        <div class="col-12"><input type="button" class="btn btn-success float-right" (click)="addLine()" value="Add More Line"></div>
+
+
+                                </div>
+
+                                <div class="row">
+                                                        <table class="table table-bordered table-sm">
+                                                                        <thead>
+                                                                          <tr>
+                                                                                <th>Product</th>                                                           
+                                                                                <th>SC Quantity</th>
+                                                                                <th>Crad Expiry</th>
+                                                                          </tr>
+                                                                        </thead>
+
+
+
+                                        <tbody formArrayName="requisitionLines" *ngFor="let requisitionLine of requisitionLines.controls; index as idx">
+
+                                                        <tr [formGroupName]="idx">
+                                                                                        <td>
+                                                                                                <select class="form-control" formControlName="product" >
+                                                                        <option *ngFor="let aproduct of listProduct" [value]="aproduct.id">{{aproduct.ismsMasterDataDetailsName}}</option>
+
+                                                                </select>
+
+
+                                                                                        </td>
+                                                                                        <!-- <td><input class="form-control" formControlName="creditLimit" type = "number"  min="0" [prevent-keys]="[43, 45,189,187]" ></td> -->
+                                                                                        <td><input class="form-control" formControlName="scQuantity" type = "number" min="1" [prevent-keys]="[43, 45,189,187]" ></td>
+                                                                                        <!-- <td> -->
+                                                                                                <!--<input formControlName="imsiType" >  -->
+
+                                                                                                <!-- <select class="form-control" formControlName="imsiType" >
+                                                                                                                <option *ngFor="let aImsiType of listImsiType" [value]="aImsiType.id">{{aImsiType.ismsMasterDataDetailsName}}</option>
+                                                                                                        </select> -->
+                                                                                        <!-- </td>  -->
+                                                                                        <td>
+                                                                                                <input type="text" class="form-control" id="cardExpiry" formControlName="cardExpiry" name="cardExpiry"
+                                                                                                        required bsDatepicker  placement="left"
+                                                                                                         [bsConfig]="{ dateInputFormat: 'dd-MM-yyyy', containerClass: 'theme-green',  showWeekNumbers:false }"
+                                                                                                         [minDate]="todayDate"
+                                                                                                         value="{{ cardExpiry.value | date: 'dd-MM-yyyy' }}"
+                                                                                                        >
+
+
+                                                                                                <!--<input formControlName="specialRequirement">-->
+                                                                                                <!-- <select class="form-control" formControlName="cardEx" >
+                                                                                                                <option *ngFor="let singleSpecialRequirement of listSpecialRequirement" [value]="singleSpecialRequirement.value">{{singleSpecialRequirement.name}}</option>
+                                                                                                </select>
+                                                                                                <br /><br />
+                                                                                                <textarea formControlName="specialRequirementOther" style="width:100% !important" placeholder="Put more requirements here..." rows="4"cols="5"></textarea> -->
+                                                                                        </td>
+                                                                                        <td><button type="button" (click)="deleteLine(idx)">Delete</button></td>
+
+
+
+                                                                        <!--
+                                                                        <div>
+                                                                                        assignProduct: <input formControlName="assignProduct">
+                                                                        </div>
+                                                                        <div>
+                                                                                        assignQuantity: <input formControlName="assignQuantity">
+                                                                        </div>
+                                                                        -->
+
+                                                        </tr>
+
+                                        </tbody>
+
+                        </table>
+
+                                </div>
+                        </div>
+                        <!-- <div class="card-body"> -->
+                        <div class="card-footer text-right">
+                                <button type="submit" [disabled]="!newSimRequisitionForm.valid"
+                                 class="btn btn-sm btn-primary">
+                                        <i class="fa fa-dot-circle-o"></i> Submit</button>
+                                <button type="reset" class="btn btn-sm btn-danger"(click)="clearForm($event)">
+                                        <i class="fa fa-ban"></i> Reset</button>
+
+                        </div>
+                        <!-- <div class="card-footer"> -->
+                </form>
+</div>
+</div>
+
+</div>
+<!--
+<pre >{{mySeriesDefinitionForm.value | json}}</pre>
+<pre *ngIf="mySeriesDefinitionForm.valid">This is Valid form Data.{{mySeriesDefinitionForm.value | json}}</pre>
+-->
