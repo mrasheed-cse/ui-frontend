@@ -44,6 +44,10 @@ import { DiscreteprovisionformComponent } from './discreteprovisionform.componen
 import { DiscreteprovisiondetailsComponent } from './discreteprovisiondetails.component';
 import { MasterdatamgmtComponent } from './masterdatamgmt.component';
 import { NewrequisitioninitiateComponent } from './newrequisitioninitiate.component';
+//test sc cr 
+import { NewscrequisitioninitiateComponent } from './newscrequisitioninitiate.component'
+import {NewscrequisitiondetailsComponent} from './newscrequisitiondetails.component';
+import {NewscrequisitionComponent} from './newscrequisition.component';
 import { NewrequisitiondetailsComponent } from './newrequisitiondetails.component';
 import { NewrequisitionComponent } from './newrequisition.component';
 import { RequisitiondetailsFormComponent } from './requisitiondetails-form/requisitiondetails-form.component';
@@ -206,6 +210,10 @@ import { RepPrePlanGenerate } from '../SSM/SimCardPlan Management/rep-pre-plange
     DiscreteprovisiondetailsComponent,
     MasterdatamgmtComponent,
     NewrequisitioninitiateComponent,
+    //test sc cr
+    NewscrequisitioninitiateComponent,
+    NewscrequisitiondetailsComponent,
+    NewscrequisitionComponent,
     NewrequisitiondetailsComponent,
     NewrequisitionComponent,
     RequisitiondetailsFormComponent,
