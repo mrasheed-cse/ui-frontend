@@ -9,7 +9,7 @@
             </button>
            
             
-            <button type="button" style="float: right;" class="btn btn-link" ><i class="fa fa-link"></i><a [routerLink]="[ '/nsa/newrequisitioninitiation' ]"> Create New Requisition </a></button>
+            <button type="button" style="float: right;" class="btn btn-link" ><i class="fa fa-link"></i><a [routerLink]="[ '/nsa/newscrequisitioninitiation' ]"> Create New Requisition </a></button>
             
             </div>
       </div>
@@ -126,7 +126,7 @@
                   <th>Purpose Category</th>
                   <th>Expected Test Start Date</th>
                   <th>Expected Test Completion Date</th>
-                  <th>Usage Category</th>
+                  <th>Test Mobile Number</th>
                   <!--<th>Hop</th>-->
                   <th>Status</th>
                   <th>Details</th>
@@ -142,7 +142,7 @@
                               <td>{{aTask.purposeCategory}}</td>
                               <td>{{aTask.testStartDt}}</td>
                               <td>{{aTask.testCompletionDt}}</td>
-                              <td>{{aTask.usageCategory}}</td>
+                              <td>{{aTask.testMobileNumber}}</td>
                               <!--<td>{{aTask.hop}}</td>-->
                               <td style="text-align:center">
                                 {{aTask.rejectionRfiStatus}}

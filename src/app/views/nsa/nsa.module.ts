@@ -166,6 +166,8 @@ import{StockReport}  from'../SSM/Report/stockreport.component';
 
 import{RepPlanGenerate} from'../SSM/SimCardPlan Management/rep-plangenerate.component';
 import { RepPrePlanGenerate } from '../SSM/SimCardPlan Management/rep-pre-plangenerate.component';
+import { SCRequisitiondetailsFormComponent } from './screquisitiondetails-form/screquisitiondetails-form.component';
+import { SCRequisitionviewComponent } from './screquisitionview/screquisitionview.component';
 
 @NgModule({
   imports: [
@@ -310,7 +312,9 @@ import { RepPrePlanGenerate } from '../SSM/SimCardPlan Management/rep-pre-plange
     PrePlanGenerate,
     RepPrePlanGenerate,
     SearchVoucherHistory,
-    StockReport
+    StockReport,
+    SCRequisitiondetailsFormComponent,
+    SCRequisitionviewComponent
   ],
   providers:[DatePipe, LoginService, AuthGuard]})
 export class NsaModule { }

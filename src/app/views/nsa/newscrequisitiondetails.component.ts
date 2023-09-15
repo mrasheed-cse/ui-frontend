@@ -89,7 +89,7 @@ import {
   
         this.isLoading = true;
       //GetPendingTaskList
-      this.workFlowsService.LoadPersonalDetails(0,this.userID, this.requestedSimAtatus).subscribe(
+      this.workFlowsService.LoadPersonalScDetails(0,this.userID, this.requestedSimAtatus).subscribe(
           data => {
             if(data !=null){
               //console.log(data);
@@ -211,7 +211,7 @@ import {
   }
   
   viewAction(aTask){
-    return '../requisitionview/'.toString();
+    return '../screquisitionview/'.toString();
   }
   
   }
