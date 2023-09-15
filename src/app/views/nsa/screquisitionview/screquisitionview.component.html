@@ -1,0 +1,148 @@
+<div class="card">
+
+    <div class="card-header">
+        <strong>Employee Details</strong>
+    </div>	
+    <div class="card-body">			
+      <div class="row" >
+        <div class="col-md-12">
+          <table style="width:100%" border="1">        
+            <tr>
+              <td style="width:25%">Employee ID.</td>
+              <td style="width:25%;" bgcolor="#dcdcdc">{{requisition['employeeDetails']['employeeNo']}}</td>
+              <td style="width:25%">Mobile No.</td>
+              <td style="width:25%" bgcolor="#dcdcdc">{{requisition['employeeDetails']['mobileNumber']}}</td>
+            </tr>
+            <tr>
+              <td style="width:25%">Employee Name</td>
+              <td style="width:25%;" bgcolor="#dcdcdc">{{requisition['employeeDetails']['fullName']}}</td>
+              <td style="width:25%">Designation</td>
+              <td style="width:25%" bgcolor="#dcdcdc">{{requisition['employeeDetails']['designation']}}</td>
+            </tr>
+            <tr>
+              <td style="width:25%">Department</td>
+              <td style="width:25%;" bgcolor="#dcdcdc">{{requisition['employeeDetails']['departmentName']}}</td>
+              <td style="width:25%">Division</td>
+              <td style="width:25%" bgcolor="#dcdcdc">{{requisition['employeeDetails']['divisionName']}}</td>
+            </tr>
+            <tr>
+              <td style="width:25%">Email</td>
+              <td style="width:25%;" bgcolor="#dcdcdc">{{requisition['employeeDetails']['emailAddress']}}</td>
+              <td style="width:25%"></td>
+              <td style="width:25%" bgcolor="#dcdcdc"></td>
+            </tr>                
+          </table>						
+        </div>				
+      </div>
+    </div>
+  
+  </div>
+  
+  <br />
+  
+  <div class="card">
+  
+    <div class="card-header">
+        <strong>Requisition Details</strong>
+    </div>	
+    <div class="card-body">			
+      <div class="row" >
+        <div class="col-md-12">
+          <table style="width:100%" border="1">        
+            <tr>
+              <td style="width:25%">Requisition No</td>
+              <td style="width:25%;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['requisitionNo']}}</td>
+              <td style="width:25%">Date of requisition</td>
+              <td style="width:25%" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['requisitionDt']}}</td>
+            </tr>
+            <tr>
+              <td style="width:25%">Requisition Type</td>
+              <td style="width:25%;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['requisitionType']}}</td>
+              <td style="width:25%">Purpose Category</td>
+              <td style="width:25%" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['purposeCategory']}}</td>
+            </tr>
+            <tr>
+              <td style="width:25%">Purpose Details</td>
+              <td style="width:25%;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['purposeDetails']}}</td>
+              <td style="width:25%">Expected Test Start Date</td>
+              <td style="width:25%" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['testStartDt']}}</td>
+            </tr>
+            <tr>
+              <td style="width:25%">Expected Test End Date</td>
+              <td style="width:25%;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['testCompletionDt']}}</td>
+              <td style="width:25%">Location</td>
+              <td style="width:25%" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['locationDetails']}}</td>
+            </tr>
+            <tr>
+              <td style="width:25%">Usage Category</td>
+              <td style="width:75%;" colspan="3" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['usageCategory']}}</td>
+            </tr>                
+          </table>						
+        </div>				
+      </div>
+    </div>
+  
+  </div>
+  
+  <br />
+  
+  <div class="card">
+  
+    <div class="card-header">
+        <strong>Requisition Line Items</strong>
+    </div>	
+    <div class="card-body">			
+      <div class="row" >
+        <div class="col-md-12">
+          
+          <table class="table table-bordered table-sm">
+              <thead>
+                <tr>
+                  <th>Product</th>                        
+                  <th>Credit Limit</th>
+                  <th>Quantity</th>
+                  <th>Instruction</th>
+                  <th>IMSI Type</th>
+                  <th>Special Requirement</th>
+                </tr>
+              </thead>
+                                                                                       
+              <tbody>	
+                <tr *ngFor="let c of requisition['requisitionLines']">
+                  <td>{{ c.productName }}</td>
+                  <td>{{ c.creditLimit }}</td>
+                  <td>{{ c.quantity }}</td>
+                  <td>{{ c.activationInstruction }}</td>
+                  <td>{{ c.imsiTypeName }}</td>
+                  <td>
+                      {{ c.specialRequirement }}
+                      <span *ngIf="c.specialRequirementOther != null && c.specialRequirementOther != undefined && c.specialRequirementOther != ''"><br /></span>  
+                      <span *ngIf="c.specialRequirementOther != null && c.specialRequirementOther != undefined && c.specialRequirementOther != ''">{{c.specialRequirementOther}}</span>                              
+                  </td>                         
+                </tr>
+              </tbody>                      
+          </table>
+  
+        </div>				
+      </div>
+    </div>
+  
+  </div>
+  
+  <br />
+  
+  <div class="card">
+  
+      <div class="card-body">			
+  
+        <div class="row">
+          <div class="col-md-12">
+            <div *ngFor="let c of requisition_existing_comments">
+              {{c.userID}} commented on {{c.datePosted}} : {{c.comment}}
+            </div>
+          </div>
+        </div>
+  
+      </div>
+    
+    </div>

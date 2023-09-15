@@ -69,9 +69,9 @@ export class NewscrequisitionComponent implements OnInit {
     } //end of constructor
 
 
-    loadPendingList() {
+    loadPendingScList() {
         //GetPendingTaskList
-        this.workFlowsService.LoadRequisitionList(0, this.userID).subscribe(
+        this.workFlowsService.LoadScRequisitionList(0, this.userID).subscribe(
             data => {
                 if (data != null) {
                     console.log(data);
@@ -100,7 +100,7 @@ export class NewscrequisitionComponent implements OnInit {
         this.isLoading = true;
 
         setTimeout(() => {    //<<<---    using ()=> syntax
-            this.loadPendingList();
+            this.loadPendingScList();
         }, 5000);
 
 
@@ -190,7 +190,7 @@ export class NewscrequisitionComponent implements OnInit {
         if (aTask.hop == environment.ssmAssessmentHopMarker) {
             //router.navigate(['user', user.id, 'details']);
             //this.router.navigate(['/nsa/requisitiondetailsassesment/',aTask['id']]);
-            return '../requisitiondetailsassesment/'.toString();
+            return '../screquisitiondetailsassesment/'.toString();
         } else if (aTask.hop == environment.hodHopMarker) {
             //this.router.navigateByUrl('/nsa/requisitiondetailshod/' + aTask['id']);
             //this.router.navigate(['/nsa/requisitiondetailshod/',aTask['id']]);

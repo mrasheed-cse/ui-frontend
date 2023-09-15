@@ -38,15 +38,32 @@ export class IsmsworkflowsService {
 	  });
   }
 
-  // vaidation  API
-  validateMobileAPI(mobileNo: string,) : any {	
-	console.log(this.serverUrl + 'testscratchCard/validate', "mobileNo:"+ mobileNo);
-  return this.http.post(this.serverUrl + 'testscratchCard/validate', {
-	mobileNo: mobileNo
+  //Submit SC
+  CreateNewTestScRequest(wr_id: number,userGroup_id: number,userID: string,requisitionName: string, reqHeader: any) : any {	
+	console.log("(this.serverUrl + 'testscratchcard/save', {userID:"+ userID+",	userGroupID: "+userGroup_id+", wrID: "+wr_id+",	requisitionName: "+requisitionName+",reqHeader: "+reqHeader+"	})");
+  return this.http.post(this.serverUrl + 'testscratchcard/save', {
+	  userID: userID,
+		  userGroupID: userGroup_id, 	
+		  wrID: wr_id,
+		  requisitionName: requisitionName,
+		  reqHeader: reqHeader
 	  });
   }
 
+  // vaidation  API
+  validateMobileAPI(mobileNo: string,) : any {	
+	console.log(this.serverUrl + 'testscratchCard/validate', "mobileNo:"+ mobileNo);
+  return this.http.post(this.serverUrl + 'testscratchCard/validate',mobileNo);
+  }
+
 	findRequisitionDetails(id:number) : any{
+		return this.http.post(this.serverUrl+ 'requisition/find',{
+			requisitionId: id
+		});
+	}
+
+	//find Sc req 
+	findScRequisitionDetails(id:number) : any{
 		return this.http.post(this.serverUrl+ 'requisition/find',{
 			requisitionId: id
 		});
@@ -77,7 +94,7 @@ export class IsmsworkflowsService {
 
 
 	approveOrRejectRequest(wr_id: number,status: string,userID: string, comment: string) : any{
-		return this.http.post(this.serverUrl+ 'requisition/update',{
+		return this.http.post(this.serverUrl+ 'testscratchcard/update',{
 			userID: userID,
 			wrID: wr_id,
 			status: status,

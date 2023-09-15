@@ -38,6 +38,7 @@ export class AppGlobals {
 	readonly wrid_ApnCreation: number = 6;
 	readonly wrid_DescProvisioning: number = 7;
 	readonly wrid_NewSimRequision: number = 8;
+	readonly wrid_NewScRequision: number = 18;
 	readonly wrid_NewSimActivation: number = 9;
 	readonly wrid_testSimTimeLimitExtension: number = 10;
 	readonly wrid_testSimCreditLimitExtension: number = 11;
