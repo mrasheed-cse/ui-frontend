@@ -71,6 +71,15 @@ export class WorkflowsService {
 		});
 	}
 
+	//load pending sc
+	LoadScRequisitionList(wr_id: number, user_id: string) : any {
+		return this.http.post(this.serverUrl + 'testscratchcard/search', {
+			createdBy: user_id,
+			requisitionNo: wr_id,
+			status: this.statusMarker
+		});
+	}
+
 	LoadPersonalDetails(wr_id: number, user_id: string, status: string) : any {
 		//console.log( "status : "+status);
 		return this.http.post(this.serverUrl + 'workflow/personalrequests', {
