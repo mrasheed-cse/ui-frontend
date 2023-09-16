@@ -39,6 +39,7 @@ export class NewscrequisitioninitiateComponent implements OnInit {
   lastkeydown1: number = 0;
   finalListOfUsersToSendWithRqn: Array<any>;
   testMobileNumber: string;
+  vaildmobile: boolean = false;
 
   employeeID: string;
   employeeName: string;
@@ -79,7 +80,7 @@ export class NewscrequisitioninitiateComponent implements OnInit {
   requisitionType: FormControl;
   requisitionDate: FormControl;
   requisitionLines: FormArray;
-  cardExpiry:FormControl;
+  cardExpiry: FormControl;
 
   formFieldData: string;
 
@@ -178,11 +179,30 @@ export class NewscrequisitioninitiateComponent implements OnInit {
     );
   }
 
+  // getProduct(){ 
+  //   this.definitionDataService.getDenoMination((this._global.masterData_ProductName)).subscribe(
+  //     data => {
+  //           //console.log(data);
+  //           for (let index in data) {
+  //             this.listProduct.push(
+  //             {
+  //               id:data[index].id,
+  //               groupName: data[index].groupName,
+  //             }
+  //             );
+  //           }
+  //           this.getUsersList();
+  //         },
+  //       err => console.error(err),
+  //       () => console.log('done loading Product Name List')
+  //       );
+  //       }
+
 
   getProduct() {
     //GetProducts
 
-    this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_ProductName).subscribe(
+    this.definitionDataService.getDenoMination().subscribe(
       data => {
         //console.log(data);
         for (let index in data) {
@@ -190,7 +210,7 @@ export class NewscrequisitioninitiateComponent implements OnInit {
           this.listProduct.push(
             {
               id: data[index].id,
-              ismsMasterDataDetailsName: data[index].ismsMasterDataDetailsName
+              ismsMasterDataDetailsName: data[index].groupName
             }
           );
         }
@@ -377,7 +397,7 @@ export class NewscrequisitioninitiateComponent implements OnInit {
       new FormGroup({
         product: new FormControl('', Validators.required),
         quantity: new FormControl(0),
-        cardExpiry: new FormControl('1234', Validators.required),
+        cardExpiry: new FormControl('', Validators.required),
       })]);
   }
 
@@ -485,7 +505,7 @@ export class NewscrequisitioninitiateComponent implements OnInit {
     for (var i = 0; i < this.requisitionLines.length; i++) {
       var quantity = 0;
 
-      var cardExpiry=this.FormatTheDate('') ;
+      var cardExpiry = this.FormatTheDate('');
 
       /////////// ///////////////// ///////////////// ////////////////
 
@@ -527,7 +547,7 @@ export class NewscrequisitioninitiateComponent implements OnInit {
   // FORM SUBMISSION
   onNewScRequisitionSubmit() {
 
-    //console.log("this.defFlowFound is "+this.defFlowFound);
+    console.log("this.defFlowFound is ",this.newScRequisitionForm);
     if (this.newScRequisitionForm.valid) {
 
       /////////////////////////////////////////// //////////////////////////////////
@@ -646,22 +666,31 @@ export class NewscrequisitioninitiateComponent implements OnInit {
     console.log("hello", this.testMobileNumber)
     this.isLoading = true;
     if (this.testMobileNumber) {
+      if (this.testMobileNumber.length === 11) {
+        this.ismsworkflowsService.validateMobileAPI(this.testMobileNumber).subscribe(
+          res => {
+            if (res == null || res.message == "Invalid") {
+              this.infoAlertShow = true
+              this.infoAlertMessage = "Input number is Invalid"
+              this.vaildmobile = true;
+            } else {
+              this.vaildmobile = true;
+              this.infoAlertShow = false;
+              this.infoAlertMessage = "Input number is Valid";
+            }
 
-      this.ismsworkflowsService.validateMobileAPI(this.testMobileNumber).subscribe(
-        res => {
-          if (res == null || res.message == "Invalid") {
-            this.infoAlertShow = true
-            this.infoAlertMessage = "Input number is Invalid"
-
-          } else {
-            this.infoAlertShow = false
+          },
+          err => {
+            console.log(err)
           }
+        );
+      }
+      else {
+        this.infoAlertShow = true
+        this.infoAlertMessage = "Enter 11 Digit Number."
+        this.vaildmobile = false;      
 
-        },
-        err => {
-          console.log(err)
-        }
-      );
+      }
     }
     this.isLoading = false;
 
@@ -675,7 +704,4 @@ export class NewscrequisitioninitiateComponent implements OnInit {
     //console.log(event);
     this.router.navigateByUrl('/nsa/newscrequisition');
   }
-
-
-
 }
