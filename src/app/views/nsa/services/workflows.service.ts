@@ -72,6 +72,16 @@ export class WorkflowsService {
 			status: status
 		});
 	}
+
+	//sc details
+	LoadPersonalScDetails(wr_id: number, user_id: string, status: string) : any {
+		//console.log( "status : "+status);
+		return this.http.post(this.serverUrl + 'testscratchcard/personalrequests', {
+			createdBy: user_id,
+			requisitionNo: wr_id,
+			status: status
+		});
+	}
 	
 	
 	//PreviousHopsField/{wrID}/{wrBriefId}/{userGroup_id}/{current_hop_seq}

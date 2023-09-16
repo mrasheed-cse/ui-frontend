@@ -158,6 +158,11 @@ export class DefinitionDataService {
 		return this.http.post(this.serverUrl+'IsmsMasterDataDetails/'+masterDataItemID,{});
 	}
 
+	//product
+	getDenoMination(): any {	
+		return this.http.get(this.serverUrl + 'vouchergeneration/denomination/');
+	}
+
 	CreateNewMasterDataItem(newItem: String ){
 		return this.http.post(this.serverUrl+'CreateIsmsMasterDataItem/',{
 			ismsMasterDataItemName: newItem
