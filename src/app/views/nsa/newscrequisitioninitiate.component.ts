@@ -117,86 +117,59 @@ export class NewscrequisitioninitiateComponent implements OnInit {
                 ismsMasterDataDetailsName: data[index].ismsMasterDataDetailsName
 
               }
+            );
           }
-  
-          this.notificationTo.setValue("");
-      }
-  
-      deleteRecipient(listObj){
-          for(var i = 0; i < this.finalListOfUsersToSendWithRqn.length; i++){
-              if(this.finalListOfUsersToSendWithRqn[i]['userName'] == listObj['userName']){
-                  this.finalListOfUsersToSendWithRqn.splice( i, 1 );
-                  break;
-              }
-          }
-      }
-  
-    constructor(private router: Router,private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private definitionDataService: DefinitionDataService, private ismsworkflowsService: IsmsworkflowsService, private workFlowsService: WorkflowsService) {
-  
-              this.	headerDateData = {};
-  
-        // Get Current User Profile
-  
-        this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
-  
-        if (this.currentLoggedInUser) {
-          this.userName = this.currentLoggedInUser.userName
-                  this.groupID = this.currentLoggedInUser.groupID
-                  this.userID = this.currentLoggedInUser.userID
-          //console.log('Current user: ' + this.userName);
-  
+
         }
-        else {
-        //console.log('Current user not found');
-        this.router.navigate(['pages/login']);
-              }
-  
-              this.listSpecialRequirement = environment.dataSpecialRequirementTypes;
-  
-              this.definitionDataService.getEmployeeDetails(this.userID).subscribe(
-                  data => {
-                      const dataStr = JSON.stringify(data);
-                      var parsedString = JSON.parse(dataStr);
-                      this.employeeID = parsedString.employeeNo;
-                      this.employeeName = parsedString.userName;
-                      this.mobileNo = parsedString.mobileNumber;
-                      this.designation = parsedString.designation;
-                      this.department = parsedString.departmentName;
-                      this.division = parsedString.divisionName;
-                      this.emailAddress = parsedString.emailAddress;
-                      this.fullName = parsedString.fullName;
-                  },
-                  err => console.error(err),
-                  () => console.log('done loading Emplpoyee Details')
-  
-              );
-  
-      //GetWR_Name
-      /*
-      this.definitionDataService.GetWR_Name_forIsms(this._global.wrid_NewSimRequision).subscribe(
+
+        this.getPurposeCategory();
+      },
+      err => console.error(err),
+      () => console.log('done loading Provisioning Type Name List')
+    );
+  }
+
+  getPurposeCategory() {
+    //GetPurposeCategory
+
+    this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_PurposeType).subscribe(
       data => {
-          const dataStr = JSON.stringify(data);
-  
-          JSON.parse(dataStr, (key, value) => {
-            if (typeof value === 'string') {
-              this.WR_Name = value;
-              return value;
+        //console.log(data);
+        for (let index in data) {
+          if (!data[index].ismsMasterDataDetailsName.includes("IR")) {
+            //console.log (data[index]);
+            this.listPurposeCategory.push(
+              {
+                id: data[index].id,
+                ismsMasterDataDetailsName: data[index].ismsMasterDataDetailsName
+              }
+            );
+
+          }
+
+        }
+
+        this.getLocation();
+      },
+      err => console.error(err),
+      () => console.log('done loading Provisioning Type Name List')
+    );
+  }
+
+  getLocation() {
+    //GetLocation
+
+    this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_Location).subscribe(
+      data => {
+        //console.log(data);
+        for (let index in data) {
+          //console.log (data[index]);
+          this.listLocation.push(
+            {
+              id: data[index].id,
+              ismsMasterDataDetailsName: data[index].ismsMasterDataDetailsName
             }
-          });
-        },
-        err => console.error(err),
-        ()=> console.log('done loading Work Request Name')
-        );
-  */
-  
-          //Get Today Date
-          this.todayDate = new Date();
-        } //end of constructor
-  
-        ngOnInit() {
-                  this.isLoading = true;
-          this.createFormControls();
-          this.createForm();
+          );
         }
 
         this.getProduct();
@@ -241,53 +214,153 @@ export class NewscrequisitioninitiateComponent implements OnInit {
             }
           );
         }
-  
-        createForm() {
-          this.newSimRequisitionForm = new FormGroup({
-                      requisitionDate: this.requisitionDate,
-                      requisitionType: this.requisitionType,
-              purposeCategory: this.purposeCategory,
-              location: this.location,
-              usageCategory: this.usageCategory,
-              startDate: this.startDate,
-              endDate: this.endDate,
-              purposeDetails: this.purposeDetails,
-              notificationTo: this.notificationTo,
-              requisitionLines: this.requisitionLines
-                  });
-                  this.getRequisitionType();
+
+        this.getUsersList();
+      },
+      err => console.error(err),
+      () => console.log('done loading Product Name List')
+    );
+  }
+
+  getUsersList() {
+    this.finalListOfUsersToSendWithRqn = [];
+
+    this.workFlowsService.getUserList().subscribe(
+      data => {
+        Object.assign(this.userData, data);
+        this.getImsiType();
+      },
+      error => {
+        console.log("Something wrong here in getUsersList()");
+      });
+  }
+
+  getImsiType() {
+    //GetIMSI Type
+
+    this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_ImsiType).subscribe(
+      data => {
+        //console.log(data);
+        for (let index in data) {
+          //console.log (data[index]);
+          this.listImsiType.push(
+            {
+              id: data[index].id,
+              ismsMasterDataDetailsName: data[index].ismsMasterDataDetailsName
+            }
+          );
         }
-  
-      topFunction() {
-        document.body.scrollTop = 0; // For Safari
-        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+
+        this.isLoading = false;
+        this.purposeCategory.setValue(this.listPurposeCategory[0]['id']);
+        this.location.setValue(this.listLocation[0]['id']);
+        this.requisitionType.setValue(this.listRequisitionType[0]['id']);
+      },
+      err => console.error(err),
+      () => console.log('done loading IMSI Type Name List')
+    );
+  }
+
+
+  getUserIdsFirstWay($event) {
+
+    //console.log($event.target.value);
+
+    //let userId = (<HTMLInputElement>document.getElementById('userIdFirstWay')).value;
+
+    let userId = $event.target.value;
+
+    this.userList1 = [];
+
+    if (userId.length > 2) {
+      if ($event.timeStamp - this.lastkeydown1 > 200) {
+        this.userList1 = this.searchFromArray(this.userData, userId);
       }
-  
-  
-      get RequisitionLines(): FormArray {
-        return this.newSimRequisitionForm.get('requisitionLines') as FormArray;
+    }
+  }
+
+  searchFromArray(arr, regex) {
+    let matches = [], i;
+    for (i = 0; i < arr.length; i++) {
+      if (arr[i]['userName'].match(regex)) {
+        matches.push(arr[i]);
       }
-  
-  
-      addLine() {
-        //this.RequisitionLines.push(new FormControl());
-  
-        this.RequisitionLines.push(new FormGroup(
-          {
-            product: new FormControl('', Validators.required),
-            creditLimit: new FormControl(0),
-            quantity: new FormControl(0),
-            imsiType: new FormControl(''),
-                      specialRequirement: new FormControl('', Validators.required),
-                      specialRequirementOther: new FormControl(''),
-            assignProduct: new FormControl(0),
-            assignQuantity: new FormControl(0)
-              }
-        ));
-  
+    }
+    return matches;
+  };
+
+  addRecipient() {
+
+    if (this.notificationTo.value == null || this.notificationTo.value == undefined || this.notificationTo.value == "") return;
+
+    for (var i = 0; i < this.userData.length; i++) {
+      if (this.userData[i]['userName'] == this.notificationTo.value) {
+        this.finalListOfUsersToSendWithRqn.push(this.userData[i]);
+        break;
       }
-      deleteLine(index: number) {
-        this.requisitionLines.removeAt(index);
+    }
+
+    this.notificationTo.setValue("");
+  }
+
+  deleteRecipient(listObj) {
+    for (var i = 0; i < this.finalListOfUsersToSendWithRqn.length; i++) {
+      if (this.finalListOfUsersToSendWithRqn[i]['userName'] == listObj['userName']) {
+        this.finalListOfUsersToSendWithRqn.splice(i, 1);
+        break;
+      }
+    }
+  }
+
+  constructor(private router: Router, private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private definitionDataService: DefinitionDataService, private ismsworkflowsService: IsmsworkflowsService, private workFlowsService: WorkflowsService) {
+
+    this.headerDateData = {};
+
+    // Get Current User Profile
+
+    this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
+
+    if (this.currentLoggedInUser) {
+      this.userName = this.currentLoggedInUser.userName
+      this.groupID = this.currentLoggedInUser.groupID
+      this.userID = this.currentLoggedInUser.userID
+      //console.log('Current user: ' + this.userName);
+
+    }
+    else {
+      //console.log('Current user not found');
+      this.router.navigate(['pages/login']);
+    }
+
+    this.listSpecialRequirement = environment.dataSpecialRequirementTypes;
+
+    this.definitionDataService.getEmployeeDetails(this.userID).subscribe(
+      data => {
+        const dataStr = JSON.stringify(data);
+        var parsedString = JSON.parse(dataStr);
+        this.employeeID = parsedString.employeeNo;
+        this.fullName = parsedString.fullName;
+        this.mobileNo = parsedString.mobileNumber;
+        this.designation = parsedString.designation;
+        this.department = parsedString.departmentName;
+        this.division = parsedString.divisionName;
+        this.emailAddress = parsedString.emailAddress;
+      },
+      err => console.error(err),
+      () => console.log('done loading Emplpoyee Details')
+
+    );
+
+    //GetWR_Name
+    /*
+    this.definitionDataService.GetWR_Name_forIsms(this._global.wrid_NewSimRequision).subscribe(
+    data => {
+        const dataStr = JSON.stringify(data);
+ 
+        JSON.parse(dataStr, (key, value) => {
+          if (typeof value === 'string') {
+            this.WR_Name = value;
+            return value;
           }
         });
       },
@@ -527,184 +600,70 @@ export class NewscrequisitioninitiateComponent implements OnInit {
           if (i >= (this.finalListOfUsersToSendWithRqn.length - 1)) {
             //do nothing
           }
-  
-                  for(var i = 0; i < this.requisitionLines.length; i++){
-  
-                      var creditLimit = 0;
-                      var quantity = 0;
-  
-                      if(this.requisitionLines.controls[i]['value'] != null &&
-                      this.requisitionLines.controls[i]['value'] != undefined &&
-                      this.requisitionLines.controls[i]['value'] != "" &&
-                      this.requisitionLines.controls[i]['value']['creditLimit'] != null &&
-                      this.requisitionLines.controls[i]['value']['creditLimit'] != undefined &&
-                      this.requisitionLines.controls[i]['value']['creditLimit'] != ""){
-                          creditLimit = parseFloat(this.requisitionLines.controls[i]['value']['creditLimit']);
-                      }
-  
-                      if(creditLimit >= 0) { /* do nothing */ }
-                      else{
-                          validationMessage = "For line "+ (i+1) +" invalid credit limit amount given.";
-                          validationPassed = false;
-                      }
-  
-                      /////////// ///////////////// ///////////////// ////////////////
-  
-                      if(this.requisitionLines.controls[i]['value'] != null &&
-                      this.requisitionLines.controls[i]['value'] != undefined &&
-                      this.requisitionLines.controls[i]['value'] != "" &&
-                      this.requisitionLines.controls[i]['value']['quantity'] != null &&
-                      this.requisitionLines.controls[i]['value']['quantity'] != undefined &&
-                      this.requisitionLines.controls[i]['value']['quantity'] != ""){
-                          quantity = parseInt(this.requisitionLines.controls[i]['value']['quantity']);
-                      }
-  
-                      if(quantity > 0) { /* do nothing */ }
-                      else{
-                          validationMessage = "For line "+ (i+1) +" invalid quantity given.";
-                          validationPassed = false;
-                      }
-  
-                  }
-  
-                  if(!validationPassed){
-                      this.dangerAlertShow = true;
-                      this.dangerAlertMessage = validationMessage;
-                  }
-  
-                  return validationPassed;
-              }
-  
-  
-        // FORM SUBMISSION
-        onNewSimRequisitionSubmit() {
-  
-          //console.log("this.defFlowFound is "+this.defFlowFound);
-        if (this.newSimRequisitionForm.valid) {
-  
-          /////////////////////////////////////////// //////////////////////////////////
-              ///////////////////////// /////////////////////// //////////////////////////////////
-              this.topFunction();
-            this.isLoading = true;
-              console.log('Form Submitted!');
-  
-              const theReqDate = this.FormatTheDate(new Date());
-              const theStartDate = this.FormatTheDate(this.newSimRequisitionForm.get('startDate').value);
-              const theEndDate = this.FormatTheDate(this.newSimRequisitionForm.get('endDate').value);
-  
-                      console.log("log start");
-                      console.log(theReqDate);
-  
-                      if(!this.formValidation()) {
-                          this.isLoading = false;
-                          return;
-                      }
-  
-              ////////////////////////////////////////////////////////////////////
-              if(confirm("Are you sure you want to submit this requisition? Please review that all your data is correct.")){
-                //do nothing here
-              }
-              else{
-                this.isLoading = false;
-                return;
-              }
-              ////////////////////////////////////////////////////////////////////
-  
-                      this.headerDateData.requisitionDate = theReqDate;
-                      console.log(this.headerDateData);
-                      this.headerDateData.theStartDate = theStartDate;
-                      this.headerDateData.theEndDate = theEndDate;
-                      this.headerDateData.requisitionType = this.newSimRequisitionForm.get('requisitionType').value;
-                      this.headerDateData.purposeCategory = this.newSimRequisitionForm.get('purposeCategory').value;
-                      this.headerDateData.location = this.newSimRequisitionForm.get('location').value;
-                      this.headerDateData.usageCategory = this.newSimRequisitionForm.get('usageCategory').value;
-                      this.headerDateData.startDate = this.newSimRequisitionForm.get('startDate').value;
-                      this.headerDateData.endDate = this.newSimRequisitionForm.get('endDate').value;
-                      this.headerDateData.purposeDetails = this.newSimRequisitionForm.get('purposeDetails').value;
-                      this.headerDateData.notificationTo = "";
-  
-                      console.log("this.finalListOfUsersToSendWithRqn");
-                      console.log(this.finalListOfUsersToSendWithRqn);
-                      
-                      if(this.finalListOfUsersToSendWithRqn != null && this.finalListOfUsersToSendWithRqn.length > 0){
-                          for(var  i = 0; i < this.finalListOfUsersToSendWithRqn.length; i++){
-                              this.headerDateData.notificationTo += this.finalListOfUsersToSendWithRqn[i]['emailAddress'];
-                              if(i >= (this.finalListOfUsersToSendWithRqn.length - 1)){
-                                  //do nothing
-                              }
-                              else this.headerDateData.notificationTo += ",";
-                          }
-                      }
-  console.log(this.headerDateData.notificationTo);
-                      this.headerDateData.requisitionLines = this.newSimRequisitionForm.get('requisitionLines').value;
-  
-                      for(var i = 0; i < this.headerDateData.requisitionLines.length; i++){
-                          if(this.headerDateData.requisitionLines[i]['imsiType'] == null ||
-                              this.headerDateData.requisitionLines[i]['imsiType'] == undefined ||
-                              this.headerDateData.requisitionLines[i]['imsiType'] == "")
-                              {
-                                  this.headerDateData.requisitionLines[i]['imsiType'] = "0";
-                              }
-                      }
-  
-                      let resource = (this.headerDateData);
-                      console.log(resource);
-                      console.log('Add Button clicked: ' + resource);
-  
-  
-                      this.ismsworkflowsService.CreateNewTestSimRequest(this._global.wrid_NewSimRequision, this.groupID,this.userID,this.WR_Name,resource).subscribe(
-                          res  =>  {
-                              console.log('response is : '+res.message);
-  
-                              if(res !== ""){
-                                  this.newSimRequisitionForm.reset();
-                                  this.successAlertShow = true;
-                                  /*if(this.groupID == this._global.groupID_SSM){
-                                      this.successAlertMessage = "Requisition no "+ res.message +" has been submitted successfully and forwarded to CLC for approval.";
-                                  }
-                                  else{
-                                  */
-                                      this.successAlertMessage = "Requisition no "+ res.message +" has been submitted successfully and forwarded to SSM for approval.";
-                                  //}
-                                  alert(this.successAlertMessage);
-                                  setTimeout(()=>{
-                      this.isLoading = false;
-                                      this.router.navigate(['nsa/newrequisitiondetails']);
-                                   }, 4000);
-                              }
-                                  },
-                                  err  =>  {
-                                      this.isLoading = false;
-                                  console.log("err.status : "+err.status);
-                                  this.dangerAlertShow = true;
-                              this.dangerAlertMessage = " .";
-                                  }
-  
-                                  );
-  
-              /////////////////// //////////////// /////////////// ///////////////////////////////
-          }
-          ///////////////// //////////////////////////// ///////////////////////////////
-  
+          else this.headerDateData.notificationTo += ",";
+        }
       }
-  
-  
-  FormatTheDate(selectedrequisitionDate:any):string {
-  
-      console.log("selectedrequisitionDate : "+selectedrequisitionDate);
-      /*	var date = new Date(selectedrequisitionDate);
-      var month = ("0" + (date.getMonth()+1)).slice(-2);
-      var day  = ("0" + date.getDate()).slice(-2);
-          var formattedDate=[day,month,date.getFullYear()].join("-");*/
-          const date = moment(selectedrequisitionDate);
-          //console.log('jhhhhhhhhhhhhhhhhhhhhhhhhhh'+date);
-          const formattedDate = moment(date).format('DD-MM-YYYY');
-        //console.log("formattedDate : "+formattedDate);
-        return formattedDate;
-  
+      console.log(this.headerDateData.notificationTo);
+      this.headerDateData.requisitionLines = this.newScRequisitionForm.get('requisitionLines').value;
+
+      let resource = (this.headerDateData);
+      console.log(resource);
+      console.log('Add Button clicked: ' + resource);
+
+
+      this.ismsworkflowsService.CreateNewTestScRequest(this._global.wrid_NewScRequision, this.groupID, this.userID, this.WR_Name, resource).subscribe(
+        res => {
+          console.log('response is : ' + res.message);
+
+          if (res !== "") {
+            this.newScRequisitionForm.reset();
+            this.successAlertShow = true;
+            /*if(this.groupID == this._global.groupID_SSM){
+                this.successAlertMessage = "Requisition no "+ res.message +" has been submitted successfully and forwarded to CLC for approval.";
+            }
+            else{
+            */
+            this.successAlertMessage = "Requisition no " + res.message + " has been submitted successfully and forwarded to SSM for approval.";
+            //}
+            alert(this.successAlertMessage);
+            setTimeout(() => {
+              this.isLoading = false;
+              this.router.navigate(['nsa/newscrequisitiondetails']);
+            }, 4000);
+          }
+        },
+        err => {
+          this.isLoading = false;
+          console.log("err.status : " + err.status);
+          this.dangerAlertShow = true;
+          this.dangerAlertMessage = " .";
+        }
+
+      );
+
+      /////////////////// //////////////// /////////////// ///////////////////////////////
+    }
+    ///////////////// //////////////////////////// ///////////////////////////////
+
   }
-  ValidateNumber(event:any){
-    console.log("hello",this.testMobileNumber)
+
+
+  FormatTheDate(selectedrequisitionDate: any): string {
+
+    console.log("selectedrequisitionDate : " + selectedrequisitionDate);
+    /*	var date = new Date(selectedrequisitionDate);
+    var month = ("0" + (date.getMonth()+1)).slice(-2);
+    var day  = ("0" + date.getDate()).slice(-2);
+        var formattedDate=[day,month,date.getFullYear()].join("-");*/
+    const date = moment(selectedrequisitionDate);
+    //console.log('jhhhhhhhhhhhhhhhhhhhhhhhhhh'+date);
+    const formattedDate = moment(date).format('DD-MM-YYYY');
+    //console.log("formattedDate : "+formattedDate);
+    return formattedDate;
+
+  }
+  ValidateNumber(event: any) {
+    console.log("hello", this.testMobileNumber)
     this.isLoading = true;
     if (this.testMobileNumber) {
       if (this.testMobileNumber.length === 11) {
@@ -735,19 +694,11 @@ export class NewscrequisitioninitiateComponent implements OnInit {
     }
     this.isLoading = false;
 
-   
+
   }
-  
-  clearForm(event: any){
-          window.location.reload();
-      }
-   backButton(event: any){
-          //console.log(event);
-          this.router.navigateByUrl('/nsa/newscrequisition');
-      }
-  
-  
-  
+
+  clearForm(event: any) {
+    window.location.reload();
   }
   backButton(event: any) {
     //console.log(event);

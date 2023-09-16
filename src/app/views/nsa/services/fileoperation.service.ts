@@ -40,6 +40,8 @@ export class FileoperationService {
 	  var result = this.http.post(this.serverUrl +'NsaFileUpload/', fd);
 		return result;
 	 }
+
+	 
 	 uploadMultipleCSV(fd: FormData): any{
 		console.log("In uploadMultipleCSV");
 		console.log(this.serverUrl +'DeProvisionMultipleBatchFileUpload');

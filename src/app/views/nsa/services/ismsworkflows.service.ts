@@ -37,6 +37,18 @@ export class IsmsworkflowsService {
 		  reqHeader: reqHeader
 	  });
   }
+  
+  CreateNewTestScRequest(wr_id: number,userGroup_id: number,userID: string,requisitionName: string, reqHeader: any) : any {	
+	console.log("(this.serverUrl + 'requisition/save', {userID:"+ userID+",	userGroupID: "+userGroup_id+", wrID: "+wr_id+",	requisitionName: "+requisitionName+",reqHeader: "+reqHeader+"	})");
+  return this.http.post(this.serverUrl + 'testscratchcard/save', {
+	  userID: userID,
+		  userGroupID: userGroup_id, 	
+		  wrID: wr_id,
+		  requisitionName: requisitionName,
+		  reqHeader: reqHeader
+	  });
+  } 
+
 
   // vaidation  API
   validateMobileAPI(mobileNo: string,) : any {	

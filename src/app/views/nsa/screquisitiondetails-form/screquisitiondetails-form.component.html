@@ -109,6 +109,16 @@
                       <tr *ngFor="let c of requisition['requisitionLines']">
                           <td>{{ c.productName }}</td>
                           <td>{{ c.quantity }}</td>
+                          <td></td>
+                          <!-- <td><input type="file" id="scFile" name="scFile"
+
+                            class="form-control" formControlName="scFile" required [ngClass]="{
+
+                      'is-invalid': scFile.invalid && (scFile.dirty || scFile.touched),
+
+                      'is-valid': scFile.valid && (scFile.dirty || scFile.touched)
+
+                     }" (change)="onFileChange($event)"></td>> -->
                           <td>{{ c.activationInstruction }}</td>                       
                           <td>
                               <a style="color:red" (click) = "deleteRequisitionLine(c)"  class=""><i class="fa fa-ban"></i> Delete</a>
