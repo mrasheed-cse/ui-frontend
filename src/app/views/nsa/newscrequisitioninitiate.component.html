@@ -19,8 +19,8 @@
                         <div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">An Error occured to create
                                 <b>{{WR_Name}}</b> {{dangerAlertMessage}}
                         </div>
-                        <div class="alert alert-danger" role="alert" *ngIf="infoAlertShow"><b>{{infoAlertMessage}}</b>
-                        </div>
+                        <!-- <div class="alert alert-danger" role="alert" *ngIf="infoAlertShow"><b>{{infoAlertMessage}}</b>
+                        </div> -->
 
                         <div class="card-header">
                                 <strong>Employee Details</strong>
@@ -73,8 +73,9 @@
                                 <strong>Requisition Header</strong>
                         </div>
 
-                        <div class="alert alert-danger" role="alert" *ngIf="infoAlertShow"><b>{{infoAlertMessage}}</b>
-                        </div>
+                        <!-- <div class="alert alert-danger" role="alert" *ngIf="infoAlertShow"><b>{{infoAlertMessage}}</b>
+                        </div> -->
+                        
 
                         <form [formGroup]="newScRequisitionForm" novalidate (ngSubmit)="onNewScRequisitionSubmit()">
                                 <div class="card-body">
@@ -237,23 +238,24 @@
                                                                         <input type="text" class="form-control"
                                                                                 placeholder="01711081515"
                                                                                 [(ngModel)]="testMobileNumber"
-                                                                                [ngModelOptions]="{standalone: true}"
-                                                                                (keyup.enter)="ValidateNumber($event)">
+                                                                                [ngModelOptions]="{standalone: true}" 
+                                                                                required>
 
 
-                                                                        <button class="form-control"
+                                                                        <button
                                                                                 style="background-color: #0091d2;
                                                                         color: white;
                                                                         font-size: 1.3em; width: 100px; max-height: 35px;"
                                                                                 (click)="ValidateNumber($event)">Validate</button>
                                                                 </div>
+                                                                <div class="alert" role="alert" *ngIf="infoAlertShow"><b>{{infoAlertMessage}}</b>
+                                                                </div>
 
-                                                                <div class="invalid-feedback"
+                                                                <!-- <div class="invalid-feedback"
                                                                         *ngIf="purposeCategory.errors && (purposeCategory.dirty || purposeCategory.touched)">
                                                                         <p *ngIf="purposeCategory.errors.required">
-                                                                                Purpose
-                                                                                Category required</p>
-                                                                </div>
+                                                                                Mobile Number required</p>
+                                                                </div> -->
                                                         </div>
                                                 </div>
 
@@ -442,7 +444,7 @@
                                 </div>
                                 <!-- <div class="card-body"> -->
                                 <div class="card-footer text-right">
-                                        <button type="submit" [disabled]="!newScRequisitionForm.valid"
+                                        <button type="submit" [disabled]="!newScRequisitionForm.valid || !vaildmobile"
                                                 class="btn btn-sm btn-primary">
                                                 <i class="fa fa-dot-circle-o"></i> Submit</button>
                                         <button type="reset" class="btn btn-sm btn-danger" (click)="clearForm($event)">

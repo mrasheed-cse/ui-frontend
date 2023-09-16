@@ -41,7 +41,7 @@ export class SCRequisitiondetailsFormComponent implements OnInit {
     }
 
    this.requisitionId = parseInt(this.route.snapshot.paramMap.get('requisition_id'));
-    this.ismsworkflowsService.findRequisitionDetails(this.requisitionId).subscribe(
+    this.ismsworkflowsService.findScRequisitionDetails(this.requisitionId).subscribe(
       res  =>  {
         console.log('response is : '+res.message);
         if(res !== ""){

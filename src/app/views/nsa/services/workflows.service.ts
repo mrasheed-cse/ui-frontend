@@ -85,7 +85,7 @@ export class WorkflowsService {
 	//sc details
 	LoadPersonalScDetails(wr_id: number, user_id: string, status: string) : any {
 		//console.log( "status : "+status);
-		return this.http.post(this.serverUrl + 'workflow/personalrequests', {
+		return this.http.post(this.serverUrl + 'testscratchcard/personalrequests', {
 			createdBy: user_id,
 			requisitionNo: wr_id,
 			status: status

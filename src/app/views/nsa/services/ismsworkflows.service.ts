@@ -64,7 +64,7 @@ export class IsmsworkflowsService {
 
 	//find Sc req 
 	findScRequisitionDetails(id:number) : any{
-		return this.http.post(this.serverUrl+ 'requisition/find',{
+		return this.http.post(this.serverUrl+ 'testscratchcard/find',{
 			requisitionId: id
 		});
 	}
