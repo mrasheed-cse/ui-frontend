@@ -7,11 +7,13 @@ import { IsmsworkflowsService } from '../services/ismsworkflows.service';
 
 import { LoginService } from '../../pages/LoginService';
 import { LoggedInUser } from '../../pages/loggedInUser';
+import { FileoperationService } from '../services/fileoperation.service';
+
 
 @Component({
   selector: 'app-screquisitiondetails-form',
   templateUrl: './screquisitiondetails-form.component.html',
-	providers: [AppGlobals,LoginService,IsmsworkflowsService]
+	providers: [AppGlobals,LoginService,IsmsworkflowsService,FileoperationService]
 })
 export class SCRequisitiondetailsFormComponent implements OnInit {
 
@@ -25,8 +27,11 @@ export class SCRequisitiondetailsFormComponent implements OnInit {
 	groupID: number;
   userID: string;
   requisition_comments: string;
+  public isLoading: boolean = false;
+  selectedFile: File = null; 
 
-  constructor(private route:ActivatedRoute,private router: Router,private loginService: LoginService, private http: HttpClient, private _global: AppGlobals,private ismsworkflowsService: IsmsworkflowsService) {
+
+  constructor(private route:ActivatedRoute,private router: Router,private loginService: LoginService, private http: HttpClient, private _global: AppGlobals,private ismsworkflowsService: IsmsworkflowsService,private fileoperationService: FileoperationService) {
 
     this.requisition_comments = "";
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
@@ -80,6 +85,35 @@ export class SCRequisitiondetailsFormComponent implements OnInit {
     );
 
   }
+
+  // onFileChange(event){
+  //   this.isLoading = true;
+  //   this.selectedFile = <File>event.target.files[0];
+  //   const fd = new FormData();
+	// 	// fd.append('sc-file', this.selectedFile, this.fileName + ".csv");
+  //   var result = this.fileoperationService.uploadCSV(fd);
+	// 	result.subscribe(
+	// 		res => {
+	// 			let index = res.message.lastIndexOf(":");
+	// 			let file = res.message.substring(index);
+	// 			this.workFlowsService.checkFileValidity(this.fileName + ".csv").subscribe(
+	// 				response => {
+	// 					let res = response.message.split(",");
+	// 					if (res[0].trim() === "Valid") {
+	// 						this.infoAlertShow = false;
+	// 						this.isLoading = false;
+	// 						this.mySeriesDefinitionForm.get('quantity').setValue(res[1]);
+	// 					}
+	// 					else {
+	// 						this.infoAlertShow = true;
+	// 						this.infoAlertMessage = "All or some numbers in " + this.selectedFile.name + " already have Definition Work Request";
+	// 						this.isLoading = false;
+	// 					}
+	// 				});
+	// 		}
+	// 	);
+
+  // }
 
 
   approve(){
