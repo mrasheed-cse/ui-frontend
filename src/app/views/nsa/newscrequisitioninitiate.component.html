@@ -1,12 +1,26 @@
 <div class="row">
-	<div class="col-md-12">
-		<div class="card">
-			<div style="text-align: center">
-        		<div class="div_cust_loading_sign" *ngIf="isLoading"> <div style="position:fixed;width:100%;height:100%;left:0px;top:0px;z-index:50000;background-color:#536c79;opacity:0.95"></div> <div style="position:fixed;width:100%;height:100%;left:0px;top:0px;z-index:60000"><div style="width:25%;height:25%;margin:0px auto;margin-top:20%"><i class="fa fa-spinner fa-pulse fa-4x fa-fw" ></i></div></div> </div>
-          </div>
-        <div class="alert alert-success" role="alert" *ngIf="successAlertShow">The New Work Request <b>{{WR_Name}}</b> {{successAlertMessage}}</div>
-	<div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">An Error occured to create <b>{{WR_Name}}</b> {{dangerAlertMessage}}</div>
-        <div class="alert alert-danger" role="alert" *ngIf="infoAlertShow"><b>{{infoAlertMessage}}</b></div>
+        <div class="col-md-12">
+                <div class="card">
+                        <div style="text-align: center">
+                                <div class="div_cust_loading_sign" *ngIf="isLoading">
+                                        <div
+                                                style="position:fixed;width:100%;height:100%;left:0px;top:0px;z-index:50000;background-color:#536c79;opacity:0.95">
+                                        </div>
+                                        <div
+                                                style="position:fixed;width:100%;height:100%;left:0px;top:0px;z-index:60000">
+                                                <div style="width:25%;height:25%;margin:0px auto;margin-top:20%"><i
+                                                                class="fa fa-spinner fa-pulse fa-4x fa-fw"></i></div>
+                                        </div>
+                                </div>
+                        </div>
+                        <div class="alert alert-success" role="alert" *ngIf="successAlertShow">The New Work Request
+                                <b>{{WR_Name}}</b> {{successAlertMessage}}
+                        </div>
+                        <div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">An Error occured to create
+                                <b>{{WR_Name}}</b> {{dangerAlertMessage}}
+                        </div>
+                        <!-- <div class="alert alert-danger" role="alert" *ngIf="infoAlertShow"><b>{{infoAlertMessage}}</b>
+                        </div> -->
 
 	<div class="card-header">
 	        <strong>Employee Details</strong>
@@ -52,7 +66,9 @@
                         <strong>Requisition Header</strong>
                 </div>
 
-                <div class="alert alert-danger" role="alert" *ngIf="infoAlertShow"><b>{{infoAlertMessage}}</b></div>
+                        <!-- <div class="alert alert-danger" role="alert" *ngIf="infoAlertShow"><b>{{infoAlertMessage}}</b>
+                        </div> -->
+                        
 
                 <form [formGroup]="newSimRequisitionForm" novalidate (ngSubmit)="onNewSimRequisitionSubmit()">
                         <div class="card-body">
@@ -183,13 +199,16 @@
                                                                 <label class="col-md-5 col-form-label" for="testMobileNumber">Test mobile number</label>
                                                                 <div class="col-md-7" style="display: flex; justify-content: space-between;">
                                                                         <!-- <input class="form-control" type="text" placeholder="01711081515" id="testMobileNumber" formControlName="testMobileNumber" [(ngModel)]="testMobileNumber"style="width: 350px;" required /> -->
-                                                                       <!--  -->
-                                                                                <input type="text" class="form-control" placeholder="01711081515"
-                                                                                [(ngModel)]="testMobileNumber" [ngModelOptions]="{standalone: true}"
-                                                                                (keyup.enter)="ValidateNumber($event)" >
-                                                                       
-                                                                       
-                                                                       <button class="form-control" style="background-color: #0091d2;
+                                                                        <!--  -->
+                                                                        <input type="text" class="form-control"
+                                                                                placeholder="01711081515"
+                                                                                [(ngModel)]="testMobileNumber"
+                                                                                [ngModelOptions]="{standalone: true}" 
+                                                                                required>
+
+
+                                                                        <button
+                                                                                style="background-color: #0091d2;
                                                                         color: white;
                                                                         font-size: 1.3em; width: 100px; max-height: 35px;" (click)="ValidateNumber($event)">Validate</button>
                                                                 <!-- <select class="form-control" id="usageCategory" formControlName="usageCategory" required [ngClass]="{
@@ -199,9 +218,14 @@
                                                                         <option *ngFor="let ausageCategory of listUsageCategory" [value]="ausageCategory.id">{{ausageCategory.ismsMasterDataDetailsName}}</option>
                                                                 </select> -->
                                                         </div>
+                                                                <div class="alert" role="alert" *ngIf="infoAlertShow"><b>{{infoAlertMessage}}</b>
+                                                                </div>
 
-                                                        <div class="invalid-feedback" *ngIf="usageCategory.errors && (usageCategory.dirty || usageCategory.touched)">
-                                                                <p *ngIf="usageCategory.errors.required">Purpose Category required</p>
+                                                                <!-- <div class="invalid-feedback"
+                                                                        *ngIf="purposeCategory.errors && (purposeCategory.dirty || purposeCategory.touched)">
+                                                                        <p *ngIf="purposeCategory.errors.required">
+                                                                                Mobile Number required</p>
+                                                                </div> -->
                                                         </div>
                                                         </div>
                                                 </div>
@@ -358,14 +382,13 @@
                         </table>
 
                                 </div>
-                        </div>
-                        <!-- <div class="card-body"> -->
-                        <div class="card-footer text-right">
-                                <button type="submit" [disabled]="!newSimRequisitionForm.valid"
-                                 class="btn btn-sm btn-primary">
-                                        <i class="fa fa-dot-circle-o"></i> Submit</button>
-                                <button type="reset" class="btn btn-sm btn-danger"(click)="clearForm($event)">
-                                        <i class="fa fa-ban"></i> Reset</button>
+                                <!-- <div class="card-body"> -->
+                                <div class="card-footer text-right">
+                                        <button type="submit" [disabled]="!newScRequisitionForm.valid || !vaildmobile"
+                                                class="btn btn-sm btn-primary">
+                                                <i class="fa fa-dot-circle-o"></i> Submit</button>
+                                        <button type="reset" class="btn btn-sm btn-danger" (click)="clearForm($event)">
+                                                <i class="fa fa-ban"></i> Reset</button>
 
                         </div>
                         <!-- <div class="card-footer"> -->

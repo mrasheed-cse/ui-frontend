@@ -52,6 +52,13 @@ export class IsmsworkflowsService {
 		});
 	}
 
+	//find Sc req 
+	findScRequisitionDetails(id:number) : any{
+		return this.http.post(this.serverUrl+ 'testscratchcard/find',{
+			requisitionId: id
+		});
+	}
+
 	LostDamagedFind(sim_action_id:number) : any{
 		console.log(this.serverUrl+ 'LostDamaged/find'+sim_action_id);
 		return this.http.post(this.serverUrl+ 'LostDamaged/find',{
