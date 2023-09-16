@@ -33,68 +33,6 @@ import {NewrequisitioninitiateComponent} from './newrequisitioninitiate.componen
 import {NewscrequisitioninitiateComponent} from './newscrequisitioninitiate.component';
 import {NewscrequisitiondetailsComponent} from './newscrequisitiondetails.component';
 import {NewscrequisitionComponent} from './newscrequisition.component';
-
-import {NewrequisitiondetailsComponent} from './newrequisitiondetails.component';
-import {NewrequisitionComponent} from './newrequisition.component';
-import {RequisitiondetailsFormComponent} from './requisitiondetails-form/requisitiondetails-form.component';
-import {RequisitionassignComponent} from './requisitionassign/requisitionassign.component';
-import {RequisitiondetailshodComponent} from './requisitiondetailshod/requisitiondetailshod.component';
-import {RequisitiondetailsdeliveryComponent} from './requisitiondetailsdelivery/requisitiondetailsdelivery.component';
-import {RequisitioneditComponent} from './requisitionedit/requisitionedit.component';
-import {RequisitionviewComponent} from './requisitionview/requisitionview.component';
-import {NewsimactivationreqComponent} from './newsimactivationreq/newsimactivationreq.component';
-import {TestsimdashboardComponent} from './testsimdashboard/testsimdashboard.component';
-import {ActivationrequeststatusComponent} from './activationrequeststatus/activationrequeststatus.component';
-import {TestsimTransferSsmComponent} from './testsim-transfer-ssm/testsim-transfer-ssm.component';
-import {TestsimTransferHodComponent} from './testsim-transfer-hod/testsim-transfer-hod.component';
-import {TestsimTransferComponent} from './testsim-transfer/testsim-transfer.component';
-import {TestsimTimeextComponent} from './testsim-timeext/testsim-timeext.component';
-import {TestsimTimeextSsmComponent} from './testsim-timeext-ssm/testsim-timeext-ssm.component';
-import {TestsimTimeextHodComponent} from './testsim-timeext-hod/testsim-timeext-hod.component';
-import {TestsimCreditlimitextComponent} from './testsim-creditlimitext/testsim-creditlimitext.component';
-import {TestsimCreditlimitextSsmComponent} from './testsim-creditlimitext-ssm/testsim-creditlimitext-ssm.component';
-import {TestsimCreditlimitextHodComponent} from './testsim-creditlimitext-hod/testsim-creditlimitext-hod.component';
-import {TestsimRechargeComponent} from './testsim-recharge/testsim-recharge.component';
-import {TestsimRechargeSsmComponent} from './testsim-recharge-ssm/testsim-recharge-ssm.component';
-import {TestsimRechargeHodComponent} from './testsim-recharge-hod/testsim-recharge-hod.component';
-import {TestsimSurrenderComponent} from './testsim-surrender/testsim-surrender.component';
-import {TestsimSurrenderHodComponent} from './testsim-surrender-hod/testsim-surrender-hod.component';
-import {TestsimSurrenderSsmComponent} from './testsim-surrender-ssm/testsim-surrender-ssm.component';
-import {TestsimDamagedComponent} from './testsim-damaged/testsim-damaged.component';
-import {TestsimDamagedSsmComponent} from './testsim-damaged-ssm/testsim-damaged-ssm.component';
-import {TestsimDamagedHodComponent} from './testsim-damaged-hod/testsim-damaged-hod.component';
-import {TestsimLostComponent} from './testsim-lost/testsim-lost.component';
-import {TestsimLostSsmComponent} from './testsim-lost-ssm/testsim-lost-ssm.component';
-import {TestsimLostHodComponent} from './testsim-lost-hod/testsim-lost-hod.component';
-import {TestsimMysimsComponent} from './testsim-mysims/testsim-mysims.component';
-import {ActivationPendingregistrationsComponent} from './activation-pendingregistrations/activation-pendingregistrations.component';
-import {TestsimRequisitionhistoryreportComponent} from './testsim-requisitionhistoryreport/testsim-requisitionhistoryreport.component';
-import {TestsimMsisdnreportSsmComponent} from './testsim-msisdnreport-ssm/testsim-msisdnreport-ssm.component';
-import {TestsimMsisdnreportComponent} from './testsim-msisdnreport/testsim-msisdnreport.component';
-import {ActivationPendingapprovalsComponent} from './activation-pendingapprovals/activation-pendingapprovals.component';
-import {NewsimactivationreqDetailsComponent} from './newsimactivationreq-details/newsimactivationreq-details.component';
-import {TestsimCreditlimitextNewComponent} from './testsim-creditlimitext-new/testsim-creditlimitext-new.component';
-import {TestsimCreditLimitextExistingComponent} from './testsim-credit-limitext-existing/testsim-credit-limitext-existing.component';
-import {TestsimRechargeNewComponent} from './testsim-recharge-new/testsim-recharge-new.component';
-import {TestsimRechargeExistingComponent} from './testsim-recharge-existing/testsim-recharge-existing.component';
-import {TestsimDeactivationExistingComponent} from './testsim-deactivation-existing/testsim-deactivation-existing.component';
-import {TestsimDeactivationComponent} from './testsim-deactivation/testsim-deactivation.component';
-import {TestsimSurrenderNewComponent} from './testsim-surrender-new/testsim-surrender-new.component';
-import {TestsimSurrenderExistingComponent} from './testsim-surrender-existing/testsim-surrender-existing.component';
-import {TestsimLostdamagedNewComponent} from './testsim-lostdamaged-new/testsim-lostdamaged-new.component';
-import {TestsimLostdamagedExistingComponent} from './testsim-lostdamaged-existing/testsim-lostdamaged-existing.component';
-import {TestsimTransferNewComponent} from './testsim-transfer-new/testsim-transfer-new.component';
-import {TestsimTransferExistingComponent} from './testsim-transfer-existing/testsim-transfer-existing.component';
-import {TestsimMyOtherSimsComponent} from './testsim-my-other-sims/testsim-my-other-sims.component';
-import {TestSimActionListTimeExtComponent} from './test-sim-action-list-time-ext/test-sim-action-list-time-ext.component';
-import {TestSimActionListLimitExtComponent} from './test-sim-action-list-limit-ext/test-sim-action-list-limit-ext.component';
-import {TestSimActionListRechargeComponent} from './test-sim-action-list-recharge/test-sim-action-list-recharge.component';
-import {TestSimActionListDeactivateComponent} from './test-sim-action-list-deactivate/test-sim-action-list-deactivate.component';
-import {TestSimActionListSurrenderComponent} from './test-sim-action-list-surrender/test-sim-action-list-surrender.component';
-import {TestSimActionListLostComponent} from './test-sim-action-list-lost/test-sim-action-list-lost.component';
-import {TestSimActionListTransferComponent} from './test-sim-action-list-transfer/test-sim-action-list-transfer.component';
-import {TestSimActionListDamagedComponent} from './test-sim-action-list-damaged/test-sim-action-list-damaged.component';
-
 import { NewrequisitiondetailsComponent } from './newrequisitiondetails.component';
 import { NewrequisitionComponent } from './newrequisition.component';
 import { RequisitiondetailsFormComponent } from './requisitiondetails-form/requisitiondetails-form.component';
@@ -209,8 +147,6 @@ import { SearchVoucherHistory } from '../SSM/ScratchCard/search_voucher_history.
 import { StockReport } from '../SSM/Report/stockreport.component';
 import { SCRequisitiondetailsFormComponent } from './screquisitiondetails-form/screquisitiondetails-form.component';
 import { SCRequisitionviewComponent } from './screquisitionview/screquisitionview.component';
-import { SCRequisitionviewComponent } from './screquisitionview/screquisitionview.component';
-import { SCRequisitiondetailsFormComponent } from './screquisitiondetails-form/screquisitiondetails-form.component';
 
 
 const routes: Routes = [
@@ -1264,7 +1200,7 @@ const routes: Routes = [
     {
         path: '**',
         redirectTo: '/pages/404'
-    },
+    }
 ];
 
 @NgModule({

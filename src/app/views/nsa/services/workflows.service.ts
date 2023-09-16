@@ -62,14 +62,7 @@ export class WorkflowsService {
 			requisitionNo: wr_id,
 			status: this.statusMarker
 		});
-	}
-	LoadScRequisitionList(wr_id: number, user_id: string) : any {
-		return this.http.post(this.serverUrl + 'testscratchcard/search', {
-			createdBy: user_id,
-			requisitionNo: wr_id,
-			status: this.statusMarker
-		});
-	}
+	}	
 
 	//load pending sc
 	LoadScRequisitionList(wr_id: number, user_id: string) : any {
