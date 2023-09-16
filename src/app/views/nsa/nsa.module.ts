@@ -316,7 +316,9 @@ import { SCRequisitiondetailsFormComponent } from './screquisitiondetails-form/s
     PrePlanGenerate,
     RepPrePlanGenerate,
     SearchVoucherHistory,
-    StockReport
+    StockReport,
+    SCRequisitiondetailsFormComponent,
+    SCRequisitionviewComponent
   ],
   providers:[DatePipe, LoginService, AuthGuard]})
 export class NsaModule { }

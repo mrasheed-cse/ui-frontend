@@ -95,57 +95,120 @@ import {TestSimActionListLostComponent} from './test-sim-action-list-lost/test-s
 import {TestSimActionListTransferComponent} from './test-sim-action-list-transfer/test-sim-action-list-transfer.component';
 import {TestSimActionListDamagedComponent} from './test-sim-action-list-damaged/test-sim-action-list-damaged.component';
 
-import {TestSimRequisitionComponent} from './isms-reports/test-sim-requisition.component';
-import {TestSimActivationComponent} from './isms-reports/test-sim-activation.component';
-import {CreditLimitExtensionComponent} from './isms-reports/credit-limit-extension.component';
-import {TestSimRechargeComponent} from './isms-reports/test-sim-recharge.component';
-import {TestSimDeactivationComponent} from './isms-reports/test-sim-deactivation.component';
-import {TimeLimitChangeComponent} from './isms-reports/time-limit-change.component';
-import {TestSimSurrenderComponent} from './isms-reports/test-sim-surrender.component';
-import {DamageSimComponent} from './isms-reports/damage-sim.component';
-import {LostSimComponent} from './isms-reports/lost-sim.component';
-import {TestSimTransferComponent} from './isms-reports/test-sim-transfer.component';
-import {LostdamagedetailsdeliveryComponent} from './lostdamagedetailsdelivery/lostdamagedetailsdelivery.component';
-import {LostdamagenewsimconnectionComponent} from './lostdamagenewsimconnection/lostdamagenewsimconnection.component';
-import {UploadRecycleComponent} from "../recycle/uploadrecycle.component";
-import {GenerateanalyzeComponent} from "../recycle/generateanalyze.component";
-import {GenerateComponent} from "../recycle/generate.component";
+import { NewrequisitiondetailsComponent } from './newrequisitiondetails.component';
+import { NewrequisitionComponent } from './newrequisition.component';
+import { RequisitiondetailsFormComponent } from './requisitiondetails-form/requisitiondetails-form.component';
+import { RequisitionassignComponent } from './requisitionassign/requisitionassign.component';
+import { RequisitiondetailshodComponent } from './requisitiondetailshod/requisitiondetailshod.component';
+import { RequisitiondetailsdeliveryComponent } from './requisitiondetailsdelivery/requisitiondetailsdelivery.component';
+import { RequisitioneditComponent } from './requisitionedit/requisitionedit.component';
+import { RequisitionviewComponent } from './requisitionview/requisitionview.component';
+import { NewsimactivationreqComponent } from './newsimactivationreq/newsimactivationreq.component';
+import { TestsimdashboardComponent } from './testsimdashboard/testsimdashboard.component';
+import { ActivationrequeststatusComponent } from './activationrequeststatus/activationrequeststatus.component';
+import { TestsimTransferSsmComponent } from './testsim-transfer-ssm/testsim-transfer-ssm.component';
+import { TestsimTransferHodComponent } from './testsim-transfer-hod/testsim-transfer-hod.component';
+import { TestsimTransferComponent } from './testsim-transfer/testsim-transfer.component';
+import { TestsimTimeextComponent } from './testsim-timeext/testsim-timeext.component';
+import { TestsimTimeextSsmComponent } from './testsim-timeext-ssm/testsim-timeext-ssm.component';
+import { TestsimTimeextHodComponent } from './testsim-timeext-hod/testsim-timeext-hod.component';
+import { TestsimCreditlimitextComponent } from './testsim-creditlimitext/testsim-creditlimitext.component';
+import { TestsimCreditlimitextSsmComponent } from './testsim-creditlimitext-ssm/testsim-creditlimitext-ssm.component';
+import { TestsimCreditlimitextHodComponent } from './testsim-creditlimitext-hod/testsim-creditlimitext-hod.component';
+import { TestsimRechargeComponent } from './testsim-recharge/testsim-recharge.component';
+import { TestsimRechargeSsmComponent } from './testsim-recharge-ssm/testsim-recharge-ssm.component';
+import { TestsimRechargeHodComponent } from './testsim-recharge-hod/testsim-recharge-hod.component';
+import { TestsimSurrenderComponent } from './testsim-surrender/testsim-surrender.component';
+import { TestsimSurrenderHodComponent } from './testsim-surrender-hod/testsim-surrender-hod.component';
+import { TestsimSurrenderSsmComponent } from './testsim-surrender-ssm/testsim-surrender-ssm.component';
+import { TestsimDamagedComponent } from './testsim-damaged/testsim-damaged.component';
+import { TestsimDamagedSsmComponent } from './testsim-damaged-ssm/testsim-damaged-ssm.component';
+import { TestsimDamagedHodComponent } from './testsim-damaged-hod/testsim-damaged-hod.component';
+import { TestsimLostComponent } from './testsim-lost/testsim-lost.component';
+import { TestsimLostSsmComponent } from './testsim-lost-ssm/testsim-lost-ssm.component';
+import { TestsimLostHodComponent } from './testsim-lost-hod/testsim-lost-hod.component';
+import { TestsimMysimsComponent } from './testsim-mysims/testsim-mysims.component';
+import { ActivationPendingregistrationsComponent } from './activation-pendingregistrations/activation-pendingregistrations.component';
+import { TestsimRequisitionhistoryreportComponent } from './testsim-requisitionhistoryreport/testsim-requisitionhistoryreport.component';
+import { TestsimMsisdnreportSsmComponent } from './testsim-msisdnreport-ssm/testsim-msisdnreport-ssm.component';
+import { TestsimMsisdnreportComponent } from './testsim-msisdnreport/testsim-msisdnreport.component';
+import { ActivationPendingapprovalsComponent } from './activation-pendingapprovals/activation-pendingapprovals.component';
+import { NewsimactivationreqDetailsComponent } from './newsimactivationreq-details/newsimactivationreq-details.component';
+import { TestsimCreditlimitextNewComponent } from './testsim-creditlimitext-new/testsim-creditlimitext-new.component';
+import { TestsimCreditLimitextExistingComponent } from './testsim-credit-limitext-existing/testsim-credit-limitext-existing.component';
+import { TestsimRechargeNewComponent } from './testsim-recharge-new/testsim-recharge-new.component';
+import { TestsimRechargeExistingComponent } from './testsim-recharge-existing/testsim-recharge-existing.component';
+import { TestsimDeactivationExistingComponent } from './testsim-deactivation-existing/testsim-deactivation-existing.component';
+import { TestsimDeactivationComponent } from './testsim-deactivation/testsim-deactivation.component';
+import { TestsimSurrenderNewComponent } from './testsim-surrender-new/testsim-surrender-new.component';
+import { TestsimSurrenderExistingComponent } from './testsim-surrender-existing/testsim-surrender-existing.component';
+import { TestsimLostdamagedNewComponent } from './testsim-lostdamaged-new/testsim-lostdamaged-new.component';
+import { TestsimLostdamagedExistingComponent } from './testsim-lostdamaged-existing/testsim-lostdamaged-existing.component';
+import { TestsimTransferNewComponent } from './testsim-transfer-new/testsim-transfer-new.component';
+import { TestsimTransferExistingComponent } from './testsim-transfer-existing/testsim-transfer-existing.component';
+import { TestsimMyOtherSimsComponent } from './testsim-my-other-sims/testsim-my-other-sims.component';
+import { TestSimActionListTimeExtComponent } from './test-sim-action-list-time-ext/test-sim-action-list-time-ext.component';
+import { TestSimActionListLimitExtComponent } from './test-sim-action-list-limit-ext/test-sim-action-list-limit-ext.component';
+import { TestSimActionListRechargeComponent } from './test-sim-action-list-recharge/test-sim-action-list-recharge.component';
+import { TestSimActionListDeactivateComponent } from './test-sim-action-list-deactivate/test-sim-action-list-deactivate.component';
+import { TestSimActionListSurrenderComponent } from './test-sim-action-list-surrender/test-sim-action-list-surrender.component';
+import { TestSimActionListLostComponent } from './test-sim-action-list-lost/test-sim-action-list-lost.component';
+import { TestSimActionListTransferComponent } from './test-sim-action-list-transfer/test-sim-action-list-transfer.component';
+import { TestSimActionListDamagedComponent } from './test-sim-action-list-damaged/test-sim-action-list-damaged.component';
 
-import {AuthGuard} from './services/AuthGuard.service';
+import { TestSimRequisitionComponent } from './isms-reports/test-sim-requisition.component';
+import { TestSimActivationComponent } from './isms-reports/test-sim-activation.component';
+import { CreditLimitExtensionComponent } from './isms-reports/credit-limit-extension.component';
+import { TestSimRechargeComponent } from './isms-reports/test-sim-recharge.component';
+import { TestSimDeactivationComponent } from './isms-reports/test-sim-deactivation.component';
+import { TimeLimitChangeComponent } from './isms-reports/time-limit-change.component';
+import { TestSimSurrenderComponent } from './isms-reports/test-sim-surrender.component';
+import { DamageSimComponent } from './isms-reports/damage-sim.component';
+import { LostSimComponent } from './isms-reports/lost-sim.component';
+import { TestSimTransferComponent } from './isms-reports/test-sim-transfer.component';
+import { LostdamagedetailsdeliveryComponent } from './lostdamagedetailsdelivery/lostdamagedetailsdelivery.component';
+import { LostdamagenewsimconnectionComponent } from './lostdamagenewsimconnection/lostdamagenewsimconnection.component';
+import { UploadRecycleComponent } from "../recycle/uploadrecycle.component";
+import { GenerateanalyzeComponent } from "../recycle/generateanalyze.component";
+import { GenerateComponent } from "../recycle/generate.component";
+
+import { AuthGuard } from './services/AuthGuard.service';
 
 import { SearchPO } from '../SSM/search_po.component';
 import { InputFileProcessing } from '../SSM/inputfileprocessing.component';
-import{AucProcessor} from '../SSM/auc.component';
-import{SimAdmin} from '../SSM/sim_card_admin.component';
-import{PlanGenerate} from'../SSM/SimCardPlan Management/plangenerate.component';
-import{RepPlanGenerate} from'../SSM/SimCardPlan Management/rep-plangenerate.component';
-import{VoucherGeneration} from '../SSM/ScratchCard/voucher_generation.component';
-import{VoucherAdmin}  from '../SSM/ScratchCard/voucher_admin.component';
-import{VoucherManagementApproval} from '../SSM/ScratchCard/voucher_management_pending.component';
-import{VoucherGenerationForward} from '../SSM/ScratchCard/voucher_generation_forward_technology.component';
-import{VoucherManagementExsisting} from '../SSM/ScratchCard/voucher_management_exsisting.component';
-import{VoucherManagementActivationAndView} from '../SSM/ScratchCard/voucher_management_file_and_clc.component';
-import{SimConfiguration} from '../SSM/SimCardPlan Management/simconfiguration.component';
-import{SimPackaging} from '../SSM/SimCardPlan Management/simpackaging.compontent';
-import{ReturnAndReceive} from '../SSM/SimCardPlan Management/returnandreceive.component';
-import{BatchTesting} from '../SSM/SimCardPlan Management/batchtesting.component';
-import{PlanActivation} from '../SSM/SimCardPlan Management/planactivation.component';
+import { AucProcessor } from '../SSM/auc.component';
+import { SimAdmin } from '../SSM/sim_card_admin.component';
+import { PlanGenerate } from '../SSM/SimCardPlan Management/plangenerate.component';
+import { RepPlanGenerate } from '../SSM/SimCardPlan Management/rep-plangenerate.component';
+import { VoucherGeneration } from '../SSM/ScratchCard/voucher_generation.component';
+import { VoucherAdmin } from '../SSM/ScratchCard/voucher_admin.component';
+import { VoucherManagementApproval } from '../SSM/ScratchCard/voucher_management_pending.component';
+import { VoucherGenerationForward } from '../SSM/ScratchCard/voucher_generation_forward_technology.component';
+import { VoucherManagementExsisting } from '../SSM/ScratchCard/voucher_management_exsisting.component';
+import { VoucherManagementActivationAndView } from '../SSM/ScratchCard/voucher_management_file_and_clc.component';
+import { SimConfiguration } from '../SSM/SimCardPlan Management/simconfiguration.component';
+import { SimPackaging } from '../SSM/SimCardPlan Management/simpackaging.compontent';
+import { ReturnAndReceive } from '../SSM/SimCardPlan Management/returnandreceive.component';
+import { BatchTesting } from '../SSM/SimCardPlan Management/batchtesting.component';
+import { PlanActivation } from '../SSM/SimCardPlan Management/planactivation.component';
 //import{PlanGenerateApproval} from '../SSM/SimCardPlan Management/batchtesting_and_activation_approval.component';
-import{BatchTestingDone} from '../SSM/SimCardPlan Management/batchtestingdone.component';
-import{UploadDataWh} from '../SSM/DataWarehouse Management/uploaddata.component';
-import{ViewDatawarehouse} from '../SSM/DataWarehouse Management/showdatawarehouse.component';
+import { BatchTestingDone } from '../SSM/SimCardPlan Management/batchtestingdone.component';
+import { UploadDataWh } from '../SSM/DataWarehouse Management/uploaddata.component';
+import { ViewDatawarehouse } from '../SSM/DataWarehouse Management/showdatawarehouse.component';
 
-import{UploadForcast} from'../SSM/Report/uploadforcast.component';
-import{VoucherJourney} from '../SSM/ScratchCard/viewvoucher_journey.component';
-import{ViewProductReport} from'../SSM/Report/viewProductReport.component';
+import { UploadForcast } from '../SSM/Report/uploadforcast.component';
+import { VoucherJourney } from '../SSM/ScratchCard/viewvoucher_journey.component';
+import { ViewProductReport } from '../SSM/Report/viewProductReport.component';
 
 import { ReceivedQuantityManipulation } from '../SSM/SimCardPlan Management/received-quantity-manipulation.component';
-import{UnplannedSimManagement} from '../SSM/SimCardPlan Management/unpairedsimmanagement.component';
+import { UnplannedSimManagement } from '../SSM/SimCardPlan Management/unpairedsimmanagement.component';
 import { PrePlanGenerate } from '../SSM/SimCardPlan Management/pre-plangenerate.component';
 import { RepPrePlanGenerate } from '../SSM/SimCardPlan Management/rep-pre-plangenerate.component';
-import{SearchVoucherHistory} from '../SSM/ScratchCard/search_voucher_history.component';
+import { SearchVoucherHistory } from '../SSM/ScratchCard/search_voucher_history.component';
 
-import{StockReport}  from'../SSM/Report/stockreport.component';
+import { StockReport } from '../SSM/Report/stockreport.component';
+import { SCRequisitiondetailsFormComponent } from './screquisitiondetails-form/screquisitiondetails-form.component';
+import { SCRequisitionviewComponent } from './screquisitionview/screquisitionview.component';
 import { SCRequisitionviewComponent } from './screquisitionview/screquisitionview.component';
 import { SCRequisitiondetailsFormComponent } from './screquisitiondetails-form/screquisitiondetails-form.component';
 
@@ -453,6 +516,14 @@ const routes: Routes = [
     {
         path: 'screquisitiondetailsassesment/:requisition_id',
         component: RequisitiondetailsFormComponent,
+        data: {
+            title: 'Requisition Details (Assessment) - SSM User Group'
+        }
+    },
+
+    {
+        path: 'screquisitiondetailsassesment/:requisition_id',
+        component: SCRequisitiondetailsFormComponent,
         data: {
             title: 'Requisition Details (Assessment) - SSM User Group'
         }
@@ -960,7 +1031,7 @@ const routes: Routes = [
             title: 'Upload MSISDN Recycle CSV'
         }
     },
-  {
+    {
         path: 'poInformation',
         component: SearchPO,
         data: {
@@ -977,7 +1048,7 @@ const routes: Routes = [
         canActivate: [AuthGuard]
     },
 
-  {
+    {
         path: 'aucConversion',
         component: AucProcessor,
         data: {
@@ -985,8 +1056,8 @@ const routes: Routes = [
         },
         canActivate: [AuthGuard]
     },
-    
-     {
+
+    {
         path: 'vouchergeneration',
         component: VoucherGeneration,
         data: {
@@ -994,7 +1065,7 @@ const routes: Routes = [
         },
         canActivate: [AuthGuard]
     },
-     {
+    {
         path: 'scratchcardadmin',
         component: VoucherAdmin,
         data: {
@@ -1002,7 +1073,7 @@ const routes: Routes = [
         },
         canActivate: [AuthGuard]
     },
-    
+
     {
         path: 'simcardadmin',
         component: SimAdmin,
@@ -1011,7 +1082,7 @@ const routes: Routes = [
         },
         canActivate: [AuthGuard]
     },
-     {
+    {
         path: 'scratchcardpending',
         component: VoucherManagementApproval,
         data: {
@@ -1019,7 +1090,7 @@ const routes: Routes = [
         },
         canActivate: [AuthGuard]
     },
-    
+
     {
         path: 'scratchvoucherFwd',
         component: VoucherGenerationForward,
@@ -1028,7 +1099,7 @@ const routes: Routes = [
         },
         canActivate: [AuthGuard]
     },
-     {
+    {
         path: 'scratchcardexsisting',
         component: VoucherManagementExsisting,
         data: {
@@ -1036,7 +1107,7 @@ const routes: Routes = [
         },
         canActivate: [AuthGuard]
     },
-     {
+    {
         path: 'vouchermanagementActivate',
         component: VoucherManagementActivationAndView,
         data: {
@@ -1044,7 +1115,7 @@ const routes: Routes = [
         },
         canActivate: [AuthGuard]
     },
-     {
+    {
         path: 'preplangenerate',
         component: PrePlanGenerate,
         data: {
@@ -1053,27 +1124,27 @@ const routes: Routes = [
         canActivate: [AuthGuard]
     },
     {
-       path: 'plangenerate/:totalUploadableQuantity/:ifids',
-       component: PlanGenerate,
-       data: {
-           title: 'Plan Generate'
-       }
-   },
-   {
-    path: 'reppreplangenerate',
-    component: RepPrePlanGenerate,
-    data: {
-        title: 'Rep Plan Generate'
+        path: 'plangenerate/:totalUploadableQuantity/:ifids',
+        component: PlanGenerate,
+        data: {
+            title: 'Plan Generate'
+        }
     },
-    canActivate: [AuthGuard]
-},
-{
-   path: 'rep-plangenerate/:totalUploadableQuantity/:ifids',
-   component: RepPlanGenerate,
-   data: {
-       title: 'Rep Plan Generate'
-   }
-},
+    {
+        path: 'reppreplangenerate',
+        component: RepPrePlanGenerate,
+        data: {
+            title: 'Rep Plan Generate'
+        },
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'rep-plangenerate/:totalUploadableQuantity/:ifids',
+        component: RepPlanGenerate,
+        data: {
+            title: 'Rep Plan Generate'
+        }
+    },
     {
         path: 'simconfiguration',
         component: SimConfiguration,
@@ -1122,7 +1193,7 @@ const routes: Routes = [
         },
         canActivate: [AuthGuard]
     },
-	{
+    {
         path: 'datawarehouseupload',
         component: UploadDataWh,
         data: {
@@ -1138,9 +1209,9 @@ const routes: Routes = [
         },
         canActivate: [AuthGuard]
     },
-    
-    
-     {
+
+
+    {
         path: 'returnandreceive',
         component: ReturnAndReceive,
         data: {
@@ -1156,8 +1227,8 @@ const routes: Routes = [
         },
         canActivate: [AuthGuard]
     },
-    
-     {
+
+    {
         path: 'viewvoucherjourney',
         component: VoucherJourney,
         data: {
@@ -1181,7 +1252,7 @@ const routes: Routes = [
         },
         canActivate: [AuthGuard]
     },
-    
+
     {
         path: 'scratchvoucherhistory',
         component: SearchVoucherHistory,
@@ -1190,10 +1261,10 @@ const routes: Routes = [
         },
         canActivate: [AuthGuard]
     },
-     {
-        path: '**', 
+    {
+        path: '**',
         redirectTo: '/pages/404'
-  }, 
+    },
 ];
 
 @NgModule({
