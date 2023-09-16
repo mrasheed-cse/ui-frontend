@@ -146,6 +146,8 @@ import { RepPrePlanGenerate } from '../SSM/SimCardPlan Management/rep-pre-plange
 import{SearchVoucherHistory} from '../SSM/ScratchCard/search_voucher_history.component';
 
 import{StockReport}  from'../SSM/Report/stockreport.component';
+import { SCRequisitionviewComponent } from './screquisitionview/screquisitionview.component';
+import { SCRequisitiondetailsFormComponent } from './screquisitiondetails-form/screquisitiondetails-form.component';
 
 
 const routes: Routes = [
@@ -431,7 +433,25 @@ const routes: Routes = [
         }
     },
     {
-        path: 'requisitiondetailsassesment/:requisition_id',
+        path: 'screquisitionview/:requisition_id',
+        component: SCRequisitionviewComponent,
+        data: {
+            title: 'View Requisition Details'
+        }
+    },
+    {
+        path: 'screquisitionview/:requisition_id',
+        component: SCRequisitiondetailsFormComponent,
+        data: {
+            title: 'View Requisition Details'
+        }
+    },
+    
+    
+    
+    
+    {
+        path: 'screquisitiondetailsassesment/:requisition_id',
         component: RequisitiondetailsFormComponent,
         data: {
             title: 'Requisition Details (Assessment) - SSM User Group'
