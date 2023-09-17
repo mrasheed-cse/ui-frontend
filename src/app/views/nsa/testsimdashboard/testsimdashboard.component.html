@@ -17,12 +17,12 @@
             <table class="dashboard-box-table-custom">
                 <tr>
                     <td style="width:33% !important">
-                        <div><a [routerLink]="['/nsa/newrequisition']">Requisition: {{counters.total_myApprovalNeededRequisition}}</a></div>
+                        <div><a [routerLink]="['/nsa/newrequisition']">Requisition: {{counters?.total_myApprovalNeededRequisition}}</a></div>
                     </td>
                 </tr>
                 <tr *ngIf="isCurrentUserSSMRole">
                     <td style="width:33% !important">
-                        <div><a [routerLink]="['/nsa/activation-pendingregistrations']">Activation: {{counters.total_myApprovalNeededActivation}}</a></div>
+                        <div><a [routerLink]="['/nsa/activation-pendingregistrations']">Activation: {{counters?.total_myApprovalNeededActivation}}</a></div>
                     </td>
                 </tr>
                 <tr>
