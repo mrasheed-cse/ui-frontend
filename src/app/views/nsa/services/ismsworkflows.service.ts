@@ -53,9 +53,8 @@ export class IsmsworkflowsService {
   // vaidation  API
   validateMobileAPI(mobileNo: string,) : any {	
 	console.log(this.serverUrl + 'testscratchCard/validate', "mobileNo:"+ mobileNo);
-  return this.http.post(this.serverUrl + 'testscratchCard/validate', {
-	mobileNo: mobileNo
-	  });
+  return this.http.post(this.serverUrl + 'testscratchCard/validate',  mobileNo
+	  );
   }
 
 	findRequisitionDetails(id:number) : any{
