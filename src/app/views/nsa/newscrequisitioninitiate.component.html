@@ -276,11 +276,15 @@
                                                                                 formControlName="startDate"
                                                                                 name="startDate" required bsDatepicker
                                                                                 placement="right"
+                                                                                
+                                                                                
                                                                                 [bsConfig]="{ dateInputFormat: 'dd-MM-yyyy', containerClass: 'theme-green',  showWeekNumbers:false }"
                                                                                 [minDate]="todayDate" style="background-color: #0091d2;
                                                                                                 color: white;
                                                                                                 font-size: 1.3em;"
-                                                                                value="{{ startDate.value | date: 'dd-MM-yyyy' }}">
+                                                                                value="{{ startDate.value | date: 'dd-MM-yyyy' }}"
+                                                                                (bsValueChange)="onStarDateChange($event)"
+                                                                                >
                                                                 </div>
                                                         </div>
 
@@ -296,7 +300,8 @@
                                                                                 name="endDate" required bsDatepicker
                                                                                 placement="left"
                                                                                 [bsConfig]="{ dateInputFormat: 'dd-MM-yyyy', containerClass: 'theme-green',  showWeekNumbers:false }"
-                                                                                [minDate]="todayDate"
+                                                                                [minDate]="startDate.value"
+                                                                                [maxDate]="maxDate"
                                                                                 style="background-color: #0091d2;
                                                                                                         color: white;
                                                                                                         font-size: 1.3em;"
