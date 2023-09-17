@@ -317,7 +317,7 @@ import { SCRequisitiondetailsFormComponent } from './screquisitiondetails-form/s
     RepPrePlanGenerate,
     SearchVoucherHistory,
     StockReport,
-    SCRequisitiondetailsFormComponent,
+    // SCRequisitiondetailsFormComponent,
     SCRequisitionviewComponent
   ],
   providers:[DatePipe, LoginService, AuthGuard]})

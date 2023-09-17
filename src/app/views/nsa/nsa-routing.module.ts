@@ -438,19 +438,19 @@ const routes: Routes = [
             title: 'View Requisition Details'
         }
     },
-    {
-        path: 'screquisitionview/:requisition_id',
-        component: SCRequisitiondetailsFormComponent,
-        data: {
-            title: 'View Requisition Details'
-        }
-    },
+    // {
+    //     path: 'screquisitionview/:requisition_id',
+    //     component: SCRequisitiondetailsFormComponent,
+    //     data: {
+    //         title: 'View Requisition Details'
+    //     }
+    // },
     
     
     
     
     {
-        path: 'screquisitiondetailsassesment/:requisition_id',
+        path: 'requisitiondetailsassesment/:requisition_id',
         component: RequisitiondetailsFormComponent,
         data: {
             title: 'Requisition Details (Assessment) - SSM User Group'
