@@ -93,7 +93,7 @@ export class NewscrequisitioninitiateComponent implements OnInit {
 
   todayDate: Date;
 
-
+  maxDate: Date;
   headerDateData: any;
 
 
@@ -371,6 +371,7 @@ export class NewscrequisitioninitiateComponent implements OnInit {
 
     //Get Today Date
     this.todayDate = new Date();
+    this.maxDate = new Date();
   } //end of constructor
 
   ngOnInit() {
@@ -547,7 +548,7 @@ export class NewscrequisitioninitiateComponent implements OnInit {
   // FORM SUBMISSION
   onNewScRequisitionSubmit() {
 
-    console.log("this.defFlowFound is ",this.newScRequisitionForm);
+    console.log("this.defFlowFound is ", this.newScRequisitionForm);
     if (this.newScRequisitionForm.valid) {
 
       /////////////////////////////////////////// //////////////////////////////////
@@ -688,7 +689,7 @@ export class NewscrequisitioninitiateComponent implements OnInit {
       else {
         this.infoAlertShow = true
         this.infoAlertMessage = "Enter 11 Digit Number."
-        this.vaildmobile = false;      
+        this.vaildmobile = false;
 
       }
     }
@@ -703,5 +704,10 @@ export class NewscrequisitioninitiateComponent implements OnInit {
   backButton(event: any) {
     //console.log(event);
     this.router.navigateByUrl('/nsa/newscrequisition');
+  }
+  onStarDateChange(event: string) {
+    const startDate = moment(event);
+    var futureMonth = moment(startDate,"DD-MM-YYYY").add(3, 'M');
+    this.maxDate = new Date(futureMonth.year(),futureMonth.month(),futureMonth.date());
   }
 }
