@@ -143,13 +143,16 @@ export class SCRequisitiondetailsFormComponent implements OnInit {
         alert("There is only 1 line item. This cannot be deleted");
         return;
       }
-
+      debugger
       /////////////////////////////////// /////////////////
-      this.ismsworkflowsService.deleteRequisitionLine(lineItem['id']).subscribe(
+      this.ismsworkflowsService.deleteIsmsRequisitionline(lineItem.id).subscribe(
         res  =>  {
           console.log('response is : '+res.message);
           alert("Requisition line deleted successfully");
-          window.location.reload();
+          var obj=this.requisition['requisitionLines'] as any
+          let lines=this.removeObjectWithId( this.requisition['requisitionLines'], lineItem.id );
+          this.requisition['requisitionLines']=lines;
+          //window.location.reload();
           if(res !== ""){
 
           }
@@ -163,7 +166,15 @@ export class SCRequisitiondetailsFormComponent implements OnInit {
     }
 
   }
-
+  removeObjectWithId(arr, id) {
+    const objWithIdIndex = arr.findIndex((obj) => obj.id === id);
+  
+    if (objWithIdIndex > -1) {
+      arr.splice(objWithIdIndex, 1);
+    }
+  
+    return arr;
+  }
   onFileChange(event) {
 	
     const fd = new FormData();
