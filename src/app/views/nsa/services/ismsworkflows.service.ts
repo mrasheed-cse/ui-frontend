@@ -184,6 +184,13 @@ export class IsmsworkflowsService {
 		});
 	}
 
+	deleteIsmsRequisitionline(lineItemId: number): any {
+		return this.http.post(this.serverUrl + 'ismsRequisitionline/delete', {
+			userID: "",
+			wrID: lineItemId,
+			status: ""
+		});
+	}
 
 	getMsisdnDetailsFromSsm(searchObj: any): any {
 		return this.http.post(this.serverUrl + 'requisition/ssm2', searchObj);

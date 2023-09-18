@@ -147,8 +147,6 @@ import { SearchVoucherHistory } from '../SSM/ScratchCard/search_voucher_history.
 import { StockReport } from '../SSM/Report/stockreport.component';
 import { SCRequisitiondetailsFormComponent } from './screquisitiondetails-form/screquisitiondetails-form.component';
 import { SCRequisitionviewComponent } from './screquisitionview/screquisitionview.component';
-import { SCRequisitioneditComponent } from './screquisitionedit/screquisitionedit.component';
-
 
 const routes: Routes = [
     {
@@ -418,13 +416,13 @@ const routes: Routes = [
             title: 'My Requests (Requisition Details)'
         }
     },
-    {
-        path: 'screquisitionedit/:requisition_id',
-        component: SCRequisitioneditComponent,
-        data: {
-            title: 'Requisition Details (Revision by end user)'
-        }
-    },
+    // {
+    //     path: 'screquisitionedit/:requisition_id',
+    //     component: SCRequisitioneditComponent,
+    //     data: {
+    //         title: 'Requisition Details (Revision by end user)'
+    //     }
+    // },
     {
         path: 'requisitionedit/:requisition_id',
         component: RequisitioneditComponent,
