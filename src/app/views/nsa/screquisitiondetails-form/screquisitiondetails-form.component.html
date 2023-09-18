@@ -154,5 +154,24 @@
       </div>
     </div>
   </div>
-
-</div>
+  
+  <br />
+  
+  <div class="card">
+  
+      <div class="card-body">			
+        <div class="row" >
+          <div class="col-md-12">
+            Comments: <textarea rows="6" cols="75" [(ngModel)] = "requisition_comments"></textarea>				
+            
+            <br /><br />
+  
+            <a style="width:120px" class="btn btn-success" (click) = "approve()" >Approve</a>
+            <a style="width:120px" class="btn btn-danger" (click) = "reject()" >Reject</a>
+            <a *ngIf="currentLoggedInUser.groupName==='GENERAL'" style="width:120px" class="btn btn-primary" (click) = "rfi()" >RFI</a>
+  
+          </div>				
+        </div>
+      </div>
+    
+    </div>

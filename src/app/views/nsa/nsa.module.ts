@@ -168,6 +168,7 @@ import{RepPlanGenerate} from'../SSM/SimCardPlan Management/rep-plangenerate.comp
 import { RepPrePlanGenerate } from '../SSM/SimCardPlan Management/rep-pre-plangenerate.component';
 import { SCRequisitionviewComponent } from './screquisitionview/screquisitionview.component';
 import { SCRequisitiondetailsFormComponent } from './screquisitiondetails-form/screquisitiondetails-form.component';
+import { SCRequisitioneditComponent } from './screquisitionedit/screquisitionedit.component';
 
 
 
@@ -225,6 +226,7 @@ import { SCRequisitiondetailsFormComponent } from './screquisitiondetails-form/s
     RequisitiondetailshodComponent,
     RequisitiondetailsdeliveryComponent,
     RequisitioneditComponent,
+    SCRequisitioneditComponent,
     RequisitionviewComponent,
     SCRequisitionviewComponent,
     SCRequisitiondetailsFormComponent,
