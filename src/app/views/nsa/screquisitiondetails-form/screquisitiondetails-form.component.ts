@@ -38,6 +38,7 @@ export class SCRequisitiondetailsFormComponent implements OnInit {
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
 
     if (this.currentLoggedInUser) {
+      console.log(this.currentLoggedInUser,'dhshdsgdhsdhdsgd')
       this.userName = this.currentLoggedInUser.userName
       this.groupID = this.currentLoggedInUser.groupID
       this.userID = this.currentLoggedInUser.userID

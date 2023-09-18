@@ -207,7 +207,7 @@ onTaskSelect(aTask) {
 }
 
 editAction(aTask){
-  return '../requisitionedit/'.toString();
+  return '../screquisitionedit/'.toString();
 }
 
 viewAction(aTask){
