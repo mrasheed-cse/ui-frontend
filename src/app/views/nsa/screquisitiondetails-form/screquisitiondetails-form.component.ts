@@ -165,19 +165,31 @@ export class SCRequisitiondetailsFormComponent implements OnInit {
   }
 
   onFileChange(event) {
-		this.isLoading = true;
-		this.selectedFile = <File>event.target.files[0];
 	
-		this.fileName = this.selectedFile.name;
-		const fd = new FormData();
-    let data={'createdBy':this.requisition['employeeDetails']['employeeNo'],'requisitionNo':this.requisition['requisitionDetails']['requisitionNo'],'status':'Active'}
+    const fd = new FormData();
+    this.isLoading = true;
+		this.selectedFile = <File>event.target.files[0];
+		this.fileName =  this.selectedFile.name;
 		fd.append('nsa-file', this.selectedFile, this.fileName);
-    fd.append('request', new Blob([JSON.stringify(data)], {type: 'application/json'}));
-    fd.append('fileName', new Blob([JSON.stringify(this.selectedFile.name)], {type: 'application/json'}));
-		var result = this.ismsworkflowsService.uploadFile(fd);
+		var result = this.fileoperationService.uploadCSV(fd);
 		result.subscribe(
 			res => {
-				console.log(res);
+				let index = res.message.lastIndexOf(":");
+				let file = res.message.substring(index);
+				this.ismsworkflowsService.checkFileValidity(this.fileName).subscribe(
+					response => {
+            debugger
+						let res = response.message.split(",");
+						if (res[0].trim() === "Valid") {
+							//this.infoAlertShow = false;
+							this.isLoading = false;
+						}
+						else {
+							//this.infoAlertShow = true;
+              alert("This file is invalid");
+							this.isLoading = false;
+						}
+					});
 			}
 		);
 	}

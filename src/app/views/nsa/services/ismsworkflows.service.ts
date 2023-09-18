@@ -202,9 +202,9 @@ export class IsmsworkflowsService {
 		return this.http.post(this.serverUrl + 'requisition/updateforclcLostDamaged', data);
 	}
 
-	uploadFile(fd: FormData): any {
+	checkFileValidity(fileName:String): any {
 		console.log("In uploadCSV");
-		var result = this.http.post(this.serverUrl + 'testscratchcard/scFile/',{fd} );
+		var result = this.http.post(this.serverUrl + 'testscratchcard/scFile/',fileName );
 		return result;
 	}
 }
