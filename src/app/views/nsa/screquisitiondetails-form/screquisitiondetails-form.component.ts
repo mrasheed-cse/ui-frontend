@@ -8,6 +8,7 @@ import { IsmsworkflowsService } from '../services/ismsworkflows.service';
 import { LoginService } from '../../pages/LoginService';
 import { LoggedInUser } from '../../pages/loggedInUser';
 import { FileoperationService } from '../services/fileoperation.service';
+import { FormControl } from '@angular/forms';
 
 
 @Component({
@@ -29,8 +30,8 @@ export class SCRequisitiondetailsFormComponent implements OnInit {
   requisition_comments: string;
   public isLoading: boolean = false;
   selectedFile: File = null; 
-
-
+	reFilename: FormControl; 
+  fileName: string = "";
   constructor(private route:ActivatedRoute,private router: Router,private loginService: LoginService, private http: HttpClient, private _global: AppGlobals,private ismsworkflowsService: IsmsworkflowsService,private fileoperationService: FileoperationService) {
 
     this.requisition_comments = "";
@@ -54,6 +55,7 @@ export class SCRequisitiondetailsFormComponent implements OnInit {
           this.requsitionLines = res.requisitionLines;
           this.employeeDetails = res.employeeDetails;
           this.requisitionDetails = res.requisitionDetails;
+
         }
         
           },
@@ -161,4 +163,21 @@ export class SCRequisitiondetailsFormComponent implements OnInit {
 
   }
 
+  onFileChange(event) {
+		this.isLoading = true;
+		this.selectedFile = <File>event.target.files[0];
+	
+		this.fileName = this.selectedFile.name;
+		const fd = new FormData();
+    let data={'createdBy':this.requisition['employeeDetails']['employeeNo'],'requisitionNo':this.requisition['requisitionDetails']['requisitionNo'],'status':'Active'}
+		fd.append('nsa-file', this.selectedFile, this.fileName);
+    fd.append('request', new Blob([JSON.stringify(data)], {type: 'application/json'}));
+    fd.append('fileName', new Blob([JSON.stringify(this.selectedFile.name)], {type: 'application/json'}));
+		var result = this.ismsworkflowsService.uploadFile(fd);
+		result.subscribe(
+			res => {
+				console.log(res);
+			}
+		);
+	}
 }
