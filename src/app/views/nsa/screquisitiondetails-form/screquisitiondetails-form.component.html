@@ -73,11 +73,11 @@
             <td style="width:25%">Location</td>
             <td style="width:25%" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['locationDetails']}}</td>
           </tr>
-          <tr>
+          <!-- <tr>
             <td style="width:25%">Test Mobile Number</td>
             <td style="width:75%;" colspan="3" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['usageCategory']}}
             </td>
-          </tr>
+          </tr> -->
         </table>
       </div>
     </div>
@@ -111,7 +111,7 @@
               <td>{{ c.productName }}</td>
               <td>{{ c.quantity }}</td>
               <td>
-                <div>
+                <div *ngIf="currentLoggedInUser.groupName==='SSM'">
                   <!-- [ngClass]="{
   
                     'is-invalid': reFilename.invalid && (reFilename.dirty || reFilename.touched),
@@ -138,9 +138,9 @@
 
 <br />
 
-<div class="card">
+<!-- <div class="card"> -->
 
-  <div class="card-body">
+  <!-- <div class="card-body">
     <div class="row">
       <div class="col-md-12">
         Comments: <textarea rows="6" cols="75" [(ngModel)]="requisition_comments"></textarea>
@@ -154,7 +154,7 @@
       </div>
     </div>
   </div>
-  
+   -->
   <br />
   
   <div class="card">

@@ -127,6 +127,15 @@ export class IsmsworkflowsService {
 			requisitionLines: requisitionLines
 		});
 	}
+	//response to SC RF
+	screspondToRfi(wr_id: number, comment: string, userID: string, requisitionLines: any): any {
+		return this.http.post(this.serverUrl + 'testscratchcard/respondtorfi', {
+			userID: userID,
+			wrID: wr_id,
+			comment: comment,
+			requisitionLines: requisitionLines
+		});
+	}I
 
 	getAllComments(wr_id: number, comment: string, userID: string): any {
 
