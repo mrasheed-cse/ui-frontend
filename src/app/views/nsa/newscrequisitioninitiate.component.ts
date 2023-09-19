@@ -95,7 +95,7 @@ export class NewscrequisitioninitiateComponent implements OnInit {
 
   maxDate: Date;
   headerDateData: any;
-
+  cardExpiryDefultValue:string;
 
   /*keyDownHandler(event: Event) {
       console.log(event);
@@ -372,12 +372,18 @@ export class NewscrequisitioninitiateComponent implements OnInit {
     //Get Today Date
     this.todayDate = new Date();
     this.maxDate = new Date();
+    debugger
+    const startDate = moment(this.todayDate);
+    var futureMonth = moment(startDate,"DD-MM-YYYY").add(3, 'M').format("MM-DD-YYYY").toString();
+    this.cardExpiryDefultValue=futureMonth//new Date(futureMonth.year(),futureMonth.month(),futureMonth.date());
   } //end of constructor
 
   ngOnInit() {
     this.isLoading = true;
     this.createFormControls();
     this.createForm();
+  
+    
   }
 
 

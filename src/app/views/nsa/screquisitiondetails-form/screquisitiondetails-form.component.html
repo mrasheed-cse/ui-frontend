@@ -119,8 +119,8 @@
                     'is-valid': reFilename.valid && (reFilename.dirty || reFilename.touched)
 
                    }" -->
-                  <input type="file" id="reFilename" name="reFilename" *ngIf="i==0" accept=".xlsx,.csv"
-                    class="form-control" formControlName="reFilename"  (change)="onFileChange($event)">
+                  <input type="file" id="reFilename{{i}}" name="reFilename{{i}}"  accept=".xlsx,.csv"
+                    class="form-control"   (change)="onFileChange($event)">
                 </div>
               </td>
               <td>
