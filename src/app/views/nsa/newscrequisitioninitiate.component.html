@@ -75,7 +75,7 @@
 
                         <!-- <div class="alert alert-danger" role="alert" *ngIf="infoAlertShow"><b>{{infoAlertMessage}}</b>
                         </div> -->
-                        
+
 
                         <form [formGroup]="newScRequisitionForm" novalidate (ngSubmit)="onNewScRequisitionSubmit()">
                                 <div class="card-body">
@@ -238,7 +238,7 @@
                                                                         <input type="text" class="form-control"
                                                                                 placeholder="01711081515"
                                                                                 [(ngModel)]="testMobileNumber"
-                                                                                [ngModelOptions]="{standalone: true}" 
+                                                                                [ngModelOptions]="{standalone: true}"
                                                                                 required>
 
 
@@ -248,7 +248,8 @@
                                                                         font-size: 1.3em; width: 100px; max-height: 35px;"
                                                                                 (click)="ValidateNumber($event)">Validate</button>
                                                                 </div>
-                                                                <div class="alert" role="alert" *ngIf="infoAlertShow"><b>{{infoAlertMessage}}</b>
+                                                                <div class="alert" role="alert" *ngIf="infoAlertShow">
+                                                                        <b>{{infoAlertMessage}}</b>
                                                                 </div>
 
                                                                 <!-- <div class="invalid-feedback"
@@ -276,15 +277,12 @@
                                                                                 formControlName="startDate"
                                                                                 name="startDate" required bsDatepicker
                                                                                 placement="right"
-                                                                                
-                                                                                
                                                                                 [bsConfig]="{ dateInputFormat: 'dd-MM-yyyy', containerClass: 'theme-green',  showWeekNumbers:false }"
                                                                                 [minDate]="todayDate" style="background-color: #0091d2;
                                                                                                 color: white;
                                                                                                 font-size: 1.3em;"
                                                                                 value="{{ startDate.value | date: 'dd-MM-yyyy' }}"
-                                                                                (bsValueChange)="onStarDateChange($event)"
-                                                                                >
+                                                                                (bsValueChange)="onStarDateChange($event)">
                                                                 </div>
                                                         </div>
 
@@ -421,8 +419,12 @@
 
                                                                         <td>
                                                                                 <input class="form-control"
-                                                                                formControlName="cardExpiry" [(ngModel)]="cardExpiryDefultValue"
-                                                                                type="date" min="{{today||MM-dd-yyyy}}">
+                                                                                        formControlName="cardExpiry"
+                                                                                        bsDatepicker placement="left"
+                                                                                        [bsConfig]="{ dateInputFormat: 'dd-MM-yyyy', containerClass: 'theme-green',  showWeekNumbers:false }"
+                                                                                        [minDate]="todayDate"
+                                                                                        
+                                                                                        value="{{ cardExpiryDefultValue | date: 'dd-MM-yyyy' }}">
                                                                         </td>
                                                                         <td><button type="button"
                                                                                         (click)="deleteLine(idx)">Delete</button>

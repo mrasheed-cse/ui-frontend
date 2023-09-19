@@ -95,7 +95,7 @@ export class NewscrequisitioninitiateComponent implements OnInit {
 
   maxDate: Date;
   headerDateData: any;
-  cardExpiryDefultValue:string;
+  cardExpiryDefultValue:Date;
 
   /*keyDownHandler(event: Event) {
       console.log(event);
@@ -372,10 +372,9 @@ export class NewscrequisitioninitiateComponent implements OnInit {
     //Get Today Date
     this.todayDate = new Date();
     this.maxDate = new Date();
-    debugger
     const startDate = moment(this.todayDate);
-    var futureMonth = moment(startDate,"DD-MM-YYYY").add(3, 'M').format("MM-DD-YYYY").toString();
-    this.cardExpiryDefultValue=futureMonth//new Date(futureMonth.year(),futureMonth.month(),futureMonth.date());
+    var futureMonth = moment(startDate,"DD-MM-YYYY").add(3, 'M');
+    this.cardExpiryDefultValue=new Date(futureMonth.year(),futureMonth.month(),futureMonth.date());
   } //end of constructor
 
   ngOnInit() {
@@ -400,6 +399,7 @@ export class NewscrequisitioninitiateComponent implements OnInit {
     this.requisitionType = new FormControl({ value: '' }, Validators.required);
     this.requisitionDate = new FormControl('');
     this.requisitionDate.setValue(moment(new Date()).format('DD-MM-YYYY'));
+    
     this.requisitionLines = new FormArray([
       new FormGroup({
         product: new FormControl('', Validators.required),
@@ -435,7 +435,8 @@ export class NewscrequisitioninitiateComponent implements OnInit {
 
 
   addLine() {
-
+    const startDate = moment(this.todayDate);
+    var futureMonth = moment(startDate,"DD-MM-YYYY").add(3, 'M');
     this.RequisitionLines.push(new FormGroup(
       {
         product: new FormControl('', Validators.required),
