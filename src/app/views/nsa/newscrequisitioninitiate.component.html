@@ -421,10 +421,12 @@
                                                                                 <input class="form-control"
                                                                                         formControlName="cardExpiry"
                                                                                         bsDatepicker placement="left"
-                                                                                        [bsConfig]="{ dateInputFormat: 'dd-MM-yyyy', containerClass: 'theme-green',  showWeekNumbers:false }"
-                                                                                        [minDate]="todayDate"
                                                                                         
-                                                                                        value="{{ cardExpiryDefultValue | date: 'dd-MM-yyyy' }}">
+                                                                                        [minDate]="todayDate"
+                                                                                        [(ngModel)]="cardExpiryDefultValue"
+                                                                                        >
+                                                                                        <!-- value="{{ cardExpiryDefultValue | date: 'dd-MM-yyyy' }}" -->
+                                                                                        <!-- [bsConfig]="{ dateInputFormat: 'dd-MM-yyyy', containerClass: 'theme-green',  showWeekNumbers:false }" -->
                                                                         </td>
                                                                         <td><button type="button"
                                                                                         (click)="deleteLine(idx)">Delete</button>
