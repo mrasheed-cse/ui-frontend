@@ -679,12 +679,12 @@ export class NewscrequisitioninitiateComponent implements OnInit {
           res => {
             if (res == null || res.message == "Invalid") {
               this.infoAlertShow = true
-              this.infoAlertMessage = "Input number is Invalid"
+              this.infoAlertMessage = "Provided msisdn is invalid, please provide a valid test number"
               this.vaildmobile = true;
             } else {
               this.vaildmobile = true;
-              this.infoAlertShow = false;
-              this.infoAlertMessage = "Input number is Valid";
+              this.infoAlertShow = true;
+              this.infoAlertMessage = "Approved";
             }
 
           },

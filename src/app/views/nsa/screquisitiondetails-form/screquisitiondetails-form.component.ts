@@ -144,7 +144,7 @@ export class SCRequisitiondetailsFormComponent implements OnInit {
         alert("There is only 1 line item. This cannot be deleted");
         return;
       }
-      debugger
+      
       /////////////////////////////////// /////////////////
       this.ismsworkflowsService.deleteIsmsRequisitionline(lineItem.id).subscribe(
         res  =>  {
@@ -178,7 +178,7 @@ export class SCRequisitiondetailsFormComponent implements OnInit {
   }
   onFileChange(event,qty:number,exDate:Date) {
 	
-    debugger;
+    
     const fd = new FormData();
     this.isLoading = true;
 		this.selectedFile = <File>event.target.files[0];
@@ -192,7 +192,7 @@ export class SCRequisitiondetailsFormComponent implements OnInit {
         let requestData={fileName:this.fileName,qty:qty,expiryDate:exDate}
 				this.ismsworkflowsService.checkFileValidity(requestData).subscribe(
 					response => {
-            debugger
+            
 						let res = response.message.split(",");
 						if (res[0].trim() === "Valid") {
 							//this.infoAlertShow = false;

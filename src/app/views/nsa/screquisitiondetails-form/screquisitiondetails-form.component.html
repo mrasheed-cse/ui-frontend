@@ -101,7 +101,8 @@
             <tr>
               <th>Product</th>
               <th>Sc Quantity</th>
-              <th>Upload File</th>
+              <th>Card Expiry</th>
+              <div *ngIf="currentLoggedInUser.groupName==='SSM'"><th>Upload File</th></div>
               <th>Action</th>
             </tr>
           </thead>
@@ -110,8 +111,9 @@
             <tr *ngFor="let c of requisition['requisitionLines']; index as i">
               <td>{{ c.productName }}</td>
               <td>{{ c.quantity }}</td>
-              <td>
+              <td>{{ c.cardExpiry }}</td>
                 <div *ngIf="currentLoggedInUser.groupName==='SSM'">
+                  <td>
                   <!-- [ngClass]="{
   
                     'is-invalid': reFilename.invalid && (reFilename.dirty || reFilename.touched),
@@ -121,8 +123,9 @@
                    }" -->
                   <input type="file" id="reFilename{{i}}" name="reFilename{{i}}"  accept=".xlsx,.csv"
                     class="form-control"   (change)="onFileChange($event,c.quantity,c.cardExpiry)">
+                  </td>
                 </div>
-              </td>
+              
               <td>
                 <button type="button" style="color:red" (click)="deleteRequisitionLine(c)" class=""><i class="fa fa-ban"></i> Delete</button>
               </td>
