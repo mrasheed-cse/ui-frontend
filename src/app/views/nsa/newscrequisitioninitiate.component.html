@@ -423,11 +423,10 @@
                                                                                         bsDatepicker placement="left"
                                                                                         
                                                                                         [minDate]="todayDate"
-                                                                                        [(ngModel)]="cardExpiryDefultValue"
+                                                                                        [ngModel]="cardExpiryDefultValue"
+                                                                                        [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}"
                                                                                         >
-                                                                                        <!-- value="{{ cardExpiryDefultValue | date: 'dd-MM-yyyy' }}" -->
-                                                                                        <!-- [bsConfig]="{ dateInputFormat: 'dd-MM-yyyy', containerClass: 'theme-green',  showWeekNumbers:false }" -->
-                                                                        </td>
+                                                                                                                                                               </td>
                                                                         <td><button type="button"
                                                                                         (click)="deleteLine(idx)">Delete</button>
                                                                         </td>
