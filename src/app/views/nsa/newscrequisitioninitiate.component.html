@@ -421,12 +421,10 @@
                                                                                 <input class="form-control"
                                                                                         formControlName="cardExpiry"
                                                                                         bsDatepicker placement="left"
-                                                                                        
                                                                                         [minDate]="todayDate"
                                                                                         [ngModel]="cardExpiryDefultValue"
-                                                                                        [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}"
-                                                                                        >
-                                                                                                                                                               </td>
+                                                                                        [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}">
+                                                                        </td>
                                                                         <td><button type="button"
                                                                                         (click)="deleteLine(idx)">Delete</button>
                                                                         </td>
