@@ -120,7 +120,7 @@
 
                    }" -->
                   <input type="file" id="reFilename{{i}}" name="reFilename{{i}}"  accept=".xlsx,.csv"
-                    class="form-control"   (change)="onFileChange($event)">
+                    class="form-control"   (change)="onFileChange($event,c.quantity,c.cardExpiry)">
                 </div>
               </td>
               <td>

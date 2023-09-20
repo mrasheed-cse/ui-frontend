@@ -53,6 +53,7 @@ export class SCRequisitiondetailsFormComponent implements OnInit {
         console.log('response is : '+res.message);
         if(res !== ""){
           this.requisition = res;
+          console.log(res,'rokive');
           this.requsitionLines = res.requisitionLines;
           this.employeeDetails = res.employeeDetails;
           this.requisitionDetails = res.requisitionDetails;
@@ -175,8 +176,9 @@ export class SCRequisitiondetailsFormComponent implements OnInit {
   
     return arr;
   }
-  onFileChange(event) {
+  onFileChange(event,qty:number,exDate:Date) {
 	
+    debugger;
     const fd = new FormData();
     this.isLoading = true;
 		this.selectedFile = <File>event.target.files[0];
@@ -187,7 +189,8 @@ export class SCRequisitiondetailsFormComponent implements OnInit {
 			res => {
 				let index = res.message.lastIndexOf(":");
 				let file = res.message.substring(index);
-				this.ismsworkflowsService.checkFileValidity(this.fileName).subscribe(
+        let requestData={fileName:this.fileName,qty:qty,expiryDate:exDate}
+				this.ismsworkflowsService.checkFileValidity(requestData).subscribe(
 					response => {
             debugger
 						let res = response.message.split(",");
