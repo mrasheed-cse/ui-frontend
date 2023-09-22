@@ -513,6 +513,7 @@ export class NewscrequisitioninitiateComponent implements OnInit {
     for (var i = 0; i < this.requisitionLines.length; i++) {
       var quantity = 0;
 
+      // var cardExpiry = moment(this.newScRequisitionForm.get('cardExpiry').value)
       var cardExpiry = this.FormatTheDate('');
 
       /////////// ///////////////// ///////////////// ////////////////

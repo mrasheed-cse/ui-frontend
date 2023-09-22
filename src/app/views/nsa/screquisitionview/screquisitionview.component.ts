@@ -7,6 +7,7 @@ import { DefinitionDataService } from '../services/definitiondata.service';
 import { IsmsworkflowsService } from '../services/ismsworkflows.service';
 import { LoggedInUser } from '../../pages/loggedInUser';
 import { environment } from '../../../../environments/environment';
+// import { error } from 'console';
 
 @Component({
   selector: 'app-screquisitionview',
