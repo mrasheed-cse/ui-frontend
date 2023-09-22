@@ -242,7 +242,7 @@ data => {
 
 
   respondToRfi(requisitionId, comment, userId, requisitionLines){
-    alert('In respondToRfi');
+    alert('In respondToRfi API');
     console.log(requisitionLines);
     this.ismsworkflowsService.screspondToRfi(requisitionId, comment, userId, requisitionLines).subscribe(
       res  =>  {
@@ -306,12 +306,12 @@ data => {
   }
 
   save(){
-    alert('THERE');
+    alert('are you sure.');
     if(!this.formValidation()) {
       alert('Invalid form');
       return;
     }
-    alert('HERE');
+    // alert('HERE');
     this.respondToRfi(this.requisitionDetails['id'], this.requisition_comments, this.userID, this.requisition['requisitionLines']);
     alert('The changes have been saved.');
     this.router.navigate(['nsa/newscrequisitiondetails']);

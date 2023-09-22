@@ -97,6 +97,7 @@
                 <tr>
                       <th>Product</th>
                       <th>SC Quantity</th>
+                      <th>Card Expiry</th>
                       <th>Action</th>
                 </tr>
               </thead>
@@ -109,7 +110,12 @@
                       <option *ngFor="let aproduct of listProduct" [value]="aproduct.id">{{aproduct.ismsMasterDataDetailsName}}</option>              
                     </select>                                                            
                   </td>
-                  <td><input class="form-control" [(ngModel)] = "c.quantity" type = "number" min="1"  [prevent-keys]="[43, 45,189,187]"></td>											  
+                  <td><input class="form-control" [(ngModel)] = "c.quantity" type = "number" min="1"  [prevent-keys]="[43, 45,189,187]"></td>	
+                  <td>{{c.cardExpiry}}
+                    <!-- <input class="form-control" type="date"
+                            [(ngModel)] = "c.cardExpiry" 
+                            > -->
+            </td>										  
                   <td><button type="button" (click)="deleteLine(c,idx)">Delete</button></td>                        
                 </tr>							   
               </tbody>                      
