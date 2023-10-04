@@ -671,6 +671,41 @@ export class NewscrequisitioninitiateComponent implements OnInit {
     return formattedDate;
 
   }
+  // ValidateNumber(event: any) {
+  //   console.log("hello", this.testMobileNumber)
+  //   this.isLoading = true;
+  //   if (this.testMobileNumber) {
+  //     if (this.testMobileNumber.length === 11) {
+  //       this.ismsworkflowsService.validateMobileAPI(this.testMobileNumber).subscribe(
+  //         res => {
+  //           if (res == null || res.message == "Invalid") {
+  //             this.infoAlertShow = true
+  //             this.infoAlertMessage = "Provided msisdn is invalid, please provide a valid test number"
+  //             this.vaildmobile = false;
+  //           } else {
+  //             this.vaildmobile = true;
+  //             this.infoAlertShow = true;
+  //             this.infoAlertMessage = "Approved";
+  //           }
+
+  //         },
+  //         err => {
+  //           console.log(err)
+  //         }
+  //       );
+  //     }
+  //     else {
+  //       this.infoAlertShow = true
+  //       this.infoAlertMessage = "Enter 11 Digit Number."
+  //       this.vaildmobile = false;
+
+  //     }
+  //   }
+  //   this.isLoading = false;
+
+
+  // }
+
   ValidateNumber(event: any) {
     console.log("hello", this.testMobileNumber)
     this.isLoading = true;
@@ -678,15 +713,14 @@ export class NewscrequisitioninitiateComponent implements OnInit {
       if (this.testMobileNumber.length === 11) {
         this.ismsworkflowsService.validateMobileAPI(this.testMobileNumber).subscribe(
           res => {
-            if (res == null || res.message == "Invalid") {
+            // if (res == null || res.message == "Invalid") {
               this.infoAlertShow = true
-              this.infoAlertMessage = "Provided msisdn is invalid, please provide a valid test number"
-              this.vaildmobile = true;
-            } else {
-              this.vaildmobile = true;
-              this.infoAlertShow = true;
-              this.infoAlertMessage = "Approved";
-            }
+              this.infoAlertMessage = res.message;
+              if(res.message="Approved"){
+                this.vaildmobile = true;
+              } else {
+                this.vaildmobile = false;
+              }
 
           },
           err => {
