@@ -242,7 +242,7 @@ data => {
 
 
   respondToRfi(requisitionId, comment, userId, requisitionLines){
-    alert('In respondToRfi API');
+    // alert('In respondToRfi API');
     console.log(requisitionLines);
     this.ismsworkflowsService.screspondToRfi(requisitionId, comment, userId, requisitionLines).subscribe(
       res  =>  {
@@ -306,7 +306,7 @@ data => {
   }
 
   save(){
-    alert('are you sure.');
+    // alert('are you sure.');
     if(!this.formValidation()) {
       alert('Invalid form');
       return;

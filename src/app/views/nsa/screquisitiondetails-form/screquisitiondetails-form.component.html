@@ -102,7 +102,7 @@
               <th>Product</th>
               <th>Sc Quantity</th>
               <th>Card Expiry</th>
-              <div *ngIf="currentLoggedInUser.groupName==='SSM'"><th>Upload File</th></div>
+              <div *ngIf="currentLoggedInUser.groupName==='SSM'"><th>Upload File[ .CSV ]</th></div>
               <th>Action</th>
             </tr>
           </thead>
@@ -132,10 +132,18 @@
             </tr>
           </tbody>
 
+
         </table>
       </div>
     </div>
+    
   </div>
+    <div class="demo-container" *ngIf="currentLoggedInUser.groupName==='SSM'">
+      <a href="data:text/csv;charset=utf-8,Batch,Start Serial,End Serial,Denomination,Expiry
+54721,1000000000020,1000000000030,11TK Voice,20-12-2023" download="data.csv">
+        <button type="'button">Download Sample File</button>
+      </a>
+    </div>
 
 </div>
 
