@@ -102,7 +102,7 @@
               <th>Product</th>
               <th>Sc Quantity</th>
               <th>Card Expiry</th>
-              <div *ngIf="currentLoggedInUser.groupName==='SSM'"><th>Upload File[ .CSV ]</th></div>
+              <div *ngIf="(requisition.requisitionDetails.current_hop_seq===5 && currentLoggedInUser.groupName==='SSM')"><th>Upload File[ .CSV ]</th></div>
               <th>Action</th>
             </tr>
           </thead>
@@ -112,7 +112,7 @@
               <td>{{ c.productName }}</td>
               <td>{{ c.quantity }}</td>
               <td>{{ c.cardExpiry }}</td>
-                <div *ngIf="currentLoggedInUser.groupName==='SSM'">
+                <div *ngIf="(requisition.requisitionDetails.current_hop_seq===5 && currentLoggedInUser.groupName==='SSM')">
                   <td>
                   <!-- [ngClass]="{
   
@@ -136,17 +136,20 @@
         </table>
       </div>
     </div>
-    
-  </div>
-    <div class="demo-container" *ngIf="currentLoggedInUser.groupName==='SSM'">
+    <br />
+    <div class="demo-container" *ngIf="(requisition.requisitionDetails.current_hop_seq===5 && currentLoggedInUser.groupName==='SSM')">
       <a href="data:text/csv;charset=utf-8,Batch,Start Serial,End Serial,Denomination,Expiry
 54721,1000000000020,1000000000030,11TK Voice,20-12-2023" download="data.csv">
         <button type="'button">Download Sample File</button>
       </a>
     </div>
+    
+  </div>
+    
 
 </div>
-
+<!-- *ngIf="currentLoggedInUser.groupName==='SSM'"
+(currentStatus !== 'open' && currentStatus !== 'reopen') -->
 <br />
 
 <!-- <div class="card"> -->
@@ -176,12 +179,21 @@
             Comments: <textarea rows="6" cols="75" [(ngModel)] = "requisition_comments"></textarea>				
             
             <br /><br />
-  
-            <a style="width:120px" class="btn btn-success" (click) = "approve()" >Approve</a>
+            <div style="display:inline-flex">
+            <div *ngIf="(requisition.requisitionDetails.current_hop_seq===5 && currentLoggedInUser.groupName==='SSM')">
+            <input type="button" style="width:120px" [disabled]="!isFileLoaded" class="btn btn-success" value="Approve" (click)="approve()">
+            </div>
+            <div *ngIf="requisition.requisitionDetails.current_hop_seq===1 || requisition.requisitionDetails.current_hop_seq===2 || requisition.requisitionDetails.current_hop_seq===3 || requisition.requisitionDetails.current_hop_seq===4 || requisition.requisitionDetails.current_hop_seq===6 || requisition.requisitionDetails.current_hop_seq===7 ">
+            <a style="width:120px" class="btn btn-success"  (click) = "approve()" >Approve</a>
+          </div>
+          <!-- <div *ngIf="(requisition.requisitionDetails.current_hop_seq===3 && currentLoggedInUser.groupName==='GENERAL')">
+            <a style="width:120px" class="btn btn-success"  (click) = "approve()" >Approve</a>
+          </div> -->
             <a style="width:120px" class="btn btn-danger" (click) = "reject()" >Reject</a>
-            <a *ngIf="currentLoggedInUser.groupName==='GENERAL'" style="width:120px" class="btn btn-primary" (click) = "rfi()" >RFI</a>
-  
-          </div>				
+            <a *ngIf="(requisition.requisitionDetails.current_hop_seq===2) || (requisition.requisitionDetails.current_hop_seq===3 && currentLoggedInUser.groupName!=='SSM')"
+               style="width:120px" class="btn btn-primary" (click) = "rfi()" >RFI</a>
+            </div>
+          </div>			
         </div>
       </div>
     
