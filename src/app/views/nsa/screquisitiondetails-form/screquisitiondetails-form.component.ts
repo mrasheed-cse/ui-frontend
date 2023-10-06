@@ -32,6 +32,7 @@ export class SCRequisitiondetailsFormComponent implements OnInit {
   selectedFile: File = null; 
 	reFilename: FormControl; 
   fileName: string = "";
+  public isFileLoaded: boolean = false;
   constructor(private route:ActivatedRoute,private router: Router,private loginService: LoginService, private http: HttpClient, private _global: AppGlobals,private ismsworkflowsService: IsmsworkflowsService,private fileoperationService: FileoperationService) {
 
     this.requisition_comments = "";
@@ -196,12 +197,15 @@ export class SCRequisitiondetailsFormComponent implements OnInit {
 						let res = response.message.split(",");
 						if (res[0].trim() === "Valid") {
 							//this.infoAlertShow = false;
+              alert("File uploaded successfully");
 							this.isLoading = false;
+              this.isFileLoaded=true;
 						}
 						else {
 							//this.infoAlertShow = true;
               alert("This file is invalid");
 							this.isLoading = false;
+              this.isFileLoaded=false;
 						}
 					});
 			}
