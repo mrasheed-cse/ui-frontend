@@ -101,7 +101,7 @@
             <tr>
               <th>Product</th>
               <th>Sc Quantity</th>
-              <th>Card Expiry</th>
+              <!-- <th>Card Expiry</th> -->
               <div *ngIf="(requisition.requisitionDetails.current_hop_seq===5 && currentLoggedInUser.groupName==='SSM')"><th>Upload File[ .CSV ]</th></div>
               <th>Action</th>
             </tr>
@@ -111,7 +111,7 @@
             <tr *ngFor="let c of requisition['requisitionLines']; index as i">
               <td>{{ c.productName }}</td>
               <td>{{ c.quantity }}</td>
-              <td>{{ c.cardExpiry }}</td>
+              <!-- <td>{{ c.cardExpiry }}</td> -->
                 <div *ngIf="(requisition.requisitionDetails.current_hop_seq===5 && currentLoggedInUser.groupName==='SSM')">
                   <td>
                   <!-- [ngClass]="{
@@ -122,7 +122,7 @@
 
                    }" -->
                   <input type="file" id="reFilename{{i}}" name="reFilename{{i}}"  accept=".xlsx,.csv"
-                    class="form-control"   (change)="onFileChange($event,c.quantity,c.cardExpiry)">
+                    class="form-control"   (change)="onFileChange($event,c.quantity)">
                   </td>
                 </div>
               

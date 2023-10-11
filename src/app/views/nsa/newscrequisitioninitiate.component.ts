@@ -24,6 +24,7 @@ import { NewTestSimRequisition, RequisitionLine } from './models/NewTestSimRequi
 import { AppGlobals } from './../../app.global';
 import { moment } from 'ngx-bootstrap/chronos/test/chain';
 import { parse } from 'querystring';
+import { DISABLED } from '@angular/forms/src/model';
 
 @Component({
   selector: 'app-newscrequisitioninitiate',
@@ -39,7 +40,7 @@ export class NewscrequisitioninitiateComponent implements OnInit {
   lastkeydown1: number = 0;
   finalListOfUsersToSendWithRqn: Array<any>;
   testMobileNumber: string;
-  vaildmobile: boolean = false;
+  public vaildmobile: boolean = true;
 
   employeeID: string;
   employeeName: string;
@@ -80,7 +81,7 @@ export class NewscrequisitioninitiateComponent implements OnInit {
   requisitionType: FormControl;
   requisitionDate: FormControl;
   requisitionLines: FormArray;
-  cardExpiry: FormControl;
+  // cardExpiry: FormControl;
 
   formFieldData: string;
 
@@ -95,7 +96,7 @@ export class NewscrequisitioninitiateComponent implements OnInit {
 
   maxDate: Date;
   headerDateData: any;
-  cardExpiryDefultValue:Date;
+  // cardExpiryDefultValue:Date;
 
   /*keyDownHandler(event: Event) {
       console.log(event);
@@ -252,9 +253,9 @@ export class NewscrequisitioninitiateComponent implements OnInit {
         }
 
         this.isLoading = false;
-        this.purposeCategory.setValue(this.listPurposeCategory[0]['id']);
-        this.location.setValue(this.listLocation[0]['id']);
-        this.requisitionType.setValue(this.listRequisitionType[0]['id']);
+        // this.purposeCategory.setValue(this.listPurposeCategory[0]['id']);
+        // this.location.setValue(this.listLocation[0]['id']);
+        // this.requisitionType.setValue(this.listRequisitionType[0]['id']);
       },
       err => console.error(err),
       () => console.log('done loading IMSI Type Name List')
@@ -374,7 +375,7 @@ export class NewscrequisitioninitiateComponent implements OnInit {
     this.maxDate = new Date();
     const startDate = moment(this.todayDate);
     var futureMonth = moment(startDate,"DD-MM-YYYY").add(3, 'M');
-    this.cardExpiryDefultValue=new Date(futureMonth.year(),futureMonth.month(),futureMonth.date());
+    // this.cardExpiryDefultValue=new Date(futureMonth.year(),futureMonth.month(),futureMonth.date());
     
   } //end of constructor
 
@@ -390,9 +391,9 @@ export class NewscrequisitioninitiateComponent implements OnInit {
   createFormControls() {
     this.purposeCategory = new FormControl('', Validators.required);
     this.location = new FormControl({ value: '' }, Validators.required);
-    this.startDate = new FormControl('', Validators.required);
-    this.endDate = new FormControl('', Validators.required);
-    this.purposeDetails = new FormControl('', [
+    this.startDate = new FormControl({value:'',disabled:true}, Validators.required);
+    this.endDate = new FormControl({value:'',disabled:true}, Validators.required);
+    this.purposeDetails = new FormControl({value:'',disabled:true}, [
       Validators.required,
       Validators.minLength(120)
     ]);
@@ -404,8 +405,8 @@ export class NewscrequisitioninitiateComponent implements OnInit {
     this.requisitionLines = new FormArray([
       new FormGroup({
         product: new FormControl('', Validators.required),
-        quantity: new FormControl(0),
-        cardExpiry: new FormControl('', Validators.required),
+        quantity: new FormControl(1,Validators.required),
+        // cardExpiry: new FormControl('', Validators.required),
       })]);
   }
 
@@ -441,8 +442,8 @@ export class NewscrequisitioninitiateComponent implements OnInit {
     this.RequisitionLines.push(new FormGroup(
       {
         product: new FormControl('', Validators.required),
-        quantity: new FormControl(0),
-        cardExpiry: new FormControl('', Validators.required),
+        quantity: new FormControl(1,Validators.required),
+        // cardExpiry: new FormControl('', Validators.required),
       }
     ));
   }
@@ -514,7 +515,7 @@ export class NewscrequisitioninitiateComponent implements OnInit {
       var quantity = 0;
 
       // var cardExpiry = moment(this.newScRequisitionForm.get('cardExpiry').value)
-      var cardExpiry = this.FormatTheDate('');
+      // var cardExpiry = this.FormatTheDate('');
 
       /////////// ///////////////// ///////////////// ////////////////
 
@@ -527,14 +528,14 @@ export class NewscrequisitioninitiateComponent implements OnInit {
         quantity = parseInt(this.requisitionLines.controls[i]['value']['quantity']);
       }
 
-      if (this.requisitionLines.controls[i]['value'] != null &&
-        this.requisitionLines.controls[i]['value'] != undefined &&
-        this.requisitionLines.controls[i]['value'] != "" &&
-        this.requisitionLines.controls[i]['value']['cardExpiry'] != null &&
-        this.requisitionLines.controls[i]['value']['cardExpiry'] != undefined &&
-        this.requisitionLines.controls[i]['value']['cardExpiry'] != "") {
-        cardExpiry = (this.requisitionLines.controls[i]['value']['cardExpiry']);
-      }
+      // if (this.requisitionLines.controls[i]['value'] != null &&
+      //   this.requisitionLines.controls[i]['value'] != undefined &&
+      //   this.requisitionLines.controls[i]['value'] != "" &&
+      //   this.requisitionLines.controls[i]['value']['cardExpiry'] != null &&
+      //   this.requisitionLines.controls[i]['value']['cardExpiry'] != undefined &&
+      //   this.requisitionLines.controls[i]['value']['cardExpiry'] != "") {
+      //   cardExpiry = (this.requisitionLines.controls[i]['value']['cardExpiry']);
+      // }
 
       if (quantity > 0) { /* do nothing */ }
       else {
@@ -715,11 +716,23 @@ export class NewscrequisitioninitiateComponent implements OnInit {
           res => {
             // if (res == null || res.message == "Invalid") {
               this.infoAlertShow = true
+              // this.vaildmobile = true;
+             
               this.infoAlertMessage = res.message;
-              if(res.message="Approved"){
-                this.vaildmobile = true;
-              } else {
+              if(res.message==="Approved"){
                 this.vaildmobile = false;
+                this.startDate.enable();
+                this.endDate.enable();
+                this.purposeDetails.enable();
+              // } else if(res.message="Test number has not sufficient validity") {
+              //   this.vaildmobile = true;
+              // } else if(res.message="Provided msisdn is invalid, please provide a valid test number") {
+              //   this.vaildmobile = true;
+              } else {
+                this.vaildmobile = true;
+                this.startDate.disable();
+                this.endDate.disable();
+                this.purposeDetails.disable();
               }
 
           },
@@ -731,8 +744,10 @@ export class NewscrequisitioninitiateComponent implements OnInit {
       else {
         this.infoAlertShow = true
         this.infoAlertMessage = "Enter 11 Digit Number."
-        this.vaildmobile = false;
-
+        this.vaildmobile = true;
+        this.startDate.disable();
+        this.endDate.disable();
+        this.purposeDetails.disable();
       }
     }
     this.isLoading = false;
