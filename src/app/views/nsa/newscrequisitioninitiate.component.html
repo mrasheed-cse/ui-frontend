@@ -236,7 +236,6 @@
                                                                         <!-- <input class="form-control" type="text" placeholder="01711081515" id="testMobileNumber" formControlName="testMobileNumber" [(ngModel)]="testMobileNumber"style="width: 350px;" required /> -->
                                                                         <!--  -->
                                                                         <input type="text" class="form-control"
-                                                                                placeholder="01711081515"
                                                                                 [(ngModel)]="testMobileNumber"
                                                                                 [ngModelOptions]="{standalone: true}"
                                                                                 required>
@@ -278,11 +277,11 @@
                                                                                 name="startDate" required bsDatepicker
                                                                                 placement="right"
                                                                                 [bsConfig]="{ dateInputFormat: 'dd-MM-yyyy', containerClass: 'theme-green',  showWeekNumbers:false }"
-                                                                                [minDate]="todayDate" style="background-color: #0091d2;
-                                                                                                color: white;
+                                                                                [minDate]="todayDate" style="
+                                                                                                color: black;
                                                                                                 font-size: 1.3em;"
                                                                                 value="{{ startDate.value | date: 'dd-MM-yyyy' }}"
-                                                                                (bsValueChange)="onStarDateChange($event)">
+                                                                                (bsValueChange)="onStarDateChange($event)" >
                                                                 </div>
                                                         </div>
 
@@ -300,10 +299,10 @@
                                                                                 [bsConfig]="{ dateInputFormat: 'dd-MM-yyyy', containerClass: 'theme-green',  showWeekNumbers:false }"
                                                                                 [minDate]="startDate.value"
                                                                                 [maxDate]="maxDate"
-                                                                                style="background-color: #0091d2;
-                                                                                                        color: white;
+                                                                                style="
+                                                                                                        color: black;
                                                                                                         font-size: 1.3em;"
-                                                                                value="{{ endDate.value | date: 'dd-MM-yyyy' }}">
+                                                                                value="{{ endDate.value | date: 'dd-MM-yyyy' }}" >
                                                                 </div>
                                                         </div>
                                                 </div>
@@ -368,13 +367,13 @@
                                         </div>-->
 
                                         </div>
-                                        <div class="card-header">
+                                        <div class="card-header" *ngIf="!vaildmobile">
                                                 <strong>Requisition Line</strong>
                                         </div>
 
                                         <div class="row">
 
-                                                <div class="col-12"><input type="button"
+                                                <div class="col-12" *ngIf="!vaildmobile"><input type="button"
                                                                 class="btn btn-success float-right" (click)="addLine()"
                                                                 value="Add More Line"></div>
 
@@ -382,12 +381,12 @@
                                         </div>
 
                                         <div class="row">
-                                                <table class="table table-bordered table-sm">
+                                                <table class="table table-bordered table-sm" *ngIf="!vaildmobile">
                                                         <thead>
                                                                 <tr>
                                                                         <th>Product</th>
                                                                         <th>SC Quantity</th>
-                                                                        <th>Card Expiry</th>
+                                                                        <!-- <th>Card Expiry</th> -->
                                                                         <th>Action</th>
                                                                 </tr>
                                                         </thead>
@@ -395,7 +394,7 @@
 
 
                                                         <tbody formArrayName="requisitionLines"
-                                                                *ngFor="let requisitionLine of requisitionLines.controls; index as idx">
+                                                                *ngFor="let requisitionLine of requisitionLines.controls; index as idx" >
 
                                                                 <tr [formGroupName]="idx">
                                                                         <td>
@@ -414,17 +413,18 @@
                                                                         <td><input class="form-control"
                                                                                         formControlName="quantity"
                                                                                         type="number" min="1"
-                                                                                        [prevent-keys]="[43, 45,189,187]">
+                                                                                        [prevent-keys]="[43, 45,189,187]"
+                                                                                        required>
                                                                         </td>
 
-                                                                        <td>
+                                                                        <!-- <td>
                                                                                 <input class="form-control"
                                                                                         formControlName="cardExpiry"
                                                                                         bsDatepicker placement="left"
                                                                                         [minDate]="todayDate"
                                                                                         [ngModel]="cardExpiryDefultValue"
                                                                                         [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}">
-                                                                        </td>
+                                                                        </td> -->
                                                                         <td><button type="button"
                                                                                         (click)="deleteLine(idx)">Delete</button>
                                                                         </td>
@@ -450,7 +450,7 @@
                                 </div>
                                 <!-- <div class="card-body"> -->
                                 <div class="card-footer text-right">
-                                        <button type="submit" [disabled]="!newScRequisitionForm.valid || !vaildmobile"
+                                        <button type="submit" [disabled]="!newScRequisitionForm.valid || vaildmobile"
                                                 class="btn btn-sm btn-primary">
                                                 <i class="fa fa-dot-circle-o"></i> Submit</button>
                                         <button type="reset" class="btn btn-sm btn-danger" (click)="clearForm($event)">
