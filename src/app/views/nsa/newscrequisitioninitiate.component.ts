@@ -41,6 +41,7 @@ export class NewscrequisitioninitiateComponent implements OnInit {
   finalListOfUsersToSendWithRqn: Array<any>;
   testMobileNumber: string;
   public vaildmobile: boolean = true;
+  public isLineDelete: boolean = true;
 
   employeeID: string;
   employeeName: string;
@@ -446,9 +447,22 @@ export class NewscrequisitioninitiateComponent implements OnInit {
         // cardExpiry: new FormControl('', Validators.required),
       }
     ));
+  
   }
+
+
+
+  
   deleteLine(index: number) {
-    this.requisitionLines.removeAt(index);
+    let numberOfLines : number;
+    numberOfLines = this.requisitionLines.length;
+    if(numberOfLines <= 1){
+      // alert("There is only 1 requisition Line. This cannot be deleted");
+      return;
+    } else {
+      this.requisitionLines.removeAt(index);
+    }
+    
   }
 
   formValidation() {
