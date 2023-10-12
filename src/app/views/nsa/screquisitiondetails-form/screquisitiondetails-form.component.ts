@@ -190,8 +190,10 @@ export class SCRequisitiondetailsFormComponent implements OnInit {
 			res => {
 				let index = res.message.lastIndexOf(":");
 				let file = res.message.substring(index);
-        let requestData={fileName:this.fileName,qty:qty,expiryDate:exDate}
-				this.ismsworkflowsService.checkFileValidity(requestData).subscribe(
+        let requestData={fileName:this.fileName,qty:qty,expiryDate:exDate,requisitionDetailId:this.requisitionDetails['id']}
+				
+        console.log(requestData);
+        this.ismsworkflowsService.checkFileValidity(requestData).subscribe(
 					response => {
             
 						let res = response.message.split(",");
