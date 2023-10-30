@@ -23,7 +23,7 @@ import { LoggedInUser } from '../pages/loggedInUser';
 import { NewTestSimRequisition, RequisitionLine } from './models/NewTestSimRequisition'
 import { AppGlobals } from './../../app.global';
 import { moment } from 'ngx-bootstrap/chronos/test/chain';
-import { parse } from 'querystring';
+// import { parse } from 'querystring';
 import { DISABLED } from '@angular/forms/src/model';
 
 @Component({

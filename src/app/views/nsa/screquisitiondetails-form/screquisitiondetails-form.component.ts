@@ -75,7 +75,7 @@ export class SCRequisitiondetailsFormComponent implements OnInit {
 
   approveOrRejectRequest(requisitionId, status, userId){
 
-    this.ismsworkflowsService.approveOrRejectRequest(requisitionId, status, userId, this.requisition_comments).subscribe(
+    this.ismsworkflowsService.approveOrRejectScRequest(requisitionId, status, userId, this.requisition_comments).subscribe(
       res  =>  {
         console.log('response is : '+res.message);
         if(res !== ""){
