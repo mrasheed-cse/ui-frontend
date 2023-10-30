@@ -94,8 +94,17 @@ export class IsmsworkflowsService {
 	 */
 
 
-	approveOrRejectRequest(wr_id: number, status: string, userID: string, comment: string): any {
+	approveOrRejectScRequest(wr_id: number, status: string, userID: string, comment: string): any {
 		return this.http.post(this.serverUrl + 'testscratchcard/update', {
+			userID: userID,
+			wrID: wr_id,
+			status: status,
+			comment: comment
+		});
+	}
+
+	approveOrRejectRequest(wr_id: number, status: string, userID: string, comment: string): any {
+		return this.http.post(this.serverUrl + 'requisition/update', {
 			userID: userID,
 			wrID: wr_id,
 			status: status,
