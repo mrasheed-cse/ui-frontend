@@ -107,12 +107,15 @@ export class NewrequisitioninitiateComponent implements OnInit {
 					//console.log(data);
 					for (let index in data) {
 						//console.log (data[index]);
-						this.listRequisitionType.push(
-						{
-							id:data[index].id,
-							ismsMasterDataDetailsName: data[index].ismsMasterDataDetailsName
+						if (!data[index].ismsMasterDataDetailsName.includes("Scratch")) {
+						  this.listRequisitionType.push(
+							{
+							  id:data[index].id,
+							  ismsMasterDataDetailsName: data[index].ismsMasterDataDetailsName
+			  
+							}
+						  );
 						}
-						);
 					}
 
 					this.getPurposeCategory();
@@ -121,6 +124,8 @@ export class NewrequisitioninitiateComponent implements OnInit {
 			() => console.log('done loading Provisioning Type Name List')
 			);
 	}
+
+	
 
 	getPurposeCategory(){
 		//GetPurposeCategory
