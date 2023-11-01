@@ -283,12 +283,12 @@ data => {
   }
 
   save(){
-    alert('THER');
+    // alert('THER');
     if(!this.formValidation()) {
       alert('Invalid form');
       return;
     }
-    alert('HERE');
+    // alert('HERE');
     this.respondToRfi(this.requisitionDetails['id'], this.requisition_comments, this.userID, this.requisition['requisitionLines']);
     alert('The changes have been saved.');
     this.router.navigate(['nsa/newrequisitiondetails']);
