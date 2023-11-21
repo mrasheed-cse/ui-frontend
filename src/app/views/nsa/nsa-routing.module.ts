@@ -148,6 +148,7 @@ import { StockReport } from '../SSM/Report/stockreport.component';
 import { SCRequisitiondetailsFormComponent } from './screquisitiondetails-form/screquisitiondetails-form.component';
 import { SCRequisitionviewComponent } from './screquisitionview/screquisitionview.component';
 import { SCRequisitioneditComponent } from './screquisitionedit/screquisitionedit.component';
+import { UploadRecycleCsvFile } from './uploadRecyleSMS.component';
 
 const routes: Routes = [
     {
@@ -1203,6 +1204,13 @@ const routes: Routes = [
             title: ''
         },
         canActivate: [AuthGuard]
+    },
+    {
+        path: 'UploadNewRecycleSMSCSV',
+        component: UploadRecycleCsvFile,
+        data: {
+            title: 'Upload CSV'
+        }
     },
     {
         path: '**',

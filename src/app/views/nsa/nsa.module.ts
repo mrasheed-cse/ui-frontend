@@ -169,6 +169,7 @@ import { RepPrePlanGenerate } from '../SSM/SimCardPlan Management/rep-pre-plange
 import { SCRequisitionviewComponent } from './screquisitionview/screquisitionview.component';
 import { SCRequisitiondetailsFormComponent } from './screquisitiondetails-form/screquisitiondetails-form.component';
 import { SCRequisitioneditComponent } from './screquisitionedit/screquisitionedit.component';
+import { UploadRecycleCsvFile } from './uploadRecyleSMS.component';
 
 
 
@@ -320,7 +321,8 @@ import { SCRequisitioneditComponent } from './screquisitionedit/screquisitionedi
     SearchVoucherHistory,
     StockReport,
     // SCRequisitiondetailsFormComponent,
-    SCRequisitionviewComponent
+    SCRequisitionviewComponent,
+    UploadRecycleCsvFile
   ],
   providers:[DatePipe, LoginService, AuthGuard]})
 export class NsaModule { }

@@ -77,6 +77,11 @@ export class FileoperationService {
         return Observable.throw(error || 'Server error');
     }
 	
-    
+	uploadRecycledCSV(fd: FormData):any{
+		console.log("In uploadCSV");
+		console.log(this.serverUrl +'NsaRecycledFileUpload/');
+		var result = this.http.post(this.serverUrl +'NsaRecycledFileUpload/', fd);
+		  return result;
+	   }
 
 }
