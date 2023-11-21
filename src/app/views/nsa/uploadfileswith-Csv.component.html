@@ -1,0 +1,107 @@
+<div class="row">
+	<div class="col-md-1">
+		 
+	</div>
+	<div class="col-md-10">
+		<div class="card">
+		 <div class="div_cust_loading_sign" *ngIf="isLoading"> <div style="position:fixed;width:100%;height:100%;left:0px;top:0px;z-index:50000;background-color:#536c79;opacity:0.95"></div> <div style="position:fixed;width:100%;height:100%;left:0px;top:0px;z-index:60000"><div style="width:25%;height:25%;margin:0px auto;margin-top:20%"><i class="fa fa-spinner fa-pulse fa-4x fa-fw" ></i></div></div> </div>
+   
+		<div class="card-header">
+            <i class="fa fa-align-justify"></i> Upload CSV File for Recycled SMS
+          </div>
+		  <form [formGroup]="myRecycledSmsForm" novalidate (ngSubmit)="submit()">
+
+          <div class="card-body">
+					
+					<div class="row">
+                
+						<div class="col-md-4">
+						  <div class="form-group row">
+							<label class="col-md-5 col-form-label" for="list">List<span  style="color:red"> *</span></label>
+							<div class="col-md-7">
+							  <input type="text" id="list" name="list" class="form-control" formControlName="list" [class.is-invalid]="list.invalid && (list.dirty || list.touched)">
+		  
+							</div>
+						  </div>
+						</div>
+
+						<div class="col-md-4">
+							<div class="form-group row">
+							  <label class="col-md-5 col-form-label" for="unused">Unused since<span  style="color:red"> *</span></label>
+							  <div class="col-md-7">
+								<input type="text" id="unused" name="unused" class="form-control" formControlName="unused" [class.is-invalid]="unused.invalid && (unused.dirty || unused.touched)">
+			
+							  </div>
+							</div>
+						  </div>
+
+						  <div class="col-md-4">
+							<div class="form-group row">
+							  <label class="col-md-5 col-form-label" for="msdncount">MSISDN count<span  style="color:red"> *</span></label>
+							  <div class="col-md-7">
+								<input type="text" id="msdncount" name="msdncount" class="form-control" formControlName="msdncount" [class.is-invalid]="msdncount.invalid && (msdncount.dirty || msdncount.touched)">
+								
+								<!-- <div *ngIf="f.msdncount.errors">MSISDN count is required</div>  -->
+							  </div>
+							</div>
+						  </div>
+					
+		  
+					  </div>
+					  <!-- <div class="row">
+							
+						<div class="col-md-6">
+				 
+			  <div class="form-group row">
+							<label class="col-md-5 col-form-label">Upload File:</label>
+							<div class="dnd-bar">
+								<p style="color: #990000; margin-left: 10px; font-weight: bold;" *ngIf="fileerror">{{fileuploadstatus}}</p>
+								<p style="color: #005500; margin-left: 10px; font-weight: bold;" *ngIf="filesuccess">{{fileuploadstatus}}</p>
+							</div>		
+			<input #fileInput type='file' id="getFile" (click)="fileInput.value = null" (change)="handleFileInput($event.target.files)">
+ 
+							</div>
+							</div>	
+				</div> -->
+				<div class="row">
+				<div class="col-md-4">
+                    <div class="form-group row">
+                      <label class="col-md-5 col-form-label" for="recycledSmsFile">Upload File:</label>
+                      <div class="col-md-7">
+
+                        <input type="file" id="recycledSmsFile" name="recycledSmsFile" class="form-control" formControlName="recycledSmsFile" required
+                         (change)="handleFileInput($event.target.files)" >
+                        <div class="invalid-feedback" *ngIf="recycledSmsFile.errors && (recycledSmsFile.dirty || recycledSmsFile.touched)">
+                          <p *ngIf="recycledSmsFile.errors.required"> File is required</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+				</div>
+				<div class="card-footer text-right">
+					<button type="submit" class="btn btn-sm btn-primary">
+					  <i class="fa fa-dot-circle-o"></i> Submit</button>
+					
+				  </div>
+					<div class="row">
+					<div classs="col-md-12">
+
+							<a href="assets/file/LISTID_156.csv" download>Download sample file</a><br/>
+						
+				
+			
+						  </div>
+						</div>
+					</div>
+					   <!-- <div class="card-footer">
+          
+                 <button   class="btn btn-sm btn-primary" (click)="submit()">Submit</button>
+                 </div> -->
+				 </form>
+					
+					</div>
+					
+					</div>
+					
+					</div>
+					
