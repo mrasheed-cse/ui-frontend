@@ -103,6 +103,12 @@ export class IsmsworkflowsService {
 		});
 	}
 
+	salesOrderCreationRequest(qty: number): any {
+		return this.http.post(this.serverUrl + 'testscratchcard/soCreation', {
+			quantity: qty
+		});
+	}
+
 	approveOrRejectRequest(wr_id: number, status: string, userID: string, comment: string): any {
 		return this.http.post(this.serverUrl + 'requisition/update', {
 			userID: userID,
