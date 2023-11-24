@@ -91,6 +91,18 @@ export class SCRequisitiondetailsFormComponent implements OnInit {
 
   }
 
+  salesOrderCreationRequest(qty){
+
+    this.ismsworkflowsService.salesOrderCreationRequest(qty).subscribe(
+      res => {
+        console.log('SO Creation response is : '+res.message);
+          if(res == ""){
+            alert(res.message);
+          }
+      }
+    );
+  }
+
   // onFileChange(event){
   //   this.isLoading = true;
   //   this.selectedFile = <File>event.target.files[0];
@@ -125,6 +137,9 @@ export class SCRequisitiondetailsFormComponent implements OnInit {
     console.log(this.requisitionDetails);
     this.approveOrRejectRequest(this.requisitionDetails['id'], "ACCEPT", this.userID);
 
+    if (this.requisition.requisitionDetails.current_hop_seq===3 && this.requisition.requisitionDetails.current_hop_seq===5){
+      this.salesOrderCreationRequest(this.requisitionDetails.qty);
+    }
   }
 
   reject(){
