@@ -94,9 +94,9 @@ export class UploadRecycleCsvFile implements OnInit {
         return;
     }
      
-    if (this.fileToUpload == undefined || !this.fileToUpload.name.endsWith(".csv") ||  !this.fileToUpload.name.startsWith("LISTID")) {
+    if (this.fileToUpload == undefined || !this.fileToUpload.name.endsWith(".csv") ||  !this.fileToUpload.name.startsWith("ListId")) {
 
-        this.fileuploadstatus = 'Please select a csv file with file name starting with LISTID';
+        this.fileuploadstatus = 'Please select a csv file with file name starting with ListId';
         alert(this.fileuploadstatus);
         this.fileerror = true;
         this.isLoading=false;
