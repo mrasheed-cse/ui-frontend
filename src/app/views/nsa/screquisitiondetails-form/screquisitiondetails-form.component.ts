@@ -91,9 +91,9 @@ export class SCRequisitiondetailsFormComponent implements OnInit {
 
   }
 
-  salesOrderCreationRequest(qty){
+  salesOrderCreationRequest(quantity){
 
-    this.ismsworkflowsService.salesOrderCreationRequest(qty).subscribe(
+    this.ismsworkflowsService.salesOrderCreationRequest(quantity).subscribe(
       res => {
         console.log('SO Creation response is : '+res.message);
           if(res == ""){
@@ -138,7 +138,8 @@ export class SCRequisitiondetailsFormComponent implements OnInit {
     this.approveOrRejectRequest(this.requisitionDetails['id'], "ACCEPT", this.userID);
 
     if (this.requisition.requisitionDetails.current_hop_seq===3 && this.requisition.requisitionDetails.current_hop_seq===5){
-      this.salesOrderCreationRequest(this.requisitionDetails.qty);
+      let quantity = this.requsitionLines.map(item => item.quantity)
+      this.salesOrderCreationRequest(quantity);
     }
   }
 
