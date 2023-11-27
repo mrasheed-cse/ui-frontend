@@ -103,9 +103,9 @@ export class IsmsworkflowsService {
 		});
 	}
 
-	salesOrderCreationRequest(qty: number): any {
+	salesOrderCreationRequest(quantity: number): any {
 		return this.http.post(this.serverUrl + 'testscratchcard/soCreation', {
-			quantity: qty
+			quantity: quantity
 		});
 	}
 
