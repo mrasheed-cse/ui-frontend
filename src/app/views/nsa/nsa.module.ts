@@ -48,6 +48,7 @@ import { NewrequisitioninitiateComponent } from './newrequisitioninitiate.compon
 import { NewscrequisitioninitiateComponent } from './newscrequisitioninitiate.component'
 import {NewscrequisitiondetailsComponent} from './newscrequisitiondetails.component';
 import {NewscrequisitionComponent} from './newscrequisition.component';
+import {NewscreportComponent} from './newscreport.component';
 import { NewrequisitiondetailsComponent } from './newrequisitiondetails.component';
 import { NewrequisitionComponent } from './newrequisition.component';
 import { RequisitiondetailsFormComponent } from './requisitiondetails-form/requisitiondetails-form.component';
@@ -220,6 +221,7 @@ import { UploadRecycleCsvFile } from './uploadRecyleSMS.component';
     NewscrequisitioninitiateComponent,
     NewscrequisitiondetailsComponent,
     NewscrequisitionComponent,
+    NewscreportComponent,
     NewrequisitiondetailsComponent,
     NewrequisitionComponent,
     RequisitiondetailsFormComponent,

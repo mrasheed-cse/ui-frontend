@@ -185,6 +185,25 @@ onSearchSubmit() {
   }
 }
 
+downloadChallan(){
+  this.workFlowsService.DownloadChallan().subscribe(
+    res  =>  {
+      console.log('response is : '+res.message);
+      if(res !== ""){
+        // alert(res.message);
+        // this.router.navigate(['nsa/newscrequisition']);
+      } else {
+        alert('failed to download Challan');
+      }
+    },
+    err  =>  {
+
+    }
+
+  );
+
+}
+
 createFormControls() {
   this.wrname = new FormControl('',Validators.pattern(this.wrNamePattern));
   this.wrstatus = new FormControl('');
