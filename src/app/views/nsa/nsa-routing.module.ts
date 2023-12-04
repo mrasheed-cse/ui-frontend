@@ -33,6 +33,7 @@ import {NewrequisitioninitiateComponent} from './newrequisitioninitiate.componen
 import {NewscrequisitioninitiateComponent} from './newscrequisitioninitiate.component';
 import {NewscrequisitiondetailsComponent} from './newscrequisitiondetails.component';
 import {NewscrequisitionComponent} from './newscrequisition.component';
+import {NewscreportComponent} from './newscreport.component';
 import { NewrequisitiondetailsComponent } from './newrequisitiondetails.component';
 import { NewrequisitionComponent } from './newrequisition.component';
 import { RequisitiondetailsFormComponent } from './requisitiondetails-form/requisitiondetails-form.component';
@@ -404,6 +405,13 @@ const routes: Routes = [
     },
     {
         path: 'newscrequisition',
+        component: NewscreportComponent,
+        data: {
+            title: 'Sc report'
+        }
+    },
+    {
+        path: 'newscreport',
         component: NewscrequisitionComponent,
         data: {
             title: 'Pending for Approval'
