@@ -1,194 +1,313 @@
-import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {BsDatepickerConfig} from 'ngx-bootstrap/datepicker';
-import {HttpClient} from '@angular/common/http';
+// import {Component, OnInit} from '@angular/core';
+// import {FormControl, FormGroup, Validators} from '@angular/forms';
+// import {BsDatepickerConfig} from 'ngx-bootstrap/datepicker';
+// import {HttpClient} from '@angular/common/http';
 import {WorkflowsService} from './services/workflows.service';
 import {AppGlobals} from './../../app.global';
-import {Router} from '@angular/router';
+// import {Router} from '@angular/router';
 import {environment} from '../../../environments/environment';
 
 import {LoginService} from '../pages/LoginService';
 import {LoggedInUser} from '../pages/loggedInUser';
 
+
+import {
+    NgModule,
+    Component,
+    Pipe,
+    OnInit
+  } from '@angular/core';
+  import {ReactiveFormsModule, FormsModule, FormGroup, FormControl, Validators} from '@angular/forms';
+  import { HttpClient } from '@angular/common/http';
+  import { IsmsreportService } from './services/ismsreport.service';
+//   import { WorkflowsService } from './../services/workflows.service';
+//   import { AppGlobals } from './../../../app.global';
+  import { Router,ActivatedRoute } from '@angular/router';
+  import {BsDatepickerConfig} from 'ngx-bootstrap/datepicker';
+//   import {IsmsReportResponse} from './../models/IsmsReportResponse';
+//   import { LoginService } from '../../pages/LoginService';
+//   import { LoggedInUser } from '../../pages/loggedInUser';
+
 @Component({
     selector: 'app-newscreport',
     templateUrl: './newscreport.component.html',
     styleUrls: ['./demo.component.css'],
-    providers: [WorkflowsService, AppGlobals, LoginService],
+    providers: [IsmsreportService,WorkflowsService, AppGlobals, LoginService],
 })
 export class NewscreportComponent implements OnInit {
-    requisitionList: Array<Object>;
-    currentLoggedInUser: LoggedInUser;
-    userName: string;
-    groupID: number;
-    userID: string;
 
-    public dangerAlertShow: boolean = false;
-    public dangerAlertMessage: string = "";
-    public successSearchShow: boolean = false;
-    public successAlertMessage: string = "";
+    
 
-    isDataFound: boolean = true;
-    isCollapsed: boolean = true;
+  userData: any[] = [];
+  userList1: any[] = [];
+  lastkeydown1: number = 0;
 
-    mySearchForm: FormGroup;
-    wrname: FormControl;
-    wrstatus: FormControl;
-    startDate: FormControl;
-    endDate: FormControl;
+  currentLoggedInUser: LoggedInUser;
+	userName: string;
+	groupID: number;
+  userID: string;
+  isDataFound: boolean = false;
+  public dangerAlertShow:boolean = false;
+	public dangerAlertMessage:string = "";
+	public successSearchShow:boolean = false;
+  public successAlertMessage:string = "";
 
-    wrNamePattern: string = "(RQN).\*";
-    searchWR: string;
-    searchWRNumber: string;
-    searchWrCreatedBy: string;
-    searchWrCreationDate: string;
-    searchLastApprover: string;
-    searchLextApprover: string;
-    searchStatus: string;
-    searchPendingGroupID: number;
-    searchHopSequence: number;
-    todayDate: Date;
-    routerUrlAndParams: string;
-    public isLoading: boolean = false;
+//   requisitionReportList: IsmsReportResponse;
 
-    constructor(private router: Router, private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {
+  mySearchForm: FormGroup;
+  reqname: FormControl;
+  msisdnStatus: FormControl;
+   startDate: FormControl;
+   endDate: FormControl;
+   startMSISDN: FormControl;
+   endMSISDN: FormControl;
+   simOwner: FormControl;
 
+	reqNamePattern:string = "(RQN).\*";
+
+  public isLoading:boolean = false;
+
+  datepickerConfig: Partial<BsDatepickerConfig>;
+  listMsisdnStatus: Array<any>;
+  listUsers: Array<any>;
+
+
+
+  private columnDefs;
+  private defaultColDef;
+  private defaultColGroupDef;
+  private columnTypes;
+  private rowData: any[];
+  private gridApi;
+  private gridColumnApi;
+
+  constructor(private route:ActivatedRoute, private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private ismsreportService: IsmsreportService, private workFlowsService: WorkflowsService) {
+
+
+    this.isLoading = false;
+    let isValid = true;
+    this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
+
+    if (this.currentLoggedInUser) {
+      this.userName = this.currentLoggedInUser.userName
+      this.groupID = this.currentLoggedInUser.groupID
+      this.userID = this.currentLoggedInUser.userID
+    }
+    else {
+      this.router.navigate(['pages/login']);
+    }
+    this.columnDefs = _global.agGrid_defaultColDef;
+    this.columnTypes = _global.agGrid_columnTypes;
+
+    this.columnDefs = [
+
+        {headerName: 'RQN #', field: 'requisitionNo', sortable: true, filter: true, width: 200 },
+        {headerName: 'Product', field: 'product', sortable: true, filter: true,  width: 160 },
+        {headerName: 'MSISDN', field: 'msisdn', sortable: true, filter: true,  width: 160 },
+        {headerName: 'SIM', field: 'sim', sortable: true, filter: true,  width: 160 },
+        {headerName: 'RQN Type', field: 'requisitionType', sortable: true, filter: true, width: 200 },
+        {headerName: 'Requester Name', field: 'requesterName', sortable: true, filter: true,  width: 160 },
+        {headerName: 'Requester Mobile', field: 'requesterMobile', sortable: true, filter: true, width: 200 },
+        {headerName: 'MSISDN Status', field: 'msisdnStatus', sortable: true, filter: true, width: 100 },
+        {headerName: 'Start date', field: 'startDate', sortable: true, filter: true, width: 130, type: ["dateColumn", "nonEditableColumn"] },
+        {headerName: 'End date', field: 'endDate', sortable: true, filter: true, width: 130, type: ["dateColumn", "nonEditableColumn"] },
+      {headerName: 'Pending At', field: 'pendingAt', sortable: true, filter: true, width: 210 }
+
+    ];
+
+    this.rowData = [];
+
+
+    this.ismsreportService.TestSimRequisitionReport("","","","","","",0, this.groupID).subscribe(
+        data  =>  {
+      console.log('response is : '+data);
+
+      if(data !=null){
+        console.log(data);
+        this.isDataFound = true;
+        this.rowData = data;
         this.isLoading = false;
-        let isValid = true;
-        this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
+      }
+      else{
+        this.isDataFound = false;
+      }
 
-        if (this.currentLoggedInUser) {
-            this.userName = this.currentLoggedInUser.userName
-            this.groupID = this.currentLoggedInUser.groupID
-            this.userID = this.currentLoggedInUser.userID
-        } else {
-            this.router.navigate(['pages/login']);
+        },
+        err  =>  {
+        console.log("err.status : "+err.status);
+        this.dangerAlertShow = true;
+      this.dangerAlertMessage = " .";
         }
-        //this.requisitionList = _global.dataTemp;
 
-    } //end of constructor
-
-
-    loadPendingScList() {
-        //GetPendingTaskList
-        this.workFlowsService.LoadScRequisitionList(0, this.userID).subscribe(
-            data => {
-                if (data != null) {
-                    console.log(data);
-                    this.isDataFound = true;
-                    this.requisitionList = data;
-                    for (var i = 0; i < this.requisitionList.length; i++) {
-                        this.requisitionList[i]['show'] = true;
-                    }
-                    this.isLoading = false;
-                } else {
-                    this.isDataFound = false;
-                }
-            },
-            err => console.error(err),
-            () => console.log('Done loading PendingTask List')
         );
-        //Get Today Date
-        this.todayDate = new Date();
-    }
+        this.isLoading = false;
 
 
-    ngOnInit() {
+  } //end of constructor
 
-        this.createFormControls();
-        this.createForm();
-        this.isLoading = true;
+  ngOnInit() {
+    this.createFormControls();
+	  this.createForm();
+    this.isLoading = true;
 
-        setTimeout(() => {    //<<<---    using ()=> syntax
-            this.loadPendingScList();
-        }, 5000);
+    setTimeout(()=>{    //<<<---    using ()=> syntax
 
-
-    }
-
-    datepickerConfig: Partial<BsDatepickerConfig>;
-
-    clearSearch() {
-        for (var i = 0; i < this.requisitionList.length; i++) {
-            this.requisitionList[i]['show'] = true;
+      this.listMsisdnStatus = [
+        {
+          "id":"A","name":"Active"
+        },
+        {
+          "id":"D","name":"Deactive"
         }
-    }
-
-    onSearchSubmit() {
-
-        if (this.wrname.value || this.startDate.value || this.endDate.value || this.wrstatus.value) {
-            console.log('Form Submitted!');
-            console.log(this.mySearchForm.value);
-            this.successSearchShow = false;
-            this.dangerAlertShow = false;
-
-            for (var i = 0; i < this.requisitionList.length; i++) {
-                this.requisitionList[i]['show'] = false;
-
-                if (this.wrname.value != null && this.wrname.value != undefined && this.wrname.value != "" && this.wrname.value == this.requisitionList[i]['requisitionNo']) {
-                    this.requisitionList[i]['show'] = true;
-                }
-
-                if (this.startDate.value != null && this.startDate.value != undefined && this.startDate.value != ""
-                    &&
-                    this.endDate.value != null && this.endDate.value != undefined && this.endDate.value != "") {
-                    //var sdate = moment(this.requisitionList[i]['requisitionDt']).format('DD-MM-YYYY');
-                    var sdate = new Date(this.requisitionList[i]['requisitionDt'].replace(/(\d{2})-(\d{2})-(\d{4})/, "$2/$1/$3"))
-
-                    var startDateOfForm = this.startDate.value;
-                    var endDateOfForm = this.endDate.value;
-
-                    startDateOfForm.setHours(0);
-                    startDateOfForm.setMinutes(0);
-                    startDateOfForm.setSeconds(0);
-
-                    endDateOfForm.setHours(23);
-                    endDateOfForm.setMinutes(59);
-                    endDateOfForm.setSeconds(59);
-
-                    console.log("sdate");
-                    //console.log(this.requisitionList[i]['requisitionDt']);
-                    console.log(sdate);
-                    console.log(this.startDate.value);
-                    console.log(this.endDate.value);
-
-                    if (sdate >= startDateOfForm && sdate <= endDateOfForm) {
-                        this.requisitionList[i]['show'] = true;
-                    }
-                }
+      ];
 
 
-            }
+      ///////////////////////////////////////////
+      this.listUsers = [];
 
-        }
-
-    }
-
-    createFormControls() {
-        this.wrname = new FormControl('', Validators.pattern(this.wrNamePattern));
-        this.wrstatus = new FormControl('');
-        this.startDate = new FormControl('');
-        this.endDate = new FormControl('');
-    }
-
-    createForm() {
-        this.mySearchForm = new FormGroup({
-            wrname: this.wrname,
-            wrstatus: this.wrstatus,
-            startDate: this.startDate,
-            endDate: this.endDate
+      this.workFlowsService.getUserList().subscribe(
+        data => {
+          Object.assign(this.userData, data);
+        },
+        error => {
+          console.log("Something wrong here");
         });
+      ///////////////////////////////////////////
+
+
+      }, 2000);
+
+  }
+
+  createFormControls() {
+		this.reqname = new FormControl('',Validators.pattern(this.reqNamePattern));
+		this.msisdnStatus = new FormControl('');
+		this.startDate = new FormControl('');
+    this.endDate = new FormControl('');
+    this.startMSISDN = new FormControl('');
+    this.endMSISDN = new FormControl('');
+    this.simOwner = new FormControl('');
+  }
+
+  createForm() {
+    this.mySearchForm = new FormGroup({
+      reqname: this.reqname,
+      startMSISDN: this.startMSISDN,
+      endMSISDN: this.endMSISDN,
+      startDate: this.startDate,
+      endDate: this.endDate,
+      msisdnStatus: this.msisdnStatus,
+      simOwner: this.simOwner
+    });
+  }
+
+
+  getUserIdsFirstWay($event) {
+
+    //console.log($event.target.value);
+
+    //let userId = (<HTMLInputElement>document.getElementById('userIdFirstWay')).value;
+
+    let userId = $event.target.value;
+
+    this.userList1 = [];
+
+    if (userId.length > 2) {
+      if ($event.timeStamp - this.lastkeydown1 > 200) {
+        this.userList1 = this.searchFromArray(this.userData, userId);
+      }
     }
+  }
 
-    onTaskSelect(aTask) {
-        //this.selectedContactId = aTask.wr_ID;
-        //this.router.navigateByUrl('/nsa/seriesprovisiondetail');
+  searchFromArray(arr, regex) {
+    let matches = [], i;
+    for (i = 0; i < arr.length; i++) {
+      if (arr[i]['userName'].match(regex)) {
+        matches.push(arr[i]);
+      }
     }
+    return matches;
+  };
 
-    detailsAction(aTask) {
+  FormatTheDate(theDate:any):string {
 
-        return '../screquisitiondetailsassesment/'.toString();
+    console.log("theDate : "+theDate);
+      var date = new Date(theDate);
+      var month = ("0" + (date.getMonth()+1)).slice(-2);
+      var day  = ("0" + date.getDate()).slice(-2);
+      var formattedDate=[date.getFullYear(),month,day].join("-");
+    console.log("formattedDate : "+formattedDate);
+    return formattedDate;
 
+  }
+
+
+topFunction() {
+	document.body.scrollTop = 0; // For Safari
+	document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+}
+
+getUserIdFromUserName(userName){
+  for (var i = 0; i < this.userData.length; i++) {
+    if (this.userData[i]['userName'] == userName) {
+      return this.userData[i]['id'];
     }
+  }
+  return 0;
+}
+
+   // FORM SUBMISSION
+   onSearchSubmit() {
+
+    if (this.mySearchForm.valid) {
+      console.log('Form Submitted!');
+      console.log(this.mySearchForm.value);
+      //return;
+
+     //this.topFunction();
+     //this.isLoading = true;
+      var simOwner_value_asId = 0;
+      if(this.simOwner.value != null && this.simOwner.value != undefined && this.simOwner.value != ""){
+        simOwner_value_asId = this.getUserIdFromUserName(this.simOwner.value);
+      }
+
+    this.ismsreportService.TestSimRequisitionReport(this.reqname.value,this.startDate.value,this.endDate.value,this.msisdnStatus.value,this.startMSISDN.value,this.endMSISDN.value,simOwner_value_asId,this.groupID).subscribe(
+      data  =>  {
+      console.log('response is : '+data);
+
+
+      if(data !=null){
+        console.log(data);
+        this.isDataFound = true;
+        this.rowData = data;
+        this.isLoading = false;
+      }
+      else{
+        this.isDataFound = false;
+      }
+
+        },
+        err  =>  {
+        console.log("err.status : "+err.status);
+        this.dangerAlertShow = true;
+      this.dangerAlertMessage = " .";
+        }
+
+        );
+        this.isLoading = false;
+
+      }
+  }
+
+
+onGridReady(params) {
+  this.gridApi = params.api;
+  this.gridColumnApi = params.columnApi;
+}
+
+  onBtExport() {
+    var params = {};
+    this.gridApi.exportDataAsCsv(params);
+  }
 
 }

@@ -103,12 +103,6 @@ export class IsmsworkflowsService {
 		});
 	}
 
-	salesOrderCreationRequest(quantity: number): any {
-		return this.http.post(this.serverUrl + 'testscratchcard/soCreation', {
-			quantity: quantity
-		});
-	}
-
 	approveOrRejectRequest(wr_id: number, status: string, userID: string, comment: string): any {
 		return this.http.post(this.serverUrl + 'requisition/update', {
 			userID: userID,
@@ -238,4 +232,11 @@ export class IsmsworkflowsService {
 		var result = this.http.post(this.serverUrl + 'testscratchcard/scFile/',requestData );
 		return result;
 	}
+
+	soCreation(id: number): any {
+		return this.http.post(this.serverUrl + 'testscratchcard/soCreation', {
+			requisitionId: id
+		});
+	}
+
 }

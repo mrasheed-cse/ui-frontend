@@ -405,16 +405,16 @@ const routes: Routes = [
     },
     {
         path: 'newscrequisition',
-        component: NewscreportComponent,
+        component: NewscrequisitionComponent,
         data: {
-            title: 'Sc report'
+            title: 'Pending for Approval'
         }
     },
     {
         path: 'newscreport',
-        component: NewscrequisitionComponent,
+        component: NewscreportComponent,
         data: {
-            title: 'Pending for Approval'
+            title: 'SC Challan report'
         }
     },
 
