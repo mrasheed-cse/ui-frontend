@@ -92,10 +92,10 @@ export class NewscrequisitiondetailsComponent implements OnInit {
     this.workFlowsService.LoadPersonalScDetails(0,this.userID, this.requestedSimAtatus).subscribe(
         data => {
           if(data !=null){
-            //console.log(data);
+            console.log(data);
             this.isDataFound = true;
             this.requisitionList = data;
-
+            
             for(var i = 0; i < this.requisitionList.length; i++){
               this.requisitionList[i]['show'] = true;
             }
