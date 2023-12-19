@@ -88,6 +88,15 @@ export class IsmsreportService {
     );
   }
 
+  TestSCChallanReport( starDate: string, endDate: string ) : any {
 
+    console.log("In TestSimRequisitionReport()");
+
+		return this.http.post(this.serverUrl + 'testSCChallanReport', {
+      "starDate": starDate,
+      "endDate": endDate,
+    }
+    );
+  }
 
 }

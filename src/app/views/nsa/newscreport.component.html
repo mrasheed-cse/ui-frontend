@@ -3,7 +3,7 @@
 
   <div class="card-header">
 
-    Test Sim Requisition Report
+    Test SC Challan Report
 
       
     </div>
@@ -13,18 +13,7 @@
     <div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">{{dangerAlertMessage}}</div>
    
     <form [formGroup]="mySearchForm" novalidate (ngSubmit)="onSearchSubmit()">
-      <div class="row">
-        
-          <div class="col-xs-12 col-12 col-md-6 form-group" >
-            <label>Requisition Name</label> <input type="text" class="form-control"  formControlName="reqname"
-                               [ngClass]="{
-                                                           'is-invalid': reqname.invalid,
-                                                           'is-valid': reqname.valid
-                                                      }">
-                    <div class="invalid-feedback"  *ngIf="reqname.errors?.pattern"> Requisition Name Starts with RQN.</div>
-          </div>
-        
-      </div>
+
       <div class="row">
         <div class="col-xs-12 col-12 col-md-6 form-group " >
           <label>Start Date</label>
@@ -38,57 +27,7 @@
                          placement="left" >
         </div>
         </div>
-        <div class="row">
-            <div class="col-xs-12 col-12 col-md-6 form-group " >
-              <label>Start MSISDN</label>
-                
-                <input type="text" id="startMSISDN" name="startMSISDN" class="form-control" formControlName="startMSISDN" pattern="(017|013)\d*" 
-											 [ngClass]="{
-												'is-invalid': startMSISDN.invalid && (startMSISDN.dirty || startMSISDN.touched),
-												'is-valid': startMSISDN.valid && (startMSISDN.dirty || startMSISDN.touched)
-										   }">
-											<div class="invalid-feedback" *ngIf="startMSISDN.errors && (startMSISDN.dirty || startMSISDN.touched)">												
-												<p *ngIf="startMSISDN.errors.pattern">MSISDN starts with 017 or 013 and  contains only digits.</p>
-												<p *ngIf="startMSISDN.errors.minlength">MSISDN must be 11 digit long</p>
-												<p *ngIf="startMSISDN.errors.maxlength">MSISDN must be 11 digit long</p>
-											</div>
-            </div>
-    
-            <div class="col-xs-12 col-12 col-md-6 form-group " >
-               <label>End MSISDN</label>
-               <input type="text" id="endMSISDN" name="endMSISDN" class="form-control" formControlName="endMSISDN" pattern="(017|013)\d*"
-               [ngClass]="{
-                'is-invalid': endMSISDN.invalid && (endMSISDN.dirty || endMSISDN.touched),
-                'is-valid': endMSISDN.valid && (endMSISDN.dirty || endMSISDN.touched)
-               }">
-              <div class="invalid-feedback" *ngIf="endMSISDN.errors && (endMSISDN.dirty || endMSISDN.touched)">                
-                <p *ngIf="endMSISDN.errors.pattern">MSISDN starts with 017 or 013 and  contains only digits.</p>
-                <p *ngIf="endMSISDN.errors.minlength">MSISDN must be 11 digit long</p>
-                <p *ngIf="endMSISDN.errors.maxlength">MSISDN must be 11 digit long</p>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-              <div class="col-xs-12 col-12 col-md-6 form-group " >
-                  <label>Status</label> <select class="form-control"
-                  formControlName="msisdnStatus">
-                  <option value="">Please select a status</option>
-                  <option *ngFor="let astatus of listMsisdnStatus" [value]="astatus.id">{{astatus.name}}</option>
-                </select>
-                  
-              </div>
-      
-              <div class="col-xs-12 col-12 col-md-6 form-group " >
-                 <label>Owner Name</label>
-                 <!--<input type="text" class="form-control"  id="simOwner"  formControlName="simOwner" />-->
-                  
-                   <input type="text" class="form-control" (keyup)="getUserIdsFirstWay($event)" id="simOwner" list="dynmicUserIds" formControlName="simOwner" />
-                 <datalist id="dynmicUserIds">
-                    <option *ngFor="let item of userList1" [value]="item.userName">{{item.userName}}</option>
-                </datalist>         
-              
-              </div>
-            </div>
+        
         <div class="row">
             <div class="col-xs-12 col-12 col-md-6 form-group " >
               <button type="submit" class="btn btn-primary" >Submit</button>
@@ -101,7 +40,7 @@
 -->
 <div class="card">
     <div class="card-header">
-      <i class="fa fa-align-justify"></i>Test SIM Requisition Report
+      <i class="fa fa-align-justify"></i>Test SC Challan Report
     </div>
     <div class="card-body" *ngIf="isDataFound">
       <label style="margin-left: 20px;"> <button (click)="onBtExport()">Export to CSV</button> </label>
@@ -120,7 +59,7 @@
 
     </div>
     <div class="card-body" *ngIf="!isDataFound">
-        <div class="alert alert-primary" role="alert" ><b>System found no active test SIMs</b></div>
+        <div class="alert alert-primary" role="alert" ><b></b></div>
     </div>
   </div>   
 
