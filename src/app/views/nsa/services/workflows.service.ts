@@ -93,9 +93,10 @@ export class WorkflowsService {
 	}
 
 	//download challan
-	DownloadChallan() : any {
+	DownloadChallan(challanNo,requisitionId) : any {
 		return this.http.post(this.serverUrl + 'testscratchcard/downloadchallan', {
-			
+			challanNo:challanNo,
+			requisitionId:requisitionId
 		});
 
 	}

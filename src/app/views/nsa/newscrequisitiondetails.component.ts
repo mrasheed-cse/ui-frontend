@@ -185,8 +185,8 @@ onSearchSubmit() {
   }
 }
 
-downloadChallan(){
-  this.workFlowsService.DownloadChallan().subscribe(
+downloadChallan(challanNo:number,requisitionId:number){
+  this.workFlowsService.DownloadChallan(challanNo,requisitionId).subscribe(
     res  =>  {
       console.log('response is : '+res.message);
       if(res !== ""){
