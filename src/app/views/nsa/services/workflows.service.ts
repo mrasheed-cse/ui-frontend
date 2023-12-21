@@ -91,6 +91,16 @@ export class WorkflowsService {
 			status: status
 		});
 	}
+
+	//download challan
+	DownloadChallan(challanNo,requisitionId) : any {
+		return this.http.post(this.serverUrl + 'testscratchcard/downloadchallan', {
+			challanNo:challanNo,
+			requisitionId:requisitionId
+		});
+
+	}
+
 	
 	
 	//PreviousHopsField/{wrID}/{wrBriefId}/{userGroup_id}/{current_hop_seq}

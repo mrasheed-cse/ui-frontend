@@ -130,6 +130,9 @@
                 <!--<th>Hop</th>-->
                 <th>Status</th>
                 <th>Details</th>
+                <th>Sales Order No.</th>
+                <th>Challan No.</th>
+                <th>Challan Download</th>
                 <!--<th>Action</th>-->
               </tr>
             </thead>
@@ -155,9 +158,14 @@
                                 <a [routerLink]="[viewAction(aTask),aTask.id]">Details</a>
                               </button>
                             </td>
-                            <!--<td> 
-                               
-                            </td>-->
+                            <td>{{aTask.so_number}}</td>
+                            <td>{{aTask.challan_number}}</td>
+                            <td style="text-align:center">
+                              <a style="width:100px" class="btn btn-success" *ngIf="aTask.challan_number?.trim().length>0" (click)="downloadChallan(aTask.challan_number,aTask.id)">Download</a>
+                              <!-- <button style="display:block" type="button" class="btn btn-link" ><i class="fa fa-link"></i> 
+                                <a [routerLink]="[viewAction(aTask),aTask.id]">Download</a>
+                              </button> -->
+                            </td>
                         </tr>
             </tbody>
           </table>                

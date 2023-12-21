@@ -232,4 +232,11 @@ export class IsmsworkflowsService {
 		var result = this.http.post(this.serverUrl + 'testscratchcard/scFile/',requestData );
 		return result;
 	}
+
+	soCreation(id: number): any {
+		return this.http.post(this.serverUrl + 'testscratchcard/soCreation', {
+			requisitionId: id
+		});
+	}
+
 }
