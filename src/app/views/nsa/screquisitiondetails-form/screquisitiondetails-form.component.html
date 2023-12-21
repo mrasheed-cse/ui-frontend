@@ -106,7 +106,9 @@
                 <th>Upload File[ .CSV ]</th>
               </div>
               <!-- <div *ngIf="currentLoggedInUser.groupName!=='CLC'"> -->
-                <th *ngIf="currentLoggedInUser.groupName!=='CLC' && !(requisition.requisitionDetails.current_hop_seq===5 && requisition.employeeDetails.userGroup.nsaUsersGroupName==='SSM') && !(requisition.requisitionDetails.current_hop_seq===7 && requisition.employeeDetails.userGroup.nsaUsersGroupName==='GENERAL')"  >Action</th>
+              <th
+                *ngIf="currentLoggedInUser.groupName!=='CLC' && !(requisition.requisitionDetails.current_hop_seq===5 && requisition.employeeDetails.userGroup.nsaUsersGroupName==='SSM') && !(requisition.requisitionDetails.current_hop_seq===7 && requisition.employeeDetails.userGroup.nsaUsersGroupName==='GENERAL')">
+                Action</th>
               <!-- </div> -->
             </tr>
           </thead>
@@ -119,17 +121,18 @@
               <div
                 *ngIf="(requisition.requisitionDetails.current_hop_seq===5 && requisition.employeeDetails.userGroup.nsaUsersGroupName==='GENERAL') || (requisition.requisitionDetails.current_hop_seq===3 && requisition.employeeDetails.userGroup.nsaUsersGroupName==='SSM')">
                 <td>
-                 
+
                   <input type="file" id="reFilename{{i}}" name="reFilename{{i}}" accept=".xlsx,.csv"
                     class="form-control" (change)="onFileChange($event,c.quantity)">
                 </td>
               </div>
 
               <!-- <div *ngIf="currentLoggedInUser.groupName!=='CLC'"> -->
-                <td *ngIf="currentLoggedInUser.groupName!=='CLC' && !(requisition.requisitionDetails.current_hop_seq===5 && requisition.employeeDetails.userGroup.nsaUsersGroupName==='SSM') && !(requisition.requisitionDetails.current_hop_seq===7 && requisition.employeeDetails.userGroup.nsaUsersGroupName==='GENERAL')">
-                  <button type="button" style="color:red" (click)="deleteRequisitionLine(c)" class=""><i
-                      class="fa fa-ban"></i> Delete</button>
-                </td>
+              <td
+                *ngIf="currentLoggedInUser.groupName!=='CLC' && !(requisition.requisitionDetails.current_hop_seq===5 && requisition.employeeDetails.userGroup.nsaUsersGroupName==='SSM') && !(requisition.requisitionDetails.current_hop_seq===7 && requisition.employeeDetails.userGroup.nsaUsersGroupName==='GENERAL')">
+                <button type="button" style="color:red" (click)="deleteRequisitionLine(c)" class=""><i
+                    class="fa fa-ban"></i> Delete</button>
+              </td>
               <!-- </div> -->
             </tr>
           </tbody>
@@ -152,47 +155,47 @@
 </div>
 
 <div *ngIf="currentLoggedInUser.groupName==='CLC'">
-<div class="card">
-  <!-- <div class="card-header">
+  <div class="card">
+    <!-- <div class="card-header">
     <strong>Requisition Line Items</strong>
   </div> -->
-  <div class="card-body">
-    <div class="row">
-      <div class="col-md-12">
-        <table style="width:100%" border="1">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-12">
+          <table style="width:100%" border="1">
 
-          <thead>
-            <tr>
-              <th>Batch</th>
-              <th>Start Serial</th>
-              <th>End Serial</th>
-              <th>Quantity</th>
-              <th>Denomination</th>
-            </tr>
-          </thead>
+            <thead>
+              <tr>
+                <th>Batch</th>
+                <th>Start Serial</th>
+                <th>End Serial</th>
+                <th>Quantity</th>
+                <th>Denomination</th>
+              </tr>
+            </thead>
 
-          <tbody>
-            <tr *ngFor="let c of requisition['requisitionFileDetails']; index as i">
-              <td>{{c.batch}}</td>
-              <td>{{c.startSerial}}</td>
-              <td>{{c.endSerial}}</td>
-              <td>{{c.qty}}</td>
-              <td>{{c.denomination}}</td>
-            </tr>
-          </tbody>
-        </table>
+            <tbody>
+              <tr *ngFor="let c of requisition['requisitionFileDetails']; index as i">
+                <td>{{c.batch}}</td>
+                <td>{{c.startSerial}}</td>
+                <td>{{c.endSerial}}</td>
+                <td>{{c.qty}}</td>
+                <td>{{c.denomination}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
 </div>
-</div>
-  <!-- *ngIf="currentLoggedInUser.groupName==='SSM'"
+<!-- *ngIf="currentLoggedInUser.groupName==='SSM'"
 (currentStatus !== 'open' && currentStatus !== 'reopen') -->
-  <br />
+<br />
 
-  <!-- <div class="card"> -->
+<!-- <div class="card"> -->
 
-  <!-- <div class="card-body">
+<!-- <div class="card-body">
     <div class="row">
       <div class="col-md-12">
         Comments: <textarea rows="6" cols="75" [(ngModel)]="requisition_comments"></textarea>
@@ -207,35 +210,48 @@
     </div>
   </div>
    -->
-  <br />
+<br />
 
-  <div class="card">
+<div class="card">
 
-    <div class="card-body">
-      <div class="row">
-        <div class="col-md-12">
-          Comments: <textarea rows="6" cols="75" [(ngModel)]="requisition_comments"></textarea>
-
-          <br /><br />
-          <div style="display:inline-flex">
+  <div class="card-body">
+    <div class="row">
+      <div class="card">
+        <div style="text-align: center">
+          <div class="div_cust_loading_sign" *ngIf="isLoading">
             <div
-              *ngIf="(requisition.requisitionDetails.current_hop_seq===5 && requisition.employeeDetails.userGroup.nsaUsersGroupName==='GENERAL') || (requisition.requisitionDetails.current_hop_seq===3 && requisition.employeeDetails.userGroup.nsaUsersGroupName==='SSM')">
-              <input type="button" style="width:120px" [disabled]="!isFileLoaded" class="btn btn-success"
-                value="Approve" (click)="approve()">
+              style="position:fixed;width:100%;height:100%;left:0px;top:0px;z-index:50000;background-color:#536c79;opacity:0.95">
             </div>
-            <div
-              *ngIf="requisition.requisitionDetails.current_hop_seq===1 || requisition.requisitionDetails.current_hop_seq===2 || (requisition.requisitionDetails.current_hop_seq===3 && requisition.employeeDetails.userGroup.nsaUsersGroupName==='GENERAL') || requisition.requisitionDetails.current_hop_seq===4 || (requisition.requisitionDetails.current_hop_seq===5 && requisition.employeeDetails.userGroup.nsaUsersGroupName==='SSM') || requisition.requisitionDetails.current_hop_seq===6 || requisition.requisitionDetails.current_hop_seq===7 ">
-              <a style="width:120px" class="btn btn-success" (click)="approve()">Approve</a>
+            <div style="position:fixed;width:100%;height:100%;left:0px;top:0px;z-index:60000">
+              <div style="width:25%;height:25%;margin:0px auto;margin-top:20%"><i
+                  class="fa fa-spinner fa-pulse fa-4x fa-fw"></i></div>
             </div>
-            <!-- <div *ngIf="(requisition.requisitionDetails.current_hop_seq===3 && currentLoggedInUser.groupName==='GENERAL')">
-            <a style="width:120px" class="btn btn-success"  (click) = "approve()" >Approve</a>
-          </div> -->
-            <a style="width:120px" class="btn btn-danger" (click)="reject()">Reject</a>
-            <a *ngIf="(requisition.requisitionDetails.current_hop_seq===2) || (requisition.requisitionDetails.current_hop_seq===3 && currentLoggedInUser.groupName!=='SSM')"
-              style="width:120px" class="btn btn-primary" (click)="rfi()">RFI</a>
           </div>
         </div>
       </div>
-    </div>
+      <div class="col-md-12">
+        Comments: <textarea rows="6" cols="75" [(ngModel)]="requisition_comments"></textarea>
 
+        <br /><br />
+        <div style="display:inline-flex">
+          <div
+            *ngIf="(requisition.requisitionDetails.current_hop_seq===5 && requisition.employeeDetails.userGroup.nsaUsersGroupName==='GENERAL') || (requisition.requisitionDetails.current_hop_seq===3 && requisition.employeeDetails.userGroup.nsaUsersGroupName==='SSM')">
+            <input type="button" style="width:120px" [disabled]="!isFileLoaded" class="btn btn-success" value="Approve"
+              (click)="approve()">
+          </div>
+          <div
+            *ngIf="requisition.requisitionDetails.current_hop_seq===1 || requisition.requisitionDetails.current_hop_seq===2 || (requisition.requisitionDetails.current_hop_seq===3 && requisition.employeeDetails.userGroup.nsaUsersGroupName==='GENERAL') || requisition.requisitionDetails.current_hop_seq===4 || (requisition.requisitionDetails.current_hop_seq===5 && requisition.employeeDetails.userGroup.nsaUsersGroupName==='SSM') || requisition.requisitionDetails.current_hop_seq===6 || requisition.requisitionDetails.current_hop_seq===7 ">
+            <a style="width:120px" class="btn btn-success" (click)="approve()">Approve</a>
+          </div>
+          <!-- <div *ngIf="(requisition.requisitionDetails.current_hop_seq===3 && currentLoggedInUser.groupName==='GENERAL')">
+            <a style="width:120px" class="btn btn-success"  (click) = "approve()" >Approve</a>
+          </div> -->
+          <a style="width:120px" class="btn btn-danger" (click)="reject()">Reject</a>
+          <a *ngIf="(requisition.requisitionDetails.current_hop_seq===2) || (requisition.requisitionDetails.current_hop_seq===3 && currentLoggedInUser.groupName!=='SSM')"
+            style="width:120px" class="btn btn-primary" (click)="rfi()">RFI</a>
+        </div>
+      </div>
+    </div>
   </div>
+
+</div>

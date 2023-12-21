@@ -92,10 +92,10 @@ export class NewscrequisitiondetailsComponent implements OnInit {
     this.workFlowsService.LoadPersonalScDetails(0,this.userID, this.requestedSimAtatus).subscribe(
         data => {
           if(data !=null){
-            //console.log(data);
+            console.log(data);
             this.isDataFound = true;
             this.requisitionList = data;
-
+            
             for(var i = 0; i < this.requisitionList.length; i++){
               this.requisitionList[i]['show'] = true;
             }
@@ -183,6 +183,25 @@ onSearchSubmit() {
       }
 
   }
+}
+
+downloadChallan(challanNo:number,requisitionId:number){
+  this.workFlowsService.DownloadChallan(challanNo,requisitionId).subscribe(
+    res  =>  {
+      console.log('response is : '+res.message);
+      if(res !== ""){
+        // alert(res.message);
+        // this.router.navigate(['nsa/newscrequisition']);
+      } else {
+        alert('failed to download Challan');
+      }
+    },
+    err  =>  {
+
+    }
+
+  );
+
 }
 
 createFormControls() {
