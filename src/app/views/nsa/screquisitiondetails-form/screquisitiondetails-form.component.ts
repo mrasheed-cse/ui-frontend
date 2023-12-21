@@ -139,18 +139,18 @@ export class SCRequisitiondetailsFormComponent implements OnInit {
     var soNumber = "";
     this.isLoading = true;
     if ((this.requisition.requisitionDetails.current_hop_seq === 3 || this.requisition.requisitionDetails.current_hop_seq === 5) && this.requisition.employeeDetails.userGroup.nsaUsersGroupName === 'SSM') {
-      this.ismsworkflowsService.findScRequisitionDetails(this.requisitionId).subscribe(
+      this.ismsworkflowsService.soCreation(this.requisitionId).subscribe(
         res => {
           var response = res.responseBody
           console.log('so creation response is : ' + response);
           if (response) {
             if (response.orderStatus === "Success" && response.soNumber.length > 0) {
               soNumber = response.soNumber;
+              this.approveOrRejectRequest(this.requisitionDetails['id'], "ACCEPT", this.userID);
             }
             else {
               isApprove = false;
             }
-
           }
           else {
             isApprove = false;
@@ -161,10 +161,12 @@ export class SCRequisitiondetailsFormComponent implements OnInit {
           isApprove = false;
           alert("SO creation failed." + err)
         });
+    } else {
+      this.approveOrRejectRequest(this.requisitionDetails['id'], "ACCEPT", this.userID);
     }
 
     if (isApprove) {
-      this.approveOrRejectRequest(this.requisitionDetails['id'], "ACCEPT", this.userID);
+      
       // if (this.requisition.requisitionDetails.current_hop_seq === 3 && this.requisition.requisitionDetails.current_hop_seq === 5) {
       //   let quantity = this.requsitionLines.map(item => item.quantity)
       //   this.salesOrderCreationRequest(quantity);
