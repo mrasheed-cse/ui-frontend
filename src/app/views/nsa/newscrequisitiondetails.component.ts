@@ -186,14 +186,17 @@ onSearchSubmit() {
 }
 
 downloadChallan(challanNo:number,requisitionId:number){
-  this.workFlowsService.DownloadChallan(challanNo,requisitionId).subscribe(data => this.downloadFile(data)),//console.log(data),
-  error => console.log('Error downloading the file.'),
-  () => console.info('OK');
-}
-downloadFile(data) {
-  const blob = new Blob([data], { type: 'text/pdf' });
-  const url= window.URL.createObjectURL(blob);
-  window.open(url);
+  this.workFlowsService.DownloadChallan(challanNo,requisitionId).subscribe((data) => {
+
+    const blob = new Blob([data], {type: 'application/pdf'});
+  
+    var downloadURL = window.URL.createObjectURL(data);
+    var link = document.createElement('a');
+    link.href = downloadURL;
+    link.download = challanNo+".pdf";
+    link.click();
+  
+  });
 }
 createFormControls() {
   this.wrname = new FormControl('',Validators.pattern(this.wrNamePattern));
