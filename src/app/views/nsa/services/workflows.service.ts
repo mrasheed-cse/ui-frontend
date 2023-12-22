@@ -94,10 +94,13 @@ export class WorkflowsService {
 
 	//download challan
 	DownloadChallan(challanNo,requisitionId) : any {
+		const httpOptions = {
+			responseType: 'blob' as 'json'
+		  };
 		return this.http.post(this.serverUrl + 'testscratchcard/downloadchallan', {
 			challanNo:challanNo,
 			requisitionId:requisitionId
-		});
+		},httpOptions);
 
 	}
 
