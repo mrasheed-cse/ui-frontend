@@ -186,24 +186,18 @@ onSearchSubmit() {
 }
 
 downloadChallan(challanNo:number,requisitionId:number){
-  this.workFlowsService.DownloadChallan(challanNo,requisitionId).subscribe(
-    res  =>  {
-      console.log('response is : '+res.message);
-      if(res !== ""){
-        // alert(res.message);
-        // this.router.navigate(['nsa/newscrequisition']);
-      } else {
-        alert('failed to download Challan');
-      }
-    },
-    err  =>  {
+  this.workFlowsService.DownloadChallan(challanNo,requisitionId).subscribe((data) => {
 
-    }
-
-  );
-
+    const blob = new Blob([data], {type: 'application/pdf'});
+  
+    var downloadURL = window.URL.createObjectURL(data);
+    var link = document.createElement('a');
+    link.href = downloadURL;
+    link.download = challanNo+".pdf";
+    link.click();
+  
+  });
 }
-
 createFormControls() {
   this.wrname = new FormControl('',Validators.pattern(this.wrNamePattern));
   this.wrstatus = new FormControl('');
