@@ -102,7 +102,7 @@ export class NewscreportComponent implements OnInit {
       { headerName: 'TEST SC end', field: 'testSCEnd', sortable: true, filter: true, width: 210 },
       { headerName: 'BOX Start Serial',  sortable: true, filter: true, width: 210 },
       { headerName: 'BOX End serial',  sortable: true, filter: true, width: 210 },
-      { headerName: 'Qty', field: 'Qty', sortable: true, filter: true, width: 210 },
+      { headerName: 'Qty', field: 'qty', sortable: true, filter: true, width: 210 },
       { headerName: 'VAT Challan No',  sortable: true, filter: true, width: 210 },
     ];
 
