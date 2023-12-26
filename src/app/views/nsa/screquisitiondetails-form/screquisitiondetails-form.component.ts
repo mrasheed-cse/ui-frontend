@@ -138,7 +138,7 @@ export class SCRequisitiondetailsFormComponent implements OnInit {
     var isApprove = true;
     var soNumber = "";
     this.isLoading = true;
-    if ((this.requisition.requisitionDetails.current_hop_seq === 3 || this.requisition.requisitionDetails.current_hop_seq === 5) && this.requisition.employeeDetails.userGroup.nsaUsersGroupName === 'SSM') {
+    if ((this.requisition.requisitionDetails.current_hop_seq === 3 && this.requisition.employeeDetails.userGroup.nsaUsersGroupName === 'SSM') || (this.requisition.requisitionDetails.current_hop_seq === 5 && this.requisition.employeeDetails.userGroup.nsaUsersGroupName === 'GENERAL')) {
       this.ismsworkflowsService.soCreation(this.requisitionId).subscribe(
         res => {
           var response = res.responseBody
