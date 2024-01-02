@@ -81,6 +81,7 @@ export class NewscrequisitioninitiateComponent implements OnInit {
   notificationTo: FormControl;
   requisitionType: FormControl;
   requisitionDate: FormControl;
+  testMobileNumberNew: FormControl;
   requisitionLines: FormArray;
   // cardExpiry: FormControl;
 
@@ -572,6 +573,7 @@ export class NewscrequisitioninitiateComponent implements OnInit {
   onNewScRequisitionSubmit() {
 
     console.log("this.defFlowFound is ", this.newScRequisitionForm);
+    console.log("this.defFlowFound is new ", this.newScRequisitionForm.value);
     if (this.newScRequisitionForm.valid) {
 
       /////////////////////////////////////////// //////////////////////////////////
@@ -631,7 +633,8 @@ export class NewscrequisitioninitiateComponent implements OnInit {
       this.headerDateData.requisitionLines = this.newScRequisitionForm.get('requisitionLines').value;
 
       let resource = (this.headerDateData);
-      console.log(resource);
+      console.log('resource is' + resource.Object);
+      console.log(resource.Object);
       console.log('Add Button clicked: ' + resource);
 
 
