@@ -17,7 +17,8 @@ import { FormControl } from '@angular/forms';
   providers: [AppGlobals, LoginService, IsmsworkflowsService, FileoperationService]
 })
 export class SCRequisitiondetailsFormComponent implements OnInit {
-
+ 
+  count =0;
   requisition: any;
   requsitionLines: Array<any>;
   employeeDetails: any;
@@ -183,6 +184,8 @@ export class SCRequisitiondetailsFormComponent implements OnInit {
     this.approveOrRejectRequest(this.requisitionDetails['id'], "RFI", this.userID);
   }
 
+  
+
   deleteRequisitionLine(lineItem) {
 
     if (confirm("Are you sure?")) {
@@ -225,9 +228,11 @@ export class SCRequisitiondetailsFormComponent implements OnInit {
 
     return arr;
   }
+
+  
   onFileChange(event, qty: number, exDate: Date) {
 
-
+    
     const fd = new FormData();
     this.isLoading = true;
     this.selectedFile = <File>event.target.files[0];
@@ -239,7 +244,6 @@ export class SCRequisitiondetailsFormComponent implements OnInit {
         let index = res.message.lastIndexOf(":");
         let file = res.message.substring(index);
         let requestData = { fileName: this.fileName, qty: qty, expiryDate: exDate, requisitionDetailId: this.requisitionDetails['id'] }
-
         console.log(requestData);
         this.ismsworkflowsService.checkFileValidity(requestData).subscribe(
           response => {
@@ -248,8 +252,14 @@ export class SCRequisitiondetailsFormComponent implements OnInit {
             if (res[0].trim() === "Valid") {
               //this.infoAlertShow = false;
               alert("File uploaded successfully");
+              this.count = this.count+1;
               this.isLoading = false;
-              this.isFileLoaded = true;
+              console.log(this.requisition.requisitionLines.length)
+              if(this.requisition.requisitionLines.length === this.count){
+                console.log("hii")
+                this.isFileLoaded = true;
+              }
+              
             }
             else {
               //this.infoAlertShow = true;
