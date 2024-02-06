@@ -310,8 +310,9 @@ SubmitForPlanGenerationFromMsisdnFile(){
 
 
 		this.planManagemetService.uploadCSvAndGeneratePlan(objToInsert).subscribe(
-	
-			data=>{ 	
+			
+			data=>{ 
+				
 				
 				console.log(data.message);
 				if(data.message === "1"){
@@ -324,7 +325,8 @@ SubmitForPlanGenerationFromMsisdnFile(){
 				else{
 					this.isLoading=false;
 					alert(data.message);
-					this.ngOnInit();
+					//this.ngOnInit();
+					this.router.navigateByUrl('/nsa/preplangenerate');
 					}
 			},
 			err=> {

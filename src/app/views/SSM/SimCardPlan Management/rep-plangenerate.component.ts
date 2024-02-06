@@ -314,7 +314,8 @@ SubmitForRepPlanGeneration(){
 				else{
 					this.isLoading=false;
 					alert(data.message);
-					this.ngOnInit();
+					//this.ngOnInit();
+					this.router.navigateByUrl('/nsa/reppreplangenerate');
 					}
 			},
 			err=> {

@@ -183,7 +183,14 @@ LoadFilteredInputFiles(){
           if(dataSize>0){        
           this.isDataFound = true;
           this.inputFileList = data.filteredInputFiles;
-  
+          this.inputFileList.forEach(x=>
+            {
+              x['iccidStartnum']= x['startIccid'] + x['planQuantity'];
+              x['iccidEndnum']=x['startIccid'] + x['receivedQuantity']-1;
+              x['iccidStart'] = "898801"+ x['iccidOrder']+ "0" + x['imsiType']+ x['iccidStartnum'];
+              x['iccidEnd'] = "898801"+ x['iccidOrder']+ "0" + x['imsiType']+ x['iccidEndnum'];
+            }
+          )
           this.isNoDataFound=false;
           
           var resultOfMod = dataSize%Number(this._global.defaultPageSize2);        
