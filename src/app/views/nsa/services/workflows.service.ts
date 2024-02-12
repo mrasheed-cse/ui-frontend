@@ -102,7 +102,20 @@ export class WorkflowsService {
 			requisitionId:requisitionId
 		},httpOptions);
 
+	} 
+
+	LoadPreDeactivationScDetails( user_id: string) : any {
+		//console.log( "status : "+status);
+		return this.http.post(this.serverUrl + 'testscratchcard/loadpredeactivationscdetails', {
+			createdBy: user_id
+			
+		});
 	}
+
+	getSuppilerName(): any {	
+		return this.http.get(this.serverUrl + 'inputFileprocessing/artwork/');
+	}
+	
 
 	
 	

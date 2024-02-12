@@ -149,6 +149,7 @@ import { StockReport } from '../SSM/Report/stockreport.component';
 import { SCRequisitiondetailsFormComponent } from './screquisitiondetails-form/screquisitiondetails-form.component';
 import { SCRequisitionviewComponent } from './screquisitionview/screquisitionview.component';
 import { SCRequisitioneditComponent } from './screquisitionedit/screquisitionedit.component';
+import { TestscDeactivationComponent } from './testscdeactivation.component';
 import { UploadRecycleCsvFile } from './uploadRecyleSMS.component';
 
 const routes: Routes = [
@@ -415,6 +416,13 @@ const routes: Routes = [
         component: NewscreportComponent,
         data: {
             title: 'SC Challan report'
+        }
+    },
+    {
+        path: 'testscdeactivation',
+        component: TestscDeactivationComponent,
+        data: {
+            title: 'Test ScratchCard Deativation'
         }
     },
 
