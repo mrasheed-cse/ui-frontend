@@ -171,6 +171,7 @@ import { SCRequisitionviewComponent } from './screquisitionview/screquisitionvie
 import { SCRequisitiondetailsFormComponent } from './screquisitiondetails-form/screquisitiondetails-form.component';
 import { SCRequisitioneditComponent } from './screquisitionedit/screquisitionedit.component';
 import { UploadRecycleCsvFile } from './uploadRecyleSMS.component';
+import { TestscDeactivationComponent } from './testscdeactivation.component';
 
 
 
@@ -220,6 +221,7 @@ import { UploadRecycleCsvFile } from './uploadRecyleSMS.component';
     //test sc cr
     NewscrequisitioninitiateComponent,
     NewscrequisitiondetailsComponent,
+    TestscDeactivationComponent,
     NewscrequisitionComponent,
     NewscreportComponent,
     NewrequisitiondetailsComponent,
