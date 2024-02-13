@@ -41,6 +41,7 @@ import {
   
       isDataFound: boolean = true;
       isCollapsed: boolean = true;
+      isEditEnable: boolean=true;
   
       mySearchForm: FormGroup;
      wrname: FormControl;
@@ -138,22 +139,40 @@ import {
       this.isLoading = false;
       this.todayDate = new Date();
   
-      this.workFlowsService.getSuppilerName().subscribe(
-        data => {
+      // this.workFlowsService.getSuppilerName().subscribe(
+      //   data => {
+      //               //console.log(data);
+      //               for (let index in data) {
+      //                   //console.log (data[index]);
+      //                   this.listSuppilerName.push(
+      //                   {
+      //                       id:data[index].id,
+      //                       suppilerName: data[index].groupName
+      //                   }
+      //                   );
+      //               }
+      //           },
+      //       err => console.error(err),
+      //       () => console.log('Art work loading done.')
+      //       );
+
+            this.workFlowsService.getDropdown("9").subscribe(
+		
+              data => {
                     //console.log(data);
                     for (let index in data) {
-                        //console.log (data[index]);
-                        this.listSuppilerName.push(
-                        {
-                            id:data[index].id,
-                            suppilerName: data[index].groupName
-                        }
-                        );
+                      this.listSuppilerName.push(
+                      {
+                        id:data[index].id,
+                        group_name: data[index].groupName,
+                      
+                      }
+                      );
                     }
-                },
-            err => console.error(err),
-            () => console.log('Art work loading done.')
-            );
+                  },
+                err => console.error(err),
+                () => console.log('Vendor loading done.')
+                );
   
   
   } //end of constructor
@@ -230,6 +249,7 @@ import {
   }
   
   downloadChallan(challanNo:number,requisitionId:number){
+    debugger
     this.workFlowsService.DownloadChallan(challanNo,requisitionId).subscribe((data) => {
   
       const blob = new Blob([data], {type: 'application/pdf'});
@@ -242,6 +262,24 @@ import {
     
     });
   }
+
+  submitDeactivationData(requisition:string,requisitionId:number,index:number){
+    debugger
+    this.workFlowsService.SubmitDeactivationData(requisition,requisitionId,index).subscribe(
+      (data) => {
+        console.log('response is : '+data.message);  
+        if(data !== ""){
+
+        }
+    },
+    err  =>  {	
+           
+    }
+    );
+  }
+
+
+  
   createFormControls() {
     this.wrname = new FormControl('',Validators.pattern(this.wrNamePattern));
     this.wrstatus = new FormControl('');
@@ -263,8 +301,15 @@ import {
         //this.router.navigateByUrl('/nsa/seriesprovisiondetail');
   }
   
-  editAction(aTask){
-    return '../screquisitionedit/'.toString();
+  // editAction(aTask){
+  //   return '../screquisitionedit/'.toString();
+  // }
+
+  editAction(id,index: number){
+    debugger
+    // return '../screquisitionedit/'.toString();
+     this.isEditEnable = false;
+
   }
   
   viewAction(aTask){
