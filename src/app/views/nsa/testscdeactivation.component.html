@@ -145,67 +145,67 @@
              <tbody *ngFor="let aTask of requisitionList;  index as i">
                           <tr [hidden]="!aTask.show">
                               <td>{{aTask.requisitionNo}}</td>
-                              <td>{{aTask.requisitionDt}}</td>
+                              <td>{{aTask.requisitionDate}}</td>
                               <td>{{aTask.requisitionType}}</td>
-                              <td>{{aTask.challan_number}}</td>
-                              <td>Batch</td>
-                              <td>Start Serial</td>
-                              <td>End Serial</td>
-                              <td>Deno</td>
-                              <td>{{aTask.testMobileNumber}}</td>
+                              <td>{{aTask.challanNo}}</td>
+                              <td>{{aTask.batch}}</td>
+                              <td>{{aTask.startSerialDB}}</td>
+                              <td>{{aTask.endSerialDB}}</td>
+                              <td>{{aTask.denomination}}</td>
+                              <td>{{aTask.testMsisdn}}</td>
                               <td>
                                 <!-- <select [(ngModel)]="selectedOption" >
                                     <option *ngFor="let option of options" [value]="option">{{option}}</option>
                                 </select> -->
-                                <select id="" name="" class="form-control">
+                                <select [disabled]="isEditEnable" [(ngModel)] = "aTask.ngvsVoucherStatusUpdated"  id="" name=""  class="form-control">
                                     <option value="0"></option>
-                                    <option value="1">Yes</option>
-                                    <option value="1">No</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
                                   </select>
                               </td>
                               <td>
-                                <select id="" name="" class="form-control">
+                                <select [disabled]="isEditEnable" [(ngModel)] = "aTask.smsReceived" id="" name="" class="form-control">
                                     <option value="0"></option>
-                                    <option value="1">Yes</option>
-                                    <option value="1">No</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
                                   </select>
                               </td>                              
                               <td>
-                                <select id="" name="" class="form-control">
+                                <select [disabled]="isEditEnable" [(ngModel)] = "aTask.atPackageAdded" id="" name="" class="form-control">
                                     <option value="0"></option>
-                                    <option value="1">Yes</option>
-                                    <option value="1">No</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
                                   </select>
                               </td>                             
                               <td>
-                                <input type="text" class="form-control" required>
+                                <input [disabled]="isEditEnable" [(ngModel)] = "aTask.scStartSlNo" type="text" class="form-control" required>
                               </td>
                               <td>
-                                <input type="text" class="form-control" required>
+                                <input [disabled]="isEditEnable" [(ngModel)] = "aTask.scEndSlNo" type="text" class="form-control" required>
                               </td>
                               <td>
-                                <select class="form-control" id="" required >
+                                <select [disabled]="isEditEnable" [(ngModel)] = "aTask.supplierName" class="form-control" id="" required >
                                     <option></option>
-                                    <option *ngFor="let oneSuppilername of listSuppilerName" [value]="oneSuppilername.id">{{oneSuppilername.suppilerName}}</option>
+                                    <option *ngFor="let oneSuppilername of listSuppilerName" [value]="oneSuppilername.group_name">{{oneSuppilername.group_name}}</option>
                                 </select>
                               </td>
                               <td>
-                                <select id="" name="" class="form-control">
+                                <select [disabled]="isEditEnable" [(ngModel)] = "aTask.testResult" id="" name="" class="form-control">
                                     <option value="0"></option>
-                                    <option value="1">Yes</option>
-                                    <option value="1">No</option>
+                                    <option value="pass">Pass</option>
+                                    <option value="fail">Fail</option>
                                   </select>
                               </td>     
                               <td>
-                                <a style="width:50px" class="btn btn-success"  (click)="downloadChallan(aTask.challan_number,aTask.id)">Edit</a>
+                                <a style="width:50px" class="btn btn-success"  (click)="editAction(aTask.requisitionId,i)">Edit</a>
 
                               </td>
                               <td>
-                                <a style="width:75px" class="btn btn-success"  (click)="downloadChallan(aTask.challan_number,aTask.id)">Submit</a>
+                                <a style="width:75px" class="btn btn-success"  (click)="submitDeactivationData(aTask,aTask.requisitionId,i)">Submit</a>
 
                               </td>
                               <td>
-                                <a style="width:90px" class="btn btn-success"  (click)="downloadChallan(aTask.challan_number,aTask.id)">Deativate</a>
+                                <a style="width:90px" class="btn btn-success"  (click)="downloadChallan(aTask)">Deativate</a>
 
                               </td>
                               <!-- <td>{{aTask.purposeCategory}}</td> -->

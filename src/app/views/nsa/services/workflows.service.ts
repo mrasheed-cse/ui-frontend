@@ -112,8 +112,25 @@ export class WorkflowsService {
 		});
 	}
 
-	getSuppilerName(): any {	
-		return this.http.get(this.serverUrl + 'inputFileprocessing/artwork/');
+	// getSuppilerName(): any {	
+	// 	return this.http.get(this.serverUrl + 'inputFileprocessing/artwork/');
+	// }
+
+	getDropdown(linkno: string):any {
+        console.log(this.serverUrl + "plangenerate/dropdown/" + linkno);
+        return this.http.get(this.serverUrl + 'plangenerate/dropdown/' + linkno);
+    }
+
+	SubmitDeactivationData(requisition,requisitionId,index) : any {	
+  
+		//console.log("In GetWR_Name() for theWrNumber "+ theWrNumber);	
+		//console.log("In GetWR_Name() for workflowFieldsValueSeqWise "+ workflowFieldsValueSeqWise);	
+		//console.log(wr_id+'/'+userGroup_id+'/'+userID+'/['+workflowFieldsValueSeqWise+']');
+	return this.http.post(this.serverUrl + 'testscratchcard/SaveDeactRequest', {
+			requisition: requisition,
+			requisitionId: requisitionId,
+			index: index
+		});
 	}
 	
 
