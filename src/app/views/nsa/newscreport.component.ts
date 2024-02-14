@@ -100,9 +100,15 @@ export class NewscreportComponent implements OnInit {
       { headerName: 'Batch', field: 'batch', sortable: true, filter: true, width: 210 },
       { headerName: 'TEST SC start', field: 'testSCStart', sortable: true, filter: true, width: 210 },
       { headerName: 'TEST SC end', field: 'testSCEnd', sortable: true, filter: true, width: 210 },
-      { headerName: 'BOX Start Serial',  sortable: true, filter: true, width: 210 },
-      { headerName: 'BOX End serial',  sortable: true, filter: true, width: 210 },
+      { headerName: 'Test MSISDN', field: 'supplierName', sortable: true, filter: true, width: 210 },
       { headerName: 'Qty', field: 'qty', sortable: true, filter: true, width: 210 },
+      { headerName: 'Ngvs Voucher Status Updated', field: 'ngvsVoucherStatusUpdateds', sortable: true, filter: true, width: 210 },
+      { headerName: 'Subs got SMS', field: 'smsReceived', sortable: true, filter: true, width: 210 },
+      { headerName: 'AIRTime & Package added', field: 'atPackageAdded', sortable: true, filter: true, width: 210 },
+      { headerName: 'Test start serial(M)', field: 'scStartSlNo', sortable: true, filter: true, width: 210 },
+      { headerName: 'Test end serial(M)', field: 'scEndSlNo', sortable: true, filter: true, width: 210 },
+      { headerName: 'Supplier Name', field: 'supplierName', sortable: true, filter: true, width: 210 },
+      { headerName: 'Test Result', field: 'testResult', sortable: true, filter: true, width: 210 }
     ];
 
     this.rowData = [];

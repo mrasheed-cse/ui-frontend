@@ -41,7 +41,9 @@ import {
   
       isDataFound: boolean = true;
       isCollapsed: boolean = true;
-      isEditEnable: boolean=true;
+      // isEditEnable: boolean=true;
+      isEditDone: number=-1;
+      deativationDisable:boolean=true
   
       mySearchForm: FormGroup;
      wrname: FormControl;
@@ -67,6 +69,13 @@ import {
     selectedOption: string='';
 
     public listSuppilerName = [];
+
+    prePlanGenerationForm: FormGroup;
+	NGVS: FormControl;
+    vendor: FormControl;
+    IMSI: FormControl;
+    isRep:FormControl;
+    
 
   
   
@@ -156,7 +165,7 @@ import {
       //       () => console.log('Art work loading done.')
       //       );
 
-            this.workFlowsService.getDropdown("9").subscribe(
+            this.workFlowsService.getDropdown().subscribe(
 		
               data => {
                     //console.log(data);
@@ -180,13 +189,6 @@ import {
 
   
   
-  
-  ngOnInit () {
-  
-  this.createFormControls();
-    this.createForm();
-  
-  }
   
   datepickerConfig: Partial<BsDatepickerConfig>;
   
@@ -269,6 +271,7 @@ import {
       (data) => {
         console.log('response is : '+data.message);  
         if(data !== ""){
+          this.deativationDisable=false;
 
         }
     },
@@ -278,23 +281,73 @@ import {
     );
   }
 
+  finalDeactivation(requisition:string,requisitionId:number,index:number){
+    if (confirm("do you like to deactivate?")) {
+      //do nothing here
+    }
+    else {
+      // this.isLoading = false;
+      return;
+    }
+    debugger
+    this.workFlowsService.FinalDeactivation(requisition,requisitionId,index).subscribe(
+      (data) => {
+        console.log('response is : '+data.message);  
+        if(data !== ""){
+          this.successAlertMessage="success";
+          alert(this.successAlertMessage);
+          
 
-  
-  createFormControls() {
-    this.wrname = new FormControl('',Validators.pattern(this.wrNamePattern));
-    this.wrstatus = new FormControl('');
-    this.startDate = new FormControl('');
-    this.endDate = new FormControl('');
+        }
+    },
+    err  =>  {	
+           
+    }
+    );
   }
+
+  ngOnInit () {
   
-  createForm() {
-    this.mySearchForm = new FormGroup({
-      wrname: this.wrname,
-      wrstatus: this.wrstatus,
-      startDate: this.startDate,
-    endDate: this.endDate
-    });
-  }
+    this.createFormControls();
+      this.createForm();
+    
+    }
+  
+  
+  
+    createFormControls() {
+      
+    this.NGVS = new  FormControl('', Validators.required);
+      // this.vendor = new FormControl('', Validators.required);
+      // this.IMSI = new FormControl('');
+      // this.isRep=  new FormControl('');
+    }
+  
+    createForm() {
+      this.prePlanGenerationForm = new FormGroup({
+        NGVS: this.NGVS
+          // vendor: this.vendor,
+          // IMSI: this.IMSI,
+          // isRep: this.isRep
+      });
+    }
+    
+  
+  // createFormControls() {
+  //   this.wrname = new FormControl('',Validators.pattern(this.wrNamePattern));
+  //   this.wrstatus = new FormControl('');
+  //   this.startDate = new FormControl('');
+  //   this.endDate = new FormControl('');
+  // }
+  
+  // createForm() {
+  //   this.mySearchForm = new FormGroup({
+  //     wrname: this.wrname,
+  //     wrstatus: this.wrstatus,
+  //     startDate: this.startDate,
+  //   endDate: this.endDate
+  //   });
+  // }
   
   onTaskSelect(aTask) {
         //this.selectedContactId = aTask.wr_ID;
@@ -308,7 +361,8 @@ import {
   editAction(id,index: number){
     debugger
     // return '../screquisitionedit/'.toString();
-     this.isEditEnable = false;
+     this.isEditDone=index;
+    //  this.isEditEnable = false;
 
   }
   

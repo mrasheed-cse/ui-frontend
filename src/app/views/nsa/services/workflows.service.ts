@@ -116,9 +116,9 @@ export class WorkflowsService {
 	// 	return this.http.get(this.serverUrl + 'inputFileprocessing/artwork/');
 	// }
 
-	getDropdown(linkno: string):any {
-        console.log(this.serverUrl + "plangenerate/dropdown/" + linkno);
-        return this.http.get(this.serverUrl + 'plangenerate/dropdown/' + linkno);
+	getDropdown():any {
+        // console.log(this.serverUrl + "plangenerate/dropdown/" + linkno);
+        return this.http.get(this.serverUrl + 'inputFileprocessing/vendor');
     }
 
 	SubmitDeactivationData(requisition,requisitionId,index) : any {	
@@ -133,6 +133,15 @@ export class WorkflowsService {
 		});
 	}
 	
+	
+	FinalDeactivation(requisition,requisitionId,index) : any {	
+  
+	return this.http.post(this.serverUrl + 'testscratchcard/scDeactivation', {
+			requisition: requisition,
+			requisitionId: requisitionId,
+			index: index
+		});
+	}
 
 	
 	
