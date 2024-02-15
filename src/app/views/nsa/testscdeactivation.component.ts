@@ -285,7 +285,7 @@ import {
         console.log('response is : ',data);  
         if(data !== ""){
           if(data.message=="Success"){
-            alert(data.message);
+            alert("Data Saved Successfully");
             this.deativationDisable=true;
 
           }
@@ -304,7 +304,7 @@ import {
     );
       }
       else{ 
-          alert("All fields are mendatory")
+          alert("All fields are mendatory, Please insert Data")
   
       }
     
