@@ -112,7 +112,7 @@
           <div class="card-header">
             <i class="fa fa-align-justify"></i> Requisition Details :: <b>{{requestedSimAtatus}}</b> Requisitions
           </div>
-          <div class="card-body" *ngIf="isDataFound">
+          <div style="overflow-y: auto;" class="card-body" *ngIf="isDataFound">
             <table  class="table table-bordered table-striped table-sm">
               <thead>
                 <tr>
@@ -149,46 +149,46 @@
                               <td>{{aTask.batch}}</td>
                               <td>{{aTask.startSerialDB}}</td>
                               <td>{{aTask.endSerialDB}}</td>
-                              <td style="width: 80px;">{{aTask.denomination}}</td>
+                              <td>{{aTask.denomination}}</td>
                               <td>{{aTask.testMsisdn}}</td>
                               <td>
                                 <!-- <select [(ngModel)]="selectedOption" >
                                     <option *ngFor="let option of options" [value]="option">{{option}}</option>
                                 </select> -->
-                                <select [disabled]="!(isEditDone==i) || deativationDisable" [(ngModel)] = "aTask.ngvsVoucherStatusUpdated"  id="" name="" style="width: 75px;"  class="form-control" required>
+                                <select [disabled]="!(isEditDone==i) || deativationDisable" [(ngModel)] = "aTask.ngvsVoucherStatusUpdated"  id="" name="" style="width: 90px;"  class="form-control" required>
                                     <!-- <option value="0"></option> -->
                                     <option value="Yes">Yes</option>
                                     <option value="No">No</option>
                                   </select>
                               </td>
                               <td>
-                                <select [disabled]="!(isEditDone==i) || deativationDisable" [(ngModel)] = "aTask.smsReceived" id="" name="" style="width: 75px;" class="form-control">
+                                <select [disabled]="!(isEditDone==i) || deativationDisable" [(ngModel)] = "aTask.smsReceived" id="" name="" style="width: 90px;" class="form-control">
                                     <!-- <option value="0"></option> -->
                                     <option value="Yes">Yes</option>
                                     <option value="No">No</option>
                                   </select>
                               </td>                              
                               <td>
-                                <select [disabled]="!(isEditDone==i) || deativationDisable" [(ngModel)] = "aTask.atPackageAdded" id="" name="" style="width: 75px;" class="form-control">
+                                <select [disabled]="!(isEditDone==i) || deativationDisable" [(ngModel)] = "aTask.atPackageAdded" id="" name="" style="width: 90px;" class="form-control">
                                     <!-- <option value="0"></option> -->
                                     <option value="Yes">Yes</option>
                                     <option value="No">No</option>
                                   </select>
                               </td>                             
                               <td>
-                                <input [disabled]="!(isEditDone==i) || deativationDisable" [(ngModel)] = "aTask.scStartSlNo" style="width:110px;" type="text" class="form-control" required>
+                                <input [disabled]="!(isEditDone==i) || deativationDisable" [(ngModel)] = "aTask.scStartSlNo" style="width:120px;" type="text" class="form-control" required>
                               </td>
                               <td>
-                                <input [disabled]="!(isEditDone==i) || deativationDisable" [(ngModel)] = "aTask.scEndSlNo" style="width:110px;" type="text" class="form-control" required>
+                                <input [disabled]="!(isEditDone==i) || deativationDisable" [(ngModel)] = "aTask.scEndSlNo" style="width:120px;" type="text" class="form-control" required>
                               </td>
                               <td>
-                                <select [disabled]="!(isEditDone==i) || deativationDisable" [(ngModel)] = "aTask.supplierName" class="form-control" id="" required >
+                                <select [disabled]="!(isEditDone==i) || deativationDisable" style="width:90px;" [(ngModel)] = "aTask.supplierName" class="form-control" id="" required >
                                     <!-- <option></option> -->
                                     <option *ngFor="let oneSuppilername of listSuppilerName" [value]="oneSuppilername.group_name">{{oneSuppilername.group_name}}</option>
                                 </select>
                               </td>
                               <td>
-                                <select [disabled]="!(isEditDone==i) || deativationDisable" [(ngModel)] = "aTask.testResult" id="" name="" style="width:80px;" class="form-control">
+                                <select [disabled]="!(isEditDone==i) || deativationDisable" [(ngModel)] = "aTask.testResult" id="" name="" style="width:90px;" class="form-control">
                                     <!-- <option value="0"></option> -->
                                     <option value="Pass">Pass</option>
                                     <option value="Fail">Fail</option>
