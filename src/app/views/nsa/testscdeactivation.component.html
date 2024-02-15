@@ -156,22 +156,22 @@
                                 </select> -->
                                 <select [disabled]="!(isEditDone==i) || deativationDisable" [(ngModel)] = "aTask.ngvsVoucherStatusUpdated"  id="" name=""  class="form-control" required>
                                     <!-- <option value="0"></option> -->
-                                    <option value="yes">Yes</option>
-                                    <option value="no">No</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
                                   </select>
                               </td>
                               <td>
                                 <select [disabled]="!(isEditDone==i) || deativationDisable" [(ngModel)] = "aTask.smsReceived" id="" name="" class="form-control">
                                     <!-- <option value="0"></option> -->
-                                    <option value="yes">Yes</option>
-                                    <option value="no">No</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
                                   </select>
                               </td>                              
                               <td>
                                 <select [disabled]="!(isEditDone==i) || deativationDisable" [(ngModel)] = "aTask.atPackageAdded" id="" name="" class="form-control">
                                     <!-- <option value="0"></option> -->
-                                    <option value="yes">Yes</option>
-                                    <option value="no">No</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
                                   </select>
                               </td>                             
                               <td>
@@ -189,8 +189,8 @@
                               <td>
                                 <select [disabled]="!(isEditDone==i) || deativationDisable" [(ngModel)] = "aTask.testResult" id="" name="" class="form-control">
                                     <!-- <option value="0"></option> -->
-                                    <option value="pass">Pass</option>
-                                    <option value="fail">Fail</option>
+                                    <option value="Pass">Pass</option>
+                                    <option value="Fail">Fail</option>
                                   </select>
                               </td>     
                               <td >
@@ -205,7 +205,7 @@
                                 
                                 <!-- <button *ngIf="aTask.ngvsVoucherStatusUpdated!=null" [disabled]="!deativationDisable || !(isEditDone==i)" style="width:90px" class="btn btn-success"  (click)="finalDeactivation(aTask,aTask.requisitionId,i)">Deativate</button> -->
 
-                                <button [disabled]="!deativationDisable || !(isEditDone==i) || !(aTask.ngvsVoucherStatusUpdated==null)" style="width:90px" class="btn btn-success"  (click)="finalDeactivation(aTask,aTask.requisitionId,i)">Deativate</button>
+                                <button [disabled]="!deativationDisable || !(isEditDone==i) " style="width:90px" class="btn btn-success"  (click)="finalDeactivation(aTask,aTask.requisitionId,i)">Deativate</button>
 
                               </td>
                               <!-- <td>{{aTask.purposeCategory}}</td> -->
