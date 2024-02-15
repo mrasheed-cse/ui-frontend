@@ -41,9 +41,9 @@ import {
   
       isDataFound: boolean = true;
       isCollapsed: boolean = true;
-      // isEditEnable: boolean=true;
+      isEditEnable: boolean=true;
       isEditDone: number=-1;
-      deativationDisable:boolean=true
+      deativationDisable:boolean=false;
   
       mySearchForm: FormGroup;
      wrname: FormControl;
@@ -75,12 +75,17 @@ import {
     vendor: FormControl;
     IMSI: FormControl;
     isRep:FormControl;
+
+    headerDateData: any;
+
     
 
   
   
     constructor(private route:ActivatedRoute, private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {
   
+      this.headerDateData = {};
+
       let isValid = true;
       this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
   
@@ -112,9 +117,9 @@ import {
               this.isDataFound = true;
               this.requisitionList = data;
               
-              for(var i = 0; i < this.requisitionList.length; i++){
-                this.requisitionList[i]['show'] = true;
-              }
+              // for(var i = 0; i < this.requisitionList.length; i++){
+              //   this.requisitionList[i]['show'] = true;
+              // }
   
             }
             else{
@@ -251,7 +256,7 @@ import {
   }
   
   downloadChallan(challanNo:number,requisitionId:number){
-    debugger
+    
     this.workFlowsService.DownloadChallan(challanNo,requisitionId).subscribe((data) => {
   
       const blob = new Blob([data], {type: 'application/pdf'});
@@ -265,23 +270,47 @@ import {
     });
   }
 
-  submitDeactivationData(requisition:string,requisitionId:number,index:number){
-    debugger
-    this.workFlowsService.SubmitDeactivationData(requisition,requisitionId,index).subscribe(
-      (data) => {
-        console.log('response is : '+data.message);  
-        if(data !== ""){
-          this.deativationDisable=false;
+  submitDeactivationData(requisition,requisitionId,i){
+    if (( !!requisition.ngvsVoucherStatusUpdated&&requisition.ngvsVoucherStatusUpdated !==null)&&
+    (!! requisition.smsReceived&&      requisition.smsReceived !==null)&&
+     (!! requisition.atPackageAdded && requisition.atPackageAdded !==null)&&
+    (!!  requisition.scStartSlNo &&  requisition.scStartSlNo !==null)&&
+    (!!  requisition.scEndSlNo&& requisition.scEndSlNo !==null)&&
+     (!! requisition.supplierName&&requisition.supplierName !==null)&&
+      (!!requisition.testResult&&requisition.testResult !==null)){
 
+        requisition.username=this.userID;
+    this.workFlowsService.SubmitDeactivationData(requisition).subscribe(
+      (data) => {
+        console.log('response is : ',data);  
+        if(data !== ""){
+          if(data.message=="Success"){
+            alert(data.message);
+            this.deativationDisable=true;
+
+          }
+          else {
+            alert(data.message);
+          }
         }
     },
     err  =>  {	
-           
+      console.log("err.status : " ,err.status);
+      console.log("err.status : " , err);
+
+      alert("Unable to process.");
+      // this.deativationDisable=true;
     }
     );
+      }
+      else{ 
+          alert("All fields are mendatory")
+  
+      }
+    
   }
 
-  finalDeactivation(requisition:string,requisitionId:number,index:number){
+  finalDeactivation(requisition,requisitionId,index){
     if (confirm("do you like to deactivate?")) {
       //do nothing here
     }
@@ -289,18 +318,26 @@ import {
       // this.isLoading = false;
       return;
     }
-    debugger
-    this.workFlowsService.FinalDeactivation(requisition,requisitionId,index).subscribe(
+    requisition.username=this.userID;
+    this.workFlowsService.FinalDeactivation(requisition).subscribe(
       (data) => {
+        debugger
         console.log('response is : '+data.message);  
         if(data !== ""){
-          this.successAlertMessage="success";
+          this.successAlertMessage=data.message;
           alert(this.successAlertMessage);
+          // setTimeout(() => {
+          //   this.isLoading = false;
+          //   this.router.navigate(['nsa/testscdeactivation']);
+          // }, 4000);
           
 
         }
     },
     err  =>  {	
+      console.log("err.status : " + err.status);
+      alert("Unable to Deactivate.");
+
            
     }
     );
@@ -359,7 +396,7 @@ import {
   // }
 
   editAction(id,index: number){
-    debugger
+    
     // return '../screquisitionedit/'.toString();
      this.isEditDone=index;
     //  this.isEditEnable = false;

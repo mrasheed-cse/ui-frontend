@@ -121,26 +121,19 @@ export class WorkflowsService {
         return this.http.get(this.serverUrl + 'inputFileprocessing/vendor');
     }
 
-	SubmitDeactivationData(requisition,requisitionId,index) : any {	
-  
+	SubmitDeactivationData(requisition) : any {	
+  debugger
+  console.log(requisition)
 		//console.log("In GetWR_Name() for theWrNumber "+ theWrNumber);	
 		//console.log("In GetWR_Name() for workflowFieldsValueSeqWise "+ workflowFieldsValueSeqWise);	
 		//console.log(wr_id+'/'+userGroup_id+'/'+userID+'/['+workflowFieldsValueSeqWise+']');
-	return this.http.post(this.serverUrl + 'testscratchcard/SaveDeactRequest', {
-			requisition: requisition,
-			requisitionId: requisitionId,
-			index: index
-		});
+	return this.http.post(this.serverUrl + 'testscratchcard/SaveDeactRequest',requisition);
 	}
 	
 	
-	FinalDeactivation(requisition,requisitionId,index) : any {	
+	FinalDeactivation(requisition) : any {	
   
-	return this.http.post(this.serverUrl + 'testscratchcard/scDeactivation', {
-			requisition: requisition,
-			requisitionId: requisitionId,
-			index: index
-		});
+	return this.http.post(this.serverUrl + 'testscratchcard/scDeactivation',requisition);
 	}
 
 	
