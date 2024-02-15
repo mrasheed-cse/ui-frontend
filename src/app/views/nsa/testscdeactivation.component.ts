@@ -18,12 +18,27 @@ import {
   
   import { LoginService } from '../pages/LoginService';
   import { LoggedInUser } from '../pages/loggedInUser';
+
+  
+// import { Component, OnInit } from '@angular/core';
+import { trigger, transition, style, animate } from '@angular/animations';
   
   @Component({
     selector: 'app-testscdeactivation',
     templateUrl: './testscdeactivation.component.html',
     styles: [],
     providers: [WorkflowsService,AppGlobals,LoginService],
+    // animations: [
+    //   trigger('slideInOut', [
+    //     transition(':enter', [
+    //       style({ transform: 'translateX(-100%)' }),
+    //       animate('300ms ease-in', style({ transform: 'translateX(0%)' })),
+    //     ]),
+    //     transition(':leave', [
+    //       animate('300ms ease-in', style({ transform: 'translateX(100%)' })),
+    //     ]),
+    //   ]),
+    // ],
   })
   export class TestscDeactivationComponent implements OnInit {
   
@@ -255,20 +270,20 @@ import {
     }
   }
   
-  downloadChallan(challanNo:number,requisitionId:number){
+  // downloadChallan(challanNo:number,requisitionId:number){
     
-    this.workFlowsService.DownloadChallan(challanNo,requisitionId).subscribe((data) => {
+  //   this.workFlowsService.DownloadChallan(challanNo,requisitionId).subscribe((data) => {
   
-      const blob = new Blob([data], {type: 'application/pdf'});
+  //     const blob = new Blob([data], {type: 'application/pdf'});
     
-      var downloadURL = window.URL.createObjectURL(data);
-      var link = document.createElement('a');
-      link.href = downloadURL;
-      link.download = challanNo+".pdf";
-      link.click();
+  //     var downloadURL = window.URL.createObjectURL(data);
+  //     var link = document.createElement('a');
+  //     link.href = downloadURL;
+  //     link.download = challanNo+".pdf";
+  //     link.click();
     
-    });
-  }
+  //   });
+  // }
 
   submitDeactivationData(requisition,requisitionId,i){
     if (( !!requisition.ngvsVoucherStatusUpdated&&requisition.ngvsVoucherStatusUpdated !==null)&&
