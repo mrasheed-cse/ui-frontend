@@ -140,7 +140,7 @@
                 </tr>
               </thead>
              <tbody *ngFor="let aTask of requisitionList;  index as i">
-                          <tr [hidden]="!aTask.show">
+                          <tr>
                               <td>{{aTask.requisitionNo}}</td>
                               <td>{{aTask.requisitionDate}}</td>
                               <td>{{aTask.requisitionType}}</td>
@@ -154,40 +154,40 @@
                                 <!-- <select [(ngModel)]="selectedOption" >
                                     <option *ngFor="let option of options" [value]="option">{{option}}</option>
                                 </select> -->
-                                <select [disabled]="!(isEditDone==i)" [(ngModel)] = "aTask.ngvsVoucherStatusUpdated"  id="" name=""  class="form-control" required>
+                                <select [disabled]="!(isEditDone==i) || deativationDisable" [(ngModel)] = "aTask.ngvsVoucherStatusUpdated"  id="" name=""  class="form-control" required>
                                     <!-- <option value="0"></option> -->
                                     <option value="yes">Yes</option>
                                     <option value="no">No</option>
                                   </select>
                               </td>
                               <td>
-                                <select [disabled]="!(isEditDone==i)" [(ngModel)] = "aTask.smsReceived" id="" name="" class="form-control">
+                                <select [disabled]="!(isEditDone==i) || deativationDisable" [(ngModel)] = "aTask.smsReceived" id="" name="" class="form-control">
                                     <!-- <option value="0"></option> -->
                                     <option value="yes">Yes</option>
                                     <option value="no">No</option>
                                   </select>
                               </td>                              
                               <td>
-                                <select [disabled]="!(isEditDone==i)" [(ngModel)] = "aTask.atPackageAdded" id="" name="" class="form-control">
+                                <select [disabled]="!(isEditDone==i) || deativationDisable" [(ngModel)] = "aTask.atPackageAdded" id="" name="" class="form-control">
                                     <!-- <option value="0"></option> -->
                                     <option value="yes">Yes</option>
                                     <option value="no">No</option>
                                   </select>
                               </td>                             
                               <td>
-                                <input [disabled]="!(isEditDone==i)" [(ngModel)] = "aTask.scStartSlNo" type="text" class="form-control" required>
+                                <input [disabled]="!(isEditDone==i) || deativationDisable" [(ngModel)] = "aTask.scStartSlNo" type="text" class="form-control" required>
                               </td>
                               <td>
-                                <input [disabled]="!prePlanGenerationForm.valid && !(isEditDone==i)" [(ngModel)] = "aTask.scEndSlNo" type="text" class="form-control" required>
+                                <input [disabled]="!(isEditDone==i) || deativationDisable" [(ngModel)] = "aTask.scEndSlNo" type="text" class="form-control" required>
                               </td>
                               <td>
-                                <select [disabled]="!(isEditDone==i)" [(ngModel)] = "aTask.supplierName" class="form-control" id="" required >
+                                <select [disabled]="!(isEditDone==i) || deativationDisable" [(ngModel)] = "aTask.supplierName" class="form-control" id="" required >
                                     <!-- <option></option> -->
                                     <option *ngFor="let oneSuppilername of listSuppilerName" [value]="oneSuppilername.group_name">{{oneSuppilername.group_name}}</option>
                                 </select>
                               </td>
                               <td>
-                                <select [disabled]="!(isEditDone==i)" [(ngModel)] = "aTask.testResult" id="" name="" class="form-control">
+                                <select [disabled]="!(isEditDone==i) || deativationDisable" [(ngModel)] = "aTask.testResult" id="" name="" class="form-control">
                                     <!-- <option value="0"></option> -->
                                     <option value="pass">Pass</option>
                                     <option value="fail">Fail</option>
@@ -199,10 +199,13 @@
 
                               </td>
                               <td>
-                                <button [disabled]="!(isEditDone==i)"  class="btn btn-success"  (click)="submitDeactivationData(aTask,aTask.requisitionId,i)">Submit</button>
+                                <button [disabled]="!(isEditDone==i)||deativationDisable"  class="btn btn-success"  (click)="submitDeactivationData(aTask,aTask.requisitionId,i)">Submit</button>
                               </td>
                               <td>
-                                <button [disabled]="!(isEditDone==i)" style="width:90px" class="btn btn-success"  (click)="finalDeactivation(aTask,aTask.requisitionId,i)">Deativate</button>
+                                
+                                <!-- <button *ngIf="aTask.ngvsVoucherStatusUpdated!=null" [disabled]="!deativationDisable || !(isEditDone==i)" style="width:90px" class="btn btn-success"  (click)="finalDeactivation(aTask,aTask.requisitionId,i)">Deativate</button> -->
+
+                                <button [disabled]="!deativationDisable || !(isEditDone==i) || !(aTask.ngvsVoucherStatusUpdated==null)" style="width:90px" class="btn btn-success"  (click)="finalDeactivation(aTask,aTask.requisitionId,i)">Deativate</button>
 
                               </td>
                               <!-- <td>{{aTask.purposeCategory}}</td> -->
