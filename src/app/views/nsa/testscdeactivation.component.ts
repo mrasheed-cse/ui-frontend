@@ -341,10 +341,10 @@ import { trigger, transition, style, animate } from '@angular/animations';
         if(data !== ""){
           this.successAlertMessage=data.message;
           alert(this.successAlertMessage);
-          // setTimeout(() => {
-          //   this.isLoading = false;
-          //   this.router.navigate(['nsa/testscdeactivation']);
-          // }, 4000);
+          setTimeout(() => {
+            this.isLoading = false;
+            this.router.navigate(['nsa/testscdeactivation']);
+          }, 4000);
           
 
         }
