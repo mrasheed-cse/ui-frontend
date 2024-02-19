@@ -122,7 +122,6 @@ export class WorkflowsService {
     }
 
 	SubmitDeactivationData(requisition) : any {	
-  debugger
   console.log(requisition)
 		//console.log("In GetWR_Name() for theWrNumber "+ theWrNumber);	
 		//console.log("In GetWR_Name() for workflowFieldsValueSeqWise "+ workflowFieldsValueSeqWise);	
