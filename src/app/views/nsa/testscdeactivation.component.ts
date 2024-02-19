@@ -22,23 +22,14 @@ import {
   
 // import { Component, OnInit } from '@angular/core';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { debug } from 'console';
   
   @Component({
     selector: 'app-testscdeactivation',
     templateUrl: './testscdeactivation.component.html',
     styles: [],
     providers: [WorkflowsService,AppGlobals,LoginService],
-    // animations: [
-    //   trigger('slideInOut', [
-    //     transition(':enter', [
-    //       style({ transform: 'translateX(-100%)' }),
-    //       animate('300ms ease-in', style({ transform: 'translateX(0%)' })),
-    //     ]),
-    //     transition(':leave', [
-    //       animate('300ms ease-in', style({ transform: 'translateX(100%)' })),
-    //     ]),
-    //   ]),
-    // ],
+    
   })
   export class TestscDeactivationComponent implements OnInit {
   
@@ -59,6 +50,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
       isEditEnable: boolean=true;
       isEditDone: number=-1;
       deativationDisable:boolean=false;
+      showDeativationButton:boolean=true;
   
       mySearchForm: FormGroup;
      wrname: FormControl;
@@ -131,11 +123,29 @@ import { trigger, transition, style, animate } from '@angular/animations';
               console.log(data);
               this.isDataFound = true;
               this.requisitionList = data;
+              //console.log( this.requisitionList,'list');
+
+              // let fetchData = this.requisitionList;
+              // data.forEach(fetch=> {
+              //   console.log(fetch.ngvsVoucherStatusUpdated,'hiiii');
+              //   if(null != fetch.ngvsVoucherStatusUpdated){
+              //     console.log('hiiiiiiiiiiiiiii');
+              //     this.deativationDisable= true;
+              //     console.log(this.deativationDisable,'gsgfgfg');
+              //   } else {
+              //     console.log('hiiiiiiiiii');
+              //   }});
+
+
+          // if(this.requisitionList[i].valueOf != null ){
+          //   this.deativationDisable= true;
+          // }
+          
+          
               
-              // for(var i = 0; i < this.requisitionList.length; i++){
-              //   this.requisitionList[i]['show'] = true;
-              // }
-  
+
+
+
             }
             else{
               this.isDataFound = false;
@@ -145,45 +155,11 @@ import { trigger, transition, style, animate } from '@angular/animations';
         () => console.log('Done loading PendingTask List')
         );
 
-    // this.workFlowsService.LoadPersonalScDetails(0,this.userID, this.requestedSimAtatus).subscribe(
-    //     data => {
-    //       if(data !=null){
-    //         console.log(data);
-    //         this.isDataFound = true;
-    //         this.requisitionList = data;
-            
-    //         for(var i = 0; i < this.requisitionList.length; i++){
-    //           this.requisitionList[i]['show'] = true;
-    //         }
-
-    //       }
-    //       else{
-    //         this.isDataFound = false;
-    //       }
-    //     },
-    //   err => console.error(err),
-    //   () => console.log('Done loading PendingTask List')
-    //   );
-      //Get Today Date
+    
       this.isLoading = false;
       this.todayDate = new Date();
   
-      // this.workFlowsService.getSuppilerName().subscribe(
-      //   data => {
-      //               //console.log(data);
-      //               for (let index in data) {
-      //                   //console.log (data[index]);
-      //                   this.listSuppilerName.push(
-      //                   {
-      //                       id:data[index].id,
-      //                       suppilerName: data[index].groupName
-      //                   }
-      //                   );
-      //               }
-      //           },
-      //       err => console.error(err),
-      //       () => console.log('Art work loading done.')
-      //       );
+     
 
             this.workFlowsService.getDropdown().subscribe(
 		
@@ -270,20 +246,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
     }
   }
   
-  // downloadChallan(challanNo:number,requisitionId:number){
-    
-  //   this.workFlowsService.DownloadChallan(challanNo,requisitionId).subscribe((data) => {
   
-  //     const blob = new Blob([data], {type: 'application/pdf'});
-    
-  //     var downloadURL = window.URL.createObjectURL(data);
-  //     var link = document.createElement('a');
-  //     link.href = downloadURL;
-  //     link.download = challanNo+".pdf";
-  //     link.click();
-    
-  //   });
-  // }
 
   submitDeactivationData(requisition,requisitionId,i){
     if (( !!requisition.ngvsVoucherStatusUpdated&&requisition.ngvsVoucherStatusUpdated !==null)&&
@@ -302,6 +265,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
           if(data.message=="Success"){
             alert("Data Saved Successfully");
             this.deativationDisable=true;
+            
 
           }
           else {
@@ -336,16 +300,12 @@ import { trigger, transition, style, animate } from '@angular/animations';
     requisition.username=this.userID;
     this.workFlowsService.FinalDeactivation(requisition).subscribe(
       (data) => {
-        debugger
+    
         console.log('response is : '+data.message);  
         if(data !== ""){
           this.successAlertMessage=data.message;
           alert(this.successAlertMessage);
-          setTimeout(() => {
-            this.isLoading = false;
-            this.router.navigate(['nsa/testscdeactivation']);
-          }, 4000);
-          
+          window.location.reload();
 
         }
     },
@@ -357,6 +317,8 @@ import { trigger, transition, style, animate } from '@angular/animations';
     }
     );
   }
+
+
 
   ngOnInit () {
   
@@ -385,21 +347,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
     }
     
   
-  // createFormControls() {
-  //   this.wrname = new FormControl('',Validators.pattern(this.wrNamePattern));
-  //   this.wrstatus = new FormControl('');
-  //   this.startDate = new FormControl('');
-  //   this.endDate = new FormControl('');
-  // }
-  
-  // createForm() {
-  //   this.mySearchForm = new FormGroup({
-  //     wrname: this.wrname,
-  //     wrstatus: this.wrstatus,
-  //     startDate: this.startDate,
-  //   endDate: this.endDate
-  //   });
-  // }
+
   
   onTaskSelect(aTask) {
         //this.selectedContactId = aTask.wr_ID;
