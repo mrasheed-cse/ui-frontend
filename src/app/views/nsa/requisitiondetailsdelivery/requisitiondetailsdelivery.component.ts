@@ -251,15 +251,15 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
          console.log(arrayObj['endingKitNumber']);
          console.log(arrayObj['quantity']);
 
-        if(arrayObj['startingKitNumber'] == null || arrayObj['startingKitNumber'] == undefined || arrayObj['startingKitNumber'] == "" || arrayObj['startingKitNumber'].length != 20){
+        if(arrayObj['startingKitNumber'] == null || arrayObj['startingKitNumber'] == undefined || arrayObj['startingKitNumber'] == "" || arrayObj['startingKitNumber'].length != 28){
           console.log(arrayObj['startingKitNumber']);
           console.log(arrayObj['startingKitNumber'].length);
-          var alertTxt = "Invalid starting KIT number specified in row "+ (i+1) +" of input file. KIT number must be 20 digits.";
+          var alertTxt = "Invalid starting KIT number specified in row "+ (i+1) +" of input file. KIT number must be 28 digits.";
           alert(alertTxt);
           return;
         }
-        if(arrayObj['endingKitNumber'] == null || arrayObj['endingKitNumber'] == undefined || arrayObj['endingKitNumber'] == "" || arrayObj['endingKitNumber'].length != 20){
-          var alertTxt = "Invalid ending KIT number specified in row "+ (i+1) +" of input file. KIT number must be 20 digits.";
+        if(arrayObj['endingKitNumber'] == null || arrayObj['endingKitNumber'] == undefined || arrayObj['endingKitNumber'] == "" || arrayObj['endingKitNumber'].length != 28){
+          var alertTxt = "Invalid ending KIT number specified in row "+ (i+1) +" of input file. KIT number must be 28 digits.";
           alert(alertTxt);
           return;
         }
@@ -279,13 +279,13 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
          console.log(arrayObj['endingKitNumber']);
          console.log(arrayObj['quantity']);
 
-      if(this.startingKitNumber == null || this.startingKitNumber == undefined || this.startingKitNumber == "" /*|| this.startingKitNumber.length != 20*/){
-        alert("Invalid starting KIT number specified. KIT number must be 20 digits.");
+      if(this.startingKitNumber == null || this.startingKitNumber == undefined || this.startingKitNumber == "" /*|| this.startingKitNumber.length != 28*/){
+        alert("Invalid starting KIT number specified. KIT number must be 28 digits.");
         this.isLoading=false;
         return;
       }
-      if(this.endingKitNumber == null || this.endingKitNumber == undefined || this.endingKitNumber == "" /*|| this.endingKitNumber.length != 20*/){
-        alert("Invalid ending KIT number specified. KIT number must be 20 digits.");
+      if(this.endingKitNumber == null || this.endingKitNumber == undefined || this.endingKitNumber == "" /*|| this.endingKitNumber.length != 28*/){
+        alert("Invalid ending KIT number specified. KIT number must be 28 digits.");
         this.isLoading=false;
         return;
       }
