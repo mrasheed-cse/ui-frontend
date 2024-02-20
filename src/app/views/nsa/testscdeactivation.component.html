@@ -1,108 +1,7 @@
 
 <div class="animated fadeIn" >
    
-    <div class="card">
-     
-    <!-- <div class="card-header">
-         <div >
-               <button type="button" class="btn btn-primary" (click)="isCollapsed = !isCollapsed"><i class="fa fa-star"></i>&nbsp; 
-            {{isCollapsed === true ? 'Search for Work Request' : 'Hide Searching'}}
-            </button>
-           
-            
-            
-            </div>
-      </div> -->
-      
-    
-      <!-- <div [collapse]="isCollapsed" class="card-body">
-      
-      
-              <div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">{{dangerAlertMessage}}</div>
-  
-      
-     
-     <div class="row">
-                          <div class="col-md-6">
-     
-         <form [formGroup]="mySearchForm" novalidate (ngSubmit)="onSearchSubmit()">
-         
-      <div class="col-xs-12 col-12 col-md-8 form-group"
-          >
-          
-          <label> Work Request Name</label> <input type="text" class="form-control"
-              formControlName="wrname" 
-              [ngClass]="{
-                                          'is-invalid': wrname.invalid,
-                                          'is-valid': wrname.valid
-                                     }">
-                                      <div class="invalid-feedback"  *ngIf="wrname.errors?.pattern">
-       Work Request Name Starts with RQN.
-  </div> 
-          
-      </div>
-  
-      
-    <div class="col-xs-12 col-12 col-md-8 form-group " >
-          <label>Start Date</label> 
-      <input type="text" class="form-control calendar-container" id="startDate" formControlName="startDate" name="startDate"   bsDatepicker [bsConfig]="datepickerConfig"
-        placement="right" > 
-      </div>
-    
-    <div class="col-xs-12 col-12 col-md-8 form-group " >
-          <label>End Date</label> 
-      <input type="text" class="form-control calendar-container" id="endDate" formControlName="endDate" name="endDate"   bsDatepicker [bsConfig]="datepickerConfig"
-        placement="right" > 
-      </div>
-    
-      <div class="col-xs-12 col-12 col-md-8 form-group" >
-          <label>Status</label> <select class="form-control"
-              formControlName="wrstatus">
-              <option value="">Please select a status</option>
-              <option value="GENERAL">Initiated</option>
-              <option value="SSM">Pending at SSM</option>
-              <option value="HOD">Pending at HOD</option>
-              <option value="SSM2">Pending at SSM (assignment)</option>
-              <option value="REJECT">Rejected</option>
-              <option value="RFI">RFI</option>                                    
-              <option value="END">Closed</option>                                    
-          </select>
-      </div>
-      <button type="submit" class="btn btn-primary" >Submit</button>&nbsp;&nbsp;&nbsp;<a (click)="clearSearch()">Show all records</a>
-      <div>
-  
-      </div>
-      
-  </form>
-  
-  <br/>
-     </div>   
-  <div class="col-md-6" *ngIf="successSearchShow">
-  
-  <h3><div *ngIf="searchPendingGroupID==groupID">Search Result of 
-  
-  <a [routerLink]="['/nsa/reprovisiondetail', searchWR, searchWRNumber, searchHopSequence]">
-                              {{searchWR}}</a></div></h3>
-  <h3><div *ngIf="searchPendingGroupID!=groupID" >Search Result of {{searchWR}}</div></h3>
-                              
-  <hr/>
-     <div class="row"><div class="col-md-3">Created By</div><div class="col-md-9">{{searchWrCreatedBy}}</div></div><hr/>
-     <div class="row"><div class="col-md-3">Creation Date</div><div class="col-md-9">{{searchWrCreationDate}}</div></div><hr/>
-        <div *ngIf="searchStatus!='Completed'">
-     <div class="row" ><div class="col-md-3">Last Approver</div><div class="col-md-9">{{searchLastApprover}}</div></div>
-   <hr/>
-     <div class="row" ><div class="col-md-3">Next Approver</div><div class="col-md-9">{{searchLextApprover}}</div></div><hr/>
-    </div>
-     <div *ngIf="searchStatus=='Completed'">
-     <div class="row" ><div class="col-md-3">Completed By</div><div class="col-md-9">{{searchLextApprover}}</div></div><hr/>
-     </div>
-     <div class="row"><div class="col-md-3">Status</div><div class="col-md-9">{{searchStatus}}</div></div><hr/>
-  
-     
-      </div>   	  
-          </div>   	  
-      </div> -->
-      
+    <div class="card">     
       <div class="row">
       <div class="col-lg-12" >
         <div class="card">
@@ -200,40 +99,20 @@
 
                               </td>
                               <td>
+                                
                                 <button [disabled]="!(isEditDone==i)||deativationDisable"  class="btn btn-success"  (click)="submitDeactivationData(aTask,aTask.requisitionId,i)">Submit</button>
                               </td>
                               <td>
                                 
                                 <!-- <button *ngIf="aTask.ngvsVoucherStatusUpdated!=null" [disabled]="!deativationDisable || !(isEditDone==i)" style="width:90px" class="btn btn-success"  (click)="finalDeactivation(aTask,aTask.requisitionId,i)">Deativate</button> -->
                                 <!-- <button  {disabled="!showDeativationButton" style="width:90px" class="btn btn-success"  (click)="finalDeactivation(aTask,aTask.requisitionId,i)">Deativate</button> -->
+                                <button *ngIf="newArray[i]==i" style="width:90px" class="btn btn-success"  (click)="finalDeactivation(aTask,aTask.requisitionId,i)">Deativate</button>
 
-                                <button [disabled]="!deativationDisable || !(isEditDone==i)" style="width:90px" class="btn btn-success"  (click)="finalDeactivation(aTask,aTask.requisitionId,i)">Deativate</button>
+                                <button *ngIf="!(newArray[i]==i)" [disabled]="!deativationDisable || !(isEditDone==i)" style="width:90px" class="btn btn-success"  (click)="finalDeactivation(aTask,aTask.requisitionId,i)">Deativate</button>
 
                               </td>
-                              <!-- <td>{{aTask.purposeCategory}}</td> -->
-                              <!-- <td>{{aTask.testStartDt}}</td> -->
-                              <!-- <td>{{aTask.testCompletionDt}}</td> -->
+
                               
-                              <!--<td>{{aTask.hop}}</td>-->
-                              <!-- <td style="text-align:center">
-                                {{aTask.rejectionRfiStatus}}
-                                <button style="display:block" *ngIf="aTask.rejectionRfiStatus == 'RFI'"  type="button" class="btn btn-link" ><i class="fa fa-link"></i> 
-                                  <a [routerLink]="[editAction(aTask),aTask.id]">Edit</a>
-                                </button>
-                              </td> -->
-                              <!-- <td style="text-align:center">
-                                <button style="display:block" type="button" class="btn btn-link" ><i class="fa fa-link"></i> 
-                                  <a [routerLink]="[viewAction(aTask),aTask.id]">Details</a>
-                                </button>
-                              </td> -->
-                              <!-- <td>{{aTask.so_number}}</td> -->
-                              
-                              <!-- <td style="text-align:center"> -->
-                                <!-- <a style="width:100px" class="btn btn-success" *ngIf="aTask.challan_number?.trim().length>0" (click)="downloadChallan(aTask.challan_number,aTask.id)">Download</a> -->
-                                <!-- <button style="display:block" type="button" class="btn btn-link" ><i class="fa fa-link"></i> 
-                                  <a [routerLink]="[viewAction(aTask),aTask.id]">Download</a>
-                                </button> -->
-                              <!-- </td> -->
                           </tr>
               </tbody>
             </table>                
