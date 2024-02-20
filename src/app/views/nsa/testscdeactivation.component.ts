@@ -22,7 +22,7 @@ import {
   
 // import { Component, OnInit } from '@angular/core';
 import { trigger, transition, style, animate } from '@angular/animations';
-import { debug } from 'console';
+// import { debug } from 'console';
   
   @Component({
     selector: 'app-testscdeactivation',
@@ -51,6 +51,8 @@ import { debug } from 'console';
       isEditDone: number=-1;
       deativationDisable:boolean=false;
       showDeativationButton:boolean=true;
+      public isLoadedData: number=-1;
+      newArray: any[] = [];
   
       mySearchForm: FormGroup;
      wrname: FormControl;
@@ -84,6 +86,7 @@ import { debug } from 'console';
     isRep:FormControl;
 
     headerDateData: any;
+    checkButtonEnable:boolean=false;
 
     
 
@@ -123,29 +126,23 @@ import { debug } from 'console';
               console.log(data);
               this.isDataFound = true;
               this.requisitionList = data;
-              //console.log( this.requisitionList,'list');
 
-              // let fetchData = this.requisitionList;
-              // data.forEach(fetch=> {
-              //   console.log(fetch.ngvsVoucherStatusUpdated,'hiiii');
-              //   if(null != fetch.ngvsVoucherStatusUpdated){
-              //     console.log('hiiiiiiiiiiiiiii');
-              //     this.deativationDisable= true;
-              //     console.log(this.deativationDisable,'gsgfgfg');
-              //   } else {
-              //     console.log('hiiiiiiiiii');
-              //   }});
+          
+            for(var i = 0; i < data.length; i++){
+              const fetchDataLoaded = data[i]
+              if(fetchDataLoaded.ngvsVoucherStatusUpdated != null){
+                this.isLoadedData=i
+                this.newArray.push(i);
+                console.log(this.newArray,'newArray');
+              } else {
+                this.newArray.push(-1);
+              }
 
-
-          // if(this.requisitionList[i].valueOf != null ){
-          //   this.deativationDisable= true;
-          // }
+            }
+            console.log(this.newArray,'newArrrrrrray');
+            
           
           
-              
-
-
-
             }
             else{
               this.isDataFound = false;
@@ -154,6 +151,8 @@ import { debug } from 'console';
         err => console.error(err),
         () => console.log('Done loading PendingTask List')
         );
+
+        
 
     
       this.isLoading = false;
@@ -181,6 +180,8 @@ import { debug } from 'console';
   
   
   } //end of constructor
+
+
 
 
   
@@ -265,7 +266,8 @@ import { debug } from 'console';
           if(data.message=="Success"){
             alert("Data Saved Successfully");
             this.deativationDisable=true;
-            
+            this.newArray.splice(i,1);
+            this.newArray.splice(i,0,i);
 
           }
           else {
@@ -362,6 +364,7 @@ import { debug } from 'console';
     
     // return '../screquisitionedit/'.toString();
      this.isEditDone=index;
+     this.deativationDisable=false;
     //  this.isEditEnable = false;
 
   }
