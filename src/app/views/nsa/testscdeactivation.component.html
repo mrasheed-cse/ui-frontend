@@ -28,15 +28,11 @@
                   <th style="width: 70px;">NGVS Voucher status updated</th>
                   <th>Subs got SMS</th>
                   <th style="width: 70px;">AIRTime & Package added</th>
-                  <th>Test start serial</th>
-                  <th>Test end serial</th>
                   <th>Supplier Name</th>
                   <th>Test result</th>
                   <th>edit</th>
                   <th>Submit</th>
                   <th>deactivation</th>
-                  <!-- <th>Challan Download</th> -->
-                  <!--<th>Action</th>-->
                 </tr>
               </thead>
              <tbody *ngFor="let aTask of requisitionList;  index as i">
@@ -51,9 +47,7 @@
                               <td>{{aTask.denomination}}</td>
                               <td>{{aTask.testMsisdn}}</td>
                               <td>
-                                <!-- <select [(ngModel)]="selectedOption" >
-                                    <option *ngFor="let option of options" [value]="option">{{option}}</option>
-                                </select> -->
+                                
                                 <select [disabled]="!(isEditDone==i) || deativationDisable" [(ngModel)] = "aTask.ngvsVoucherStatusUpdated"  id="" name="" style="width: 90px;"  class="form-control" required>
                                     <!-- <option value="0"></option> -->
                                     <option value="Yes">Yes</option>
@@ -75,12 +69,6 @@
                                   </select>
                               </td>                             
                               <td>
-                                <input [disabled]="!(isEditDone==i) || deativationDisable" [(ngModel)] = "aTask.scStartSlNo" style="width:120px;" type="text" class="form-control" required>
-                              </td>
-                              <td>
-                                <input [disabled]="!(isEditDone==i) || deativationDisable" [(ngModel)] = "aTask.scEndSlNo" style="width:120px;" type="text" class="form-control" required>
-                              </td>
-                              <td>
                                 <select [disabled]="!(isEditDone==i) || deativationDisable" style="width:90px;" [(ngModel)] = "aTask.supplierName" class="form-control" id="" required >
                                     <!-- <option></option> -->
                                     <option *ngFor="let oneSuppilername of listSuppilerName" [value]="oneSuppilername.group_name">{{oneSuppilername.group_name}}</option>
@@ -94,7 +82,6 @@
                                   </select>
                               </td>     
                               <td >
-                                <!-- <a style="width:50px" class="btn btn-success"  (click)="editAction(aTask.requisitionId,i)">Edit</a> -->
                                 <button class="btn btn-success" type="button" (click)="editAction(aTask.requisitionId,i)">Edit</button>
 
                               </td>
@@ -104,8 +91,6 @@
                               </td>
                               <td>
                                 
-                                <!-- <button *ngIf="aTask.ngvsVoucherStatusUpdated!=null" [disabled]="!deativationDisable || !(isEditDone==i)" style="width:90px" class="btn btn-success"  (click)="finalDeactivation(aTask,aTask.requisitionId,i)">Deativate</button> -->
-                                <!-- <button  {disabled="!showDeativationButton" style="width:90px" class="btn btn-success"  (click)="finalDeactivation(aTask,aTask.requisitionId,i)">Deativate</button> -->
                                 <button *ngIf="newArray[i]==i" style="width:90px" class="btn btn-success"  (click)="finalDeactivation(aTask,aTask.requisitionId,i)">Deativate</button>
 
                                 <button *ngIf="!(newArray[i]==i)" [disabled]="!deativationDisable || !(isEditDone==i)" style="width:90px" class="btn btn-success"  (click)="finalDeactivation(aTask,aTask.requisitionId,i)">Deativate</button>
@@ -127,7 +112,3 @@
   
    </div>
   </div>
-  
-  
-     <!--<a href="#" (click) = "detailsAction(aTask)" > Details</a></button> </td>  -->
-                              <!-- <a [routerLink]="detailsAction(aTask)">Details</a>/button> </td>   -->

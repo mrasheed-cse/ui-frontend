@@ -253,8 +253,8 @@ import { trigger, transition, style, animate } from '@angular/animations';
     if (( !!requisition.ngvsVoucherStatusUpdated&&requisition.ngvsVoucherStatusUpdated !==null)&&
     (!! requisition.smsReceived&&      requisition.smsReceived !==null)&&
      (!! requisition.atPackageAdded && requisition.atPackageAdded !==null)&&
-    (!!  requisition.scStartSlNo &&  requisition.scStartSlNo !==null)&&
-    (!!  requisition.scEndSlNo&& requisition.scEndSlNo !==null)&&
+    // (!!  requisition.scStartSlNo &&  requisition.scStartSlNo !==null)&&
+    // (!!  requisition.scEndSlNo&& requisition.scEndSlNo !==null)&&
      (!! requisition.supplierName&&requisition.supplierName !==null)&&
       (!!requisition.testResult&&requisition.testResult !==null)){
 
