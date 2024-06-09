@@ -7,7 +7,7 @@ import {
 import { HttpClient } from '@angular/common/http';
 import { WorkflowsService } from './../services/workflows.service';
 import { AppGlobals } from './../../../app.global';
-import { Router,ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { LoginService } from '../../pages/LoginService';
 import { LoggedInUser } from '../../pages/loggedInUser';
@@ -16,7 +16,7 @@ import { LoggedInUser } from '../../pages/loggedInUser';
   selector: 'app-testsim-transfer',
   templateUrl: './testsim-transfer.component.html',
   styleUrls: ['./testsim-transfer.component.scss'],
-  providers: [WorkflowsService,AppGlobals,LoginService],
+  providers: [WorkflowsService, AppGlobals, LoginService],
 })
 export class TestsimTransferComponent implements OnInit {
 
@@ -27,28 +27,28 @@ export class TestsimTransferComponent implements OnInit {
 
   allRequisitionLineMsisdnIds: string;
   requisitionList: Array<Object>;
-	currentLoggedInUser: LoggedInUser;
-	userName: string;
-	groupID: number;
+  currentLoggedInUser: LoggedInUser;
+  userName: string;
+  groupID: number;
   userID: string;
   todayDate: Date;
-	routerUrlAndParams: string;
-  public isLoading:boolean = false;
+  routerUrlAndParams: string;
+  public isLoading: boolean = false;
   isDataFound: boolean = true;
   listTransferModes: Array<any>;
   listUsers: Array<any>;
   private offset: number;
-		  private currPage: number;
-		  private totalPages: number;
-		  listSimStatus: Array<any>;
-		  searchOptions_simStatus: String;
-		  searchOptions_msisdn: String;
-      searchOptions_rqnNo: String;
-      transferMode: String;
-      transferTo: String;
-      comments: String;
+  private currPage: number;
+  private totalPages: number;
+  listSimStatus: Array<any>;
+  searchOptions_simStatus: String;
+  searchOptions_msisdn: String;
+  searchOptions_rqnNo: String;
+  transferMode: String;
+  transferTo: String;
+  comments: String;
 
-  constructor(private route:ActivatedRoute, private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {
+  constructor(private route: ActivatedRoute, private router: Router, private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {
 
     this.allRequisitionLineMsisdnIds = "";
     this.isLoading = false;
@@ -67,34 +67,34 @@ export class TestsimTransferComponent implements OnInit {
 
   } //end of constructor
 
-  loadPendingList(){
+  loadPendingList() {
     //GetPendingTaskList
     this.workFlowsService.loadMySimsFilteredByRqnLineMsisdnOnly(this.allRequisitionLineMsisdnIds).subscribe(
-        data => {
-          if(data !=null){
-            console.log(data);
-            this.isDataFound = true;
-            this.requisitionList = data;
-            for(var i = 0; i < this.requisitionList.length; i++){
-              this.requisitionList[i]['selected'] = false;
-            }
-            this.isLoading = false;
+      data => {
+        if (data != null) {
+          console.log(data);
+          this.isDataFound = true;
+          this.requisitionList = data;
+          for (var i = 0; i < this.requisitionList.length; i++) {
+            this.requisitionList[i]['selected'] = false;
           }
-          else{
-            this.isDataFound = false;
-            this.isLoading = false;
-          }
-        },
+          this.isLoading = false;
+        }
+        else {
+          this.isDataFound = false;
+          this.isLoading = false;
+        }
+      },
       err => console.error(err),
       () => console.log('Done loading PendingTask List')
-      );
+    );
     //Get Today Date
     this.todayDate = new Date();
     this.isLoading = false;
   }
 
 
-  ngOnInit () {
+  ngOnInit() {
 
     this.offset = 0;
     this.isLoading = true;
@@ -102,10 +102,10 @@ export class TestsimTransferComponent implements OnInit {
     console.log("sim action page");
     console.log("this.allRequisitionLineMsisdnIds");
 
-    setTimeout(()=>{    //<<<---    using ()=> syntax
+    setTimeout(() => {    //<<<---    using ()=> syntax
       this.loadPendingList();
 
-     
+
       this.listUsers = [];
 
       this.workFlowsService.getUserList().subscribe(
@@ -149,18 +149,22 @@ export class TestsimTransferComponent implements OnInit {
   };
 
 
-  submit(){
+  submit() {
 
-    if(this.comments == null ||
-      this.comments == undefined ||
-      this.comments == ""){
-          var msg = "Comments is blank.";
-          alert(msg);
-          return;
-      }
+    if (this.transferTo == null || this.transferTo == undefined || this.transferTo == "") {
+      var msg = "Please select Transferee whom you want to transfer.";
+      alert(msg);
+      return;
+    }
+
+    if (this.comments == null || this.comments == undefined || this.comments == "") {
+      var msg = "Comment is blank.";
+      alert(msg);
+      return;
+    }
 
 
-    for(var i = 0; i < this.requisitionList.length; i++){
+    for (var i = 0; i < this.requisitionList.length; i++) {
 
       //todo hard code
 
@@ -172,7 +176,7 @@ export class TestsimTransferComponent implements OnInit {
           return;
       }*/
 
-      
+
     }
 
     ////////////// ////////////////////////
@@ -186,7 +190,7 @@ export class TestsimTransferComponent implements OnInit {
     requestObj['requisitionId'] = 0;
     requestObj['numberWiseDetails'] = [];
 
-    for(var i = 0; i < this.requisitionList.length; i++){
+    for (var i = 0; i < this.requisitionList.length; i++) {
 
       var requestDetailObj = {};
       requestDetailObj['requisitionLineMsisdnId'] = this.requisitionList[i]['requisitionLineMsisdnId'];
@@ -207,21 +211,21 @@ export class TestsimTransferComponent implements OnInit {
     ////////////////// /////////////////////////////////
     this.workFlowsService.submitSimActionRequest(requestObj).subscribe(
       data => {
-        if(data != null && data != undefined && data != ""){
+        if (data != null && data != undefined && data != "") {
           this.isLoading = false;
           var msg = "The request has been submitted" + data['name'];
           alert(msg);
           this.router.navigate(['nsa/testsimdashboard']);
         }
       },
-    err => console.error(err),
-    () => console.log('Done loading PendingTask List')
+      err => console.error(err),
+      () => console.log('Done loading PendingTask List')
     );
     this.isLoading = false;
     ////////////// /////////////////////// /////////////
   }
 
-  cancel(){
+  cancel() {
     this.router.navigate(['nsa/testsimdashboard']);
   }
 

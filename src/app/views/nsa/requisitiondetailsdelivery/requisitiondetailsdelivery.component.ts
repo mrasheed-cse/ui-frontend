@@ -299,7 +299,7 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
 
     this.ismsworkflowsService.getMsisdnDetailsFromSsm(responseObj).subscribe(
       res  =>  {
-        //console.log('response is : '+res.message);
+        console.log('response is : '+res.message);
         this.isLoading=true;
         console.log(res);
         if(res !== ""){
@@ -309,13 +309,13 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
           //if(res.length <= 0){
             if(res==null){
             alert("No MSISDNs found with the given KIT numbers specified. Please try again with different KIT numbers.");
-
+            this.isLoading=false;
             return;
           }
           else if(res.length != this.lineItemBeingConsidered['deliverQuantity']){
             let alertMsg = "The requsition line specifies quantity of " + this.lineItemBeingConsidered['deliverQuantity'] + ". However, with specified KIT numbers " + res.length + " number of MSISDN found.";
             alert(alertMsg);
-
+            this.isLoading=false;
             return;
           }
           else{
