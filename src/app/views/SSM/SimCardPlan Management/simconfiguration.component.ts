@@ -109,9 +109,16 @@ export class SimConfiguration implements OnInit {
 		data=>{
 			if(data!=null){
 				this.isLoading=false;
+				alert("DATA Saved And Forwarded");
 				this.getData();
 				this.comments="";
 			}
+			
+		},
+		err=>{
+			console.log("Unable to Process")
+			this.isLoading=false;
+			this.getData();
 			
 		}
 	)
