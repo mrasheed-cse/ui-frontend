@@ -151,6 +151,14 @@ export class TestsimTransferComponent implements OnInit {
 
   submit(){
 
+    if(this.transferTo == null ||
+      this.transferTo == undefined ||
+      this.transferTo == ""){
+        var msg = "Please select Transferee whom you want to transfer.";
+          alert(msg);
+          return;
+      }
+
     if(this.comments == null ||
       this.comments == undefined ||
       this.comments == ""){

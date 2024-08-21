@@ -30,7 +30,9 @@
                 <th>
                   Request new SIM?
                   <br />
-                  <a class="copyToAllLink" (click)="copyToAll()">&lt;&lt; Copy to All &gt;&gt;</a>
+                  <!-- <a class="copyToAllLink" (click)="copyToAll()">&lt;&lt; Copy to All &gt;&gt;</a> -->
+                  <button type="button" (click)="CheckAllOptions()">Select All</button>
+                  <button type="button" (click)="DecheckAllOptions()">Deselect All</button>
                 </th>
                 <th>
                   Comments
@@ -55,7 +57,7 @@
                                 />
                             </td>
                             <td>
-                              <input type="checkbox" class="form-control" [(ngModel)] = "aTask.requestedNewSim" />
+                              <input type="checkbox" class="form-control" [(ngModel)] = "aTask.requestedNewSim" disabled />
                             </td>
                             <td>
                                 <input type="text" class="form-control" [(ngModel)] = "aTask.comments" />
