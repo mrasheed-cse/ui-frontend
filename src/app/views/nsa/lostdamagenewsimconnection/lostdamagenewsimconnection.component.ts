@@ -125,7 +125,7 @@ export class LostdamagenewsimconnectionComponent implements OnInit {
     var obj = {};
     obj['simActionId'] = this.sim_action_id;
     obj['userId'] = this.userName;
-    obj['msisdnDetails'] = null;
+    obj['msisdnDetails'] = [];
     console.log(obj);
 
     this.workflowsService.updateSimAction(obj).subscribe(

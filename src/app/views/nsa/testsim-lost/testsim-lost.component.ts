@@ -97,6 +97,18 @@ export class TestsimLostComponent implements OnInit {
 
   }
 
+  CheckAllOptions(){
+    for(var i = 0; i < this.requisitionList.length; i++){
+      this.requisitionList[i]['requestedNewSim'] = true;
+    }
+  }
+
+  DecheckAllOptions(){
+    for(var i = 0; i < this.requisitionList.length; i++){
+      this.requisitionList[i]['requestedNewSim'] = false;
+    }
+  }
+
   copyToAll(){
     for(var i = 0; i < this.requisitionList.length; i++){
 

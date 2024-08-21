@@ -111,6 +111,18 @@ export class TestsimDamagedComponent implements OnInit {
     }
   }
 
+  CheckAllOptions(){
+    for(var i = 0; i < this.requisitionList.length; i++){
+      this.requisitionList[i]['requestedNewSim'] = true;
+    }
+  }
+
+  DecheckAllOptions(){
+    for(var i = 0; i < this.requisitionList.length; i++){
+      this.requisitionList[i]['requestedNewSim'] = false;
+    }
+  }
+
   submit(){
 
     for(var i = 0; i < this.requisitionList.length; i++){

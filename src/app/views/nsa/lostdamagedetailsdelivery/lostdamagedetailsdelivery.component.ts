@@ -213,6 +213,7 @@ export class LostdamagedetailsdeliveryComponent implements OnInit {
   }
 
   confirmMsisdnSeriesAssignment(){
+    
     var responseObj = {};
     var msisdn = this.lineItemBeingConsidered['msisdn'];
     var simActionMsisdnId = this.lineItemBeingConsidered['simActionMsisdn'];
@@ -277,11 +278,11 @@ export class LostdamagedetailsdeliveryComponent implements OnInit {
       console.log(arrayObj['startingKitNumber']);
       console.log(arrayObj['startingKitNumber'].length);
 
-      if(this.startingKitNumber == null || this.startingKitNumber == undefined || this.startingKitNumber == "" || this.startingKitNumber.length != 28){
+      if(this.startingKitNumber == null || this.startingKitNumber == undefined || this.startingKitNumber == "" /*|| this.startingKitNumber.length != 28*/){
         alert("Invalid starting KIT number specified. KIT number must be 28 digits.");
         return;
       }
-      if(this.endingKitNumber == null || this.endingKitNumber == undefined || this.endingKitNumber == "" || this.endingKitNumber.length != 28){
+      if(this.endingKitNumber == null || this.endingKitNumber == undefined || this.endingKitNumber == "" /*|| this.endingKitNumber.length != 28*/){
         alert("Invalid ending KIT number specified. KIT number must be 28 digits.");
         return;
       }
@@ -300,7 +301,7 @@ export class LostdamagedetailsdeliveryComponent implements OnInit {
           //step 0: validation
 
           //if(res.length <= 0){
-            if(res==null){
+            if(res.length == 0){
             alert("No MSISDNs found with the given KIT numbers specified. Please try again with different KIT numbers.");
             return;
           }
@@ -369,19 +370,27 @@ export class LostdamagedetailsdeliveryComponent implements OnInit {
   }
 
   submit(){
+
     var obj = {};
     obj['simActionId'] = this.sim_action_id;
     obj['userId'] = this.userName;
     obj['msisdnDetails'] = this.msisdnList;
     console.log(obj);
 
+    if(this.alreadyAssignedMsisdnSeriesDetails.length == 0) {
+        var msg = "Please assign MSISDN to continue.";
+          alert(msg);
+          return;
+      }
+
     this.workflowsService.updateSimAction(obj).subscribe(
       res  =>  {
+        debugger
         if(res != null && res != undefined && res !== ""){
           this.isLoading = false;
           var msg = "The request has been submitted" + res['name'];
           alert(msg);
-
+          
           this.ismsWorkFlowsService.updateForClcLostDamaged(this.finalArrayToSubmit).subscribe(
             res  =>  {
               console.log('response is : ');
