@@ -56,6 +56,7 @@ export class LostdamagenewsimconnectionComponent implements OnInit {
 
   constructor(private loginService: LoginService,private activatedRoute: ActivatedRoute, private router:Router, public _global: AppGlobals, private ismsWorkFlowsService: IsmsworkflowsService, private workflowsService : WorkflowsService) {
 		
+    this.isLoading = false;
 	  // Get Current User Profile
 	  
 	  this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
@@ -109,6 +110,7 @@ export class LostdamagenewsimconnectionComponent implements OnInit {
               this.rawDataFromBackend['allRequisitionDetails'][i]['msisdn'] = this.rawDataFromBackend['allRequisitionDetails'][i]['msisdn'].substr(0, this.rawDataFromBackend['allRequisitionDetails'][i]['msisdn'].indexOf(','));
             console.log('***'+this.rawDataFromBackend['allRequisitionDetails'][i]['msisdn']);           
           }
+          this.isLoading = false;
         } 
     },
     err  =>  {
@@ -122,6 +124,8 @@ export class LostdamagenewsimconnectionComponent implements OnInit {
   }
 
   submit(){
+
+    this.isLoading = true;
     var obj = {};
     obj['simActionId'] = this.sim_action_id;
     obj['userId'] = this.userName;
