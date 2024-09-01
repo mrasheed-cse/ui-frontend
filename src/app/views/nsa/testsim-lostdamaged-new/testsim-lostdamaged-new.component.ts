@@ -229,12 +229,6 @@ export class TestsimLostdamagedNewComponent implements OnInit {
     //console.log(selectedData);
 
     for(var i = 0; i < selectedData.length; i++){
-        /* this.selectedIds += selectedData[i]['requisitionLineMsisdnId'] + ",";    
-        this.selectedDamageds +=selectedData[i]['simActionWorkRequestBriefName2'] == null ? "," : selectedData[i]['simActionWorkRequestBriefName2'] + ",";      
-        this.selectedLosts +=selectedData[i]['simActionWorkRequestBriefName'] == null ? "," : selectedData[i]['simActionWorkRequestBriefName2']+ ",";      
-        this.selectedDamagedstatus +=selectedData[i]['pendingAt2'] == null ? "," : selectedData[i]['simActionWorkRequestBriefName2']+ ",";      
-        this.selectedLoststatus +=selectedData[i]['pendingAt'] == null ? "," : selectedData[i]['simActionWorkRequestBriefName2']+ ",";      
-         */
         this.selectedIds += selectedData[i]['requisitionLineMsisdnId'] + ",";    
         this.selectedDamageds +=selectedData[i]['simActionWorkRequestBriefName2'] == "" ? selectedData[i]['simActionWorkRequestBriefName'] + "," : selectedData[i]['simActionWorkRequestBriefName2'] + ",";      
         this.selectedLosts +=selectedData[i]['simActionWorkRequestBriefName'] == "" ? selectedData[i]['simActionWorkRequestBriefName2'] + "," : selectedData[i]['simActionWorkRequestBriefName']+ ",";      
@@ -261,8 +255,8 @@ export class TestsimLostdamagedNewComponent implements OnInit {
     var selectedLoststatusAsArray = this.selectedLoststatus.split(',');
 
     for(var i = 0; i < selectedIdsAsArray.length; i++){
-      this.tmp.push(  parseInt(selectedIdsAsArray[i]) );
-      if(selectedLostsAsArray[i]!="" && selectedLoststatusAsArray[i]!="END" ){
+      this.tmp.push(parseInt(selectedIdsAsArray[i]) );
+      if(selectedLostsAsArray[i] != "" && selectedLostsAsArray[i] != "null" && selectedLoststatusAsArray[i]!= "END"){
         //console.log(selectedLostsAsArray[i].length);
         alert("One or more pending requests exist against selected MSISDNs. For example, "+selectedLostsAsArray[i]);
         return;
@@ -299,8 +293,8 @@ export class TestsimLostdamagedNewComponent implements OnInit {
 
 
     for(var i = 0; i < selectedIdsAsArray.length; i++){
-      this.tmp.push(  parseInt(selectedIdsAsArray[i]) );
-      if(selectedDamagedsAsArray[i].length!=0 && selectedDamagedstatusAsArray[i]!="END"){
+      this.tmp.push(parseInt(selectedIdsAsArray[i]) );
+      if(selectedDamagedsAsArray[i].length !=0 && selectedDamagedsAsArray[i] != "null" && selectedDamagedstatusAsArray[i]!="END"){
         alert("One or more pending requests exist against selected MSISDNs. For example, "+selectedDamagedsAsArray[i]);
         return;
       }
