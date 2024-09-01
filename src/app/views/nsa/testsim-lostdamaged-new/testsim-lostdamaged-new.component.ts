@@ -229,11 +229,17 @@ export class TestsimLostdamagedNewComponent implements OnInit {
     //console.log(selectedData);
 
     for(var i = 0; i < selectedData.length; i++){
-        this.selectedIds += selectedData[i]['requisitionLineMsisdnId'] + ",";    
+        /* this.selectedIds += selectedData[i]['requisitionLineMsisdnId'] + ",";    
         this.selectedDamageds +=selectedData[i]['simActionWorkRequestBriefName2'] == null ? "," : selectedData[i]['simActionWorkRequestBriefName2'] + ",";      
         this.selectedLosts +=selectedData[i]['simActionWorkRequestBriefName'] == null ? "," : selectedData[i]['simActionWorkRequestBriefName2']+ ",";      
         this.selectedDamagedstatus +=selectedData[i]['pendingAt2'] == null ? "," : selectedData[i]['simActionWorkRequestBriefName2']+ ",";      
         this.selectedLoststatus +=selectedData[i]['pendingAt'] == null ? "," : selectedData[i]['simActionWorkRequestBriefName2']+ ",";      
+         */
+        this.selectedIds += selectedData[i]['requisitionLineMsisdnId'] + ",";    
+        this.selectedDamageds +=selectedData[i]['simActionWorkRequestBriefName2'] == "" ? selectedData[i]['simActionWorkRequestBriefName'] + "," : selectedData[i]['simActionWorkRequestBriefName2'] + ",";      
+        this.selectedLosts +=selectedData[i]['simActionWorkRequestBriefName'] == "" ? selectedData[i]['simActionWorkRequestBriefName2'] + "," : selectedData[i]['simActionWorkRequestBriefName']+ ",";      
+        this.selectedDamagedstatus +=selectedData[i]['pendingAt2'] == "" ? selectedData[i]['simActionWorkRequestBriefName'] + ",": selectedData[i]['simActionWorkRequestBriefName2']+ ",";      
+        this.selectedLoststatus +=selectedData[i]['pendingAt'] == "" ? selectedData[i]['simActionWorkRequestBriefName2'] + "," : selectedData[i]['simActionWorkRequestBriefName']+ ",";      
         
     }
     if(this.selectedIds != "" && this.selectedIds.length > 0){
@@ -247,6 +253,7 @@ export class TestsimLostdamagedNewComponent implements OnInit {
   }
 
   lost(){
+    debugger
     this.getSelectedIds();
 
     var selectedIdsAsArray = this.selectedIds.split(',');
@@ -283,6 +290,7 @@ export class TestsimLostdamagedNewComponent implements OnInit {
   }
 
   damaged(){
+    debugger
     this.getSelectedIds();
 
     var selectedIdsAsArray = this.selectedIds.split(',');
