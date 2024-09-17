@@ -105,6 +105,7 @@ import { TestSimSurrenderComponent } from './isms-reports/test-sim-surrender.com
 import { DamageSimComponent } from './isms-reports/damage-sim.component';
 import { LostSimComponent } from './isms-reports/lost-sim.component';
 import { TestSimTransferComponent } from './isms-reports/test-sim-transfer.component';
+import { AMSReportComponent } from './isms-reports/ams-report.component';
 import { LostdamagedetailsdeliveryComponent } from './lostdamagedetailsdelivery/lostdamagedetailsdelivery.component';
 import { LostdamagenewsimconnectionComponent } from './lostdamagenewsimconnection/lostdamagenewsimconnection.component';
 import { UploadRecycleComponent } from "../recycle/uploadrecycle.component";
@@ -867,6 +868,13 @@ const routes: Routes = [
         component: TestSimDeactivationComponent,
         data: {
             title: 'Test Sim Deactivation'
+        }
+    },
+    {
+        path: 'isms-reports/ams-report',
+        component: AMSReportComponent,
+        data: {
+            title: 'AMS Report'
         }
     },
     {

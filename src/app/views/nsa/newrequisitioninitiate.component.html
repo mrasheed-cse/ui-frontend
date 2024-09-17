@@ -5,7 +5,7 @@
         		<div class="div_cust_loading_sign" *ngIf="isLoading"> <div style="position:fixed;width:100%;height:100%;left:0px;top:0px;z-index:50000;background-color:#536c79;opacity:0.95"></div> <div style="position:fixed;width:100%;height:100%;left:0px;top:0px;z-index:60000"><div style="width:25%;height:25%;margin:0px auto;margin-top:20%"><i class="fa fa-spinner fa-pulse fa-4x fa-fw" ></i></div></div> </div>
           </div>
         <div class="alert alert-success" role="alert" *ngIf="successAlertShow">The New Work Request <b>{{WR_Name}}</b> {{successAlertMessage}}</div>
-	<div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">An Error occured to create <b>{{WR_Name}}</b> {{dangerAlertMessage}}</div>
+	<div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">An Error occured to create <b>{{WR_Name}}</b> <br><b>{{dangerAlertMessage}}</b></div>
         <div class="alert alert-danger" role="alert" *ngIf="infoAlertShow"><b>{{infoAlertMessage}}</b></div>
 
 	<div class="card-header">
@@ -180,11 +180,39 @@
                                                 </div>
 
                                         </div>
+                                        <div class = "row">
+                                                <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                                <label class="col-md-5 col-form-label" for="amsId">AMS Number</label>
+                                                                <div class="col-md-7">
+                                                                        <input type="text" id="amsId" name="amsId" class="form-control"  formControlName="amsId" placeholder="Please enter AMS Number"  required
+                                                                        [ngClass]="{
+                                                                        'is-invalid': amsId.invalid && (amsId.dirty || amsId.touched),
+                                                                        'is-valid': amsId.valid && (amsId.dirty || amsId.touched)
+                                                                         }">
+                                                                         <div class="invalid-feedback" *ngIf="amsId.errors && (amsId.dirty || amsId.touched)">
+                                                                                <p *ngIf="amsId.errors.required">AMS Number is required</p>                                                                                    
+                                                                                <p *ngIf="amsId.errors.maxlength">AMS Number must be maximum 20 characters long, we are
+                                                                                        {{amsId.errors.maxlength.actualLength -
+                                                                                                amsId.errors.maxlength.requiredLength}}
+                                                                                        characters ahead</p>                                                                                       
+                                                                        </div>
+                                                                </div>
+                                                        </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                                <label class="col-md-5 col-form-label" for="getFile">Upload Approved AMS<p style = color:blueviolet><i>(File Name max length 30 digit)</i></p></label>
+                                                                <div class="col-md-4">        
+                                                                        <input #fileInput type='file' id="getFile"  (click)="fileInput.value = null" accept=".pdf,.msg,.zip" (change)="handleFileInput($event)">
+                                                                </div>
+                                                        </div>
+                                                </div>                                
+                                        </div>
 
 
-                                <div class="row">
-
-                                                        <div class="col-md-6">
+                                        <div class="row">
+                                                                <div class="col-md-4">
 
                                                                         <div class="form-group row">
                                                                                         <label class="col-md-5 col-form-label" for="startDate">Start Date</label>
@@ -193,34 +221,134 @@
                                                                                                 required bsDatepicker  placement="right"
                                                                                                  [bsConfig]="{ dateInputFormat: 'dd-MM-yyyy', containerClass: 'theme-green',  showWeekNumbers:false }"
                                                                                                  [minDate]="todayDate"
-                                                                                                style="background-color: #0091d2;
-                                                                                                color: white;
-                                                                                                font-size: 1.3em;"
+                                                                                                 style="color: black;font-size: 1.3em;"
                                                                                                  value="{{ startDate.value | date: 'dd-MM-yyyy' }}"
                                                                                                 >
                                                                                         </div>
                                                                                 </div>
 
                                                                 </div>
-                                                                <div class="col-md-6">
+                                                                <div class="col-md-4">
+                                                                        <div class="form-group row">
+                                                                                <label class="col-md-5 col-form-label" for="dateRange">Date Range</label>
+                                                                                <div class="col-md-7">
+                                                                                <select class="form-control" id="dateRange" formControlName="dateRange" #sel (change)="onChange(sel.value)" required [ngClass]="{
+                                                                                       'is-invalid': dateRange.invalid && (dateRange.dirty || dateRange.touched),
+                                                                                       'is-valid': dateRange.valid && (dateRange.dirty || dateRange.touched)
+                                                                                        }">
+                                                                                        <option *ngFor="let adateRange of listDateRange" [value]="adateRange.ismsMasterDataDetailsName">{{adateRange.ismsMasterDataDetailsName}}</option>
+                                                                                </select>
+                                                                        </div>
+                
+                                                                        <div class="invalid-feedback" *ngIf="dateRange.errors && (dateRange.dirty || dateRange.touched)">
+                                                                                <p *ngIf="dateRange.errors.required">Date Range required</p>
+                                                                        </div>
+                                                                        </div>
+                                                                </div>
+                                                                <div class="col-md-4">
                                                                                 <div class="form-group row">
                                                                                                 <label class="col-md-5 col-form-label" for="endDate">End Date</label>
                                                                                                 <div class="col-md-7">
                                                                                                         <input type="text" class="form-control calendar-container" id="endDate" formControlName="endDate" name="endDate"
                                                                                                         required bsDatepicker  placement="left"
                                                                                                          [bsConfig]="{ dateInputFormat: 'dd-MM-yyyy', containerClass: 'theme-green',  showWeekNumbers:false }"
-                                                                                                         [minDate]="todayDate"
-                                                                                                        style="background-color: #0091d2;
-                                                                                                        color: white;
-                                                                                                        font-size: 1.3em;"
+                                                                                                         [minDate]="minDate" [maxDate]="maxDate"
+                                                                                                        style="color: black;font-size: 1.3em;"
                                                                                                          value="{{ endDate.value | date: 'dd-MM-yyyy' }}"
                                                                                                         >
                                                                                                 </div>
                                                                                         </div>
                                                                         </div>
                                         </div>
-
-
+                                        <div class = "row">
+                                                <div class="col-12">
+                                                        <div class="form-group row">
+                                                                <label class="col-md-2" for="empType">Employee Type </label>
+                                                                <ng-container *ngFor="let item of listEmpType;let i=index;">
+                                                                        <label><input #chk type="checkbox" [ngModelOptions]="{standalone: true}" name="empType" (change)="onchangeEmp(chk,item.ismsMasterDataDetailsName)" [(ngModel)]="chk.checked" required></label>&nbsp;  
+                                                                        <label>{{item.ismsMasterDataDetailsName}}</label>&nbsp;&nbsp;&nbsp; 
+                                                                </ng-container>
+                                                                <div class="col-md-2" *ngIf="empVisible">
+                                                                        <input type="text" id="otherEmpType" name="otherEmpType" class="form-control" formControlName="otherEmpType" placeholder="Please enter Employee Type">       
+                                                                </div>
+                                                        </div>        
+                                                </div>
+                                        </div>
+                                        <div class = "row">
+                                                <div class="col-12">
+                                                        <div class="form-group row">
+                                                                <label class="col-md-2" for="usageEnv">Usage Environment </label>
+                                                                <ng-container *ngFor="let item of listUsageEnv;let i=index;">
+                                                                        <label><input #chk type="checkbox" [ngModelOptions]="{standalone: true}" name="usageEnv" (change)="onchangeusageEnv(chk,item.ismsMasterDataDetailsName)" [(ngModel)]="chk.checked" required></label>&nbsp;  
+                                                                        <label>{{item.ismsMasterDataDetailsName}}</label>&nbsp;&nbsp;&nbsp; 
+                                                                </ng-container>                                                        
+                                                        </div>        
+                                                </div>
+                                        </div>
+                                        <div class = "row">
+                                                <div class="col-12">
+                                                        <div class="form-group row">
+                                                                <label class="col-md-2" for="IDCardType">ID Card Type </label>
+                                                                <ng-container *ngFor="let item of listIDCardType;let i=index;">
+                                                                        <label><input #chk type="checkbox" [ngModelOptions]="{standalone: true}" name="IDCardType" (change)="onchangeIDType(chk,item.ismsMasterDataDetailsName)" [(ngModel)]="chk.checked" required></label>&nbsp;  
+                                                                        <label>{{item.ismsMasterDataDetailsName}}</label>&nbsp;&nbsp;&nbsp; 
+                                                                </ng-container>
+                                                                <div class="col-md-2" *ngIf="cardVisible">
+                                                                        <input type="text" id="otherIDCardType" name="otherIDCardType" class="form-control" formControlName="otherIDCardType" placeholder="Please enter ID Card Type" required>       
+                                                                </div>
+                                                        </div>        
+                                                </div>
+                                        </div>
+                                        
+                                        <div class="row">
+                                                <div class="col-md-8">
+                                                        <div class="form-group row">
+                                                                <label class="col-md-5 col-form-label" for="idNumber">ID Card Number</label>
+                                                                <div class="col-md-12">
+                                                                        <textarea id="idNumber" name="idNumber" class="form-control" formControlName="idNumber" rows="2"
+                                                                                placeholder="Please enter maximum 500 characters" required 
+                                                                                [ngClass]="{
+                                                                                        'is-invalid': idNumber.invalid && (idNumber.dirty || idNumber.touched),
+                                                                                        'is-valid': idNumber.valid && (idNumber.dirty || idNumber.touched)
+                                                                        }"></textarea>
+                                                                        <div class="invalid-feedback" *ngIf="idNumber.errors && (idNumber.dirty || idNumber.touched)">
+                                                                                <p *ngIf="idNumber.errors.required">ID Card Number is required</p>                                                                                        
+                                                                                <p *ngIf="idNumber.errors.maxlength">ID Card Number must be maximum 500 characters long, we are
+                                                                                        {{idNumber.errors.maxlength.actualLength -
+                                                                                                idNumber.errors.maxlength.requiredLength}}
+                                                                                        characters ahead</p>                                                                                        
+                                                                        </div>
+                                                                
+                                                                </div>
+                                                        </div>
+                                                </div>
+        
+                                        </div>
+                                
+                                        <div class="row">
+                                                <div class="col-md-12">
+                                                                <div class="form-group row">
+                                                                                <label class="col-md-5 col-form-label" for="imei">Device IMEI Number</label>
+                                                                                <div class="col-md-12">
+                                                                                        <textarea id="imei" name="imei" class="form-control" formControlName="imei" rows="2"
+                                                                                        placeholder="Please enter maximum 500 characters" required 
+                                                                                        [ngClass]="{
+                                                                                                'is-invalid': imei.invalid && (imei.dirty || imei.touched),
+                                                                                                'is-valid': imei.valid && (imei.dirty || imei.touched)
+                                                                                   }"></textarea>
+                                                                                        <div class="invalid-feedback" *ngIf="imei.errors && (imei.dirty || imei.touched)">
+                                                                                                <p *ngIf="imei.errors.required">IMEI Number is required</p>                                                                                        
+                                                                                                <p *ngIf="imei.errors.maxlength">IMEI Number must be maximum 500 characters long, we are
+                                                                                                        {{imei.errors.maxlength.actualLength -
+                                                                                                                imei.errors.maxlength.requiredLength}}
+                                                                                                        characters ahead</p>                                                                                        
+                                                                                        </div>
+                                                                
+                                                                                </div>
+                                                                        </div>
+                                                </div>
+        
+                                        </div>
 
 
                                 <div class="row">
@@ -228,18 +356,22 @@
                                                         <div class="form-group row">
                                                                         <label class="col-md-5 col-form-label" for="purposeDetails">Purpose Details</label>
                                                                         <div class="col-md-12">
-                                                                                <textarea id="purposeDetails" name="purposeDetails" class="form-control" formControlName="purposeDetails" rows="5"
-                                                                                placeholder="Please enter minimum 120 characters" required 
+                                                                                <textarea id="purposeDetails" name="purposeDetails" class="form-control" formControlName="purposeDetails" rows="2"
+                                                                                placeholder="Please enter minimum 50 characters" required 
                                                                                 [ngClass]="{
                                                                                         'is-invalid': purposeDetails.invalid && (purposeDetails.dirty || purposeDetails.touched),
                                                                                         'is-valid': purposeDetails.valid && (purposeDetails.dirty || purposeDetails.touched)
                                                                            }"></textarea>
                                                                                 <div class="invalid-feedback" *ngIf="purposeDetails.errors && (purposeDetails.dirty || purposeDetails.touched)">
                                                                                         <p *ngIf="purposeDetails.errors.required">Purpose Details is required</p>                                                                                        
-                                                                                        <p *ngIf="purposeDetails.errors.minlength">Purpose Details must be minimum 120 characters long, we need another
+                                                                                        <p *ngIf="purposeDetails.errors.minlength">Purpose Details must be minimum 50 characters long, we need another
                                                                                                 {{purposeDetails.errors.minlength.requiredLength -
                                                                                                         purposeDetails.errors.minlength.actualLength}}
-                                                                                                characters</p>                                                                                        
+                                                                                                characters</p>
+                                                                                        <p *ngIf="purposeDetails.errors.maxlength">Purpose Details must be maximum 280 characters long, we are
+                                                                                                {{purposeDetails.errors.maxlength.actualLength -
+                                                                                                        purposeDetails.errors.maxlength.requiredLength}}
+                                                                                                characters ahead</p>                                                                                       
                                                                                 </div>
                                                         
                                                                         </div>
@@ -266,6 +398,125 @@
                                         </div>-->
 
                                 </div>
+
+                                <div class="row">
+                                        <div class="col-md-12">
+                                                <div class="form-group row">
+                                                        <label class="col-md-5 col-form-label" for="question1">Please mention Specific reason or project name or UAT name?</label>
+                                                        <div class="col-md-12">
+                                                                <textarea id="question1" name="question1" class="form-control" formControlName="question1" rows="2"
+                                                                placeholder="Please enter minimum 50 characters" required 
+                                                                [ngClass]="{
+                                                                        'is-invalid': question1.invalid && (question1.dirty || question1.touched),
+                                                                        'is-valid': question1.valid && (question1.dirty || question1.touched)
+                                                                }"></textarea>
+                                                                <div class="invalid-feedback" *ngIf="question1.errors && (question1.dirty || question1.touched)">
+                                                                <p *ngIf="question1.errors.required">Answer is required</p>                                                                                        
+                                                                <p *ngIf="question1.errors.minlength">Answer must be minimum 50 characters long, we need another
+                                                                                                {{question1.errors.minlength.requiredLength -
+                                                                                                        question1.errors.minlength.actualLength}}
+                                                                                                characters</p>
+                                                                <p *ngIf="question1.errors.maxlength">Answer must be maximum 280 characters long, we are
+                                                                        {{question1.errors.maxlength.actualLength -
+                                                                                question1.errors.maxlength.requiredLength}}
+                                                                        characters ahead</p>                                                                                      
+                                                                </div>
+                                                        
+                                                        </div>
+                                                </div>
+                                        </div>
+
+                                </div>
+
+                                <div class="row">
+                                        <div class="col-md-12">
+                                                <div class="form-group row">
+                                                        <label class="col-md-5 col-form-label" for="question2">Why this test sim required? Like pre live UAT or post live UAT or general testing etc.</label>
+                                                        <div class="col-md-12">
+                                                                <textarea id="question2" name="question2" class="form-control" formControlName="question2" rows="2"
+                                                                placeholder="Please enter minimum 50 characters" required 
+                                                                [ngClass]="{
+                                                                        'is-invalid': question2.invalid && (question2.dirty || question2.touched),
+                                                                        'is-valid': question2.valid && (question2.dirty || question2.touched)
+                                                                }"></textarea>
+                                                                <div class="invalid-feedback" *ngIf="question2.errors && (question2.dirty || question2.touched)">
+                                                                <p *ngIf="question2.errors.required">Answer is required</p>                                                                                        
+                                                                <p *ngIf="question2.errors.minlength">Answer must be minimum 50 characters long, we need another
+                                                                                                {{question2.errors.minlength.requiredLength -
+                                                                                                        question2.errors.minlength.actualLength}}
+                                                                                                characters</p>
+                                                                <p *ngIf="question2.errors.maxlength">Answer must be maximum 280 characters long, we are
+                                                                                {{question2.errors.maxlength.actualLength -
+                                                                                        question2.errors.maxlength.requiredLength}}
+                                                                                characters ahead</p>                                                                                       
+                                                                </div>
+                                                        
+                                                        </div>
+                                                </div>
+                                        </div>
+
+                                </div>
+
+                                <div class="row">
+                                        <div class="col-md-12">
+                                                <div class="form-group row">
+                                                        <label class="col-md-5 col-form-label" for="question3">Who will be associated in UAT?</label>
+                                                        <div class="col-md-12">
+                                                                <textarea id="question3" name="question3" class="form-control" formControlName="question3" rows="2"
+                                                                placeholder="Please enter minimum 50 characters" required 
+                                                                [ngClass]="{
+                                                                        'is-invalid': question3.invalid && (question3.dirty || question3.touched),
+                                                                        'is-valid': question3.valid && (question3.dirty || question3.touched)
+                                                                }"></textarea>
+                                                                <div class="invalid-feedback" *ngIf="question3.errors && (question3.dirty || question3.touched)">
+                                                                <p *ngIf="question3.errors.required">Answer is required</p>                                                                                        
+                                                                <p *ngIf="question3.errors.minlength">Answer must be minimum 50 characters long, we need another
+                                                                                                {{question3.errors.minlength.requiredLength -
+                                                                                                        question3.errors.minlength.actualLength}}
+                                                                                                characters</p>                                                                                        
+                                                                <p *ngIf="question3.errors.maxlength">Answer must be maximum 280 characters long, we are
+                                                                                {{question3.errors.maxlength.actualLength -
+                                                                                         question3.errors.maxlength.requiredLength}}
+                                                                                characters ahead</p>  
+                                                                </div>
+                                                        
+                                                        </div>
+                                                </div>
+                                        </div>
+
+                                </div>
+
+                                <div class="row">
+                                        <div class="col-md-12">
+                                                <div class="form-group row">
+                                                        <label class="col-md-5 col-form-label" for="question4">Probable outcome from UAT?</label>
+                                                        <div class="col-md-12">
+                                                                <textarea id="question4" name="question4" class="form-control" formControlName="question4" rows="2"
+                                                                placeholder="Please enter minimum 50 characters" required 
+                                                                [ngClass]="{
+                                                                        'is-invalid': question4.invalid && (question4.dirty || question4.touched),
+                                                                        'is-valid': question4.valid && (question4.dirty || question4.touched)
+                                                                }"></textarea>
+                                                                <div class="invalid-feedback" *ngIf="question4.errors && (question4.dirty || question4.touched)">
+                                                                <p *ngIf="question4.errors.required">Answer is required</p>                                                                                        
+                                                                <p *ngIf="question4.errors.minlength">Answer must be minimum 50 characters long, we need another
+                                                                                {{question4.errors.minlength.requiredLength -
+                                                                                        question4.errors.minlength.actualLength}}
+                                                                                characters</p>
+                                                                <p *ngIf="question4.errors.maxlength">Answer must be maximum 280 characters long, we are
+                                                                                {{question4.errors.maxlength.actualLength -
+                                                                                        question4.errors.maxlength.requiredLength}}
+                                                                                characters ahead</p>                                                                                        
+                                                                </div>
+                                                        
+                                                        </div>
+                                                </div>
+                                        </div>
+
+                                </div>
+
+
+
                                 <div class="card-header">
                                                 <strong>Requisition Line</strong>
                                         </div>
@@ -343,7 +594,7 @@
                         </div>
                         <!-- <div class="card-body"> -->
                         <div class="card-footer text-right">
-                                <button type="submit" [disabled]="!newSimRequisitionForm.valid"
+                                <button type="submit" [disabled]="!newSimRequisitionForm.valid || selectedEmpType.length == 0 || selectedUsageEnv.length == 0 || selectedIDCardType == 0"
                                  class="btn btn-sm btn-primary">
                                         <i class="fa fa-dot-circle-o"></i> Submit</button>
                                 <button type="reset" class="btn btn-sm btn-danger"(click)="clearForm($event)">

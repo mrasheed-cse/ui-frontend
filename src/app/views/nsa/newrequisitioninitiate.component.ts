@@ -11,6 +11,7 @@ import { environment } from '../../../environments/environment';
 import { DefinitionDataService } from './services/definitiondata.service';
 import { IsmsworkflowsService } from './services/ismsworkflows.service';
 import { WorkflowsService } from './services/workflows.service';
+import { FileoperationService } from '../nsa/services/fileoperation.service';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -28,13 +29,16 @@ import { moment } from 'ngx-bootstrap/chronos/test/chain';
   selector: 'app-newrequisitioninitiate',
   templateUrl: './newrequisitioninitiate.component.html',
   styles: ['./nsa_styles.css'],
-  providers: [WorkflowsService,DefinitionDataService,IsmsworkflowsService,AppGlobals,LoginService]
+  providers: [WorkflowsService,DefinitionDataService,IsmsworkflowsService,AppGlobals,LoginService,FileoperationService]
 })
 export class NewrequisitioninitiateComponent implements OnInit {
 
 
 	userData: any[] = [];
 	userList1: any[] = [];
+	selectedEmpType: string[] = [];
+	selectedUsageEnv: string[] = [];
+	selectedIDCardType: string[] = [];
 	lastkeydown1: number = 0;
 	finalListOfUsersToSendWithRqn: Array<any>;
 
@@ -55,6 +59,16 @@ export class NewrequisitioninitiateComponent implements OnInit {
 	groupID: number;
 	userID: string;
 
+	fileToUpload: File = null;
+    fileuploadstatus: string;
+    fileName: string;
+	fileerror: boolean = false;
+   	filesuccess: boolean = false;
+    uploading: boolean = false;
+	url : string;
+	empVisible:boolean = false;
+	cardVisible:boolean = false;
+
   public dangerAlertShow:boolean = false;
 	public dangerAlertMessage:string = "";
 	public successAlertShow:boolean = false;
@@ -70,9 +84,23 @@ export class NewrequisitioninitiateComponent implements OnInit {
 
 	location: FormControl;
 	usageCategory: FormControl;
+	amsId: FormControl;
+	imei: FormControl;
+	idNumber: FormControl;
 	startDate: FormControl;
+	dateRange: FormControl;
 	endDate: FormControl;
+	empType: FormControl;
+	otherEmpType: FormControl;
+	usageEnv: FormControl;
+	IDCardType: FormControl;
+	otherIDCardType: FormControl;
+
 	purposeDetails: FormControl;
+	question1: FormControl;
+	question2: FormControl;
+	question3: FormControl;
+	question4: FormControl;
 	notificationTo: FormControl;
 	requisitionType: FormControl;
 	requisitionDate: FormControl;
@@ -84,12 +112,17 @@ export class NewrequisitioninitiateComponent implements OnInit {
 	public listPurposeCategory = [];
 	public listLocation = [];
 	public listUsageCategory = [];
+	public listDateRange = [];
+	public listEmpType = [];
+	public listUsageEnv = [];
+	public listIDCardType = [];
 	public listProduct = [];
 	public listImsiType = [];
 	public listSpecialRequirement = [];
 
 	todayDate: Date;
-
+	minDate: Date;
+	maxDate: Date;
 
 	headerDateData: any;
 
@@ -188,11 +221,100 @@ export class NewrequisitioninitiateComponent implements OnInit {
 					}
 					);
 				}
+				this.getDateRange();
+			},
+		err => console.error(err),
+		() => console.log('done loading usage category Name List')
+		);
+	}
+
+	getDateRange(){
+
+		this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_DateRange).subscribe(
+			data => {
+				//console.log(data);
+				for (let index in data) {
+					//console.log (data[index]);
+					this.listDateRange.push(
+					{
+						id:data[index].id,
+						ismsMasterDataDetailsName: data[index].ismsMasterDataDetailsName
+					}
+					);
+				}
+				this.getEmpType();
+			},
+		err => console.error(err),
+		() => console.log('done loading Date Range List')
+		);
+	}
+
+	getEmpType(){
+
+		this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_EmpType).subscribe(
+			data => {
+				//console.log(data);
+				let newdata = data.sort((a,b) => a.id - b.id);
+				for (let index in newdata) {
+					//console.log (newdata[index]);
+					this.listEmpType.push(
+					{
+						id:newdata[index].id,
+						ismsMasterDataDetailsName: newdata[index].ismsMasterDataDetailsName
+					}
+					);
+				}
+
+				this.getUsageEnv();
+			},
+		err => console.error(err),
+		() => console.log('done loading Employee Type List')
+		);
+	}
+
+	getUsageEnv(){
+
+		this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_UsageEnv).subscribe(
+			data => {
+				//console.log(data);
+				let newdata = data.sort((a,b) => a.id - b.id);
+				for (let index in newdata) {
+					//console.log (newdata[index]);
+					this.listUsageEnv.push(
+					{
+						id:newdata[index].id,
+						ismsMasterDataDetailsName: newdata[index].ismsMasterDataDetailsName
+					}
+					);
+				}
+
+				this.getIDCardType();
+			},
+		err => console.error(err),
+		() => console.log('done loading Usage Environment list')
+		);
+	}
+
+	getIDCardType(){
+
+		this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_IdType).subscribe(
+			data => {
+				//console.log(data);
+				let newdata = data.sort((a,b) => a.id - b.id);
+				for (let index in newdata) {
+					//console.log (newdata[index]);
+					this.listIDCardType.push(
+					{
+						id:newdata[index].id,
+						ismsMasterDataDetailsName: newdata[index].ismsMasterDataDetailsName
+					}
+					);
+				}
 
 				this.getProduct();
 			},
 		err => console.error(err),
-		() => console.log('done loading usage category Name List')
+		() => console.log('done loading ID Card Type List')
 		);
 	}
 
@@ -310,7 +432,7 @@ export class NewrequisitioninitiateComponent implements OnInit {
 		}
 	}
 
-  constructor(private router: Router,private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private definitionDataService: DefinitionDataService, private ismsworkflowsService: IsmsworkflowsService, private workFlowsService: WorkflowsService) {
+  constructor(private router: Router,private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private definitionDataService: DefinitionDataService, private ismsworkflowsService: IsmsworkflowsService, private workFlowsService: WorkflowsService, private fileoperationService: FileoperationService) {
 
 			this.	headerDateData = {};
 
@@ -383,12 +505,22 @@ export class NewrequisitioninitiateComponent implements OnInit {
         this.purposeCategory = new FormControl('', Validators.required);
       this.location =	new FormControl({value: ''}, Validators.required);
       this.usageCategory = 	new FormControl({value: ''}, Validators.required);
+	  this.amsId=  new FormControl('', [Validators.required,Validators.maxLength(20)]);
+	  this.imei= new FormControl('', [Validators.required,Validators.maxLength(500)]);
+	  this.idNumber = new FormControl('', [Validators.required,Validators.maxLength(500)]);
       this.startDate =	new FormControl('', Validators.required);
-      this.endDate = 	new FormControl('', Validators.required);
-	  this.purposeDetails = new FormControl('',  [
-      Validators.required,
-      Validators.minLength(120) 
-    ]);
+	  this.dateRange = 	new FormControl('', Validators.required);
+      this.endDate = 	new FormControl({value: '', disabled:true}, Validators.required);
+	  this.empType= new FormControl({value: ''}, Validators.required);
+	  this.otherEmpType = new FormControl('');
+	  this.usageEnv = new FormControl({value: ''}, Validators.required);
+	  this.IDCardType = new FormControl({value: ''}, Validators.required);
+	  this.otherIDCardType = new FormControl('');
+	  this.purposeDetails = new FormControl('',  [Validators.required,Validators.minLength(50) ,Validators.maxLength(280)]);
+	  this.question1 = new FormControl('',  [Validators.required,Validators.minLength(50),Validators.maxLength(280)]);
+		this.question2 = new FormControl('',  [Validators.required,Validators.minLength(50),Validators.maxLength(280)]);
+		this.question3 = new FormControl('',  [Validators.required,Validators.minLength(50),Validators.maxLength(280)]);
+		this.question4 = new FormControl('',  [Validators.required,Validators.minLength(50),Validators.maxLength(280)]);
 	  this.notificationTo = new FormControl('');
 
       this.requisitionType = new FormControl({value: ''}, Validators.required);
@@ -416,9 +548,22 @@ export class NewrequisitioninitiateComponent implements OnInit {
         	purposeCategory: this.purposeCategory,
         	location: this.location,
         	usageCategory: this.usageCategory,
+			amsId: this.amsId,
+			imei: this.imei,
+			idNumber: this.idNumber,
         	startDate: this.startDate,
+			dateRange: this.dateRange,
         	endDate: this.endDate,
+			empType: this.empType,
+			otherEmpType: this.otherEmpType,
+			usageEnv: this.usageEnv,
+			IDCardType: this.IDCardType,
+			otherIDCardType: this.otherIDCardType,
 			purposeDetails: this.purposeDetails,
+			question1: this.question1,
+			question2: this.question2,
+			question3: this.question3,
+			question4: this.question4,
 			notificationTo: this.notificationTo,
         	requisitionLines: this.requisitionLines
 				});
@@ -458,6 +603,7 @@ export class NewrequisitioninitiateComponent implements OnInit {
 		}
 
 			formValidation(){
+				debugger
 				let validationPassed : boolean;
 				let validationMessage : any;
 				validationPassed = true;
@@ -488,9 +634,62 @@ export class NewrequisitioninitiateComponent implements OnInit {
 					validationMessage = "End date must be greater than start date";
 					validationPassed = false;
 				}
-				else if(this.purposeDetails.value == null || this.purposeDetails.value == "" || this.purposeDetails.value == undefined || this.purposeDetails.value.length < 120 ){
-					validationMessage = "Purpose details must contain a minimum of 120 characters";
+				else if(this.purposeDetails.value == null || this.purposeDetails.value == "" || this.purposeDetails.value == undefined || this.purposeDetails.value.length < 50 ){
+					validationMessage = "Purpose details must contain a minimum of 50 characters";
 					validationPassed = false;
+				}
+				else if(this.question1.value == null || this.question1.value == "" || this.question1.value == undefined || this.question1.value.length < 50 ){
+					validationMessage = "Question1 must contain a minimum of 50 characters";
+					validationPassed = false;
+				}
+				else if(this.question2.value == null || this.question2.value == "" || this.question2.value == undefined || this.question2.value.length < 50 ){
+					validationMessage = "Question2 must contain a minimum of 50 characters";
+					validationPassed = false;
+				}
+				else if(this.question3.value == null || this.question3.value == "" || this.question3.value == undefined || this.question3.value.length < 50 ){
+					validationMessage = "question3 must contain a minimum of 50 characters";
+					validationPassed = false;
+				}
+				else if(this.question4.value == null || this.question4.value == "" || this.question4.value == undefined || this.question4.value.length < 50 ){
+					validationMessage = "question4 must contain a minimum of 50 characters";
+					validationPassed = false;
+				}
+				else if(this.fileName == null ){
+					validationMessage = "Please upload AMS File";
+					validationPassed = false;
+				}
+				
+				if(this.selectedEmpType.length != 0){
+					for(var i = 0; i < this.selectedEmpType.length; i++){
+						if(this.selectedEmpType[i] == "Others"){
+							if(this.otherEmpType.value == null || this.otherEmpType.value == "" || this.otherEmpType.value.length > 30){
+								validationMessage = "Employee Type 'Others' either Blank or crossed maximum limit of 30 characters";
+								validationPassed = false;
+							}
+							this.selectedEmpType[i] = this.otherEmpType.value;
+						}	
+					}
+					console.log(this.selectedEmpType);
+				}
+				
+				if(this.selectedUsageEnv.length == 0){
+						validationMessage = "Please select Usage Environment";
+						validationPassed = false;
+				} else{
+					console.log(this.selectedUsageEnv);
+				}
+				
+				if(this.selectedIDCardType.length != 0){
+					for(var i = 0; i < this.selectedIDCardType.length; i++){
+						if(this.selectedIDCardType[i] == "Others"){
+							if(this.otherIDCardType.value == null || this.otherIDCardType.value == "" || this.otherIDCardType.value.length > 20){
+								validationMessage = "ID Card Type 'Others' either Blank or crossed maximum limit of 30 characters";
+								validationPassed = false;
+							}
+							this.selectedIDCardType[i] = this.otherIDCardType.value;
+						}	
+					}
+					console.log(this.selectedIDCardType);
 				}
 
         console.log("new check");
@@ -607,10 +806,21 @@ export class NewrequisitioninitiateComponent implements OnInit {
     				this.headerDateData.purposeCategory = this.newSimRequisitionForm.get('purposeCategory').value;
     				this.headerDateData.location = this.newSimRequisitionForm.get('location').value;
     				this.headerDateData.usageCategory = this.newSimRequisitionForm.get('usageCategory').value;
-    				this.headerDateData.startDate = this.newSimRequisitionForm.get('startDate').value;
+    				this.headerDateData.amsId = this.newSimRequisitionForm.get('amsId').value;
+					this.headerDateData.imei = this.newSimRequisitionForm.get('imei').value;
+					this.headerDateData.selectedEmpType = this.selectedEmpType.map(x=>x).join(",");
+					this.headerDateData.selectedIDCardType = this.selectedIDCardType.map(x=>x).join(",");
+					this.headerDateData.selectedUsageEnv = this.selectedUsageEnv.map(x=>x).join(",");
+					this.headerDateData.idNumber = this.newSimRequisitionForm.get('idNumber').value;
+
     				this.headerDateData.endDate = this.newSimRequisitionForm.get('endDate').value;
     				this.headerDateData.purposeDetails = this.newSimRequisitionForm.get('purposeDetails').value;
+					this.headerDateData.question1 = this.newSimRequisitionForm.get('question1').value;
+					this.headerDateData.question2 = this.newSimRequisitionForm.get('question2').value;
+					this.headerDateData.question3 = this.newSimRequisitionForm.get('question3').value;
+					this.headerDateData.question4 = this.newSimRequisitionForm.get('question4').value;
 					this.headerDateData.notificationTo = "";
+					this.headerDateData.uploadedFileName = this.fileToUpload.name;
 
 					console.log("this.finalListOfUsersToSendWithRqn");
 					console.log(this.finalListOfUsersToSendWithRqn);
@@ -700,6 +910,128 @@ clearForm(event: any){
 		//console.log(event);
 		this.router.navigateByUrl('/nsa/newrequisition');
 	}
+
+	onchangeEmp(chk,value){
+		if (value != ""){
+			if (value == "Others"){
+				this.empVisible = !this.empVisible;
+			}
+			let checked = chk.checked;
+			if (checked){
+				this.selectedEmpType.push(value);
+			} else{
+				let index = this.selectedEmpType.indexOf(value);
+				this.selectedEmpType.splice(index,1);
+			}
+
+		}
+		console.log(this.selectedEmpType);
+		
+	}
+
+	onchangeusageEnv(chk,value){
+		if (value != ""){
+			let checked = chk.checked;
+			if (checked){
+				this.selectedUsageEnv.push(value);
+			} else{
+				let index = this.selectedUsageEnv.indexOf(value);
+				this.selectedUsageEnv.splice(index,1);
+			}
+
+		}
+		console.log(this.selectedUsageEnv);
+		
+	}
+	
+	onchangeIDType(chk,value){
+		if (value != ""){
+			if (value == "Others"){
+				this.cardVisible = !this.cardVisible;
+			}
+			let checked = chk.checked;
+			if (checked){
+				this.selectedIDCardType.push(value);
+			} else{
+				let index = this.selectedIDCardType.indexOf(value);
+				this.selectedIDCardType.splice(index,1);
+			}
+
+		}
+		console.log(this.selectedIDCardType);
+	}
+
+	onChange(value){
+		if(this.startDate.value !="" && value != ""){
+			/* this.visible = !this.visible; */
+			this.endDate.enable();
+			const theStartDate = this.FormatTheDate(this.startDate.value);
+			this.minDate = new Date();
+			this.maxDate = new Date();
+			if (value == "0 to 3 Months"){
+				var minMonth = moment(theStartDate,"DD-MM-YYYY").add(0, 'M');
+				var maxMonth = moment(theStartDate,"DD-MM-YYYY").add(3, 'M');
+				this.minDate = new Date(minMonth.year(),minMonth.month(),minMonth.date());
+				this.maxDate = new Date(maxMonth.year(),maxMonth.month(),maxMonth.date());
+			}
+			if (value == "3 to 6 Months"){
+				var minMonth = moment(theStartDate,"DD-MM-YYYY").add(3, 'M');
+				var maxMonth = moment(theStartDate,"DD-MM-YYYY").add(6, 'M');
+				this.minDate = new Date(minMonth.year(),minMonth.month(),minMonth.date());
+				this.maxDate = new Date(maxMonth.year(),maxMonth.month(),maxMonth.date());
+			}
+			if (value == "6 to 9 Months"){
+				var minMonth = moment(theStartDate,"DD-MM-YYYY").add(6, 'M');
+				var maxMonth = moment(theStartDate,"DD-MM-YYYY").add(9, 'M');
+				this.minDate = new Date(minMonth.year(),minMonth.month(),minMonth.date());
+				this.maxDate = new Date(maxMonth.year(),maxMonth.month(),maxMonth.date());
+			}
+			if (value == "9 to 12 Months"){
+				var minMonth = moment(theStartDate,"DD-MM-YYYY").add(9, 'M');
+				var maxMonth = moment(theStartDate,"DD-MM-YYYY").add(12, 'M');
+				this.minDate = new Date(minMonth.year(),minMonth.month(),minMonth.date());
+				this.maxDate = new Date(maxMonth.year(),maxMonth.month(),maxMonth.date());
+			}
+
+		}
+	}
+
+	handleFileInput(event) {
+		debugger
+		this.fileerror = false;
+        this.filesuccess = false;
+        this.fileToUpload = event.target.files.item(0);
+		this.fileName = this.fileToUpload.name;
+
+		if(this.fileName.length > 30){
+			alert('File Name max length 30 digit');
+			return(event.target.value = null);
+		} else if ((this.fileToUpload.size)/1024/1024 > 5) {
+			alert('Max File Size is 5 MB');
+			return(event.target.value = null);
+		}
+		outer: if (this.fileToUpload.type == "application/x-zip-compressed" || this.fileToUpload.type == "application/pdf" 
+		|| this.fileToUpload.type == "message/rfc822" || this.fileName.endsWith(".msg")) {
+			console.log(this.fileToUpload.type);
+			break outer;
+		} else{
+			alert('Allowed file type is .pdf, .msg, .eml, .zip');
+			return(event.target.value = null);
+		}
+
+        const formData: FormData = new FormData();
+		formData.append('ssm-file',this.fileToUpload,this.fileName);
+		console.log(formData);	
+		var result = this.fileoperationService.uploadSSMCSV(formData);
+		console.log(result);
+		result.subscribe(res => {
+			console.log(res);
+			if(res !== ""){
+				this.successAlertMessage = "File Uploaded Successfully";
+				alert(res.message);
+			}
+		})
+	}	
 
 
 
