@@ -57,6 +57,10 @@ export class AppGlobals {
 	readonly masterData_ProductType = 5;
 	readonly masterData_ProductName = 6;
 	readonly masterData_ImsiType = 7;
+	readonly masterData_DateRange = 8;
+	readonly masterData_EmpType = 9;
+	readonly masterData_UsageEnv = 10;
+	readonly masterData_IdType = 11;
 
 
 	readonly simActionListPage_totalMarker = -1;

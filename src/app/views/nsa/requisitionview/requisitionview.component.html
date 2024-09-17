@@ -75,8 +75,34 @@
           </tr>
           <tr>
             <td style="width:25%">Usage Category</td>
-            <td style="width:75%;" colspan="3" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['usageCategory']}}</td>
-          </tr>                
+            <td style="width:25%;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['usageCategory']}}</td>
+            <td style="width:25%">Download AMS</td>
+            <td style="width:25%;" bgcolor="#dcdcdc"><button class="btn btn-sm" style= "background-color: DodgerBlue" (click)="downloadCSVFiles()"><i class="fa fa-download"></i>Download</button></td>
+          </tr>
+          <tr>
+            <td style="width:25%">Employee Type</td>
+            <td style="width:25%;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['testCompletionDt']}}</td>
+            <td style="width:25%">Usage Environment</td>
+            <td style="width:25%" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['locationDetails']}}</td>
+          </tr>
+          <tr>
+            <td style="width:25%">ID Card Type</td>
+            <td style="width:25%;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['testCompletionDt']}}</td>
+            <td style="width:25%">ID Card Number</td>
+            <td style="width:25%" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['locationDetails']}}</td>
+          </tr>
+          <tr>
+            <td style="width:25%">Please mention Specific reason or project name or UAT name?</td>
+            <td style="width:25%;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['purposeDetails']}}</td>
+            <td style="width:25%">Why this test sim required? Like pre live UAT or post live UAT or general testing etc.</td>
+            <td style="width:25%" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['purposeDetails']}}</td>
+          </tr>
+          <tr>
+            <td style="width:25%">Who will be associated in UAT?</td>
+            <td style="width:25%;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['purposeDetails']}}</td>
+            <td style="width:25%">Probable outcome from UAT?</td>
+            <td style="width:25%" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['purposeDetails']}}</td>
+          </tr>                 
         </table>						
       </div>				
     </div>

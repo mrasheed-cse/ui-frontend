@@ -124,6 +124,7 @@ import { TestSimActivationComponent } from './isms-reports/test-sim-activation.c
 import { CreditLimitExtensionComponent } from './isms-reports/credit-limit-extension.component';
 import { TestSimRechargeComponent } from './isms-reports/test-sim-recharge.component';
 import { TestSimDeactivationComponent } from './isms-reports/test-sim-deactivation.component';
+import { AMSReportComponent } from './isms-reports/ams-report.component';
 import { TimeLimitChangeComponent } from './isms-reports/time-limit-change.component';
 import { TestSimSurrenderComponent } from './isms-reports/test-sim-surrender.component';
 import { DamageSimComponent } from './isms-reports/damage-sim.component';
@@ -295,6 +296,7 @@ import { TestscDeactivationComponent } from './testscdeactivation.component';
     TestSimActionListDeactivateComponent,
     LostdamagedetailsdeliveryComponent,
     LostdamagenewsimconnectionComponent,
+    AMSReportComponent,
     SearchPO,
     InputFileProcessing,
     AucProcessor,
