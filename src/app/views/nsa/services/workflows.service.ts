@@ -62,8 +62,16 @@ export class WorkflowsService {
 			requisitionNo: wr_id,
 			status: this.statusMarker
 		});
-	}	
-
+	}
+	//load amsnumber rqnlist /workflow/rqnlist
+	LoadAMSRequisitionList(wr_id: number, user_id: string,offset: Number) : any {
+		return this.http.post(this.serverUrl + 'workflow/rqnlist', {
+			createdBy: user_id,
+			requisitionNo: wr_id,
+			pageSize: this._global.defaultPageSize,
+			offset: offset
+		});
+	}
 	//load pending sc
 	LoadScRequisitionList(wr_id: number, user_id: string) : any {
 		return this.http.post(this.serverUrl + 'testscratchcard/search', {

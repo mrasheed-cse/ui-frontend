@@ -6,6 +6,7 @@ export const environment = {
 	rejectedRequestMarker: 'REJECTED',
 	ssmAssessmentHopMarker: "SSM",
 	hodHopMarker: "HOD",
+	divisionHeadHopMarker: "DIVISIONAL HEAD",
 	ssmAssignmentHopMarker: "SSM2",
 	clcHopMarker: "CLC",
 	dataSpecialRequirementTypes: [

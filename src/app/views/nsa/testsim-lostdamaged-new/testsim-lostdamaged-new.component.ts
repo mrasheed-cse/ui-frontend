@@ -247,7 +247,6 @@ export class TestsimLostdamagedNewComponent implements OnInit {
   }
 
   lost(){
-    debugger
     this.getSelectedIds();
 
     var selectedIdsAsArray = this.selectedIds.split(',');
@@ -284,7 +283,6 @@ export class TestsimLostdamagedNewComponent implements OnInit {
   }
 
   damaged(){
-    debugger
     this.getSelectedIds();
 
     var selectedIdsAsArray = this.selectedIds.split(',');
