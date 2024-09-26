@@ -385,7 +385,6 @@ export class LostdamagedetailsdeliveryComponent implements OnInit {
 
     this.workflowsService.updateSimAction(obj).subscribe(
       res  =>  {
-        debugger
         if(res != null && res != undefined && res !== ""){
           this.isLoading = false;
           var msg = "The request has been submitted" + res['name'];

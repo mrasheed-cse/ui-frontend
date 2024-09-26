@@ -54,7 +54,6 @@ export class ViewDatawarehouse implements OnInit {
 
     constructor(private datePipe: DatePipe, private router: Router, private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private datawarehouseservice: DatawarehouseService) {
        console.log('test');
-       debugger;
         this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
         if (this.currentLoggedInUser) {
             this.userName = this.currentLoggedInUser.userName

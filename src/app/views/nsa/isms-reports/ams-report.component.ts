@@ -15,6 +15,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { WorkflowsService } from '../services/workflows.service';
 import { AppGlobals } from '../../../app.global';
 import { ActivatedRoute,Router } from '@angular/router';
+import { FileoperationService } from '../../nsa/services/fileoperation.service';
 
 import { LoginService } from '../../pages/LoginService';
 import { LoggedInUser } from '../../pages/loggedInUser';
@@ -23,51 +24,46 @@ import { LoggedInUser } from '../../pages/loggedInUser';
   selector: 'app-ams-report',
   templateUrl: './ams-report.component.html',
   styles: [],
-  providers: [WorkflowsService,AppGlobals,LoginService],
+  providers: [WorkflowsService,AppGlobals,LoginService,FileoperationService],
 })
 export class AMSReportComponent implements OnInit {
 
   requisitionList: Array<Object>;
-    currentLoggedInUser: LoggedInUser;
-    userName: string;
-    groupID: number;
-    userID: string;
-    userData: any[] = [];
-    userList1: any[] = [];
-    lastkeydown1: number = 0;
-
-    public dangerAlertShow:boolean = false;
-    public dangerAlertMessage:string = "";
-    public successSearchShow:boolean = false;
+  currentLoggedInUser: LoggedInUser;
+  userName: string;
+  groupID: number;
+  userID: string;
+  userData: any[] = [];
+  userList1: any[] = [];
+  lastkeydown1: number = 0;
+  
+  private offset: number;
+	private currPage: number;
+  private totalPages: number;
+  public dangerAlertShow:boolean = false;
+  public dangerAlertMessage:string = "";
+  public successSearchShow:boolean = false;
   public successAlertMessage:string = "";
   public isLoading:boolean = false;
 
-    isDataFound: boolean = true;
-    isCollapsed: boolean = true;
+  isDataFound: boolean = true;
+  isCollapsed: boolean = true;
 
-    mySearchForm: FormGroup;
-   wrname: FormControl;
-   wrstatus: FormControl;
-   startDate: FormControl;
-   endDate: FormControl;
-   userEmail: FormControl;
+  mySearchForm: FormGroup;
+  wrname: FormControl;
+  startDate: FormControl;
+  endDate: FormControl;
+  amsID: FormControl;
+  simOwner: FormControl;
 
-    wrNamePattern:string = "(RQN).\*";
-    searchWR: string;
-    searchWRNumber: string;
-    searchWrCreatedBy: string;
-    searchWrCreationDate: string;
-    searchLastApprover: string;
-    searchLextApprover: string;
-    searchStatus: string;
-    searchPendingGroupID: number;
-    searchHopSequence: number;
-    todayDate: Date;
+  wrNamePattern:string = "(RQN).\*";
+  searchWR: string;
+  todayDate: Date;
   routerUrlAndParams: string;
   requestedSimAtatus: string;
 
 
-  constructor(private route:ActivatedRoute, private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {
+  constructor(private route:ActivatedRoute, private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService,private fileoperationService: FileoperationService) {
 
     let isValid = true;
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
@@ -80,38 +76,14 @@ export class AMSReportComponent implements OnInit {
     else {
       this.router.navigate(['pages/login']);
     }
-      //this.requisitionList = _global.dataTemp;
-
-//      this.router.navigate(['nsa/testsim-timeext', this.selectedIds]);
           //call API here to get real dat
-      if(this.route.snapshot.paramMap.get('requestedSimAtatus') != null)
-        this.requestedSimAtatus = this.route.snapshot.paramMap.get('requestedSimAtatus');
-      else 
+    if(this.route.snapshot.paramMap.get('requestedSimAtatus') != null)
+      this.requestedSimAtatus = this.route.snapshot.paramMap.get('requestedSimAtatus');
+    else 
       this.requestedSimAtatus = "All"; // ALL 
-//console.log("requestedSimAtatus "+ this.requestedSimAtatus);
-      
-
       this.isLoading = true;
-    //GetPendingTaskList
-    this.workFlowsService.LoadPersonalScDetails(0,this.userID, this.requestedSimAtatus).subscribe(
-        data => {
-          if(data !=null){
-            console.log(data);
-            this.isDataFound = true;
-            this.requisitionList = data;
-            
-            for(var i = 0; i < this.requisitionList.length; i++){
-              this.requisitionList[i]['show'] = true;
-            }
-
-          }
-          else{
-            this.isDataFound = false;
-          }
-        },
-      err => console.error(err),
-      () => console.log('Done loading PendingTask List')
-      );
+    //LoadRequisitionList
+    this.loadAMSRqnList();
     //Get Today Date
     this.isLoading = false;
     this.todayDate = new Date();
@@ -120,32 +92,49 @@ export class AMSReportComponent implements OnInit {
 
 } //end of constructor
 
+loadAMSRqnList(){
+  this.workFlowsService.LoadAMSRequisitionList(0,"",this.offset).subscribe(
+    data => {
+      if(data !=null){
+        console.log(data);
+        this.isDataFound = true;
+        this.requisitionList = data;
+        for(var i = 0; i < this.requisitionList.length; i++){
+          this.requisitionList[i]['show'] = true;
+        }
+        if(data.length > 0) this.totalPages = +(data[0]['totalPages']);
+            this.isLoading = false;
+      }
+      else{
+        this.isDataFound = false;
+      }
+    },
+  err => console.error(err),
+  () => console.log('Done loading RequisitionList List')
+  );
+}
 
 
 ngOnInit () {
-
-this.createFormControls();
-this.createForm();
-
-this.workFlowsService.getUserList().subscribe(
-  data => {
-    Object.assign(this.userData, data);
-  },
-  error => {
-    console.log("Something wrong here");
-  });
-
+  this.offset = 0; this.currPage = 1; this.totalPages = 50000;
+  this.createFormControls();
+  this.createForm();
+  this.workFlowsService.getUserList().subscribe(
+    data => {
+      Object.assign(this.userData, data);
+    },
+    error => {
+      console.log("Something wrong here");
+    });
 }
 
-getUserEmailsFirstWay($event) {
-
-  let userEmail = $event.target.value;
-
+getUserIdsFirstWay($event) {
+  let userId = $event.target.value;
   this.userList1 = [];
 
-  if (userEmail.length > 2) {
+  if (userId.length > 3) {
     if ($event.timeStamp - this.lastkeydown1 > 200) {
-      this.userList1 = this.searchFromArray(this.userData, userEmail);
+      this.userList1 = this.searchFromArray(this.userData, userId);
     }
   }
 }
@@ -166,11 +155,12 @@ clearSearch(){
   for(var i = 0; i < this.requisitionList.length; i++){
     this.requisitionList[i]['show'] = true;
   }
+  this.mySearchForm.reset({wrname: '',amsID: '',startDate: '',endDate: '',simOwner: ''});
 }
 
 onSearchSubmit() {
 
-  if (this.wrname.value || this.startDate.value || this.endDate.value || this.wrstatus.value) {
+  if (this.mySearchForm.valid) {
       console.log('Form Submitted!');
       console.log(this.mySearchForm.value);
       this.successSearchShow = false;
@@ -182,7 +172,10 @@ onSearchSubmit() {
         if(this.wrname.value != null && this.wrname.value != undefined && this.wrname.value != "" && this.wrname.value == this.requisitionList[i]['requisitionNo']){
           this.requisitionList[i]['show'] = true;
         }
-        if(this.userEmail.value != null && this.userEmail.value != undefined && this.userEmail.value != "" && this.userEmail.value == this.requisitionList[i]['initiator']){
+        if(this.amsID.value != null && this.amsID.value != undefined && this.amsID.value != "" && this.amsID.value == this.requisitionList[i]['amsId']){
+          this.requisitionList[i]['show'] = true;
+        }
+        if(this.simOwner.value != null && this.simOwner.value != undefined && this.simOwner.value != "" && this.simOwner.value == this.requisitionList[i]['initiatorEmail']){
           this.requisitionList[i]['show'] = true;
         }
 
@@ -213,53 +206,63 @@ onSearchSubmit() {
             this.requisitionList[i]['show'] = true;
           }
         }
-
-
       }
-
+      if(this.requisitionList.length > 0) this.totalPages = Math.trunc(this.requisitionList.length / this._global.defaultPageSize);
+      if((this.requisitionList.length % this._global.defaultPageSize) != 0) this.totalPages++;
   }
 }
 
-downloadChallan(challanNo:number,requisitionId:number){
-  this.workFlowsService.DownloadChallan(challanNo,requisitionId).subscribe((data) => {
-
-    const blob = new Blob([data], {type: 'application/pdf'});
-  
-    var downloadURL = window.URL.createObjectURL(data);
-    var link = document.createElement('a');
-    link.href = downloadURL;
-    link.download = challanNo+".pdf";
-    link.click();
-  
-  });
-}
 createFormControls() {
   this.wrname = new FormControl('',Validators.pattern(this.wrNamePattern));
-  this.wrstatus = new FormControl('');
+  this.amsID = new FormControl('');
   this.startDate = new FormControl('');
   this.endDate = new FormControl('');
+  this.simOwner = new FormControl('');
 }
 
 createForm() {
   this.mySearchForm = new FormGroup({
     wrname: this.wrname,
-    wrstatus: this.wrstatus,
+    amsID: this.amsID,
     startDate: this.startDate,
-  endDate: this.endDate
+    endDate: this.endDate,
+    simOwner: this.simOwner
   });
 }
 
-onTaskSelect(aTask) {
-      //this.selectedContactId = aTask.wr_ID;
-      //this.router.navigateByUrl('/nsa/seriesprovisiondetail');
+downloadAMS(fileNameToDownload: string){
+  console.log(fileNameToDownload);
+  this.fileoperationService.DownloadFile(fileNameToDownload).subscribe((res) => {
+    console.log(res);
+    var downloadURL = window.URL.createObjectURL(res);
+    var link = document.createElement('a');
+    link.href = downloadURL;
+    link.download = fileNameToDownload;
+    link.click();
+  });
 }
 
-editAction(aTask){
-  return '../screquisitionedit/'.toString();
+prevPage(){
+  if(this.offset <= 0){
+    //first page .. do nothing
+  }
+  else{
+    this.isLoading = true;
+    this.offset = this.offset - this._global.defaultPageSize;
+    this.currPage--;
+    this.loadAMSRqnList();
+  }
 }
 
-viewAction(aTask){
-  return '../screquisitionview/'.toString();
+nextPage(){
+  if(this.currPage >= this.totalPages){
+    //last page .. do nothing
+  }
+  else{
+    this.isLoading = true;
+    this.offset = this.offset + this._global.defaultPageSize;
+    this.currPage++;
+    this.loadAMSRqnList();
+  }
 }
-
 }
