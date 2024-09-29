@@ -37,9 +37,9 @@ export class AMSReportComponent implements OnInit {
   userList1: any[] = [];
   lastkeydown1: number = 0;
   
-  private offset: number;
-	private currPage: number;
-  private totalPages: number;
+  public offset: number;
+	public currPage: number;
+  public totalPages: number;
   public dangerAlertShow:boolean = false;
   public dangerAlertMessage:string = "";
   public successSearchShow:boolean = false;

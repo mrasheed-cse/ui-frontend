@@ -77,6 +77,7 @@ export class NewrequisitioninitiateComponent implements OnInit {
 	public infoAlertMessage:string = "";
 	public isLoading:boolean = false;
 	public defFlowFound:boolean = false;
+	public sDate = '';
 
 	newSimRequisitionForm: FormGroup;
 	purposeCategory: FormControl;
