@@ -50,32 +50,64 @@
       <div class="col-md-12">
         <table style="width:100%" border="1">        
              <tr>
-              <td style="width:25%">Requisition No</td>
-              <td style="width:25%;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['requisitionNo']}}</td>
-              <td style="width:25%">Date of requisition</td>
-              <td style="width:25%" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['requisitionDt']}}</td>
+              <td style="width:15%">Requisition No</td>
+              <td style="width:35%;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['requisitionNo']}}</td>
+              <td style="width:15%">Date of requisition</td>
+              <td style="width:35%" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['requisitionDt']}}</td>
             </tr>
             <tr>
-              <td style="width:25%">Requisition Type</td>
-              <td style="width:25%;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['requisitionType']}}</td>
-              <td style="width:25%">Purpose Category</td>
-              <td style="width:25%" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['purposeCategory']}}</td>
+              <td style="width:15%">Requisition Type</td>
+              <td style="width:35%;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['requisitionType']}}</td>
+              <td style="width:15%">Purpose Category</td>
+              <td style="width:35%" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['purposeCategory']}}</td>
             </tr>
             <tr>
-              <td style="width:25%">Purpose Details</td>
-              <td style="width:25%;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['purposeDetails']}}</td>
-              <td style="width:25%">Expected Test Start Date</td>
-              <td style="width:25%" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['testStartDt']}}</td>
+              <td style="width:15%">Purpose Details</td>
+              <td style="width:35%;word-break: break-all;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['purposeDetails']}}</td>
+              <td style="width:15%">Expected Test Start Date</td>
+              <td style="width:35%" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['testStartDt']}}</td>
             </tr>
             <tr>
-              <td style="width:25%">Expected Test End Date</td>
-              <td style="width:25%;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['testCompletionDt']}}</td>
-              <td style="width:25%">Location</td>
-              <td style="width:25%" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['locationDetails']}}</td>
+              <td style="width:15%">Expected Test End Date</td>
+              <td style="width:35%;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['testCompletionDt']}}</td>
+              <td style="width:15%">Location</td>
+              <td style="width:35%" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['locationDetails']}}</td>
             </tr>
             <tr>
-              <td style="width:25%">Usage Category</td>
-              <td style="width:75%;" colspan="3" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['usageCategory']}}</td>
+              <td style="width:15%">Usage Category</td>
+              <td style="width:35%;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['usageCategory']}}</td>
+              <td style="width:15%">Device IMEI Number</td>
+              <td style="width:35%;word-break: break-all;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['imei']}}</td>
+            </tr>
+            <tr>
+              <td style="width:15%">AMS Number</td>
+              <td style="width:35%;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['amsId']}}</td>
+              <td style="width:15%;word-break: break-all;">Download AMS</td>
+              <td style="width:35%;" bgcolor="#dcdcdc"><button class="button button1" (click)="DownloadFile(requisition.requisitionDetails.uploadedFileName)"><i class="fa fa-download"></i>Download</button></td>
+            </tr>
+            <tr>
+              <td style="width:15%">Employee Type</td>
+              <td style="width:35%;word-break: break-all;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['selectedEmpType']}}</td>
+              <td style="width:15%">Usage Environment</td>
+              <td style="width:35%;word-break: break-all;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['selectedUsageEnv']}}</td>
+            </tr>
+            <tr>
+              <td style="width:15%">ID Card Type</td>
+              <td style="width:35%;word-break: break-all;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['selectedIDCardType']}}</td>
+              <td style="width:15%">ID Card Number</td>
+              <td style="width:35%;word-break: break-all;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['cardNo']}}</td>
+            </tr>
+            <tr>
+              <td style="width:15%">Please mention Specific reason or project name or UAT name?</td>
+              <td style="width:35%;word-break: break-all;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['question1']}}</td>
+              <td style="width:15%">Why this test sim required? Like pre live UAT or post live UAT or general testing etc.</td>
+              <td style="width:35%;word-break: break-all;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['question2']}}</td>
+            </tr>
+            <tr>
+              <td style="width:15%">Who will be associated in UAT?</td>
+              <td style="width:35%;word-break: break-all;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['question3']}}</td>
+              <td style="width:15%">Probable outcome from UAT?</td>
+              <td style="width:35%;word-break: break-all;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['question4']}}</td>
             </tr>             
         </table>						
       </div>				
@@ -117,7 +149,7 @@
                       <td>{{ c.quantity }}</td>
                       <td>{{ c.activationInstruction }}</td>
                       <td>{{ c.imsiTypeName }}</td>
-                      <td>
+                      <td style="word-break: break-all;">
                           {{ c.specialRequirement }}
                           <span *ngIf="c.specialRequirementOther != null && c.specialRequirementOther != undefined && c.specialRequirementOther != ''"><br /></span>  
                           <span *ngIf="c.specialRequirementOther != null && c.specialRequirementOther != undefined && c.specialRequirementOther != ''">{{c.specialRequirementOther}}</span>                              

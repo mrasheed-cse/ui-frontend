@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { DefinitionDataService } from '../services/definitiondata.service';
 import { IsmsworkflowsService } from '../services/ismsworkflows.service';
 import { LoggedInUser } from '../../pages/loggedInUser';
+import { FileoperationService } from '../../nsa/services/fileoperation.service';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -16,7 +17,7 @@ import 'rxjs/add/observable/of';
   selector: 'app-requisitiondetailsdelivery',
   templateUrl: './requisitiondetailsdelivery.component.html',
   styleUrls: ['./requisitiondetailsdelivery.component.scss'],
-	providers: [AppGlobals,LoginService,IsmsworkflowsService]
+	providers: [AppGlobals,LoginService,IsmsworkflowsService,FileoperationService]
 })
 export class RequisitiondetailsdeliveryComponent implements OnInit {
 
@@ -45,7 +46,7 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
   zeroDeliveryQtyCount :number;
 
 
-  constructor(private route:ActivatedRoute,private router: Router,private loginService: LoginService, private http: HttpClient, private _global: AppGlobals,private ismsworkflowsService: IsmsworkflowsService) {
+  constructor(private route:ActivatedRoute,private router: Router,private loginService: LoginService, private http: HttpClient, private _global: AppGlobals,private ismsworkflowsService: IsmsworkflowsService,private fileoperationService: FileoperationService) {
 
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
     this.lineItemBeingConsidered = {};
@@ -315,7 +316,7 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
           else if(res.length != this.lineItemBeingConsidered['deliverQuantity']){
             let alertMsg = "The requsition line specifies quantity of " + this.lineItemBeingConsidered['deliverQuantity'] + ". However, with specified KIT numbers " + res.length + " number of MSISDN found.";
             alert(alertMsg);
-
+            this.isLoading=false;
             return;
           }
           else{
@@ -332,13 +333,14 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
                   if(res[y]['kit_No'] == this.finalArrayToSubmit[z].msisdnInfo[z1]['kit_No']){
                     let innerAlertMsg = "The KIT number " + res[y]['kit_No'] + " has been assigned already in a previous line item. Please specify new KIT number.";
                     alert(innerAlertMsg);
+                    this.isLoading=false;
                     return;
                   }
                   if(res[y]['mobile_No'] == this.finalArrayToSubmit[z].msisdnInfo[z1]['mobile_No']){
                     if(res[y]['mobile_No']!='0'){
                     let innerAlertMsg = "The MSISDN " + res[y]['mobile_No'] + " has been assigned already in a previous line item. Please use new MSISDN.";
                     alert(innerAlertMsg);
-        
+                    this.isLoading=false;
                     return;
                     }
                   }
@@ -346,7 +348,7 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
                   if(res[y]['imsi_No'] == this.finalArrayToSubmit[z].msisdnInfo[z1]['imsi_No']){
                     let innerAlertMsg = "The IMSI number " + res[y]['imsi_No'] + " has been assigned already in a previous line item. Please specify new IMSI number.";
                     alert(innerAlertMsg);
-        
+                    this.isLoading=false;
                     return;
                   }
 
@@ -477,6 +479,18 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
 
     );
 
+  }
+
+  DownloadFile(fileNameToDownload: string){
+	  console.log(fileNameToDownload);
+    this.fileoperationService.DownloadFile(fileNameToDownload).subscribe((res) => {
+			console.log(res);
+      var downloadURL = window.URL.createObjectURL(res);
+      var link = document.createElement('a');
+      link.href = downloadURL;
+      link.download = fileNameToDownload;
+      link.click();
+		});
   }
 
 

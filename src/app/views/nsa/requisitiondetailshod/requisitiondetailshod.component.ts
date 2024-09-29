@@ -6,12 +6,13 @@ import { HttpClient } from '@angular/common/http';
 import { DefinitionDataService } from '../services/definitiondata.service';
 import { IsmsworkflowsService } from '../services/ismsworkflows.service';
 import { LoggedInUser } from '../../pages/loggedInUser';
+import { FileoperationService } from '../../nsa/services/fileoperation.service';
 
 @Component({
   selector: 'app-requisitiondetailshod',
   templateUrl: './requisitiondetailshod.component.html',
   styleUrls: ['./requisitiondetailshod.component.scss'],
-  providers: [AppGlobals,LoginService,IsmsworkflowsService]
+  providers: [AppGlobals,LoginService,IsmsworkflowsService,FileoperationService]
 })
 export class RequisitiondetailshodComponent implements OnInit {
 
@@ -26,7 +27,7 @@ export class RequisitiondetailshodComponent implements OnInit {
   userID: string;
   requisition_comments: string;
 
-  constructor(private route:ActivatedRoute,private router: Router,private loginService: LoginService, private http: HttpClient, private _global: AppGlobals,private ismsworkflowsService: IsmsworkflowsService) {
+  constructor(private route:ActivatedRoute,private router: Router,private loginService: LoginService, private http: HttpClient, private _global: AppGlobals,private ismsworkflowsService: IsmsworkflowsService,private fileoperationService: FileoperationService) {
 
     this.requisition_comments = "";
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
@@ -91,6 +92,18 @@ export class RequisitiondetailshodComponent implements OnInit {
 
   rfi(){
     this.approveOrRejectRequest(this.requisitionDetails['id'], "RFI", this.userID);
+  }
+
+  DownloadFile(fileNameToDownload: string){
+	  console.log(fileNameToDownload);
+    this.fileoperationService.DownloadFile(fileNameToDownload).subscribe((res) => {
+			console.log(res);
+      var downloadURL = window.URL.createObjectURL(res);
+      var link = document.createElement('a');
+      link.href = downloadURL;
+      link.download = fileNameToDownload;
+      link.click();
+		});
   }
 
 }
