@@ -86,7 +86,7 @@ export class NewrequisitioninitiateComponent implements OnInit {
 	usageCategory: FormControl;
 	amsId: FormControl;
 	imei: FormControl;
-	idNumber: FormControl;
+	cardNo: FormControl;
 	startDate: FormControl;
 	dateRange: FormControl;
 	endDate: FormControl;
@@ -507,15 +507,15 @@ export class NewrequisitioninitiateComponent implements OnInit {
       this.usageCategory = 	new FormControl({value: ''}, Validators.required);
 	  this.amsId=  new FormControl('', [Validators.required,Validators.maxLength(20)]);
 	  this.imei= new FormControl('', [Validators.required,Validators.maxLength(500)]);
-	  this.idNumber = new FormControl('', [Validators.required,Validators.maxLength(500)]);
+	  this.cardNo = new FormControl('', [Validators.required,Validators.maxLength(500)]);
       this.startDate =	new FormControl('', Validators.required);
 	  this.dateRange = 	new FormControl('', Validators.required);
       this.endDate = 	new FormControl({value: '', disabled:true}, Validators.required);
 	  this.empType= new FormControl({value: ''}, Validators.required);
-	  this.otherEmpType = new FormControl('');
+	  this.otherEmpType = new FormControl('',[Validators.required,Validators.maxLength(30)]);
 	  this.usageEnv = new FormControl({value: ''}, Validators.required);
 	  this.IDCardType = new FormControl({value: ''}, Validators.required);
-	  this.otherIDCardType = new FormControl('');
+	  this.otherIDCardType = new FormControl('',[Validators.required,Validators.maxLength(20)]);
 	  this.purposeDetails = new FormControl('',  [Validators.required,Validators.minLength(50) ,Validators.maxLength(280)]);
 	  this.question1 = new FormControl('',  [Validators.required,Validators.minLength(50),Validators.maxLength(280)]);
 		this.question2 = new FormControl('',  [Validators.required,Validators.minLength(50),Validators.maxLength(280)]);
@@ -550,7 +550,7 @@ export class NewrequisitioninitiateComponent implements OnInit {
         	usageCategory: this.usageCategory,
 			amsId: this.amsId,
 			imei: this.imei,
-			idNumber: this.idNumber,
+			cardNo: this.cardNo,
         	startDate: this.startDate,
 			dateRange: this.dateRange,
         	endDate: this.endDate,
@@ -603,7 +603,6 @@ export class NewrequisitioninitiateComponent implements OnInit {
 		}
 
 			formValidation(){
-				debugger
 				let validationPassed : boolean;
 				let validationMessage : any;
 				validationPassed = true;
@@ -811,7 +810,7 @@ export class NewrequisitioninitiateComponent implements OnInit {
 					this.headerDateData.selectedEmpType = this.selectedEmpType.map(x=>x).join(",");
 					this.headerDateData.selectedIDCardType = this.selectedIDCardType.map(x=>x).join(",");
 					this.headerDateData.selectedUsageEnv = this.selectedUsageEnv.map(x=>x).join(",");
-					this.headerDateData.idNumber = this.newSimRequisitionForm.get('idNumber').value;
+					this.headerDateData.cardNo = this.newSimRequisitionForm.get('cardNo').value;
 
     				this.headerDateData.endDate = this.newSimRequisitionForm.get('endDate').value;
     				this.headerDateData.purposeDetails = this.newSimRequisitionForm.get('purposeDetails').value;
@@ -965,6 +964,7 @@ clearForm(event: any){
 		if(this.startDate.value !="" && value != ""){
 			/* this.visible = !this.visible; */
 			this.endDate.enable();
+			this.endDate.reset();
 			const theStartDate = this.FormatTheDate(this.startDate.value);
 			this.minDate = new Date();
 			this.maxDate = new Date();
@@ -996,8 +996,12 @@ clearForm(event: any){
 		}
 	}
 
+	onSDateChange(){
+		this.endDate.reset();
+		this.dateRange.reset();
+	}
+
 	handleFileInput(event) {
-		debugger
 		this.fileerror = false;
         this.filesuccess = false;
         this.fileToUpload = event.target.files.item(0);

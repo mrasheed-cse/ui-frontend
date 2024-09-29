@@ -4,6 +4,7 @@ import { Router,ActivatedRoute, Params } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { DefinitionDataService } from '../services/definitiondata.service';
 import { IsmsworkflowsService } from '../services/ismsworkflows.service';
+import { FileoperationService } from '../../nsa/services/fileoperation.service';
 
 import { LoginService } from '../../pages/LoginService';
 import { LoggedInUser } from '../../pages/loggedInUser';
@@ -12,7 +13,7 @@ import { LoggedInUser } from '../../pages/loggedInUser';
   selector: 'app-requisitiondetails-form',
   templateUrl: './requisitiondetails-form.component.html',
   styleUrls: ['./requisitiondetails-form.component.scss'],
-	providers: [AppGlobals,LoginService,IsmsworkflowsService]
+	providers: [AppGlobals,LoginService,IsmsworkflowsService,FileoperationService]
 })
 export class RequisitiondetailsFormComponent implements OnInit {
 
@@ -27,7 +28,7 @@ export class RequisitiondetailsFormComponent implements OnInit {
   userID: string;
   requisition_comments: string;
 
-  constructor(private route:ActivatedRoute,private router: Router,private loginService: LoginService, private http: HttpClient, private _global: AppGlobals,private ismsworkflowsService: IsmsworkflowsService) {
+  constructor(private route:ActivatedRoute,private router: Router,private loginService: LoginService, private http: HttpClient, private _global: AppGlobals,private ismsworkflowsService: IsmsworkflowsService,private fileoperationService: FileoperationService) {
 
     this.requisition_comments = "";
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
@@ -126,6 +127,18 @@ export class RequisitiondetailsFormComponent implements OnInit {
       ////////////// //////////////////////////// /////////
     }
 
+  }
+
+  DownloadFile(fileNameToDownload: string){
+	  console.log(fileNameToDownload);
+    this.fileoperationService.DownloadFile(fileNameToDownload).subscribe((res) => {
+			console.log(res);
+      var downloadURL = window.URL.createObjectURL(res);
+      var link = document.createElement('a');
+      link.href = downloadURL;
+      link.download = fileNameToDownload;
+      link.click();
+		});
   }
 
 }

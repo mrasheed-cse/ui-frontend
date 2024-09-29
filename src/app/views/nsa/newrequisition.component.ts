@@ -195,7 +195,8 @@ export class NewrequisitionComponent implements OnInit {
             //this.router.navigateByUrl('/nsa/requisitiondetailshod/' + aTask['id']);
             //this.router.navigate(['/nsa/requisitiondetailshod/',aTask['id']]);
             return '../requisitiondetailshod/'.toString();
-
+        } else if (aTask.hop == environment.divisionHeadHopMarker) {
+            return '../requisitiondetailshod/'.toString();
         } else if (aTask.hop == environment.ssmAssignmentHopMarker) {
             //this.router.navigateByUrl('/nsa/requisitionassign/' + aTask['id']);
             //this.router.navigate(['/nsa/requisitionassign/',aTask['id']]);

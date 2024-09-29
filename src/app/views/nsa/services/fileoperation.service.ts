@@ -70,7 +70,15 @@ export class FileoperationService {
 	  console.log(fileNameToDownload);
 		console.log(this.options);	
         return this.http.post(this.serverUrl +"NsaFileDownload/downloadNsaCSV", fileNameToDownload, this.options);
-    }
+	}
+
+	DownloadFile(fileNameToDownload: any){
+		console.log("In Download Files");
+		const httpOptions = {
+			responseType: 'blob' as 'json'
+		};
+		return this.http.post(this.serverUrl +"NsaFileDownload/downloadFile", fileNameToDownload, httpOptions);
+	}
 
     handleError(error) {
 		console.log(error);

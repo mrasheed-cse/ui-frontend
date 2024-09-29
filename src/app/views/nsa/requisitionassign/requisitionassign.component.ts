@@ -6,12 +6,13 @@ import { HttpClient } from '@angular/common/http';
 import { DefinitionDataService } from '../services/definitiondata.service';
 import { IsmsworkflowsService } from '../services/ismsworkflows.service';
 import { LoggedInUser } from '../../pages/loggedInUser';
+import { FileoperationService } from '../../nsa/services/fileoperation.service';
 
 @Component({
   selector: 'app-requisitionassign',
   templateUrl: './requisitionassign.component.html',
   styleUrls: ['./requisitionassign.component.scss'],
-	providers: [AppGlobals,LoginService,IsmsworkflowsService]
+	providers: [AppGlobals,LoginService,IsmsworkflowsService,FileoperationService]
 })
 export class RequisitionassignComponent implements OnInit {
 
@@ -25,7 +26,7 @@ export class RequisitionassignComponent implements OnInit {
 	groupID: number;
 	userID: string;
 
-  constructor(private route:ActivatedRoute,private router: Router,private loginService: LoginService, private http: HttpClient, private _global: AppGlobals,private ismsworkflowsService: IsmsworkflowsService) {
+  constructor(private route:ActivatedRoute,private router: Router,private loginService: LoginService, private http: HttpClient, private _global: AppGlobals,private ismsworkflowsService: IsmsworkflowsService,private fileoperationService: FileoperationService) {
 
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
 
@@ -150,6 +151,18 @@ export class RequisitionassignComponent implements OnInit {
 
   rfi(){
     this.ssmAssignment(this.requisitionDetails['id'], "RFI", this.userID);
+  }
+
+  DownloadFile(fileNameToDownload: string){
+	  console.log(fileNameToDownload);
+    this.fileoperationService.DownloadFile(fileNameToDownload).subscribe((res) => {
+			console.log(res);
+      var downloadURL = window.URL.createObjectURL(res);
+      var link = document.createElement('a');
+      link.href = downloadURL;
+      link.download = fileNameToDownload;
+      link.click();
+		});
   }
 
 }
