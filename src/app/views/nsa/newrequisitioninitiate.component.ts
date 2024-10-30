@@ -68,9 +68,10 @@ export class NewrequisitioninitiateComponent implements OnInit {
 	url : string;
 	empVisible:boolean = false;
 	cardVisible:boolean = false;
+	amsVisible:boolean = false;
 
   public dangerAlertShow:boolean = false;
-	public dangerAlertMessage:string = "";
+	public dangerAlertMessage:string[] = [];
 	public successAlertShow:boolean = false;
 	public successAlertMessage:string = "";
 	public infoAlertShow:boolean = false;
@@ -88,6 +89,7 @@ export class NewrequisitioninitiateComponent implements OnInit {
 	amsId: FormControl;
 	imei: FormControl;
 	cardNo: FormControl;
+	anyAMS: FormControl;
 	startDate: FormControl;
 	dateRange: FormControl;
 	endDate: FormControl;
@@ -126,6 +128,8 @@ export class NewrequisitioninitiateComponent implements OnInit {
 	maxDate: Date;
 
 	headerDateData: any;
+
+	anyamsList = [{value: 'Yes'}, {value: 'No'}];
 
 
 	/*keyDownHandler(event: Event) {
@@ -506,20 +510,21 @@ export class NewrequisitioninitiateComponent implements OnInit {
         this.purposeCategory = new FormControl('', Validators.required);
       this.location =	new FormControl({value: ''}, Validators.required);
       this.usageCategory = 	new FormControl({value: ''}, Validators.required);
-	  this.amsId=  new FormControl('', [Validators.required,Validators.maxLength(20)]);
-	  this.imei= new FormControl('', [Validators.required,Validators.maxLength(500)]);
+	  this.amsId=  new FormControl('', [Validators.maxLength(20)]);
+	  this.imei= new FormControl('', [Validators.required,Validators.minLength(15), Validators.maxLength(500)]);
 	  this.cardNo = new FormControl('', [Validators.required,Validators.maxLength(500)]);
       this.startDate =	new FormControl('', Validators.required);
 	  this.dateRange = 	new FormControl('', Validators.required);
+	  this.anyAMS = new FormControl('', Validators.required);
       this.endDate = 	new FormControl({value: '', disabled:true}, Validators.required);
 	  this.empType= new FormControl({value: ''}, Validators.required);
-	  this.otherEmpType = new FormControl('',[Validators.required,Validators.maxLength(30)]);
+	  this.otherEmpType = new FormControl('',[Validators.maxLength(30)]);
 	  this.usageEnv = new FormControl({value: ''}, Validators.required);
 	  this.IDCardType = new FormControl({value: ''}, Validators.required);
-	  this.otherIDCardType = new FormControl('',[Validators.required,Validators.maxLength(20)]);
+	  this.otherIDCardType = new FormControl('',[Validators.maxLength(20)]);
 	  this.purposeDetails = new FormControl('',  [Validators.required,Validators.minLength(50) ,Validators.maxLength(280)]);
 	  this.question1 = new FormControl('',  [Validators.required,Validators.minLength(50),Validators.maxLength(280)]);
-		this.question2 = new FormControl('',  [Validators.required,Validators.minLength(50),Validators.maxLength(280)]);
+		this.question2 = new FormControl('',  [Validators.required,Validators.minLength(20),Validators.maxLength(280)]);
 		this.question3 = new FormControl('',  [Validators.required,Validators.minLength(50),Validators.maxLength(280)]);
 		this.question4 = new FormControl('',  [Validators.required,Validators.minLength(50),Validators.maxLength(280)]);
 	  this.notificationTo = new FormControl('');
@@ -554,6 +559,7 @@ export class NewrequisitioninitiateComponent implements OnInit {
 			cardNo: this.cardNo,
         	startDate: this.startDate,
 			dateRange: this.dateRange,
+			anyAMS: this.anyAMS,
         	endDate: this.endDate,
 			empType: this.empType,
 			otherEmpType: this.otherEmpType,
@@ -605,9 +611,9 @@ export class NewrequisitioninitiateComponent implements OnInit {
 
 			formValidation(){
 				let validationPassed : boolean;
-				let validationMessage : any;
+				let validationMessage : string[] = [];
 				validationPassed = true;
-				validationMessage = "";
+				//validationMessage = "";
 
 				var currDate = new Date();
 
@@ -623,57 +629,62 @@ export class NewrequisitioninitiateComponent implements OnInit {
 				console.log(diffDays);
 
 				if(this.startDate.value < currDate && diffDays >= 1){
-					validationMessage = "Start date cannot be a date in the past";
+					validationMessage.push("Start date cannot be a date in the past");
 					validationPassed = false;
 				}
 				else if(this.endDate.value < currDate ){
-					validationMessage = "End date must be greater than current date.";
+					validationMessage.push("End date must be greater than current date.");
 					validationPassed = false;
 				}
 				else if(this.endDate.value <= this.startDate.value ){
-					validationMessage = "End date must be greater than start date";
+					validationMessage.push("End date must be greater than start date");
 					validationPassed = false;
 				}
 				else if(this.purposeDetails.value == null || this.purposeDetails.value == "" || this.purposeDetails.value == undefined || this.purposeDetails.value.length < 50 ){
-					validationMessage = "Purpose details must contain a minimum of 50 characters";
+					validationMessage.push("Purpose details must contain a minimum of 50 characters");
 					validationPassed = false;
 				}
 				else if(this.question1.value == null || this.question1.value == "" || this.question1.value == undefined || this.question1.value.length < 50 ){
-					validationMessage = "Question1 must contain a minimum of 50 characters";
+					validationMessage.push("Question1 must contain a minimum of 50 characters");
 					validationPassed = false;
 				}
 				else if(this.question2.value == null || this.question2.value == "" || this.question2.value == undefined || this.question2.value.length < 50 ){
-					validationMessage = "Question2 must contain a minimum of 50 characters";
+					validationMessage.push("Question2 must contain a minimum of 50 characters");
 					validationPassed = false;
 				}
 				else if(this.question3.value == null || this.question3.value == "" || this.question3.value == undefined || this.question3.value.length < 50 ){
-					validationMessage = "question3 must contain a minimum of 50 characters";
+					validationMessage.push("question3 must contain a minimum of 50 characters");
 					validationPassed = false;
 				}
 				else if(this.question4.value == null || this.question4.value == "" || this.question4.value == undefined || this.question4.value.length < 50 ){
-					validationMessage = "question4 must contain a minimum of 50 characters";
+					validationMessage.push("question4 must contain a minimum of 50 characters");
 					validationPassed = false;
-				}
-				else if(this.fileName == null ){
-					validationMessage = "Please upload AMS File";
-					validationPassed = false;
-				}
-				
+				} else if (this.amsVisible) {
+					if(this.amsId.value == null || this.amsId.value == "" || this.amsId.value.length > 30){
+						validationMessage.push("AMS Number is either Blank or crossed maximum limit of 30 characters");
+						validationPassed = false;
+					} else if(this.fileName == null ){
+						validationMessage.push("Please upload AMS File");
+						validationPassed = false;
+					}
+				} 
+
 				if(this.selectedEmpType.length != 0){
 					for(var i = 0; i < this.selectedEmpType.length; i++){
 						if(this.selectedEmpType[i] == "Others"){
 							if(this.otherEmpType.value == null || this.otherEmpType.value == "" || this.otherEmpType.value.length > 30){
-								validationMessage = "Employee Type 'Others' either Blank or crossed maximum limit of 30 characters";
+								validationMessage.push("Employee Type 'Others' either Blank or crossed maximum limit of 30 characters");
 								validationPassed = false;
+							} else {
+								this.selectedEmpType[i] = this.otherEmpType.value;
 							}
-							this.selectedEmpType[i] = this.otherEmpType.value;
 						}	
 					}
 					console.log(this.selectedEmpType);
 				}
 				
 				if(this.selectedUsageEnv.length == 0){
-						validationMessage = "Please select Usage Environment";
+						validationMessage.push("Please select Usage Environment");
 						validationPassed = false;
 				} else{
 					console.log(this.selectedUsageEnv);
@@ -683,10 +694,11 @@ export class NewrequisitioninitiateComponent implements OnInit {
 					for(var i = 0; i < this.selectedIDCardType.length; i++){
 						if(this.selectedIDCardType[i] == "Others"){
 							if(this.otherIDCardType.value == null || this.otherIDCardType.value == "" || this.otherIDCardType.value.length > 20){
-								validationMessage = "ID Card Type 'Others' either Blank or crossed maximum limit of 30 characters";
+								validationMessage.push("ID Card Type 'Others' either Blank or crossed maximum limit of 30 characters");
 								validationPassed = false;
+							} else {
+								this.selectedIDCardType[i] = this.otherIDCardType.value;
 							}
-							this.selectedIDCardType[i] = this.otherIDCardType.value;
 						}	
 					}
 					console.log(this.selectedIDCardType);
@@ -732,7 +744,7 @@ export class NewrequisitioninitiateComponent implements OnInit {
 
 					if(creditLimit >= 0) { /* do nothing */ }
 					else{
-						validationMessage = "For line "+ (i+1) +" invalid credit limit amount given.";
+						validationMessage.push("For line "+ (i+1) +" invalid credit limit amount given.");
 						validationPassed = false;
 					}
 
@@ -749,7 +761,7 @@ export class NewrequisitioninitiateComponent implements OnInit {
 
 					if(quantity > 0) { /* do nothing */ }
 					else{
-						validationMessage = "For line "+ (i+1) +" invalid quantity given.";
+						validationMessage.push("For line "+ (i+1) +" invalid quantity given.");
 						validationPassed = false;
 					}
 
@@ -766,7 +778,6 @@ export class NewrequisitioninitiateComponent implements OnInit {
 
       // FORM SUBMISSION
       onNewSimRequisitionSubmit() {
-
 		//console.log("this.defFlowFound is "+this.defFlowFound);
       if (this.newSimRequisitionForm.valid) {
 
@@ -806,7 +817,8 @@ export class NewrequisitioninitiateComponent implements OnInit {
     				this.headerDateData.purposeCategory = this.newSimRequisitionForm.get('purposeCategory').value;
     				this.headerDateData.location = this.newSimRequisitionForm.get('location').value;
     				this.headerDateData.usageCategory = this.newSimRequisitionForm.get('usageCategory').value;
-    				this.headerDateData.amsId = this.newSimRequisitionForm.get('amsId').value;
+    				//this.headerDateData.amsId = this.newSimRequisitionForm.get('amsId').value;
+					this.headerDateData.amsId = this.amsId.value;
 					this.headerDateData.imei = this.newSimRequisitionForm.get('imei').value;
 					this.headerDateData.selectedEmpType = this.selectedEmpType.map(x=>x).join(",");
 					this.headerDateData.selectedIDCardType = this.selectedIDCardType.map(x=>x).join(",");
@@ -876,7 +888,7 @@ console.log(this.headerDateData.notificationTo);
     								this.isLoading = false;
     							console.log("err.status : "+err.status);
     							this.dangerAlertShow = true;
-    						this.dangerAlertMessage = " .";
+    						this.dangerAlertMessage.push(" .");
     							}
 
     							);
@@ -927,6 +939,17 @@ clearForm(event: any){
 		}
 		console.log(this.selectedEmpType);
 		
+	}
+
+	onChangeanyAMS(value){
+		console.log("Any AMS Value: " + value);
+		if (value == "Yes"){
+			//this.amsId.enable();
+			this.amsVisible = true;
+		} else{
+			//this.amsId.disable();
+			this.amsVisible = false;
+		}
 	}
 
 	onchangeusageEnv(chk,value){
