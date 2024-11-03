@@ -818,7 +818,6 @@ export class NewrequisitioninitiateComponent implements OnInit {
     				this.headerDateData.location = this.newSimRequisitionForm.get('location').value;
     				this.headerDateData.usageCategory = this.newSimRequisitionForm.get('usageCategory').value;
     				//this.headerDateData.amsId = this.newSimRequisitionForm.get('amsId').value;
-					this.headerDateData.amsId = this.amsId.value;
 					this.headerDateData.imei = this.newSimRequisitionForm.get('imei').value;
 					this.headerDateData.selectedEmpType = this.selectedEmpType.map(x=>x).join(",");
 					this.headerDateData.selectedIDCardType = this.selectedIDCardType.map(x=>x).join(",");
@@ -832,7 +831,14 @@ export class NewrequisitioninitiateComponent implements OnInit {
 					this.headerDateData.question3 = this.newSimRequisitionForm.get('question3').value;
 					this.headerDateData.question4 = this.newSimRequisitionForm.get('question4').value;
 					this.headerDateData.notificationTo = "";
-					this.headerDateData.uploadedFileName = this.fileToUpload.name;
+					if (this.anyAMS.value == "Yes"){
+						this.headerDateData.uploadedFileName = this.fileToUpload.name;
+						this.headerDateData.amsId = this.amsId.value;
+					} else {
+						this.headerDateData.uploadedFileName = 0;
+						this.headerDateData.amsId = 0;
+					}
+					
 
 					console.log("this.finalListOfUsersToSendWithRqn");
 					console.log(this.finalListOfUsersToSendWithRqn);
