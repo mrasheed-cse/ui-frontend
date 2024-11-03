@@ -154,15 +154,18 @@ export class RequisitionassignComponent implements OnInit {
   }
 
   DownloadFile(fileNameToDownload: string){
-	  console.log(fileNameToDownload);
-    this.fileoperationService.DownloadFile(fileNameToDownload).subscribe((res) => {
-			console.log(res);
-      var downloadURL = window.URL.createObjectURL(res);
-      var link = document.createElement('a');
-      link.href = downloadURL;
-      link.download = fileNameToDownload;
-      link.click();
-		});
+	  console.log("fileNameToDownload: " + fileNameToDownload);
+    if (fileNameToDownload == "0"){
+      alert("No File uploaded to download");
+    } else{
+      this.fileoperationService.DownloadFile(fileNameToDownload).subscribe((res) => {
+        console.log(res);
+        var downloadURL = window.URL.createObjectURL(res);
+        var link = document.createElement('a');
+        link.href = downloadURL;
+        link.download = fileNameToDownload;
+        link.click();
+      });
+    } 
   }
-
 }
