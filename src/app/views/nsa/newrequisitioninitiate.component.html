@@ -456,14 +456,14 @@
                                                         <label class="col-md-5 col-form-label" for="question2">Why this test sim required? Like pre live UAT or post live UAT or general testing etc.</label>
                                                         <div class="col-md-12">
                                                                 <textarea id="question2" name="question2" class="form-control" formControlName="question2" rows="2"
-                                                                placeholder="Please enter minimum 50 characters" required 
+                                                                placeholder="Please enter minimum 20 characters" required 
                                                                 [ngClass]="{
                                                                         'is-invalid': question2.invalid && (question2.dirty || question2.touched),
                                                                         'is-valid': question2.valid && (question2.dirty || question2.touched)
                                                                 }"></textarea>
                                                                 <div class="invalid-feedback" *ngIf="question2.errors && (question2.dirty || question2.touched)">
                                                                 <p *ngIf="question2.errors.required">Answer is required</p>                                                                                        
-                                                                <p *ngIf="question2.errors.minlength">Answer must be minimum 50 characters long, we need another
+                                                                <p *ngIf="question2.errors.minlength">Answer must be minimum 20 characters long, we need another
                                                                                                 {{question2.errors.minlength.requiredLength -
                                                                                                         question2.errors.minlength.actualLength}}
                                                                                                 characters</p>

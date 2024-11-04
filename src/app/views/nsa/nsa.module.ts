@@ -135,6 +135,7 @@ import { LostdamagenewsimconnectionComponent } from './lostdamagenewsimconnectio
 import { SearchPO } from '../SSM/search_po.component';
 import { InputFileProcessing } from '../SSM/inputfileprocessing.component';
 import{AucProcessor} from '../SSM/auc.component';
+import { HuaweiAucProcessor } from '../SSM/huaweiauc.component';
 import{SimAdmin} from '../SSM/sim_card_admin.component';
 import{PlanGenerate} from'../SSM/SimCardPlan Management/plangenerate.component'
 import{SimConfiguration} from '../SSM/SimCardPlan Management/simconfiguration.component';
@@ -300,6 +301,7 @@ import { TestscDeactivationComponent } from './testscdeactivation.component';
     SearchPO,
     InputFileProcessing,
     AucProcessor,
+    HuaweiAucProcessor,
     VoucherGeneration,
     VoucherAdmin,
     SimAdmin,

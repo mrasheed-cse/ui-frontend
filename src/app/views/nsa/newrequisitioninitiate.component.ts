@@ -519,7 +519,7 @@ export class NewrequisitioninitiateComponent implements OnInit {
 	  this.otherIDCardType = new FormControl('',[Validators.required,Validators.maxLength(20)]);
 	  this.purposeDetails = new FormControl('',  [Validators.required,Validators.minLength(50) ,Validators.maxLength(280)]);
 	  this.question1 = new FormControl('',  [Validators.required,Validators.minLength(50),Validators.maxLength(280)]);
-		this.question2 = new FormControl('',  [Validators.required,Validators.minLength(50),Validators.maxLength(280)]);
+		this.question2 = new FormControl('',  [Validators.required,Validators.minLength(20),Validators.maxLength(280)]);
 		this.question3 = new FormControl('',  [Validators.required,Validators.minLength(50),Validators.maxLength(280)]);
 		this.question4 = new FormControl('',  [Validators.required,Validators.minLength(50),Validators.maxLength(280)]);
 	  this.notificationTo = new FormControl('');
@@ -642,8 +642,8 @@ export class NewrequisitioninitiateComponent implements OnInit {
 					validationMessage = "Question1 must contain a minimum of 50 characters";
 					validationPassed = false;
 				}
-				else if(this.question2.value == null || this.question2.value == "" || this.question2.value == undefined || this.question2.value.length < 50 ){
-					validationMessage = "Question2 must contain a minimum of 50 characters";
+				else if(this.question2.value == null || this.question2.value == "" || this.question2.value == undefined || this.question2.value.length < 20 ){
+					validationMessage = "Question2 must contain a minimum of 20 characters";
 					validationPassed = false;
 				}
 				else if(this.question3.value == null || this.question3.value == "" || this.question3.value == undefined || this.question3.value.length < 50 ){
