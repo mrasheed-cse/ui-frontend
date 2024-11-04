@@ -117,6 +117,7 @@ import { AuthGuard } from './services/AuthGuard.service';
 import { SearchPO } from '../SSM/search_po.component';
 import { InputFileProcessing } from '../SSM/inputfileprocessing.component';
 import { AucProcessor } from '../SSM/auc.component';
+import { HuaweiAucProcessor } from '../SSM/huaweiauc.component';
 import { SimAdmin } from '../SSM/sim_card_admin.component';
 import { PlanGenerate } from '../SSM/SimCardPlan Management/plangenerate.component';
 import { RepPlanGenerate } from '../SSM/SimCardPlan Management/rep-plangenerate.component';
@@ -1021,6 +1022,15 @@ const routes: Routes = [
         component: AucProcessor,
         data: {
             title: 'Auc Conversion'
+        },
+        canActivate: [AuthGuard]
+    },
+
+    {
+        path: 'huaweiAucConversion',
+        component: HuaweiAucProcessor,
+        data: {
+            title: 'Huawei Auc Conversion'
         },
         canActivate: [AuthGuard]
     },

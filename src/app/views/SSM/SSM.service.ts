@@ -297,11 +297,27 @@ deleteSimdropdown(id:number) :Observable<any> {
         formData.append('file', fileToUpload, fileToUpload.name);
         return this.http.post(url, formData);
     }
+
+	huaweiAucFileConversion(fileToUpload: File, selectedSimType: string) {
+        const url = environment.apiUrl + "huawei_auc_conversion/start";
+        const formData: FormData = new FormData();
+        formData.append('file', fileToUpload, fileToUpload.name);
+		formData.append('selectedSimType', selectedSimType);
+        return this.http.post(url, formData);
+    }
+
+	
     
     downloadAucFile() {
         const url = environment.apiUrl + "auc_conversion/download";
         console.log(environment.apiUrl + "auc_conversion/download");
         return this.http.get(environment.apiUrl + 'auc_conversion/download',this.options2);
+	}
+
+	downloadHuaweiAucFile() {
+        const url = environment.apiUrl + "huawei_auc_conversion/download";
+        console.log(environment.apiUrl + "huawei_auc_conversion/download");
+        return this.http.get(environment.apiUrl + 'huawei_auc_conversion/download',this.options2);
 	}
 	
 
