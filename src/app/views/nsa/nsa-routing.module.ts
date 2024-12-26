@@ -153,6 +153,10 @@ import { SCRequisitionviewComponent } from './screquisitionview/screquisitionvie
 import { SCRequisitioneditComponent } from './screquisitionedit/screquisitionedit.component';
 import { TestscDeactivationComponent } from './testscdeactivation.component';
 import { UploadRecycleCsvFile } from './uploadRecyleSMS.component';
+import { UploadMFSTaggingCsvFile } from './uploadMFSTagging.component';
+import { UploadMFSDeTaggingCsvFile} from './uploadMFSDeTaggingSMS.component';
+import {UpdatePressNoticeDateService} from './services/updatePressNoticeDate.service';
+import {UpdatePressNoticeDate} from './updatePressNoticeDate.component';
 
 const routes: Routes = [
     {
@@ -1242,6 +1246,27 @@ const routes: Routes = [
     {
         path: 'UploadNewRecycleSMSCSV',
         component: UploadRecycleCsvFile,
+        data: {
+            title: 'Upload CSV'
+        }
+    },
+    {
+        path: 'UpdatePressNoticeDate',
+        component: UpdatePressNoticeDate,
+        data: {
+            title: 'Upload CSV'
+        }
+    },
+    {
+        path: 'UploadNewMFSTaggingCSV',
+        component: UploadMFSTaggingCsvFile,
+        data: {
+            title: 'Upload CSV'
+        }
+    },
+    {
+        path: 'UploadNewMFSDeTaggingCSV',
+        component: UploadMFSDeTaggingCsvFile,
         data: {
             title: 'Upload CSV'
         }
