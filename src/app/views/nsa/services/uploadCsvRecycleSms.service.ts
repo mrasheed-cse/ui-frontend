@@ -20,10 +20,12 @@ export class UploadCSVRecycleSMSService {
         this.serverUrl = environment.apiUrl;
     }
 
-    uploadCsv(filename: string,unusedmsdn :string,list:string,count:string):any {
+    uploadCsv(userId: string, filename: string,unusedmsdn :string,list:string,count:string):any {
         const url = environment.apiUrl + "NsaRecycleSMSFileUpload";
         const ll=null;
         const formData: FormData = new FormData();
+
+        formData.append('createdBy', userId);
         formData.append('filename',filename);
         formData.append('unsedMsisdn',unusedmsdn)
         formData.append('list',list)
@@ -31,6 +33,5 @@ export class UploadCSVRecycleSMSService {
 
         return this.http.post(url, formData);
     }
-
   
 }

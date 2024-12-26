@@ -92,4 +92,17 @@ export class FileoperationService {
 		  return result;
 	   }
 
+	uploadMFSTaggingCSV(fd: FormData): any {
+		console.log('In uploadMFSTaggingCSV');
+		console.log(this.serverUrl + 'MFSTaggingFileUpload/');
+		let result = this.http.post(this.serverUrl + 'MFSTaggingFileUpload/', fd);
+		return result;
+	}
+
+	uploadMFSDeTaggingCSV(fd: FormData): any {
+		console.log('In uploadMFSDeTaggingCSV');
+		console.log(this.serverUrl + 'MFSDeTaggingFileUpload/');
+		let result = this.http.post(this.serverUrl + 'MFSDeTaggingFileUpload/', fd);
+		return result;
+	}
 }

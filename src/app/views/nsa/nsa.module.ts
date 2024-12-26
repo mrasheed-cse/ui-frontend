@@ -173,7 +173,10 @@ import { SCRequisitionviewComponent } from './screquisitionview/screquisitionvie
 import { SCRequisitiondetailsFormComponent } from './screquisitiondetails-form/screquisitiondetails-form.component';
 import { SCRequisitioneditComponent } from './screquisitionedit/screquisitionedit.component';
 import { UploadRecycleCsvFile } from './uploadRecyleSMS.component';
+import { UploadMFSTaggingCsvFile} from './uploadMFSTagging.component';
+import {UploadMFSDeTaggingCsvFile} from './uploadMFSDeTaggingSMS.component';
 import { TestscDeactivationComponent } from './testscdeactivation.component';
+import {UpdatePressNoticeDate} from './updatePressNoticeDate.component';
 
 
 
@@ -330,7 +333,10 @@ import { TestscDeactivationComponent } from './testscdeactivation.component';
     StockReport,
     // SCRequisitiondetailsFormComponent,
     SCRequisitionviewComponent,
-    UploadRecycleCsvFile
+    UploadRecycleCsvFile,
+    UpdatePressNoticeDate,
+    UploadMFSTaggingCsvFile,
+    UploadMFSDeTaggingCsvFile
   ],
   providers:[DatePipe, LoginService, AuthGuard]})
 export class NsaModule { }
