@@ -42,7 +42,9 @@
                                     <input type="text" class="form-control calendar-container" id="unusedSince"
                                            formControlName="unusedSince" name="unusedSince"  required bsDatepicker
                                            [bsConfig]="bsConfig"
-                                           [maxDate]="todayDate" placement="right"
+                                           [maxDate]="todayDate"
+                                           placement="bottom"
+                                           autocomplete="off"
                                            [class.is-invalid]="unusedSince.invalid && (unusedSince.dirty || unusedSince.touched)">
 
                                 </div>
