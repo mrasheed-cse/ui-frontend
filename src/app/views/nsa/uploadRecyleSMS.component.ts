@@ -24,9 +24,9 @@ import {UploadCSVRecycleSMSService} from './services/uploadCsvRecycleSms.service
 })
 export class UploadRecycleCsvFile implements OnInit {
     myRecycledSmsForm: FormGroup;
-    list: FormControl;
-    unused: FormControl;
-    msdncount: FormControl;
+    listId: FormControl;
+    unusedSince: FormControl;
+    msisdnCount: FormControl;
     recycledSmsFile: FormControl;
 
     currentLoggedInUser: LoggedInUser;
@@ -36,6 +36,18 @@ export class UploadRecycleCsvFile implements OnInit {
     fileToUpload: File = null;
     fileName: string;
     isLoading: boolean = false;
+
+    todayDate: Date = new Date();
+
+    //datepickerConfig: Partial<BsDatepickerConfig>;
+
+    bsConfig = {
+        dateInputFormat: 'DD-MM-YYYY', // Customize date format
+        containerClass: 'theme-green', // Choose a theme
+        isAnimated: true, // Enable animation
+        showWeekNumbers: false // Hide week numbers
+    };
+
 
     constructor(private datePipe: DatePipe, private router: Router, private loginService:
     LoginService, private http: HttpClient, private _global: AppGlobals, private datawarehouseservice: UploadCSVRecycleSMSService, private fileoperationService: FileoperationService) {
@@ -52,26 +64,24 @@ export class UploadRecycleCsvFile implements OnInit {
 
     createFormControls() {
         this.recycledSmsFile = new FormControl('', Validators.required);
-        this.list = new FormControl('', Validators.required);
-        this.msdncount = new FormControl('', Validators.required);
-        this.unused = new FormControl('', Validators.required);
+        this.listId = new FormControl('', Validators.required);
+        this.unusedSince = new FormControl('', Validators.required);
+        this.msisdnCount = new FormControl('', Validators.required);
     }
 
     createForm() {
         this.myRecycledSmsForm = new FormGroup({
-            list: this.list,
-            msdncount: this.msdncount,
-            unused: this.unused,
+            listId: this.listId,
+            unusedSince: this.unusedSince,
+            msisdnCount: this.msisdnCount,
             recycledSmsFile: this.recycledSmsFile
         });
     }
 
     submit() {
-        var val;
         this.isLoading = true;
 
-        const {list, msdncount, unused} = this.myRecycledSmsForm.value;
-        //  alert(`Nalistme: ${list}, msdncount: ${msdncount}, unused: ${unused} `);
+        const {listId, unusedSince, msisdnCount} = this.myRecycledSmsForm.value;
 
         if (this.myRecycledSmsForm.invalid) {
             this.isLoading = false;
@@ -84,18 +94,16 @@ export class UploadRecycleCsvFile implements OnInit {
         } else {
             const fd = new FormData();
             this.isLoading = true;
-            //this.fileToUpload = files.item(0);
             this.fileName = this.fileToUpload.name;
+
             fd.append('nsa-file', this.fileToUpload, this.fileName);
-            var result = this.fileoperationService.uploadRecycledCSV(fd);
+
+            let result = this.fileoperationService.uploadRecycledCSV(fd);
             result.subscribe(
                 res => {
-                    let index = res.message.lastIndexOf(':');
-                    let file = res.message.substring(index);
-                    let requestData = {fileName: this.fileName}
-
-                    console.log(requestData);
-                    this.datawarehouseservice.uploadCsv(this.userID, this.fileName, msdncount, list, unused).subscribe(
+                    let formattedDate = this.datePipe.transform(unusedSince, 'dd-MM-yyyy');
+                    debugger;
+                    this.datawarehouseservice.uploadCsv(this.userID, this.fileName, listId, formattedDate, msisdnCount).subscribe(
                         data => {
                             if (data != undefined && data.success == true) {
                                 alert('File has been placed for uploading and processing, after completion you will be notified.');

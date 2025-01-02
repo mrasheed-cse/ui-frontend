@@ -36,8 +36,8 @@ export class UploadMFSDeTaggingCsvFile implements OnInit {
     isLoading: boolean = false
 
     mfsList = [
-        {key: 'UPAY', value: 'UPAY'},
-        {key: 'BKASH', value: 'bKash'},
+        {key: 'UPAY', value: 'Upay'},
+        {key: 'BKASH', value: 'Bkash'},
         {key: 'NAGAD', value: 'Nagad'},
         {key: 'ROCKET', value: 'Rocket'},
         {key: 'GOLD', value: 'Gold'},
@@ -103,16 +103,22 @@ export class UploadMFSDeTaggingCsvFile implements OnInit {
                             this.isLoading = false;
                             this.fileToUpload = null;
                             if (data != null && data.success) {
-                                alert("File uploaded successfully.\nTotal: " + data.valid + "\nSuccess Count: " + data.successCount + "\nFailure Count: " + data.failCount);
+                                alert("The MFS De-Tagging operation has been completed successfully." +
+                                    "\n" +
+                                    "Total: " + data.total +
+                                    "\n" +
+                                    "Success: " + data.successCount +
+                                    "\n" +
+                                    "Failure: " + (data.failCount + data.invalid + data.duplicate));
                             } else {
-                                alert("Failed to upload file.");
+                                alert("The MFS De-Tagging operation has failed.");
                             }
                         },
                         err => {
                             console.log(err);
                             this.isLoading = false;
                             this.fileToUpload = null;
-                            alert("Failed to upload file.");
+                            alert("The MFS De-Tagging operation has failed.");
                         }
                     );
                 }

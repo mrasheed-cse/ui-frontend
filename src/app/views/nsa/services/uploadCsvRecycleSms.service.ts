@@ -1,9 +1,9 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { Router } from "@angular/router";
-import { Constants } from "ag-grid-community";
-import { AppGlobals } from "app/app.global";
-import { environment } from "environments/environment";
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Router} from '@angular/router';
+import {Constants} from 'ag-grid-community';
+import {AppGlobals} from 'app/app.global';
+import {environment} from 'environments/environment';
 
 @Injectable()
 export class UploadCSVRecycleSMSService {
@@ -20,18 +20,18 @@ export class UploadCSVRecycleSMSService {
         this.serverUrl = environment.apiUrl;
     }
 
-    uploadCsv(userId: string, filename: string,unusedmsdn :string,list:string,count:string):any {
-        const url = environment.apiUrl + "NsaRecycleSMSFileUpload";
-        const ll=null;
+    uploadCsv(userId: string, filename: string, listId: string, unusedSince: string, msisdnCount: string): any {
+        const url = environment.apiUrl + 'NsaRecycleSMSFileUpload';
+        const ll = null;
         const formData: FormData = new FormData();
 
         formData.append('createdBy', userId);
-        formData.append('filename',filename);
-        formData.append('unsedMsisdn',unusedmsdn)
-        formData.append('list',list)
-        formData.append('count',count)
+        formData.append('filename', filename);
+        formData.append('listId', listId)
+        formData.append('unusedSince', unusedSince)
+        formData.append('msisdnCount', msisdnCount)
 
         return this.http.post(url, formData);
     }
-  
+
 }
