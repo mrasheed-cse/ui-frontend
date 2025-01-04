@@ -1,7 +1,6 @@
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
-import {Constants} from 'ag-grid-community';
 import {AppGlobals} from 'app/app.global';
 import {environment} from 'environments/environment';
 
