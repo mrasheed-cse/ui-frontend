@@ -155,8 +155,10 @@ import { TestscDeactivationComponent } from './testscdeactivation.component';
 import { UploadRecycleCsvFile } from './uploadRecyleSMS.component';
 import { UploadMFSTaggingCsvFile } from './uploadMFSTagging.component';
 import { UploadMFSDeTaggingCsvFile} from './uploadMFSDeTaggingSMS.component';
-import {UpdatePressNoticeDateService} from './services/updatePressNoticeDate.service';
 import {UpdatePressNoticeDate} from './updatePressNoticeDate.component';
+import {MfsRecyclingSummaryReportComponent} from './mfs-recycling-summary-report.component';
+import {DownloadsMfsRecyclingSummaryReportComponent} from './download-mfs-recycling-summary-report.component';
+import {MfsRecyclingDetailsReportComponent} from './mfs-recycling-details-report.component';
 
 const routes: Routes = [
     {
@@ -1270,6 +1272,18 @@ const routes: Routes = [
         data: {
             title: 'Upload CSV'
         }
+    },
+    {
+        path: 'mfs-recycling-summary',
+        component: MfsRecyclingSummaryReportComponent
+    },
+    {
+        path: 'download-mfs-recycling-summary',
+        component: DownloadsMfsRecyclingSummaryReportComponent
+    },
+    {
+        path: 'mfs-recycling-details',
+        component: MfsRecyclingDetailsReportComponent
     },
     {
         path: '**',
