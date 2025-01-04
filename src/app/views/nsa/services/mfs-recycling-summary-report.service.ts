@@ -5,7 +5,7 @@ import {AppGlobals} from 'app/app.global';
 import {environment} from 'environments/environment';
 
 @Injectable()
-export class UploadCsvMFSTaggingService {
+export class MfsRecyclingSummaryReportService {
     private headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
 
     private options = {
@@ -19,14 +19,16 @@ export class UploadCsvMFSTaggingService {
         this.serverUrl = environment.apiUrl;
     }
 
-    uploadMFSTaggingCsv(userId: string, filename: string, mfs: string): any {
-        const url = environment.apiUrl + 'NSAMFSTaggingFileUpload';
-        const formData: FormData = new FormData();
+    getSummary(pageNumber: number, pageSize: number): any {
+        const url = environment.apiUrl + 'get-mfs-summary-report-of-list';
+        return this.http.get(url + "/" + pageNumber + "/" + pageSize);
+    }
 
-        formData.append('createdBy', userId);
-        formData.append('filename', filename);
-        formData.append('mfs', mfs);
-
-        return this.http.post(url, formData);
+    downloadMSISDN(listId: string, mfs: string): any {
+        const url = environment.apiUrl + 'download-mfs-summary-report-of-list';
+        return this.http.get(url + "/" + listId + "/" + mfs, {
+            observe: 'response',
+            responseType: 'blob'
+        });
     }
 }

@@ -36,8 +36,8 @@ export class UploadMFSDeTaggingCsvFile implements OnInit {
     isLoading: boolean = false
 
     mfsList = [
-        {key: 'UPAY', value: 'Upay'},
-        {key: 'BKASH', value: 'Bkash'},
+        {key: 'UPAY', value: 'UPAY'},
+        {key: 'BKASH', value: 'bkash'},
         {key: 'NAGAD', value: 'Nagad'},
         {key: 'ROCKET', value: 'Rocket'},
         {key: 'GOLD', value: 'Gold'},
