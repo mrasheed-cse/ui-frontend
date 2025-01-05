@@ -10,37 +10,35 @@ import {AppGlobals} from '../../app.global';
 import {ActivatedRoute, Router} from '@angular/router';
 import {LoginService} from '../pages/LoginService';
 import {LoggedInUser} from '../pages/loggedInUser';
-import {MfsRecyclingSummaryReportService} from './services/mfs-recycling-summary-report.service';
 import {DatePipe} from '@angular/common';
-import {SharedMessageService} from './services/shared-message.service';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FileoperationService} from './services/fileoperation.service';
+import {MfsRecyclingReportService} from './services/mfs-recycling-report.service';
 
 @Component({
     selector: 'mfs-recycling-summary-report',
     templateUrl: './mfs-recycling-details-report.html',
     styles: [],
-    providers: [AppGlobals, LoginService, DatePipe, MfsRecyclingSummaryReportService, SharedMessageService],
+    providers: [AppGlobals, LoginService, DatePipe, FileoperationService, MfsRecyclingReportService],
 })
 export class MfsRecyclingDetailsReportComponent implements OnInit {
-
-    summaryReports = [];
+    recycleForm: FormGroup;
+    recycleFile: FormControl;
 
     currentLoggedInUser: LoggedInUser;
     userName: string;
     groupID: number;
     userID: string;
 
-    public isLoading: boolean = false;
+    fileToUpload: File = null;
+    fileName: string;
 
-    public currPage: number;
-    public totalPages: number;
-    public pageSize: number;
-
-    MFS_RECYCLING_LIST_ID_TO_DOWNLOAD_MSISDN : string = 'MFS_RECYCLING_LIST_ID_TO_DOWNLOAD_MSISDN';
+    isLoading: boolean = false
 
 
-    constructor(private datePipe: DatePipe, private route: ActivatedRoute, private router: Router, private loginService: LoginService,
-                private http: HttpClient, private _global: AppGlobals, private summaryService: MfsRecyclingSummaryReportService,
-                private sharedMessageService: SharedMessageService) {
+    constructor(private datePipe: DatePipe, private router: Router, private loginService: LoginService, private http: HttpClient,
+                private _global: AppGlobals, private fileoperationService: FileoperationService,
+                private reportService: MfsRecyclingReportService) {
 
         this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
 
@@ -48,58 +46,106 @@ export class MfsRecyclingDetailsReportComponent implements OnInit {
             this.userName = this.currentLoggedInUser.userName
             this.groupID = this.currentLoggedInUser.groupID
             this.userID = this.currentLoggedInUser.userID
+
         } else {
             this.router.navigate(['pages/login']);
         }
     }
 
-    loadSummaryReports() {
-        this.isLoading = true;
-        this.summaryReports = [];
-        this.summaryService.getSummary(this.currPage, this.pageSize).subscribe(
-            result => {
-                if (result.success) {
-                    this.totalPages = result.totalPages;
-                    this.summaryReports = result.summaryList;
-                }
-                this.isLoading = false;
-            },
-            error => {
-                alert("Failed to load summary reports");
-                this.isLoading = false;
-            }
-        );
+    createFormControls() {
+        this.recycleFile = new FormControl('', Validators.required);
     }
 
-    downloadMSISDN(listId: string) {
-        console.log("SETTING ListId = " + listId);
-        this.sharedMessageService.setMessage(this.MFS_RECYCLING_LIST_ID_TO_DOWNLOAD_MSISDN, listId);
-        this.router.navigateByUrl('/nsa/download-mfs-recycling-summary');
+    createForm() {
+        this.recycleForm = new FormGroup({
+            recycleFile: this.recycleFile
+        });
+    }
+
+    submit() {
+        if (this.recycleForm.invalid) {
+            return;
+        }
+
+        if (this.fileToUpload == undefined || !this.fileToUpload.name.endsWith('.csv')) {
+            alert('Please select a csv file');
+        } else {
+            this.isLoading = true;
+            const fd = new FormData();
+            fd.append('nsa-file', this.fileToUpload, this.fileName);
+
+            let result = this.fileoperationService.uploadMFSRecyclingReportCSV(fd);
+            result.subscribe(
+                res => {
+                    console.log(res);
+                    debugger;
+                    this.reportService.uploadMSISDN(this.fileName).subscribe(
+                        result => {
+                            this.downloadFile(result);
+                            this.isLoading = false;
+                            this.fileToUpload = null;
+                        },
+                        error => {
+                            alert('Failed to upload file.');
+                            console.log(error);
+                            this.isLoading = false;
+                            this.fileToUpload = null;
+                        }
+                    );
+                },
+                err => {
+                    console.log(err);
+                    alert('Failed to upload file.');
+                    this.isLoading = false;
+                    this.fileToUpload = null;
+                }
+            );
+        }
+    }
+
+    downloadFile(response: any): void {
+        console.log(response);
+        console.log(response.headers);
+        let filename = 'download.csv';
+
+        // Get filename from content-disposition header
+        const contentDisposition = response.headers.get('content-disposition');
+
+        if (contentDisposition) {
+            let arr = contentDisposition.split(';');
+            if (arr.length > 1) {
+                arr.forEach(element => {
+                    if (element.trim().startsWith('filename=')) {
+                        let arr2 = element.split('=');
+                        if (arr2.length > 1) {
+                            filename = arr2[1].trim().replace(/"/g, '');
+                        }
+                    }
+                })
+            }
+        }
+
+        // Create blob and download
+        const blob = new Blob([response.body], {type: response.headers.get('content-type')});
+
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = filename;
+        link.click();
+
+        // Cleanup
+        window.URL.revokeObjectURL(url);
+    }
+
+
+    handleFileInput(files: FileList) {
+        this.fileToUpload = files.item(0);
+        this.fileName = this.fileToUpload.name;
     }
 
     ngOnInit() {
-        this.currPage = 1;
-        this.totalPages = 1;
-        //this.pageSize = this._global.defaultPageSize;
-        this.pageSize = 10;
-        this.loadSummaryReports();
-    }
-
-    prevPage() {
-        if (this.currPage <= 1) {
-            //first page .. do nothing
-        } else {
-            this.currPage--;
-            this.loadSummaryReports();
-        }
-    }
-
-    nextPage() {
-        if (this.currPage >= this.totalPages) {
-            //last page .. do nothing
-        } else {
-            this.currPage++;
-            this.loadSummaryReports()
-        }
+        this.createFormControls();
+        this.createForm();
     }
 }

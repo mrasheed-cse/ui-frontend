@@ -102,8 +102,6 @@ export class UploadMFSTaggingCsvFile implements OnInit {
                     this.datawarehouseservice.uploadMFSTaggingCsv(this.userID, this.fileName, selectedMfs).subscribe(
                         data => {
                             console.log(data);
-                            this.isLoading = false;
-                            this.fileToUpload = null;
                             if (data != null && data.success) {
                                 alert("The MFS Tagging operation has been completed successfully." +
                                     "\n" +
@@ -115,14 +113,22 @@ export class UploadMFSTaggingCsvFile implements OnInit {
                             } else {
                                 alert("The MFS Tagging operation has failed");
                             }
+                            this.isLoading = false;
+                            this.fileToUpload = null;
                         },
                         err => {
                             console.log(err);
+                            alert("The MFS Tagging operation has failed");
                             this.isLoading = false;
                             this.fileToUpload = null;
-                            alert("The MFS Tagging operation has failed");
                         }
                     );
+                },
+                error => {
+                    console.log(error);
+                    alert("The MFS Tagging operation has failed.");
+                    this.isLoading = false;
+                    this.fileToUpload = null;
                 }
             );
         }
