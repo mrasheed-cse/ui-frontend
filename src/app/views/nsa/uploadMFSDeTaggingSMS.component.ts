@@ -100,8 +100,6 @@ export class UploadMFSDeTaggingCsvFile implements OnInit {
                     this.datawarehouseservice.uploadMFSDeTaggingCsv(this.userID, this.fileName, selectedMfs).subscribe(
                         data => {
                             console.log(data);
-                            this.isLoading = false;
-                            this.fileToUpload = null;
                             if (data != null && data.success) {
                                 alert("The MFS De-Tagging operation has been completed successfully." +
                                     "\n" +
@@ -113,14 +111,22 @@ export class UploadMFSDeTaggingCsvFile implements OnInit {
                             } else {
                                 alert("The MFS De-Tagging operation has failed.");
                             }
+                            this.isLoading = false;
+                            this.fileToUpload = null;
                         },
                         err => {
                             console.log(err);
+                            alert("The MFS De-Tagging operation has failed.");
                             this.isLoading = false;
                             this.fileToUpload = null;
-                            alert("The MFS De-Tagging operation has failed.");
                         }
                     );
+                },
+                error => {
+                    console.log(error);
+                    alert("The MFS De-Tagging operation has failed.");
+                    this.isLoading = false;
+                    this.fileToUpload = null;
                 }
             );
         }

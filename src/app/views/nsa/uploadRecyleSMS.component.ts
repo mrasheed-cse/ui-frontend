@@ -105,6 +105,7 @@ export class UploadRecycleCsvFile implements OnInit {
                     debugger;
                     this.datawarehouseservice.uploadCsv(this.userID, this.fileName, listId, formattedDate, msisdnCount).subscribe(
                         data => {
+                            console.log(data);
                             if (data != undefined && data.success == true) {
                                 alert('File has been placed for uploading and processing, after completion you will be notified.');
                             } else {
@@ -113,11 +114,18 @@ export class UploadRecycleCsvFile implements OnInit {
                             this.fileToUpload = null;
                             this.isLoading = false;
                         }, err => {
+                            console.log(err);
                             alert('Failed to upload file.');
                             this.fileToUpload = null;
                             this.isLoading = false;
                         }
                     );
+                },
+                error => {
+                    console.log(error);
+                    alert("Failed to upload file.");
+                    this.isLoading = false;
+                    this.fileToUpload = null;
                 }
             );
         }
