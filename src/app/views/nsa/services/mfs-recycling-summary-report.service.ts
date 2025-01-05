@@ -1,4 +1,4 @@
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {AppGlobals} from 'app/app.global';
@@ -21,14 +21,17 @@ export class MfsRecyclingSummaryReportService {
 
     getSummary(pageNumber: number, pageSize: number): any {
         const url = environment.apiUrl + 'get-mfs-summary-report-of-list';
-        return this.http.get(url + "/" + pageNumber + "/" + pageSize);
+
+        const params = new HttpParams().set("pageNumber", pageNumber.toString()).set("pageSize", pageSize.toString());
+
+        return this.http.get(url, { params });
     }
 
     downloadMSISDN(listId: string, mfs: string): any {
         const url = environment.apiUrl + 'download-mfs-summary-report-of-list';
-        return this.http.get(url + "/" + listId + "/" + mfs, {
-            observe: 'response',
-            responseType: 'blob'
-        });
+
+        const params = new HttpParams().set("listId", listId).set("mfs", mfs);
+
+        return this.http.get(url, { params, observe: 'response', responseType: 'blob' });
     }
 }
