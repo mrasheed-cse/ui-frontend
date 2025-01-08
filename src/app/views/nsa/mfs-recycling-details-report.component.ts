@@ -77,21 +77,24 @@ export class MfsRecyclingDetailsReportComponent implements OnInit {
             let result = this.fileoperationService.uploadMFSRecyclingReportCSV(fd);
             result.subscribe(
                 res => {
-                    console.log(res);
-                    debugger;
-                    this.reportService.uploadMSISDN(this.fileName).subscribe(
-                        result => {
-                            this.downloadFile(result);
-                            this.isLoading = false;
-                            this.fileToUpload = null;
-                        },
-                        error => {
-                            alert('Failed to upload file.');
-                            console.log(error);
-                            this.isLoading = false;
-                            this.fileToUpload = null;
-                        }
-                    );
+                    if (res != null && res.success == true) {
+                        this.reportService.uploadMSISDN(this.fileName).subscribe(
+                            result => {
+                                this.downloadFile(result);
+                                this.isLoading = false;
+                                this.fileToUpload = null;
+                            },
+                            error => {
+                                console.log(error);
+                                alert('Failed to upload file.');
+                                this.isLoading = false;
+                                this.fileToUpload = null;
+                            }
+                        );
+                    } else {
+                        console.log(res);
+                        alert('Failed to upload file.');
+                    }
                 },
                 err => {
                     console.log(err);

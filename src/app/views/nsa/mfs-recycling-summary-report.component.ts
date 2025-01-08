@@ -65,6 +65,7 @@ export class MfsRecyclingSummaryReportComponent implements OnInit {
                 this.isLoading = false;
             },
             error => {
+                console.log(error);
                 alert("Failed to load summary reports");
                 this.isLoading = false;
             }

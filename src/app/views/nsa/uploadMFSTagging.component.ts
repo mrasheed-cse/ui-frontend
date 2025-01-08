@@ -96,33 +96,34 @@ export class UploadMFSTaggingCsvFile implements OnInit {
             let result = this.fileoperationService.uploadMFSTaggingCSV(fd);
             result.subscribe(
                 res => {
-                    let requestData = {fileName: this.fileName}
-
-                    console.log(requestData);
-                    this.datawarehouseservice.uploadMFSTaggingCsv(this.userID, this.fileName, selectedMfs).subscribe(
-                        data => {
-                            console.log(data);
-                            if (data != null && data.success) {
-                                alert("The MFS Tagging operation has been completed successfully." +
-                                    "\n" +
-                                    "Total: " + data.total +
-                                    "\n" +
-                                    "Success: " + data.successCount +
-                                    "\n" +
-                                    "Failure: " + (data.failCount + data.invalid + data.duplicate));
-                            } else {
+                    if (res != null && res.success == true) {
+                        this.datawarehouseservice.uploadMFSTaggingCsv(this.userID, this.fileName, selectedMfs).subscribe(
+                            data => {
+                                if (data != null && data.success) {
+                                    alert("The MFS Tagging operation has been completed successfully." +
+                                        "\n" +
+                                        "Total: " + data.total +
+                                        "\n" +
+                                        "Success: " + data.successCount +
+                                        "\n" +
+                                        "Failure: " + data.failCount);
+                                } else {
+                                    alert("The MFS Tagging operation has failed");
+                                }
+                                this.isLoading = false;
+                                this.fileToUpload = null;
+                            },
+                            err => {
+                                console.log(err);
                                 alert("The MFS Tagging operation has failed");
+                                this.isLoading = false;
+                                this.fileToUpload = null;
                             }
-                            this.isLoading = false;
-                            this.fileToUpload = null;
-                        },
-                        err => {
-                            console.log(err);
-                            alert("The MFS Tagging operation has failed");
-                            this.isLoading = false;
-                            this.fileToUpload = null;
-                        }
-                    );
+                        );
+                    } else {
+                        console.log(res);
+                        alert("Failed to upload MFS Tagging file");
+                    }
                 },
                 error => {
                     console.log(error);
