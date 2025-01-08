@@ -101,25 +101,28 @@ export class UploadRecycleCsvFile implements OnInit {
             let result = this.fileoperationService.uploadRecycledCSV(fd);
             result.subscribe(
                 res => {
-                    let formattedDate = this.datePipe.transform(unusedSince, 'dd-MM-yyyy');
-                    debugger;
-                    this.datawarehouseservice.uploadCsv(this.userID, this.fileName, listId, formattedDate, msisdnCount).subscribe(
-                        data => {
-                            console.log(data);
-                            if (data != undefined && data.success == true) {
-                                alert('File has been placed for uploading and processing, after completion you will be notified.');
-                            } else {
+                    if (res != null && res.success == true) {
+                        let formattedDate = this.datePipe.transform(unusedSince, 'dd-MM-yyyy');
+                        this.datawarehouseservice.uploadCsv(this.userID, this.fileName, listId, formattedDate, msisdnCount).subscribe(
+                            data => {
+                                if (data != null && data.success == true) {
+                                    alert('File has been placed for uploading and processing, after completion you will be notified.');
+                                } else {
+                                    alert('Failed to upload file.');
+                                }
+                                this.fileToUpload = null;
+                                this.isLoading = false;
+                            }, err => {
+                                console.log(err);
                                 alert('Failed to upload file.');
+                                this.fileToUpload = null;
+                                this.isLoading = false;
                             }
-                            this.fileToUpload = null;
-                            this.isLoading = false;
-                        }, err => {
-                            console.log(err);
-                            alert('Failed to upload file.');
-                            this.fileToUpload = null;
-                            this.isLoading = false;
-                        }
-                    );
+                        );
+                    } else {
+                        console.log(res);
+                        alert('Failed to upload recycling file.');
+                    }
                 },
                 error => {
                     console.log(error);
