@@ -93,34 +93,34 @@ export class UploadMFSDeTaggingCsvFile implements OnInit {
             let result = this.fileoperationService.uploadMFSDeTaggingCSV(fd);
             result.subscribe(
                 res => {
-                    console.log(res);
-                    let requestData = {fileName: this.fileName}
-
-                    console.log(requestData);
-                    this.datawarehouseservice.uploadMFSDeTaggingCsv(this.userID, this.fileName, selectedMfs).subscribe(
-                        data => {
-                            console.log(data);
-                            if (data != null && data.success) {
-                                alert("The MFS De-Tagging operation has been completed successfully." +
-                                    "\n" +
-                                    "Total: " + data.total +
-                                    "\n" +
-                                    "Success: " + data.successCount +
-                                    "\n" +
-                                    "Failure: " + (data.failCount + data.invalid + data.duplicate));
-                            } else {
+                    if (res != null && res.success == true) {
+                        this.datawarehouseservice.uploadMFSDeTaggingCsv(this.userID, this.fileName, selectedMfs).subscribe(
+                            data => {
+                                if (data != null && data.success) {
+                                    alert("The MFS De-Tagging operation has been completed successfully." +
+                                        "\n" +
+                                        "Total: " + data.total +
+                                        "\n" +
+                                        "Success: " + data.successCount +
+                                        "\n" +
+                                        "Failure: " + data.failCount);
+                                } else {
+                                    alert("The MFS De-Tagging operation has failed.");
+                                }
+                                this.isLoading = false;
+                                this.fileToUpload = null;
+                            },
+                            err => {
+                                console.log(err);
                                 alert("The MFS De-Tagging operation has failed.");
+                                this.isLoading = false;
+                                this.fileToUpload = null;
                             }
-                            this.isLoading = false;
-                            this.fileToUpload = null;
-                        },
-                        err => {
-                            console.log(err);
-                            alert("The MFS De-Tagging operation has failed.");
-                            this.isLoading = false;
-                            this.fileToUpload = null;
-                        }
-                    );
+                        );
+                    } else {
+                        console.log(res);
+                        alert("Failed to upload MFS De-Tagging file");
+                    }
                 },
                 error => {
                     console.log(error);
