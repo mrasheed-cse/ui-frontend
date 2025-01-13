@@ -77,28 +77,50 @@ export class MfsRecyclingDetailsReportComponent implements OnInit {
             let result = this.fileoperationService.uploadMFSRecyclingReportCSV(fd);
             result.subscribe(
                 res => {
-                    if (res != null && res.success == true) {
+                    if (res != undefined && res.success == true) {
                         this.reportService.uploadMSISDN(this.fileName).subscribe(
                             result => {
-                                this.downloadFile(result);
                                 this.isLoading = false;
                                 this.fileToUpload = null;
+                                this.downloadFile(result);
                             },
-                            error => {
-                                console.log(error);
-                                alert('Failed to upload file.');
+                            err => {
+                                const reader = new FileReader();
+                                reader.onload = () => {
+                                    const errorMessage = reader.result as string;
+                                    alert(errorMessage);
+                                };
+                                reader.readAsText(err.error);
+
                                 this.isLoading = false;
                                 this.fileToUpload = null;
                             }
                         );
+                    } else if (res != undefined) {
+                        let msg = "Failed to upload file.";
+                        if (res.errMsg  != undefined && res.errMsg != "") {
+                            msg = msg + "\n" + res.errMsg;
+                        }
+                        alert(msg);
                     } else {
                         console.log(res);
-                        alert('Failed to upload file.');
+                        let msg = "Failed to upload file.";
+                        alert(msg);
                     }
                 },
                 err => {
                     console.log(err);
-                    alert('Failed to upload file.');
+                    debugger;
+                    if (err != undefined && err.error != undefined) {
+                        let msg = "Failed to upload file.";
+                        if (err.error.errMsg  != undefined && err.error.errMsg != "") {
+                            msg = msg + "\n" + err.error.errMsg;
+                        }
+                        alert(msg);
+                    } else {
+                        let msg = "Failed to upload file.";
+                        alert(msg);
+                    }
                     this.isLoading = false;
                     this.fileToUpload = null;
                 }
