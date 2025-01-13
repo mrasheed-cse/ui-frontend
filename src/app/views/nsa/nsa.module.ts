@@ -181,6 +181,7 @@ import {MfsRecyclingSummaryReportComponent} from './mfs-recycling-summary-report
 import {DownloadsMfsRecyclingSummaryReportComponent} from './download-mfs-recycling-summary-report.component';
 import {SharedMessageService} from './services/shared-message.service';
 import {MfsRecyclingDetailsReportComponent} from './mfs-recycling-details-report.component';
+import {MfsStatusOfMsisdnComponent} from './mfs-status-of-msisdn.component';
 
 
 @NgModule({
@@ -342,7 +343,8 @@ import {MfsRecyclingDetailsReportComponent} from './mfs-recycling-details-report
     UploadMFSDeTaggingCsvFile,
     MfsRecyclingSummaryReportComponent,
     DownloadsMfsRecyclingSummaryReportComponent,
-    MfsRecyclingDetailsReportComponent
+    MfsRecyclingDetailsReportComponent,
+    MfsStatusOfMsisdnComponent
   ],
   providers:[DatePipe, LoginService, AuthGuard, SharedMessageService]})
 export class NsaModule { }
