@@ -94,8 +94,8 @@ export class DownloadsMfsRecyclingSummaryReportComponent implements OnInit {
             this.isLoading = true;
             this.summaryService.downloadMSISDN(this.listId, mfs).subscribe(
                 response => {
-                    this.downloadFile(response);
                     this.isLoading = false;
+                    this.downloadFile(response);
                 },
                 error => {
                     console.log(error);
