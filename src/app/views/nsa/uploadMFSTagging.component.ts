@@ -84,7 +84,7 @@ export class UploadMFSTaggingCsvFile implements OnInit {
 
         const {selectedMfs} = this.myRecycledSmsForm.value;
 
-        if (this.fileToUpload == undefined || !this.fileToUpload.name.endsWith('.csv') || !this.fileToUpload.name.startsWith('Tagging')) {
+        if (this.fileToUpload == undefined || !this.fileToUpload.name.endsWith('.csv')) {
             alert('Please select a csv file with file name starting with Tagging');
             this.isLoading = false;
         } else {
@@ -96,38 +96,71 @@ export class UploadMFSTaggingCsvFile implements OnInit {
             let result = this.fileoperationService.uploadMFSTaggingCSV(fd);
             result.subscribe(
                 res => {
-                    if (res != null && res.success == true) {
+                    if (res != undefined && res.success == true) {
                         this.datawarehouseservice.uploadMFSTaggingCsv(this.userID, this.fileName, selectedMfs).subscribe(
                             data => {
-                                if (data != null && data.success) {
+                                if (data != undefined && data.success) {
                                     alert("The MFS Tagging operation has been completed successfully." +
                                         "\n" +
                                         "Total: " + data.total +
                                         "\n" +
                                         "Success: " + data.successCount +
                                         "\n" +
-                                        "Failure: " + data.failCount);
+                                        "Failure: " + data.failCount +
+                                        "\n" +
+                                        "It will take additional 30 minutes to be visible in reporting.");
+                                } else if (data != undefined) {
+                                    let msg = "The MFS Tagging operation has failed.";
+                                    if (data.errMsg  != undefined && data.errMsg != "") {
+                                        msg = msg + "\n" + data.errMsg;
+                                    }
+                                    alert(msg);
                                 } else {
-                                    alert("The MFS Tagging operation has failed");
+                                    let msg = "The MFS Tagging operation has failed.";
+                                    alert(msg);
                                 }
                                 this.isLoading = false;
                                 this.fileToUpload = null;
                             },
                             err => {
                                 console.log(err);
-                                alert("The MFS Tagging operation has failed");
+                                if (err != undefined && err.error != undefined) {
+                                    let msg = "The MFS Tagging operation has failed.";
+                                    if (err.error.errMsg  != undefined && err.error.errMsg != "") {
+                                        msg = msg + "\n" + err.error.errMsg;
+                                    }
+                                    alert(msg);
+                                } else {
+                                    let msg = "The MFS Tagging operation has failed.";
+                                    alert(msg);
+                                }
                                 this.isLoading = false;
                                 this.fileToUpload = null;
                             }
                         );
+                    } else if (res != undefined) {
+                        let msg = "The MFS Tagging operation has failed.";
+                        if (res.errMsg  != undefined && res.errMsg != "") {
+                            msg = msg + "\n" + res.errMsg;
+                        }
+                        alert(msg);
                     } else {
-                        console.log(res);
-                        alert("Failed to upload MFS Tagging file");
+                        let msg = "The MFS Tagging operation has failed.";
+                        alert(msg);
                     }
                 },
-                error => {
-                    console.log(error);
-                    alert("The MFS Tagging operation has failed.");
+                err => {
+                    console.log(err);
+                    if (err != undefined && err.error != undefined) {
+                        let msg = "The MFS Tagging operation has failed.";
+                        if (err.error.errMsg  != undefined && err.error.errMsg != "") {
+                            msg = msg + "\n" + err.error.errMsg;
+                        }
+                        alert(msg);
+                    } else {
+                        let msg = "The MFS Tagging operation has failed.";
+                        alert(msg);
+                    }
                     this.isLoading = false;
                     this.fileToUpload = null;
                 }

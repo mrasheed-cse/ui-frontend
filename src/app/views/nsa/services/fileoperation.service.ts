@@ -107,8 +107,8 @@ export class FileoperationService {
 	}
 
 	uploadMFSRecyclingReportCSV(fd: FormData): any {
-		console.log('In MFSRecyclingReportFileUpload');
-		let result = this.http.post(this.serverUrl + 'MFSRecyclingReportFileUpload/', fd);
+		console.log('In MFSStatusReportFileUpload');
+		let result = this.http.post(this.serverUrl + 'MFSStatusReportFileUpload/', fd);
 		return result;
 	}
 }

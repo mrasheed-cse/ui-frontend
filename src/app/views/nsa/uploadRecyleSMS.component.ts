@@ -101,32 +101,66 @@ export class UploadRecycleCsvFile implements OnInit {
             let result = this.fileoperationService.uploadRecycledCSV(fd);
             result.subscribe(
                 res => {
-                    if (res != null && res.success == true) {
+                    if (res != undefined && res.success == true) {
                         let formattedDate = this.datePipe.transform(unusedSince, 'dd-MM-yyyy');
                         this.datawarehouseservice.uploadCsv(this.userID, this.fileName, listId, formattedDate, msisdnCount).subscribe(
                             data => {
-                                if (data != null && data.success == true) {
-                                    alert('File has been placed for uploading and processing, after completion you will be notified.');
+                                if (data != undefined && data.success == true) {
+                                    alert("File has been uploaded and processed successfully" +
+                                        "\n" +
+                                        "It will take additional 30 minutes to be visible in reporting.");
+                                } else if(data != undefined) {
+                                    let msg = "Failed to upload file.";
+                                    if (data.errMsg != undefined && data.errMsg != "") {
+                                        msg = msg + "\n" + data.errMsg;
+                                    }
+                                    alert(msg);
                                 } else {
-                                    alert('Failed to upload file.');
+                                    let msg = "Failed to upload file.";
+                                    alert("Failed to upload file.");
                                 }
                                 this.fileToUpload = null;
                                 this.isLoading = false;
                             }, err => {
                                 console.log(err);
-                                alert('Failed to upload file.');
+                                if (err != undefined && err.error != null) {
+                                    let msg = "Failed to upload file.";
+                                    if (err.error.errMsg != undefined && err.error.errMsg != "") {
+                                        msg = msg + "\n" + err.error.errMsg;
+                                    }
+                                    alert(msg);
+                                } else {
+                                    let msg = "Failed to upload file.";
+                                    alert(msg);
+                                }
                                 this.fileToUpload = null;
                                 this.isLoading = false;
                             }
                         );
-                    } else {
+                    } else if (res != undefined) {
                         console.log(res);
-                        alert('Failed to upload recycling file.');
+                        let msg = "Failed to upload file.";
+                        if (res.errMsg != undefined && res.errMsg != "") {
+                            msg = msg + "\n" + res.errMsg;
+                        }
+                        alert(msg);
+                    } else {
+                        let msg = "Failed to upload file.";
+                        alert(msg);
                     }
                 },
-                error => {
-                    console.log(error);
-                    alert("Failed to upload file.");
+                err => {
+                    console.log(err);
+                    if (err != undefined && err.error != undefined) {
+                        let msg = "Failed to upload file.";
+                        if (err.error.errMsg != undefined && err.error.errMsg != "") {
+                            msg = msg + "\n" + err.error.errMsg;
+                        }
+                        alert(msg);
+                    } else {
+                        let msg = "Failed to upload file.";
+                        alert(msg);
+                    }
                     this.isLoading = false;
                     this.fileToUpload = null;
                 }
