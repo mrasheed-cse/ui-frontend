@@ -14,7 +14,7 @@ export class MfsRecyclingReportService {
     }
 
     uploadMSISDN(fileName: string): any {
-        const url = environment.apiUrl + 'get-mfs-recycling-report';
+        const url = environment.apiUrl + 'get-mfs-status-of-msisdn-list';
 
         const params = new HttpParams().set("filename", fileName);
 
