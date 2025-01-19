@@ -90,6 +90,9 @@ export class UploadMFSDeTaggingCsvFile implements OnInit {
             this.fileName = this.fileToUpload.name;
 
             fd.append('nsa-file', this.fileToUpload, this.fileName);
+            fd.append("createdBy", this.userID);
+            fd.append("mfs", selectedMfs);
+
             let result = this.fileoperationService.uploadMFSDeTaggingCSV(fd);
             result.subscribe(
                 res => {
