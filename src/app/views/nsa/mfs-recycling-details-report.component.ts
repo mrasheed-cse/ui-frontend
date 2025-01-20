@@ -88,7 +88,7 @@ export class MfsRecyclingDetailsReportComponent implements OnInit {
                                 const reader = new FileReader();
                                 reader.onload = () => {
                                     const errorMessage = reader.result as string;
-                                    alert(errorMessage);
+                                    alert(errorMessage || "Failed to upload file.");
                                 };
                                 reader.readAsText(err.error);
 
