@@ -13,10 +13,10 @@ export class MfsRecyclingReportService {
         this.serverUrl = environment.apiUrl;
     }
 
-    uploadMSISDN(fileName: string): any {
+    uploadMSISDN(userId: string, fileName: string): any {
         const url = environment.apiUrl + 'get-mfs-status-of-msisdn-list';
 
-        const params = new HttpParams().set("filename", fileName);
+        const params = new HttpParams().set("createdBy", userId).set("filename", fileName);
 
         return this.http.get(url, { params, observe: 'response', responseType: 'blob' });
     }

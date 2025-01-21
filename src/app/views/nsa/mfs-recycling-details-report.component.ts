@@ -72,17 +72,19 @@ export class MfsRecyclingDetailsReportComponent implements OnInit {
         } else {
             this.isLoading = true;
             const fd = new FormData();
+
+            fd.append("createdBy", this.userID);
             fd.append('nsa-file', this.fileToUpload, this.fileName);
 
             let result = this.fileoperationService.uploadMFSRecyclingReportCSV(fd);
             result.subscribe(
                 res => {
                     if (res != undefined && res.success == true) {
-                        this.reportService.uploadMSISDN(this.fileName).subscribe(
+                        this.reportService.uploadMSISDN(this.userID, this.fileName).subscribe(
                             result => {
+                                alert("After downloading the report you will be notified.")
                                 this.isLoading = false;
                                 this.fileToUpload = null;
-                                this.downloadFile(result);
                             },
                             err => {
                                 const reader = new FileReader();
