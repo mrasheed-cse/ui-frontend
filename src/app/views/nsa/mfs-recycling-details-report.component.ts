@@ -85,7 +85,7 @@ export class MfsRecyclingDetailsReportComponent implements OnInit {
                     if (res != undefined && res.success == true) {
                         this.reportService.uploadMSISDN(this.userID, this.fileName).subscribe(
                             result => {
-                                alert("Processing of the uploaded file.\nYou will be notified through email once the report is ready to download.");
+                                alert("The uploaded file is being processed.\nYou will be notified once the report is ready to download.");
                                 this.isLoading = false;
                                 this.fileToUpload = null;
                             },
