@@ -20,4 +20,20 @@ export class MfsRecyclingReportService {
 
         return this.http.get(url, { params, observe: 'response', responseType: 'blob' });
     }
+
+    getReportList(userID: string): any {
+        const url = environment.apiUrl + 'get-mfs-report-list';
+
+        const params = new HttpParams().set("createdBy", userID);
+
+        return this.http.get(url, {params});
+    }
+
+    downloadReport(userID: string, fileName : string): any {
+        const url = environment.apiUrl + 'download-mfs-report';
+
+        const params = new HttpParams().set("createdBy", userID).set("fileName", fileName);
+
+        return this.http.get(url, { params, observe: 'response', responseType: 'blob' });
+    }
 }

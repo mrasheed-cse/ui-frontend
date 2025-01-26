@@ -35,6 +35,9 @@ export class MfsRecyclingDetailsReportComponent implements OnInit {
 
     isLoading: boolean = false
 
+    isReportFound = false;
+    isReportLoading = false;
+    fileList = [];
 
     constructor(private datePipe: DatePipe, private router: Router, private loginService: LoginService, private http: HttpClient,
                 private _global: AppGlobals, private fileoperationService: FileoperationService,
@@ -82,7 +85,7 @@ export class MfsRecyclingDetailsReportComponent implements OnInit {
                     if (res != undefined && res.success == true) {
                         this.reportService.uploadMSISDN(this.userID, this.fileName).subscribe(
                             result => {
-                                alert("Started precessing of the uploaded file.\nAfter downloading the report you will be notified through email.");
+                                alert("Processing of the uploaded file.\nYou will be notified through email once the report is ready to download.");
                                 this.isLoading = false;
                                 this.fileToUpload = null;
                             },
@@ -112,7 +115,6 @@ export class MfsRecyclingDetailsReportComponent implements OnInit {
                 },
                 err => {
                     console.log(err);
-                    debugger;
                     if (err != undefined && err.error != undefined) {
                         let msg = "Failed to upload file.";
                         if (err.error.errMsg  != undefined && err.error.errMsg != "") {
@@ -174,5 +176,39 @@ export class MfsRecyclingDetailsReportComponent implements OnInit {
     ngOnInit() {
         this.createFormControls();
         this.createForm();
+        this.loadReport();
+    }
+
+    downloadReport (fileName: string) {
+        this.reportService.downloadReport(this.userID, fileName).subscribe(
+            result => {
+                //console.log(result);
+                this.downloadFile(result);
+            },
+            err => {
+                console.log(err);
+            }
+        )
+    }
+
+    loadReport() {
+        this.isReportFound = false;
+        this.isReportLoading = true;
+        this.reportService.getReportList(this.userID).subscribe(
+            result => {
+                //console.log(result);
+                this.fileList = result;
+
+                this.isReportFound = true;
+                this.isReportLoading = false;
+            },
+            err => {
+                console.log(err);
+                this.fileList = [];
+
+                this.isReportFound = false;
+                this.isReportLoading = false;
+            }
+        )
     }
 }
