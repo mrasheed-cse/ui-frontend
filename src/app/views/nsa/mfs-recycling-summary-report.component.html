@@ -22,6 +22,7 @@
                             <thead>
                             <tr>
                                 <th>ListId</th>
+                                <th>Upload Date</th>
                                 <th>Total Count</th>
                                 <th>Non MFS Count</th>
                                 <th>MFS Count</th>
@@ -40,6 +41,7 @@
                             <tbody *ngFor="let report of summaryReports;  index as i">
                             <tr>
                                 <td>{{ report.listId }}</td>
+                                <td>{{ report.updatedAt }}</td>
                                 <td>{{ report.totalCount }}</td>
                                 <td>{{ report.nonMfsCount }}</td>
                                 <td>{{ report.mfsCount }}</td>
