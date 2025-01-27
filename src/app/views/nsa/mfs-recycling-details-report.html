@@ -68,15 +68,19 @@
                                 <thead>
                                 <tr>
                                     <th>File</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
                                     <th>Details</th>
                                 </tr>
                                 </thead>
 
                                 <tbody >
                                 <tr *ngFor="let file of fileList;  index as i">
-                                    <td>{{ file }}</td>
+                                    <td>{{ file.fileName }}</td>
+                                    <td>{{ file.createdAt }}</td>
+                                    <td>{{ file.status }}</td>
                                     <td style="text-align:center">
-                                        <a style="width:100px" class="btn btn-success" (click)="downloadReport(file)">Download</a>
+                                        <button [disabled]="file.status === 'Pending'" type="button" style="width:100px" class="btn btn-success" (click)="downloadReport(file.fileName)">Download</button>
                                     </td>
                                 </tr>
                                 </tbody>
