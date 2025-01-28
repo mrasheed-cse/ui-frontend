@@ -82,9 +82,7 @@ export class UpdatePressNoticeDate implements OnInit {
             this.updatePressNoticeDateService.updatePressNoticeDate(this.userID, this.selectedListId.value, formattedDate).subscribe(
                 res => {
                     if (res != undefined && res.success) {
-                        let msg = "Press notice date updated successfully" +
-                            "\n" +
-                            "It will take additional 30 minutes to be visible in reporting.";
+                        let msg = "Press notice date updated successfully";
                         alert(msg);
                         this.getListIds();
                     } else if (res != undefined) {
