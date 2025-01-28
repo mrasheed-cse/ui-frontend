@@ -88,6 +88,7 @@ export class MfsRecyclingDetailsReportComponent implements OnInit {
                                 alert("The uploaded file is being processed.\nYou will be notified once the report is ready to download.");
                                 this.isLoading = false;
                                 this.fileToUpload = null;
+                                this.refresh();
                             },
                             err => {
                                 const reader = new FileReader();
@@ -176,7 +177,7 @@ export class MfsRecyclingDetailsReportComponent implements OnInit {
     ngOnInit() {
         this.createFormControls();
         this.createForm();
-        this.loadReport();
+        this.refresh();
     }
 
     downloadReport (fileName: string) {
@@ -192,6 +193,7 @@ export class MfsRecyclingDetailsReportComponent implements OnInit {
     }
 
     loadReport() {
+        this.fileList = [];
         this.isReportFound = false;
         this.isReportLoading = true;
         this.reportService.getReportList(this.userID).subscribe(
@@ -210,5 +212,9 @@ export class MfsRecyclingDetailsReportComponent implements OnInit {
                 this.isReportLoading = false;
             }
         )
+    }
+
+    refresh () {
+        this.loadReport();
     }
 }

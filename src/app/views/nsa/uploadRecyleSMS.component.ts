@@ -106,9 +106,7 @@ export class UploadRecycleCsvFile implements OnInit {
                         this.datawarehouseservice.uploadCsv(this.userID, this.fileName, listId, formattedDate, msisdnCount).subscribe(
                             data => {
                                 if (data != undefined && data.success == true) {
-                                    alert("File has been uploaded and processed successfully" +
-                                        "\n" +
-                                        "It will take additional 30 minutes to be visible in reporting.");
+                                    alert("File has been uploaded and processed successfully");
                                 } else if(data != undefined) {
                                     let msg = "Failed to upload file.";
                                     if (data.errMsg != undefined && data.errMsg != "") {
