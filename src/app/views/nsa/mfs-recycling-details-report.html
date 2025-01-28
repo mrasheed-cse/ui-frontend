@@ -89,7 +89,7 @@
                                     <td>{{ file.createdAt }}</td>
                                     <td>{{ file.status }}</td>
                                     <td style="text-align:center">
-                                        <button [disabled]="file.status === 'Pending'" type="button" style="width:100px" class="btn btn-success" (click)="downloadReport(file.fileName)">Download</button>
+                                        <button [disabled]="file.completed != 1" type="button" style="width:100px" class="btn btn-success" (click)="downloadReport(file.fileName)">Download</button>
                                     </td>
                                 </tr>
                                 </tbody>
