@@ -60,7 +60,16 @@
                         </div>
 
                         <div class="card-header">
-                            <i class="fa fa-align-justify"></i> MFS reports to download
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <i class="fa fa-align-justify"></i> MFS reports to download
+                                </div>
+                                <div class="col-md-4 d-flex justify-content-end">
+                                    <button (click)="refresh()" class="btn btn-sm btn-primary">
+                                        <i class="fa fa-refresh"></i> Refresh
+                                    </button>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="card-body" *ngIf="isReportFound">

@@ -109,9 +109,7 @@ export class UploadMFSTaggingCsvFile implements OnInit {
                                         "\n" +
                                         "Success: " + data.successCount +
                                         "\n" +
-                                        "Failure: " + data.failCount +
-                                        "\n" +
-                                        "It will take additional 30 minutes to be visible in reporting.");
+                                        "Failure: " + data.failCount);
                                 } else if (data != undefined) {
                                     let msg = "The MFS Tagging operation has failed.";
                                     if (data.errMsg  != undefined && data.errMsg != "") {
