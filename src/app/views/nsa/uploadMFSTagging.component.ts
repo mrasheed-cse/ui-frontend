@@ -11,23 +11,23 @@ import {Router} from '@angular/router';
 import {AppGlobals} from 'app/app.global';
 import {LoggedInUser} from '../pages/loggedInUser';
 import {LoginService} from '../pages/LoginService';
+import {DatawarehouseService} from '../SSM/DataWarehouse Management/datawarehouse.service';
 import {FileoperationService} from './services/fileoperation.service';
 import {UploadCSVRecycleSMSService} from './services/uploadCsvRecycleSms.service';
+import {UploadCsvMFSTaggingService} from './services/uploadCsvMFSTagging.service';
 
 
 @Component({
     selector: 'app-uploadCsvFile',
-    templateUrl: './uploadfileswith-Csv.component.html',
+    templateUrl: './uploadfileswith-mfstagging-csv.component.html',
     styles: ['./nsa_styles.css'],
     // styleUrls: ['./search_po.component.scss'],
-    providers: [AppGlobals, LoginService, DatePipe, UploadCSVRecycleSMSService, FileoperationService],
+    providers: [AppGlobals, LoginService, DatePipe, UploadCsvMFSTaggingService, FileoperationService],
 })
-export class UploadRecycleCsvFile implements OnInit {
+export class UploadMFSTaggingCsvFile implements OnInit {
     myRecycledSmsForm: FormGroup;
-    listId: FormControl;
-    unusedSince: FormControl;
-    msisdnCount: FormControl;
     recycledSmsFile: FormControl;
+    selectedMfs: FormControl;
 
     currentLoggedInUser: LoggedInUser;
     userName: string;
@@ -35,45 +35,41 @@ export class UploadRecycleCsvFile implements OnInit {
     userID: string;
     fileToUpload: File = null;
     fileName: string;
-    isLoading: boolean = false;
+    isLoading: boolean = false
 
-    todayDate: Date = new Date();
-
-    //datepickerConfig: Partial<BsDatepickerConfig>;
-
-    bsConfig = {
-        dateInputFormat: 'DD-MM-YYYY', // Customize date format
-        containerClass: 'theme-green', // Choose a theme
-        isAnimated: true, // Enable animation
-        showWeekNumbers: false // Hide week numbers
-    };
+    mfsList = [
+        {key: 'UPAY', value: 'UPAY'},
+        {key: 'BKASH', value: 'bkash'},
+        {key: 'NAGAD', value: 'Nagad'},
+        {key: 'ROCKET', value: 'Rocket'},
+        {key: 'GOLD', value: 'Gold'},
+        {key: 'TEST', value: 'Test'},
+        {key: 'OTHERS', value: 'Others'}];
 
 
-    constructor(private datePipe: DatePipe, private router: Router, private loginService:
-    LoginService, private http: HttpClient, private _global: AppGlobals, private datawarehouseservice: UploadCSVRecycleSMSService, private fileoperationService: FileoperationService) {
+    constructor(private datePipe: DatePipe, private router: Router, private loginService: LoginService, private http: HttpClient,
+                private _global: AppGlobals, private datawarehouseservice: UploadCsvMFSTaggingService, private fileoperationService: FileoperationService) {
         this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
 
         if (this.currentLoggedInUser) {
             this.userName = this.currentLoggedInUser.userName
             this.groupID = this.currentLoggedInUser.groupID
             this.userID = this.currentLoggedInUser.userID
+
         } else {
             this.router.navigate(['pages/login']);
         }
+
     }
 
     createFormControls() {
         this.recycledSmsFile = new FormControl('', Validators.required);
-        this.listId = new FormControl('', Validators.required);
-        this.unusedSince = new FormControl('', Validators.required);
-        this.msisdnCount = new FormControl('', Validators.required);
+        this.selectedMfs = new FormControl('', Validators.required);
     }
 
     createForm() {
         this.myRecycledSmsForm = new FormGroup({
-            listId: this.listId,
-            unusedSince: this.unusedSince,
-            msisdnCount: this.msisdnCount,
+            selectedMfs: this.selectedMfs,
             recycledSmsFile: this.recycledSmsFile
         });
     }
@@ -81,15 +77,15 @@ export class UploadRecycleCsvFile implements OnInit {
     submit() {
         this.isLoading = true;
 
-        const {listId, unusedSince, msisdnCount} = this.myRecycledSmsForm.value;
-
         if (this.myRecycledSmsForm.invalid) {
             this.isLoading = false;
             return;
         }
 
-        if (this.fileToUpload == undefined || !this.fileToUpload.name.endsWith('.csv') || !this.fileToUpload.name.startsWith('ListId')) {
-            alert('Please select a csv file with file name starting with ListId');
+        const {selectedMfs} = this.myRecycledSmsForm.value;
+
+        if (this.fileToUpload == undefined || !this.fileToUpload.name.endsWith('.csv')) {
+            alert('Please select a csv file with file name starting with Tagging');
             this.isLoading = false;
         } else {
             const fd = new FormData();
@@ -97,66 +93,73 @@ export class UploadRecycleCsvFile implements OnInit {
             this.fileName = this.fileToUpload.name;
 
             fd.append('nsa-file', this.fileToUpload, this.fileName);
+            fd.append("createdBy", this.userID);
+            fd.append("mfs", selectedMfs);
 
-            let result = this.fileoperationService.uploadRecycledCSV(fd);
+            let result = this.fileoperationService.uploadMFSTaggingCSV(fd);
             result.subscribe(
                 res => {
                     if (res != undefined && res.success == true) {
-                        let formattedDate = this.datePipe.transform(unusedSince, 'dd-MM-yyyy');
-                        this.datawarehouseservice.uploadCsv(this.userID, this.fileName, listId, formattedDate, msisdnCount).subscribe(
+                        this.datawarehouseservice.uploadMFSTaggingCsv(this.userID, this.fileName, selectedMfs).subscribe(
                             data => {
-                                if (data != undefined && data.success == true) {
-                                    alert("File has been uploaded and processed successfully");
-                                } else if(data != undefined) {
-                                    let msg = "Failed to upload file.";
-                                    if (data.errMsg != undefined && data.errMsg != "") {
+                                if (data != undefined && data.success) {
+                                    alert("The MFS Tagging operation has been completed successfully." +
+                                        "\n" +
+                                        "Total: " + data.total +
+                                        "\n" +
+                                        "Success: " + data.successCount +
+                                        "\n" +
+                                        "Failure: " + data.failCount);
+                                } else if (data != undefined) {
+                                    let msg = "The MFS Tagging operation has failed.";
+                                    if (data.errMsg  != undefined && data.errMsg != "") {
                                         msg = msg + "\n" + data.errMsg;
                                     }
                                     alert(msg);
                                 } else {
-                                    let msg = "Failed to upload file.";
-                                    alert("Failed to upload file.");
+                                    let msg = "The MFS Tagging operation has failed.";
+                                    alert(msg);
                                 }
-                                this.fileToUpload = null;
                                 this.isLoading = false;
-                            }, err => {
+                                this.fileToUpload = null;
+                            },
+                            err => {
                                 console.log(err);
-                                if (err != undefined && err.error != null) {
-                                    let msg = "Failed to upload file.";
-                                    if (err.error.errMsg != undefined && err.error.errMsg != "") {
+                                if (err != undefined && err.error != undefined) {
+                                    let msg = "The MFS Tagging operation has failed.";
+                                    if (err.error.errMsg  != undefined && err.error.errMsg != "") {
                                         msg = msg + "\n" + err.error.errMsg;
                                     }
                                     alert(msg);
                                 } else {
-                                    let msg = "Failed to upload file.";
+                                    let msg = "The MFS Tagging operation has failed.";
                                     alert(msg);
                                 }
-                                this.fileToUpload = null;
                                 this.isLoading = false;
+                                this.fileToUpload = null;
                             }
                         );
                     } else if (res != undefined) {
-                        console.log(res);
-                        let msg = "Failed to upload file.";
-                        if (res.errMsg != undefined && res.errMsg != "") {
+                        let msg = "The MFS Tagging operation has failed.";
+                        if (res.errMsg  != undefined && res.errMsg != "") {
                             msg = msg + "\n" + res.errMsg;
                         }
                         alert(msg);
                     } else {
-                        let msg = "Failed to upload file.";
+                        let msg = "The MFS Tagging operation has failed.";
                         alert(msg);
                     }
                 },
                 err => {
                     console.log(err);
                     if (err != undefined && err.error != undefined) {
-                        let msg = "Failed to upload file.";
-                        if (err.error.errMsg != undefined && err.error.errMsg != "") {
+                        let msg = "The MFS Tagging operation has failed.";
+                        if (err.error.errMsg  != undefined && err.error.errMsg != "") {
                             msg = msg + "\n" + err.error.errMsg;
                         }
                         alert(msg);
                     } else {
-                        let msg = "Failed to upload file.";
+                        let msg = "The MFS Tagging operation has failed.";
                         alert(msg);
                     }
                     this.isLoading = false;
@@ -166,9 +169,13 @@ export class UploadRecycleCsvFile implements OnInit {
         }
     }
 
+    onMFSChange(): void {
+        console.log('Selected option:', this.selectedMfs);
+    }
+
     handleFileInput(files: FileList) {
         this.fileToUpload = files.item(0);
-        this.fileName = this.fileToUpload.name
+        this.fileName = this.fileToUpload.name;
     }
 
     ngOnInit() {

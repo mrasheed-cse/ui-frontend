@@ -1,0 +1,62 @@
+<div class="row">
+    <div class="col-md-1">
+
+    </div>
+
+    <div class="col-md-10">
+        <div class="card">
+            <div class="div_cust_loading_sign" *ngIf="isLoading">
+                <div style="position:fixed;width:100%;height:100%;left:0px;top:0px;z-index:50000;background-color:#536c79;opacity:0.95"></div>
+                <div style="position:fixed;width:100%;height:100%;left:0px;top:0px;z-index:60000">
+                    <div style="width:25%;height:25%;margin:0px auto;margin-top:20%"><i
+                            class="fa fa-spinner fa-pulse fa-4x fa-fw"></i></div>
+                </div>
+            </div>
+
+            <div class="card-header">
+                <i class="fa fa-align-justify"></i> Download MSISDN for List: <b>{{listId}}</b>
+            </div>
+
+            <form [formGroup]="myDownloadForm" novalidate (ngSubmit)="submit()">
+                <div class="card-body">
+                    <div class="row">
+
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-md-5 col-form-label" for="taggingType">Tagging Type<span
+                                        style="color:red"> *</span></label>
+                                <div class="col-md-7">
+                                    <select id="taggingType" formControlName="selectedTaggingType" required
+                                            (change)="onTaggingTypeChange()" style="margin-top: 10px; width: 100%;">
+                                        <option *ngFor="let type of taggingTypes" [value]="type.key">{{ type.value }}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group row" *ngIf="selectedTaggingType.value == 'MFS'">
+                                <label class="col-md-5 col-form-label" for="mfsDropdown">MFS Name<span
+                                        style="color:red"> *</span></label>
+                                <div class="col-md-7">
+                                    <select id="mfsDropdown" formControlName="selectedMfs" required
+                                            (change)="onMFSChange()" style="margin-top: 10px; width: 100%;">
+                                        <option *ngFor="let mfs of mfsList" [value]="mfs.key">{{ mfs.value }}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="card-footer text-right">
+                        <button type="submit" class="btn btn-sm btn-primary">
+                            <i class="fa fa-dot-circle-o"></i> Download
+                        </button>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

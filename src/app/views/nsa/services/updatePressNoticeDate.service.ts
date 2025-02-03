@@ -6,7 +6,7 @@ import {AppGlobals} from 'app/app.global';
 import {environment} from 'environments/environment';
 
 @Injectable()
-export class UploadCSVRecycleSMSService {
+export class UpdatePressNoticeDateService {
     private headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
 
     private options = {
@@ -20,18 +20,20 @@ export class UploadCSVRecycleSMSService {
         this.serverUrl = environment.apiUrl;
     }
 
-    uploadCsv(userId: string, filename: string, listId: string, unusedSince: string, msisdnCount: string): any {
-        const url = environment.apiUrl + 'NsaRecycleSMSFileUpload';
-        const ll = null;
-        const formData: FormData = new FormData();
+    getListIds(): any {
+        const url = environment.apiUrl + 'GetListIds';
+        return this.http.get(url);
+    }
 
-        formData.append('createdBy', userId);
-        formData.append('filename', filename);
-        formData.append('listId', listId)
-        formData.append('unusedSince', unusedSince)
-        formData.append('msisdnCount', msisdnCount)
+    updatePressNoticeDate(userId: string, listId: string, date: string): any {
+        const url = environment.apiUrl + 'UpdatePressNoticeDate';
 
-        return this.http.post(url, formData);
+        let requestData = {
+            createdBy: userId,
+            listId: listId,
+            date: date
+        }
+        return this.http.post(url, requestData);
     }
 
 }
