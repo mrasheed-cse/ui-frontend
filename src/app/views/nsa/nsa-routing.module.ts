@@ -153,6 +153,13 @@ import { SCRequisitionviewComponent } from './screquisitionview/screquisitionvie
 import { SCRequisitioneditComponent } from './screquisitionedit/screquisitionedit.component';
 import { TestscDeactivationComponent } from './testscdeactivation.component';
 import { UploadRecycleCsvFile } from './uploadRecyleSMS.component';
+import { UploadMFSTaggingCsvFile } from './uploadMFSTagging.component';
+import { UploadMFSDeTaggingCsvFile} from './uploadMFSDeTaggingSMS.component';
+import {UpdatePressNoticeDate} from './updatePressNoticeDate.component';
+import {MfsRecyclingSummaryReportComponent} from './mfs-recycling-summary-report.component';
+import {DownloadsMfsRecyclingSummaryReportComponent} from './download-mfs-recycling-summary-report.component';
+import {MfsRecyclingDetailsReportComponent} from './mfs-recycling-details-report.component';
+import {MfsStatusOfMsisdnComponent} from './mfs-status-of-msisdn.component';
 
 const routes: Routes = [
     {
@@ -1245,6 +1252,43 @@ const routes: Routes = [
         data: {
             title: 'Upload CSV'
         }
+    },
+    {
+        path: 'UpdatePressNoticeDate',
+        component: UpdatePressNoticeDate,
+        data: {
+            title: 'Upload CSV'
+        }
+    },
+    {
+        path: 'UploadNewMFSTaggingCSV',
+        component: UploadMFSTaggingCsvFile,
+        data: {
+            title: 'Upload CSV'
+        }
+    },
+    {
+        path: 'UploadNewMFSDeTaggingCSV',
+        component: UploadMFSDeTaggingCsvFile,
+        data: {
+            title: 'Upload CSV'
+        }
+    },
+    {
+        path: 'mfs-recycling-summary',
+        component: MfsRecyclingSummaryReportComponent
+    },
+    {
+        path: 'download-mfs-recycling-summary',
+        component: DownloadsMfsRecyclingSummaryReportComponent
+    },
+    {
+        path: 'mfs-recycling-details',
+        component: MfsRecyclingDetailsReportComponent
+    },
+    {
+        path: 'search-mfs-status-of-msisdn',
+        component: MfsStatusOfMsisdnComponent
     },
     {
         path: '**',

@@ -1,12 +1,11 @@
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
-import {Constants} from 'ag-grid-community';
 import {AppGlobals} from 'app/app.global';
 import {environment} from 'environments/environment';
 
 @Injectable()
-export class UploadCSVRecycleSMSService {
+export class UploadCSVMFSDeTaggingService {
     private headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
 
     private options = {
@@ -20,18 +19,14 @@ export class UploadCSVRecycleSMSService {
         this.serverUrl = environment.apiUrl;
     }
 
-    uploadCsv(userId: string, filename: string, listId: string, unusedSince: string, msisdnCount: string): any {
-        const url = environment.apiUrl + 'NsaRecycleSMSFileUpload';
-        const ll = null;
+    uploadMFSDeTaggingCsv(userId: string, filename: string, mfs: string): any {
+        const url = environment.apiUrl + 'NSAFMSDeTaggingFileUpload';
         const formData: FormData = new FormData();
 
         formData.append('createdBy', userId);
         formData.append('filename', filename);
-        formData.append('listId', listId)
-        formData.append('unusedSince', unusedSince)
-        formData.append('msisdnCount', msisdnCount)
+        formData.append('mfs', mfs);
 
         return this.http.post(url, formData);
     }
-
 }
