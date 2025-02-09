@@ -27,7 +27,7 @@ export class UploadCSVRecycleSMSService {
 
         formData.append('createdBy', userId);
         formData.append('filename', filename);
-        formData.append('listId', listId)
+        formData.append('list', listId)
         formData.append('unusedSince', unusedSince)
         formData.append('msisdnCount', msisdnCount)
 
