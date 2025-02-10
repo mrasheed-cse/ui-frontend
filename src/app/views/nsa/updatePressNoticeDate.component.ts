@@ -34,6 +34,9 @@ export class UpdatePressNoticeDate implements OnInit {
     listIdList: string [] = [];
     todayDate: Date = new Date();
 
+    isLoading = false;
+    isDataLoading = false;
+
     //datepickerConfig: Partial<BsDatepickerConfig>;
 
     bsConfig = {
@@ -78,7 +81,7 @@ export class UpdatePressNoticeDate implements OnInit {
 
         if (this.selectedListId != null && this.selectedListId.value != null && this.pressNoticeDate != null && this.pressNoticeDate.value != null) {
             let formattedDate = this.datePipe.transform(this.pressNoticeDate.value, 'dd-MM-yyyy');
-
+            this.isLoading = true;
             this.updatePressNoticeDateService.updatePressNoticeDate(this.userID, this.selectedListId.value, formattedDate).subscribe(
                 res => {
                     if (res != undefined && res.success) {
@@ -95,6 +98,7 @@ export class UpdatePressNoticeDate implements OnInit {
                         let msg = "Failed to update press notice date";
                         alert(msg);
                     }
+                    this.isLoading = false;
                 }, err => {
                     if (err != undefined) {
                         let msg = "Failed to update press notice date";
@@ -106,6 +110,7 @@ export class UpdatePressNoticeDate implements OnInit {
                         let msg = "Failed to update press notice date";
                         alert(msg);
                     }
+                    this.isLoading = false;
                 }
             );
         }
@@ -113,12 +118,16 @@ export class UpdatePressNoticeDate implements OnInit {
 
     getListIds() {
         this.listIdList = [];
+        this.isDataLoading = true;
         this.updatePressNoticeDateService.getListIds().subscribe(
             res => {
-                console.log(res);
+                //console.log(res);
                 this.listIdList = res;
+                this.isDataLoading = false;
             }, err => {
                 console.log(err);
+                alert("Failed to load list ids to set press notice date");
+                this.isDataLoading = false;
             }
         )
     }
