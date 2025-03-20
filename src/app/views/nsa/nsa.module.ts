@@ -182,6 +182,7 @@ import {DownloadsMfsRecyclingSummaryReportComponent} from './download-mfs-recycl
 import {SharedMessageService} from './services/shared-message.service';
 import {MfsRecyclingDetailsReportComponent} from './mfs-recycling-details-report.component';
 import {MfsStatusOfMsisdnComponent} from './mfs-status-of-msisdn.component';
+import {RequisitiondetailsRAFMComponent} from './requisitiondetails-rafm/requisitiondetails-rafm.component';
 
 
 @NgModule({
@@ -236,6 +237,7 @@ import {MfsStatusOfMsisdnComponent} from './mfs-status-of-msisdn.component';
     NewrequisitiondetailsComponent,
     NewrequisitionComponent,
     RequisitiondetailsFormComponent,
+    RequisitiondetailsRAFMComponent,
     RequisitionassignComponent,
     RequisitiondetailshodComponent,
     RequisitiondetailsdeliveryComponent,

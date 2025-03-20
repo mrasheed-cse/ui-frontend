@@ -173,12 +173,13 @@ export class IsmsworkflowsService {
 		});
 	}
 
-	ssmAssignment(wr_id: number, status: string, userID: string, lineItems: Array<any>): any {
+	ssmAssignment(wr_id: number, status: string, userID: string, lineItems: Array<any>, comment: string): any {
 		return this.http.post(this.serverUrl + 'requisition/ssmassignment', {
 			userID: userID,
 			wrID: wr_id,
 			status: status,
-			lineItems: lineItems
+			lineItems: lineItems,
+			comment: comment
 		});
 	}
 
