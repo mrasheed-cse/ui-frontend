@@ -207,16 +207,15 @@
     </div>
 
 </div>
-
 <br/>
 
-<div class="card">
 
+<div class="card">
     <div class="card-body">
         <div class="row">
             <div class="col-md-12">
                 <div *ngFor="let c of requisition_existing_comments">
-                    {{ c.userID }} commented on {{ c.datePosted }} : {{ c.comment }}
+                    {{c.userID}} commented on {{c.datePosted}} : {{c.comment}}
                 </div>
             </div>
         </div>
@@ -227,11 +226,10 @@
 
                 <br/><br/>
 
-                <a style="width:120px" class="btn btn-success" (click)="approve()">Approve</a>
-                <a style="width:120px" class="btn btn-danger" (click)="reject()">Reject</a>
+                <a style="width:120px" class="btn btn-success" (click)="save()">Save</a>
+                <a style="width:120px" class="btn btn-danger" (click)="cancel()">Cancel</a>
 
             </div>
         </div>
     </div>
-
 </div>
