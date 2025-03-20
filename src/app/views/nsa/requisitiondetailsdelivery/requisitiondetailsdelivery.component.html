@@ -1,323 +1,381 @@
 <div>
-  <div class="card">
-    <div style="text-align: center">
-      <div class="div_cust_loading_sign" *ngIf="isLoading">
-        <div
-          style="position:fixed;width:100%;height:100%;left:0px;top:0px;z-index:50000;background-color:#536c79;opacity:0.95">
-        </div>
-        <div>Start</div>
-        <div style="position:fixed;width:100%;height:100%;left:0px;top:0px;z-index:60000">
-          <div style="width:25%;height:25%;margin:0px auto;margin-top:20%"><i
-              class="fa fa-spinner fa-pulse fa-4x fa-fw"></i></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-header">
-      <strong>Employee Details</strong>
-    </div>
-    <div class="card-body">
-      <div class="row">
-        <div class="col-md-12">
-          <table style="width:100%" border="1">
-            <tr>
-              <td style="width:25%">Employee ID.</td>
-              <td style="width:25%;" bgcolor="#dcdcdc">{{requisition['employeeDetails']['employeeNo']}}</td>
-              <td style="width:25%">Mobile No.</td>
-              <td style="width:25%" bgcolor="#dcdcdc">{{requisition['employeeDetails']['mobileNumber']}}</td>
-            </tr>
-            <tr>
-              <td style="width:25%">Employee Name</td>
-              <td style="width:25%;" bgcolor="#dcdcdc">{{requisition['employeeDetails']['fullName']}}</td>
-              <td style="width:25%">Designation</td>
-              <td style="width:25%" bgcolor="#dcdcdc">{{requisition['employeeDetails']['designation']}}</td>
-            </tr>
-            <tr>
-              <td style="width:25%">Department</td>
-              <td style="width:25%;" bgcolor="#dcdcdc">{{requisition['employeeDetails']['departmentName']}}</td>
-              <td style="width:25%">Division</td>
-              <td style="width:25%" bgcolor="#dcdcdc">{{requisition['employeeDetails']['divisionName']}}</td>
-            </tr>
-            <tr>
-              <td style="width:25%">Email</td>
-              <td style="width:25%;" bgcolor="#dcdcdc">{{requisition['employeeDetails']['emailAddress']}}</td>
-              <td style="width:25%"></td>
-              <td style="width:25%" bgcolor="#dcdcdc"></td>
-            </tr>
-          </table>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <br />
-
-  <div class="card">
-
-    <div class="card-header">
-      <strong>Requisition Details</strong>
-    </div>
-    <div class="card-body">
-      <div class="row">
-        <div class="col-md-12">
-          <table border="2">
-            <tr>
-              <td style="width:15%">Requisition No</td>
-              <td style="width:35%;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['requisitionNo']}}</td>
-              <td style="width:15%">Date of requisition</td>
-              <td style="width:35%" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['requisitionDt']}}</td>
-            </tr>
-            <tr>
-              <td style="width:15%">Requisition Type</td>
-              <td style="width:35%;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['requisitionType']}}</td>
-              <td style="width:15%">Purpose Category</td>
-              <td style="width:35%" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['purposeCategory']}}</td>
-            </tr>
-            <tr>
-              <td style="width:15%">Purpose Details</td>
-              <td style="width:35%;word-break: break-all;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['purposeDetails']}}</td>
-              <td style="width:15%">Expected Test Start Date</td>
-              <td style="width:35%" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['testStartDt']}}</td>
-            </tr>
-            <tr>
-              <td style="width:15%">Expected Test End Date</td>
-              <td style="width:35%;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['testCompletionDt']}}</td>
-              <td style="width:15%">Location</td>
-              <td style="width:35%" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['locationDetails']}}</td>
-            </tr>
-            <tr>
-              <td style="width:15%">Usage Category</td>
-              <td style="width:35%;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['usageCategory']}}</td>
-              <td style="width:15%">Test Device IMEI Number</td>
-              <td style="width:35%;word-break: break-all;" bgcolor="#dcdcdc">********</td>
-            </tr>
-            <tr>
-              <td style="width:15%">AMS Number</td>
-              <td style="width:35%;" bgcolor="#dcdcdc">********</td>
-              <td style="width:15%;word-break: break-all;">Download AMS</td>
-              <td style="width:35%;" bgcolor="#dcdcdc">********</td>
-            </tr>
-            <tr>
-              <td style="width:15%">User Type</td>
-              <td style="width:35%;word-break: break-all;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['selectedEmpType']}}</td>
-              <td style="width:15%">Usage Environment</td>
-              <td style="width:35%;word-break: break-all;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['selectedUsageEnv']}}</td>
-            </tr>
-            <tr>
-              <td style="width:15%">ID Card Type</td>
-              <td style="width:35%;word-break: break-all;" bgcolor="#dcdcdc">********</td>
-              <td style="width:15%">ID Card Number</td>
-              <td style="width:35%;word-break: break-all;" bgcolor="#dcdcdc">********</td>
-            </tr>
-            <tr>
-              <td style="width:15%">Please mention Specific reason or project name or UAT name?</td>
-              <td style="width:35%;word-break: break-all;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['question1']}}</td>
-              <td style="width:15%">Why this test sim required? Like pre live UAT or post live UAT or general testing etc.</td>
-              <td style="width:35%;word-break: break-all;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['question2']}}</td>
-            </tr>
-            <tr>
-              <td style="width:15%">Who will be associated in UAT?</td>
-              <td style="width:35%;word-break: break-all;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['question3']}}</td>
-              <td style="width:15%">Probable outcome from UAT?</td>
-              <td style="width:35%;word-break: break-all;" bgcolor="#dcdcdc">{{requisition['requisitionDetails']['question4']}}</td>
-            </tr> 
-          </table>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <br />
-
-  <div class="card">
-
-    <div class="card-header">
-      <strong>Requisition Line Items</strong>
-    </div>
-    <div class="card-body">
-      <div class="row">
-        <div class="col-md-12">
-          <table style="width:100%" border="1">
-
-            <thead>
-              <tr>
-                <th>Line item ID</th>
-                <th>Product</th>
-                <th>Credit Limit</th>
-                <th>Quantity</th>
-                <th>Instruction</th>
-                <th>IMSI Type</th>
-                <th>Special Requirement</th>
-                <th>Delivery Quantity</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <tr *ngFor="let c of requisition['requisitionLines']">
-                <td [ngClass]="{'dimmed': c.clcAssignmentCompleted == true}">{{ c.id }}</td>
-                <td [ngClass]="{'dimmed': c.clcAssignmentCompleted == true}">{{ c.productName }}</td>
-                <td [ngClass]="{'dimmed': c.clcAssignmentCompleted == true}">{{ c.assignCreditlimit }}</td>
-                <td [ngClass]="{'dimmed': c.clcAssignmentCompleted == true}">{{ c.assignQuantity }}</td>
-                <td [ngClass]="{'dimmed': c.clcAssignmentCompleted == true}" style="width:25%;word-break: break-all;">{{ c.activationInstruction }}</td>
-                <td [ngClass]="{'dimmed': c.clcAssignmentCompleted == true}">{{ c.imsiTypeName }}</td>
-                <td [ngClass]="{'dimmed': c.clcAssignmentCompleted == true}" style="word-break: break-all;">
-                  {{ c.specialRequirement }}
-                  <span
-                    *ngIf="c.specialRequirementOther != null && c.specialRequirementOther != undefined && c.specialRequirementOther != ''"><br /></span>
-                  <span
-                    *ngIf="c.specialRequirementOther != null && c.specialRequirementOther != undefined && c.specialRequirementOther != ''">{{c.specialRequirementOther}}</span>
-                </td>
-                <td *ngIf="c.clcUpdateQnty == true">
-                  {{c.deliverQuantity}}
-                </td>
-                <td *ngIf="c.clcUpdateQnty == false">
-                  <input type="number" [(ngModel)]="c.deliverQuantity" />
-                </td>
-
-                <td>
-                  <a *ngIf="c.clcUpdateQnty == false" class="btn btn-primary btn-sm" (click)="clcUpdate(c)"
-                    style="padding: 2%;margin: 5%;border-radius: 4px;color: white;">Set Quantity</a>
-
-                  <a *ngIf="c.clcUpdateQnty == true && c.clcAssignmentCompleted == false "
-                    class="btn btn-primary btn-sm" (click)="assignMsisdn(c)"
-                    style="padding: 2%;margin: 5%;border-radius: 4px;color: white;">Assign MSISDN</a>
-                  <span *ngIf="c.clcUpdateQnty == true && c.clcAssignmentCompleted == true && c.deliverQuantity > 0"
-                    style="font-weight:bold;font-style:italic">Already Assigned</span>
-                  <span *ngIf="c.clcUpdateQnty == true && c.deliverQuantity == 0 && c.clcAssignmentCompleted == true"
-                    style="font-weight:bold;font-style:italic">No Assignment required</span>
-                </td>
-              </tr>
-            </tbody>
-
-          </table>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="card" [hidden]="!showMsisdnSeriesAssignmentCard">
-
-    <div class="card-header">
-      <strong>MSISDN series assignment</strong>
-    </div>
-    <div class="card-body">
-      <div class="row">
-        <div class="col-md-12">
-
-          <div class="form-horizontal">
-
-            <div class="form-group row">
-              <label class="col-md-3 col-form-label">Assignment type</label>
-              <div class="col-md-9">
-                <select class="form-control" [(ngModel)]="assignmentType">
-                  <option value="">--Please Select--</option>
-                  <option *ngFor="let d of allAssignmentTypes" value={{d.id}}>
-                    {{d.name}}
-                  </option>
-                </select>
-              </div>
+    <div class="card">
+        <div style="text-align: center">
+            <div class="div_cust_loading_sign" *ngIf="isLoading">
+                <div
+                        style="position:fixed;width:100%;height:100%;left:0px;top:0px;z-index:50000;background-color:#536c79;opacity:0.95">
+                </div>
+                <div>Start</div>
+                <div style="position:fixed;width:100%;height:100%;left:0px;top:0px;z-index:60000">
+                    <div style="width:25%;height:25%;margin:0px auto;margin-top:20%"><i
+                            class="fa fa-spinner fa-pulse fa-4x fa-fw"></i></div>
+                </div>
             </div>
-
-            <div class="form-group row" [hidden]="assignmentType != 'Discrete'">
-              <div classs="col-md-12">
-
-                <a href="assets/file/kitnumberswithquantity.txt" download>Download sample file</a>
-
-              </div>
-            </div>
-
-            <div class="form-group row" [hidden]="assignmentType != 'Discrete'">
-              <label class="col-md-3 col-form-label">Upload file</label>
-              <div class="col-md-9">
-                <input type="file" #csvReader name="Upload File" id="txtFileUpload" (change)="uploadListener($event)"
-                  accept=".txt" />
-              </div>
-            </div>
-
-            <div class="form-group row" [hidden]="assignmentType != 'Sequential'">
-              <label class="col-md-3 col-form-label">Starting KIT number</label>
-              <div class="col-md-9">
-                <input type="text" class="form-control" [(ngModel)]="startingKitNumber" />
-              </div>
-            </div>
-
-            <div class="form-group row" [hidden]="assignmentType != 'Sequential'">
-              <label class="col-md-3 col-form-label">Ending KIT number</label>
-              <div class="col-md-9">
-                <input type="text" class="form-control" [(ngModel)]="endingKitNumber" />
-              </div>
-            </div>
-
-          </div>
-
         </div>
-      </div>
-    </div>
-    <div class="card-footer">
-      <button class="btn btn-sm btn-primary" (click)="confirmMsisdnSeriesAssignment()"><i
-          class="fa fa-dot-circle-o"></i> Submit</button>
-      <button (click)="resetMsisdnSeriesAssignment" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i>
-        Reset</button>
     </div>
 
-  </div>
-
-  <div class="card">
-
-    <div class="card-header">
-      <strong>Already assigned MSISDN series</strong>
-    </div>
-    <div class="card-body">
-      <div class="row">
-        <div class="col-md-12">
-
-          <table style="width:100%" border="1">
-
-            <thead>
-              <tr>
-                <th>Requisition Line No</th>
-                <th>Starting KIT number</th>
-                <th>Ending KIT number</th>
-                <th>Starting MSISDN number</th>
-                <th>Ending MSISDN number</th>
-                <th>Starting IMSI number</th>
-                <th>Ending IMSI number</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <tr *ngFor="let c of alreadyAssignedMsisdnSeriesDetails">
-                <td>{{ c.requisitionLine }}</td>
-                <td>{{ c.startingKitNumber }}</td>
-                <td>{{ c.endingKitNumber }}</td>
-                <td>{{ c.startingMsisdnNumber }}</td>
-                <td>{{ c.endingMsisdnNumber }}</td>
-                <td>{{ c.startingImsiNumber }}</td>
-                <td>{{ c.endingImsiNumber }}</td>
-              </tr>
-            </tbody>
-          </table>
+    <div class="card">
+        <div class="card-header">
+            <strong>Employee Details</strong>
         </div>
-      </div>
-    </div>
-  </div>
-  <br />
-  <div class="card">
-    <div class="card-body">
-      <div class="row">
-        <div class="col-md-12">
-          Comments: <textarea rows="6" cols="75" [(ngModel)]="requisition.comments"></textarea>
-          <br /><br />
-          <a style="width:120px" class="btn btn-success" (click)="submit()">Submit</a>
-          <a style="width:120px" class="btn btn-danger" (click)="clear()">Clear</a>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <table style="width:100%" border="1">
+                        <tr>
+                            <td style="width:25%">Employee ID.</td>
+                            <td style="width:25%;"
+                                bgcolor="#dcdcdc">{{ requisition['employeeDetails']['employeeNo'] }}
+                            </td>
+                            <td style="width:25%">Mobile No.</td>
+                            <td style="width:25%"
+                                bgcolor="#dcdcdc">{{ requisition['employeeDetails']['mobileNumber'] }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:25%">Employee Name</td>
+                            <td style="width:25%;" bgcolor="#dcdcdc">{{ requisition['employeeDetails']['fullName'] }}
+                            </td>
+                            <td style="width:25%">Designation</td>
+                            <td style="width:25%"
+                                bgcolor="#dcdcdc">{{ requisition['employeeDetails']['designation'] }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:25%">Department</td>
+                            <td style="width:25%;"
+                                bgcolor="#dcdcdc">{{ requisition['employeeDetails']['departmentName'] }}
+                            </td>
+                            <td style="width:25%">Division</td>
+                            <td style="width:25%"
+                                bgcolor="#dcdcdc">{{ requisition['employeeDetails']['divisionName'] }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:25%">Email</td>
+                            <td style="width:25%;"
+                                bgcolor="#dcdcdc">{{ requisition['employeeDetails']['emailAddress'] }}
+                            </td>
+                            <td style="width:25%"></td>
+                            <td style="width:25%" bgcolor="#dcdcdc"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
         </div>
-      </div>
+
     </div>
-  </div>
+
+    <br/>
+
+    <div class="card">
+
+        <div class="card-header">
+            <strong>Requisition Details</strong>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <table border="2">
+                        <tr>
+                            <td style="width:15%">Requisition No</td>
+                            <td style="width:35%;"
+                                bgcolor="#dcdcdc">{{ requisition['requisitionDetails']['requisitionNo'] }}
+                            </td>
+                            <td style="width:15%">Date of requisition</td>
+                            <td style="width:35%"
+                                bgcolor="#dcdcdc">{{ requisition['requisitionDetails']['requisitionDt'] }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:15%">Requisition Type</td>
+                            <td style="width:35%;"
+                                bgcolor="#dcdcdc">{{ requisition['requisitionDetails']['requisitionType'] }}
+                            </td>
+                            <td style="width:15%">Purpose Category</td>
+                            <td style="width:35%"
+                                bgcolor="#dcdcdc">{{ requisition['requisitionDetails']['purposeCategory'] }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:15%">Purpose Details</td>
+                            <td style="width:35%;word-break: break-all;"
+                                bgcolor="#dcdcdc">{{ requisition['requisitionDetails']['purposeDetails'] }}
+                            </td>
+                            <td style="width:15%">Expected Test Start Date</td>
+                            <td style="width:35%"
+                                bgcolor="#dcdcdc">{{ requisition['requisitionDetails']['testStartDt'] }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:15%">Expected Test End Date</td>
+                            <td style="width:35%;"
+                                bgcolor="#dcdcdc">{{ requisition['requisitionDetails']['testCompletionDt'] }}
+                            </td>
+                            <td style="width:15%">Location</td>
+                            <td style="width:35%"
+                                bgcolor="#dcdcdc">{{ requisition['requisitionDetails']['locationDetails'] }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:15%">Usage Category</td>
+                            <td style="width:35%;"
+                                bgcolor="#dcdcdc">{{ requisition['requisitionDetails']['usageCategory'] }}
+                            </td>
+                            <td style="width:15%">Test Device IMEI Number</td>
+                            <td style="width:35%;word-break: break-all;" bgcolor="#dcdcdc">********</td>
+                        </tr>
+                        <tr>
+                            <td style="width:15%">AMS Number</td>
+                            <td style="width:35%;" bgcolor="#dcdcdc">********</td>
+                            <td style="width:15%;word-break: break-all;">Download AMS</td>
+                            <td style="width:35%;" bgcolor="#dcdcdc">********</td>
+                        </tr>
+                        <tr>
+                            <td style="width:15%">User Type</td>
+                            <td style="width:35%;word-break: break-all;"
+                                bgcolor="#dcdcdc">{{ requisition['requisitionDetails']['selectedEmpType'] }}
+                            </td>
+                            <td style="width:15%">Usage Environment</td>
+                            <td style="width:35%;word-break: break-all;"
+                                bgcolor="#dcdcdc">{{ requisition['requisitionDetails']['selectedUsageEnv'] }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:15%">ID Card Type</td>
+                            <td style="width:35%;word-break: break-all;" bgcolor="#dcdcdc">********</td>
+                            <td style="width:15%">ID Card Number</td>
+                            <td style="width:35%;word-break: break-all;" bgcolor="#dcdcdc">********</td>
+                        </tr>
+                        <tr>
+                            <td style="width:15%">Please mention Specific reason or project name or UAT name?</td>
+                            <td style="width:35%;word-break: break-all;"
+                                bgcolor="#dcdcdc">{{ requisition['requisitionDetails']['question1'] }}
+                            </td>
+                            <td style="width:15%">Why this test sim required? Like pre live UAT or post live UAT or
+                                general testing etc.
+                            </td>
+                            <td style="width:35%;word-break: break-all;"
+                                bgcolor="#dcdcdc">{{ requisition['requisitionDetails']['question2'] }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:15%">Who will be associated in UAT?</td>
+                            <td style="width:35%;word-break: break-all;"
+                                bgcolor="#dcdcdc">{{ requisition['requisitionDetails']['question3'] }}
+                            </td>
+                            <td style="width:15%">Probable outcome from UAT?</td>
+                            <td style="width:35%;word-break: break-all;"
+                                bgcolor="#dcdcdc">{{ requisition['requisitionDetails']['question4'] }}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <br/>
+
+    <div class="card">
+
+        <div class="card-header">
+            <strong>Requisition Line Items</strong>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <table style="width:100%" border="1">
+
+                        <thead>
+                        <tr>
+                            <th>Line item ID</th>
+                            <th>Product</th>
+                            <th>Credit Limit</th>
+                            <th>Quantity</th>
+                            <th>Instruction</th>
+                            <th>IMSI Type</th>
+                            <th>Special Requirement</th>
+                            <th>Delivery Quantity</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr *ngFor="let c of requisition['requisitionLines']">
+                            <td [ngClass]="{'dimmed': c.clcAssignmentCompleted == true}">{{ c.id }}</td>
+                            <td [ngClass]="{'dimmed': c.clcAssignmentCompleted == true}">{{ c.productName }}</td>
+                            <td [ngClass]="{'dimmed': c.clcAssignmentCompleted == true}">{{ c.assignCreditlimit }}</td>
+                            <td [ngClass]="{'dimmed': c.clcAssignmentCompleted == true}">{{ c.assignQuantity }}</td>
+                            <td [ngClass]="{'dimmed': c.clcAssignmentCompleted == true}"
+                                style="width:25%;word-break: break-all;">{{ c.activationInstruction }}
+                            </td>
+                            <td [ngClass]="{'dimmed': c.clcAssignmentCompleted == true}">{{ c.imsiTypeName }}</td>
+                            <td [ngClass]="{'dimmed': c.clcAssignmentCompleted == true}" style="word-break: break-all;">
+                                {{ c.specialRequirement }}
+                                <span
+                                        *ngIf="c.specialRequirementOther != null && c.specialRequirementOther != undefined && c.specialRequirementOther != ''"><br/></span>
+                                <span
+                                        *ngIf="c.specialRequirementOther != null && c.specialRequirementOther != undefined && c.specialRequirementOther != ''">{{ c.specialRequirementOther }}</span>
+                            </td>
+                            <td *ngIf="c.clcUpdateQnty == true">
+                                {{ c.deliverQuantity }}
+                            </td>
+                            <td *ngIf="c.clcUpdateQnty == false">
+                                <input type="number" [(ngModel)]="c.deliverQuantity"/>
+                            </td>
+
+                            <td>
+                                <a *ngIf="c.clcUpdateQnty == false" class="btn btn-primary btn-sm"
+                                   (click)="clcUpdate(c)"
+                                   style="padding: 2%;margin: 5%;border-radius: 4px;color: white;">Set Quantity</a>
+
+                                <a *ngIf="c.clcUpdateQnty == true && c.clcAssignmentCompleted == false "
+                                   class="btn btn-primary btn-sm" (click)="assignMsisdn(c)"
+                                   style="padding: 2%;margin: 5%;border-radius: 4px;color: white;">Assign MSISDN</a>
+                                <span *ngIf="c.clcUpdateQnty == true && c.clcAssignmentCompleted == true && c.deliverQuantity > 0"
+                                      style="font-weight:bold;font-style:italic">Already Assigned</span>
+                                <span *ngIf="c.clcUpdateQnty == true && c.deliverQuantity == 0 && c.clcAssignmentCompleted == true"
+                                      style="font-weight:bold;font-style:italic">No Assignment required</span>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="card" [hidden]="!showMsisdnSeriesAssignmentCard">
+
+        <div class="card-header">
+            <strong>MSISDN series assignment</strong>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="form-horizontal">
+
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Assignment type</label>
+                            <div class="col-md-9">
+                                <select class="form-control" [(ngModel)]="assignmentType">
+                                    <option value="">--Please Select--</option>
+                                    <option *ngFor="let d of allAssignmentTypes" value={{d.id}}>
+                                        {{ d.name }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row" [hidden]="assignmentType != 'Discrete'">
+                            <div classs="col-md-12">
+
+                                <a href="assets/file/kitnumberswithquantity.txt" download>Download sample file</a>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group row" [hidden]="assignmentType != 'Discrete'">
+                            <label class="col-md-3 col-form-label">Upload file</label>
+                            <div class="col-md-9">
+                                <input type="file" #csvReader name="Upload File" id="txtFileUpload"
+                                       (change)="uploadListener($event)"
+                                       accept=".txt"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group row" [hidden]="assignmentType != 'Sequential'">
+                            <label class="col-md-3 col-form-label">Starting KIT number</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" [(ngModel)]="startingKitNumber"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group row" [hidden]="assignmentType != 'Sequential'">
+                            <label class="col-md-3 col-form-label">Ending KIT number</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" [(ngModel)]="endingKitNumber"/>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button class="btn btn-sm btn-primary" (click)="confirmMsisdnSeriesAssignment()"><i
+                    class="fa fa-dot-circle-o"></i> Submit
+            </button>
+            <button (click)="resetMsisdnSeriesAssignment" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i>
+                Reset
+            </button>
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <div class="card-header">
+            <strong>Already assigned MSISDN series</strong>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+
+                    <table style="width:100%" border="1">
+
+                        <thead>
+                        <tr>
+                            <th>Requisition Line No</th>
+                            <th>Starting KIT number</th>
+                            <th>Ending KIT number</th>
+                            <th>Starting MSISDN number</th>
+                            <th>Ending MSISDN number</th>
+                            <th>Starting IMSI number</th>
+                            <th>Ending IMSI number</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr *ngFor="let c of alreadyAssignedMsisdnSeriesDetails">
+                            <td>{{ c.requisitionLine }}</td>
+                            <td>{{ c.startingKitNumber }}</td>
+                            <td>{{ c.endingKitNumber }}</td>
+                            <td>{{ c.startingMsisdnNumber }}</td>
+                            <td>{{ c.endingMsisdnNumber }}</td>
+                            <td>{{ c.startingImsiNumber }}</td>
+                            <td>{{ c.endingImsiNumber }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div *ngFor="let c of requisition_existing_comments">
+                        {{c.userID}} commented on {{c.datePosted}} : {{c.comment}}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    Comments: <textarea rows="6" cols="75" [(ngModel)]="requisition_comments"></textarea>
+                    <br/><br/>
+                    <a style="width:120px" class="btn btn-success" (click)="submit()">Submit</a>
+                    <a style="width:120px" class="btn btn-danger" (click)="clear()">Clear</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
