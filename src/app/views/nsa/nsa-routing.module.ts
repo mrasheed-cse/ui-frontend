@@ -161,6 +161,7 @@ import {DownloadsMfsRecyclingSummaryReportComponent} from './download-mfs-recycl
 import {MfsRecyclingDetailsReportComponent} from './mfs-recycling-details-report.component';
 import {MfsStatusOfMsisdnComponent} from './mfs-status-of-msisdn.component';
 import {RequisitiondetailsRAFMComponent} from './requisitiondetails-rafm/requisitiondetails-rafm.component';
+import {RequisitionEditNewComponent} from './requisition-edit/requisition-edit.component';
 
 const routes: Routes = [
     {
@@ -454,6 +455,13 @@ const routes: Routes = [
     {
         path: 'requisitionedit/:requisition_id',
         component: RequisitioneditComponent,
+        data: {
+            title: 'Requisition Details (Revision by end user)'
+        }
+    },
+    {
+        path: 'requisition-edit/:requisition_id',
+        component: RequisitionEditNewComponent,
         data: {
             title: 'Requisition Details (Revision by end user)'
         }
