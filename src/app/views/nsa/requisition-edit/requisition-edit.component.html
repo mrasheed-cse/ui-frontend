@@ -1,0 +1,815 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div style="text-align: center">
+                <div class="div_cust_loading_sign" *ngIf="isLoading">
+                    <div style="position:fixed;width:100%;height:100%;left:0px;top:0px;z-index:50000;background-color:#536c79;opacity:0.95"></div>
+                    <div style="position:fixed;width:100%;height:100%;left:0px;top:0px;z-index:60000">
+                        <div style="width:25%;height:25%;margin:0px auto;margin-top:20%"><i
+                                class="fa fa-spinner fa-pulse fa-4x fa-fw"></i></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-success" role="alert" *ngIf="successAlertShow">The Work Request
+                <b>{{ WR_Name }}</b> {{ successAlertMessage }}
+            </div>
+            <div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">An Error occurred to update
+                <b>{{ WR_Name }}</b> <br><b>{{ dangerAlertMessage }}</b>
+            </div>
+            <div class="alert alert-danger" role="alert" *ngIf="infoAlertShow"><b>{{ infoAlertMessage }}</b></div>
+
+            <div class="card-header">
+                <strong>Employee Details</strong>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table style="width:100%" border="1">
+                            <tr>
+                                <td style="width:25%">Employee ID.</td>
+                                <td style="width:25%;" bgcolor="#dcdcdc">{{ employeeID }}</td>
+                                <td style="width:25%">Mobile No.</td>
+                                <td style="width:25%" bgcolor="#dcdcdc">{{ mobileNo }}</td>
+                            </tr>
+                            <tr>
+                                <td style="width:25%">Employee Name</td>
+                                <td style="width:25%;" bgcolor="#dcdcdc">{{ fullName }}</td>
+                                <td style="width:25%">Designation</td>
+                                <td style="width:25%" bgcolor="#dcdcdc">{{ designation }}</td>
+                            </tr>
+                            <tr>
+                                <td style="width:25%">Department</td>
+                                <td style="width:25%;" bgcolor="#dcdcdc">{{ department }}</td>
+                                <td style="width:25%">Division</td>
+                                <td style="width:25%" bgcolor="#dcdcdc">{{ division }}</td>
+                            </tr>
+                            <tr>
+                                <td style="width:25%">Email</td>
+                                <td style="width:25%;" bgcolor="#dcdcdc">{{ emailAddress }}</td>
+                                <td style="width:25%"></td>
+                                <td style="width:25%" bgcolor="#dcdcdc"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card-body"></div>
+
+            </div>
+
+            <div class="card-header">
+                <strong>Requisition Header</strong>
+            </div>
+
+            <form [formGroup]="newSimRequisitionForm" novalidate (ngSubmit)="onNewSimRequisitionSubmit()">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-md-5 col-form-label" for="requisitionDate">Requisition Date</label>
+                                <div class="col-md-7">
+                                    <input type="text" class="form-control calendar-container" id="requisitionDate"
+                                           formControlName="requisitionDate" name="requisitionDate"
+                                           required bsDatepicker placement="left"
+                                           [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-green',  showWeekNumbers:false }"
+                                           disabled
+                                    >
+                                    <div style="display:block;width:100%;margin-top:.25rem;font-size:.875em;color:#dc3545;" *ngIf="requisitionDate.invalid">
+                                        Requisition Date is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-md-5 col-form-label" for="userIdFirstWay">Notification to</label>
+                                <div class="col-md-7">
+                                    <input class="form-control" type="text" (keyup)="getUserIdsFirstWay($event)"
+                                           id="userIdFirstWay" list="dynmicUserIds" formControlName="notificationTo"/>
+                                    <span (click)="addRecipient()"><i
+                                            class="fa fa-plus cust-icon-add-to-autocomplete"></i></span>
+                                    <datalist id="dynmicUserIds">
+                                        <option *ngFor="let item of userList1"
+                                                [value]="item.userName">{{ item.userName }}
+                                        </option>
+                                    </datalist>
+                                    <table>
+                                        <tr *ngFor="let listObj of finalListOfUsersToSendWithRqn">
+                                            <td>{{ listObj.emailAddress }}</td>
+                                            <td>
+                                                <button type="button" class="btn btn-link" title="Delete"
+                                                        (click)="deleteRecipient(listObj)"><i
+                                                        class="fa fa-trash-o text-danger"></i></button>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-md-5 col-form-label" for="requisitionType">Requisition Type <span
+                                        style="color:red">&#42;</span></label>
+                                <div class="col-md-7">
+                                    <select class="form-control" id="requisitionType" formControlName="requisitionType"
+                                            required [ngClass]="{
+                                                                                                                'is-invalid': requisitionType.invalid,
+                                                                                                                'is-valid': requisitionType.valid
+                                                                                                         }">
+                                        <option *ngFor="let aRequisitionType of listRequisitionType"
+                                                [value]="aRequisitionType.id">{{ aRequisitionType.ismsMasterDataDetailsName }}
+                                        </option>
+                                    </select>
+                                    <div style="display:block;width:100%;margin-top:.25rem;font-size:.875em;color:#dc3545;" *ngIf="requisitionType.invalid">
+                                        Requisition Type is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-md-5 col-form-label" for="purposeCategory">Purpose Category <span
+                                        style="color:red">&#42;</span></label>
+                                <div class="col-md-7">
+                                    <select class="form-control" id="purposeCategory" formControlName="purposeCategory"
+                                            required [ngClass]="{
+                                                                                                                        'is-invalid': purposeCategory.invalid,
+                                                                                                                        'is-valid': purposeCategory.valid
+                                                                                                                 }">
+                                        <option *ngFor="let apurposeCategory of listPurposeCategory"
+                                                [value]="apurposeCategory.id">{{ apurposeCategory.ismsMasterDataDetailsName }}
+                                        </option>
+                                        <!--											<option *ngFor="let cl of clientOptions" [value]="cl.id">{{cl.client_name}}</option> -->
+                                    </select>
+                                    <div style="display:block;width:100%;margin-top:.25rem;font-size:.875em;color:#dc3545;" *ngIf="purposeCategory.invalid">
+                                        Purpose Category is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-md-5 col-form-label" for="location">Location <span style="color:red">&#42;</span></label>
+                                <div class="col-md-7">
+                                    <select class="form-control" id="location" formControlName="location" required
+                                            [ngClass]="{
+                                                                                'is-invalid': location.invalid,
+                                                                                'is-valid': location.valid
+                                                                        }">
+                                        <option *ngFor="let alocation of listLocation"
+                                                [value]="alocation.id">{{ alocation.ismsMasterDataDetailsName }}
+                                        </option>
+                                    </select>
+                                    <div style="display:block;width:100%;margin-top:.25rem;font-size:.875em;color:#dc3545;" *ngIf="location.invalid">
+                                        Location is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-md-5 col-form-label" for="usageCategory">Usage Category <span
+                                        style="color:red">&#42;</span></label>
+                                <div class="col-md-7">
+                                    <select class="form-control" id="usageCategory" formControlName="usageCategory"
+                                            required [ngClass]="{
+                                                                       'is-invalid': usageCategory.invalid,
+                                                                       'is-valid': usageCategory.valid
+                                                                        }">
+                                        <option *ngFor="let ausageCategory of listUsageCategory"
+                                                [value]="ausageCategory.id">{{ ausageCategory.ismsMasterDataDetailsName }}
+                                        </option>
+                                    </select>
+                                    <div style="display:block;width:100%;margin-top:.25rem;font-size:.875em;color:#dc3545;" *ngIf="usageCategory.invalid">
+                                        Usage Category is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-md-5 col-form-label" for="anyAMS">Any AMS? <span style="color:red">&#42;</span></label>
+                                <div class="col-md-7">
+                                    <select required class="form-control" id="anyAMS" formControlName="anyAMS" #select
+                                            (change)="onChangeanyAMS(select.value)" [ngClass]="{
+                                                                       'is-invalid': anyAMS.invalid,
+                                                                       'is-valid': anyAMS.valid
+                                                                        }">
+                                        <option *ngFor="let anyAMS of anyamsList"
+                                                [value]="anyAMS.value">{{ anyAMS.value }}
+                                        </option>
+                                    </select>
+                                    <div style="display:block;width:100%;margin-top:.25rem;font-size:.875em;color:#dc3545;" *ngIf="anyAMS.invalid">
+                                        Any AMS is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4" *ngIf="amsVisible">
+                            <div class="form-group row">
+                                <label class="col-md-5 col-form-label" for="amsId">AMS Number <span style="color:red">&#42;</span></label>
+                                <div class="col-md-7">
+                                    <input type="text" id="amsId" name="amsId" class="form-control"
+                                           formControlName="amsId" placeholder="Please enter AMS Number"
+                                           [ngClass]="{
+                                                                       'is-invalid': !isValidAmsNUmber,
+                                                                       'is-valid': isValidAmsNUmber
+                                                                        }">
+                                    <div style="display:block;width:100%;margin-top:.25rem;font-size:.875em;color:#dc3545;" *ngIf="!isValidAmsNUmber">
+                                        AMS Number is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4" *ngIf="amsVisible && isValidAmsFileName">
+                            <div class="form-group row">
+                                <label class="col-md-5 col-form-label" for="anyAMS">AMS File<span style="color:red">&#42;</span></label>
+                                <label class="col-md-5 col-form-label" for="anyAMS" [title]="existingAmsFileName">
+                                    {{ existingAmsFileNameToDisplay }}
+                                    <button type="button" class="btn btn-link" title="Delete" (click)="deleteAmsFile()">
+                                        <i style="padding-left: 5px;" class="fa fa-trash-o text-danger"
+                                           aria-hidden="true"></i></button>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4" *ngIf="amsVisible && !isValidAmsFileName">
+                            <div class="form-group row">
+                                <label class="col-md-5 col-form-label" for="getFile">Upload Approved AMS <span
+                                        style="color:red">&#42;</span>
+                                    <p style=color:blueviolet><i>(File Name max length 30 digit)</i></p></label>
+                                <div class="col-md-4">
+                                    <input #fileInput type='file' id="getFile" (click)="fileInput.value = null"
+                                           accept=".pdf,.eml,.msg,.zip" (change)="handleFileInput($event)">
+                                    <div style="display:block;width:100%;margin-top:.25rem;font-size:.875em;color:#dc3545;" *ngIf="!isValidAmsFileName">
+                                        AMS File is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+
+                            <div class="form-group row">
+                                <label class="col-md-5 col-form-label" for="startDate">Start Date <span
+                                        style="color:red">&#42;</span></label>
+                                <div class="col-md-7">
+                                    <input type="text" class="form-control calendar-container" id="startDate"
+                                           [ngClass]="{
+                                                                       'is-invalid': startDate.invalid,
+                                                                       'is-valid': startDate.valid
+                                                                        }"
+                                           formControlName="startDate" name="startDate"
+                                           required bsDatepicker placement="right"
+                                           autocomplete="off"
+                                           [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-green',  showWeekNumbers:false }"
+                                           [minDate]="minStartDate"
+                                           style="color: black;font-size: 1em;"
+                                           (ngModelChange)="onSDateChange()"
+                                    >
+                                    <div style="display:block;width:100%;margin-top:.25rem;font-size:.875em;color:#dc3545;" *ngIf="startDate.invalid">
+                                        Start Date is required
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-md-5 col-form-label" for="dateRange">Date Range <span
+                                        style="color:red">&#42;</span></label>
+                                <div class="col-md-7">
+                                    <select class="form-control" id="dateRange" formControlName="dateRange" #sel
+                                            (change)="onChange(sel.value)" required [ngClass]="{
+                                                                                       'is-invalid': dateRange.invalid,
+                                                                                       'is-valid': dateRange.valid
+                                                                                        }">
+                                        <option *ngFor="let adateRange of listDateRange"
+                                                [value]="adateRange.ismsMasterDataDetailsName">{{ adateRange.ismsMasterDataDetailsName }}
+                                        </option>
+                                    </select>
+                                    <div style="display:block;width:100%;margin-top:.25rem;font-size:.875em;color:#dc3545;" *ngIf="dateRange.invalid">
+                                        Date Range is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-md-5 col-form-label" for="endDate">End Date <span style="color:red">&#42;</span></label>
+                                <div class="col-md-7">
+                                    <input type="text" class="form-control calendar-container" id="endDate"
+                                           [ngClass]="{
+                                                                       'is-invalid': endDate.invalid,
+                                                                       'is-valid': endDate.valid
+                                                                        }"
+                                           formControlName="endDate" name="endDate"
+                                           required bsDatepicker placement="left"
+                                           autocomplete="off"
+                                           [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-green',  showWeekNumbers:false }"
+                                           [minDate]="minDate" [maxDate]="maxDate"
+                                           style="color: black;font-size: 1em;"
+                                    >
+                                    <div style="display:block;width:100%;margin-top:.25rem;font-size:.875em;color:#dc3545;" *ngIf="endDate.invalid">
+                                        End Date is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <label class="col-md-2" for="empType">User Type <span
+                                        style="color:red">&#42;</span></label>
+                                <ng-container *ngFor="let item of listEmpType;let i=index;">
+                                    <label><input type="checkbox" [ngModelOptions]="{standalone: true}"
+                                                  name="empType"
+                                                  [(ngModel)]="selectedEmpTypeMap[item.ismsMasterDataDetailsName]"
+                                                  (change)="onchangeEmp(item.ismsMasterDataDetailsName)"
+                                                  required></label>&nbsp;&nbsp;
+                                    <label>{{ item.ismsMasterDataDetailsName }}</label>&nbsp;&nbsp;&nbsp;
+                                </ng-container>
+
+                                <div class="col-md-2" *ngIf="empVisible">
+                                    <input type="text" id="otherEmpType" name="otherEmpType" class="form-control"
+                                           formControlName="otherEmpType" placeholder="Please enter User Type"
+                                           [ngClass]="{
+                                                                       'is-invalid': !isValidOtherEmpType,
+                                                                       'is-valid': isValidOtherEmpType
+                                                                        }">
+                                    <div style="display:block;width:100%;font-size:.875em;color:#dc3545; margin: 0; padding: 0;" *ngIf="!isValidOtherEmpType">
+                                        User Type is required
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row" *ngIf="!isEmpTypeSelected">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-5" style="display:block;width:100%;font-size:.875em;color:#dc3545; margin: 0; padding: 0;">
+                                    User Type is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <label class="col-md-2" for="usageEnv">Usage Environment <span
+                                        style="color:red">&#42;</span></label>
+                                <ng-container *ngFor="let item of listUsageEnv;let i=index;">
+                                    <label><input type="checkbox" [ngModelOptions]="{standalone: true}"
+                                                  name="usageEnv"
+                                                  [(ngModel)]="selectedUsageEnvMap[item.ismsMasterDataDetailsName]"
+                                                  (change)="onchangeusageEnv(item.ismsMasterDataDetailsName)"
+                                                  required></label>&nbsp;
+                                    <label>{{ item.ismsMasterDataDetailsName }}</label>&nbsp;&nbsp;&nbsp;
+                                </ng-container>
+                            </div>
+                            <div class="form-group row" *ngIf="!isUsageEnvSelected">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-5" style="display:block;width:100%;font-size:.875em;color:#dc3545; margin: 0; padding: 0;">
+                                    Usage Environment is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <label class="col-md-2" for="IDCardType">ID Card Type <span
+                                        style="color:red">&#42;</span></label>
+                                <ng-container *ngFor="let item of listIDCardType;let i=index;">
+                                    <label><input type="checkbox" [ngModelOptions]="{standalone: true}"
+                                                  name="IDCardType"
+                                                  [(ngModel)]="selectedIdCardTypeMap[item.ismsMasterDataDetailsName]"
+                                                  (change)="onchangeIDType(item.ismsMasterDataDetailsName)"
+                                                  required></label>&nbsp;
+                                    <label>{{ item.ismsMasterDataDetailsName }}</label>&nbsp;&nbsp;&nbsp;
+                                </ng-container>
+                                <div class="col-md-2" *ngIf="cardVisible">
+                                    <input type="text" id="otherIDCardType" name="otherIDCardType" class="form-control"
+                                           formControlName="otherIDCardType" placeholder="Please enter ID Card Type"
+                                           [ngClass]="{
+                                                                       'is-invalid': !isValidOtherIdCardType,
+                                                                       'is-valid': isValidOtherIdCardType
+                                                                        }">
+                                    <div style="display:block;width:100%;font-size:.875em;color:#dc3545; margin: 0; padding: 0;" *ngIf="!isValidOtherIdCardType">
+                                        ID Card Type is required
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row" *ngIf="!idCardTypeSelected">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-5" style="display:block;width:100%;font-size:.875em;color:#dc3545; margin: 0; padding: 0;">
+                                    ID Card Type is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group row">
+                                <label class="col-md-5 col-form-label" for="cardNo">ID Card Number <span
+                                        style="color:red">&#42;</span></label>
+                                <div class="col-md-12">
+                                                                        <textarea id="cardNo" name="cardNo"
+                                                                                  class="form-control"
+                                                                                  formControlName="cardNo" rows="2"
+                                                                                  placeholder="Please enter maximum 500 characters"
+                                                                                  required
+                                                                                  [ngClass]="{
+                                                                                        'is-invalid': cardNo.invalid,
+                                                                                        'is-valid': cardNo.valid
+                                                                        }"></textarea>
+                                    <div class="invalid-feedback"
+                                         *ngIf="cardNo.errors">
+                                        <p *ngIf="cardNo.errors.required">ID Card Number is required</p>
+                                        <p *ngIf="cardNo.errors.maxlength">ID Card Number must be maximum 500 characters
+                                            long, we are
+                                            {{
+                                                cardNo.errors.maxlength.actualLength -
+                                                cardNo.errors.maxlength.requiredLength
+                                            }}
+                                            characters ahead</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="col-md-5 col-form-label" for="imei">Test Device IMEI Number <span
+                                        style="color:red">&#42;</span></label>
+                                <div class="col-md-12">
+                                                                                        <textarea id="imei" name="imei"
+                                                                                                  class="form-control"
+                                                                                                  formControlName="imei"
+                                                                                                  rows="2"
+                                                                                                  placeholder="Please enter maximum 500 characters"
+                                                                                                  required
+                                                                                                  [ngClass]="{
+                                                                                                'is-invalid': imei.invalid,
+                                                                                                'is-valid': imei.valid
+                                                                                   }"></textarea>
+                                    <div class="invalid-feedback" *ngIf="imei.errors">
+                                        <p *ngIf="imei.errors.required">IMEI Number is required</p>
+                                        <p *ngIf="imei.errors.minlength">IMEI Number must be minimum 15 characters long,
+                                            we need another
+                                            {{
+                                                imei.errors.minlength.requiredLength -
+                                                imei.errors.minlength.actualLength
+                                            }}
+                                            characters</p>
+                                        <p *ngIf="imei.errors.maxlength">IMEI Number must be maximum 500 characters
+                                            long, we are
+                                            {{
+                                                imei.errors.maxlength.actualLength -
+                                                imei.errors.maxlength.requiredLength
+                                            }}
+                                            characters ahead</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="col-md-5 col-form-label" for="purposeDetails">Purpose Details <span
+                                        style="color:red">&#42;</span></label>
+                                <div class="col-md-12">
+                                                                                <textarea id="purposeDetails"
+                                                                                          name="purposeDetails"
+                                                                                          class="form-control"
+                                                                                          formControlName="purposeDetails"
+                                                                                          rows="2"
+                                                                                          placeholder="Please enter minimum 50 characters"
+                                                                                          required
+                                                                                          [ngClass]="{
+                                                                                        'is-invalid': purposeDetails.invalid,
+                                                                                        'is-valid': purposeDetails.valid
+                                                                           }"></textarea>
+                                    <div class="invalid-feedback"
+                                         *ngIf="purposeDetails.errors">
+                                        <p *ngIf="purposeDetails.errors.required">Purpose Details is required</p>
+                                        <p *ngIf="purposeDetails.errors.minlength">Purpose Details must be minimum 50
+                                            characters long, we need another
+                                            {{
+                                                purposeDetails.errors.minlength.requiredLength -
+                                                purposeDetails.errors.minlength.actualLength
+                                            }}
+                                            characters</p>
+                                        <p *ngIf="purposeDetails.errors.maxlength">Purpose Details must be maximum 280
+                                            characters long, we are
+                                            {{
+                                                purposeDetails.errors.maxlength.actualLength -
+                                                purposeDetails.errors.maxlength.requiredLength
+                                            }}
+                                            characters ahead</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="col-md-5 col-form-label" for="question1">Please mention Specific reason or
+                                    project name or UAT name? <span style="color:red">&#42;</span></label>
+                                <div class="col-md-12">
+                                                                <textarea id="question1" name="question1"
+                                                                          class="form-control"
+                                                                          formControlName="question1" rows="2"
+                                                                          placeholder="Please enter minimum 50 characters"
+                                                                          required
+                                                                          [ngClass]="{
+                                                                        'is-invalid': question1.invalid,
+                                                                        'is-valid': question1.valid
+                                                                }"></textarea>
+                                    <div class="invalid-feedback"
+                                         *ngIf="question1.errors">
+                                        <p *ngIf="question1.errors.required">Answer is required</p>
+                                        <p *ngIf="question1.errors.minlength">Answer must be minimum 50 characters long,
+                                            we need another
+                                            {{
+                                                question1.errors.minlength.requiredLength -
+                                                question1.errors.minlength.actualLength
+                                            }}
+                                            characters</p>
+                                        <p *ngIf="question1.errors.maxlength">Answer must be maximum 280 characters
+                                            long, we are
+                                            {{
+                                                question1.errors.maxlength.actualLength -
+                                                question1.errors.maxlength.requiredLength
+                                            }}
+                                            characters ahead</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="col-md-5 col-form-label" for="question2">Why this test sim required? Like
+                                    pre live UAT or post live UAT or general testing etc. <span
+                                            style="color:red">&#42;</span></label>
+                                <div class="col-md-12">
+                                                                <textarea id="question2" name="question2"
+                                                                          class="form-control"
+                                                                          formControlName="question2" rows="2"
+                                                                          placeholder="Please enter minimum 20 characters"
+                                                                          required
+                                                                          [ngClass]="{
+                                                                        'is-invalid': question2.invalid,
+                                                                        'is-valid': question2.valid
+                                                                }"></textarea>
+                                    <div class="invalid-feedback"
+                                         *ngIf="question2.errors">
+                                        <p *ngIf="question2.errors.required">Answer is required</p>
+                                        <p *ngIf="question2.errors.minlength">Answer must be minimum 20 characters long,
+                                            we need another
+                                            {{
+                                                question2.errors.minlength.requiredLength -
+                                                question2.errors.minlength.actualLength
+                                            }}
+                                            characters</p>
+                                        <p *ngIf="question2.errors.maxlength">Answer must be maximum 280 characters
+                                            long, we are
+                                            {{
+                                                question2.errors.maxlength.actualLength -
+                                                question2.errors.maxlength.requiredLength
+                                            }}
+                                            characters ahead</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="col-md-5 col-form-label" for="question3">Who will be associated in UAT?
+                                    <span style="color:red">&#42;</span></label>
+                                <div class="col-md-12">
+                                                                <textarea id="question3" name="question3"
+                                                                          class="form-control"
+                                                                          formControlName="question3" rows="2"
+                                                                          placeholder="Please enter minimum 50 characters"
+                                                                          required
+                                                                          [ngClass]="{
+                                                                        'is-invalid': question3.invalid,
+                                                                        'is-valid': question3.valid
+                                                                }"></textarea>
+                                    <div class="invalid-feedback"
+                                         *ngIf="question3.errors">
+                                        <p *ngIf="question3.errors.required">Answer is required</p>
+                                        <p *ngIf="question3.errors.minlength">Answer must be minimum 50 characters long,
+                                            we need another
+                                            {{
+                                                question3.errors.minlength.requiredLength -
+                                                question3.errors.minlength.actualLength
+                                            }}
+                                            characters</p>
+                                        <p *ngIf="question3.errors.maxlength">Answer must be maximum 280 characters
+                                            long, we are
+                                            {{
+                                                question3.errors.maxlength.actualLength -
+                                                question3.errors.maxlength.requiredLength
+                                            }}
+                                            characters ahead</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="col-md-5 col-form-label" for="question4">Probable outcome from UAT? <span
+                                        style="color:red">&#42;</span></label>
+                                <div class="col-md-12">
+                                                                <textarea id="question4" name="question4"
+                                                                          class="form-control"
+                                                                          formControlName="question4" rows="2"
+                                                                          placeholder="Please enter minimum 50 characters"
+                                                                          required
+                                                                          [ngClass]="{
+                                                                        'is-invalid': question4.invalid,
+                                                                        'is-valid': question4.valid
+                                                                }"></textarea>
+                                    <div class="invalid-feedback"
+                                         *ngIf="question4.errors">
+                                        <p *ngIf="question4.errors.required">Answer is required</p>
+                                        <p *ngIf="question4.errors.minlength">Answer must be minimum 50 characters long,
+                                            we need another
+                                            {{
+                                                question4.errors.minlength.requiredLength -
+                                                question4.errors.minlength.actualLength
+                                            }}
+                                            characters</p>
+                                        <p *ngIf="question4.errors.maxlength">Answer must be maximum 280 characters
+                                            long, we are
+                                            {{
+                                                question4.errors.maxlength.actualLength -
+                                                question4.errors.maxlength.requiredLength
+                                            }}
+                                            characters ahead</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="card-header">
+                        <strong>Requisition Line</strong>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-12"><input type="button" class="btn btn-success float-right" (click)="addLine()"
+                                                   value="Add More Line"></div>
+                    </div>
+
+                    <div class="row">
+                        <table class="table table-bordered table-sm">
+                            <thead>
+                            <tr>
+                                <th>Product <span style="color:red">&#42;</span></th>
+                                <th>Credit Limit <span style="color:red">&#42;</span></th>
+                                <th>Quantity <span style="color:red">&#42;</span></th>
+                                <th>IMSI Type <span style="color:red">&#42;</span></th>
+                                <th>Special Requirement <span style="color:red">&#42;</span></th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+
+                            <tbody formArrayName="requisitionLines"
+                                   *ngFor="let requisitionLine of requisitionLines.controls; index as idx">
+                            <tr [formGroupName]="idx">
+                                <td>
+                                    <select class="form-control" formControlName="product">
+                                        <option *ngFor="let aproduct of listProduct"
+                                                [value]="aproduct.id">{{ aproduct.ismsMasterDataDetailsName }}
+                                        </option>
+                                    </select>
+                                </td>
+
+                                <td>
+                                    <input class="form-control" formControlName="creditLimit" type="number" min="0"
+                                           [prevent-keys]="[43, 45,189,187]">
+                                </td>
+
+                                <td>
+                                    <input class="form-control" formControlName="quantity" type="number" min="1"
+                                           [prevent-keys]="[43, 45,189,187]">
+                                </td>
+
+                                <td>
+                                    <select class="form-control" formControlName="imsiType">
+                                        <option *ngFor="let aImsiType of listImsiType"
+                                                [value]="aImsiType.id">{{ aImsiType.ismsMasterDataDetailsName }}
+                                        </option>
+                                    </select>
+                                </td>
+
+                                <td>
+                                    <select class="form-control" formControlName="specialRequirement">
+                                        <option *ngFor="let singleSpecialRequirement of listSpecialRequirement"
+                                                [value]="singleSpecialRequirement.value">{{ singleSpecialRequirement.name }}
+                                        </option>
+                                    </select>
+                                    <br/><br/>
+                                    <textarea formControlName="specialRequirementOther" style="width:100% !important"
+                                              placeholder="Put more requirements here..." rows="4" cols="5"></textarea>
+                                </td>
+
+                                <td>
+                                    <button type="button" (click)="deleteLine(idx)">Delete</button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div *ngFor="let c of requisition_existing_comments">
+                                    {{ c.userID }} commented on {{ c.datePosted }} : {{ c.comment }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                Comments: <textarea rows="6" cols="75" [(ngModel)]="requisition_comments" [ngModelOptions]="{standalone: true}"></textarea>
+
+                                <br/><br/>
+
+                                <button type="submit"
+                                        [disabled]="!newSimRequisitionForm.valid || !isValidEmpType || !isUsageEnvSelected || !isValidIdCardType"
+                                        style="width:120px" class="btn btn-success">
+                                    Save
+                                </button>
+                                <button type="reset" style="width:120px" class="btn btn-danger"
+                                        (click)="clearForm($event)">
+                                    Cancel
+                                </button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+<!--
+<pre >{{mySeriesDefinitionForm.value | json}}</pre>
+<pre *ngIf="mySeriesDefinitionForm.valid">This is Valid form Data.{{mySeriesDefinitionForm.value | json}}</pre>
+-->
