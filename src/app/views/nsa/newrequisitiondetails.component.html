@@ -147,7 +147,7 @@
                                   <td style="text-align:center">
                                     {{aTask.rejectionRfiStatus}}
                                     <button style="display:block" *ngIf="aTask.rejectionRfiStatus == 'RFI'"  type="button" class="btn btn-link" ><i class="fa fa-link"></i> 
-                                      <a [routerLink]="[editAction(aTask),aTask.id]">Edit</a>
+                                      <a [routerLink]="[editActionNew(aTask),aTask.id]">Edit</a>
                                     </button>
                                   </td>
                                   <td style="text-align:center">
