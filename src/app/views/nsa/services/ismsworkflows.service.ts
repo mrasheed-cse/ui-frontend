@@ -49,6 +49,15 @@ export class IsmsworkflowsService {
 		});
 	}
 
+	editRequisition(wr_id: number, userID: string, reqHeader: any, comment: string): any {
+		console.log("userID:" + userID + ",	wrID: " + wr_id + ", reqHeader: " + reqHeader + ", comment: " + comment);
+		return this.http.post(this.serverUrl + 'requisition/requisition-edit', {
+			userID: userID,
+			wrID: wr_id,
+			comment: comment,
+			reqHeader: reqHeader
+		});
+	}
 
 	// vaidation  API
 	validateMobileAPI(mobileNo: string,): any {
