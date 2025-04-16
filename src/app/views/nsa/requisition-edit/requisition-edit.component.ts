@@ -24,7 +24,7 @@ import {LoggedInUser} from '../../pages/loggedInUser';
 import {NewTestSimRequisition, RequisitionLine} from '../models/NewTestSimRequisition'
 import {AppGlobals} from '../../../app.global';
 import {moment} from 'ngx-bootstrap/chronos/test/chain';
-import {DateTimeUtil, DurationInfo} from '../../../utils/date-time';
+import {DateTimeUtils, DurationInfo} from '../../../utils/date-time-utils';
 import {injectTemplateRef} from '@angular/core/src/render3';
 
 
@@ -53,10 +53,9 @@ export class RequisitionEditNewComponent implements OnInit {
     emailAddress: string;
     fullName: string;
 
-    WR_Name: string;
+    requisitionNo: string;
     serverUrl: string;
     currentLoggedInUser: LoggedInUser;
-    newTestSimRequisition: NewTestSimRequisition;
     userName: string;
     groupID: number;
     userID: string;
@@ -84,8 +83,6 @@ export class RequisitionEditNewComponent implements OnInit {
     public infoAlertShow: boolean = false;
     public infoAlertMessage: string = '';
     public isLoading: boolean = false;
-    public defFlowFound: boolean = false;
-    //public sDate = '';
 
     newSimRequisitionForm: FormGroup;
     purposeCategory: FormControl;
@@ -114,8 +111,6 @@ export class RequisitionEditNewComponent implements OnInit {
     requisitionDate: FormControl;
     requisitionLines: FormArray;
 
-    formFieldData: string;
-
     public listRequisitionType = [];
     public listPurposeCategory = [];
     public listLocation = [];
@@ -138,6 +133,7 @@ export class RequisitionEditNewComponent implements OnInit {
 
     reqDate: Date;
     requisitionId: any;
+    requisitionName: string = '';
     requisition: any;
     requisitionDetails: any;
     employeeDetails: any;
@@ -159,6 +155,8 @@ export class RequisitionEditNewComponent implements OnInit {
     isValidOtherEmpType = false;
     isValidIdCardType = false;
     isValidOtherIdCardType = false;
+
+    DATE_FORMAT = 'DD-MM-YYYY';
 
     loadMasterData() {
         this.getEmployeeDetails();
@@ -426,6 +424,8 @@ export class RequisitionEditNewComponent implements OnInit {
                     this.requisitionLinesDetails = res.requisitionLines;
                     this.employeeDetails = res.employeeDetails;
                     this.requisitionDetails = res.requisitionDetails;
+                    this.requisitionNo = this.requisitionDetails.requisitionNo;
+                    this.requisitionName = this.requisitionDetails.requisitionName;
                     this.getComments(this.requisitionDetails['id'], '', '');
                 }
             },
@@ -450,12 +450,11 @@ export class RequisitionEditNewComponent implements OnInit {
     }
 
     populateData() {
-        const dateFormat = 'DD-MM-YYYY';
-
         //populate requisition date
-        this.reqDate = moment(this.requisitionDetails.requisitionDt, dateFormat).toDate();
-        console.log(this.reqDate);
+        this.reqDate = DateTimeUtils.parse(this.requisitionDetails.requisitionDt, this.DATE_FORMAT);
+        console.log('Parsed requisition date: ' + this.reqDate);
         this.requisitionDate.setValue(this.reqDate);
+        console.log('Requisition date = ' + this.requisitionDate.value);
 
         //populate notification to
         if (this.requisitionDetails.notificationToDetails != undefined && this.requisitionDetails.notificationToDetails != '') {
@@ -468,6 +467,7 @@ export class RequisitionEditNewComponent implements OnInit {
                 }
             });
         }
+        console.log(this.finalListOfUsersToSendWithRqn);
 
         //populate requisition type
         for (var i = 0; i < this.listRequisitionType.length; i++) {
@@ -513,31 +513,30 @@ export class RequisitionEditNewComponent implements OnInit {
             this.existingAmsFileName = '';
             this.existingAmsFileNameToDisplay = '';
         } else {
-            debugger;
             this.amsVisible = true;
             this.anyAMS.setValue('Yes');
             this.amsId.setValue(this.requisitionDetails.amsId);
             this.amsFileName = this.requisitionDetails.uploadedFileName;
-            this.isValidAmsFileName = this.amsFileName != null && this.amsFileName != '' && this.amsFileName != '0';
+            this.validateAmsFilename();
             this.existingAmsFileName = this.requisitionDetails.uploadedFileName;
             this.existingAmsFileNameToDisplay = this.abbreviateMiddle(this.requisitionDetails.uploadedFileName, 15);
-            // TODO: how to set ams file?
         }
         this.validateAmsNumber();
 
-        debugger;
         //populate start and end date
         let stDateStr = this.requisitionDetails.testStartDt;
         let enDateStr = this.requisitionDetails.testCompletionDt;
 
-        let stDate = moment(stDateStr, dateFormat).toDate();
-        let endDate = moment(enDateStr, dateFormat).toDate();
+        let stDate = DateTimeUtils.parse(stDateStr, this.DATE_FORMAT);
+        let endDate = DateTimeUtils.parse(enDateStr, this.DATE_FORMAT);
+        console.log('Parsed start date: ' + stDate);
+        console.log('Parsed end date: ' + endDate);
         let now = new Date();
         now.setHours(0, 0, 0, 0);
 
         if (stDate >= now) {
             this.startDate.setValue(stDate);
-            const monthBucket = this.getMonthRangeBucket(DateTimeUtil.getDuration(stDateStr, enDateStr, dateFormat));
+            const monthBucket = this.getMonthRangeBucket(DateTimeUtils.getDuration(stDateStr, enDateStr, this.DATE_FORMAT));
 
             for (var i = 0; i < this.listDateRange.length; i++) {
                 if (this.listDateRange[i].ismsMasterDataDetailsName == monthBucket) {
@@ -552,6 +551,9 @@ export class RequisitionEditNewComponent implements OnInit {
             this.dateRange.reset();
             this.endDate.reset();
         }
+        console.log('Start Date = ' + this.startDate.value);
+        console.log('Date Range = ' + this.dateRange.value);
+        console.log('End date = ' + this.endDate.value);
 
         //populate employee type
         this.requisitionDetails.selectedEmpType.split(',').forEach(item => {
@@ -577,7 +579,7 @@ export class RequisitionEditNewComponent implements OnInit {
 
         this.validateEmpTypeSelection();
 
-        console.log(this.selectedEmpType)
+        console.log(this.selectedEmpType);
         console.log(this.selectedEmpTypeMap);
 
         //populate Usage Environment
@@ -783,7 +785,6 @@ export class RequisitionEditNewComponent implements OnInit {
 
         this.requisitionType = new FormControl('', Validators.required);
         this.requisitionDate = new FormControl('', Validators.required);
-        //this.requisitionDate.setValue(moment(new Date()).format('DD-MM-YYYY'));
         this.requisitionLines = new FormArray([]);
     }
 
@@ -833,13 +834,11 @@ export class RequisitionEditNewComponent implements OnInit {
         this.RequisitionLines.push(new FormGroup(
             {
                 product: new FormControl('', Validators.required),
-                creditLimit: new FormControl(0),
-                quantity: new FormControl(0),
-                imsiType: new FormControl(''),
+                creditLimit: new FormControl('', [Validators.required, Validators.min(0)]),
+                quantity: new FormControl('', [Validators.required, Validators.min(1)]),
+                imsiType: new FormControl('', Validators.required),
                 specialRequirement: new FormControl('', Validators.required),
-                specialRequirementOther: new FormControl(''),
-                assignProduct: new FormControl(0),
-                assignQuantity: new FormControl(0)
+                specialRequirementOther: new FormControl('')
             }
         ));
     }
@@ -849,26 +848,19 @@ export class RequisitionEditNewComponent implements OnInit {
     }
 
     formValidation() {
-        let validationPassed: boolean;
+        let validationPassed: boolean = true;
         let validationMessage: string[] = [];
-        validationPassed = true;
-        //validationMessage = "";
+        let currDate = new Date();
+        currDate.setHours(0, 0, 0, 0);
 
-        var currDate = new Date();
-
-        console.log(this.startDate.value);
-        console.log(currDate);
-
-        console.log(this.startDate.value.getTime());
-        console.log(currDate.getTime());
-
-        const diffTime = Math.abs(this.startDate.value.getTime() - currDate.getTime());
-        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-
-        console.log(diffDays);
-
-        if (this.startDate.value < currDate && diffDays >= 1) {
+        if (!DateTimeUtils.isValid(this.startDate.value, this.DATE_FORMAT)) {
+            validationMessage.push('Start date cannot be invalid');
+            validationPassed = false;
+        } else if (this.startDate.value < currDate) {
             validationMessage.push('Start date cannot be a date in the past');
+            validationPassed = false;
+        } else if (!DateTimeUtils.isValid(this.endDate.value, this.DATE_FORMAT)) {
+            validationMessage.push('End date cannot be invalid');
             validationPassed = false;
         } else if (this.endDate.value < currDate) {
             validationMessage.push('End date must be greater than current date.');
@@ -876,94 +868,72 @@ export class RequisitionEditNewComponent implements OnInit {
         } else if (this.endDate.value <= this.startDate.value) {
             validationMessage.push('End date must be greater than start date');
             validationPassed = false;
-        } else if (this.purposeDetails.value == null || this.purposeDetails.value == '' || this.purposeDetails.value == undefined || this.purposeDetails.value.length < 50) {
-            validationMessage.push('Purpose details must contain a minimum of 50 characters');
-            validationPassed = false;
-        } else if (this.question1.value == null || this.question1.value == '' || this.question1.value == undefined || this.question1.value.length < 50) {
-            validationMessage.push('Question1 must contain a minimum of 50 characters');
-            validationPassed = false;
-        } else if (this.question2.value == null || this.question2.value == '' || this.question2.value == undefined || this.question2.value.length < 20) {
-            validationMessage.push('Question2 must contain a minimum of 20 characters');
-            validationPassed = false;
-        } else if (this.question3.value == null || this.question3.value == '' || this.question3.value == undefined || this.question3.value.length < 50) {
-            validationMessage.push('question3 must contain a minimum of 50 characters');
-            validationPassed = false;
-        } else if (this.question4.value == null || this.question4.value == '' || this.question4.value == undefined || this.question4.value.length < 50) {
-            validationMessage.push('question4 must contain a minimum of 50 characters');
-            validationPassed = false;
-        } else if (this.amsVisible) {
-            if (this.amsId.value == null || this.amsId.value == '' || this.amsId.value.length > 30) {
-                validationMessage.push('AMS Number is either Blank or crossed maximum limit of 30 characters');
-                validationPassed = false;
-            } else if (this.amsFileName == null) {
-                validationMessage.push('Please upload AMS File');
-                validationPassed = false;
-            }
-        }
+        } else if (this.requisitionType.value == 300) { //test sim
+            let stDate = this.getStartDateStr();
+            let enDate = this.getEndDateStr();
 
-        if (this.selectedEmpType.length != 0) {
-            for (var i = 0; i < this.selectedEmpType.length; i++) {
-                if (this.selectedEmpType[i] == 'Others') {
-                    if (this.otherEmpType.value == null || this.otherEmpType.value == '' || this.otherEmpType.value.length > 30) {
-                        validationMessage.push('Employee Type \'Others\' either Blank or crossed maximum limit of 30 characters');
-                        validationPassed = false;
-                    } else {
-                        this.selectedEmpType[i] = this.otherEmpType.value;
-                    }
-                }
-            }
-            console.log(this.selectedEmpType);
-        }
+            console.log('formValidation -> Start date: ' + stDate);
+            console.log('formValidation -> End date: ' + enDate);
 
-        if (this.selectedUsageEnv.length == 0) {
-            validationMessage.push('Please select Usage Environment');
-            validationPassed = false;
-        } else {
-            console.log(this.selectedUsageEnv);
-        }
+            let duration = DateTimeUtils.getDuration(enDate, stDate, this.DATE_FORMAT);
 
-        if (this.selectedIDCardType.length != 0) {
-            for (var i = 0; i < this.selectedIDCardType.length; i++) {
-                if (this.selectedIDCardType[i] == 'Others') {
-                    if (this.otherIDCardType.value == null || this.otherIDCardType.value == '' || this.otherIDCardType.value.length > 20) {
-                        validationMessage.push('ID Card Type \'Others\' either Blank or crossed maximum limit of 30 characters');
-                        validationPassed = false;
-                    } else {
-                        this.selectedIDCardType[i] = this.otherIDCardType.value;
-                    }
-                }
-            }
-            console.log(this.selectedIDCardType);
-        }
-
-        console.log('new check');
-        console.log(this.requisitionType.value);
-        //validationPassed = false;
-
-        if (this.requisitionType.value == 300) { //test sim
-
-            console.log(this.endDate.value);
-
-            var endDateAsDate = new Date(this.endDate.value);
-            console.log(endDateAsDate);
-
-            console.log(this.endDate.value.getTime());
-            const diffTimeAlt = Math.abs(this.endDate.value.getTime() - this.startDate.value.getTime());
-            const diffDaysAlt = Math.floor(diffTimeAlt / (1000 * 60 * 60 * 24));
-
-            console.log(diffTimeAlt);
-            console.log(diffDaysAlt);
-
-            if (diffDaysAlt > 365) {
+            if (duration.years > 1) {
                 alert('You cannot specify a test date period greater than 1 year');
                 validationPassed = false;
             }
         }
 
-        for (var i = 0; i < this.requisitionLines.length; i++) {
+        if (this.purposeDetails.value == null || this.purposeDetails.value == '' || this.purposeDetails.value == undefined || this.purposeDetails.value.length < 50) {
+            validationMessage.push('Purpose details must contain a minimum of 50 characters');
+            validationPassed = false;
+        }
+        if (this.question1.value == null || this.question1.value == '' || this.question1.value == undefined || this.question1.value.length < 50) {
+            validationMessage.push('Question1 must contain a minimum of 50 characters');
+            validationPassed = false;
+        }
+        if (this.question2.value == null || this.question2.value == '' || this.question2.value == undefined || this.question2.value.length < 20) {
+            validationMessage.push('Question2 must contain a minimum of 20 characters');
+            validationPassed = false;
+        }
+        if (this.question3.value == null || this.question3.value == '' || this.question3.value == undefined || this.question3.value.length < 50) {
+            validationMessage.push('question3 must contain a minimum of 50 characters');
+            validationPassed = false;
+        }
+        if (this.question4.value == null || this.question4.value == '' || this.question4.value == undefined || this.question4.value.length < 50) {
+            validationMessage.push('question4 must contain a minimum of 50 characters');
+            validationPassed = false;
+        }
 
-            var creditLimit = 0;
-            var quantity = 0;
+        if (this.amsVisible) {
+            if (!this.isValidAmsNUmber) {
+                validationMessage.push('AMS Number is either Blank or crossed maximum limit of 30 characters');
+                validationPassed = false;
+            }
+
+            if (!this.isValidAmsFileName) {
+                validationMessage.push('Please upload AMS File');
+                validationPassed = false;
+            }
+        }
+
+        if (this.selectedEmpType.includes('Others') && !this.isValidOtherEmpType) {
+            validationMessage.push('Employee Type \'Others\' either Blank or crossed maximum limit of 30 characters');
+            validationPassed = false;
+        }
+
+        if (!this.isUsageEnvSelected) {
+            validationMessage.push('Please select Usage Environment');
+            validationPassed = false;
+        }
+
+        if (this.selectedIDCardType.includes('Others') && !this.isValidOtherIdCardType) {
+            validationMessage.push('ID Card Type \'Others\' either Blank or crossed maximum limit of 30 characters');
+            validationPassed = false;
+        }
+
+        for (let i = 0; i < this.requisitionLines.length; i++) {
+            let creditLimit = 0;
+            let quantity = 0;
 
             if (this.requisitionLines.controls[i]['value'] != null &&
                 this.requisitionLines.controls[i]['value'] != undefined &&
@@ -973,14 +943,10 @@ export class RequisitionEditNewComponent implements OnInit {
                 this.requisitionLines.controls[i]['value']['creditLimit'] != '') {
                 creditLimit = parseFloat(this.requisitionLines.controls[i]['value']['creditLimit']);
             }
-
-            if (creditLimit >= 0) { /* do nothing */
-            } else {
+            if (creditLimit < 0) {
                 validationMessage.push('For line ' + (i + 1) + ' invalid credit limit amount given.');
                 validationPassed = false;
             }
-
-            /////////// ///////////////// ///////////////// ////////////////
 
             if (this.requisitionLines.controls[i]['value'] != null &&
                 this.requisitionLines.controls[i]['value'] != undefined &&
@@ -990,13 +956,10 @@ export class RequisitionEditNewComponent implements OnInit {
                 this.requisitionLines.controls[i]['value']['quantity'] != '') {
                 quantity = parseInt(this.requisitionLines.controls[i]['value']['quantity']);
             }
-
-            if (quantity > 0) { /* do nothing */
-            } else {
+            if (quantity <= 0) {
                 validationMessage.push('For line ' + (i + 1) + ' invalid quantity given.');
                 validationPassed = false;
             }
-
         }
 
         if (!validationPassed) {
@@ -1007,84 +970,61 @@ export class RequisitionEditNewComponent implements OnInit {
         return validationPassed;
     }
 
-
     // FORM SUBMISSION
-    onNewSimRequisitionSubmit() {
-        //console.log("this.defFlowFound is "+this.defFlowFound);
+    updateRequisition() {
         if (this.newSimRequisitionForm.valid) {
-
-            /////////////////////////////////////////// //////////////////////////////////
-            ///////////////////////// /////////////////////// //////////////////////////////////
             this.topFunction();
             this.isLoading = true;
             console.log('Form Submitted!');
-
-            const theReqDate = this.FormatTheDate(new Date());
-            const theStartDate = this.FormatTheDate(this.newSimRequisitionForm.get('startDate').value);
-            const theEndDate = this.FormatTheDate(this.newSimRequisitionForm.get('endDate').value);
-
-            console.log('log start');
-            console.log(theReqDate);
 
             if (!this.formValidation()) {
                 this.isLoading = false;
                 return;
             }
 
-            ////////////////////////////////////////////////////////////////////
             if (confirm('Are you sure you want to submit this requisition? Please review that all your data is correct.')) {
                 //do nothing here
             } else {
                 this.isLoading = false;
                 return;
             }
-            ////////////////////////////////////////////////////////////////////
 
-            this.headerDateData.requisitionDate = theReqDate;
-            console.log(this.headerDateData);
-            this.headerDateData.theStartDate = theStartDate;
-            this.headerDateData.theEndDate = theEndDate;
+            this.headerDateData.requisitionDate = this.getRequisitionDateStr();
+            this.headerDateData.theStartDate = this.getStartDateStr();
+            this.headerDateData.theEndDate = this.getEndDateStr();
             this.headerDateData.requisitionType = this.newSimRequisitionForm.get('requisitionType').value;
             this.headerDateData.purposeCategory = this.newSimRequisitionForm.get('purposeCategory').value;
             this.headerDateData.location = this.newSimRequisitionForm.get('location').value;
             this.headerDateData.usageCategory = this.newSimRequisitionForm.get('usageCategory').value;
-            //this.headerDateData.amsId = this.newSimRequisitionForm.get('amsId').value;
             this.headerDateData.imei = this.newSimRequisitionForm.get('imei').value;
-            this.headerDateData.selectedEmpType = this.selectedEmpType.map(x => x).join(',');
-            this.headerDateData.selectedIDCardType = this.selectedIDCardType.map(x => x).join(',');
+            this.headerDateData.selectedEmpType = this.selectedEmpType.map(x => x == 'Others' ? this.otherEmpType.value : x).join(',');
+            this.headerDateData.selectedIDCardType = this.selectedIDCardType.map(x => x == 'Others' ? this.otherIDCardType.value : x).join(',');
             this.headerDateData.selectedUsageEnv = this.selectedUsageEnv.map(x => x).join(',');
             this.headerDateData.cardNo = this.newSimRequisitionForm.get('cardNo').value;
-
-            this.headerDateData.endDate = this.newSimRequisitionForm.get('endDate').value;
             this.headerDateData.purposeDetails = this.newSimRequisitionForm.get('purposeDetails').value;
             this.headerDateData.question1 = this.newSimRequisitionForm.get('question1').value;
             this.headerDateData.question2 = this.newSimRequisitionForm.get('question2').value;
             this.headerDateData.question3 = this.newSimRequisitionForm.get('question3').value;
             this.headerDateData.question4 = this.newSimRequisitionForm.get('question4').value;
-            this.headerDateData.notificationTo = '';
-            if (this.anyAMS.value == 'Yes') {
-                this.headerDateData.uploadedFileName = this.fileToUpload.name;
+
+            if (this.anyAMS.value == 'Yes' && this.isValidAmsNUmber && this.isValidAmsFileName) {
+                this.headerDateData.uploadedFileName = this.amsFileName;
                 this.headerDateData.amsId = this.amsId.value;
             } else {
                 this.headerDateData.uploadedFileName = 0;
                 this.headerDateData.amsId = 0;
             }
 
-
-            console.log('this.finalListOfUsersToSendWithRqn');
-            console.log(this.finalListOfUsersToSendWithRqn);
-
+            this.headerDateData.notificationTo = '';
             if (this.finalListOfUsersToSendWithRqn != null && this.finalListOfUsersToSendWithRqn.length > 0) {
                 for (var i = 0; i < this.finalListOfUsersToSendWithRqn.length; i++) {
-                    this.headerDateData.notificationTo += this.finalListOfUsersToSendWithRqn[i]['emailAddress'];
-                    if (i >= (this.finalListOfUsersToSendWithRqn.length - 1)) {
-                        //do nothing
-                    } else {
+                    if (i > 0) {
                         this.headerDateData.notificationTo += ',';
                     }
+                    this.headerDateData.notificationTo += this.finalListOfUsersToSendWithRqn[i]['emailAddress'];
                 }
             }
-            console.log(this.headerDateData.notificationTo);
+
             this.headerDateData.requisitionLines = this.newSimRequisitionForm.get('requisitionLines').value;
 
             for (var i = 0; i < this.headerDateData.requisitionLines.length; i++) {
@@ -1097,23 +1037,17 @@ export class RequisitionEditNewComponent implements OnInit {
 
             let resource = (this.headerDateData);
             console.log(resource);
-            console.log('Add Button clicked: ' + resource);
 
-
-            this.ismsworkflowsService.CreateNewTestSimRequest(this._global.wrid_NewSimRequision, this.groupID, this.userID, this.WR_Name, resource).subscribe(
+            this.ismsworkflowsService.editRequisition(this.requisitionId, this.userID, resource, this.requisition_comments).subscribe(
                 res => {
                     console.log('response is : ' + res.message);
 
                     if (res !== '') {
                         this.newSimRequisitionForm.reset();
                         this.successAlertShow = true;
-                        /*if(this.groupID == this._global.groupID_SSM){
-                            this.successAlertMessage = "Requisition no "+ res.message +" has been submitted successfully and forwarded to CLC for approval.";
-                        }
-                        else{
-                        */
-                        this.successAlertMessage = 'Requisition no ' + res.message + ' has been submitted successfully and forwarded to SSM for approval.';
-                        //}
+
+                        this.successAlertMessage = 'Requisition no ' + res.message + ' has been updated successfully and forwarded to SSM for approval.';
+
                         alert(this.successAlertMessage);
                         setTimeout(() => {
                             this.isLoading = false;
@@ -1128,36 +1062,11 @@ export class RequisitionEditNewComponent implements OnInit {
                     this.dangerAlertMessage.push(' .');
                 }
             );
-
-            /////////////////// //////////////// /////////////// ///////////////////////////////
         }
-        ///////////////// //////////////////////////// ///////////////////////////////
-
-    }
-
-
-    FormatTheDate(selectedrequisitionDate: any): string {
-
-        console.log('selectedrequisitionDate : ' + selectedrequisitionDate);
-        /*	var date = new Date(selectedrequisitionDate);
-        var month = ("0" + (date.getMonth()+1)).slice(-2);
-        var day  = ("0" + date.getDate()).slice(-2);
-            var formattedDate=[day,month,date.getFullYear()].join("-");*/
-        const date = moment(selectedrequisitionDate);
-        //console.log('jhhhhhhhhhhhhhhhhhhhhhhhhhh'+date);
-        const formattedDate = moment(date).format('DD-MM-YYYY');
-        //console.log("formattedDate : "+formattedDate);
-        return formattedDate;
-
     }
 
     clearForm(event: any) {
         window.location.reload();
-    }
-
-    backButton(event: any) {
-        //console.log(event);
-        this.router.navigateByUrl('/nsa/newrequisition');
     }
 
     onchangeEmp(value) {
@@ -1231,35 +1140,48 @@ export class RequisitionEditNewComponent implements OnInit {
         console.log(this.selectedIdCardTypeMap);
     }
 
+    getStartDateStr(): string {
+        return DateTimeUtils.toString(this.startDate.value, this.DATE_FORMAT);
+    }
+
+    getEndDateStr(): string {
+        return DateTimeUtils.toString(this.endDate.value, this.DATE_FORMAT);
+    }
+
+    getRequisitionDateStr(): string {
+        return DateTimeUtils.toString(this.requisitionDate.value, this.DATE_FORMAT);
+    }
+
     onChange(value) {
         if (this.startDate.value != '' && value != '') {
-            /* this.visible = !this.visible; */
-            //this.endDate.enable();
             this.endDate.reset();
-            const theStartDate = this.FormatTheDate(this.startDate.value);
+            const theStartDate = this.getStartDateStr();
+            console.log('onChange -> Start date string: ' + theStartDate);
+
             this.minDate = new Date();
             this.maxDate = new Date();
+
             if (value == '0 to 3 Months') {
-                var minMonth = moment(theStartDate, 'DD-MM-YYYY').add(0, 'M');
-                var maxMonth = moment(theStartDate, 'DD-MM-YYYY').add(3, 'M');
+                var minMonth = moment(theStartDate, this.DATE_FORMAT).add(0, 'M');
+                var maxMonth = moment(theStartDate, this.DATE_FORMAT).add(3, 'M');
                 this.minDate = new Date(minMonth.year(), minMonth.month(), minMonth.date());
                 this.maxDate = new Date(maxMonth.year(), maxMonth.month(), maxMonth.date());
             }
             if (value == '3 to 6 Months') {
-                var minMonth = moment(theStartDate, 'DD-MM-YYYY').add(3, 'M');
-                var maxMonth = moment(theStartDate, 'DD-MM-YYYY').add(6, 'M');
+                var minMonth = moment(theStartDate, this.DATE_FORMAT).add(3, 'M');
+                var maxMonth = moment(theStartDate, this.DATE_FORMAT).add(6, 'M');
                 this.minDate = new Date(minMonth.year(), minMonth.month(), minMonth.date());
                 this.maxDate = new Date(maxMonth.year(), maxMonth.month(), maxMonth.date());
             }
             if (value == '6 to 9 Months') {
-                var minMonth = moment(theStartDate, 'DD-MM-YYYY').add(6, 'M');
-                var maxMonth = moment(theStartDate, 'DD-MM-YYYY').add(9, 'M');
+                var minMonth = moment(theStartDate, this.DATE_FORMAT).add(6, 'M');
+                var maxMonth = moment(theStartDate, this.DATE_FORMAT).add(9, 'M');
                 this.minDate = new Date(minMonth.year(), minMonth.month(), minMonth.date());
                 this.maxDate = new Date(maxMonth.year(), maxMonth.month(), maxMonth.date());
             }
             if (value == '9 to 12 Months') {
-                var minMonth = moment(theStartDate, 'DD-MM-YYYY').add(9, 'M');
-                var maxMonth = moment(theStartDate, 'DD-MM-YYYY').add(12, 'M');
+                var minMonth = moment(theStartDate, this.DATE_FORMAT).add(9, 'M');
+                var maxMonth = moment(theStartDate, this.DATE_FORMAT).add(12, 'M');
                 this.minDate = new Date(minMonth.year(), minMonth.month(), minMonth.date());
                 this.maxDate = new Date(maxMonth.year(), maxMonth.month(), maxMonth.date());
             }
@@ -1269,6 +1191,7 @@ export class RequisitionEditNewComponent implements OnInit {
     onSDateChange() {
         this.endDate.reset();
         this.dateRange.reset();
+        //console.log('Selected Start date: ' + this.startDate.value);
     }
 
     handleFileInput(event) {
@@ -1276,12 +1199,21 @@ export class RequisitionEditNewComponent implements OnInit {
         this.filesuccess = false;
         this.fileToUpload = event.target.files.item(0);
         this.amsFileName = this.fileToUpload.name;
-        this.isValidAmsFileName = this.amsFileName != null && this.amsFileName != '' && this.amsFileName != '0';
+        this.amsFileUploaded = false;
+        this.validateAmsFilename();
 
-        if (this.amsFileName.length > 30) {
+        if (!this.isValidAmsFileName) {
+            this.amsFileName = null;
+            alert('Please select a valid AMS file');
+            return (event.target.value = null);
+        } else if (this.amsFileName.length > 30) {
+            this.amsFileName = null;
+            this.isValidAmsFileName = false;
             alert('File Name max length 30 digit');
             return (event.target.value = null);
         } else if ((this.fileToUpload.size) / 1024 / 1024 > 5) {
+            this.amsFileName = null;
+            this.isValidAmsFileName = false;
             alert('Max File Size is 5 MB');
             return (event.target.value = null);
         }
@@ -1290,6 +1222,8 @@ export class RequisitionEditNewComponent implements OnInit {
             console.log(this.fileToUpload.type);
             break outer;
         } else {
+            this.amsFileName = null;
+            this.isValidAmsFileName = false;
             alert('Allowed file type is .pdf, .msg, .eml, .zip');
             return (event.target.value = null);
         }
@@ -1304,11 +1238,18 @@ export class RequisitionEditNewComponent implements OnInit {
         result.subscribe(res => {
             console.log(res);
             if (res !== '') {
+                this.existingAmsFileName = this.amsFileName;
+                this.existingAmsFileNameToDisplay = this.abbreviateMiddle(this.amsFileName, 15);
                 this.amsFileUploaded = true;
+                //this.amsFileDeleted = false;
                 this.successAlertMessage = 'File Uploaded Successfully';
                 alert(res.message);
             }
-        })
+        }, err => {
+            this.amsFileName = null;
+            this.amsFileUploaded = false;
+            this.isValidAmsFileName = false;
+        });
     }
 
     abbreviateMiddle(str: string, maxLength: number): string {
@@ -1346,41 +1287,37 @@ export class RequisitionEditNewComponent implements OnInit {
         this.amsFileDeleted = true;
         this.amsFileUploaded = false;
         this.amsFileSelected = false;
-        //this.amsId.reset();
         this.amsFileName = null;
         this.isValidAmsFileName = false;
         this.fileToUpload = null;
+        //this.amsId.reset();
     }
 
-    validateEmpTypeSelection(): boolean {
-        this.isEmpTypeSelected = this.selectedEmpType.length > 0;
-        this.isValidEmpType = this.selectedEmpType.length > 0;
+    validateEmpTypeSelection() {
+        this.isValidEmpType = this.isEmpTypeSelected = this.selectedEmpType.length > 0;
 
         if (this.selectedEmpType.includes('Others')) {
-            this.isValidOtherEmpType = !(this.otherEmpType.value == undefined || this.otherEmpType.value == '');
-            this.isValidEmpType = !(this.otherEmpType.value == undefined || this.otherEmpType.value == '');
+            this.isValidEmpType = this.isValidOtherEmpType = this.otherEmpType.value != undefined && this.otherEmpType.value != '' && this.otherEmpType.value.length <= 30;
         }
-        return this.isEmpTypeSelected;
     }
 
-    validateIdCardTypeSelection(): boolean {
-        this.idCardTypeSelected = this.selectedIDCardType.length > 0;
-        this.isValidIdCardType = this.selectedIDCardType.length > 0;
+    validateIdCardTypeSelection() {
+        this.isValidIdCardType = this.idCardTypeSelected = this.selectedIDCardType.length > 0;
 
         if (this.selectedIDCardType.includes('Others')) {
-            this.isValidOtherIdCardType = !(this.otherIDCardType.value == undefined || this.otherIDCardType.value == '');
-            this.isValidIdCardType = !(this.otherIDCardType.value == undefined || this.otherIDCardType.value == '');
+            this.isValidIdCardType = this.isValidOtherIdCardType = this.otherIDCardType.value != undefined && this.otherIDCardType.value != '' && this.otherIDCardType.value.length <= 30;
         }
-        return this.idCardTypeSelected;
     }
 
-    validateUsageEnvSelection(): boolean {
+    validateUsageEnvSelection() {
         this.isUsageEnvSelected = this.selectedUsageEnv.length > 0;
-        return this.isUsageEnvSelected;
     }
 
-    validateAmsNumber(): boolean {
-        this.isValidAmsNUmber = this.amsId.value != undefined && this.amsId.value != '';
-        return this.isValidAmsNUmber;
+    validateAmsNumber() {
+        this.isValidAmsNUmber = this.amsId.value != undefined && this.amsId.value != '' && this.amsId.value.length <= 30;
+    }
+
+    validateAmsFilename() {
+        this.isValidAmsFileName = this.amsFileName != null && this.amsFileName != '' && this.amsFileName != '0';
     }
 }

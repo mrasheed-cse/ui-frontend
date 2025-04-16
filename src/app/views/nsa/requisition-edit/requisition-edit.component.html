@@ -12,10 +12,15 @@
             </div>
 
             <div class="alert alert-success" role="alert" *ngIf="successAlertShow">The Work Request
-                <b>{{ WR_Name }}</b> {{ successAlertMessage }}
+                <b>{{ requisitionNo }}</b> {{ successAlertMessage }}
             </div>
             <div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">An Error occurred to update
-                <b>{{ WR_Name }}</b> <br><b>{{ dangerAlertMessage }}</b>
+                <b>{{ requisitionNo }}</b>
+                <br>
+                <span *ngFor="let errorMsg of dangerAlertMessage">
+                        {{ errorMsg }}
+                    <br>
+                </span>
             </div>
             <div class="alert alert-danger" role="alert" *ngIf="infoAlertShow"><b>{{ infoAlertMessage }}</b></div>
 
@@ -60,11 +65,20 @@
             </div>
 
             <div class="card-header">
-                <strong>Requisition Header</strong>
+                <strong>Requisition Details</strong>
             </div>
 
-            <form [formGroup]="newSimRequisitionForm" novalidate (ngSubmit)="onNewSimRequisitionSubmit()">
+            <form [formGroup]="newSimRequisitionForm" novalidate (ngSubmit)="updateRequisition()">
                 <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-md-5 col-form-label" for="requisitionDate">Requisition No</label>
+                                <span class="col-md-7 col-form-label" for="requisitionDate">{{this.requisitionNo}}</span>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group row">
@@ -77,7 +91,7 @@
                                            disabled
                                     >
                                     <div style="display:block;width:100%;margin-top:.25rem;font-size:.875em;color:#dc3545;" *ngIf="requisitionDate.invalid">
-                                        Requisition Date is required
+                                        Requisition Date is invalid
                                     </div>
                                 </div>
                             </div>
@@ -336,7 +350,7 @@
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <div class="form-group row">
+                            <div class="form-group row" [ngStyle]="!isEmpTypeSelected ? {'margin-bottom': '0'} : {}">
                                 <label class="col-md-2" for="empType">User Type <span
                                         style="color:red">&#42;</span></label>
                                 <ng-container *ngFor="let item of listEmpType;let i=index;">
@@ -356,7 +370,7 @@
                                                                        'is-valid': isValidOtherEmpType
                                                                         }">
                                     <div style="display:block;width:100%;font-size:.875em;color:#dc3545; margin: 0; padding: 0;" *ngIf="!isValidOtherEmpType">
-                                        User Type is required
+                                        Other User Type is required
                                     </div>
                                 </div>
                             </div>
@@ -370,7 +384,7 @@
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <div class="form-group row">
+                            <div class="form-group row" [style.margin-bottom]="!isUsageEnvSelected ? '0' : null">
                                 <label class="col-md-2" for="usageEnv">Usage Environment <span
                                         style="color:red">&#42;</span></label>
                                 <ng-container *ngFor="let item of listUsageEnv;let i=index;">
@@ -392,7 +406,7 @@
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <div class="form-group row">
+                            <div class="form-group row" [style.margin-bottom]="!idCardTypeSelected ? '0' : null">
                                 <label class="col-md-2" for="IDCardType">ID Card Type <span
                                         style="color:red">&#42;</span></label>
                                 <ng-container *ngFor="let item of listIDCardType;let i=index;">
@@ -411,7 +425,7 @@
                                                                        'is-valid': isValidOtherIdCardType
                                                                         }">
                                     <div style="display:block;width:100%;font-size:.875em;color:#dc3545; margin: 0; padding: 0;" *ngIf="!isValidOtherIdCardType">
-                                        ID Card Type is required
+                                        Other ID Card Type is required
                                     </div>
                                 </div>
                             </div>
@@ -728,7 +742,11 @@
                                    *ngFor="let requisitionLine of requisitionLines.controls; index as idx">
                             <tr [formGroupName]="idx">
                                 <td>
-                                    <select class="form-control" formControlName="product">
+                                    <select class="form-control" formControlName="product"
+                                            [ngClass]="{
+                                                'is-invalid': requisitionLine.get('product').invalid,
+                                                'is-valid': requisitionLine.get('product').valid
+                                            }">
                                         <option *ngFor="let aproduct of listProduct"
                                                 [value]="aproduct.id">{{ aproduct.ismsMasterDataDetailsName }}
                                         </option>
@@ -737,16 +755,29 @@
 
                                 <td>
                                     <input class="form-control" formControlName="creditLimit" type="number" min="0"
-                                           [prevent-keys]="[43, 45,189,187]">
+                                           [prevent-keys]="[43, 45,189,187]"
+                                           [ngClass]="{
+                                                'is-invalid': requisitionLine.get('creditLimit').invalid,
+                                                'is-valid': requisitionLine.get('creditLimit').valid
+                                            }">
                                 </td>
+
 
                                 <td>
                                     <input class="form-control" formControlName="quantity" type="number" min="1"
-                                           [prevent-keys]="[43, 45,189,187]">
+                                           [prevent-keys]="[43, 45,189,187]"
+                                           [ngClass]="{
+                                                'is-invalid': requisitionLine.get('quantity').invalid,
+                                                'is-valid': requisitionLine.get('quantity').valid
+                                            }">
                                 </td>
 
                                 <td>
-                                    <select class="form-control" formControlName="imsiType">
+                                    <select class="form-control" formControlName="imsiType"
+                                            [ngClass]="{
+                                                'is-invalid': requisitionLine.get('imsiType').invalid,
+                                                'is-valid': requisitionLine.get('imsiType').valid
+                                            }">
                                         <option *ngFor="let aImsiType of listImsiType"
                                                 [value]="aImsiType.id">{{ aImsiType.ismsMasterDataDetailsName }}
                                         </option>
@@ -754,7 +785,11 @@
                                 </td>
 
                                 <td>
-                                    <select class="form-control" formControlName="specialRequirement">
+                                    <select class="form-control" formControlName="specialRequirement"
+                                            [ngClass]="{
+                                                'is-invalid': requisitionLine.get('specialRequirement').invalid,
+                                                'is-valid': requisitionLine.get('specialRequirement').valid
+                                            }">
                                         <option *ngFor="let singleSpecialRequirement of listSpecialRequirement"
                                                 [value]="singleSpecialRequirement.value">{{ singleSpecialRequirement.name }}
                                         </option>
@@ -791,10 +826,11 @@
                                 <br/><br/>
 
                                 <button type="submit"
-                                        [disabled]="!newSimRequisitionForm.valid || !isValidEmpType || !isUsageEnvSelected || !isValidIdCardType"
+                                        [disabled]="!newSimRequisitionForm.valid || !isValidEmpType || !isUsageEnvSelected || !isValidIdCardType || (amsVisible ? !isValidAmsFileName || !isValidAmsNUmber : false)"
                                         style="width:120px" class="btn btn-success">
                                     Save
                                 </button>
+
                                 <button type="reset" style="width:120px" class="btn btn-danger"
                                         (click)="clearForm($event)">
                                     Cancel
