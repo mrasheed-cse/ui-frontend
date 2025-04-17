@@ -1162,7 +1162,7 @@ export class RequisitionEditNewComponent implements OnInit {
             this.maxDate = new Date();
 
             if (value == '0 to 3 Months') {
-                var minMonth = moment(theStartDate, this.DATE_FORMAT).add(0, 'M');
+                var minMonth = moment(theStartDate, this.DATE_FORMAT).add(1, 'd');
                 var maxMonth = moment(theStartDate, this.DATE_FORMAT).add(3, 'M');
                 this.minDate = new Date(minMonth.year(), minMonth.month(), minMonth.date());
                 this.maxDate = new Date(maxMonth.year(), maxMonth.month(), maxMonth.date());
