@@ -46,6 +46,11 @@
        <div class="recycle-bar"></div>
        <div id="recycle-download" class="recycle-download" style="border-radius: 10px 10px 0 0">
           <!--<a  download="" href="{{environment.apiUrl + '/huawei_auc_conversion/download' }}" class="mx-sm-3" role="button">Download</a>-->
-          <a href="{{fileDownloadUrl}}"> Download </a>
+           <a
+                   [href]="fileDownloadUrl"
+                   download="HuaweiHlr.txt"
+                   target="_blank">
+               Download
+           </a>
        </div>
    </div>
