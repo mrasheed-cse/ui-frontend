@@ -164,6 +164,10 @@ export class PrePlanGenerate implements OnInit {
   }
 }
 
+private padToSevenDigits(num: number): string {
+    return ('0000000' + num).slice(-7);
+}
+
 LoadFilteredInputFiles(){
   
   var selectedArtwork = this.prePlanGenerationForm.controls.artWork.value;
@@ -187,8 +191,8 @@ LoadFilteredInputFiles(){
             {
               x['iccidStartnum']= x['startIccid'] + x['planQuantity'];
               x['iccidEndnum']=x['startIccid'] + x['receivedQuantity']-1;
-              x['iccidStart'] = "898801"+ x['iccidOrder']+ "0" + x['imsiType']+ x['iccidStartnum'];
-              x['iccidEnd'] = "898801"+ x['iccidOrder']+ "0" + x['imsiType']+ x['iccidEndnum'];
+              x['iccidStart'] = "898801"+ x['iccidOrder']+ "0" + x['imsiType']+ this.padToSevenDigits(x['iccidStartnum']);
+              x['iccidEnd'] = "898801"+ x['iccidOrder']+ "0" + x['imsiType']+ this.padToSevenDigits(x['iccidEndnum']);
             }
           )
           this.isNoDataFound=false;
