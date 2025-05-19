@@ -1,231 +1,228 @@
-import { Component, OnInit } from '@angular/core';
-import { AppGlobals } from './../../../app.global';
-import { LoginService } from '../../pages/LoginService';
-import { Router,ActivatedRoute, Params } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { DefinitionDataService } from '../services/definitiondata.service';
-import { IsmsworkflowsService } from '../services/ismsworkflows.service';
-import { LoggedInUser } from '../../pages/loggedInUser';
-import { environment } from '../../../../environments/environment';
-import { FileoperationService } from '../../nsa/services/fileoperation.service';
+import {Component, OnInit} from '@angular/core';
+import {AppGlobals} from './../../../app.global';
+import {LoginService} from '../../pages/LoginService';
+import {Router, ActivatedRoute, Params} from '@angular/router';
+import {HttpClient} from '@angular/common/http';
+import {DefinitionDataService} from '../services/definitiondata.service';
+import {IsmsworkflowsService} from '../services/ismsworkflows.service';
+import {LoggedInUser} from '../../pages/loggedInUser';
+import {environment} from '../../../../environments/environment';
+import {FileoperationService} from '../../nsa/services/fileoperation.service';
 
 @Component({
-  selector: 'app-requisitionview',
-  templateUrl: './requisitionview.component.html',
-  styleUrls: ['./requisitionview.component.scss'],
-  providers: [AppGlobals,LoginService,DefinitionDataService,IsmsworkflowsService,FileoperationService]
+    selector: 'app-requisitionview',
+    templateUrl: './requisitionview.component.html',
+    styleUrls: ['./requisitionview.component.scss'],
+    providers: [AppGlobals, LoginService, DefinitionDataService, IsmsworkflowsService, FileoperationService]
 })
 export class RequisitionviewComponent implements OnInit {
 
-  requisition: any;
-  requsitionLines: any;
-  employeeDetails: any;
-  requisitionDetails: any;
-  requisitionId: number;
-  currentLoggedInUser: LoggedInUser;
-	userName: string;
-	groupID: number;
-  userID: string;
-  requisition_comments: string;
-  requisition_existing_comments: Array<any>;
-  serverUrl: string;
+    requisition: any;
+    requsitionLines: any;
+    employeeDetails: any;
+    requisitionDetails: any;
+    requisitionId: number;
+    currentLoggedInUser: LoggedInUser;
+    userName: string;
+    groupID: number;
+    userID: string;
+    requisition_comments: string;
+    requisition_existing_comments: Array<any>;
+    serverUrl: string;
 
-  public listRequisitionType = [];
-	public listPurposeCategory = [];
-	public listLocation = [];
-	public listUsageCategory = [];
-	public listProduct = [];
-	public listImsiType = [];
-	public listSpecialRequirement = [];
-  public successAlertMessage:string = "";
+    public listRequisitionType = [];
+    public listPurposeCategory = [];
+    public listLocation = [];
+    public listUsageCategory = [];
+    public listProduct = [];
+    public listImsiType = [];
+    public listSpecialRequirement = [];
+    public successAlertMessage: string = '';
 
-  loadMasterData(){
-    this.listSpecialRequirement = environment.dataSpecialRequirementTypes;
-  
+    loadMasterData() {
+        this.listSpecialRequirement = environment.dataSpecialRequirementTypes;
+
 //GetRequisitionType
-this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_RequisitionType).subscribe(
-  data => { 
-        //console.log(data);
-        for (let index in data) {
-          //console.log (data[index]);
-          this.listRequisitionType.push(
-          {
-            id:data[index].id,
-            ismsMasterDataDetailsName: data[index].ismsMasterDataDetailsName
-          }
-          ); 
-        }		
-      },
-    err => console.error(err),
-    () => console.log('done loading Provisioning Type Name List')
-    );
+        this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_RequisitionType).subscribe(
+            data => {
+                //console.log(data);
+                for (let index in data) {
+                    //console.log (data[index]);
+                    this.listRequisitionType.push(
+                        {
+                            id: data[index].id,
+                            ismsMasterDataDetailsName: data[index].ismsMasterDataDetailsName
+                        }
+                    );
+                }
+            },
+            err => console.error(err),
+            () => console.log('done loading Provisioning Type Name List')
+        );
 //GetPurposeCategory
 
-this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_PurposeType).subscribe(
-data => { 
-      //console.log(data);
-      for (let index in data) {
-        //console.log (data[index]);
-        this.listPurposeCategory.push(
-        {
-          id:data[index].id,
-          ismsMasterDataDetailsName: data[index].ismsMasterDataDetailsName
-        }
-        ); 
-      }		
-    },
-  err => console.error(err),
-  () => console.log('done loading Provisioning Type Name List')
-  );
+        this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_PurposeType).subscribe(
+            data => {
+                //console.log(data);
+                for (let index in data) {
+                    //console.log (data[index]);
+                    this.listPurposeCategory.push(
+                        {
+                            id: data[index].id,
+                            ismsMasterDataDetailsName: data[index].ismsMasterDataDetailsName
+                        }
+                    );
+                }
+            },
+            err => console.error(err),
+            () => console.log('done loading Provisioning Type Name List')
+        );
 
-  //GetLocation
+        //GetLocation
 
-this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_Location).subscribe(
-data => { 
-      //console.log(data);
-      for (let index in data) {
-        //console.log (data[index]);
-        this.listLocation.push(
-        {
-          id:data[index].id,
-          ismsMasterDataDetailsName: data[index].ismsMasterDataDetailsName
-        }
-        ); 
-      }		
-    },
-  err => console.error(err),
-  () => console.log('done loading Provisioning Type Name List')
-  );
+        this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_Location).subscribe(
+            data => {
+                //console.log(data);
+                for (let index in data) {
+                    //console.log (data[index]);
+                    this.listLocation.push(
+                        {
+                            id: data[index].id,
+                            ismsMasterDataDetailsName: data[index].ismsMasterDataDetailsName
+                        }
+                    );
+                }
+            },
+            err => console.error(err),
+            () => console.log('done loading Provisioning Type Name List')
+        );
 
-  //GetUsageCategory
+        //GetUsageCategory
 
-this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_UsageCategory).subscribe(
-data => { 
-      //console.log(data);
-      for (let index in data) {
-        //console.log (data[index]);
-        this.listUsageCategory.push(
-        {
-          id:data[index].id,
-          ismsMasterDataDetailsName: data[index].ismsMasterDataDetailsName
-        }
-        ); 
-      }		
-    },
-  err => console.error(err),
-  () => console.log('done loading usage category Name List')
-  );
+        this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_UsageCategory).subscribe(
+            data => {
+                //console.log(data);
+                for (let index in data) {
+                    //console.log (data[index]);
+                    this.listUsageCategory.push(
+                        {
+                            id: data[index].id,
+                            ismsMasterDataDetailsName: data[index].ismsMasterDataDetailsName
+                        }
+                    );
+                }
+            },
+            err => console.error(err),
+            () => console.log('done loading usage category Name List')
+        );
 
-    //GetProducts
+        //GetProducts
 
-this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_ProductName).subscribe(
-data => { 
-      //console.log(data);
-      for (let index in data) {
-        //console.log (data[index]);
-        this.listProduct.push(
-        {
-          id:data[index].id,
-          ismsMasterDataDetailsName: data[index].ismsMasterDataDetailsName
-        }
-        ); 
-      }		
-    },
-  err => console.error(err),
-  () => console.log('done loading Product Name List')
-  );
+        this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_ProductName).subscribe(
+            data => {
+                //console.log(data);
+                for (let index in data) {
+                    //console.log (data[index]);
+                    this.listProduct.push(
+                        {
+                            id: data[index].id,
+                            ismsMasterDataDetailsName: data[index].ismsMasterDataDetailsName
+                        }
+                    );
+                }
+            },
+            err => console.error(err),
+            () => console.log('done loading Product Name List')
+        );
 
-  //GetIMSI Type
+        //GetIMSI Type
 
-this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_ImsiType).subscribe(
-data => { 
-      //console.log(data);
-      for (let index in data) {
-        //console.log (data[index]);
-        this.listImsiType.push(
-        {
-          id:data[index].id,
-          ismsMasterDataDetailsName: data[index].ismsMasterDataDetailsName
-        }
-        ); 
-      }		
-    },
-  err => console.error(err),
-  () => console.log('done loading IMSI Type Name List')
-  );
-  }
-
-  constructor(private route:ActivatedRoute,private router: Router, private definitionDataService: DefinitionDataService,private loginService: LoginService, private http: HttpClient, private _global: AppGlobals,private ismsworkflowsService: IsmsworkflowsService,private fileoperationService: FileoperationService) {
-    
-    this.requisition_comments = "";
-    this.requisition_existing_comments = [];
-    this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
-    this.serverUrl = environment.apiUrl;
-			
-    if (this.currentLoggedInUser) {
-      this.userName = this.currentLoggedInUser.userName
-      this.groupID = this.currentLoggedInUser.groupID
-      this.userID = this.currentLoggedInUser.userID
-    } 
-    else {
-      this.router.navigate(['pages/login']);
+        this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_ImsiType).subscribe(
+            data => {
+                //console.log(data);
+                for (let index in data) {
+                    //console.log (data[index]);
+                    this.listImsiType.push(
+                        {
+                            id: data[index].id,
+                            ismsMasterDataDetailsName: data[index].ismsMasterDataDetailsName
+                        }
+                    );
+                }
+            },
+            err => console.error(err),
+            () => console.log('done loading IMSI Type Name List')
+        );
     }
 
-    this.loadMasterData();
+    constructor(private route: ActivatedRoute, private router: Router, private definitionDataService: DefinitionDataService, private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private ismsworkflowsService: IsmsworkflowsService, private fileoperationService: FileoperationService) {
 
-    //call API here to get real data
-    this.requisitionId = parseInt(this.route.snapshot.paramMap.get('requisition_id'));
-    this.ismsworkflowsService.findRequisitionDetails(this.requisitionId).subscribe(
-      res  =>  {
-        console.log('response is : '+res.message);  
-        if(res !== ""){
-          this.requisition = res;
-          this.requsitionLines = res.requisitionLines;
-          this.employeeDetails = res.employeeDetails;
-          this.requisitionDetails = res.requisitionDetails;
-          this.getComments(this.requisitionDetails['id'], "", "");
-        }
-          },
-          err  =>  {	
-           
-          }
-        
-          );
+        this.requisition_comments = '';
+        this.requisition_existing_comments = [];
+        this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
+        this.serverUrl = environment.apiUrl;
+
+        if (this.currentLoggedInUser) {
+            this.userName = this.currentLoggedInUser.userName
+            this.groupID = this.currentLoggedInUser.groupID
+            this.userID = this.currentLoggedInUser.userID
+        } else {
+            this.router.navigate(['pages/login']);
         }
 
-  ngOnInit() {
-  }
+        this.loadMasterData();
 
-  getComments(requisitionId, comment, userId){
+        //call API here to get real data
+        this.requisitionId = parseInt(this.route.snapshot.paramMap.get('requisition_id'));
+        this.ismsworkflowsService.findRequisitionDetails(this.requisitionId).subscribe(
+            res => {
+                console.log('response is : ' + res.message);
+                if (res !== '') {
+                    this.requisition = res;
+                    this.requsitionLines = res.requisitionLines;
+                    this.employeeDetails = res.employeeDetails;
+                    this.requisitionDetails = res.requisitionDetails;
+                    this.getComments(this.requisitionDetails['id'], '', '');
+                }
+            },
+            err => {
 
-    this.ismsworkflowsService.getAllComments(requisitionId, comment, userId).subscribe(
-      res  =>  {
-        console.log('response is : '+res.message);  
-        if(res !== ""){
-          this.requisition_existing_comments = res;
+            }
+        );
+    }
+
+    ngOnInit() {
+    }
+
+    getComments(requisitionId, comment, userId) {
+
+        this.ismsworkflowsService.getAllComments(requisitionId, comment, userId).subscribe(
+            res => {
+                console.log('response is : ' + res.message);
+                if (res !== '') {
+                    this.requisition_existing_comments = res;
+                }
+            },
+            err => {
+
+            }
+        );
+
+    }
+
+    DownloadFile(fileNameToDownload: string) {
+        console.log('fileNameToDownload: ' + fileNameToDownload);
+        if (fileNameToDownload == '0') {
+            alert('No File uploaded to download');
+        } else {
+            this.fileoperationService.DownloadFile(fileNameToDownload).subscribe((res) => {
+                console.log(res);
+                var downloadURL = window.URL.createObjectURL(res);
+                var link = document.createElement('a');
+                link.href = downloadURL;
+                link.download = fileNameToDownload;
+                link.click();
+            });
         }
-      },
-      err  =>  {	
-           
-      }
-        
-    );
-
-  }
-
-  DownloadFile(fileNameToDownload: string){
-	  console.log("fileNameToDownload: " + fileNameToDownload);
-    if (fileNameToDownload == "0"){
-      alert("No File uploaded to download");
-    } else{
-      this.fileoperationService.DownloadFile(fileNameToDownload).subscribe((res) => {
-        console.log(res);
-        var downloadURL = window.URL.createObjectURL(res);
-        var link = document.createElement('a');
-        link.href = downloadURL;
-        link.download = fileNameToDownload;
-        link.click();
-      });
-    } 
-  }
+    }
 }

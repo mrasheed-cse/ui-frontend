@@ -207,6 +207,8 @@ export class NewrequisitionComponent implements OnInit {
             //this.router.navigate(['/nsa/requisitionassign/',aTask['id']]);
             return '../requisitiondetailsdelivery/'.toString();
 
+        } else if (aTask.hop == environment.rafmAssessmentHopMarker) {
+            return '../requisitiondetailsrafm/'.toString();
         } else {
             return 'novalue'.toString();
             //alert('No Pending Details for '+this.userID+" user");

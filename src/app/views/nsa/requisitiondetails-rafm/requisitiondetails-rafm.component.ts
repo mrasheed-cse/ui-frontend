@@ -10,12 +10,12 @@ import {LoginService} from '../../pages/LoginService';
 import {LoggedInUser} from '../../pages/loggedInUser';
 
 @Component({
-    selector: 'app-requisitiondetails-form',
-    templateUrl: './requisitiondetails-form.component.html',
-    styleUrls: ['./requisitiondetails-form.component.scss'],
+    selector: 'app-requisitiondetails-rafm',
+    templateUrl: './requisitiondetails-rafm.component.html',
+    styleUrls: ['./requisitiondetails-rafm.component.scss'],
     providers: [AppGlobals, LoginService, IsmsworkflowsService, FileoperationService]
 })
-export class RequisitiondetailsFormComponent implements OnInit {
+export class RequisitiondetailsRAFMComponent implements OnInit {
 
     requisition: any;
     requsitionLines: Array<any>;
@@ -27,12 +27,13 @@ export class RequisitiondetailsFormComponent implements OnInit {
     groupID: number;
     userID: string;
     requisition_comments: string;
+
     requisition_existing_comments: Array<any>;
 
     constructor(private route: ActivatedRoute, private router: Router, private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private ismsworkflowsService: IsmsworkflowsService, private fileoperationService: FileoperationService) {
 
-        this.requisition_comments = '';
         this.requisition_existing_comments = [];
+        this.requisition_comments = '';
         this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
 
         if (this.currentLoggedInUser) {
@@ -52,9 +53,8 @@ export class RequisitiondetailsFormComponent implements OnInit {
                     this.requsitionLines = res.requisitionLines;
                     this.employeeDetails = res.employeeDetails;
                     this.requisitionDetails = res.requisitionDetails;
-                    this.getComments(this.requisitionDetails['id'], '', '');
+                    this.getComments(this.requisitionDetails['id'], "", "");
                 }
-
             },
             err => {
 
@@ -67,7 +67,6 @@ export class RequisitiondetailsFormComponent implements OnInit {
     }
 
     approveOrRejectRequest(requisitionId, status, userId) {
-
         this.ismsworkflowsService.approveOrRejectRequest(requisitionId, status, userId, this.requisition_comments).subscribe(
             res => {
                 console.log('response is : ' + res.message);
@@ -84,51 +83,9 @@ export class RequisitiondetailsFormComponent implements OnInit {
     }
 
 
-    approve() {
+    save() {
         console.log(this.requisitionDetails);
         this.approveOrRejectRequest(this.requisitionDetails['id'], 'ACCEPT', this.userID);
-
-    }
-
-    reject() {
-        this.approveOrRejectRequest(this.requisitionDetails['id'], 'REJECT', this.userID);
-    }
-
-    rfi() {
-        this.approveOrRejectRequest(this.requisitionDetails['id'], 'RFI', this.userID);
-    }
-
-    rafm() {
-        this.approveOrRejectRequest(this.requisitionDetails['id'], 'RAFM', this.userID);
-    }
-
-    deleteRequisitionLine(lineItem) {
-
-        if (confirm('Are you sure?')) {
-            let numberOfLines: number;
-            numberOfLines = this.requsitionLines.length;
-
-            if (numberOfLines <= 1) {
-                alert('There is only 1 line item. This cannot be deleted');
-                return;
-            }
-
-            /////////////////////////////////// /////////////////
-            this.ismsworkflowsService.deleteRequisitionLine(lineItem['id']).subscribe(
-                res => {
-                    console.log('response is : ' + res.message);
-                    alert('Requisition line deleted successfully');
-                    window.location.reload();
-                    if (res !== '') {
-
-                    }
-                },
-                err => {
-
-                }
-            );
-            ////////////// //////////////////////////// /////////
-        }
 
     }
 
@@ -146,6 +103,10 @@ export class RequisitiondetailsFormComponent implements OnInit {
                 link.click();
             });
         }
+    }
+
+    cancel() {
+        this.router.navigateByUrl('/nsa/newrequisition');
     }
 
     getComments(requisitionId, comment, userId) {

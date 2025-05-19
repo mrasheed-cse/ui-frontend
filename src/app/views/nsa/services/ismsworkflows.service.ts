@@ -49,6 +49,15 @@ export class IsmsworkflowsService {
 		});
 	}
 
+	editRequisition(wr_id: number, userID: string, reqHeader: any, comment: string): any {
+		console.log("userID:" + userID + ",	wrID: " + wr_id + ", reqHeader: " + reqHeader + ", comment: " + comment);
+		return this.http.post(this.serverUrl + 'requisition/requisition-edit', {
+			userID: userID,
+			wrID: wr_id,
+			comment: comment,
+			reqHeader: reqHeader
+		});
+	}
 
 	// vaidation  API
 	validateMobileAPI(mobileNo: string,): any {
@@ -173,12 +182,13 @@ export class IsmsworkflowsService {
 		});
 	}
 
-	ssmAssignment(wr_id: number, status: string, userID: string, lineItems: Array<any>): any {
+	ssmAssignment(wr_id: number, status: string, userID: string, lineItems: Array<any>, comment: string): any {
 		return this.http.post(this.serverUrl + 'requisition/ssmassignment', {
 			userID: userID,
 			wrID: wr_id,
 			status: status,
-			lineItems: lineItems
+			lineItems: lineItems,
+			comment: comment
 		});
 	}
 
