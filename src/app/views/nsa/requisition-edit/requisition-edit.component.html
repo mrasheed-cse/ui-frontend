@@ -10,11 +10,18 @@
                     </div>
                 </div>
             </div>
-            <div class="alert alert-success" role="alert" *ngIf="successAlertShow">The New Work Request
-                <b>{{ WR_Name }}</b> {{ successAlertMessage }}
+
+            <div class="alert alert-success" role="alert" *ngIf="successAlertShow">The Work Request
+                <b>{{ requisitionNo }}</b> {{ successAlertMessage }}
             </div>
-            <div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">An Error occured to create
-                <b>{{ WR_Name }}</b> <br><b>{{ dangerAlertMessage }}</b></div>
+            <div class="alert alert-danger" role="alert" *ngIf="dangerAlertShow">An Error occurred to update
+                <b>{{ requisitionNo }}</b>
+                <br>
+                <span *ngFor="let errorMsg of dangerAlertMessage">
+                        {{ errorMsg }}
+                    <br>
+                </span>
+            </div>
             <div class="alert alert-danger" role="alert" *ngIf="infoAlertShow"><b>{{ infoAlertMessage }}</b></div>
 
             <div class="card-header">
@@ -58,42 +65,39 @@
             </div>
 
             <div class="card-header">
-                <strong>Requisition Header</strong>
+                <strong>Requisition Details</strong>
             </div>
 
-            <div class="alert alert-danger" role="alert" *ngIf="infoAlertShow"><b>{{ infoAlertMessage }}</b></div>
-
-            <form [formGroup]="newSimRequisitionForm" novalidate (ngSubmit)="onNewSimRequisitionSubmit()">
+            <form [formGroup]="newSimRequisitionForm" novalidate (ngSubmit)="updateRequisition()">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <!-- <div class="form-group row">
-                                     <label class="col-md-5 col-form-label">Requisition No</label>
-                                     <div class="col-md-7">
-                                             {{WR_Name}}
-                                     </div>
-                             </div>
-                     -->
+                            <div class="form-group row">
+                                <label class="col-md-5 col-form-label" for="requisitionDate">Requisition No</label>
+                                <span class="col-md-7 col-form-label" for="requisitionDate">{{this.requisitionNo}}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
                             <div class="form-group row">
                                 <label class="col-md-5 col-form-label" for="requisitionDate">Requisition Date</label>
                                 <div class="col-md-7">
                                     <input type="text" class="form-control calendar-container" id="requisitionDate"
                                            formControlName="requisitionDate" name="requisitionDate"
                                            required bsDatepicker placement="left"
-                                           [bsConfig]="{ dateInputFormat: 'dd-MM-yyyy', containerClass: 'theme-green',  showWeekNumbers:false }"
-                                           [minDate]="todayDate"
-
-                                           value="{{ requisitionDate.value }}"
+                                           [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-green',  showWeekNumbers:false }"
                                            disabled
                                     >
+                                    <div style="display:block;width:100%;margin-top:.25rem;font-size:.875em;color:#dc3545;" *ngIf="requisitionDate.invalid">
+                                        Requisition Date is invalid
+                                    </div>
                                 </div>
                             </div>
-
                         </div>
 
                         <div class="col-md-6">
-
-
                             <div class="form-group row">
                                 <label class="col-md-5 col-form-label" for="userIdFirstWay">Notification to</label>
                                 <div class="col-md-7">
@@ -109,8 +113,11 @@
                                     <table>
                                         <tr *ngFor="let listObj of finalListOfUsersToSendWithRqn">
                                             <td>{{ listObj.emailAddress }}</td>
-                                            <td><span (click)="deleteRecipient(listObj)"><i
-                                                    class="fa fa-trash-o"></i></span></td>
+                                            <td>
+                                                <button type="button" class="btn btn-link" title="Delete"
+                                                        (click)="deleteRecipient(listObj)"><i
+                                                        class="fa fa-trash-o text-danger"></i></button>
+                                            </td>
                                         </tr>
                                     </table>
                                 </div>
@@ -126,18 +133,16 @@
                                 <div class="col-md-7">
                                     <select class="form-control" id="requisitionType" formControlName="requisitionType"
                                             required [ngClass]="{
-                                                                                                                'is-invalid': requisitionType.invalid && (requisitionType.dirty || requisitionType.touched),
-                                                                                                                'is-valid': requisitionType.valid && (requisitionType.dirty || requisitionType.touched)
+                                                                                                                'is-invalid': requisitionType.invalid,
+                                                                                                                'is-valid': requisitionType.valid
                                                                                                          }">
                                         <option *ngFor="let aRequisitionType of listRequisitionType"
                                                 [value]="aRequisitionType.id">{{ aRequisitionType.ismsMasterDataDetailsName }}
                                         </option>
                                     </select>
-                                </div>
-
-                                <div class="invalid-feedback"
-                                     *ngIf="requisitionType.errors && (requisitionType.dirty || requisitionType.touched)">
-                                    <p *ngIf="requisitionType.errors.required">Requisition Type required</p>
+                                    <div style="display:block;width:100%;margin-top:.25rem;font-size:.875em;color:#dc3545;" *ngIf="requisitionType.invalid">
+                                        Requisition Type is required
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -148,20 +153,17 @@
                                 <div class="col-md-7">
                                     <select class="form-control" id="purposeCategory" formControlName="purposeCategory"
                                             required [ngClass]="{
-                                                                                                                        'is-invalid': purposeCategory.invalid && (purposeCategory.dirty || purposeCategory.touched),
-                                                                                                                        'is-valid': purposeCategory.valid && (purposeCategory.dirty || purposeCategory.touched)
+                                                                                                                        'is-invalid': purposeCategory.invalid,
+                                                                                                                        'is-valid': purposeCategory.valid
                                                                                                                  }">
                                         <option *ngFor="let apurposeCategory of listPurposeCategory"
                                                 [value]="apurposeCategory.id">{{ apurposeCategory.ismsMasterDataDetailsName }}
                                         </option>
                                         <!--											<option *ngFor="let cl of clientOptions" [value]="cl.id">{{cl.client_name}}</option> -->
                                     </select>
-                                </div>
-
-
-                                <div class="invalid-feedback"
-                                     *ngIf="purposeCategory.errors && (purposeCategory.dirty || purposeCategory.touched)">
-                                    <p *ngIf="purposeCategory.errors.required">Purpose Category required</p>
+                                    <div style="display:block;width:100%;margin-top:.25rem;font-size:.875em;color:#dc3545;" *ngIf="purposeCategory.invalid">
+                                        Purpose Category is required
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -175,18 +177,16 @@
                                 <div class="col-md-7">
                                     <select class="form-control" id="location" formControlName="location" required
                                             [ngClass]="{
-                                                                                'is-invalid': location.invalid && (location.dirty || location.touched),
-                                                                                'is-valid': location.valid && (location.dirty || location.touched)
+                                                                                'is-invalid': location.invalid,
+                                                                                'is-valid': location.valid
                                                                         }">
                                         <option *ngFor="let alocation of listLocation"
                                                 [value]="alocation.id">{{ alocation.ismsMasterDataDetailsName }}
                                         </option>
                                     </select>
-                                </div>
-
-                                <div class="invalid-feedback"
-                                     *ngIf="location.errors && (location.dirty || location.touched)">
-                                    <p *ngIf="location.errors.required">Requisition Type required</p>
+                                    <div style="display:block;width:100%;margin-top:.25rem;font-size:.875em;color:#dc3545;" *ngIf="location.invalid">
+                                        Location is required
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -197,18 +197,16 @@
                                 <div class="col-md-7">
                                     <select class="form-control" id="usageCategory" formControlName="usageCategory"
                                             required [ngClass]="{
-                                                                       'is-invalid': usageCategory.invalid && (usageCategory.dirty || usageCategory.touched),
-                                                                       'is-valid': usageCategory.valid && (usageCategory.dirty || usageCategory.touched)
+                                                                       'is-invalid': usageCategory.invalid,
+                                                                       'is-valid': usageCategory.valid
                                                                         }">
                                         <option *ngFor="let ausageCategory of listUsageCategory"
                                                 [value]="ausageCategory.id">{{ ausageCategory.ismsMasterDataDetailsName }}
                                         </option>
                                     </select>
-                                </div>
-
-                                <div class="invalid-feedback"
-                                     *ngIf="usageCategory.errors && (usageCategory.dirty || usageCategory.touched)">
-                                    <p *ngIf="usageCategory.errors.required">Purpose Category required</p>
+                                    <div style="display:block;width:100%;margin-top:.25rem;font-size:.875em;color:#dc3545;" *ngIf="usageCategory.invalid">
+                                        Usage Category is required
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -221,30 +219,50 @@
                                 <div class="col-md-7">
                                     <select required class="form-control" id="anyAMS" formControlName="anyAMS" #select
                                             (change)="onChangeanyAMS(select.value)" [ngClass]="{
-                                                                       'is-invalid': anyAMS.invalid && (anyAMS.dirty || anyAMS.touched),
-                                                                       'is-valid': anyAMS.valid && (anyAMS.dirty || anyAMS.touched)
+                                                                       'is-invalid': anyAMS.invalid,
+                                                                       'is-valid': anyAMS.valid
                                                                         }">
                                         <option *ngFor="let anyAMS of anyamsList"
                                                 [value]="anyAMS.value">{{ anyAMS.value }}
                                         </option>
                                     </select>
-                                </div>
-
-                                <div class="invalid-feedback" *ngIf="anyAMS.errors && (anyAMS.dirty || anyAMS.touched)">
-                                    <p *ngIf="anyAMS.errors.required">Any AMS required</p>
+                                    <div style="display:block;width:100%;margin-top:.25rem;font-size:.875em;color:#dc3545;" *ngIf="anyAMS.invalid">
+                                        Any AMS is required
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-md-4" *ngIf="amsVisible">
                             <div class="form-group row">
                                 <label class="col-md-5 col-form-label" for="amsId">AMS Number <span style="color:red">&#42;</span></label>
                                 <div class="col-md-7">
                                     <input type="text" id="amsId" name="amsId" class="form-control"
-                                           formControlName="amsId" placeholder="Please enter AMS Number">
+                                           formControlName="amsId" placeholder="Please enter AMS Number"
+                                           [ngClass]="{
+                                                                       'is-invalid': !isValidAmsNUmber,
+                                                                       'is-valid': isValidAmsNUmber
+                                                                        }">
+                                    <div style="display:block;width:100%;margin-top:.25rem;font-size:.875em;color:#dc3545;" *ngIf="!isValidAmsNUmber">
+                                        AMS Number is required
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4" *ngIf="amsVisible">
+
+                        <div class="col-md-4" *ngIf="amsVisible && isValidAmsFileName">
+                            <div class="form-group row">
+                                <label class="col-md-5 col-form-label" for="anyAMS">AMS File<span style="color:red">&#42;</span></label>
+                                <label class="col-md-5 col-form-label" for="anyAMS" [title]="existingAmsFileName">
+                                    {{ existingAmsFileNameToDisplay }}
+                                    <button type="button" class="btn btn-link" title="Delete" (click)="deleteAmsFile()">
+                                        <i style="padding-left: 5px;" class="fa fa-trash-o text-danger"
+                                           aria-hidden="true"></i></button>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4" *ngIf="amsVisible && !isValidAmsFileName">
                             <div class="form-group row">
                                 <label class="col-md-5 col-form-label" for="getFile">Upload Approved AMS <span
                                         style="color:red">&#42;</span>
@@ -252,11 +270,13 @@
                                 <div class="col-md-4">
                                     <input #fileInput type='file' id="getFile" (click)="fileInput.value = null"
                                            accept=".pdf,.eml,.msg,.zip" (change)="handleFileInput($event)">
+                                    <div style="display:block;width:100%;margin-top:.25rem;font-size:.875em;color:#dc3545;" *ngIf="!isValidAmsFileName">
+                                        AMS File is required
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
 
                     <div class="row">
                         <div class="col-md-4">
@@ -266,14 +286,21 @@
                                         style="color:red">&#42;</span></label>
                                 <div class="col-md-7">
                                     <input type="text" class="form-control calendar-container" id="startDate"
+                                           [ngClass]="{
+                                                                       'is-invalid': startDate.invalid,
+                                                                       'is-valid': startDate.valid
+                                                                        }"
                                            formControlName="startDate" name="startDate"
                                            required bsDatepicker placement="right"
-                                           [bsConfig]="{ dateInputFormat: 'dd-MM-yyyy', containerClass: 'theme-green',  showWeekNumbers:false }"
-                                           [minDate]="todayDate"
+                                           autocomplete="off"
+                                           [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-green',  showWeekNumbers:false }"
+                                           [minDate]="minStartDate"
                                            style="color: black;font-size: 1em;"
-                                           value="{{ startDate.value | date: 'dd-MM-yyyy' }}" [(ngModel)]="sDate"
                                            (ngModelChange)="onSDateChange()"
                                     >
+                                    <div style="display:block;width:100%;margin-top:.25rem;font-size:.875em;color:#dc3545;" *ngIf="startDate.invalid">
+                                        Start Date is required
+                                    </div>
                                 </div>
                             </div>
 
@@ -285,18 +312,16 @@
                                 <div class="col-md-7">
                                     <select class="form-control" id="dateRange" formControlName="dateRange" #sel
                                             (change)="onChange(sel.value)" required [ngClass]="{
-                                                                                       'is-invalid': dateRange.invalid && (dateRange.dirty || dateRange.touched),
-                                                                                       'is-valid': dateRange.valid && (dateRange.dirty || dateRange.touched)
+                                                                                       'is-invalid': dateRange.invalid,
+                                                                                       'is-valid': dateRange.valid
                                                                                         }">
                                         <option *ngFor="let adateRange of listDateRange"
                                                 [value]="adateRange.ismsMasterDataDetailsName">{{ adateRange.ismsMasterDataDetailsName }}
                                         </option>
                                     </select>
-                                </div>
-
-                                <div class="invalid-feedback"
-                                     *ngIf="dateRange.errors && (dateRange.dirty || dateRange.touched)">
-                                    <p *ngIf="dateRange.errors.required">Date Range required</p>
+                                    <div style="display:block;width:100%;margin-top:.25rem;font-size:.875em;color:#dc3545;" *ngIf="dateRange.invalid">
+                                        Date Range is required
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -305,66 +330,109 @@
                                 <label class="col-md-5 col-form-label" for="endDate">End Date <span style="color:red">&#42;</span></label>
                                 <div class="col-md-7">
                                     <input type="text" class="form-control calendar-container" id="endDate"
+                                           [ngClass]="{
+                                                                       'is-invalid': endDate.invalid,
+                                                                       'is-valid': endDate.valid
+                                                                        }"
                                            formControlName="endDate" name="endDate"
                                            required bsDatepicker placement="left"
-                                           [bsConfig]="{ dateInputFormat: 'dd-MM-yyyy', containerClass: 'theme-green',  showWeekNumbers:false }"
+                                           autocomplete="off"
+                                           [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-green',  showWeekNumbers:false }"
                                            [minDate]="minDate" [maxDate]="maxDate"
                                            style="color: black;font-size: 1em;"
-                                           value="{{ endDate.value | date: 'dd-MM-yyyy' }}"
                                     >
+                                    <div style="display:block;width:100%;margin-top:.25rem;font-size:.875em;color:#dc3545;" *ngIf="endDate.invalid">
+                                        End Date is required
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <div class="form-group row">
+                            <div class="form-group row" [ngStyle]="!isEmpTypeSelected ? {'margin-bottom': '0'} : {}">
                                 <label class="col-md-2" for="empType">User Type <span
                                         style="color:red">&#42;</span></label>
                                 <ng-container *ngFor="let item of listEmpType;let i=index;">
-                                    <label><input #chk type="checkbox" [ngModelOptions]="{standalone: true}"
+                                    <label><input type="checkbox" [ngModelOptions]="{standalone: true}"
                                                   name="empType"
-                                                  (change)="onchangeEmp(chk,item.ismsMasterDataDetailsName)"
-                                                  [(ngModel)]="chk.checked" required></label>&nbsp;
+                                                  [(ngModel)]="selectedEmpTypeMap[item.ismsMasterDataDetailsName]"
+                                                  (change)="onchangeEmp(item.ismsMasterDataDetailsName)"
+                                                  required></label>&nbsp;&nbsp;
                                     <label>{{ item.ismsMasterDataDetailsName }}</label>&nbsp;&nbsp;&nbsp;
                                 </ng-container>
+
                                 <div class="col-md-2" *ngIf="empVisible">
                                     <input type="text" id="otherEmpType" name="otherEmpType" class="form-control"
-                                           formControlName="otherEmpType" placeholder="Please enter User Type">
+                                           formControlName="otherEmpType" placeholder="Please enter User Type"
+                                           [ngClass]="{
+                                                                       'is-invalid': !isValidOtherEmpType,
+                                                                       'is-valid': isValidOtherEmpType
+                                                                        }">
+                                    <div style="display:block;width:100%;font-size:.875em;color:#dc3545; margin: 0; padding: 0;" *ngIf="!isValidOtherEmpType">
+                                        Other User Type is required
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row" *ngIf="!isEmpTypeSelected">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-5" style="display:block;width:100%;font-size:.875em;color:#dc3545; margin: 0; padding: 0;">
+                                    User Type is required
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <div class="form-group row">
+                            <div class="form-group row" [style.margin-bottom]="!isUsageEnvSelected ? '0' : null">
                                 <label class="col-md-2" for="usageEnv">Usage Environment <span
                                         style="color:red">&#42;</span></label>
                                 <ng-container *ngFor="let item of listUsageEnv;let i=index;">
-                                    <label><input #chk type="checkbox" [ngModelOptions]="{standalone: true}"
+                                    <label><input type="checkbox" [ngModelOptions]="{standalone: true}"
                                                   name="usageEnv"
-                                                  (change)="onchangeusageEnv(chk,item.ismsMasterDataDetailsName)"
-                                                  [(ngModel)]="chk.checked" required></label>&nbsp;
+                                                  [(ngModel)]="selectedUsageEnvMap[item.ismsMasterDataDetailsName]"
+                                                  (change)="onchangeusageEnv(item.ismsMasterDataDetailsName)"
+                                                  required></label>&nbsp;
                                     <label>{{ item.ismsMasterDataDetailsName }}</label>&nbsp;&nbsp;&nbsp;
                                 </ng-container>
+                            </div>
+                            <div class="form-group row" *ngIf="!isUsageEnvSelected">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-5" style="display:block;width:100%;font-size:.875em;color:#dc3545; margin: 0; padding: 0;">
+                                    Usage Environment is required
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <div class="form-group row">
+                            <div class="form-group row" [style.margin-bottom]="!idCardTypeSelected ? '0' : null">
                                 <label class="col-md-2" for="IDCardType">ID Card Type <span
                                         style="color:red">&#42;</span></label>
                                 <ng-container *ngFor="let item of listIDCardType;let i=index;">
-                                    <label><input #chk type="checkbox" [ngModelOptions]="{standalone: true}"
+                                    <label><input type="checkbox" [ngModelOptions]="{standalone: true}"
                                                   name="IDCardType"
-                                                  (change)="onchangeIDType(chk,item.ismsMasterDataDetailsName)"
-                                                  [(ngModel)]="chk.checked" required></label>&nbsp;
+                                                  [(ngModel)]="selectedIdCardTypeMap[item.ismsMasterDataDetailsName]"
+                                                  (change)="onchangeIDType(item.ismsMasterDataDetailsName)"
+                                                  required></label>&nbsp;
                                     <label>{{ item.ismsMasterDataDetailsName }}</label>&nbsp;&nbsp;&nbsp;
                                 </ng-container>
                                 <div class="col-md-2" *ngIf="cardVisible">
                                     <input type="text" id="otherIDCardType" name="otherIDCardType" class="form-control"
-                                           formControlName="otherIDCardType" placeholder="Please enter ID Card Type">
+                                           formControlName="otherIDCardType" placeholder="Please enter ID Card Type"
+                                           [ngClass]="{
+                                                                       'is-invalid': !isValidOtherIdCardType,
+                                                                       'is-valid': isValidOtherIdCardType
+                                                                        }">
+                                    <div style="display:block;width:100%;font-size:.875em;color:#dc3545; margin: 0; padding: 0;" *ngIf="!isValidOtherIdCardType">
+                                        Other ID Card Type is required
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row" *ngIf="!idCardTypeSelected">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-5" style="display:block;width:100%;font-size:.875em;color:#dc3545; margin: 0; padding: 0;">
+                                    ID Card Type is required
                                 </div>
                             </div>
                         </div>
@@ -382,11 +450,11 @@
                                                                                   placeholder="Please enter maximum 500 characters"
                                                                                   required
                                                                                   [ngClass]="{
-                                                                                        'is-invalid': cardNo.invalid && (cardNo.dirty || cardNo.touched),
-                                                                                        'is-valid': cardNo.valid && (cardNo.dirty || cardNo.touched)
+                                                                                        'is-invalid': cardNo.invalid,
+                                                                                        'is-valid': cardNo.valid
                                                                         }"></textarea>
                                     <div class="invalid-feedback"
-                                         *ngIf="cardNo.errors && (cardNo.dirty || cardNo.touched)">
+                                         *ngIf="cardNo.errors">
                                         <p *ngIf="cardNo.errors.required">ID Card Number is required</p>
                                         <p *ngIf="cardNo.errors.maxlength">ID Card Number must be maximum 500 characters
                                             long, we are
@@ -416,10 +484,10 @@
                                                                                                   placeholder="Please enter maximum 500 characters"
                                                                                                   required
                                                                                                   [ngClass]="{
-                                                                                                'is-invalid': imei.invalid && (imei.dirty || imei.touched),
-                                                                                                'is-valid': imei.valid && (imei.dirty || imei.touched)
+                                                                                                'is-invalid': imei.invalid,
+                                                                                                'is-valid': imei.valid
                                                                                    }"></textarea>
-                                    <div class="invalid-feedback" *ngIf="imei.errors && (imei.dirty || imei.touched)">
+                                    <div class="invalid-feedback" *ngIf="imei.errors">
                                         <p *ngIf="imei.errors.required">IMEI Number is required</p>
                                         <p *ngIf="imei.errors.minlength">IMEI Number must be minimum 15 characters long,
                                             we need another
@@ -458,11 +526,11 @@
                                                                                           placeholder="Please enter minimum 50 characters"
                                                                                           required
                                                                                           [ngClass]="{
-                                                                                        'is-invalid': purposeDetails.invalid && (purposeDetails.dirty || purposeDetails.touched),
-                                                                                        'is-valid': purposeDetails.valid && (purposeDetails.dirty || purposeDetails.touched)
+                                                                                        'is-invalid': purposeDetails.invalid,
+                                                                                        'is-valid': purposeDetails.valid
                                                                            }"></textarea>
                                     <div class="invalid-feedback"
-                                         *ngIf="purposeDetails.errors && (purposeDetails.dirty || purposeDetails.touched)">
+                                         *ngIf="purposeDetails.errors">
                                         <p *ngIf="purposeDetails.errors.required">Purpose Details is required</p>
                                         <p *ngIf="purposeDetails.errors.minlength">Purpose Details must be minimum 50
                                             characters long, we need another
@@ -483,26 +551,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!--<div class="col-md-6">
-                                <div class="form-group row">
-                                        <label class="col-md-5 col-form-label" for="userIdFirstWay">Notification to</label>
-                                        <div class="col-md-7">
-                                                <input class="form-control" type="text" (keyup)="getUserIdsFirstWay($event)" id="userIdFirstWay" list="dynmicUserIds" formControlName="notificationTo" />
-                                                <span (click)="addRecipient()"><i class="fa fa-plus cust-icon-add-to-autocomplete"></i></span>
-                                                <datalist id="dynmicUserIds">
-                                                        <option *ngFor="let item of userList1" [value]="item.userName">{{item.userName}}</option>
-                                                </datalist>
-                                                <table>
-                                                        <tr *ngFor="let listObj of finalListOfUsersToSendWithRqn">
-                                                                <td>{{listObj.emailAddress}}</td>
-                                                                <td><span (click)="deleteRecipient(listObj)"><i class="fa fa-trash-o"></i></span></td>
-                                                        </tr>
-                                                </table>
-                                        </div>
-                                </div>
-                        </div>-->
-
                     </div>
 
                     <div class="row">
@@ -517,11 +565,11 @@
                                                                           placeholder="Please enter minimum 50 characters"
                                                                           required
                                                                           [ngClass]="{
-                                                                        'is-invalid': question1.invalid && (question1.dirty || question1.touched),
-                                                                        'is-valid': question1.valid && (question1.dirty || question1.touched)
+                                                                        'is-invalid': question1.invalid,
+                                                                        'is-valid': question1.valid
                                                                 }"></textarea>
                                     <div class="invalid-feedback"
-                                         *ngIf="question1.errors && (question1.dirty || question1.touched)">
+                                         *ngIf="question1.errors">
                                         <p *ngIf="question1.errors.required">Answer is required</p>
                                         <p *ngIf="question1.errors.minlength">Answer must be minimum 50 characters long,
                                             we need another
@@ -558,11 +606,11 @@
                                                                           placeholder="Please enter minimum 20 characters"
                                                                           required
                                                                           [ngClass]="{
-                                                                        'is-invalid': question2.invalid && (question2.dirty || question2.touched),
-                                                                        'is-valid': question2.valid && (question2.dirty || question2.touched)
+                                                                        'is-invalid': question2.invalid,
+                                                                        'is-valid': question2.valid
                                                                 }"></textarea>
                                     <div class="invalid-feedback"
-                                         *ngIf="question2.errors && (question2.dirty || question2.touched)">
+                                         *ngIf="question2.errors">
                                         <p *ngIf="question2.errors.required">Answer is required</p>
                                         <p *ngIf="question2.errors.minlength">Answer must be minimum 20 characters long,
                                             we need another
@@ -598,11 +646,11 @@
                                                                           placeholder="Please enter minimum 50 characters"
                                                                           required
                                                                           [ngClass]="{
-                                                                        'is-invalid': question3.invalid && (question3.dirty || question3.touched),
-                                                                        'is-valid': question3.valid && (question3.dirty || question3.touched)
+                                                                        'is-invalid': question3.invalid,
+                                                                        'is-valid': question3.valid
                                                                 }"></textarea>
                                     <div class="invalid-feedback"
-                                         *ngIf="question3.errors && (question3.dirty || question3.touched)">
+                                         *ngIf="question3.errors">
                                         <p *ngIf="question3.errors.required">Answer is required</p>
                                         <p *ngIf="question3.errors.minlength">Answer must be minimum 50 characters long,
                                             we need another
@@ -638,11 +686,11 @@
                                                                           placeholder="Please enter minimum 50 characters"
                                                                           required
                                                                           [ngClass]="{
-                                                                        'is-invalid': question4.invalid && (question4.dirty || question4.touched),
-                                                                        'is-valid': question4.valid && (question4.dirty || question4.touched)
+                                                                        'is-invalid': question4.invalid,
+                                                                        'is-valid': question4.valid
                                                                 }"></textarea>
                                     <div class="invalid-feedback"
-                                         *ngIf="question4.errors && (question4.dirty || question4.touched)">
+                                         *ngIf="question4.errors">
                                         <p *ngIf="question4.errors.required">Answer is required</p>
                                         <p *ngIf="question4.errors.minlength">Answer must be minimum 50 characters long,
                                             we need another
@@ -675,8 +723,6 @@
 
                         <div class="col-12"><input type="button" class="btn btn-success float-right" (click)="addLine()"
                                                    value="Add More Line"></div>
-
-
                     </div>
 
                     <div class="row">
@@ -692,37 +738,58 @@
                             </tr>
                             </thead>
 
-
                             <tbody formArrayName="requisitionLines"
                                    *ngFor="let requisitionLine of requisitionLines.controls; index as idx">
-
                             <tr [formGroupName]="idx">
                                 <td>
-                                    <select class="form-control" formControlName="product">
+                                    <select class="form-control" formControlName="product"
+                                            [ngClass]="{
+                                                'is-invalid': requisitionLine.get('product').invalid,
+                                                'is-valid': requisitionLine.get('product').valid
+                                            }">
                                         <option *ngFor="let aproduct of listProduct"
                                                 [value]="aproduct.id">{{ aproduct.ismsMasterDataDetailsName }}
                                         </option>
-
                                     </select>
-
-
                                 </td>
-                                <td><input class="form-control" formControlName="creditLimit" type="number" min="0"
-                                           [prevent-keys]="[43, 45,189,187]"></td>
-                                <td><input class="form-control" formControlName="quantity" type="number" min="1"
-                                           [prevent-keys]="[43, 45,189,187]"></td>
-                                <td>
-                                    <!--<input formControlName="imsiType" >  -->
 
-                                    <select class="form-control" formControlName="imsiType">
+                                <td>
+                                    <input class="form-control" formControlName="creditLimit" type="number" min="0"
+                                           [prevent-keys]="[43, 45,189,187]"
+                                           [ngClass]="{
+                                                'is-invalid': requisitionLine.get('creditLimit').invalid,
+                                                'is-valid': requisitionLine.get('creditLimit').valid
+                                            }">
+                                </td>
+
+
+                                <td>
+                                    <input class="form-control" formControlName="quantity" type="number" min="1"
+                                           [prevent-keys]="[43, 45,189,187]"
+                                           [ngClass]="{
+                                                'is-invalid': requisitionLine.get('quantity').invalid,
+                                                'is-valid': requisitionLine.get('quantity').valid
+                                            }">
+                                </td>
+
+                                <td>
+                                    <select class="form-control" formControlName="imsiType"
+                                            [ngClass]="{
+                                                'is-invalid': requisitionLine.get('imsiType').invalid,
+                                                'is-valid': requisitionLine.get('imsiType').valid
+                                            }">
                                         <option *ngFor="let aImsiType of listImsiType"
                                                 [value]="aImsiType.id">{{ aImsiType.ismsMasterDataDetailsName }}
                                         </option>
                                     </select>
                                 </td>
+
                                 <td>
-                                    <!--<input formControlName="specialRequirement">-->
-                                    <select class="form-control" formControlName="specialRequirement">
+                                    <select class="form-control" formControlName="specialRequirement"
+                                            [ngClass]="{
+                                                'is-invalid': requisitionLine.get('specialRequirement').invalid,
+                                                'is-valid': requisitionLine.get('specialRequirement').valid
+                                            }">
                                         <option *ngFor="let singleSpecialRequirement of listSpecialRequirement"
                                                 [value]="singleSpecialRequirement.value">{{ singleSpecialRequirement.name }}
                                         </option>
@@ -731,41 +798,48 @@
                                     <textarea formControlName="specialRequirementOther" style="width:100% !important"
                                               placeholder="Put more requirements here..." rows="4" cols="5"></textarea>
                                 </td>
+
                                 <td>
                                     <button type="button" (click)="deleteLine(idx)">Delete</button>
                                 </td>
-
-
-                                <!--
-                                <div>
-                                                assignProduct: <input formControlName="assignProduct">
-                                </div>
-                                <div>
-                                                assignQuantity: <input formControlName="assignQuantity">
-                                </div>
-                                -->
-
                             </tr>
-
                             </tbody>
-
                         </table>
-
                     </div>
                 </div>
-                <!-- <div class="card-body"> -->
-                <div class="card-footer text-right">
-                    <button type="submit"
-                            [disabled]="!newSimRequisitionForm.valid || selectedEmpType.length == 0 || selectedUsageEnv.length == 0 || selectedIDCardType.length == 0"
-                            class="btn btn-sm btn-primary">
-                        <i class="fa fa-dot-circle-o"></i> Submit
-                    </button>
-                    <button type="reset" class="btn btn-sm btn-danger" (click)="clearForm($event)">
-                        <i class="fa fa-ban"></i> Reset
-                    </button>
 
+                <div class="card">
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div *ngFor="let c of requisition_existing_comments">
+                                    {{ c.userID }} commented on {{ c.datePosted }} : {{ c.comment }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                Comments: <textarea rows="6" cols="75" [(ngModel)]="requisition_comments" [ngModelOptions]="{standalone: true}"></textarea>
+
+                                <br/><br/>
+
+                                <button type="submit"
+                                        [disabled]="!newSimRequisitionForm.valid || !isValidEmpType || !isUsageEnvSelected || !isValidIdCardType || (amsVisible ? !isValidAmsFileName || !isValidAmsNUmber : false)"
+                                        style="width:120px" class="btn btn-success">
+                                    Save
+                                </button>
+
+                                <button type="reset" style="width:120px" class="btn btn-danger"
+                                        (click)="clearForm($event)">
+                                    Cancel
+                                </button>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <!-- <div class="card-footer"> -->
             </form>
         </div>
     </div>

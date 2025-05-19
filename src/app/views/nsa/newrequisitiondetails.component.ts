@@ -210,6 +210,10 @@ editAction(aTask){
   return '../requisitionedit/'.toString();
 }
 
+editActionNew(aTask){
+  return '../requisition-edit/'.toString();
+}
+
 viewAction(aTask){
   return '../requisitionview/'.toString();
 }

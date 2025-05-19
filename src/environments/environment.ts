@@ -5,6 +5,7 @@ export const environment = {
 	approvedRequestMarker: 'APPROVED',
 	rejectedRequestMarker: 'REJECTED',
 	ssmAssessmentHopMarker: "SSM",
+	rafmAssessmentHopMarker: "RAFM",
 	hodHopMarker: "HOD",
 	divisionHeadHopMarker: "DIVISIONAL HEAD",
 	ssmAssignmentHopMarker: "SSM2",
