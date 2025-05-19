@@ -160,6 +160,8 @@ import {MfsRecyclingSummaryReportComponent} from './mfs-recycling-summary-report
 import {DownloadsMfsRecyclingSummaryReportComponent} from './download-mfs-recycling-summary-report.component';
 import {MfsRecyclingDetailsReportComponent} from './mfs-recycling-details-report.component';
 import {MfsStatusOfMsisdnComponent} from './mfs-status-of-msisdn.component';
+import {RequisitiondetailsRAFMComponent} from './requisitiondetails-rafm/requisitiondetails-rafm.component';
+import {RequisitionEditNewComponent} from './requisition-edit/requisition-edit.component';
 
 const routes: Routes = [
     {
@@ -458,6 +460,13 @@ const routes: Routes = [
         }
     },
     {
+        path: 'requisition-edit/:requisition_id',
+        component: RequisitionEditNewComponent,
+        data: {
+            title: 'Requisition Details (Revision by end user)'
+        }
+    },
+    {
         path: 'requisitionview/:requisition_id',
         component: RequisitionviewComponent,
         data: {
@@ -487,6 +496,14 @@ const routes: Routes = [
         component: RequisitiondetailsFormComponent,
         data: {
             title: 'Requisition Details (Assessment) - SSM User Group'
+        }
+    },
+
+    {
+        path: 'requisitiondetailsrafm/:requisition_id',
+        component: RequisitiondetailsRAFMComponent,
+        data: {
+            title: 'Requisition Details (Fraud Assessment) - RAFM User Group'
         }
     },
 

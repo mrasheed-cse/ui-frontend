@@ -182,6 +182,9 @@ import {DownloadsMfsRecyclingSummaryReportComponent} from './download-mfs-recycl
 import {SharedMessageService} from './services/shared-message.service';
 import {MfsRecyclingDetailsReportComponent} from './mfs-recycling-details-report.component';
 import {MfsStatusOfMsisdnComponent} from './mfs-status-of-msisdn.component';
+import {RequisitiondetailsRAFMComponent} from './requisitiondetails-rafm/requisitiondetails-rafm.component';
+import {RequisitionEditNewComponent} from './requisition-edit/requisition-edit.component';
+import {TooltipModule} from 'ngx-bootstrap';
 
 
 @NgModule({
@@ -195,7 +198,8 @@ import {MfsStatusOfMsisdnComponent} from './mfs-status-of-msisdn.component';
     BsDatepickerModule.forRoot(),
     AgGridModule.withComponents([]),
     NsaRoutingModule,
-    ChartsModule
+    ChartsModule,
+    TooltipModule
   ],
   declarations: [
     LandingpageComponent,
@@ -236,6 +240,7 @@ import {MfsStatusOfMsisdnComponent} from './mfs-status-of-msisdn.component';
     NewrequisitiondetailsComponent,
     NewrequisitionComponent,
     RequisitiondetailsFormComponent,
+    RequisitiondetailsRAFMComponent,
     RequisitionassignComponent,
     RequisitiondetailshodComponent,
     RequisitiondetailsdeliveryComponent,
@@ -344,7 +349,8 @@ import {MfsStatusOfMsisdnComponent} from './mfs-status-of-msisdn.component';
     MfsRecyclingSummaryReportComponent,
     DownloadsMfsRecyclingSummaryReportComponent,
     MfsRecyclingDetailsReportComponent,
-    MfsStatusOfMsisdnComponent
+    MfsStatusOfMsisdnComponent,
+    RequisitionEditNewComponent
   ],
   providers:[DatePipe, LoginService, AuthGuard, SharedMessageService]})
 export class NsaModule { }
