@@ -101,7 +101,7 @@ import {  NgModule,
                       this.isLoading=false;
                   } else if(res['message']==="2"){
                         console.log(res['message']+"  111")
-                        this.fileuploadstatus = 'File data row is Greater Than 50000';
+                        this.fileuploadstatus = 'File data row is Greater Than 100000';
                         this.fileerror = true;
                         this.isLoading=false;
                     } else {
