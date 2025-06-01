@@ -42,7 +42,7 @@ export class RepPlanGenerate implements OnInit {
   			listDropDownPlanCircle=[];
   			listDropDownRequester=[];
   			
-  			quantity:string;
+  			quantity:number;
   			
   			msisdnPlanid: string;
   			 public isDisableBtn:boolean = false;
@@ -106,7 +106,7 @@ export class RepPlanGenerate implements OnInit {
 		inputFile:new FormControl({value: ''}),
 		requestDate:new FormControl(''),
 		wrname:new FormControl(''),
-		quantity:new FormControl(''),
+		quantity:new FormControl('', [Validators.required, Validators.min(1)]),
 		CustomerCategory:new FormControl({value: ''}),
 		CategoryName:new FormControl({value: ''}),
 		Requester:new FormControl({value: ''}),
@@ -260,7 +260,7 @@ getRequester(){
 LoadQueryStringData(){
 	// LOAD QUERY STRING DATA
 	
-	this.quantity= this.activatedRoute.snapshot.paramMap.get('totalUploadableQuantity');
+	this.quantity= Number(this.activatedRoute.snapshot.paramMap.get('totalUploadableQuantity'));
 	console.log(this.quantity);
 	  this.inputFileIds = this.activatedRoute.snapshot.paramMap.get('ifids');
   
@@ -335,4 +335,3 @@ SubmitForRepPlanGeneration(){
    
     
    }
-  			
