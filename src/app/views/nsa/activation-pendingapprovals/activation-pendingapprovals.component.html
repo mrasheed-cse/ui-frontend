@@ -13,60 +13,71 @@
     <div class="row">
 
         <div class="col-md-12">
-      
-          <div class="card">
-            <div class="card-body" *ngIf="isDataFound">
-      
-              <div>
-                  <h4>Requisition No: {{requisition['requisitionDetails']['requisitionNo']}}</h4>
-                  <h6>Requisition Type: {{requisition['requisitionDetails']['requisitionType']}}</h6>
-              </div>
-      
-              <hr />
-      
-              <h5>MSISDNs delivered under this requisition:</h5>
-      
-              <table class="table table-bordered table-striped table-sm">
-                <thead>
-                  <tr>
-                    <th><input type="checkbox" [(ngModel)] = "selectAll" (change)="handleSelectAll(selectAll?'1':'0')"  /></th>
-                    <th>MSISDN</th>
-                    <th>SIM Serial #</th>
-                    <th>SIM Type</th>
-                    <th>SIM Status</th>
-                    <th>Activation No</th>
-                    <th>Delivery Status</th>              
-                    <th>Declaration Status</th>
-                  </tr>
-                </thead>
-                <tbody *ngFor="let aTask of requisition['msisdnDetails'];  index as i">
-                            <tr>
-                                <td><input type="checkbox" [(ngModel)] = "aTask.selected" /></td>
-                                <td>{{aTask.msisdn}}</td>
-                                <td>{{aTask.simSerial}}</td>
-                                <td>{{aTask.simType}}</td>
-                                <td>{{aTask.simStatus}}</td>
-                                <td>{{aTask.activationWRName}}</td>
-                                <td>{{aTask.deliveryStatus}}</td>
-                                <td>{{aTask.declarationStatus}}</td>
-                            </tr>
-                </tbody>
-              </table>
-      
-              <br /><br />
-      
-              <a style="width:160px;font-size: 0.8em;height: 34px;" class="btn btn-success" (click) = "approve()" >Approve</a>
-      
+
+            <div class="card">
+                <div class="card-body" *ngIf="isDataFound">
+
+                    <div>
+                        <h4 >Requisition No: {{ requisition['requisitionDetails']['requisitionNo'] }}</h4>
+                        <h6>Requisition Type: {{ requisition['requisitionDetails']['requisitionType'] }}</h6>
+                    </div>
+
+                    <hr/>
+
+                    <div class="row" style="padding-bottom: 5px">
+                        <div class="col-md-8" style="font-size: 16px;">
+                            <i class="fa fa-align-justify"></i> MSISDNs delivered under this requisition:
+                        </div>
+                        <div class="col-md-4 d-flex justify-content-end">
+                            <button (click)="exportFile()" class="btn btn-primary" style="padding: 8px 16px; font-size: 16px;">
+                                <i class="fa fa-download"></i> Export
+                            </button>
+                        </div>
+                    </div>
+
+                    <table class="table table-bordered table-striped table-sm">
+                        <thead>
+                        <tr>
+                            <th><input type="checkbox" [(ngModel)]="selectAll"
+                                       (change)="handleSelectAll(selectAll?'1':'0')"/></th>
+                            <th>MSISDN</th>
+                            <th>SIM Serial #</th>
+                            <th>SIM Type</th>
+                            <th>SIM Status</th>
+                            <th>Activation No</th>
+                            <th>Delivery Status</th>
+                            <th>Declaration Status</th>
+                        </tr>
+                        </thead>
+                        <tbody *ngFor="let aTask of requisition['msisdnDetails'];  index as i">
+                        <tr>
+                            <td><input type="checkbox" [(ngModel)]="aTask.selected"/></td>
+                            <td>{{ aTask.msisdn }}</td>
+                            <td>{{ aTask.simSerial }}</td>
+                            <td>{{ aTask.simType }}</td>
+                            <td>{{ aTask.simStatus }}</td>
+                            <td>{{ aTask.activationWRName }}</td>
+                            <td>{{ aTask.deliveryStatus }}</td>
+                            <td>{{ aTask.declarationStatus }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <br/><br/>
+
+                    <a style="width:160px;font-size: 0.8em;height: 34px;" class="btn btn-success" (click)="approve()">Approve</a>
+
+                </div>
+                <div class="card-body" *ngIf="!isDataFound">
+                    <div class="alert alert-primary" role="alert"><b>Could not get details about selected requisition,
+                        please try again.</b></div>
+                </div>
             </div>
-            <div class="card-body" *ngIf="!isDataFound">
-                <div class="alert alert-primary" role="alert" ><b>Could not get details about selected requisition, please try again.</b></div>
-            </div>
-          </div>
-      
+
         </div>
-      
-      
-      </div>
-      
+
+
+    </div>
+
 
 </div>
