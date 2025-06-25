@@ -98,6 +98,7 @@ export class RequisitionEditNewComponent implements OnInit {
     empType: FormControl;
     otherEmpType: FormControl;
     usageEnv: FormControl;
+    cmpEnv: FormControl;
     IDCardType: FormControl;
     otherIDCardType: FormControl;
 
@@ -147,6 +148,7 @@ export class RequisitionEditNewComponent implements OnInit {
 
     isEmpTypeSelected = false;
     isUsageEnvSelected = false;
+    isCmpEnvSelected = false;
     idCardTypeSelected = false;
 
     isValidAmsFileName = false;
@@ -157,6 +159,10 @@ export class RequisitionEditNewComponent implements OnInit {
     isValidOtherIdCardType = false;
 
     DATE_FORMAT = 'DD-MM-YYYY';
+
+    cmpEnvironments = ['Yes', 'No'];
+    selectedCmpEnv: string | null = null;
+
 
     loadMasterData() {
         this.getEmployeeDetails();
@@ -426,6 +432,12 @@ export class RequisitionEditNewComponent implements OnInit {
                     this.requisitionDetails = res.requisitionDetails;
                     this.requisitionNo = this.requisitionDetails.requisitionNo;
                     this.requisitionName = this.requisitionDetails.requisitionName;
+
+                    if(res.requisitionDetails.cmpFlag != 0) {
+                        this.selectedCmpEnv = 'Yes';
+                    } else {
+                        this.selectedCmpEnv = 'No';
+                    }
                     this.getComments(this.requisitionDetails['id'], '', '');
                 }
             },
@@ -664,6 +676,9 @@ export class RequisitionEditNewComponent implements OnInit {
             group.get('specialRequirement').setValue(item.specialRequirement);
         });
 
+        this.cmpEnv.setValue(this.selectedCmpEnv);
+        this.isCmpEnvSelected = (this.selectedCmpEnv == 'Yes' || this.selectedCmpEnv == 'No');
+
         this.isLoading = false;
     }
 
@@ -774,6 +789,7 @@ export class RequisitionEditNewComponent implements OnInit {
         this.empType = new FormControl({value: ''}, Validators.required);
         this.otherEmpType = new FormControl('', [Validators.maxLength(30)]);
         this.usageEnv = new FormControl({value: ''}, Validators.required);
+        this.cmpEnv = new FormControl({value: ''}, Validators.required);
         this.IDCardType = new FormControl({value: ''}, Validators.required);
         this.otherIDCardType = new FormControl('', [Validators.maxLength(20)]);
         this.purposeDetails = new FormControl('', [Validators.required, Validators.minLength(50), Validators.maxLength(280)]);
@@ -805,6 +821,7 @@ export class RequisitionEditNewComponent implements OnInit {
             empType: this.empType,
             otherEmpType: this.otherEmpType,
             usageEnv: this.usageEnv,
+            cmpEnv: this.cmpEnv,
             IDCardType: this.IDCardType,
             otherIDCardType: this.otherIDCardType,
             purposeDetails: this.purposeDetails,
@@ -1006,6 +1023,7 @@ export class RequisitionEditNewComponent implements OnInit {
             this.headerDateData.question2 = this.newSimRequisitionForm.get('question2').value;
             this.headerDateData.question3 = this.newSimRequisitionForm.get('question3').value;
             this.headerDateData.question4 = this.newSimRequisitionForm.get('question4').value;
+            this.headerDateData.cmpEnvironment = (this.selectedCmpEnv == 'Yes') ? 1 : 0;
 
             if (this.anyAMS.value == 'Yes' && this.isValidAmsNUmber && this.isValidAmsFileName) {
                 this.headerDateData.uploadedFileName = this.amsFileName;
@@ -1118,6 +1136,19 @@ export class RequisitionEditNewComponent implements OnInit {
 
         console.log(this.selectedUsageEnv);
         console.log(this.selectedUsageEnvMap);
+    }
+
+    onchangeCmpEnv(selected: string) {
+        debugger;
+        if (this.selectedCmpEnv === selected) {
+            // uncheck if already selected
+            this.selectedCmpEnv = null;
+        } else {
+            this.selectedCmpEnv = selected;
+        }
+        this.cmpEnv.setValue(this.selectedCmpEnv);
+        this.isCmpEnvSelected = (this.selectedCmpEnv == 'Yes' || this.selectedCmpEnv == 'No');
+        console.log("Selected CMP Env=" + this.selectedCmpEnv);
     }
 
     onchangeIDType(value) {
