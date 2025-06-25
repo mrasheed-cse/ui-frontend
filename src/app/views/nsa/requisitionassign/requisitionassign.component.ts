@@ -27,6 +27,7 @@ export class RequisitionassignComponent implements OnInit {
     userID: string;
     requisition_existing_comments: Array<any>;
     requisition_comments: string;
+    cmpEnvironment: string;
 
     constructor(private route: ActivatedRoute, private router: Router, private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private ismsworkflowsService: IsmsworkflowsService, private fileoperationService: FileoperationService) {
         this.requisition_comments = '';
@@ -51,6 +52,7 @@ export class RequisitionassignComponent implements OnInit {
                     this.requsitionLines = res.requisitionLines;
                     this.employeeDetails = res.employeeDetails;
                     this.requisitionDetails = res.requisitionDetails;
+                    this.cmpEnvironment = res.requisitionDetails.cmpFlag == 0 ? 'No' : 'Yes';
                     this.getComments(this.requisitionDetails['id'], '', '');
                 }
 
