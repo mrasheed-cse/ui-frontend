@@ -96,6 +96,7 @@ export class NewrequisitioninitiateComponent implements OnInit {
     empType: FormControl;
     otherEmpType: FormControl;
     usageEnv: FormControl;
+    cmpEnv: FormControl;
     IDCardType: FormControl;
     otherIDCardType: FormControl;
 
@@ -122,6 +123,9 @@ export class NewrequisitioninitiateComponent implements OnInit {
     public listProduct = [];
     public listImsiType = [];
     public listSpecialRequirement = [];
+
+    cmpEnvironments = ['Yes', 'No'];
+    selectedCmpEnv: string | null = null;
 
     todayDate: Date;
     minDate: Date;
@@ -519,6 +523,7 @@ export class NewrequisitioninitiateComponent implements OnInit {
         this.empType = new FormControl({value: ''}, Validators.required);
         this.otherEmpType = new FormControl('', [Validators.maxLength(30)]);
         this.usageEnv = new FormControl({value: ''}, Validators.required);
+        this.cmpEnv = new FormControl({value: ''}, Validators.required);
         this.IDCardType = new FormControl({value: ''}, Validators.required);
         this.otherIDCardType = new FormControl('', [Validators.maxLength(20)]);
         this.purposeDetails = new FormControl('', [Validators.required, Validators.minLength(50), Validators.maxLength(280)]);
@@ -563,6 +568,7 @@ export class NewrequisitioninitiateComponent implements OnInit {
             empType: this.empType,
             otherEmpType: this.otherEmpType,
             usageEnv: this.usageEnv,
+            cmpEnv: this.cmpEnv,
             IDCardType: this.IDCardType,
             otherIDCardType: this.otherIDCardType,
             purposeDetails: this.purposeDetails,
@@ -830,6 +836,7 @@ export class NewrequisitioninitiateComponent implements OnInit {
                 this.headerDateData.uploadedFileName = 0;
                 this.headerDateData.amsId = 0;
             }
+            this.headerDateData.cmpEnvironment = (this.selectedCmpEnv == 'Yes') ? 1 : 0;
 
 
             console.log('this.finalListOfUsersToSendWithRqn');
@@ -963,6 +970,16 @@ export class NewrequisitioninitiateComponent implements OnInit {
         }
         console.log(this.selectedUsageEnv);
 
+    }
+
+    onSelectCmpEnv(selected: string) {
+        if (this.selectedCmpEnv === selected) {
+            // uncheck if already selected
+            this.selectedCmpEnv = null;
+        } else {
+            this.selectedCmpEnv = selected;
+        }
+        console.log("Selected CMP Env=" + this.selectedCmpEnv);
     }
 
     onchangeIDType(chk, value) {
