@@ -353,6 +353,22 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="form-group row">
+                                <label class="col-md-2" for="cmpEnv">CMP Environment <span style="color:red">&#42;</span></label>
+                                <ng-container *ngFor="let item of cmpEnvironments; let i = index;">
+                                    <label>
+                                        <input type="checkbox"
+                                               name="cmpEnv"
+                                               [checked]="selectedCmpEnv === item"
+                                               (change)="onSelectCmpEnv(item)">
+                                        {{item}}
+                                    </label>&nbsp;&nbsp;&nbsp;
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group row">
                                 <label class="col-md-2" for="IDCardType">ID Card Type <span
                                         style="color:red">&#42;</span></label>
                                 <ng-container *ngFor="let item of listIDCardType;let i=index;">
@@ -756,7 +772,7 @@
                 <!-- <div class="card-body"> -->
                 <div class="card-footer text-right">
                     <button type="submit"
-                            [disabled]="!newSimRequisitionForm.valid || selectedEmpType.length == 0 || selectedUsageEnv.length == 0 || selectedIDCardType.length == 0"
+                            [disabled]="!newSimRequisitionForm.valid || selectedEmpType.length == 0 || selectedUsageEnv.length == 0 || selectedIDCardType.length == 0 || selectedCmpEnv == null"
                             class="btn btn-sm btn-primary">
                         <i class="fa fa-dot-circle-o"></i> Submit
                     </button>

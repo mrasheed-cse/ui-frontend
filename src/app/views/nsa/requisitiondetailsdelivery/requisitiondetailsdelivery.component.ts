@@ -46,6 +46,7 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
     zeroDeliveryQtyCount: number;
     requisition_existing_comments: Array<any>;
     requisition_comments: string;
+    cmpEnvironment: string;
 
 
     constructor(private route: ActivatedRoute, private router: Router, private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private ismsworkflowsService: IsmsworkflowsService, private fileoperationService: FileoperationService) {
@@ -87,6 +88,7 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
                     this.requsitionLines = res.requisitionLines;
                     this.employeeDetails = res.employeeDetails;
                     this.requisitionDetails = res.requisitionDetails;
+                    this.cmpEnvironment = res.requisitionDetails.cmpFlag == 0 ? 'No' : 'Yes';
                     this.getComments(this.requisitionDetails['id'], "", "");
                 }
             },

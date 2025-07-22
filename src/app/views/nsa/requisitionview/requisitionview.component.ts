@@ -29,6 +29,7 @@ export class RequisitionviewComponent implements OnInit {
     requisition_comments: string;
     requisition_existing_comments: Array<any>;
     serverUrl: string;
+    cmpEnvironment: string
 
     public listRequisitionType = [];
     public listPurposeCategory = [];
@@ -182,6 +183,7 @@ export class RequisitionviewComponent implements OnInit {
                     this.requsitionLines = res.requisitionLines;
                     this.employeeDetails = res.employeeDetails;
                     this.requisitionDetails = res.requisitionDetails;
+                    this.cmpEnvironment = (this.requisitionDetails.cmpFlag == 0) ? 'No' : 'Yes';
                     this.getComments(this.requisitionDetails['id'], '', '');
                 }
             },

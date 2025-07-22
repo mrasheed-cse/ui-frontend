@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/map';
@@ -276,6 +276,14 @@ export class WorkflowsService {
 			requisitionNo: wr_id,
 			status: ""
 		});
+	}
+
+	exportNewSimActivationDetails(wr_id: number, user_id: string) : any {
+		const url = this.serverUrl + 'workflow/exportNewsimactivationdetails';
+
+		const params = new HttpParams().set("createdBy", user_id).set("status", "").set("requisitionNo", String(wr_id));
+
+		return this.http.get(url, { params, observe: 'response', responseType: 'blob' });
 	}
 
 	submitNewSimActivationReq(
