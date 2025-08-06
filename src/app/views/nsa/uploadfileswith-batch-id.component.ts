@@ -162,7 +162,8 @@ onListFileChange(event) {
 
       reader.onload = () => {
         let csvData = reader.result;
-        let csvRecordsArray = (<string>csvData).split(/\r\n|\n/);
+		debugger;
+        let csvRecordsArray = (<string>csvData).split(/\r\n|\n/).filter(line => line.trim().length > 0);
 
 				this.recordsFromFile = this.getDataRecordsArrayFromCSVFile(csvRecordsArray);
 				if(this.recordsFromFile.length<1){
