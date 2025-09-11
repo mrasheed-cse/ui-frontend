@@ -15,7 +15,7 @@
         </div>
         <div class="card">
             <div class="card-header">
-                <i class="fa fa-align-justify"></i> Data Warehouse Manage
+                <i class="fa fa-align-justify"></i> COPC SIM Data Search
             </div>
             <div class="card-body warehouse-card">
                 <div class="row form-row">
@@ -30,7 +30,7 @@
                         <input type="radio" value="discrete" name="search_type" class="form-control form-control-radio"
                                [(ngModel)]="searchType"> &nbsp; Discrete
                     </div>
-                    <div class="col-3">
+                    <div class="col-3" *ngIf="searchType=='discrete'">
                         <a href="assets/file/DiscreteSearchByKIT.txt" download>Download Sample File</a><br/>
                     </div>
                 </div>
