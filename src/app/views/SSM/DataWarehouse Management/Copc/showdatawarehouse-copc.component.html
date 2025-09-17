@@ -1,0 +1,66 @@
+<div class="row">
+    <div class="col-md-1">
+    </div>
+    <div class="col-md-10">
+        <div class="card" style="border:0px !important;background:transparent !important">
+            <div style="text-align: center">
+                <div class="div_cust_loading_sign" *ngIf="isLoading">
+                    <div style="position:fixed;width:100%;height:100%;left:0px;top:0px;z-index:50000;background-color:#536c79;opacity:0.95"></div>
+                    <div style="position:fixed;width:100%;height:100%;left:0px;top:0px;z-index:60000">
+                        <div style="width:25%;height:25%;margin:0px auto;margin-top:20%"><i
+                                class="fa fa-spinner fa-pulse fa-4x fa-fw"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <i class="fa fa-align-justify"></i> COPC SIM Data Search
+            </div>
+            <div class="card-body warehouse-card">
+                <div class="row form-row">
+                    <div class="col-3">
+                        <b>Search Type</b>
+                    </div>
+                    <div class="col-3">
+                        <input type="radio" value="sequence" name="search_type" class="form-control form-control-radio"
+                               [(ngModel)]="searchType"> &nbsp; Sequential
+                    </div>
+                    <div class="col-3">
+                        <input type="radio" value="discrete" name="search_type" class="form-control form-control-radio"
+                               [(ngModel)]="searchType"> &nbsp; Discrete
+                    </div>
+                    <div class="col-3" *ngIf="searchType=='discrete'">
+                        <a href="assets/file/DiscreteSearchByKIT.txt" download>Download Sample File</a><br/>
+                    </div>
+                </div>
+
+                <div class="row form-row" *ngIf="searchType=='sequence'">
+                    <div class="col-3">
+                        <b>Start KIT</b>
+                    </div>
+                    <div class="col-3">
+                        <input type="text" name="search_start" class="form-control" [(ngModel)]="searchStart">
+                    </div>
+                    <div class="col-3">
+                        <b>End KIT</b>
+                    </div>
+                    <div class="col-3">
+                        <input type="text" name="search_end" class="form-control" [(ngModel)]="searchEnd">
+                    </div>
+                </div>
+                <div class="row form-row" *ngIf="searchType=='discrete'">
+                    <div class="col-12">
+                        <input type="file" name="search_ranges" class="form-control" [(ngModel)]="searchFile"
+                               (change)="selectedFile = $event.target.files.item(0)">
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-sm btn-primary" (click)="export('ICCID')">Export KIT</button>
+                <button class="btn btn-sm btn-primary" (click)="export('MSISDN')">Export MSISDN</button>
+                <button class="btn btn-sm btn-primary" (click)="export('Both')">Export Both</button>
+            </div>
+        </div>
+    </div>
+</div>
