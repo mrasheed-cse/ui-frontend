@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 
 import {AppGlobals} from './../../../app.global';
 import {ViewDatawarehouse} from "./showdatawarehouse.component";
+import {ViewDatawarehouseCopc} from './Copc/showdatawarehouse-copc.component';
 
 @Injectable()
 export class DatawarehouseService {
@@ -48,6 +49,26 @@ export class DatawarehouseService {
         return formData;
     }
 
+    private prepareSearchFormdataCopc(data: ViewDatawarehouse) : any {
+        const formData: FormData = new FormData();
+
+        formData.append('searchType', data.searchType);
+
+        if(data.searchType == "discrete" && data.selectedFile) {
+            formData.append('searchFile', data.selectedFile, data.selectedFile.name);
+        }
+
+        if(data.searchType == "sequence") {
+            formData.append('searchStart', data.searchStart);
+            formData.append('searchEnd', data.searchEnd);
+        }
+
+        formData.append('sequence', 'all');
+
+        return formData;
+    }
+
+
     getDataAdc(data: ViewDatawarehouse, isExport: boolean): any {
         // @ts-ignore
         return this.http.post(this.serverUrl + 'datawarehouse/getdataADC/', this.prepareSearchFormdata(data, isExport), {responseType: isExport ? "blob" : "json"});
@@ -84,6 +105,22 @@ export class DatawarehouseService {
     deleteAUCData(id: number): any {
         return this.http.get(this.serverUrl + 'datawarehouse/deleteAUC/' + id)
     }
+
+    SimmasterDataCopcIccid(data: ViewDatawarehouseCopc): any {
+        // @ts-ignore
+        return this.http.post(this.serverUrl + 'datawarehouse/exportCopcIccid/', this.prepareSearchFormdataCopc(data), {responseType: "blob"});
+    }
+
+    SimmasterDataCopcMsisdn(data: ViewDatawarehouseCopc): any {
+        // @ts-ignore
+        return this.http.post(this.serverUrl + 'datawarehouse/exportCopcMsisdn/', this.prepareSearchFormdataCopc(data), {responseType: "blob"});
+    }
+
+    SimmasterDataCopcIccidAndMsisdn(data: ViewDatawarehouseCopc): any {
+        // @ts-ignore
+        return this.http.post(this.serverUrl + 'datawarehouse/exportCopcIccidAndMsisdn/', this.prepareSearchFormdataCopc(data), {responseType: "blob"});
+    }
+
 
     SimmasterData(data: ViewDatawarehouse, isExport: boolean): any {
         // @ts-ignore

@@ -162,6 +162,7 @@ import {MfsRecyclingDetailsReportComponent} from './mfs-recycling-details-report
 import {MfsStatusOfMsisdnComponent} from './mfs-status-of-msisdn.component';
 import {RequisitiondetailsRAFMComponent} from './requisitiondetails-rafm/requisitiondetails-rafm.component';
 import {RequisitionEditNewComponent} from './requisition-edit/requisition-edit.component';
+import {ViewDatawarehouseCopc} from '../SSM/DataWarehouse Management/Copc/showdatawarehouse-copc.component';
 
 const routes: Routes = [
     {
@@ -1211,7 +1212,14 @@ const routes: Routes = [
         },
         canActivate: [AuthGuard]
     },
-
+    {
+        path: 'searchSimData',
+        component: ViewDatawarehouseCopc,
+        data: {
+            title: 'Data WareHouse Manage'
+        },
+        canActivate: [AuthGuard]
+    },
 
     {
         path: 'returnandreceive',
