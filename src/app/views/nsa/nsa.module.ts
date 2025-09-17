@@ -185,6 +185,7 @@ import {MfsStatusOfMsisdnComponent} from './mfs-status-of-msisdn.component';
 import {RequisitiondetailsRAFMComponent} from './requisitiondetails-rafm/requisitiondetails-rafm.component';
 import {RequisitionEditNewComponent} from './requisition-edit/requisition-edit.component';
 import {TooltipModule} from 'ngx-bootstrap';
+import {ViewDatawarehouseCopc} from '../SSM/DataWarehouse Management/Copc/showdatawarehouse-copc.component';
 
 
 @NgModule({
@@ -328,6 +329,7 @@ import {TooltipModule} from 'ngx-bootstrap';
     PlanActivation,
     UploadDataWh,
     ViewDatawarehouse,
+    ViewDatawarehouseCopc,
     ReturnAndReceive,
     UploadRecycleComponent,
     GenerateanalyzeComponent,
