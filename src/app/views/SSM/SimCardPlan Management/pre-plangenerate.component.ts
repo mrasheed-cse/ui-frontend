@@ -179,7 +179,7 @@ LoadFilteredInputFiles(){
     selectedIMSI=-1;
     console.log("SelectedIMSI "+selectedIMSI);
 
-  this.ssmService.getFilteredInputFiles(selectedArtwork,selectedVendor,selectedIMSI,2,this.currPage, this._global.defaultPageSize2).subscribe(
+  this.ssmService.getFilteredInputFiles(selectedArtwork,selectedVendor,selectedIMSI,2,this.currPage, this._global.defaultPageSize).subscribe(
     data => {
         if(data !=null){
           console.log(data);
@@ -197,8 +197,8 @@ LoadFilteredInputFiles(){
           )
           this.isNoDataFound=false;
           
-          var resultOfMod = dataSize%Number(this._global.defaultPageSize2);        
-          this.totalPages = Math.floor(dataSize/Number(this._global.defaultPageSize2));
+          var resultOfMod = dataSize%Number(this._global.defaultPageSize);
+          this.totalPages = Math.floor(dataSize/Number(this._global.defaultPageSize));
           console.log(resultOfMod);
           console.log(this.totalPages);
           
