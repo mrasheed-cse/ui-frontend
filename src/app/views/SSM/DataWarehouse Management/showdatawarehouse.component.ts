@@ -170,11 +170,11 @@ export class ViewDatawarehouse implements OnInit {
                             document.body.removeChild(link);
                         } else {
                             this.rowData = data;
-                            for (let entry of data) {
-                                entry.Print_Date = this.datePipe.transform(entry.Print_Date, "dd-MM-yyyy")
-                                entry.Pckg_Date = this.datePipe.transform(entry.Pckg_Date, "dd-MM-yyyy")
-                                entry.Deliv_Date = this.datePipe.transform(entry.Deliv_Date, "dd-MM-yyyy")
-                            }
+                            // for (let entry of data) {
+                            //     entry.Print_Date = this.datePipe.transform(entry.Print_Date, "dd-MM-yyyy")
+                            //     entry.Pckg_Date = this.datePipe.transform(entry.Pckg_Date, "dd-MM-yyyy")
+                            //     entry.Deliv_Date = this.datePipe.transform(entry.Deliv_Date, "dd-MM-yyyy")
+                            // }
                         }
                     },
                     err => console.error(err));
