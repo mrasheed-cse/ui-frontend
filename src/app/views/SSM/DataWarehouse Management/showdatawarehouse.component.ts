@@ -180,6 +180,7 @@ export class ViewDatawarehouse implements OnInit {
                     err => console.error(err));
             } else if(this.searchFor==="tintin")
             {
+                this.searchSequence='all';
                 this.datawarehouseservice.TinTinData(this, isExport).subscribe(
                     data => {
                         if(!isExport){this.isDataFoundTinTin = true;}
