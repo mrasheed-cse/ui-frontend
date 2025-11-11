@@ -123,7 +123,16 @@ export class ViewDatawarehouse implements OnInit {
                             }
                         }
                     },
-                    err => console.error(err),);
+                    err => {
+                        this.isLoading=false;
+                        console.log(err);
+                        const reader = new FileReader();
+                        reader.onload = () => {
+                            const errorMessage = reader.result as string;
+                            alert(errorMessage || "Operation Failed.");
+                        };
+                        reader.readAsText(err.error);
+                    });
             } else if (this.searchFor == "adc") {
                 this.searchSequence='all';              
                 this.datawarehouseservice.getDataAdc(this, isExport).subscribe(
@@ -155,7 +164,16 @@ export class ViewDatawarehouse implements OnInit {
                             }
                         }
                     },
-                    err => console.error(err),);
+                    err => {
+                        this.isLoading=false;
+                        console.log(err);
+                        const reader = new FileReader();
+                        reader.onload = () => {
+                            const errorMessage = reader.result as string;
+                            alert(errorMessage || "Operation Failed.");
+                        };
+                        reader.readAsText(err.error);
+                    });
             } else if (this.searchFor === "sim") {
                 this.datawarehouseservice.SimmasterData(this, isExport).subscribe(
                     data => {
@@ -177,7 +195,16 @@ export class ViewDatawarehouse implements OnInit {
                             // }
                         }
                     },
-                    err => console.error(err));
+                    err => {
+                        this.isLoading=false;
+                        console.log(err);
+                        const reader = new FileReader();
+                        reader.onload = () => {
+                            const errorMessage = reader.result as string;
+                            alert(errorMessage || "Operation Failed.");
+                        };
+                        reader.readAsText(err.error);
+                    });
             } else if(this.searchFor==="tintin")
             {
                 this.searchSequence='all';
@@ -206,7 +233,16 @@ export class ViewDatawarehouse implements OnInit {
                             this.rowData = data;
                         }
                     },
-                    err => console.error(err));
+                    err => {
+                        this.isLoading=false;
+                        console.log(err);
+                        const reader = new FileReader();
+                        reader.onload = () => {
+                            const errorMessage = reader.result as string;
+                            alert(errorMessage || "Operation Failed.");
+                        };
+                        reader.readAsText(err.error);
+                    });
             }
         }
     }
