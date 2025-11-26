@@ -107,3 +107,21 @@ input[type=radio].form-control-radio {
   vertical-align: middle;
   display: inline-block;
 }
+
+.table-wrapper {
+  max-height: 300px;     /* height of scroll area */
+  overflow-y: auto;      /* only body will scroll */
+}
+
+/* remove extra space under table in wrapper */
+.table-wrapper table {
+  margin-bottom: 0;
+}
+
+/* make header sticky */
+.table-wrapper thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: #f8f9fa; /* match Bootstrap table header bg */
+}

@@ -105,6 +105,52 @@
                 <button class="btn btn-sm btn-primary" (click)="search(false)">Search</button>                
                 <button class="btn btn-sm btn-danger" (click)="search(true)">Export</button>
             </div>
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <i class="fa fa-align-justify"></i> Report
+                    </div>
+                    <div class="col-md-4 d-flex justify-content-end" style="padding-bottom:10px; padding-right:30px;">
+                        <button (click)="refresh()" class="btn btn-sm btn-primary">
+                            <i class="fa fa-refresh"></i> Refresh
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Scrollable container -->
+                <div class="table-wrapper">
+                    <table class="table table-bordered table-striped table-sm mb-0">
+                        <thead>
+                        <tr>
+                            <th>File</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Details</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr *ngFor="let file of fileList; index as i">
+                            <td>{{ file.fileName }}</td>
+                            <td>{{ file.createdAt }}</td>
+                            <td>{{ file.status }}</td>
+                            <td style="text-align:center">
+                                <button
+                                        [disabled]="file.completed != 1"
+                                        type="button"
+                                        style="width:100px"
+                                        class="btn btn-success"
+                                        (click)="downloadReport(file.fileName)">
+                                    Download
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
             <div class="card-body" *ngIf="isDataFoundADC" style="overflow-y: auto">
                 <i class="fa fa-align-justify"></i> Output:
                 <table class="table table-bordered table-striped table-sm">
