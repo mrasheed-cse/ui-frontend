@@ -52,6 +52,8 @@ export class ViewDatawarehouse implements OnInit {
     searchSequence: any;
     tintinType:any;
     public isLoading:boolean = false;
+    isReportFound : boolean = true;
+    fileList : any;
 
     constructor(private datePipe: DatePipe, private router: Router, private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private datawarehouseservice: DatawarehouseService) {
        console.log('test');
@@ -66,6 +68,7 @@ export class ViewDatawarehouse implements OnInit {
     }
 
     ngOnInit() {
+        this.refresh();
     }
 
     search(isExport: boolean) {
@@ -101,12 +104,14 @@ export class ViewDatawarehouse implements OnInit {
                         this.isDataFoundAUC = true;
                         this.isLoading=false;
                         if(isExport) {
-                            var link = document.createElement('a');
-                            link.href = window.URL.createObjectURL(data);
-                            link.download = "Sim AUC.auc";
-                            document.body.appendChild(link);
-                            link.click();
-                            document.body.removeChild(link);
+                            // var link = document.createElement('a');
+                            // link.href = window.URL.createObjectURL(data);
+                            // link.download = "Sim AUC.auc";
+                            // document.body.appendChild(link);
+                            // link.click();
+                            // document.body.removeChild(link);
+                            alert("Request has been submitted successfully and report will be available to download when completed.");
+                            this.refresh();
                         } else {
 
                             for (let index in data) {
@@ -140,12 +145,14 @@ export class ViewDatawarehouse implements OnInit {
                         this.isDataFoundADC = true;
                         this.isLoading=false;
                         if(isExport) {
-                            var link = document.createElement('a');
-                            link.href = window.URL.createObjectURL(data);
-                            link.download = "Sim ADC.adc";
-                            document.body.appendChild(link);
-                            link.click();
-                            document.body.removeChild(link);
+                            // var link = document.createElement('a');
+                            // link.href = window.URL.createObjectURL(data);
+                            // link.download = "Sim ADC.adc";
+                            // document.body.appendChild(link);
+                            // link.click();
+                            // document.body.removeChild(link);
+                            alert("Request has been submitted successfully and report will be available to download when completed.");
+                            this.refresh();
                         } else {
                             console.log('test');
                             for (let index in data) {
@@ -180,12 +187,14 @@ export class ViewDatawarehouse implements OnInit {
                         this.isDataFoundSimmaster = true;
                         this.isLoading=false;
                         if(isExport) {
-                            var link = document.createElement('a');
-                            link.href = window.URL.createObjectURL(data);
-                            link.download = "Sim Master Record.csv";
-                            document.body.appendChild(link);
-                            link.click();
-                            document.body.removeChild(link);
+                            // var link = document.createElement('a');
+                            // link.href = window.URL.createObjectURL(data);
+                            // link.download = "Sim Master Record.csv";
+                            // document.body.appendChild(link);
+                            // link.click();
+                            // document.body.removeChild(link);
+                            alert("Request has been submitted successfully and report will be available to download when completed.");
+                            this.refresh();
                         } else {
                             this.rowData = data;
                             // for (let entry of data) {
@@ -213,12 +222,14 @@ export class ViewDatawarehouse implements OnInit {
                         if(!isExport){this.isDataFoundTinTin = true;}
                         this.isLoading=false;
                         if(isExport && this.tintinType==='kit') {
-                            var link = document.createElement('a');
-                            link.href = window.URL.createObjectURL(data);
-                            link.download = "TinTin_kit.txt";
-                            document.body.appendChild(link);
-                            link.click();
-                            document.body.removeChild(link);
+                            // var link = document.createElement('a');
+                            // link.href = window.URL.createObjectURL(data);
+                            // link.download = "TinTin_kit.txt";
+                            // document.body.appendChild(link);
+                            // link.click();
+                            // document.body.removeChild(link);
+                            alert("Request has been submitted successfully and report will be available to download when completed.");
+                            this.refresh();
                         }
                         else if(isExport && this.tintinType==='replacement')
                         {
@@ -350,5 +361,74 @@ export class ViewDatawarehouse implements OnInit {
         this.isDataFoundSimmaster = false;
         this.isDataFoundTinTin = false;
         this.rowData = [];
+    }
+
+    loadReport() {
+        this.fileList = [];
+        this.isReportFound = false;
+        this.datawarehouseservice.getReportList(this.userID).subscribe(
+            result => {
+                //console.log(result);
+                this.fileList = result;
+                this.isReportFound = true;
+            },
+            err => {
+                console.log(err);
+                this.fileList = [];
+                this.isReportFound = false;
+            }
+        )
+    }
+
+    refresh () {
+        this.loadReport();
+    }
+
+
+    downloadReport(filename: string) {
+        this.datawarehouseservice.downloadReport(filename).subscribe(
+            data => {
+                console.log('Downloading file...');
+                this.downloadFile(data);
+            },
+            err => {
+                console.log(err);
+            }
+        );
+    }
+
+    downloadFile(response: any): void {
+        console.log(response);
+        console.log(response.headers);
+        let filename = 'download.txt';
+
+        // Get filename from content-disposition header
+        const contentDisposition = response.headers.get('content-disposition');
+
+        if (contentDisposition) {
+            let arr = contentDisposition.split(';');
+            if (arr.length > 1) {
+                arr.forEach(element => {
+                    if (element.trim().startsWith('filename=')) {
+                        let arr2 = element.split('=');
+                        if (arr2.length > 1) {
+                            filename = arr2[1].trim().replace(/"/g, '');
+                        }
+                    }
+                })
+            }
+        }
+
+        // Create blob and download
+        const blob = new Blob([response.body], {type: response.headers.get('content-type')});
+
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = filename;
+        link.click();
+
+        // Cleanup
+        window.URL.revokeObjectURL(url);
     }
 }

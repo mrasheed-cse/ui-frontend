@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {environment} from '../../../../environments/environment';
 import {Router} from '@angular/router';
 
@@ -129,5 +129,21 @@ export class DatawarehouseService {
     TinTinData(data: ViewDatawarehouse, isExport: boolean): any {
         // @ts-ignore
         return this.http.post(this.serverUrl + 'datawarehouse/getTinTinData/', this.prepareSearchFormdata(data, isExport), {responseType: isExport ? "blob" : "json"});
+    }
+
+    getReportList(userID: string): any {
+        const url = environment.apiUrl + 'datawarehouse/get-data-warehouse-report-list';
+
+        const params = new HttpParams();
+
+        return this.http.get(url, {params});
+    }
+
+    downloadReport(fileName : string): any {
+        const url = environment.apiUrl + 'datawarehouse/download-data-warehouse-report';
+
+        const params = new HttpParams().set("fileName", fileName);
+
+        return this.http.get(url, { params, observe: 'response', responseType: 'blob' });
     }
 }
