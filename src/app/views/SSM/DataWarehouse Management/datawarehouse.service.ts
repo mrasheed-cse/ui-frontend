@@ -46,6 +46,8 @@ export class DatawarehouseService {
         {
             formData.append('tintinType',data.tintinType);
         }
+        formData.append('userName', data.userID);
+
         return formData;
     }
 
