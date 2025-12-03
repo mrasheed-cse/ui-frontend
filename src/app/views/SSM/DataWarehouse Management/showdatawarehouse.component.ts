@@ -104,12 +104,6 @@ export class ViewDatawarehouse implements OnInit {
                         this.isDataFoundAUC = true;
                         this.isLoading=false;
                         if(isExport) {
-                            // var link = document.createElement('a');
-                            // link.href = window.URL.createObjectURL(data);
-                            // link.download = "Sim AUC.auc";
-                            // document.body.appendChild(link);
-                            // link.click();
-                            // document.body.removeChild(link);
                             alert("Request has been submitted successfully and report will be available to download when completed.");
                             this.refresh();
                         } else {
@@ -131,12 +125,8 @@ export class ViewDatawarehouse implements OnInit {
                     err => {
                         this.isLoading=false;
                         console.log(err);
-                        const reader = new FileReader();
-                        reader.onload = () => {
-                            const errorMessage = reader.result as string;
-                            alert(errorMessage || "Operation Failed.");
-                        };
-                        reader.readAsText(err.error);
+                        const errorMessage = err.error as string; // already a string
+                        alert(errorMessage || 'Operation Failed.');
                     });
             } else if (this.searchFor == "adc") {
                 this.searchSequence='all';              
@@ -145,12 +135,6 @@ export class ViewDatawarehouse implements OnInit {
                         this.isDataFoundADC = true;
                         this.isLoading=false;
                         if(isExport) {
-                            // var link = document.createElement('a');
-                            // link.href = window.URL.createObjectURL(data);
-                            // link.download = "Sim ADC.adc";
-                            // document.body.appendChild(link);
-                            // link.click();
-                            // document.body.removeChild(link);
                             alert("Request has been submitted successfully and report will be available to download when completed.");
                             this.refresh();
                         } else {
@@ -174,12 +158,8 @@ export class ViewDatawarehouse implements OnInit {
                     err => {
                         this.isLoading=false;
                         console.log(err);
-                        const reader = new FileReader();
-                        reader.onload = () => {
-                            const errorMessage = reader.result as string;
-                            alert(errorMessage || "Operation Failed.");
-                        };
-                        reader.readAsText(err.error);
+                        const errorMessage = err.error as string; // already a string
+                        alert(errorMessage || 'Operation Failed.');
                     });
             } else if (this.searchFor === "sim") {
                 this.datawarehouseservice.SimmasterData(this, isExport).subscribe(
@@ -187,59 +167,29 @@ export class ViewDatawarehouse implements OnInit {
                         this.isDataFoundSimmaster = true;
                         this.isLoading=false;
                         if(isExport) {
-                            // var link = document.createElement('a');
-                            // link.href = window.URL.createObjectURL(data);
-                            // link.download = "Sim Master Record.csv";
-                            // document.body.appendChild(link);
-                            // link.click();
-                            // document.body.removeChild(link);
                             alert("Request has been submitted successfully and report will be available to download when completed.");
                             this.refresh();
                         } else {
                             this.rowData = data;
-                            // for (let entry of data) {
-                            //     entry.Print_Date = this.datePipe.transform(entry.Print_Date, "dd-MM-yyyy")
-                            //     entry.Pckg_Date = this.datePipe.transform(entry.Pckg_Date, "dd-MM-yyyy")
-                            //     entry.Deliv_Date = this.datePipe.transform(entry.Deliv_Date, "dd-MM-yyyy")
-                            // }
                         }
                     },
                     err => {
                         this.isLoading=false;
                         console.log(err);
-                        const reader = new FileReader();
-                        reader.onload = () => {
-                            const errorMessage = reader.result as string;
-                            alert(errorMessage || "Operation Failed.");
-                        };
-                        reader.readAsText(err.error);
+                        const errorMessage = err.error as string; // already a string
+                        alert(errorMessage || 'Operation Failed.');
                     });
             } else if(this.searchFor==="tintin")
             {
                 this.searchSequence='all';
                 this.datawarehouseservice.TinTinData(this, isExport).subscribe(
                     data => {
-                        if(!isExport){this.isDataFoundTinTin = true;}
+                        this.isDataFoundTinTin = true;
                         this.isLoading=false;
-                        if(isExport && this.tintinType==='kit') {
-                            // var link = document.createElement('a');
-                            // link.href = window.URL.createObjectURL(data);
-                            // link.download = "TinTin_kit.txt";
-                            // document.body.appendChild(link);
-                            // link.click();
-                            // document.body.removeChild(link);
+                        if(isExport) {
                             alert("Request has been submitted successfully and report will be available to download when completed.");
                             this.refresh();
                         }
-                        else if(isExport && this.tintinType==='replacement')
-                        {
-                            var link = document.createElement('a');
-                            link.href = window.URL.createObjectURL(data);
-                            link.download = "TinTin_replacement.txt";
-                            document.body.appendChild(link);
-                            link.click();
-                            document.body.removeChild(link);
-                        } 
                         else {
                             this.rowData = data;
                         }
@@ -247,12 +197,8 @@ export class ViewDatawarehouse implements OnInit {
                     err => {
                         this.isLoading=false;
                         console.log(err);
-                        const reader = new FileReader();
-                        reader.onload = () => {
-                            const errorMessage = reader.result as string;
-                            alert(errorMessage || "Operation Failed.");
-                        };
-                        reader.readAsText(err.error);
+                        const errorMessage = err.error as string; // already a string
+                        alert(errorMessage || 'Operation Failed.');
                     });
             }
         }
