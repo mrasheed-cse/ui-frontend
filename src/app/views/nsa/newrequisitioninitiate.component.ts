@@ -521,11 +521,11 @@ export class NewrequisitioninitiateComponent implements OnInit {
         this.anyAMS = new FormControl('', Validators.required);
         this.endDate = new FormControl({value: '', disabled: true}, Validators.required);
         this.empType = new FormControl({value: ''}, Validators.required);
-        this.otherEmpType = new FormControl('', [Validators.maxLength(30)]);
+        this.otherEmpType = new FormControl('', [Validators.maxLength(120)]);
         this.usageEnv = new FormControl({value: ''}, Validators.required);
         this.cmpEnv = new FormControl({value: ''}, Validators.required);
         this.IDCardType = new FormControl({value: ''}, Validators.required);
-        this.otherIDCardType = new FormControl('', [Validators.maxLength(20)]);
+        this.otherIDCardType = new FormControl('', [Validators.maxLength(120)]);
         this.purposeDetails = new FormControl('', [Validators.required, Validators.minLength(50), Validators.maxLength(280)]);
         this.question1 = new FormControl('', [Validators.required, Validators.minLength(50), Validators.maxLength(280)]);
         this.question2 = new FormControl('', [Validators.required, Validators.minLength(20), Validators.maxLength(280)]);
@@ -671,8 +671,8 @@ export class NewrequisitioninitiateComponent implements OnInit {
         if (this.selectedEmpType.length != 0) {
             for (var i = 0; i < this.selectedEmpType.length; i++) {
                 if (this.selectedEmpType[i] == 'Others') {
-                    if (this.otherEmpType.value == null || this.otherEmpType.value == '' || this.otherEmpType.value.length > 30) {
-                        validationMessage.push('Employee Type \'Others\' either Blank or crossed maximum limit of 30 characters');
+                    if (this.otherEmpType.value == null || this.otherEmpType.value == '' || this.otherEmpType.value.length > 120) {
+                        validationMessage.push('Employee Type \'Others\' either Blank or crossed maximum limit of 120 characters');
                         validationPassed = false;
                     } else {
                         this.selectedEmpType[i] = this.otherEmpType.value;
@@ -692,8 +692,8 @@ export class NewrequisitioninitiateComponent implements OnInit {
         if (this.selectedIDCardType.length != 0) {
             for (var i = 0; i < this.selectedIDCardType.length; i++) {
                 if (this.selectedIDCardType[i] == 'Others') {
-                    if (this.otherIDCardType.value == null || this.otherIDCardType.value == '' || this.otherIDCardType.value.length > 20) {
-                        validationMessage.push('ID Card Type \'Others\' either Blank or crossed maximum limit of 30 characters');
+                    if (this.otherIDCardType.value == null || this.otherIDCardType.value == '' || this.otherIDCardType.value.length > 120) {
+                        validationMessage.push('ID Card Type \'Others\' either Blank or crossed maximum limit of 120 characters');
                         validationPassed = false;
                     } else {
                         this.selectedIDCardType[i] = this.otherIDCardType.value;
