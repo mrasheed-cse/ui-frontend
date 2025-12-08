@@ -787,11 +787,11 @@ export class RequisitionEditNewComponent implements OnInit {
         this.anyAMS = new FormControl('', Validators.required);
         this.endDate = new FormControl({value: '', disabled: false}, Validators.required);
         this.empType = new FormControl({value: ''}, Validators.required);
-        this.otherEmpType = new FormControl('', [Validators.maxLength(30)]);
+        this.otherEmpType = new FormControl('', [Validators.maxLength(120)]);
         this.usageEnv = new FormControl({value: ''}, Validators.required);
         this.cmpEnv = new FormControl({value: ''}, Validators.required);
         this.IDCardType = new FormControl({value: ''}, Validators.required);
-        this.otherIDCardType = new FormControl('', [Validators.maxLength(20)]);
+        this.otherIDCardType = new FormControl('', [Validators.maxLength(120)]);
         this.purposeDetails = new FormControl('', [Validators.required, Validators.minLength(50), Validators.maxLength(280)]);
         this.question1 = new FormControl('', [Validators.required, Validators.minLength(50), Validators.maxLength(280)]);
         this.question2 = new FormControl('', [Validators.required, Validators.minLength(20), Validators.maxLength(280)]);
@@ -934,7 +934,7 @@ export class RequisitionEditNewComponent implements OnInit {
         }
 
         if (this.selectedEmpType.includes('Others') && !this.isValidOtherEmpType) {
-            validationMessage.push('Employee Type \'Others\' either Blank or crossed maximum limit of 30 characters');
+            validationMessage.push('Employee Type \'Others\' either Blank or crossed maximum limit of 120 characters');
             validationPassed = false;
         }
 
@@ -944,7 +944,7 @@ export class RequisitionEditNewComponent implements OnInit {
         }
 
         if (this.selectedIDCardType.includes('Others') && !this.isValidOtherIdCardType) {
-            validationMessage.push('ID Card Type \'Others\' either Blank or crossed maximum limit of 30 characters');
+            validationMessage.push('ID Card Type \'Others\' either Blank or crossed maximum limit of 120 characters');
             validationPassed = false;
         }
 
@@ -1328,7 +1328,7 @@ export class RequisitionEditNewComponent implements OnInit {
         this.isValidEmpType = this.isEmpTypeSelected = this.selectedEmpType.length > 0;
 
         if (this.selectedEmpType.includes('Others')) {
-            this.isValidEmpType = this.isValidOtherEmpType = this.otherEmpType.value != undefined && this.otherEmpType.value != '' && this.otherEmpType.value.length <= 30;
+            this.isValidEmpType = this.isValidOtherEmpType = this.otherEmpType.value != undefined && this.otherEmpType.value != '' && this.otherEmpType.value.length <= 120;
         }
     }
 
@@ -1336,7 +1336,7 @@ export class RequisitionEditNewComponent implements OnInit {
         this.isValidIdCardType = this.idCardTypeSelected = this.selectedIDCardType.length > 0;
 
         if (this.selectedIDCardType.includes('Others')) {
-            this.isValidIdCardType = this.isValidOtherIdCardType = this.otherIDCardType.value != undefined && this.otherIDCardType.value != '' && this.otherIDCardType.value.length <= 30;
+            this.isValidIdCardType = this.isValidOtherIdCardType = this.otherIDCardType.value != undefined && this.otherIDCardType.value != '' && this.otherIDCardType.value.length <= 120;
         }
     }
 
