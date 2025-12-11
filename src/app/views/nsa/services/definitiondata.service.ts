@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/map';
@@ -161,6 +161,10 @@ export class DefinitionDataService {
 	//product
 	getDenoMination(): any {	
 		return this.http.get(this.serverUrl + 'vouchergeneration/denomination/');
+	}
+
+	getAllMasterProduct() {
+		return this.http.get(this.serverUrl + 'products/get-all-sim');
 	}
 
 	CreateNewMasterDataItem(newItem: String ){
