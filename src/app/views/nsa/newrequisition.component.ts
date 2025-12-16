@@ -216,4 +216,17 @@ export class NewrequisitionComponent implements OnInit {
 
     }
 
+    DownloadChallan(challanNumber, requisitionId) {
+        this.workFlowsService.DownloadChallan(challanNumber,requisitionId).subscribe((data) => {
+            const blob = new Blob([data], {type: 'application/pdf'});
+
+            var downloadURL = window.URL.createObjectURL(data);
+            var link = document.createElement('a');
+            link.href = downloadURL;
+            link.download = challanNumber+".pdf";
+            link.click();
+
+        });
+    }
+
 }
