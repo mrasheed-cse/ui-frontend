@@ -8,12 +8,13 @@ import {IsmsworkflowsService} from '../services/ismsworkflows.service';
 import {LoggedInUser} from '../../pages/loggedInUser';
 import {environment} from '../../../../environments/environment';
 import {FileoperationService} from '../../nsa/services/fileoperation.service';
+import {WorkflowsService} from '../services/workflows.service';
 
 @Component({
     selector: 'app-requisitionview',
     templateUrl: './requisitionview.component.html',
     styleUrls: ['./requisitionview.component.scss'],
-    providers: [AppGlobals, LoginService, DefinitionDataService, IsmsworkflowsService, FileoperationService]
+    providers: [AppGlobals, LoginService, DefinitionDataService, IsmsworkflowsService, FileoperationService, WorkflowsService]
 })
 export class RequisitionviewComponent implements OnInit {
 
@@ -156,7 +157,10 @@ export class RequisitionviewComponent implements OnInit {
         );
     }
 
-    constructor(private route: ActivatedRoute, private router: Router, private definitionDataService: DefinitionDataService, private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private ismsworkflowsService: IsmsworkflowsService, private fileoperationService: FileoperationService) {
+    constructor(private route: ActivatedRoute, private router: Router, private definitionDataService: DefinitionDataService,
+                private loginService: LoginService, private http: HttpClient, private _global: AppGlobals,
+                private ismsworkflowsService: IsmsworkflowsService, private fileoperationService: FileoperationService,
+                private workFlowsService: WorkflowsService) {
 
         this.requisition_comments = '';
         this.requisition_existing_comments = [];
@@ -226,5 +230,18 @@ export class RequisitionviewComponent implements OnInit {
                 link.click();
             });
         }
+    }
+
+    DownloadChallan(challanNumber, requisitionId) {
+        this.workFlowsService.DownloadChallan(challanNumber,requisitionId).subscribe((data) => {
+            const blob = new Blob([data], {type: 'application/pdf'});
+
+            var downloadURL = window.URL.createObjectURL(data);
+            var link = document.createElement('a');
+            link.href = downloadURL;
+            link.download = challanNumber+".pdf";
+            link.click();
+
+        });
     }
 }
