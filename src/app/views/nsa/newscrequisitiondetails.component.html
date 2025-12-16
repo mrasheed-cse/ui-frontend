@@ -158,10 +158,10 @@
                                 <a [routerLink]="[viewAction(aTask),aTask.id]">Details</a>
                               </button>
                             </td>
-                            <td>{{aTask.so_number}}</td>
-                            <td>{{aTask.challan_number}}</td>
+                            <td>{{aTask.soNumber}}</td>
+                            <td>{{aTask.challanNumber}}</td>
                             <td style="text-align:center">
-                              <a style="width:100px" class="btn btn-success" *ngIf="aTask.challan_number?.trim().length>0" (click)="downloadChallan(aTask.challan_number,aTask.id)">Download</a>
+                              <a style="width:100px" class="btn btn-success" *ngIf="aTask.challanNumber?.trim().length>0" (click)="downloadChallan(aTask.challanNumber,aTask.id)">Download</a>
                               <!-- <button style="display:block" type="button" class="btn btn-link" ><i class="fa fa-link"></i> 
                                 <a [routerLink]="[viewAction(aTask),aTask.id]">Download</a>
                               </button> -->
