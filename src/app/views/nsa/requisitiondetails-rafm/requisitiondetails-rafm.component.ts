@@ -8,12 +8,13 @@ import {FileoperationService} from '../../nsa/services/fileoperation.service';
 
 import {LoginService} from '../../pages/LoginService';
 import {LoggedInUser} from '../../pages/loggedInUser';
+import {WorkflowsService} from '../services/workflows.service';
 
 @Component({
     selector: 'app-requisitiondetails-rafm',
     templateUrl: './requisitiondetails-rafm.component.html',
     styleUrls: ['./requisitiondetails-rafm.component.scss'],
-    providers: [AppGlobals, LoginService, IsmsworkflowsService, FileoperationService]
+    providers: [AppGlobals, LoginService, IsmsworkflowsService, FileoperationService, WorkflowsService]
 })
 export class RequisitiondetailsRAFMComponent implements OnInit {
 
@@ -31,7 +32,9 @@ export class RequisitiondetailsRAFMComponent implements OnInit {
     cmpEnvironment: string;
 
 
-    constructor(private route: ActivatedRoute, private router: Router, private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private ismsworkflowsService: IsmsworkflowsService, private fileoperationService: FileoperationService) {
+    constructor(private route: ActivatedRoute, private router: Router, private loginService: LoginService, private http: HttpClient,
+                private _global: AppGlobals, private ismsworkflowsService: IsmsworkflowsService,
+                private fileoperationService: FileoperationService, private workFlowsService: WorkflowsService) {
 
         this.requisition_existing_comments = [];
         this.requisition_comments = '';
@@ -123,6 +126,20 @@ export class RequisitiondetailsRAFMComponent implements OnInit {
 
             }
         );
+    }
+
+    DownloadChallan(challanNumber, requisitionId) {
+        this.workFlowsService.DownloadChallan(challanNumber,requisitionId).subscribe((data) => {
+
+            const blob = new Blob([data], {type: 'application/pdf'});
+
+            var downloadURL = window.URL.createObjectURL(data);
+            var link = document.createElement('a');
+            link.href = downloadURL;
+            link.download = challanNumber+".pdf";
+            link.click();
+
+        });
     }
 
 }
