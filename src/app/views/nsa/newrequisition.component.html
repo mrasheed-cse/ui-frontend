@@ -156,9 +156,9 @@
                                 <th>Initiated by</th>
                                 <th>Pending At</th>
                                 <th>Details</th>
-                                <th>SO No.</th>
-                                <th>Challan No.</th>
-                                <th>Challan Download</th>
+<!--                                <th>SO No.</th>-->
+<!--                                <th>Challan No.</th>-->
+<!--                                <th>Challan Download</th>-->
                             </tr>
                             </thead>
                             <tbody *ngFor="let aTask of requisitionList;  index as i">
@@ -177,12 +177,12 @@
                                         <a [routerLink]="[detailsAction(aTask),aTask.id]">Details</a></button>
                                 </td>
 
-                                <td>{{aTask.soNumber}}</td>
-                                <td>{{aTask.challanNumber}}</td>
+<!--                                <td>{{aTask.soNumber}}</td>-->
+<!--                                <td>{{aTask.challanNumber}}</td>-->
 
-                                <td style="text-align:center">
-                                    <a style="width:100px" class="btn btn-success" *ngIf="aTask.challanNumber?.trim().length>0" (click)="DownloadChallan(aTask.challanNumber,aTask.id)">Download</a>
-                                </td>
+<!--                                <td style="text-align:center">-->
+<!--                                    <a style="width:100px" class="btn btn-success" *ngIf="aTask.challanNumber?.trim().length>0" (click)="DownloadChallan(aTask.challanNumber,aTask.id)">Download</a>-->
+<!--                                </td>-->
 
                             </tr>
                             </tbody>

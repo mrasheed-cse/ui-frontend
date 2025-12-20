@@ -174,25 +174,26 @@
                             <td style="width:35%;word-break: break-all;"
                                 bgcolor="#dcdcdc">{{ cmpEnvironment }}
                             </td>
-                            <td style="width:15%">SO Number</td>
-                            <td style="width:35%;word-break: break-all;"
-                                bgcolor="#dcdcdc">{{ requisition['requisitionDetails']['soNumber'] }}
-                            </td>
+<!--                            <td style="width:15%">SO Number</td>-->
+<!--                            <td style="width:35%;word-break: break-all;"-->
+<!--                                bgcolor="#dcdcdc">{{ requisition['requisitionDetails']['soNumber'] }}-->
+<!--                            </td>-->
                         </tr>
 
-                        <tr>
-                            <td style="width:15%">Challan Number</td>
-                            <td style="width:35%;word-break: break-all;"
-                                bgcolor="#dcdcdc">{{ requisition['requisitionDetails']['challanNumber'] }}
-                            </td>
-                        </tr>
-                        <td style="width:15%;word-break: break-all;">Download Challan</td>
-                        <td style="width:35%;" bgcolor="#dcdcdc">
-                            <button class="button button1" [disabled]="!requisition?.requisitionDetails?.challanNumber || requisition.requisitionDetails.challanNumber.trim() === ''"
-                                    (click)="DownloadChallan(requisition.requisitionDetails.challanNumber, requisition.requisitionDetails.id)"><i
-                                    class="fa fa-download"></i>Download
-                            </button>
-                        </td>
+<!--                        <tr>-->
+<!--                            <td style="width:15%">Challan Number</td>-->
+<!--                            <td style="width:35%;word-break: break-all;"-->
+<!--                                bgcolor="#dcdcdc">{{ requisition['requisitionDetails']['challanNumber'] }}-->
+<!--                            </td>-->
+<!--                        -->
+<!--                            <td style="width:15%;word-break: break-all;">Download Challan</td>-->
+<!--                            <td style="width:35%;" bgcolor="#dcdcdc">-->
+<!--                                <button class="button button1" [disabled]="!requisition?.requisitionDetails?.challanNumber || requisition.requisitionDetails.challanNumber.trim() === ''"-->
+<!--                                        (click)="DownloadChallan(requisition.requisitionDetails.challanNumber, requisition.requisitionDetails.id)"><i-->
+<!--                                        class="fa fa-download"></i>Download-->
+<!--                                </button>-->
+<!--                            </td>-->
+<!--                        </tr>-->
                     </table>
                 </div>
             </div>
