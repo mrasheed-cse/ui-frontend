@@ -7,12 +7,13 @@ import {DefinitionDataService} from '../services/definitiondata.service';
 import {IsmsworkflowsService} from '../services/ismsworkflows.service';
 import {LoggedInUser} from '../../pages/loggedInUser';
 import {FileoperationService} from '../../nsa/services/fileoperation.service';
+import {WorkflowsService} from '../services/workflows.service';
 
 @Component({
     selector: 'app-requisitionassign',
     templateUrl: './requisitionassign.component.html',
     styleUrls: ['./requisitionassign.component.scss'],
-    providers: [AppGlobals, LoginService, IsmsworkflowsService, FileoperationService]
+    providers: [AppGlobals, LoginService, IsmsworkflowsService, FileoperationService, WorkflowsService]
 })
 export class RequisitionassignComponent implements OnInit {
 
@@ -29,7 +30,9 @@ export class RequisitionassignComponent implements OnInit {
     requisition_comments: string;
     cmpEnvironment: string;
 
-    constructor(private route: ActivatedRoute, private router: Router, private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private ismsworkflowsService: IsmsworkflowsService, private fileoperationService: FileoperationService) {
+    constructor(private route: ActivatedRoute, private router: Router, private loginService: LoginService, private http: HttpClient,
+                private _global: AppGlobals, private ismsworkflowsService: IsmsworkflowsService,
+                private fileoperationService: FileoperationService, private workFlowsService: WorkflowsService) {
         this.requisition_comments = '';
         this.requisition_existing_comments = [];
         this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
@@ -186,6 +189,20 @@ export class RequisitionassignComponent implements OnInit {
 
             }
         );
+    }
+
+    DownloadChallan(challanNumber, requisitionId) {
+        this.workFlowsService.DownloadChallan(challanNumber,requisitionId).subscribe((data) => {
+
+            const blob = new Blob([data], {type: 'application/pdf'});
+
+            var downloadURL = window.URL.createObjectURL(data);
+            var link = document.createElement('a');
+            link.href = downloadURL;
+            link.download = challanNumber+".pdf";
+            link.click();
+
+        });
     }
 
 }
