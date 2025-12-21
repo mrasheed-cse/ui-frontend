@@ -73,12 +73,12 @@ export class DatawarehouseService {
 
     getDataAdc(data: ViewDatawarehouse, isExport: boolean): any {
         // @ts-ignore
-        return this.http.post(this.serverUrl + 'datawarehouse/getdataADC/', this.prepareSearchFormdata(data, isExport), {responseType: isExport ? "blob" : "json"});
+        return this.http.post(this.serverUrl + 'datawarehouse/getdataADC/', this.prepareSearchFormdata(data, isExport), {responseType: "json"});
     }
 
     getDataAuc(data: ViewDatawarehouse, isExport: boolean): any {
         // @ts-ignore
-        return this.http.post(this.serverUrl + 'datawarehouse/getdataAUC/', this.prepareSearchFormdata(data, isExport), {responseType: isExport ? "blob" : "json"});
+        return this.http.post(this.serverUrl + 'datawarehouse/getdataAUC/', this.prepareSearchFormdata(data, isExport), {responseType: "json"});
     }
 
     editADCData(icc_number: string, imsi: string, ki: string, pin1: string, pin2: string, puk1: string, puk2: string, id: number): any {
@@ -126,11 +126,11 @@ export class DatawarehouseService {
 
     SimmasterData(data: ViewDatawarehouse, isExport: boolean): any {
         // @ts-ignore
-        return this.http.post(this.serverUrl + 'datawarehouse/getSimmasterdata/', this.prepareSearchFormdata(data, isExport), {responseType: isExport ? "blob" : "json"});
+        return this.http.post(this.serverUrl + 'datawarehouse/getSimmasterdata/', this.prepareSearchFormdata(data, isExport), {responseType: "json"});
     }
     TinTinData(data: ViewDatawarehouse, isExport: boolean): any {
         // @ts-ignore
-        return this.http.post(this.serverUrl + 'datawarehouse/getTinTinData/', this.prepareSearchFormdata(data, isExport), {responseType: isExport ? "blob" : "json"});
+        return this.http.post(this.serverUrl + 'datawarehouse/getTinTinData/', this.prepareSearchFormdata(data, isExport), {responseType: "json"});
     }
 
     getReportList(userID: string): any {
