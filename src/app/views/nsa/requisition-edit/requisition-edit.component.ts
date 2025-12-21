@@ -363,7 +363,7 @@ export class RequisitionEditNewComponent implements OnInit {
 
     getProduct() {
         //GetProducts
-        this.definitionDataService.GetMasterDataDetailTypes(this._global.masterData_ProductName).subscribe(
+        this.definitionDataService.getAllMasterProduct().subscribe(
             data => {
                 //console.log(data);
                 for (let index in data) {
@@ -371,7 +371,8 @@ export class RequisitionEditNewComponent implements OnInit {
                     this.listProduct.push(
                         {
                             id: data[index].id,
-                            ismsMasterDataDetailsName: data[index].ismsMasterDataDetailsName
+                            ismsMasterDataDetailsName: data[index].ismsMasterDataDetailsName,
+                            masterProductId: data[index].masterProductId
                         }
                     );
                 }
