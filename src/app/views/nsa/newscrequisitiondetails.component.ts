@@ -186,7 +186,7 @@ onSearchSubmit() {
 }
 
 downloadChallan(challanNo:number,requisitionId:number){
-  this.workFlowsService.DownloadChallan(challanNo,requisitionId).subscribe((data) => {
+  this.workFlowsService.DownloadChallanSC(challanNo,requisitionId).subscribe((data) => {
 
     const blob = new Blob([data], {type: 'application/pdf'});
   
