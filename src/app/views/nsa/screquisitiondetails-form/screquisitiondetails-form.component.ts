@@ -145,8 +145,8 @@ export class SCRequisitiondetailsFormComponent implements OnInit {
           var response = res.responseBody
           console.log('so creation response is : ' + response);
           if (response) {
-            if (response.orderStatus === "Success" && response.soNumber.length > 0) {
-              soNumber = response.soNumber;
+            if (response.OrderNumber != null && response.OrderNumber.length > 0) {
+              soNumber = response.OrderNumber;
               this.approveOrRejectRequest(this.requisitionDetails['id'], "ACCEPT", this.userID);
             }
             else {
