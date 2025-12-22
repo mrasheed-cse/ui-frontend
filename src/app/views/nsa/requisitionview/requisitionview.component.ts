@@ -233,7 +233,7 @@ export class RequisitionviewComponent implements OnInit {
     }
 
     DownloadChallan(challanNumber, requisitionId) {
-        this.workFlowsService.DownloadChallan(challanNumber,requisitionId).subscribe((data) => {
+        this.workFlowsService.DownloadChallanSim(challanNumber,requisitionId).subscribe((data) => {
             const blob = new Blob([data], {type: 'application/pdf'});
 
             var downloadURL = window.URL.createObjectURL(data);
