@@ -101,7 +101,7 @@ export class WorkflowsService {
 	}
 
 	//download challan
-	DownloadChallan(challanNo,requisitionId) : any {
+	DownloadChallanSC(challanNo, requisitionId) : any {
 		const httpOptions = {
 			responseType: 'blob' as 'json'
 		  };
@@ -110,7 +110,18 @@ export class WorkflowsService {
 			requisitionId:requisitionId
 		},httpOptions);
 
-	} 
+	}
+
+	DownloadChallanSim(challanNo,requisitionId) : any {
+		const httpOptions = {
+			responseType: 'blob' as 'json'
+		};
+		return this.http.post(this.serverUrl + 'testsim/downloadchallan', {
+			challanNo:challanNo,
+			requisitionId:requisitionId
+		},httpOptions);
+
+	}
 
 	LoadPreDeactivationScDetails( user_id: string) : any {
 		//console.log( "status : "+status);
