@@ -71,11 +71,11 @@
 							<div class="form-group row">
 								<label class="col-md-3 col-form-label">Search Type</label>
 								<label class="col-md-3" >
-									<input type="radio" value="sequence" formControlName="searchType">
+									<input type="radio" value="sequence" formControlName="searchType" (change)="onSelectionChange($event)">
 									<span> Sequential </span>
 								</label>
 								<label class="col-md-3">
-									<input type="radio" value="discrete" formControlName="searchType">
+									<input type="radio" value="discrete" formControlName="searchType" (change)="onSelectionChange($event)">
 									<span> Discrete </span>
 								</label>
 							</div>
@@ -86,7 +86,7 @@
 							<div class="form-group row" *ngIf="searchType.value=='sequence'">
 								<label class="col-md-5 col-form-label" for="startMSISDN">Start MSISDN</label>
 								<div class="col-md-7">
-									<input type="text" id="startMSISDN" name="startMSISDN" class="form-control"
+									<input type="text" id="startMSISDN" name="startMSISDN" class="form-control" autocomplete="off"
 										formControlName="startMSISDN" pattern="(017|013)\d*" required [ngClass]="{
 												'is-invalid': startMSISDN.invalid && (startMSISDN.dirty || startMSISDN.touched),
 												'is-valid': startMSISDN.valid && (startMSISDN.dirty || startMSISDN.touched)
@@ -106,7 +106,7 @@
 							<div class="form-group row" *ngIf="searchType.value=='sequence'">
 								<label class="col-md-5 col-form-label" for="endMSISDN">End MSISDN</label>
 								<div class="col-md-7">
-									<input type="text" id="endMSISDN" name="endMSISDN" class="form-control"
+									<input type="text" id="endMSISDN" name="endMSISDN" class="form-control" autocomplete="off"
 										formControlName="endMSISDN" pattern="(017|013)\d*" required [ngClass]="{
 											'is-invalid': endMSISDN.invalid && (endMSISDN.dirty || endMSISDN.touched),
 											'is-valid': endMSISDN.valid && (endMSISDN.dirty || endMSISDN.touched)
@@ -257,7 +257,7 @@
 				<!-- <div class="card-body"> -->
 				<div class="card-footer text-right">
 
-					<button type="submit" class="btn btn-sm btn-primary " [disabled]="isDisableBtn">
+					<button type="submit" class="btn btn-sm btn-primary " [disabled]="isDisableBtn || !isValid">
 						<i class="fa fa-dot-circle-o"></i> Submit</button>
 					<button type="reset" class="btn btn-sm btn-danger" (click)="clearForm($event)">
 						<i class="fa fa-ban"></i> Reset</button>
