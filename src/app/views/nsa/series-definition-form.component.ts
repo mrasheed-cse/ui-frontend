@@ -489,7 +489,7 @@ export class SeriesDefinitionFormComponent implements OnInit {
 		this.router.navigateByUrl('/nsa/seriesprovision');
 	}
 
-	protected onSelectionChange($event: Event) {
+	onSelectionChange($event: Event) {
 		this.reset();
 		this.mySeriesDefinitionForm.get('startMSISDN').setValue("");
 		this.mySeriesDefinitionForm.get('endMSISDN').setValue("");
