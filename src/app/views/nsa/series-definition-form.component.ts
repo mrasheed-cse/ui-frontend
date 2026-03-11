@@ -46,6 +46,7 @@ export class SeriesDefinitionFormComponent implements OnInit {
 	public infoAlertShow: boolean = false;
 	public infoAlertMessage: string = "";
 	public isDisableBtn: boolean = false;
+	public isValid : boolean = false;
 
 	//NSA_disc_num -- file upload CR 
 	isInitial: boolean = true;
@@ -259,8 +260,7 @@ export class SeriesDefinitionFormComponent implements OnInit {
 	}
 
 	ChaeckDefinitionValidity(startMSISDNs, endMSISDNs) {
-
-
+		this.reset();
 		const totalMsisdn = (Number(endMSISDNs) - Number(startMSISDNs));
 
 		if (totalMsisdn > 100000) {
@@ -279,7 +279,7 @@ export class SeriesDefinitionFormComponent implements OnInit {
 					if (data == true) {
 
 						this.infoAlertShow = false;
-
+						this.isValid = true;
 					}
 
 					else {
@@ -363,8 +363,8 @@ export class SeriesDefinitionFormComponent implements OnInit {
 	// FORM SUBMISSION
 	onSeriesProvisionSubmit() {
 		console.log("submit start")
-		console.log("valid" + this.mySeriesDefinitionForm.valid);
-		if (this.mySeriesDefinitionForm.valid && !this.isDisableBtn) {
+
+		if (!this.isDisableBtn && this.isValid) {
 			this.topFunction();
 			this.isLoading = true;
 			this.isDisableBtn = true;
@@ -372,9 +372,15 @@ export class SeriesDefinitionFormComponent implements OnInit {
 				this.formFieldData = this.workFlowsService.FormatWorkRequestNameForAPI(this.WR_Name);
 				this.fileName = this.formFieldData;
 				const fd = new FormData();
-				fd.append('nsa-file', this.selectedFile, this.fileName + ".csv");
-				var result = this.fileoperationService.uploadCSV(fd);
-				result.subscribe(res => { console.log(res); this.submittoAPI() });
+
+				if (this.selectedFile != null) {
+					fd.append('nsa-file', this.selectedFile, this.fileName + ".csv");
+					var result = this.fileoperationService.uploadCSV(fd);
+					result.subscribe(res => {
+						console.log(res);
+						this.submittoAPI()
+					});
+				}
 			}
 			else {
 				this.submittoAPI();
@@ -437,32 +443,38 @@ export class SeriesDefinitionFormComponent implements OnInit {
 	}
 	onFileChange(event) {
 		this.isLoading = true;
-		this.selectedFile = <File>event.target.files[0];
-		this.formFieldData = this.workFlowsService.FormatWorkRequestNameForAPI(this.WR_Name);
-		this.fileName = this.formFieldData;
-		const fd = new FormData();
-		fd.append('nsa-file', this.selectedFile, this.fileName + ".csv");
-		var result = this.fileoperationService.uploadCSV(fd);
-		result.subscribe(
-			res => {
-				let index = res.message.lastIndexOf(":");
-				let file = res.message.substring(index);
-				this.workFlowsService.checkFileValidity(this.fileName + ".csv").subscribe(
-					response => {
-						let res = response.message.split(",");
-						if (res[0].trim() === "Valid") {
-							this.infoAlertShow = false;
-							this.isLoading = false;
-							this.mySeriesDefinitionForm.get('quantity').setValue(res[1]);
-						}
-						else {
-							this.infoAlertShow = true;
-							this.infoAlertMessage = "All or some numbers in " + this.selectedFile.name + " already have Definition Work Request";
-							this.isLoading = false;
-						}
-					});
+
+		if (event.target.files != null && event.target.files.length > 0) {
+			this.selectedFile = <File>event.target.files[0];
+			if (this.selectedFile != null) {
+				this.reset();
+				this.formFieldData = this.workFlowsService.FormatWorkRequestNameForAPI(this.WR_Name);
+				this.fileName = this.formFieldData;
+				const fd = new FormData();
+				fd.append('nsa-file', this.selectedFile, this.fileName + ".csv");
+				var result = this.fileoperationService.uploadCSV(fd);
+				result.subscribe(
+					res => {
+						let index = res.message.lastIndexOf(":");
+						let file = res.message.substring(index);
+						this.workFlowsService.checkFileValidity(this.fileName + ".csv").subscribe(
+							response => {
+								let res = response.message.split(",");
+								if (res[0].trim() === "Valid") {
+									this.infoAlertShow = false;
+									this.isLoading = false;
+									this.mySeriesDefinitionForm.get('quantity').setValue(res[1]);
+									this.isValid = true;
+								} else {
+									this.infoAlertShow = true;
+									this.infoAlertMessage = "All or some numbers in " + this.selectedFile.name + " already have Definition Work Request";
+									this.isLoading = false;
+								}
+							});
+					}
+				);
 			}
-		);
+		}
 	}
 
 	clearForm(event: any) {
@@ -470,9 +482,29 @@ export class SeriesDefinitionFormComponent implements OnInit {
 		this.dangerAlertShow = false;
 		this.successAlertShow = false;
 		this.mySeriesDefinitionForm.reset();
+		this.reset();
 	}
 	backButton(event: any) {
 		//console.log(event);
 		this.router.navigateByUrl('/nsa/seriesprovision');
+	}
+
+	onSelectionChange($event: Event) {
+		this.reset();
+		this.mySeriesDefinitionForm.get('startMSISDN').setValue("");
+		this.mySeriesDefinitionForm.get('endMSISDN').setValue("");
+		this.mySeriesDefinitionForm.get('discDefFile').setValue(null);
+	}
+
+	reset() {
+		this.dangerAlertShow = false;
+		this.dangerAlertMessage = "";
+		this.successAlertShow = false;
+		this.successAlertMessage = "";
+		this.isLoading = false;
+		this.infoAlertShow = false;
+		this.infoAlertMessage = "";
+		this.isDisableBtn = false;
+		this.isValid = false;
 	}
 }
