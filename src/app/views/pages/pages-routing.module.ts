@@ -6,6 +6,7 @@ import { P404Component } from './404.component';
 import { P500Component } from './500.component';
 import { LoginComponent } from './login.component';
 import { RegisterComponent } from './register.component';
+import { MfaComponent } from './mfa.component';
 import {FormsModule} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -47,6 +48,13 @@ const routes: Routes = [
         component: RegisterComponent,
         data: {
           title: 'Register Page'
+        }
+      },
+      {
+        path: 'mfa',
+        component: MfaComponent,
+        data: {
+          title: 'MFA Verification'
         }
       }
     ]

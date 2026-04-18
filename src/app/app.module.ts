@@ -17,8 +17,8 @@ import {
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { AppComponent } from './app.component';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
-import {HttpClient} from '@angular/common/http';
-import { HttpClientModule } from '@angular/common/http';
+import {HttpClient, HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import {JwtInterceptor} from './interceptors/jwt.interceptor';
 import { CommonModule } from '@angular/common';
 import { DataTableModule } from 'angular4-smart-table';
 
@@ -117,10 +117,11 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
     ...APP_DIRECTIVES
   
   ],
-  providers: [MsisdnService,{
-    provide: LocationStrategy,
-    useClass: HashLocationStrategy
-  }],
+  providers: [
+    MsisdnService,
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
+  ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
