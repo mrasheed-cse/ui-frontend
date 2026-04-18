@@ -1,10 +1,7 @@
 import {Component} from '@angular/core';
 import {LoginService} from './LoginService';
 import {Router} from '@angular/router';
-import {FormsModule} from '@angular/forms';
-import {CommonModule} from '@angular/common';
 import {LoggedInUser} from './loggedInUser';
-import {Observable} from 'rxjs/Observable';
 import {AppGlobals} from './../../app.global';
 
 import 'rxjs/add/operator/map';
@@ -20,100 +17,67 @@ import 'rxjs/add/observable/of';
 
 export class LoginComponent {
 
-    currentLoggedInUser: LoggedInUser;
     isValidUser: boolean = true;
     isDelegateAccess: boolean = false;
     public isLoading: boolean = false;
-
-    constructor(private loginService: LoginService, private router: Router, private _global: AppGlobals) {
-        this.loginService.LogOut();
-
-        this.currentLoggedInUser = {
-            userName: "",
-            groupName: "",
-            groupID: 0,
-            userID: "",
-            groupNames: null,
-            groupIDs: null,
-        };
-    }
+    errorMessage: string = '';
 
     username: string;
     password: string;
     delegateusername: string;
 
+    constructor(private loginService: LoginService, private router: Router, private _global: AppGlobals) {
+        // Clear any existing session when opening the login page
+        localStorage.removeItem('mfa_session_id');
+        localStorage.removeItem('mfa_user_id');
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('currentLoggedInUser');
+    }
+
     ValidateUser() {
         this.isLoading = true;
+        this.isValidUser = true;
+        this.errorMessage = '';
+
         if (this.isDelegateAccess) {
             this.loginService.ValidateDelegateUser(this.username, this.delegateusername, this.password).subscribe(
                 res => {
-                    if (res != null && res) {
-                        this.isValidUser = true;
-                        this.currentLoggedInUser = {
-                            userID: this.username,
-                            userName: res.usersName,
-                            groupName: res.usersGroupName,
-                            groupID: res.usersGroupId,
-                            groupNames: res.usersGroupNames,
-                            groupIDs: res.usersGroupIds
-                        };
-                        console.log(this.currentLoggedInUser);
-                        localStorage.setItem('currentLoggedInUser', JSON.stringify(this.currentLoggedInUser));
-
-                        this.isLoading = false;
-                        this.router.navigateByUrl('/nsa/testsimdashboard')
+                    this.isLoading = false;
+                    if (res && res.success && res.sessionId) {
+                        localStorage.setItem('mfa_session_id', res.sessionId);
+                        localStorage.setItem('mfa_user_id', this.username);
+                        this.router.navigateByUrl('/pages/mfa');
+                    } else {
+                        this.isValidUser = false;
+                        this.errorMessage = (res && res.message) ? res.message : 'Invalid credentials. Please try again.';
                     }
                 },
                 err => {
                     this.isValidUser = false;
                     this.isLoading = false;
-                    this.router.navigateByUrl('/pages/login');
+                    this.errorMessage = 'Invalid credentials. Please try again.';
                 }
             );
         } else {
             this.loginService.ValidateUser(this.username, this.password).subscribe(
                 res => {
-                    if (res != null && res) {
-                        this.isValidUser = true;
-
-
-                        this.currentLoggedInUser = {
-                            userID: this.username,
-                            userName: res.usersName,
-                            groupName: res.usersGroupName,
-                            groupID: res.usersGroupId,
-                            groupNames: res.usersGroupNames,
-                            groupIDs: res.usersGroupIds
-                        };
-                        localStorage.setItem('currentLoggedInUser', JSON.stringify(this.currentLoggedInUser));
-                        console.log(this.currentLoggedInUser);
-                        this.isLoading = false;
-                        this.router.navigateByUrl('/nsa/testsimdashboard')
+                    this.isLoading = false;
+                    if (res && res.success && res.sessionId) {
+                        localStorage.setItem('mfa_session_id', res.sessionId);
+                        localStorage.setItem('mfa_user_id', this.username);
+                        this.router.navigateByUrl('/pages/mfa');
+                    } else {
+                        this.isValidUser = false;
+                        this.errorMessage = (res && res.message) ? res.message : 'Invalid credentials. Please try again.';
                     }
                 },
                 err => {
                     this.isValidUser = false;
                     this.isLoading = false;
-                    this.router.navigateByUrl('/pages/login');
+                    this.errorMessage = 'Invalid credentials. Please try again.';
                 }
             );
         }
-
-        //let res : any;
-        //res = this._global.dataTempForLogin;
-
-        //this.isValidUser = true;
-
-        /*this.currentLoggedInUser = {
-            userID: this.username,
-            userName: res.usersName,
-            groupName: res.usersGroupName,
-            groupID: res.usersGroupId
-        };
-        localStorage.setItem('currentLoggedInUser', JSON.stringify(this.currentLoggedInUser));
-
-        this.isLoading = false;
-        this.router.navigateByUrl('/nsa')*/
-    } //end of function validateuser()
-
+    }
 }
