@@ -18,7 +18,6 @@ export class AppHeaderComponent {
 	constructor(private loginService: LoginService, private router: Router) { 
 	
 	this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
-	debugger;
 	if (this.currentLoggedInUser) {
 		this.groupName="";
 		this.userName = this.currentLoggedInUser.userName
