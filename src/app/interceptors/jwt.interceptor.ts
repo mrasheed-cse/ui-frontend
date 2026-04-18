@@ -8,18 +8,21 @@ import {
     HttpClient
 } from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
+import {Subject} from 'rxjs/Subject';
 import {Router} from '@angular/router';
 import {environment} from '../../environments/environment';
 
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/take';
 import 'rxjs/add/observable/throw';
-
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
 
     private isRefreshing = false;
+    private refreshTokenSubject: Subject<string | null> = new Subject<string | null>();
 
     constructor(private injector: Injector, private router: Router) {}
 
@@ -49,19 +52,22 @@ export class JwtInterceptor implements HttpInterceptor {
     // Endpoints that do not require Bearer token and should not trigger token refresh on 401
     private isAuthEndpoint(url: string): boolean {
         return url.endsWith('/login') ||
-               url.includes('loginAsDelegate') ||
-               url.includes('verify-mfa') ||
-               url.includes('resend-otp') ||
-               url.endsWith('/refresh') ||
-               url.endsWith('/logout') ||
-               url.endsWith('/logout-all');
+            url.includes('loginAsDelegate') ||
+            url.includes('verify-mfa') ||
+            url.includes('resend-otp') ||
+            url.endsWith('/refresh') ||
+            url.endsWith('/logout') ||
+            url.endsWith('/logout-all');
     }
 
     private handle401Error(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         if (this.isRefreshing) {
-            // Another refresh is in progress; clear session and redirect
-            this.clearAndRedirect();
-            return Observable.throw('Session expired. Please login again.');
+            return this.refreshTokenSubject
+                .filter(token => token !== null)
+                .take(1)
+                .switchMap(token => {
+                    return next.handle(this.addToken(request, token!));
+                });
         }
 
         const refreshToken = localStorage.getItem('refreshToken');
@@ -71,43 +77,43 @@ export class JwtInterceptor implements HttpInterceptor {
         }
 
         this.isRefreshing = true;
+        this.refreshTokenSubject.next(null); // block queued requests
 
-        // Use Injector to get HttpClient lazily to avoid circular dependency
         const http = this.injector.get(HttpClient);
 
-        return http.post<any>(environment.apiUrl + 'refresh', {refreshToken: refreshToken})
+        return http.post<any>(environment.apiUrl + 'refresh', {refreshToken})
             .switchMap((response: any) => {
                 this.isRefreshing = false;
+
                 if (response && response.success && response.accessToken) {
                     localStorage.setItem('accessToken', response.accessToken);
                     localStorage.setItem('refreshToken', response.refreshToken);
                     this.updateStoredUser(response);
+                    this.refreshTokenSubject.next(response.accessToken); // unblock B and C
                     return next.handle(this.addToken(request, response.accessToken));
                 }
+
                 this.clearAndRedirect();
                 return Observable.throw('Token refresh failed.');
             })
             .catch((error: any) => {
                 this.isRefreshing = false;
+                this.refreshTokenSubject.next(null);
                 this.clearAndRedirect();
                 return Observable.throw('Session expired. Please login again.');
             });
     }
 
     private updateStoredUser(response: any) {
-        const userStr = localStorage.getItem('currentLoggedInUser');
-        if (userStr) {
-            try {
-                const user = JSON.parse(userStr);
-                user.userID = localStorage.getItem('mfa_user_id') || response.usersName;
-                user.userName = response.usersName;
-                user.groupName = response.usersGroupName;
-                user.groupID = response.usersGroupId;
-                user.groupNames = response.usersGroupNames;
-                user.groupIDs = response.usersGroupIds;
-                localStorage.setItem('currentLoggedInUser', JSON.stringify(user));
-            } catch (e) {}
-        }
+        const user = {
+            userName: response.usersName,
+            userID: localStorage.getItem('mfa_user_id') || response.usersName,
+            groupName: response.usersGroupName,
+            groupID: response.usersGroupId,
+            groupNames: response.usersGroupNames,
+            groupIDs: response.usersGroupIds
+        };
+        localStorage.setItem('currentLoggedInUser', JSON.stringify(user));
     }
 
     private clearAndRedirect() {
