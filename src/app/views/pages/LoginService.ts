@@ -96,7 +96,6 @@ export class LoginService {
     }
 
     LogOut() {
-        debugger;
         const refreshToken = localStorage.getItem('refreshToken');
         if (refreshToken) {
             this.http.post(this.serverUrl + 'logout', {refreshToken: refreshToken}).subscribe(
