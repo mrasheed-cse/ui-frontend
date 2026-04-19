@@ -40,9 +40,7 @@ export class AppHeaderComponent {
 	}
 
 logout(){
-	debugger;
 		this.loginService.LogOut();
-	
 }	
 
 }
