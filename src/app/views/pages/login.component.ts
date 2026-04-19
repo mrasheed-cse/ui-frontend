@@ -56,7 +56,8 @@ export class LoginComponent {
                 err => {
                     this.isValidUser = false;
                     this.isLoading = false;
-                    this.errorMessage = (err && err.message) ? err.message : 'Invalid credentials. Please try again.';
+                    //this.errorMessage = (err && err.message) ? err.message : 'Invalid credentials. Please try again.';
+                    this.errorMessage = 'Invalid credentials. Please try again.';
                 }
             );
         } else {
@@ -75,7 +76,8 @@ export class LoginComponent {
                 err => {
                     this.isValidUser = false;
                     this.isLoading = false;
-                    this.errorMessage = (err && err.message) ? err.message : 'Invalid credentials. Please try again.';
+                    //this.errorMessage = (err && err.message) ? err.message : 'Invalid credentials. Please try again.';
+                    this.errorMessage = 'Invalid credentials. Please try again.';
                 }
             );
         }
