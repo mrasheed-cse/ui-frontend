@@ -62,7 +62,7 @@
                                 </div>
                                 <div *ngIf="!isValidUser">
                                     <div class="alert alert-danger">
-                                        Please provide correct username and password.
+                                        {{ errorMessage }}
                                     </div>
                                 </div>
                             </form>
