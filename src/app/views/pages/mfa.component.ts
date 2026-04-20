@@ -74,8 +74,7 @@ export class MfaComponent implements OnInit {
             err => {
                 this.isLoading = false;
                 this.hasError = true;
-                //this.errorMessage = (err && err.message) ? err.message : 'Invalid OTP. Please try again.';
-                this.errorMessage = 'Invalid OTP. Please try again.';
+                this.errorMessage = (err && err.error && err.error.message) ? err.error.message : 'Invalid OTP. Please try again.';
             }
         );
     }
@@ -93,8 +92,7 @@ export class MfaComponent implements OnInit {
             err => {
                 this.isResending = false;
                 this.hasError = true;
-                //this.errorMessage = (err && err.message) ? err.message : 'Failed to resend OTP. Please try again.';
-                this.errorMessage = 'Failed to resend OTP. Please try again.';
+                this.errorMessage = (err && err.error && err.error.message) ? err.error.message : 'Failed to resend OTP. Please try again.';
             }
         );
     }
