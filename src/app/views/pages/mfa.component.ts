@@ -54,7 +54,7 @@ export class MfaComponent implements OnInit {
                     //localStorage.removeItem('mfa_session_id');
 
                     const user: LoggedInUser = {
-                        userID: localStorage.getItem('mfa_user_id') || res.usersName,
+                        userID: res.usersName,
                         userName: res.usersName,
                         groupName: res.usersGroupName,
                         groupID: res.usersGroupId,
