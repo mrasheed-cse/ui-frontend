@@ -194,7 +194,7 @@ import {ViewDatawarehouseCopc} from '../SSM/DataWarehouse Management/Copc/showda
     DataTableModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule,
+    //HttpClientModule,
     CollapseModule.forRoot(),
     BsDatepickerModule.forRoot(),
     AgGridModule.withComponents([]),
