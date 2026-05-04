@@ -18,7 +18,6 @@ export class AppHeaderComponent {
 	constructor(private loginService: LoginService, private router: Router) { 
 	
 	this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
-	
 	if (this.currentLoggedInUser) {
 		this.groupName="";
 		this.userName = this.currentLoggedInUser.userName
@@ -41,8 +40,7 @@ export class AppHeaderComponent {
 	}
 
 logout(){
-	this.loginService.LogOut();
-	
+		this.loginService.LogOut();
 }	
 
 }
