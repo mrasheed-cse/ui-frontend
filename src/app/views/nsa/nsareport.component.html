@@ -106,6 +106,41 @@
                 </div>
               </div>
           </div>
+
+              <div class="row" [hidden]="!discProvWRShow">
+                  <div class="col-md-12">
+                      <div class="card">
+                          <div class="card-header">
+                              <strong>Discrete Provision WR Number :: {{discProvWRBriefName}}</strong>
+                          </div>
+                          <div class="card-body">
+                              <div *ngFor="let aFnvPair of discProvFieldNameValueList;  index as idx">
+                                  <div class="row" *ngIf="idx % 2 == 0">
+                                      <div class="col-md-6">
+                                          <div class="form-group row">
+                                              <div class="col-md-5 col-form-label">
+                                                  {{discProvFieldNameValueList[idx].fieldName}}</div>
+                                              <div class="col-md-7">
+                                                  <input disabled type="text" class="form-control calendar-container"
+                                                         value="{{discProvFieldNameValueList[idx].fieldValue.replace(_global.wrid_FileUploadPath, '')}}"></div>
+                                          </div>
+                                      </div>
+                                      <div class="col-md-6" *ngIf="discProvFieldNameValueList[idx+1].fieldName">
+                                          <div class="form-group row">
+                                              <div class="col-md-5 col-form-label">
+                                                  {{discProvFieldNameValueList[idx+1].fieldName}}</div>
+                                              <div class="col-md-7">
+                                                  <input disabled type="text" class="form-control calendar-container"
+                                                         value="{{discProvFieldNameValueList[idx+1].fieldValue.replace(_global.wrid_FileUploadPath, '')}}"></div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
           <div class="row" [hidden]="!deProvWRShow">
                 <div class="col-md-12">
                   <div class="card">
@@ -275,6 +310,8 @@
                             <th>Definition Completion Date</th>
                             <th>Provision Status</th>
                             <th>Provision Completion Date</th>
+                              <th>Discrete Provision Status</th>
+                              <th>Discrete Provision Completion Date</th>
                             <th>De Provision Status</th>
                             <th>De Provision Completion Date</th>
                             <th>Re Provision Status</th>
@@ -292,6 +329,8 @@
                           <td>{{aReport.definitionCompletionDate}}</td>
                           <td>{{aReport.provisionStatus}}</td>
                           <td>{{aReport.provisionCompletionDate}}</td>
+                            <td>{{aReport.discProvisionStatus}}</td>
+                            <td>{{aReport.discProvisionCompletionDate}}</td>
                           <td>{{aReport.deProvisionStatus}}</td>
                           <td>{{aReport.deProvisionCompletionDate}}</td>
                           <td>{{aReport.reProvisionhStatus}}</td>
@@ -371,6 +410,41 @@
                       </div>
                     </div>
                 </div>
+
+                  <div class="row" [hidden]="!discProvWRShowBulk">
+                      <div class="col-md-12">
+                          <div class="card">
+                              <div class="card-header">
+                                  <strong>Discrete Provision WR Number :: {{discProvWRBriefNameBulk}}</strong>
+                              </div>
+                              <div class="card-body">
+                                  <div *ngFor="let aFnvPair of discProvFieldNameValueListBulk;  index as idx">
+                                      <div class="row" *ngIf="idx % 2 == 0">
+                                          <div class="col-md-6">
+                                              <div class="form-group row">
+                                                  <div class="col-md-5 col-form-label">
+                                                      {{discProvFieldNameValueListBulk[idx].fieldName}}</div>
+                                                  <div class="col-md-7">
+                                                      <input disabled type="text" class="form-control calendar-container"
+                                                             value="{{discProvFieldNameValueListBulk[idx].fieldValue.replace(_global.wrid_FileUploadPath, '')}}"></div>
+                                              </div>
+                                          </div>
+                                          <div class="col-md-6" *ngIf="discProvFieldNameValueListBulk[idx+1].fieldName">
+                                              <div class="form-group row">
+                                                  <div class="col-md-5 col-form-label">
+                                                      {{discProvFieldNameValueListBulk[idx+1].fieldName}}</div>
+                                                  <div class="col-md-7">
+                                                      <input disabled type="text" class="form-control calendar-container"
+                                                             value="{{discProvFieldNameValueListBulk[idx+1].fieldValue.replace(_global.wrid_FileUploadPath, '')}}"></div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
                 <div class="row" [hidden]="!deProvWRShowBulk">
                       <div class="col-md-12">
                         <div class="card">
