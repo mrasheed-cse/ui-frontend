@@ -168,6 +168,14 @@ private padToSevenDigits(num: number): string {
     return ('0000000' + num).slice(-7);
 }
 
+    private padToTwoDigits(num: number): string {
+        return ('00' + num).slice(-2);
+    }
+
+    private padToThreeDigits(num: number): string {
+        return ('000' + num).slice(-3);
+    }
+
 
 LoadFilteredInputFiles(){
   
@@ -192,8 +200,8 @@ LoadFilteredInputFiles(){
             {
               x['iccidStartnum']= x['startIccid'] + x['planQuantity'];
               x['iccidEndnum']=x['startIccid'] + x['receivedQuantity']-1;
-              x['iccidStart'] = "898801"+ x['iccidOrder']+ "0" + x['imsiType']+ this.padToSevenDigits(x['iccidStartnum']);
-              x['iccidEnd'] = "898801"+ x['iccidOrder']+ "0" + x['imsiType']+ this.padToSevenDigits(x['iccidEndnum']);
+              x['iccidStart'] = "898801"+ this.padToTwoDigits(x['iccidOrder']) + this.padToThreeDigits(x['imsiType']) + this.padToSevenDigits(x['iccidStartnum']);
+              x['iccidEnd'] = "898801"+ this.padToTwoDigits(x['iccidOrder']) + this.padToThreeDigits(x['imsiType']) + this.padToSevenDigits(x['iccidEndnum']);
             }
           )
           this.isNoDataFound=false;
