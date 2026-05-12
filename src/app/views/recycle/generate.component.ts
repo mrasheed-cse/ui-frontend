@@ -82,4 +82,56 @@ export class GenerateComponent implements OnInit {
             this.genalert = "MSISDN Deletion Fail";
         });
     }
+
+    downloadCSVFile(fileName){
+        const url = environment.apiUrl + "msisdn_recycle_list/download/" + fileName;
+        console.log(url);
+
+        this.httpClient.get(url, { observe: 'response', responseType: 'blob' })
+            .subscribe(
+                response => {
+                    this.downloadFile(response, fileName);
+                },
+                error => {
+                    console.log(error);
+                    alert('Failed to download file')
+                }
+            );
+    }
+
+    downloadFile(response : any, fileName) :void {
+        console.log(response);
+        console.log(response.headers);
+        let filename = fileName;
+
+        // Get filename from content-disposition header
+        const contentDisposition = response.headers.get('content-disposition');
+
+        if (contentDisposition) {
+            let arr = contentDisposition.split(';');
+            if (arr.length > 1) {
+                arr.forEach(element => {
+                    if (element.trim().startsWith('filename=')) {
+                        let arr2 = element.split('=');
+                        if (arr2.length > 1) {
+                            filename = arr2[1].trim().replace(/"/g, '');
+                        }
+                    }
+                })
+            }
+        }
+
+        // Create blob and download
+        const blob = new Blob([response.body],
+            { type: response.headers.get('content-type') });
+
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = filename;
+        link.click();
+
+        // Cleanup
+        window.URL.revokeObjectURL(url);
+    }
 }
