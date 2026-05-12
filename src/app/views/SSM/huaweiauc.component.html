@@ -45,7 +45,8 @@
        
        <div class="recycle-bar"></div>
        <div id="recycle-download" class="recycle-download" style="border-radius: 10px 10px 0 0">
-          <!--<a  download="" href="{{environment.apiUrl + '/huawei_auc_conversion/download' }}" class="mx-sm-3" role="button">Download</a>-->
-           <a href="{{fileDownloadUrl}}"> Download </a>
+           <button type="button" class="btn btn-info btn-sm" style="border-radius: 10px; color: white" (click)="downloadHuaweiAucConvertedFile()">
+               Download
+           </button>
        </div>
    </div>
