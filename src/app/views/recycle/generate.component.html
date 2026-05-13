@@ -24,21 +24,8 @@
                 <td>{{item.endDate | date: 'dd-MM-yyyy'}}</td>
                 <td>{{item.msisdnCount}}</td>
                 <td>
-                    <button type="button"
-                            class="mx-sm-3"
-                            (click)="downloadCSVFile(item.csvFilePath)">
-                        Download
-                    </button>
-
-                    <button *ngIf="isForAnalyze"
-                            type="button"
-                            class="mx-sm-3"
-                            (click)="clear(item.id)">
-                        Clear
-                    </button>
-
-<!--                    <a download="" href="#" class="mx-sm-3" role="button" (click)="downloadCSVFile(item.csvFilePath)">Download</a>-->
-<!--                    <a *ngIf="isForAnalyze" href="#" (click)="clear(item.id);$event.preventDefault();" role="button">Clear</a>-->
+                    <a href="#" class="mx-sm-3" role="button" (click)="downloadCSVFile(item.csvFilePath);$event.preventDefault();">Download</a>
+                    <a *ngIf="isForAnalyze" href="#" (click)="clear(item.id);$event.preventDefault();" role="button">Clear</a>
                 </td>
             </tr>
             </tbody>
