@@ -139,6 +139,7 @@
                       <th>IMSI Type</th>
                       <th>Special Requirement</th>
                       <th>New Sim</th>
+                      <th>GD File</th>
                   </tr>
                 </thead>               
 
@@ -155,6 +156,10 @@
                         <td>{{ aDetail['requisitionLine']['specialRequirement'] }}</td>
                         <td>
                             {{ aDetail['newSim'] }}
+                          </td>
+
+                          <td style="text-align:center">
+                              <a style="width:100px" class="btn btn-success" *ngIf="aDetail.gdFileName?.trim().length>0" (click)="downloadGdFile(aDetail.gdFileName)">Download</a>
                           </td>
                       </tr>
                   </tbody>

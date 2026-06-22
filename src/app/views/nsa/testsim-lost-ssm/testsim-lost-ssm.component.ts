@@ -11,12 +11,13 @@ import { Router } from '@angular/router';
 
 import { LoginService } from '../../pages/LoginService';
 import { LoggedInUser } from '../../pages/loggedInUser';
+import {FileoperationService} from '../services/fileoperation.service';
 
 @Component({
   selector: 'app-testsim-lost-ssm',
   templateUrl: './testsim-lost-ssm.component.html',
   styleUrls: ['./testsim-lost-ssm.component.scss'],
-  providers: [WorkflowsService,AppGlobals,LoginService],
+  providers: [WorkflowsService,AppGlobals,LoginService, FileoperationService],
 })
 export class TestsimLostSsmComponent implements OnInit {
 
@@ -33,7 +34,7 @@ export class TestsimLostSsmComponent implements OnInit {
   showDetail: boolean = false;
   selectedSimActionId: number;
 
-  constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {
+  constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService, private fileoperationService: FileoperationService) {
 
     this.isLoading = false;
     this.showDetail = false;
@@ -229,6 +230,19 @@ export class TestsimLostSsmComponent implements OnInit {
       aTask['isRejected'] == true;
       aTask['isApproved'] == false;
     }
+  }
+
+  downloadGdFile(gdFileName) {
+    this.fileoperationService.downloadLostSimGd(gdFileName).subscribe((data) => {
+      const blob = new Blob([data], {type: 'application/pdf'});
+
+      var downloadURL = window.URL.createObjectURL(data);
+      var link = document.createElement('a');
+      link.href = downloadURL;
+      link.download = gdFileName;
+      link.click();
+
+    });
   }
 
 }
