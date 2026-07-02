@@ -12,12 +12,13 @@ import { Router,ActivatedRoute } from '@angular/router';
 import { LoginService } from '../../pages/LoginService';
 import { LoggedInUser } from '../../pages/loggedInUser';
 import { moment } from 'ngx-bootstrap/chronos/test/chain';
+import {FileoperationService} from '../services/fileoperation.service';
 
 @Component({
   selector: 'app-testsim-lost',
   templateUrl: './testsim-lost.component.html',
   styleUrls: ['./testsim-lost.component.scss'],
-  providers: [WorkflowsService,AppGlobals,LoginService],
+  providers: [WorkflowsService,AppGlobals,LoginService, FileoperationService],
 })
 export class TestsimLostComponent implements OnInit {
 
@@ -39,7 +40,7 @@ export class TestsimLostComponent implements OnInit {
 		  searchOptions_msisdn: String;
 		  searchOptions_rqnNo: String;
 
-  constructor(private route:ActivatedRoute, private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {
+  constructor(private route:ActivatedRoute, private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService, private fileoperationService: FileoperationService) {
 
     this.allRequisitionLineMsisdnIds = "";
     this.isLoading = false;
@@ -68,6 +69,8 @@ export class TestsimLostComponent implements OnInit {
             this.requisitionList = data;
             for(var i = 0; i < this.requisitionList.length; i++){
               this.requisitionList[i]['selected'] = false;
+              this.requisitionList[i]['filename'] = null;
+              this.requisitionList[i]['uploaded'] = false;
             }
             this.isLoading = false;
           }
@@ -133,6 +136,12 @@ export class TestsimLostComponent implements OnInit {
           return;
       }
 
+      if (this.requisitionList[i]['filename'] == null || this.requisitionList[i]['uploaded'] == false) {
+        var msg = "At row " + (i+1) + ", please upload a GD";
+        alert(msg);
+        return;
+      }
+
       if(this.requisitionList[i]['comments'] == null ||
       this.requisitionList[i]['comments'] == undefined ||
       this.requisitionList[i]['comments'] == ""){
@@ -168,6 +177,7 @@ export class TestsimLostComponent implements OnInit {
       requestDetailObj['lostDamageMode'] = "Lost";
       requestDetailObj['lostDamageDate'] = this.requisitionList[i]['lostDamageDate'];
       requestDetailObj['lostDamageDate'] = moment(requestDetailObj['lostDamageDate']).format('DD-MM-YYYY');
+      requestDetailObj['gdFileName'] = this.requisitionList[i]['filename'];
 
       if(this.requisitionList[i]['requestedNewSim'] == true){
         requestDetailObj['requestedNewSim'] = 1;
@@ -201,4 +211,40 @@ export class TestsimLostComponent implements OnInit {
     this.router.navigate(['nsa/testsimdashboard']);
   }
 
+  handleFileInput(event, index) {
+    this.requisitionList[index]['filename'] = null;
+    this.requisitionList[index]['uploaded'] = false;
+
+    let fileToUpload = event.target.files.item(0);
+    let fileName = fileToUpload.name;
+
+    if (fileName.length > 250) {
+      alert('File Name max length 250 digit');
+      return (event.target.value = null);
+    } else if ((fileToUpload.size) / 1024 / 1024 > 10) {
+      alert('Max File Size is 10 MB');
+      return (event.target.value = null);
+    }
+    outer: if (fileToUpload.type == 'application/pdf') {
+      console.log(fileToUpload.type);
+      break outer;
+    } else {
+      alert('Allowed file type is .pdf');
+      return (event.target.value = null);
+    }
+
+    const formData: FormData = new FormData();
+    formData.append('ssm-file', fileToUpload, fileName);
+    console.log(formData);
+    var result = this.fileoperationService.uploadLostSimGd(formData);
+    console.log(result);
+    result.subscribe(res => {
+      console.log(res);
+      if (res !== '') {
+        this.requisitionList[index]['filename'] = fileName;
+        this.requisitionList[index]['uploaded'] = true;
+        alert(res.message);
+      }
+    })
+  }
 }
