@@ -18,7 +18,8 @@
             #agGrid
             style="width: 100%; height: 450px;"
             id="myGrid"
-            class="ag-theme-balham"          
+            class="ag-theme-balham"
+            [rowHeight]="50"
             [floatingFilter]="true"
             [columnTypes]="columnTypes"
             [columnDefs]="columnDefs"
@@ -52,7 +53,8 @@
                 <th style="background-color:green !important">Lost date</th>
                 <th style="background-color:green !important">Lost / Damaged</th>
                 <th style="background-color:green !important">Comments</th>
-                <th style="background-color:green !important">Status</th>                
+                <th style="background-color:green !important">Status</th>
+                  <th style="background-color:green !important">GD file</th>
               </tr>
             </thead>
             <tbody *ngFor="let aTask of msisdnList;  index as i">
@@ -69,7 +71,10 @@
                               <span *ngIf="aTask.approvalStatus == 0">Pending</span>
                               <span *ngIf="aTask.approvalStatus == 1">Approved</span>                              
                               <span *ngIf="aTask.approvalStatus == 2">Rejected</span>
-                            </td>                                                   
+                            </td>
+                            <td style="text-align:center">
+                                <a style="width:100px" class="btn btn-success" *ngIf="aTask.gdFileName?.trim().length>0" (click)="downloadGdFile(aTask.gdFileName)">Download</a>
+                            </td>
                         </tr>
             </tbody>
           </table>
@@ -86,4 +91,3 @@
   
   
   </div>
-  

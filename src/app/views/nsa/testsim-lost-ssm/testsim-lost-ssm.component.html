@@ -68,7 +68,8 @@
                     <a (click)="approveAll()">Approve all</a>
                     &nbsp;&nbsp;&nbsp;
                     <a (click)="rejectAll()">Reject all</a>
-                  </th>                
+                  </th>
+                    <th style="background-color:green !important">GD File</th>
                 </tr>
               </thead>
               <tbody *ngFor="let aTask of msisdnList;  index as i">
@@ -89,7 +90,10 @@
                                 <input type="checkbox" [(ngModel)] = "aTask.isApproved" [disabled]="aTask.locked" (click)="rejectCorresponding(i)"/> Approve
                                 &nbsp;&nbsp;&nbsp;
                                 <input type="checkbox" [(ngModel)] = "aTask.isRejected" [disabled]="aTask.locked"  (click)="approveCorresponding(i)"/> Reject                            
-                              </td>                                                   
+                              </td>
+                              <td style="text-align:center">
+                                  <a style="width:100px" class="btn btn-success" *ngIf="aTask.gdFileName?.trim().length>0" (click)="downloadGdFile(aTask.gdFileName)">Download</a>
+                              </td>
                           </tr>
               </tbody>
             </table>
@@ -109,4 +113,3 @@
   
   
   </div>
-  

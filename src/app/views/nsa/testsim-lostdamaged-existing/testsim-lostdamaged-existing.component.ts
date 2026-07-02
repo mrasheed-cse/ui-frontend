@@ -13,12 +13,13 @@ import { Router } from '@angular/router';
 import { LoginService } from '../../pages/LoginService';
 import { LoggedInUser } from '../../pages/loggedInUser';
 import { AgGridAngular } from 'ag-grid-angular';
+import {FileoperationService} from '../services/fileoperation.service';
 
 @Component({
   selector: 'app-testsim-lostdamaged-existing',
   templateUrl: './testsim-lostdamaged-existing.component.html',
   styleUrls: ['./testsim-lostdamaged-existing.component.scss'],
-  providers: [WorkflowsService,AppGlobals,LoginService],
+  providers: [WorkflowsService,AppGlobals,LoginService, FileoperationService],
 })
 export class TestsimLostdamagedExistingComponent implements OnInit {
 
@@ -47,7 +48,7 @@ export class TestsimLostdamagedExistingComponent implements OnInit {
   showDetail: boolean = false;
   selectedSimActionId: number;
 
-  constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {
+  constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService, private fileoperationService: FileoperationService) {
 
     this.isLoading = false;
     this.showDetail = false;
@@ -69,13 +70,39 @@ export class TestsimLostdamagedExistingComponent implements OnInit {
     this.columnTypes = _global.agGrid_columnTypes;
 
     this.columnDefs = [
-        {headerName: 'SL', field: 'serial', sortable: true, filter: false, checkboxSelection: true, width: 90 },
-        {headerName: 'Work Request #', field: 'workRequestBriefName', sortable: true, filter: true, width: 210 },
-        {headerName: 'Request Type', field: 'requestType', sortable: true, filter: true, width: 220 },
-        {headerName: 'Initiate date', field: 'requestedOn', sortable: true, filter: true, width: 210 },
-        {headerName: 'Status', field: 'workRequestStatus', sortable: true, filter: true, width: 210 },
-        {headerName: 'Update date', field: 'requestUpdateDate', sortable: true, filter: true, width: 210 },
-        {headerName: 'Pending At', field: 'pendingAt', sortable: true, filter: true, width: 210 }
+      {headerName: 'SL', field: 'serial', sortable: true, filter: false, checkboxSelection: true, width: 90},
+      {headerName: 'Work Request #', field: 'workRequestBriefName', sortable: true, filter: true, width: 210},
+      {headerName: 'Request Type', field: 'requestType', sortable: true, filter: true, width: 220},
+      {headerName: 'Initiate date', field: 'requestedOn', sortable: true, filter: true, width: 210},
+      {headerName: 'Status', field: 'workRequestStatus', sortable: true, filter: true, width: 210},
+      {headerName: 'Update date', field: 'requestUpdateDate', sortable: true, filter: true, width: 210},
+      {headerName: 'Pending At', field: 'pendingAt', sortable: true, filter: true, width: 210},
+      {headerName: 'SO No.', field: 'soNumber', sortable: true, filter: true, width: 210},
+      {headerName: 'Challan No.', field: 'challanNumber', sortable: true, filter: true, width: 210},
+      {
+        headerName: 'Challan Download',
+        width: 210,
+        cellRenderer: (params) => {
+          const button = document.createElement('button');
+          button.innerText = 'Download';
+          button.className = 'btn btn-sm btn-primary';
+
+          // Hide button when pendingAt is NONE
+          if (!params.data.challanNumber) {
+            return '';
+          }
+          button.addEventListener('click', () => {
+
+            // Select the row
+            params.node.setSelected(true, true);
+
+            // Call component method
+            this.downloadChallan(params.data.challanNumber, params.data.simActionId);
+          });
+
+          return button;
+        }
+      }
     ];
 
     this.rowData = [];
@@ -89,6 +116,19 @@ export class TestsimLostdamagedExistingComponent implements OnInit {
     setTimeout(()=>{    //<<<---    using ()=> syntax
       this.loadPendingList();
     }, 2000);
+  }
+
+  downloadChallan(challanNumber, simActionId) {
+    this.workFlowsService.DownloadChallanForReplacementSim(challanNumber, simActionId).subscribe((data) => {
+      const blob = new Blob([data], {type: 'application/pdf'});
+
+      var downloadURL = window.URL.createObjectURL(data);
+      var link = document.createElement('a');
+      link.href = downloadURL;
+      link.download = challanNumber+".pdf";
+      link.click();
+
+    });
   }
 
   loadPendingList(){
@@ -195,6 +235,19 @@ export class TestsimLostdamagedExistingComponent implements OnInit {
 
   cancel(){
     this.initTasks();
+  }
+
+  downloadGdFile(gdFileName) {
+    this.fileoperationService.downloadLostSimGd(gdFileName).subscribe((data) => {
+      const blob = new Blob([data], {type: 'application/pdf'});
+
+      var downloadURL = window.URL.createObjectURL(data);
+      var link = document.createElement('a');
+      link.href = downloadURL;
+      link.download = gdFileName;
+      link.click();
+
+    });
   }
 
 }
