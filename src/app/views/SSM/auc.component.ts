@@ -110,4 +110,55 @@ export class AucProcessor implements OnInit {
         this.fileToUpload = files.item(0);
         this.fileName = this.fileToUpload.name;
     }
+
+    downloadNokiaAucConvertedFile(){
+        this.ssmService.downloadNokiaAucConvertedFile()
+            .subscribe(
+                response => {
+                    this.isLoading = false;
+                    this.downloadFile(response);
+                },
+                error => {
+                    console.log(error);
+                    alert('Failed to download file')
+                    this.isLoading = false;
+                }
+            );
+    }
+
+    downloadFile(response : any) :void {
+        console.log(response);
+        console.log(response.headers);
+        let filename = "NokiaHlr.xml";
+
+        // Get filename from content-disposition header
+        const contentDisposition = response.headers.get('content-disposition');
+
+        if (contentDisposition) {
+            let arr = contentDisposition.split(';');
+            if (arr.length > 1) {
+                arr.forEach(element => {
+                    if (element.trim().startsWith('filename=')) {
+                        let arr2 = element.split('=');
+                        if (arr2.length > 1) {
+                            filename = arr2[1].trim().replace(/"/g, '');
+                        }
+                    }
+                })
+            }
+        }
+
+        // Create blob and download
+        const blob = new Blob([response.body],
+            { type: response.headers.get('content-type') });
+
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = filename;
+        link.click();
+
+        // Cleanup
+        window.URL.revokeObjectURL(url);
+    }
 }

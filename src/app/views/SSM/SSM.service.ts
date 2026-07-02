@@ -319,6 +319,22 @@ deleteSimdropdown(id:number) :Observable<any> {
         console.log(environment.apiUrl + "huawei_auc_conversion/download");
         return this.http.get(environment.apiUrl + 'huawei_auc_conversion/download',this.options2);
 	}
+
+	downloadNokiaAucConvertedFile() {
+		const url = environment.apiUrl + "auc_conversion/download";
+		console.log(environment.apiUrl + "auc_conversion/download");
+		//return this.http.get(environment.apiUrl + 'auc_conversion/download',this.options2);
+
+		return this.http.get(url, { observe: 'response', responseType: 'blob' });
+
+	}
+
+	downloadHuaweiAucConvertedFile() {
+		const url = environment.apiUrl + "huawei_auc_conversion/download";
+		console.log(environment.apiUrl + "huawei_auc_conversion/download");
+		//return this.http.get(environment.apiUrl + 'huawei_auc_conversion/download',this.options2);
+		return this.http.get(url, { observe: 'response', responseType: 'blob' });
+	}
 	
 
 	getFilteredInputFiles(artWork:string ,vendor:string,imsiType:number,filterFor:number,currPage:number,pageSize:number): any{
