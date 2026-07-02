@@ -38,7 +38,10 @@
                   Comments
                   <br />
                   <a class="copyToAllLink" (click)="copyToAll()">&lt;&lt; Copy to All &gt;&gt;</a>
-                </th>                
+                </th>
+                  <th>
+                      Upload GD
+                  </th>
               </tr>
             </thead>
             <tbody *ngFor="let aTask of requisitionList;  index as i">
@@ -61,7 +64,11 @@
                             </td>
                             <td>
                                 <input type="text" class="form-control" [(ngModel)] = "aTask.comments" />
-                            </td>                                                                              
+                            </td>
+                            <td>
+                                <input #fileInput type='file' id="getFile" (click)="fileInput.value = null"
+                                       accept=".pdf" (change)="handleFileInput($event, i)">
+                            </td>
                         </tr>
             </tbody>
           </table>
@@ -80,4 +87,3 @@
   
   
   </div>
-  
