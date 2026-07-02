@@ -34,36 +34,42 @@ export class NsareportComponent implements OnInit {
   
   defFieldNameValueList: PreviousHopFieldNameValue;
   provFieldNameValueList: PreviousHopFieldNameValue;
+  discProvFieldNameValueList: PreviousHopFieldNameValue;
   deProvFieldNameValueList: PreviousHopFieldNameValue;
   reProvFieldNameValueList: PreviousHopFieldNameValue;
   mnpReProvFieldNameValueList: PreviousHopFieldNameValue;
 
   defFieldNameValueListBulk: PreviousHopFieldNameValue;
   provFieldNameValueListBulk: PreviousHopFieldNameValue;
+  discProvFieldNameValueListBulk: PreviousHopFieldNameValue;
   deProvFieldNameValueListBulk: PreviousHopFieldNameValue;
   reProvFieldNameValueListBulk: PreviousHopFieldNameValue;
   mnpReProvFieldNameValueListBulk: PreviousHopFieldNameValue;
 
   defWRBriefName: string;
   provWRBriefName: string;
+  discProvWRBriefName: string;
   deProvWRBriefName: string;
   reProvWRBriefName: string;
   mnpReProvWRBriefName: string;
-  
+
   defWRBriefNameBulk: string;
   provWRBriefNameBulk: string;
+  discProvWRBriefNameBulk: string;
   deProvWRBriefNameBulk: string;
   reProvWRBriefNameBulk: string;
   mnpReProvWRBriefNameBulk: string;
 
   public defWRShow:boolean = false;
   public provWRShow:boolean = false;
+  public discProvWRShow:boolean = false;
   public deProvWRShow:boolean = false;
   public reProvWRShow:boolean = false;
   public mnpReProvWRShow:boolean = false;
 
   public defWRShowBulk:boolean = false;
   public provWRShowBulk:boolean = false;
+  public discProvWRShowBulk:boolean = false;
   public deProvWRShowBulk:boolean = false;
   public reProvWRShowBulk:boolean = false;
   public mnpReProvWRShowBulk:boolean = false;
@@ -145,7 +151,7 @@ export class NsareportComponent implements OnInit {
       this.ReportService.SingleNumberReport(this.msisdn.value).subscribe(
         res  =>  {
           console.log('response is : '+res);
-          if(res == null || (res.defWRName == null && res.provWRName == null && res.deProvWRName == null && res.reProvWRName == null && res.mnpReProvWRName == null)){
+          if(res == null || (res.defWRName == null && res.provWRName == null && res.discProvWRName == null && res.deProvWRName == null && res.reProvWRName == null && res.mnpReProvWRName == null)){
             this.dangerAlertShow = true;
             this.dangerAlertMessage = "No Work Request found for this MSISDN: "+this.msisdn.value;
           }
@@ -172,6 +178,19 @@ export class NsareportComponent implements OnInit {
                 this.provFieldNameValueList.push({fieldName: "", fieldValue: ""});
               }
             }
+
+            if(res.discProvWRName != null){
+              this.discProvWRShow = true;
+              this.discProvWRBriefName = res.discProvWRName;
+              this.discProvFieldNameValueList = res.discProvWRData;
+              const totalData = this.discProvFieldNameValueList.length;
+              console.log(totalData);
+              if (totalData%2==1){
+                console.log("totalData is odd");
+                this.discProvFieldNameValueList.push({fieldName: "", fieldValue: ""});
+              }
+            }
+
             if(res.deProvWRName != null){
               this.deProvWRShow = true;
               this.deProvWRBriefName = res.deProvWRName;
@@ -213,7 +232,7 @@ export class NsareportComponent implements OnInit {
         if(err.status==404)
           this.dangerAlertMessage = "No data found for this search.";
         else
-          this.dangerAlertMessage = "An error occured while showing the search result.";
+          this.dangerAlertMessage = "An error occurred while showing the search result.";
       
         }
       );	  
@@ -235,18 +254,21 @@ export class NsareportComponent implements OnInit {
 
     this.defFieldNameValueList = null;
     this.provFieldNameValueList = null;
+    this.discProvFieldNameValueList = null;
     this.deProvFieldNameValueList = null;
     this.reProvFieldNameValueList = null;
     this.mnpReProvFieldNameValueList = null;
 
     this.defWRBriefName = "";
     this.provWRBriefName = "";
+    this.discProvWRBriefName = "";
     this.deProvWRBriefName = "";
     this.reProvWRBriefName = "";
     this.mnpReProvWRBriefName = "";
 
     this.defWRShow = false;
     this.provWRShow = false;
+    this.discProvWRShow = false;
     this.deProvWRShow = false;
     this.reProvWRShow = false;
     this.mnpReProvWRShow = false;
@@ -258,18 +280,21 @@ export class NsareportComponent implements OnInit {
 
     this.defFieldNameValueListBulk = null;
     this.provFieldNameValueListBulk = null;
+    this.discProvFieldNameValueListBulk = null;
     this.deProvFieldNameValueListBulk = null;
     this.reProvFieldNameValueListBulk = null;
     this.mnpReProvFieldNameValueListBulk = null;
 
     this.defWRBriefNameBulk = "";
     this.provWRBriefNameBulk = "";
+    this.discProvWRBriefNameBulk = "";
     this.deProvWRBriefNameBulk = "";
     this.reProvWRBriefNameBulk = "";
     this.mnpReProvWRBriefNameBulk = "";
 
     this.defWRShowBulk = false;
     this.provWRShowBulk = false;
+    this.discProvWRShowBulk = false;
     this.deProvWRShowBulk = false;
     this.reProvWRShowBulk = false;
     this.mnpReProvWRShowBulk = false;
@@ -335,6 +360,19 @@ export class NsareportComponent implements OnInit {
               this.provFieldNameValueListBulk.push({fieldName: "", fieldValue: ""});
             }
           }
+
+          if (res.discProvWRName != null) {
+            this.discProvWRShowBulk = true;
+            this.discProvWRBriefNameBulk = res.discProvWRName;
+            this.discProvFieldNameValueListBulk = res.discProvWRData;
+            const totalData = this.discProvFieldNameValueListBulk.length;
+            console.log(totalData);
+            if (totalData % 2 == 1) {
+              console.log('totalData is odd');
+              this.discProvFieldNameValueListBulk.push({fieldName: '', fieldValue: ''});
+            }
+          }
+
           if(res.deProvWRName != null){
             this.deProvWRShowBulk = true;
             this.deProvWRBriefNameBulk = res.deProvWRName;
