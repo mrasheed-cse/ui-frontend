@@ -123,6 +123,16 @@ export class WorkflowsService {
 
 	}
 
+	DownloadChallanForReplacementSim(challanNo, simActionId) : any {
+		const httpOptions = {
+			responseType: 'blob' as 'json'
+		};
+		return this.http.post(this.serverUrl + 'testsim/download-challan-for-replacement-kit', {
+			challanNo: challanNo,
+			simActionId: simActionId
+		},httpOptions);
+	}
+
 	LoadPreDeactivationScDetails( user_id: string) : any {
 		//console.log( "status : "+status);
 		return this.http.post(this.serverUrl + 'testscratchcard/loadpredeactivationscdetails', {
