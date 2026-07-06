@@ -250,15 +250,17 @@ export class LostdamagedetailsdeliveryComponent implements OnInit {
           console.log(arrayObj['endingKitNumber']);
           console.log(arrayObj['quantity']);
 
-        if(arrayObj['startingKitNumber'] == null || arrayObj['startingKitNumber'] == undefined || arrayObj['startingKitNumber'] == "" || arrayObj['startingKitNumber'].length != 28){
+        if(arrayObj['startingKitNumber'] == null || arrayObj['startingKitNumber'] == undefined || arrayObj['startingKitNumber'] == "" ||
+            (arrayObj['startingKitNumber'].length != 12 && arrayObj['startingKitNumber'].length != 18 && arrayObj['startingKitNumber'].length != 20 && arrayObj['startingKitNumber'].length != 26 && arrayObj['startingKitNumber'].length != 28)) {
           console.log(arrayObj['startingKitNumber']);
           console.log(arrayObj['startingKitNumber'].length);
-          var alertTxt = "Invalid starting KIT number specified in row "+ (i+1) +" of input file. KIT number must be 28 digits.";
+          var alertTxt = "Invalid starting KIT number specified in row "+ (i+1) +" of input file. KIT number must be 12/18/20/26/28 digits.";
           alert(alertTxt);
           return;
         }
-        if(arrayObj['endingKitNumber'] == null || arrayObj['endingKitNumber'] == undefined || arrayObj['endingKitNumber'] == "" || arrayObj['endingKitNumber'].length != 28){
-          var alertTxt = "Invalid ending KIT number specified in row "+ (i+1) +" of input file. KIT number must be 28 digits.";
+        if(arrayObj['endingKitNumber'] == null || arrayObj['endingKitNumber'] == undefined || arrayObj['endingKitNumber'] == "" ||
+            (arrayObj['endingKitNumber'].length != 12 && arrayObj['endingKitNumber'].length != 18 && arrayObj['endingKitNumber'].length != 20 && arrayObj['endingKitNumber'].length != 26 && arrayObj['endingKitNumber'].length != 28)) {
+          var alertTxt = "Invalid ending KIT number specified in row "+ (i+1) +" of input file. KIT number must be 12/18/20/26/28 digits.";
           alert(alertTxt);
           return;
         }
@@ -278,12 +280,14 @@ export class LostdamagedetailsdeliveryComponent implements OnInit {
       console.log(arrayObj['startingKitNumber']);
       console.log(arrayObj['startingKitNumber'].length);
 
-      if(this.startingKitNumber == null || this.startingKitNumber == undefined || this.startingKitNumber == "" /*|| this.startingKitNumber.length != 28*/){
-        alert("Invalid starting KIT number specified. KIT number must be 28 digits.");
+      if(this.startingKitNumber == null || this.startingKitNumber == undefined || this.startingKitNumber == "" ||
+          (this.startingKitNumber.length != 12 && this.startingKitNumber.length != 18 && this.startingKitNumber.length != 20 && this.startingKitNumber.length != 26 && this.startingKitNumber.length != 28)) {
+        alert("Invalid starting KIT number specified. KIT number must be 12/18/20/26/28 digits.");
         return;
       }
-      if(this.endingKitNumber == null || this.endingKitNumber == undefined || this.endingKitNumber == "" /*|| this.endingKitNumber.length != 28*/){
-        alert("Invalid ending KIT number specified. KIT number must be 28 digits.");
+      if(this.endingKitNumber == null || this.endingKitNumber == undefined || this.endingKitNumber == "" ||
+          (this.endingKitNumber.length != 12 && this.endingKitNumber.length != 18 && this.endingKitNumber.length != 20 && this.endingKitNumber.length != 26 && this.endingKitNumber.length != 28)) {
+        alert("Invalid ending KIT number specified. KIT number must be 12/18/20/26/28 digits.");
         return;
       }
 
@@ -413,5 +417,5 @@ export class LostdamagedetailsdeliveryComponent implements OnInit {
     );
     this.isLoading = false;
   }
-    
+
   }
