@@ -9,13 +9,14 @@ import { Component, OnInit, ViewChild } from '@angular/core';
   import 'rxjs/add/observable/of';
   import { AppGlobals } from './../../../app.global';  
   import { LoginService } from '../../pages/LoginService';
-  import { LoggedInUser } from '../../pages/loggedInUser'; 
+  import { LoggedInUser } from '../../pages/loggedInUser';
+import {FileoperationService} from '../services/fileoperation.service';
 
 @Component({
   selector: 'app-lostdamagenewsimconnection',
   templateUrl: './lostdamagenewsimconnection.component.html',
   styles: [],
-	providers: [IsmsworkflowsService,WorkflowsService,AppGlobals,LoginService]
+	providers: [IsmsworkflowsService,WorkflowsService,AppGlobals,LoginService, FileoperationService]
 })
 export class LostdamagenewsimconnectionComponent implements OnInit {
 
@@ -54,7 +55,7 @@ export class LostdamagenewsimconnectionComponent implements OnInit {
   finalArrayToSubmit : Array<any>;
   msisdnList : Array<any>;
 
-  constructor(private loginService: LoginService,private activatedRoute: ActivatedRoute, private router:Router, public _global: AppGlobals, private ismsWorkFlowsService: IsmsworkflowsService, private workflowsService : WorkflowsService) {
+  constructor(private loginService: LoginService,private activatedRoute: ActivatedRoute, private router:Router, public _global: AppGlobals, private ismsWorkFlowsService: IsmsworkflowsService, private workflowsService : WorkflowsService, private fileoperationService: FileoperationService) {
 		
     this.isLoading = false;
 	  // Get Current User Profile
@@ -148,4 +149,17 @@ err  =>  {
 ); 
   
 }
+
+  downloadGdFile(gdFileName) {
+    this.fileoperationService.downloadLostSimGd(gdFileName).subscribe((data) => {
+      const blob = new Blob([data], {type: 'application/pdf'});
+
+      var downloadURL = window.URL.createObjectURL(data);
+      var link = document.createElement('a');
+      link.href = downloadURL;
+      link.download = gdFileName;
+      link.click();
+
+    });
+  }
 }

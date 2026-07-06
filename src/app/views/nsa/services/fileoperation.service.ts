@@ -111,4 +111,18 @@ export class FileoperationService {
 		let result = this.http.post(this.serverUrl + 'MFSStatusReportFileUpload/', fd);
 		return result;
 	}
+
+	uploadLostSimGd(fd: FormData):any{
+		console.log("In uploadSSMCSV");
+		var result = this.http.post(this.serverUrl +'lost-sim-gd/upload', fd);
+		return result;
+	}
+
+	downloadLostSimGd(fileNameToDownload: any){
+		console.log("In Download Files");
+		const httpOptions = {
+			responseType: 'blob' as 'json'
+		};
+		return this.http.post(this.serverUrl +"lost-sim-gd/download", fileNameToDownload, httpOptions);
+	}
 }
