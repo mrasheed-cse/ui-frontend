@@ -10,12 +10,13 @@ import { Component, OnInit, ViewChild } from '@angular/core';
   import 'rxjs/add/observable/of';
   import { AppGlobals } from './../../../app.global';  
   import { LoginService } from '../../pages/LoginService';
-  import { LoggedInUser } from '../../pages/loggedInUser'; 
+  import { LoggedInUser } from '../../pages/loggedInUser';
+  import {DefinitionDataService} from '../services/definitiondata.service';
 @Component({
   selector: 'app-lostdamagedetailsdelivery',
   templateUrl: './lostdamagedetailsdelivery.component.html',
-  styles: [],
-	providers: [IsmsworkflowsService,WorkflowsService,AppGlobals,LoginService,FileoperationService]
+  styleUrls: ['./lostdamagedetailsdelivery.component.scss'],
+  providers: [IsmsworkflowsService,WorkflowsService,AppGlobals,LoginService,FileoperationService, DefinitionDataService]
 })
 export class LostdamagedetailsdeliveryComponent implements OnInit {
 
@@ -53,8 +54,10 @@ export class LostdamagedetailsdeliveryComponent implements OnInit {
   alreadyAssignedMsisdnSeriesDetails : Array<any>;
   finalArrayToSubmit : Array<any>;
   msisdnList : Array<any>;
+  public listProduct = [];
+  product: {};
 
-  constructor(private loginService: LoginService,private activatedRoute: ActivatedRoute, private router:Router, public _global: AppGlobals, private ismsWorkFlowsService: IsmsworkflowsService, private workflowsService : WorkflowsService, private fileoperationService: FileoperationService) {
+  constructor(private loginService: LoginService,private activatedRoute: ActivatedRoute, private router:Router, public _global: AppGlobals, private ismsWorkFlowsService: IsmsworkflowsService, private workflowsService : WorkflowsService, private fileoperationService: FileoperationService, private definitionDataService: DefinitionDataService) {
 		
 	  // Get Current User Profile
 	  
@@ -73,7 +76,8 @@ export class LostdamagedetailsdeliveryComponent implements OnInit {
 	  }			
 		
     this.LoadQueryStringData();	
-    this.LoadInitialData(); 
+    this.LoadInitialData();
+    this.getProduct();
 
     this.allAssignmentTypes = [
       {
@@ -107,6 +111,28 @@ export class LostdamagedetailsdeliveryComponent implements OnInit {
 		  this.sim_action_id = Number(this.activatedRoute.snapshot.paramMap.get('sim_action_id'));
 		  console.log(this.sim_action_id);		  
 	  
+  }
+
+  getProduct() {
+    //GetProducts
+    this.definitionDataService.getReplacementProduct().subscribe(
+        data => {
+          //console.log(data);
+          for (let index in data) {
+            //console.log (data[index]);
+            this.listProduct.push(
+                {
+                  fuseMaserProductId: data[index].fuseMaserProductId,
+                  masterDataDetailsId: data[index].masterDataDetailsId,
+                  productName: data[index].productName,
+                  productCode: data[index].productCode
+                }
+            );
+          }
+        },
+        err => console.error(err),
+        () => console.log('done loading Product Name List')
+    );
   }
   
   LoadInitialData(){
@@ -220,10 +246,16 @@ export class LostdamagedetailsdeliveryComponent implements OnInit {
     //alert(simActionMsisdnId);
    console.log(this.msisdnList);
 
+   if (!this.product) {
+     alert("Please assign a product");
+     return;
+   }
+
     for(var i = 0; i < this.msisdnList.length; i++){  
      // alert(this.msisdnList[i]['simActionMsisdnId']);    
       if(this.msisdnList[i]['simActionMsisdnId'] == simActionMsisdnId){
         this.msisdnList[i]['approvalStatus'] = 1;
+        this.msisdnList[i]['product'] = this.product;
         break;
       }
     }
@@ -334,6 +366,7 @@ export class LostdamagedetailsdeliveryComponent implements OnInit {
           obj['endingMsisdnNumber'] = res[res.length - 1]['mobile_No'];
           obj['startingImsiNumber'] = res[0]['imsi_No'];
           obj['endingImsiNumber'] = res[res.length - 1]['imsi_No'];
+          obj['product'] = this.product;
 
           this.alreadyAssignedMsisdnSeriesDetails.push(obj);
           //this.isMsisdnAssigned = true;
