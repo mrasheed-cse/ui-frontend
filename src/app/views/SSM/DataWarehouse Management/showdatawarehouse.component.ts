@@ -100,7 +100,7 @@ export class ViewDatawarehouse implements OnInit {
             if (this.searchFor == "auc") {  
                 this.searchSequence='all';              
                 this.datawarehouseservice.getDataAuc(this, isExport).subscribe(
-                    data => {
+                    result => {
                         this.isDataFoundAUC = true;
                         this.isLoading=false;
                         if(isExport) {
@@ -108,14 +108,16 @@ export class ViewDatawarehouse implements OnInit {
                             this.refresh();
                         } else {
 
-                            for (let index in data) {
+                            alert("Total input = " + result.totalInput + "\n" + "Total output = " + result.totalOutput);
+
+                            for (let index in result.data) {
                                 this.rowData.push(
                                     {
-                                        id: data[index].id,
-                                        imsi: data[index].imsi,
-                                        eki: data[index].eki,
-                                        kind: data[index].kind,
-                                        a3a8ind: data[index].a3a8ind,
+                                        id: result.data[index].id,
+                                        imsi: result.data[index].imsi,
+                                        eki: result.data[index].eki,
+                                        kind: result.data[index].kind,
+                                        a3a8ind: result.data[index].a3a8ind,
 
                                     }
                                 );
@@ -131,25 +133,27 @@ export class ViewDatawarehouse implements OnInit {
             } else if (this.searchFor == "adc") {
                 this.searchSequence='all';              
                 this.datawarehouseservice.getDataAdc(this, isExport).subscribe(
-                    data => {
+                    result => {
                         this.isDataFoundADC = true;
                         this.isLoading=false;
                         if(isExport) {
                             alert("Request has been submitted successfully and report will be available to download when completed.");
                             this.refresh();
                         } else {
-                            console.log('test');
-                            for (let index in data) {
+
+                            alert("Total input = " + result.totalInput + "\n" + "Total output = " + result.totalOutput);
+
+                            for (let index in result.data) {
                                 this.rowData.push(
                                     {
-                                        id: data[index].id,
-                                        iccnumber: data[index].icc_number,
-                                        imsi: data[index].imsi,
-                                        ki: data[index].ki,
-                                        pin1: data[index].pin1,
-                                        pin2: data[index].pin2,
-                                        puk1: data[index].puk1,
-                                        puk2: data[index].puk2,
+                                        id: result.data[index].id,
+                                        iccnumber: result.data[index].icc_number,
+                                        imsi: result.data[index].imsi,
+                                        ki: result.data[index].ki,
+                                        pin1: result.data[index].pin1,
+                                        pin2: result.data[index].pin2,
+                                        puk1: result.data[index].puk1,
+                                        puk2: result.data[index].puk2,
                                     }
                                 );
                             }
@@ -163,14 +167,17 @@ export class ViewDatawarehouse implements OnInit {
                     });
             } else if (this.searchFor === "sim") {
                 this.datawarehouseservice.SimmasterData(this, isExport).subscribe(
-                    data => {
+                    result => {
                         this.isDataFoundSimmaster = true;
                         this.isLoading=false;
                         if(isExport) {
                             alert("Request has been submitted successfully and report will be available to download when completed.");
                             this.refresh();
                         } else {
-                            this.rowData = data;
+
+                            alert("Total input = " + result.totalInput + "\n" + "Total output = " + result.totalOutput);
+
+                            this.rowData = result.data;
                         }
                     },
                     err => {
@@ -183,7 +190,7 @@ export class ViewDatawarehouse implements OnInit {
             {
                 this.searchSequence='all';
                 this.datawarehouseservice.TinTinData(this, isExport).subscribe(
-                    data => {
+                    result => {
                         this.isDataFoundTinTin = true;
                         this.isLoading=false;
                         if(isExport) {
@@ -191,7 +198,10 @@ export class ViewDatawarehouse implements OnInit {
                             this.refresh();
                         }
                         else {
-                            this.rowData = data;
+
+                            alert("Total input = " + result.totalInput + "\n" + "Total output = " + result.totalOutput);
+
+                            this.rowData = result.data;
                         }
                     },
                     err => {
