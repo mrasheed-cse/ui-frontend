@@ -55,65 +55,104 @@ export class UploadDataWh implements OnInit {
       this.router.navigate(['pages/login']);
     }
 	    }
-submit(){
-	var val;
-	this.isLoading=true;
-	//console.log("Selected for "+this.uploadFor)
-	if(this.uploadFor!=null){if(this.uploadFor==="0"){
-		val="AUC";
-	}
-	else if(this.uploadFor==="1"){
-		val="ADC"
-	}
-	
-	
-	this.datawarehouseservice.uploadCsv(this.fileToUpload,val).subscribe(
-	
-		data=>{ 
-			
-			const dataStr = JSON.stringify(data);
 
-			JSON.parse(dataStr, (key, value) => {
-				if (typeof value === 'string') {
-					alert(value);
-				}
-			});
-			if(data!=null){
+	submit() {
 
-			
-			alert("Data Saved  Sucessfully"); this.fileerror = false;
-        this.filesuccess = false;
-        this.fileToUpload = null;
-        this.isLoading=false
+		let val;
+		this.isLoading = true;
+
+		if (this.uploadFor == null) {
+			alert('Please Select a Value');
+			this.isLoading = false;
+			return;
 		}
-		 else{
-			alert("respnse is null")
-			 this.isLoading=false
-		}
-		
-		},err => {
-			
-			//alert('err');
-			const dataStr = JSON.stringify(err);
-			JSON.parse(dataStr, (key, value) => {
-				
-				if (typeof value === 'string' ) {
-					if(key==='text'){
-						////alert(key+" : "+value);
-						alert(value);
+
+		val = this.uploadFor === '0' ? 'AUC' : 'ADC';
+
+		this.datawarehouseservice.uploadCsv(this.fileToUpload, val)
+			.subscribe(
+				response => {
+
+					this.isLoading = false;
+
+					const contentType = response.headers.get('Content-Type');
+					const uploadStatus = response.headers.get('X-Upload-Status');
+
+					// Duplicate file returned
+					if (uploadStatus === 'DUPLICATES' ||
+						contentType === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
+
+						alert('Duplicate found. Please find the downloaded file');
+
+						const blob = response.body;
+
+						const fileName = this.getFileName(
+							response.headers.get('Content-Disposition')
+						) || 'Duplicates.xlsx';
+
+						const url = window.URL.createObjectURL(blob);
+
+						const a = document.createElement('a');
+						a.href = url;
+						a.download = fileName;
+						document.body.appendChild(a);
+						a.click();
+
+						document.body.removeChild(a);
+						window.URL.revokeObjectURL(url);
+
+						return;
+					}
+
+					// Otherwise it is a text response
+					const reader = new FileReader();
+
+					reader.onload = () => {
+
+						const message = reader.result as string;
+
+						alert(message);
+
+						this.fileerror = false;
+						this.filesuccess = false;
+						this.fileToUpload = null;
+					};
+
+					reader.readAsText(response.body);
+				},
+				err => {
+
+					this.isLoading = false;
+
+					if (err.error instanceof Blob) {
+
+						const reader = new FileReader();
+
+						reader.onload = () => {
+							alert(reader.result as string);
+						};
+
+						reader.readAsText(err.error);
+
+					} else {
+						alert('Upload failed.');
 					}
 				}
-			});
-		 this.isLoading=false
+			);
+	}
+
+	private getFileName(contentDisposition: string): string {
+
+		if (!contentDisposition) {
+			return null;
 		}
-	)
+
+		const matches = /filename="?([^"]+)"?/.exec(contentDisposition);
+
+		return matches && matches[1] ? matches[1] : null;
 	}
-	else{
-		alert("Please Select a Value")
-		 this.isLoading=false
-	}
-	
-}	
+
+
  handleFileInput(files: FileList) {
         this.fileerror = false;
         this.filesuccess = false;
