@@ -347,7 +347,7 @@ export class RequisitiondetailsdeliveryComponent implements OnInit {
                                         return;
                                     }
                                     if (res[y]['mobile_No'] == this.finalArrayToSubmit[z].msisdnInfo[z1]['mobile_No']) {
-                                        if (res[y]['mobile_No'] != '0') {
+                                        if (res[y]['mobile_No'] != '0' && res[y]['mobile_No'] != '00') {
                                             let innerAlertMsg = 'The MSISDN ' + res[y]['mobile_No'] + ' has been assigned already in a previous line item. Please use new MSISDN.';
                                             alert(innerAlertMsg);
                                             this.isLoading = false;

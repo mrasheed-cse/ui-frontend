@@ -167,6 +167,10 @@ export class DefinitionDataService {
 		return this.http.get(this.serverUrl + 'products/get-all-sim');
 	}
 
+	getReplacementProduct() {
+		return this.http.get(this.serverUrl + 'products/get-replacement-product');
+	}
+
 	CreateNewMasterDataItem(newItem: String ){
 		return this.http.post(this.serverUrl+'CreateIsmsMasterDataItem/',{
 			ismsMasterDataItemName: newItem
