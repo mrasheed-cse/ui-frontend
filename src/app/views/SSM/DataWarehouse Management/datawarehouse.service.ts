@@ -22,11 +22,15 @@ export class DatawarehouseService {
         this.serverUrl = environment.apiUrl;
     }
 
-    uploadCsv(fileToUpload: File, type: string):any {
+    uploadCsv(fileToUpload: File, type: string) {
         const url = environment.apiUrl + "datawarehouse/uploadCSv/" + type;
         const formData: FormData = new FormData();
         formData.append('file', fileToUpload, fileToUpload.name);
-        return this.http.post(url, formData);
+
+        return this.http.post(url, formData, {
+            observe: 'response',
+            responseType: 'blob'
+        });
     }
 
     private prepareSearchFormdata(data: ViewDatawarehouse, isExport: boolean) : any {
