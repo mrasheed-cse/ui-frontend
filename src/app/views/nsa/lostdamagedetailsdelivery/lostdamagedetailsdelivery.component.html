@@ -171,7 +171,22 @@
           <div class="col-md-12">
   
             <div class="form-horizontal">
-  
+
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label">Replacement product</label>
+                    <div class="col-md-9">
+                        <select
+                                class="form-control"
+                                name="product"
+                                [(ngModel)]="product">
+                            <option *ngFor="let aproduct of listProduct"
+                                    [ngValue]="aproduct">
+                                {{aproduct.productCode}} ({{aproduct.productName}})
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
               <div class="form-group row">
                 <label class="col-md-3 col-form-label" >Assignment type</label>
                 <div class="col-md-9">
@@ -233,25 +248,28 @@
       </div>
       <div class="card-body">
         <div class="row" >
-          <div class="col-md-12">
-  
-            <table style="width:100%" border="1">
-  
-                <thead>
-                    <tr>
-                        <th>MSISDN</th>                        
-                        <th>Starting KIT number</th>
-                        <th>Ending KIT number</th>
-                        <th>Starting MSISDN number</th>
-                        <th>Ending MSISDN number</th>
-                        <th>Starting IMSI number</th>
-                        <th>Ending IMSI number</th>
-                    </tr>
-                  </thead>
-  
-                  <tbody>
+            <div class="col-md-12">
+
+                <div style="width:100%; overflow-x: auto; overflow-y: auto">
+                    <table class="assigned-msisdn-table" style="width:100%" border="1">
+
+                        <thead>
+                        <tr>
+                            <th>MSISDN</th>
+                            <th>Replacement Product</th>
+                            <th>Starting KIT number</th>
+                            <th>Ending KIT number</th>
+                            <th>Starting MSISDN number</th>
+                            <th>Ending MSISDN number</th>
+                            <th>Starting IMSI number</th>
+                            <th>Ending IMSI number</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
                         <tr *ngFor="let c of alreadyAssignedMsisdnSeriesDetails">
-                            <td>{{ c.msisdn }}</td>                            
+                            <td>{{ c.msisdn }}</td>
+                            <td>{{c.product.productCode}} ({{ c.product.productName }})</td>
                             <td>{{ c.startingKitNumber }}</td>
                             <td>{{ c.endingKitNumber }}</td>
                             <td>{{ c.startingMsisdnNumber }}</td>
@@ -259,9 +277,9 @@
                             <td>{{ c.startingImsiNumber }}</td>
                             <td>{{ c.endingImsiNumber }}</td>
                         </tr>
-                    </tbody>
-  
-            </table>
+                        </tbody>
+                    </table>
+                </div>
   
           </div>
         </div>
