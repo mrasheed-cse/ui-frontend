@@ -3,10 +3,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
   import {IsmsworkflowsService } from './../services/ismsworkflows.service';
   import { WorkflowsService } from './../services/workflows.service';
   
-  import 'rxjs/add/operator/map';
-  import 'rxjs/add/operator/catch';
-  import 'rxjs/add/operator/retry';
-  import 'rxjs/add/observable/of';
+  
+  
+  
+  
   import { AppGlobals } from './../../../app.global';  
   import { LoginService } from '../../pages/LoginService';
   import { LoggedInUser } from '../../pages/loggedInUser';
@@ -152,7 +152,7 @@ err  =>  {
 
   downloadGdFile(gdFileName) {
     this.fileoperationService.downloadLostSimGd(gdFileName).subscribe((data) => {
-      const blob = new Blob([data], {type: 'application/pdf'});
+      const blob = new Blob([data as any], {type: 'application/pdf'});
 
       var downloadURL = window.URL.createObjectURL(data);
       var link = document.createElement('a');

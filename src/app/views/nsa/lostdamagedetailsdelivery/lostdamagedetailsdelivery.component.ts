@@ -4,10 +4,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
   import { WorkflowsService } from './../services/workflows.service';
   import { FileoperationService } from './../services/fileoperation.service';
   
-  import 'rxjs/add/operator/map';
-  import 'rxjs/add/operator/catch';
-  import 'rxjs/add/operator/retry';
-  import 'rxjs/add/observable/of';
+  
+  
+  
+  
   import { AppGlobals } from './../../../app.global';  
   import { LoginService } from '../../pages/LoginService';
   import { LoggedInUser } from '../../pages/loggedInUser';

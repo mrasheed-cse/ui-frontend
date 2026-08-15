@@ -10,18 +10,17 @@ import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {environment} from '../../../../environments/environment';
 import {Router, ActivatedRoute} from '@angular/router';
-import {_throw} from 'rxjs/observable/throw';
+import {throwError as _throw,  Observable } from 'rxjs';
 import { AppGlobals } from './../../../app.global';
 import { LoginService } from '../../pages/LoginService';
 import { LoggedInUser } from '../../pages/loggedInUser';
 import{PlanManagementService } from './plan_management.service';
 import { FileoperationService } from '../../nsa/services/fileoperation.service';
-import { Observable } from 'rxjs/Observable';
 import {DatePipe} from '@angular/common';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/retry';
-import 'rxjs/add/observable/of';
+
+
+
+
 
 @Component({
     selector: 'app-voucherGen',

@@ -4,10 +4,10 @@ import {Router} from '@angular/router';
 import {LoggedInUser} from './loggedInUser';
 import {AppGlobals} from './../../app.global';
 
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/retry';
-import 'rxjs/add/observable/of';
+
+
+
+
 
 
 @Component({

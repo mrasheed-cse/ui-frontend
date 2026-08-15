@@ -11,3 +11,4 @@
 /src/environments/environment.dev.ts
 /*.iml
 /watchrun.cmd
+npm-debug.log*

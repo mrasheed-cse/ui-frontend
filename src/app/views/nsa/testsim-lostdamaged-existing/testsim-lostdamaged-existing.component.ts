@@ -239,7 +239,7 @@ export class TestsimLostdamagedExistingComponent implements OnInit {
 
   downloadGdFile(gdFileName) {
     this.fileoperationService.downloadLostSimGd(gdFileName).subscribe((data) => {
-      const blob = new Blob([data], {type: 'application/pdf'});
+      const blob = new Blob([data as any], {type: 'application/pdf'});
 
       var downloadURL = window.URL.createObjectURL(data);
       var link = document.createElement('a');

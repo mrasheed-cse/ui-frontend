@@ -8,10 +8,10 @@ import {IsmsworkflowsService} from '../services/ismsworkflows.service';
 import {LoggedInUser} from '../../pages/loggedInUser';
 import {FileoperationService} from '../../nsa/services/fileoperation.service';
 
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/retry';
-import 'rxjs/add/observable/of';
+
+
+
+
 import {WorkflowsService} from '../services/workflows.service';
 
 @Component({

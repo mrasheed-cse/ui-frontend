@@ -9,24 +9,24 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "node --max-old-space-size=3072 ./node_modules/@angular/cli/bin/ng build --environment=prod --prod",
+    "build": "node --max-old-space-size=3072 ./node_modules/@angular/cli/bin/ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "dev": "ng build --environment=dev --watch=true"
+    "dev": "ng build --configuration=dev --watch=true"
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "5.2.3",
-    "@angular/common": "5.2.3",
-    "@angular/compiler": "5.2.3",
-    "@angular/core": "5.2.3",
-    "@angular/forms": "5.2.3",
-    "@angular/http": "5.2.3",
-    "@angular/platform-browser": "5.2.3",
-    "@angular/platform-browser-dynamic": "5.2.3",
-    "@angular/router": "5.2.3",
-    "@angular/upgrade": "5.2.3",
+    "@angular/animations": "7.2.16",
+    "@angular/common": "7.2.16",
+    "@angular/compiler": "7.2.16",
+    "@angular/core": "7.2.16",
+    "@angular/forms": "7.2.16",
+    "@angular/http": "7.2.16",
+    "@angular/platform-browser": "7.2.16",
+    "@angular/platform-browser-dynamic": "7.2.16",
+    "@angular/router": "7.2.16",
+    "@angular/upgrade": "7.2.16",
     "@types/file-saver": "^2.0.0",
     "@types/request": "^2.48.2",
     "ag-grid-angular": "^21.2.0",
@@ -44,15 +44,17 @@
     "ngx-bootstrap": "^2.0.2",
     "ngx-spinner": "^2.0.0",
     "popper.js": "^1.14.7",
-    "rxjs": "5.5.6",
+    "rxjs": "6.6.7",
     "simple-line-icons": "^2.4.1",
     "ts-helpers": "1.1.2",
-    "zone.js": "0.8.20"
+    "zone.js": "0.8.29",
+    "rxjs-compat": "^6.0.0-rc.0"
   },
   "devDependencies": {
-    "@angular/cli": "1.6.7",
-    "@angular/compiler-cli": "5.2.3",
-    "@angular/language-service": "5.2.3",
+    "@angular-devkit/build-angular": "~0.8.0",
+    "@angular/cli": "^7.3.10",
+    "@angular/compiler-cli": "7.2.16",
+    "@angular/language-service": "7.2.16",
     "@types/jasmine": "2.8.6",
     "@types/jasminewd2": "2.0.3",
     "@types/node": "9.4.0",
@@ -68,7 +70,7 @@
     "protractor": "5.3.0",
     "ts-node": "4.1.0",
     "tslint": "5.9.1",
-    "typescript": "^2.6.2"
+    "typescript": "3.2.4"
   },
   "engines": {
     "node": ">= 8.9.4",

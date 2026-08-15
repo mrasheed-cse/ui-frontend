@@ -8,10 +8,10 @@ import {Router, ActivatedRoute} from '@angular/router';
 import { WorkflowsService } from './services/workflows.service';
 import { FileoperationService } from './services/fileoperation.service';
 
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/retry';
-import 'rxjs/add/observable/of';
+
+
+
+
 import { AppGlobals } from './../../app.global';
 import PreviousHopFieldNameValue from './models/PreviousHopFieldNameValue';
 import { LoginService } from '../pages/LoginService';

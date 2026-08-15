@@ -13,10 +13,10 @@ import {IsmsworkflowsService} from '../services/ismsworkflows.service';
 import {WorkflowsService} from '../services/workflows.service';
 import {FileoperationService} from '../services/fileoperation.service';
 
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/retry';
-import 'rxjs/add/observable/of';
+
+
+
+
 
 import {LoginService} from '../../pages/LoginService';
 import {LoggedInUser} from '../../pages/loggedInUser';
@@ -25,7 +25,6 @@ import {NewTestSimRequisition, RequisitionLine} from '../models/NewTestSimRequis
 import {AppGlobals} from '../../../app.global';
 import {moment} from 'ngx-bootstrap/chronos/test/chain';
 import {DateTimeUtils, DurationInfo} from '../../../utils/date-time-utils';
-import {injectTemplateRef} from '@angular/core/src/render3';
 
 
 @Component({

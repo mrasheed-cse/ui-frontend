@@ -8,10 +8,10 @@ import {
   import { WorkflowsService } from './services/workflows.service';
   import { FileoperationService } from './services/fileoperation.service';
   
-  import 'rxjs/add/operator/map';
-  import 'rxjs/add/operator/catch';
-  import 'rxjs/add/operator/retry';
-  import 'rxjs/add/observable/of';
+  
+  
+  
+  
   import { AppGlobals } from './../../app.global';
   import PreviousHopFieldNameValue from './models/PreviousHopFieldNameValue';
   import { LoginService } from '../pages/LoginService';
@@ -191,7 +191,7 @@ import {
 				//	console.log("ToTOOO");
 					//console.log(data);
 						
-					var blob = new Blob([data], { type: 'text/csv' });
+					var blob = new Blob([data as any], { type: 'text/csv' });
 		 
 					if (window.navigator && window.navigator.msSaveOrOpenBlob) {
 						window.navigator.msSaveOrOpenBlob(blob, nameOfFileToDownload);
