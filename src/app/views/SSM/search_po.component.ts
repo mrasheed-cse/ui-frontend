@@ -131,9 +131,9 @@ search(){
 
 				var blob = new Blob([data as any], { type: 'text/csv' });
 
-                if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+                if (window.navigator && (window.navigator as any).msSaveOrOpenBlob) {
 		
-                    window.navigator.msSaveOrOpenBlob(blob, nameOfFileToDownload);
+                    (window.navigator as any).msSaveOrOpenBlob(blob, nameOfFileToDownload);
                 } else {
                     var a = document.createElement('a');
                     a.href = URL.createObjectURL(blob);

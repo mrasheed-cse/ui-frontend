@@ -267,8 +267,8 @@ export class ReprovisionsearchComponent implements OnInit {
 
 				var blob = new Blob([data as any], { type: 'text/csv' });
 
-                if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-                    window.navigator.msSaveOrOpenBlob(blob, nameOfFileToDownload);
+                if (window.navigator && (window.navigator as any).msSaveOrOpenBlob) {
+                    (window.navigator as any).msSaveOrOpenBlob(blob, nameOfFileToDownload);
                 } else {
                     var a = document.createElement('a');
                     a.href = URL.createObjectURL(blob);

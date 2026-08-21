@@ -236,7 +236,7 @@ export class TestsimLostSsmComponent implements OnInit {
     this.fileoperationService.downloadLostSimGd(gdFileName).subscribe((data) => {
       const blob = new Blob([data as any], {type: 'application/pdf'});
 
-      var downloadURL = window.URL.createObjectURL(data);
+      var downloadURL = window.URL.createObjectURL(data as any);
       var link = document.createElement('a');
       link.href = downloadURL;
       link.download = gdFileName;

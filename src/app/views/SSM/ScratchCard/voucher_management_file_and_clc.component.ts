@@ -131,9 +131,9 @@ dnwdFile(filename:string){
 
 				var blob = new Blob([data as any], { type: 'text/csv' });
 
-                if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-		console.log("ggg")
-                    window.navigator.msSaveOrOpenBlob(blob, filename);
+                if (window.navigator && (window.navigator as any).msSaveOrOpenBlob) {
+		console.log("ggg");
+                    (window.navigator as any).msSaveOrOpenBlob(blob, filename);
                 } else {
                     var a = document.createElement('a');
                     a.href = URL.createObjectURL(blob);

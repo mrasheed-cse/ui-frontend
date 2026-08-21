@@ -234,7 +234,7 @@ downloadAMS(fileNameToDownload: string){
   console.log(fileNameToDownload);
   this.fileoperationService.DownloadFile(fileNameToDownload).subscribe((res) => {
     console.log(res);
-    var downloadURL = window.URL.createObjectURL(res);
+    var downloadURL = window.URL.createObjectURL(res as any);
     var link = document.createElement('a');
     link.href = downloadURL;
     link.download = fileNameToDownload;
