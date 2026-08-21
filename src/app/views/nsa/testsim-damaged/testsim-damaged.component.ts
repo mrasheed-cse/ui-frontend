@@ -11,7 +11,7 @@ import { Router,ActivatedRoute } from '@angular/router';
 
 import { LoginService } from '../../pages/LoginService';
 import { LoggedInUser } from '../../pages/loggedInUser';
-import { moment } from 'ngx-bootstrap/chronos/test/chain';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-testsim-damaged',

@@ -14,10 +14,10 @@ import { DefinitionDataService } from './services/definitiondata.service';
 import { WorkflowsService } from './services/workflows.service';
 import { FileoperationService } from './services/fileoperation.service';
 
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/retry';
-import 'rxjs/add/observable/of';
+
+
+
+
 
 import { LoginService } from '../pages/LoginService';
 import { LoggedInUser } from '../pages/loggedInUser';
@@ -28,7 +28,7 @@ import { AppGlobals } from './../../app.global';
 @Component({
   selector: 'app-mnpre-provision-form',
   templateUrl: './mnpre-provision-form.component.html',
-  styles: ['./demo.component.css'],
+  styleUrls: ['./demo.component.css'],
   providers: [DefinitionDataService,WorkflowsService,AppGlobals,LoginService,FileoperationService]
 })
 export class MnpreProvisionFormComponent implements OnInit {

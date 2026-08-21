@@ -18,7 +18,7 @@ import {UploadCSVMFSDeTaggingService} from './services/uploadCsvMFSDeTagging.ser
 @Component({
     selector: 'app-uploadCsvFile',
     templateUrl: './uploadfileswith-mfsdetagging-csv.component.html',
-    styles: ['./nsa_styles.css'],
+    styleUrls: ['./nsa_styles.css'],
     // styleUrls: ['./search_po.component.scss'],
     providers: [AppGlobals, LoginService, DatePipe, UploadCSVMFSDeTaggingService, FileoperationService],
 })

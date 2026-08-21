@@ -13,22 +13,22 @@ import {IsmsworkflowsService} from './services/ismsworkflows.service';
 import {WorkflowsService} from './services/workflows.service';
 import {FileoperationService} from '../nsa/services/fileoperation.service';
 
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/retry';
-import 'rxjs/add/observable/of';
+
+
+
+
 
 import {LoginService} from '../pages/LoginService';
 import {LoggedInUser} from '../pages/loggedInUser';
 
 import {NewTestSimRequisition, RequisitionLine} from './models/NewTestSimRequisition'
 import {AppGlobals} from './../../app.global';
-import {moment} from 'ngx-bootstrap/chronos/test/chain';
+import * as moment from 'moment';
 
 @Component({
     selector: 'app-newrequisitioninitiate',
     templateUrl: './newrequisitioninitiate.component.html',
-    styles: ['./nsa_styles.css'],
+    styleUrls: ['./nsa_styles.css'],
     providers: [WorkflowsService, DefinitionDataService, IsmsworkflowsService, AppGlobals, LoginService, FileoperationService]
 })
 export class NewrequisitioninitiateComponent implements OnInit {

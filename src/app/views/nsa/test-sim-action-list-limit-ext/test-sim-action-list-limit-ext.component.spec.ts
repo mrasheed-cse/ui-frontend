@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { TestSimActionListLimitExtComponent } from './test-sim-action-list-limit-ext.component';
 
@@ -6,7 +6,7 @@ describe('TestSimActionListLimitExtComponent', () => {
   let component: TestSimActionListLimitExtComponent;
   let fixture: ComponentFixture<TestSimActionListLimitExtComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ TestSimActionListLimitExtComponent ]
     })

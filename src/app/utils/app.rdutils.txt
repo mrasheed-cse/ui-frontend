@@ -1,0 +1,141 @@
+# nsa-ui-frontend — Angular 5.2.3 → 20.3.17 migration checklist
+
+**Target versions:** Angular 20.3.17 · Node.js 24.14.0 · TypeScript 5.8 or 5.9
+**Current state:** Angular 5.2.3 · Angular CLI 1.6.7 · TypeScript ^2.6.2 (target `es5`) · 365 `.ts` files under `src/app`
+**Source zip:** `nsa-ui-frontend_v28072026.zip`
+
+This is a 15-major-version migration. Angular's own tooling (`ng update`) only supports moving one major version at a time, so this document treats the work as a sequence of discrete, independently-mergeable upgrades rather than one big rewrite. Each phase below explains *why* the step matters, not just *what* to run, so the team can make informed calls where the path forks (standalone components, control-flow syntax, etc. are optional adoptions, not hard requirements to reach v20).
+
+---
+
+## Version staircase (official Angular compatibility matrix)
+
+Node must be switched with `nvm` (or Volta) alongside each Angular hop. This is the single most common way these migrations go sideways: someone runs `ng update` on whatever Node happens to be active, the CLI half-installs, and the failure looks like an Angular bug when it's actually a Node mismatch.
+
+| Angular | Node.js required | TypeScript required | Node to use (nvm) |
+|---|---|---|---|
+| 5.2.x (current) | ^6.9.0 \|\| ^8.9.0 | >=2.4.2 <2.7.0 | 8.9.x |
+| 6.1.x | ^8.9.0 | >=2.7.2 <3.0.0 | 8.9.x |
+| 7.2.x | ^8.9.0 \|\| ^10.9.0 | >=3.1.3 <3.3.0 | 10.9.x |
+| 8.2.x | ^10.9.0 | >=3.4.2 <3.6.0 | 10.9.x |
+| 9.1.x | ^10.13.0 \|\| ^12.11.0 | >=3.6.0 <3.9.0 | 12.11.x |
+| 10.2.x | ^10.13.0 \|\| ^12.11.0 | >=3.9.0 <4.1.0 | 12.11.x |
+| 11.2.x | ^10.13.0 \|\| ^12.11.0 | >=4.0.0 <4.2.0 | 12.11.x |
+| 12.2.x | ^12.14.0 \|\| ^14.15.0 | >=4.2.3 <4.4.0 | 14.15.x |
+| 13.3.x | ^12.20.0 \|\| ^14.15.0 \|\| ^16.10.0 | >=4.4.3 <4.7.0 | 16.10.x |
+| 14.2.x | ^14.15.0 \|\| ^16.10.0 | >=4.6.2 <4.9.0 | 16.10.x |
+| 15.1.x | ^14.20.0 \|\| ^16.13.0 \|\| ^18.10.0 | >=4.8.2 <5.0.0 | 18.10.x |
+| 16.1.x | ^16.14.0 \|\| ^18.10.0 | >=4.9.3 <5.2.0 | 18.10.x |
+| 17.3.x | ^18.13.0 \|\| ^20.9.0 | >=5.2.0 <5.5.0 | 20.9.x |
+| 18.2.x | ^18.19.1 \|\| ^20.11.1 \|\| ^22.0.0 | >=5.4.0 <5.6.0 | 20.11.x |
+| 19.2.x | ^18.19.1 \|\| ^20.11.1 \|\| ^22.0.0 | >=5.5.0 <5.9.0 | 22.x |
+| **20.3.17 (target)** | ^20.19.0 \|\| ^22.12.0 \|\| ^24.0.0 | >=5.8.0 <6.0.0 | **24.14.0** |
+
+Recommended: commit a `.nvmrc` per migration branch set to the "Node to use" value for that specific step, so anyone (or CI) checking out `migration/angular-9` automatically gets the right Node via `nvm use`.
+
+---
+
+## Phase 0 — Stabilize the Angular 5 baseline
+
+**Why this phase exists:** the repo currently has two competing CLI config formats present at once (`.angular-cli.json`, the pre-v6 format, and `angular.json`, the v6+ workspace format). That's the signature of an earlier migration attempt that started and stalled. Starting the real migration on top of an ambiguous config is how you end up debugging phantom build issues that are actually leftover config drift, not version-upgrade issues. This phase is about getting to a single source of truth before touching any version numbers.
+
+- [ ] **Resolve the split config.** Confirm the app currently builds via `angular.json` (it does — `ng build` uses the `architect.build` section already present). Once confirmed nothing reads `.angular-cli.json` anymore, delete it and commit that as its own isolated PR, separate from any version bump, so it's easy to revert if something was silently depending on it.
+- [ ] **Get a clean local build on the current baseline.** `nvm use 8.9`, delete `node_modules` and `package-lock.json`, fresh `npm install`, then `npm run build` and `npm start`. Fix anything broken *before* introducing version changes — you want to know that any breakage after Phase 1 starts is caused by the upgrade, not by pre-existing rot.
+- [ ] **Identify the real baseline branch.** The git history has multiple long-lived branches. Confirm with the team which branch actually reflects what's deployed at `sscm.grameenphone.com` today — migrating off a stale branch means redoing work later.
+- [ ] **Tag or branch a clean starting point.** e.g. `git tag pre-migration-baseline` — every phase below should be bisectable back to this point if something needs to be reverted.
+- [ ] **Remove stray artifacts.** `npm-debug.log` in the repo root is a sign of a past failed install; delete it and add `npm-debug.log*` to `.gitignore` if it isn't already covered.
+- [ ] **Get a minimal test signal working.** Karma/Jasmine is configured but may not currently run cleanly. It doesn't need full coverage — even a handful of passing specs gives you a regression trip-wire for the 15 upgrade steps ahead. A migration with zero automated verification means every step is "build succeeded, hope for the best."
+
+---
+
+## Phase 1 — Incremental `ng update`, one major at a time (5 → 12)
+
+**Why one at a time:** `ng update` calculates its migration schematics (automated codemods that rewrite your code) based on the *exact* version delta. Angular publishes these schematics per-major, not for arbitrary jumps — skipping majors means losing the automated fixes and doing them by hand, which on 365 files is a lot of avoidable manual work.
+
+General pattern for every step in this phase:
+```bash
+nvm use <node-version-for-this-step>
+ng update @angular/cli@<next-major> @angular/core@<next-major>
+npm run build
+npm start   # smoke test manually
+npm test    # if Phase 0 test signal exists
+```
+Commit after each successful major, before starting the next.
+
+- [ ] **5 → 6.** `RouterModule.forRoot()` now requires an explicit config object in some setups; `<template>` element is renamed to `<ng-template>` (the old tag still works but is deprecated — codemod usually handles this); animations move to a fully separate import (`BrowserAnimationsModule` from `@angular/platform-browser/animations`). Low-to-medium risk.
+- [ ] **6 → 7.** Mostly tooling-level: CLI will prompt about opting into new features (budgets in `angular.json` for bundle-size warnings). Very low risk — usually the easiest hop in the whole migration.
+- [ ] **7 → 8.** **`@ViewChild` and `@ContentChild` require an explicit `static` flag** (`{ static: true }` or `{ static: false }`) starting here. There are 24 `@ViewChild` usages in the codebase — `ng update` will attempt to auto-detect the correct value for each, but auto-detection is not always right (it depends on whether the query result is used in `ngOnInit` vs a later lifecycle hook). **Every one of these 24 needs a manual eyeball**, not just a glance at whether the build passed — a wrong `static` value can produce `undefined` at runtime without a compile error. This is also when differential loading (separate ES5/ES2015 bundles) is introduced; no code changes required, but it does change build output structure.
+- [ ] **8 → 9. Ivy becomes the default rendering engine — the highest-risk single hop before v13.** Ivy changed how templates compile to JavaScript under the hood. Most application code is unaffected, but **third-party libraries that reach into Angular's internal APIs can break**, and two dependencies are worth checking specifically before this step:
+  - `ag-grid-angular`/`ag-grid-community` 21.2.0 — check ag-grid's own release notes for their Ivy compatibility statement at that version; if they weren't Ivy-ready yet, bump ag-grid itself *before* the Angular 9 hop, not after.
+  - `ngx-bootstrap` 2.0.x — same concern, similarly old.
+  - Sanity check for any code manually touching Angular internals (uncommon, but worth 5 minutes): `grep -rn "ngDevMode\|ɵ" src --include=*.ts`.
+  - If a library breaks under Ivy and can't be trivially bumped, the fallback is `enableIvy: false` in `tsconfig.json` temporarily to unblock the version bump, circling back later to fix the library compatibility as a follow-up — don't let one incompatible library block the whole staircase.
+- [ ] **9 → 10 → 11 → 12.** Comparatively mechanical — mostly TypeScript version bumps (landing around TS 4.2–4.4 by the end of v12) and minor CLI schema changes. Worth doing as four separate small PRs for bisectability, but the actual code-impact risk is lower than the 8→9 and 7→8 hops.
+- [ ] **RxJS pipeable operator conversion — do this early, ideally right alongside 5→6.** 60 files use the old patchable-operator style (`import 'rxjs/add/operator/map'` then `.map(...)` chained directly on the Observable). RxJS 6 (ships with Angular 6) deprecates this in favor of `pipe()`:
+  ```ts
+  // before
+  import 'rxjs/add/operator/map';
+  import 'rxjs/add/operator/filter';
+  source.map(x => x.value).filter(x => x != null);
+
+  // after
+  import { map, filter } from 'rxjs/operators';
+  source.pipe(map(x => x.value), filter(x => x != null));
+  ```
+  `rxjs-tslint` (Angular's own migration tool, run via `npx rxjs-tslint`) automates most of this conversion — run it as its own commit before the 5→6 `ng update`, not mixed into the same commit, so a bad auto-rewrite is easy to isolate and fix.
+- [ ] **Migrate the one legacy `Renderer` (v1) usage to `Renderer2`.** `Renderer` was deprecated starting Angular 4 and the API surface is different enough (`Renderer2` uses method calls like `renderer.setStyle(el, prop, value)`) that this needs a manual look rather than a mechanical find-replace. Small enough (one usage) to just do directly rather than scheduling it separately.
+- [ ] **Re-evaluate `angular4-smart-table`.** This library's name literally pins it to Angular 4 and it hasn't been meaningfully maintained since. Rather than fighting to keep it alive through 15 major versions, treat this as a replacement decision now: candidates are building the table directly with `ag-grid` (already a dependency being kept), or `@angular/cdk`'s `Table` primitive plus a custom template if the use case is simple. Worth a scoping conversation with whoever owns that part of the UI — it may be more efficient to swap it out in Phase 1 than to carry it forward and discover it blocks Ivy or a later phase.
+- [ ] **Flag `moment.js` (13 files) for Phase 3 cleanup, not now.** It still works fine through this entire staircase. Just don't forget it; moment is in official maintenance-only mode and any modern alternative (`date-fns`, `Intl`/`Temporal`) is a clean win later. Listed here so it isn't lost between phases.
+
+---
+
+## Phase 2 — Ivy maturity, standalone APIs, signals (13 → 17)
+
+**Why this phase is different from Phase 1:** by v13, the *engine-level* risk (Ivy) is behind you. What v13–v17 introduce are new *optional* ways of writing Angular code (standalone components, signals, new control-flow syntax) that `ng update` will not force onto existing code — an NgModule-based, `*ngIf`/`*ngFor`-based app keeps compiling and running unchanged through all five of these majors without adopting anything new. The checklist items here are genuine team decisions, not automatic steps.
+
+- [ ] **13.** View Engine (the pre-Ivy renderer) is fully removed from Angular itself — no fallback flag remains. Good checkpoint to re-verify ag-grid and ngx-bootstrap are both fully happy; if the `enableIvy: false` workaround from v9 was used, this is where it stops being available and any lingering incompatibility must be resolved for good.
+- [ ] **14.** Standalone components/directives/pipes become available (`standalone: true` on a `@Component`, no `NgModule` needed for that piece). Nothing forces adoption — worth noting for the team but not an action item yet.
+- [ ] **15.** Standalone APIs stabilize (no longer developer-preview); directive composition API (`hostDirectives`) becomes available for composing behavior across directives.
+- [ ] **16. Signals are introduced** (`signal()`, `computed()`, `effect()`) as a new reactivity primitive alongside — not replacing — RxJS. Also, `inject()`-based dependency injection (calling `inject(SomeService)` at property-initializer time instead of constructor-parameter injection) becomes increasingly idiomatic, though constructor injection keeps working everywhere.
+- [ ] **17. New control-flow syntax** (`@if`, `@for`, `@switch` in templates, replacing `*ngIf`, `*ngFor`, `ngSwitch`) ships and the CLI's generator starts using it by default for new files. **This is the biggest decision point in Phase 2:** run Angular's automated migration schematic (`ng generate @angular/core:control-flow`) across all 365 files' templates now, or defer it? For doing it now: the schematic is automated and well-tested at this specific version transition; deferring means running it later against a codebase that's had more time to grow, against a moving target. For deferring: it's a highly visible diff across the whole app with no functional payoff — purely stylistic — so if the priority is landing on v20 quickly, this can be its own follow-up project after the version migration lands.
+- [ ] **Standalone conversion decision.** Similarly: full standalone (deleting NgModules entirely) is Angular's long-term direction, but it's a structural rewrite of how every component declares its dependencies — separate in scope and risk from "what Angular major are we on." Recommend treating this as an explicitly separate initiative, decided by the team after v20 is reached, not bundled into this checklist's success criteria.
+- [ ] **TSLint → ESLint.** TSLint is fully deprecated and removed from Angular's own tooling chain by this point; it won't be maintained going forward. Run the `@angular-eslint` schematics (`ng add @angular-eslint/schematics`, then its `convert-tslint-to-eslint` migration) — mechanical and well-supported, not a judgment call, so just do it as its own PR in this phase.
+- [ ] **Protractor → Cypress or Playwright.** Protractor was deprecated and later removed from Angular CLI's default e2e tooling. If the project has meaningful Protractor e2e coverage today, budget real time — it's a rewrite of the e2e suite, not an automated conversion, since the two frameworks have entirely different APIs. If Protractor coverage is thin or unused in practice, this can be lower priority — worth checking actual usage before committing time to it.
+
+---
+
+## Phase 3 — Land on 18 → 20.3.17
+
+**Why this phase is comparatively light:** most of the structural risk (Ivy, TypeScript major jumps, deprecated-tooling replacement) is behind you by v17. The remaining hops are largely about landing on the exact target and validating nothing regressed across the whole app.
+
+- [ ] **18.** Zoneless change detection becomes available as an experimental opt-in (removing the `zone.js` dependency entirely). Not required for v20 — flag as a future optimization, out of scope for this migration.
+- [ ] **19.** Continued maturity of signal-based APIs (`linkedSignal`, `resource()` for async data fetching as a signals-based alternative to manual RxJS subscription management in components). Optional adoption, same as Phase 2's signals introduction.
+- [ ] **20.3.17 (final).** After the last `ng update`, explicitly verify — don't assume — the installed versions:
+  ```bash
+  node -v            # expect v24.14.0
+  npx tsc -v          # expect 5.8.x or 5.9.x
+  npx ng version      # expect Angular CLI 20.3.17 and @angular/core 20.3.17
+  ```
+- [ ] **Full regression pass.** Worth treating as a real QA cycle, not a quick click-through, given the scope: every view under `src/app/views`, every form (check both template-driven and reactive forms if the codebase mixes styles), every `ag-grid` table (sorting, filtering, and any batch/grid-specific features built on top), every `chart.js` graph, `file-saver`-based upload/download flows, and the `ngx-bootstrap` datepicker specifically (datepickers are a common source of silent breakage across major bumps because of locale/formatting API changes upstream).
+
+---
+
+## Parallel-track library migrations
+
+These aren't gated by which Angular major is current — thread them into whichever phase makes sense, generally right after the Angular major that unblocks them. Doing them as fully separate PRs (not bundled into an `ng update` commit) keeps each change bisectable.
+
+- [ ] **`ag-grid-community` / `ag-grid-angular` 21.x → latest.** ag-grid has had several of its own breaking-change majors independent of Angular's — check ag-grid's migration guide for *each* major crossed (21→22, 22→23, etc.), not just a single jump to latest. Given how central this library is to data-heavy tables, budget real testing time here.
+- [ ] **`ngx-bootstrap` 2.0 → latest, or replace with `ng-bootstrap`.** Worth a quick maintenance-activity check on both before deciding — pick whichever has better current Ivy/standalone support and more active maintenance at the time this step happens.
+- [ ] **`chart.js` / `ng2-charts` 1.6 → latest.** chart.js had breaking API changes at both 2→3 and 3→4; `ng2-charts` versions are tied to specific chart.js majors, so upgrade them together, checking `ng2-charts`' own compatibility notes for which version pairs with which chart.js major.
+- [ ] **`bootstrap` 4-beta → 5.** Bootstrap 5 drops the jQuery dependency entirely. There's already zero jQuery usage in the codebase, so this upgrade is unusually clean — mainly a CSS class-name sweep (e.g. `.ml-*`/`.mr-*` margin utilities became `.ms-*`/`.me-*` for RTL support, `.form-group` was removed in favor of plain spacing utilities).
+- [ ] **`zone.js`.** Tracks Angular automatically via `ng update` — no separate action needed unless the zoneless option from Phase 3 is pursued later.
+- [ ] **`moment` → `date-fns` or native `Intl`/`Temporal`.** Purely a maintenance-quality cleanup, not a blocker for anything — a good "nice to have, do if time allows" item at the very end rather than something that gates reaching v20.3.17.
+
+---
+
+## Process / tooling
+
+- [ ] **One branch per Angular major** (`migration/angular-6`, `migration/angular-7`, … `migration/angular-20`) — review and merge each individually. With 365 files in the codebase, a single giant PR spanning all 15 majors would be effectively unreviewable and would make it very hard to pinpoint which specific major introduced a regression.
+- [ ] **CI gate:** build + lint + test on every migration branch before merge. If CI isn't already wired up, set it up before Phase 1 starts, not after — the safety net matters most for the risky hops (7→8, 8→9), not just the easy ones.
+- [ ] **Keep the current prod branch deployable throughout.** Production hotfixes shouldn't have to wait on migration branches to land — worth a documented process for cherry-picking urgent fixes from prod into in-progress migration branches.
+- [ ] **`.nvmrc` per migration branch,** set to the "Node to use" column from the version table above, so switching branches and running `nvm use` (or an automatic nvm shell hook) always gets the right runtime without anyone having to remember the mapping.

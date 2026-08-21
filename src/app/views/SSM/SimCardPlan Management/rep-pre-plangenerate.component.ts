@@ -10,7 +10,7 @@ import{PlanManagementService } from '../../SSM/SimCardPlan Management/plan_manag
 @Component({
   selector: 'app-pre-PlanGenerate',
   templateUrl: './rep-pre-plangenerate.component.html',
-  styles: ['./nsa_styles.css'],
+  styleUrls: ['../../nsa/nsa_styles.css'],
   providers: [SSMService,LoginService,AppGlobals,PlanManagementService]
 })
 export class RepPrePlanGenerate implements OnInit {

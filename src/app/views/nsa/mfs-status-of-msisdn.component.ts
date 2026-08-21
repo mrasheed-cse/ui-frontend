@@ -17,7 +17,7 @@ import {MfsStatusOfMsisdnReportService} from './services/mfs-status-of-msisdn-re
 @Component({
     selector: 'app-uploadCsvFile',
     templateUrl: './mfs-status-of-msisdn.component.html',
-    styles: ['./nsa_styles.css'],
+    styleUrls: ['./nsa_styles.css'],
     providers: [AppGlobals, LoginService, DatePipe, MfsStatusOfMsisdnReportService],
 })
 export class MfsStatusOfMsisdnComponent implements OnInit {

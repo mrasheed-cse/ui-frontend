@@ -1,0 +1,44 @@
+diff --git a/node_modules/angular4-smart-table/dist/utils/hide.d.ts b/node_modules/angular4-smart-table/dist/utils/hide.d.ts
+index ef6bccd..b0a2b46 100644
+--- a/node_modules/angular4-smart-table/dist/utils/hide.d.ts
++++ b/node_modules/angular4-smart-table/dist/utils/hide.d.ts
+@@ -1,10 +1,10 @@
+-import { ElementRef, Renderer } from '@angular/core';
++import { ElementRef, Renderer2 } from '@angular/core';
+ export declare class Hide {
+     private _elementRef;
+     private _renderer;
+     private _prevCondition;
+     private _displayStyle;
+-    constructor(_elementRef: ElementRef, _renderer: Renderer);
++    constructor(_elementRef: ElementRef, _renderer: Renderer2);
+     hide: boolean;
+     private initDisplayStyle();
+ }
+diff --git a/node_modules/angular4-smart-table/dist/utils/hide.js b/node_modules/angular4-smart-table/dist/utils/hide.js
+index 70ac34c..02aafbc 100644
+--- a/node_modules/angular4-smart-table/dist/utils/hide.js
++++ b/node_modules/angular4-smart-table/dist/utils/hide.js
+@@ -15,11 +15,11 @@ var Hide = /** @class */ (function () {
+             this.initDisplayStyle();
+             if (newCondition && (isBlank(this._prevCondition) || !this._prevCondition)) {
+                 this._prevCondition = true;
+-                this._renderer.setElementStyle(this._elementRef.nativeElement, 'display', 'none');
++                this._renderer.setStyle(this._elementRef.nativeElement, 'display', 'none');
+             }
+             else if (!newCondition && (isBlank(this._prevCondition) || this._prevCondition)) {
+                 this._prevCondition = false;
+-                this._renderer.setElementStyle(this._elementRef.nativeElement, 'display', this._displayStyle);
++                this._renderer.setStyle(this._elementRef.nativeElement, 'display', this._displayStyle);
+             }
+         },
+         enumerable: true,
+@@ -39,7 +39,7 @@ var Hide = /** @class */ (function () {
+     /** @nocollapse */
+     Hide.ctorParameters = function () { return [
+         { type: core_1.ElementRef, },
+-        { type: core_1.Renderer, },
++        { type: core_1.Renderer2, },
+     ]; };
+     return Hide;
+ }());

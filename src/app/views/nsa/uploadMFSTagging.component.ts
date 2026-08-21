@@ -20,7 +20,7 @@ import {UploadCsvMFSTaggingService} from './services/uploadCsvMFSTagging.service
 @Component({
     selector: 'app-uploadCsvFile',
     templateUrl: './uploadfileswith-mfstagging-csv.component.html',
-    styles: ['./nsa_styles.css'],
+    styleUrls: ['./nsa_styles.css'],
     // styleUrls: ['./search_po.component.scss'],
     providers: [AppGlobals, LoginService, DatePipe, UploadCsvMFSTaggingService, FileoperationService],
 })

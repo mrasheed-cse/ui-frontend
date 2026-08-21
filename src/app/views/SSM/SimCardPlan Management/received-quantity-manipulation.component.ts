@@ -11,7 +11,7 @@ import{PlanManagementService } from '../../SSM/SimCardPlan Management/plan_manag
 @Component({
   selector: 'app-received-quantity-manipulation',
   templateUrl: './received-quantity-manipulation.component.html',
-  styles: ['./nsa_styles.css'],
+  styleUrls: ['../../nsa/nsa_styles.css'],
   providers: [SSMService,LoginService,AppGlobals,PlanManagementService]
 })
 export class ReceivedQuantityManipulation implements OnInit {

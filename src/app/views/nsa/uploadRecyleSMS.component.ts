@@ -18,7 +18,7 @@ import {UploadCSVRecycleSMSService} from './services/uploadCsvRecycleSms.service
 @Component({
     selector: 'app-uploadCsvFile',
     templateUrl: './uploadfileswith-Csv.component.html',
-    styles: ['./nsa_styles.css'],
+    styleUrls: ['./nsa_styles.css'],
     // styleUrls: ['./search_po.component.scss'],
     providers: [AppGlobals, LoginService, DatePipe, UploadCSVRecycleSMSService, FileoperationService],
 })

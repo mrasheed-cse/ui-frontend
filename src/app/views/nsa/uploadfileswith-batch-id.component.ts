@@ -13,10 +13,10 @@ import { DefinitionDataService } from './services/definitiondata.service';
 import { WorkflowsService } from './services/workflows.service';
 import { FileoperationService } from './services/fileoperation.service';
 
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/retry';
-import 'rxjs/add/observable/of';
+
+
+
+
 
 import { LoginService } from '../pages/LoginService';
 import { LoggedInUser } from '../pages/loggedInUser';
@@ -35,7 +35,7 @@ import { AppGlobals } from './../../app.global';
 
 export class UploadfileswithBatchIdComponent implements OnInit {
 
-	@ViewChild('csvReader') csvReader: any;
+	@ViewChild('csvReader', { static: true }) csvReader: any;
 
   
 	serverUrl: string;

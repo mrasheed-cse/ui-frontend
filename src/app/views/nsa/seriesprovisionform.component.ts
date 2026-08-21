@@ -10,10 +10,10 @@ import { HttpClient } from '@angular/common/http';
 import { DefinitionDataService } from './services/definitiondata.service';
 import { WorkflowsService } from './services/workflows.service';
 
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/retry';
-import 'rxjs/add/observable/of';
+
+
+
+
 
 import { LoginService } from '../pages/LoginService';
 import { LoggedInUser } from '../pages/loggedInUser';
@@ -24,7 +24,7 @@ import { AppGlobals } from './../../app.global';
 @Component({
   selector: 'app-seriesprovisionform',
   templateUrl: './seriesprovisionform.component.html',
-  styles: ['./nsa_styles.css'],
+  styleUrls: ['./nsa_styles.css'],
   providers: [DefinitionDataService,WorkflowsService,AppGlobals,LoginService]
 })
 export class SeriesprovisionformComponent implements OnInit {

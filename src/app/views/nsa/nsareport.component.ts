@@ -23,7 +23,7 @@ import { LoggedInUser } from '../pages/loggedInUser';
 @Component({
   selector: 'app-nsareport',
   templateUrl: './nsareport.component.html',
-  styles: ['./demo.component.css'],
+  styleUrls: ['./demo.component.css'],
   providers: [ReportService,AppGlobals,LoginService]
 })
 export class NsareportComponent implements OnInit {

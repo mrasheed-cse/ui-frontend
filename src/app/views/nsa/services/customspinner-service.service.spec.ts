@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { CustomspinnerServiceService } from './customspinner-service.service';
+import { CustomspinnerService } from './customspinner-service.service';
 
-describe('CustomspinnerServiceService', () => {
+describe('CustomspinnerService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [CustomspinnerServiceService]
+      providers: [CustomspinnerService]
     });
   });
 
-  it('should be created', inject([CustomspinnerServiceService], (service: CustomspinnerServiceService) => {
+  it('should be created', inject([CustomspinnerService], (service: CustomspinnerService) => {
     expect(service).toBeTruthy();
   }));
 });

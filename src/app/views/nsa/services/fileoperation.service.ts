@@ -1,14 +1,11 @@
+
+import {throwError as observableThrowError,  Observable, Subscription } from 'rxjs';
 import { Injectable } from '@angular/core';
 import {ReactiveFormsModule, FormGroup, FormControl, Validators} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { HttpResponse, HttpEvent, HttpRequest  } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/retry';
-import 'rxjs/add/observable/of';
-import { Observable, Subscription } from 'rxjs/Rx';
 
 @Injectable()
 export class FileoperationService {
@@ -82,7 +79,7 @@ export class FileoperationService {
 
     handleError(error) {
 		console.log(error);
-        return Observable.throw(error || 'Server error');
+        return observableThrowError(error || 'Server error');
     }
 	
 	uploadRecycledCSV(fd: FormData):any{

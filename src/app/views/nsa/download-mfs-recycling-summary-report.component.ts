@@ -20,7 +20,7 @@ import {SharedMessageService} from './services/shared-message.service';
 @Component({
     selector: 'download-mfs-recycling-summary-report',
     templateUrl: './download-mfs-recycling-summary-report.html',
-    styles: ['./nsa_styles.css'],
+    styleUrls: ['./nsa_styles.css'],
     // styleUrls: ['./search_po.component.scss'],
     providers: [AppGlobals, LoginService, DatePipe, MfsRecyclingSummaryReportService, SharedMessageService],
 })

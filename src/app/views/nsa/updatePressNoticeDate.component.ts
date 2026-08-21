@@ -18,7 +18,7 @@ import {BsDatepickerConfig} from 'ngx-bootstrap/datepicker';
 @Component({
     selector: 'app-uploadCsvFile',
     templateUrl: './update-press-notice-date.component.html',
-    styles: ['./nsa_styles.css'],
+    styleUrls: ['./nsa_styles.css'],
     // styleUrls: ['./search_po.component.scss'],
     providers: [AppGlobals, LoginService, DatePipe, UpdatePressNoticeDateService],
 })

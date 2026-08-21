@@ -5,8 +5,8 @@ import {LoggedInUser} from './loggedInUser';
 import {LoggedInResponse} from './LogInResponse';
 import {AppGlobals} from './../../app.global';
 
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+
+
 
 
 @Component({

@@ -5,7 +5,7 @@ import { LoggedInUser } from '../../pages/loggedInUser';
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, Router } from '@angular/router';
 
 import { isNumeric } from 'rxjs/util/isNumeric';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 
 @Injectable()

@@ -6,10 +6,10 @@ import {LoginService} from '../../pages/LoginService';
 import {LoggedInUser} from '../../pages/loggedInUser';
 import {ReportService} from'./report.service';
 import {DatePipe} from '@angular/common';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/retry';
-import 'rxjs/add/observable/of';
+
+
+
+
 @Component({
     selector: 'bar-chart',
     templateUrl: './viewProductReport.component.html',
@@ -176,7 +176,7 @@ export class ViewProductReport implements OnInit {
 
 				
 
-				var blob = new Blob([data], { type: 'text/csv' });
+				var blob = new Blob([data as any], { type: 'text/csv' });
 
                 if (window.navigator && window.navigator.msSaveOrOpenBlob) {
 		
