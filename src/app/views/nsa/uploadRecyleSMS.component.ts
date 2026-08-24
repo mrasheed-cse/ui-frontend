@@ -6,7 +6,7 @@ import {
     Pipe,
     OnInit,
 } from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AppGlobals} from 'app/app.global';
 import {LoggedInUser} from '../pages/loggedInUser';
@@ -23,11 +23,11 @@ import {UploadCSVRecycleSMSService} from './services/uploadCsvRecycleSms.service
     providers: [AppGlobals, LoginService, DatePipe, UploadCSVRecycleSMSService, FileoperationService],
 })
 export class UploadRecycleCsvFile implements OnInit {
-    myRecycledSmsForm: FormGroup;
-    listId: FormControl;
-    unusedSince: FormControl;
-    msisdnCount: FormControl;
-    recycledSmsFile: FormControl;
+    myRecycledSmsForm: UntypedFormGroup;
+    listId: UntypedFormControl;
+    unusedSince: UntypedFormControl;
+    msisdnCount: UntypedFormControl;
+    recycledSmsFile: UntypedFormControl;
 
     currentLoggedInUser: LoggedInUser;
     userName: string;
@@ -63,14 +63,14 @@ export class UploadRecycleCsvFile implements OnInit {
     }
 
     createFormControls() {
-        this.recycledSmsFile = new FormControl('', Validators.required);
-        this.listId = new FormControl('', Validators.required);
-        this.unusedSince = new FormControl('', Validators.required);
-        this.msisdnCount = new FormControl('', Validators.required);
+        this.recycledSmsFile = new UntypedFormControl('', Validators.required);
+        this.listId = new UntypedFormControl('', Validators.required);
+        this.unusedSince = new UntypedFormControl('', Validators.required);
+        this.msisdnCount = new UntypedFormControl('', Validators.required);
     }
 
     createForm() {
-        this.myRecycledSmsForm = new FormGroup({
+        this.myRecycledSmsForm = new UntypedFormGroup({
             listId: this.listId,
             unusedSince: this.unusedSince,
             msisdnCount: this.msisdnCount,

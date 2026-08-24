@@ -4,7 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import { LoginService } from '../../pages/LoginService';
 import { SSMService } from '../../SSM/SSM.service';
 import { LoggedInUser } from '../../pages/loggedInUser';
-import {ReactiveFormsModule, FormGroup, FormControl, Validators} from '@angular/forms';
+import {ReactiveFormsModule, UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms';
 import { AppGlobals } from './../../../app.global';
 import{PlanManagementService } from '../../SSM/SimCardPlan Management/plan_management.service';
 
@@ -34,9 +34,9 @@ export class ReceivedQuantityManipulation implements OnInit {
 	private totalPages: number;
 
 
-  updateReceivedQuantityForm: FormGroup;
-	artWork: FormControl;
-	vendor: FormControl;
+  updateReceivedQuantityForm: UntypedFormGroup;
+	artWork: UntypedFormControl;
+	vendor: UntypedFormControl;
 
 
   public listArtWorks = [];
@@ -111,12 +111,12 @@ export class ReceivedQuantityManipulation implements OnInit {
 
   createFormControls() {
     
-	this.artWork = new  FormControl('');
-	this.vendor = new FormControl('');
+	this.artWork = new  UntypedFormControl('');
+	this.vendor = new UntypedFormControl('');
   }
 
   createForm() {
-    this.updateReceivedQuantityForm = new FormGroup({
+    this.updateReceivedQuantityForm = new UntypedFormGroup({
 		artWork: this.artWork,
 		vendor: this.vendor
     });

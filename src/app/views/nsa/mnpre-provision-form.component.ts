@@ -4,7 +4,7 @@ import {
   Pipe,
   OnInit
 } from '@angular/core';
-import {ReactiveFormsModule, FormGroup, FormControl, Validators} from '@angular/forms';
+import {ReactiveFormsModule, UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import {BsDatepickerConfig} from 'ngx-bootstrap/datepicker';
@@ -50,22 +50,22 @@ export class MnpreProvisionFormComponent implements OnInit {
 
 
 
-	myMNPReProvisionForm: FormGroup;
-	reProvisionFile: FormControl;
-	quantity: FormControl;
-	startICCID: FormControl;
-	startICCID19: FormControl;
-	endICCID: FormControl;
-	startIMSI: FormControl;
-	endIMSI: FormControl;
-	productType: FormControl;
-	productName: FormControl;
-	serviceClassName: FormControl;
-	communityID: FormControl;
-	zone: FormControl;
-	simType: FormControl;
-	needByDate: FormControl;
-	srcComment: FormControl;
+	myMNPReProvisionForm: UntypedFormGroup;
+	reProvisionFile: UntypedFormControl;
+	quantity: UntypedFormControl;
+	startICCID: UntypedFormControl;
+	startICCID19: UntypedFormControl;
+	endICCID: UntypedFormControl;
+	startIMSI: UntypedFormControl;
+	endIMSI: UntypedFormControl;
+	productType: UntypedFormControl;
+	productName: UntypedFormControl;
+	serviceClassName: UntypedFormControl;
+	communityID: UntypedFormControl;
+	zone: UntypedFormControl;
+	simType: UntypedFormControl;
+	needByDate: UntypedFormControl;
+	srcComment: UntypedFormControl;
 	formFieldData: string;
 
 	selectedFile: File = null;
@@ -191,29 +191,29 @@ constructor(private router: Router,private loginService: LoginService, private h
 	datepickerConfig: Partial<BsDatepickerConfig>;
 
   createFormControls() {
-    this.reProvisionFile = new FormControl('', Validators.required);
-	this.quantity =	new FormControl('');
-	this.startICCID = new FormControl('', [
+    this.reProvisionFile = new UntypedFormControl('', Validators.required);
+	this.quantity =	new UntypedFormControl('');
+	this.startICCID = new UntypedFormControl('', [
 		Validators.required,
 		Validators.minLength(18) ,
 		Validators.maxLength(18)
 	]);
-	this.startICCID19 = 	new FormControl({value: '', disabled: true}, Validators.required);
-	this.endICCID = 	new FormControl({value: '', disabled: true}, Validators.required);
-	this.startIMSI = 	new FormControl({value: '', disabled: true}, Validators.required);
-	this.endIMSI = 	new FormControl({value: '', disabled: true}, Validators.required);
-	this.productType = new FormControl('', [Validators.required]);
-	this.productName= new FormControl('', Validators.required);
-	this.serviceClassName=	new FormControl({value: '', disabled: true}, Validators.required);
-	this.communityID= 	new FormControl({value: '', disabled: true}, Validators.required);
-	this.zone= new FormControl('');
-	this.simType = new  FormControl('');
-	this.needByDate = new FormControl('');
-	this.srcComment= new FormControl('');
+	this.startICCID19 = 	new UntypedFormControl({value: '', disabled: true}, Validators.required);
+	this.endICCID = 	new UntypedFormControl({value: '', disabled: true}, Validators.required);
+	this.startIMSI = 	new UntypedFormControl({value: '', disabled: true}, Validators.required);
+	this.endIMSI = 	new UntypedFormControl({value: '', disabled: true}, Validators.required);
+	this.productType = new UntypedFormControl('', [Validators.required]);
+	this.productName= new UntypedFormControl('', Validators.required);
+	this.serviceClassName=	new UntypedFormControl({value: '', disabled: true}, Validators.required);
+	this.communityID= 	new UntypedFormControl({value: '', disabled: true}, Validators.required);
+	this.zone= new UntypedFormControl('');
+	this.simType = new  UntypedFormControl('');
+	this.needByDate = new UntypedFormControl('');
+	this.srcComment= new UntypedFormControl('');
   }
 
   createForm() {
-    this.myMNPReProvisionForm = new FormGroup({
+    this.myMNPReProvisionForm = new UntypedFormGroup({
 		reProvisionFile: this.reProvisionFile,
 		quantity: this.quantity,
 		startICCID: this.startICCID,
@@ -367,7 +367,7 @@ topFunction() {
 	}
 
 
-LogKeyValuePairs(group: FormGroup): void {
+LogKeyValuePairs(group: UntypedFormGroup): void {
 
   // Loop through each control key in the FormGroup
   Object.keys(group.controls).forEach((key: string) => {
@@ -376,7 +376,7 @@ LogKeyValuePairs(group: FormGroup): void {
     // If the control is nested form group, recursively call
     // this same method (logKeyValuePairs) passing it
     // the FormGroup so we can get to the form controls in it
-    if (abstractControl instanceof FormGroup) {
+    if (abstractControl instanceof UntypedFormGroup) {
       this.LogKeyValuePairs(abstractControl);
       // If the control is a FormControl
     } else {

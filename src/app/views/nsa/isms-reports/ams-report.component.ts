@@ -4,7 +4,7 @@ import {
   Pipe,
   OnInit
 } from '@angular/core';
-import {ReactiveFormsModule, FormsModule, FormGroup, FormControl, Validators} from '@angular/forms';
+import {ReactiveFormsModule, FormsModule, UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import { DataTableResource } from 'angular4-smart-table';
@@ -49,12 +49,12 @@ export class AMSReportComponent implements OnInit {
   isDataFound: boolean = true;
   isCollapsed: boolean = true;
 
-  mySearchForm: FormGroup;
-  wrname: FormControl;
-  startDate: FormControl;
-  endDate: FormControl;
-  amsID: FormControl;
-  simOwner: FormControl;
+  mySearchForm: UntypedFormGroup;
+  wrname: UntypedFormControl;
+  startDate: UntypedFormControl;
+  endDate: UntypedFormControl;
+  amsID: UntypedFormControl;
+  simOwner: UntypedFormControl;
 
   wrNamePattern:string = "(RQN).\*";
   searchWR: string;
@@ -213,15 +213,15 @@ onSearchSubmit() {
 }
 
 createFormControls() {
-  this.wrname = new FormControl('',Validators.pattern(this.wrNamePattern));
-  this.amsID = new FormControl('');
-  this.startDate = new FormControl('');
-  this.endDate = new FormControl('');
-  this.simOwner = new FormControl('');
+  this.wrname = new UntypedFormControl('',Validators.pattern(this.wrNamePattern));
+  this.amsID = new UntypedFormControl('');
+  this.startDate = new UntypedFormControl('');
+  this.endDate = new UntypedFormControl('');
+  this.simOwner = new UntypedFormControl('');
 }
 
 createForm() {
-  this.mySearchForm = new FormGroup({
+  this.mySearchForm = new UntypedFormGroup({
     wrname: this.wrname,
     amsID: this.amsID,
     startDate: this.startDate,

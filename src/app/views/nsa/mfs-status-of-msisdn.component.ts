@@ -11,7 +11,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {LoginService} from '../pages/LoginService';
 import {LoggedInUser} from '../pages/loggedInUser';
 import {DatePipe} from '@angular/common';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {MfsStatusOfMsisdnReportService} from './services/mfs-status-of-msisdn-report.service';
 
 @Component({
@@ -22,8 +22,8 @@ import {MfsStatusOfMsisdnReportService} from './services/mfs-status-of-msisdn-re
 })
 export class MfsStatusOfMsisdnComponent implements OnInit {
 
-    mySearchForm: FormGroup;
-    msisdnControl: FormControl;
+    mySearchForm: UntypedFormGroup;
+    msisdnControl: UntypedFormControl;
     msisdnIn: string = "";
 
 
@@ -75,11 +75,11 @@ export class MfsStatusOfMsisdnComponent implements OnInit {
     }
 
     createFormControls() {
-        this.msisdnControl = new FormControl('', Validators.required);
+        this.msisdnControl = new UntypedFormControl('', Validators.required);
     }
 
     createForm() {
-        this.mySearchForm = new FormGroup({
+        this.mySearchForm = new UntypedFormGroup({
             msisdnControl: this.msisdnControl
         });
     }

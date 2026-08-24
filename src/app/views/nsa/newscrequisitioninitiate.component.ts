@@ -4,7 +4,7 @@ import {
   Pipe,
   OnInit
 } from '@angular/core';
-import { ReactiveFormsModule, FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { ReactiveFormsModule, UntypedFormGroup, UntypedFormControl, Validators, UntypedFormArray } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
@@ -69,19 +69,19 @@ export class NewscrequisitioninitiateComponent implements OnInit {
   public isLoading: boolean = false;
   public defFlowFound: boolean = false;
 
-  newScRequisitionForm: FormGroup;
-  purposeCategory: FormControl;
+  newScRequisitionForm: UntypedFormGroup;
+  purposeCategory: UntypedFormControl;
 
 
-  location: FormControl;
-  startDate: FormControl;
-  endDate: FormControl;
-  purposeDetails: FormControl;
-  notificationTo: FormControl;
-  requisitionType: FormControl;
-  requisitionDate: FormControl;
-  testMobileNumberNew: FormControl;
-  requisitionLines: FormArray;
+  location: UntypedFormControl;
+  startDate: UntypedFormControl;
+  endDate: UntypedFormControl;
+  purposeDetails: UntypedFormControl;
+  notificationTo: UntypedFormControl;
+  requisitionType: UntypedFormControl;
+  requisitionDate: UntypedFormControl;
+  testMobileNumberNew: UntypedFormControl;
+  requisitionLines: UntypedFormArray;
   // cardExpiry: FormControl;
 
   formFieldData: string;
@@ -390,29 +390,29 @@ export class NewscrequisitioninitiateComponent implements OnInit {
 
 
   createFormControls() {
-    this.purposeCategory = new FormControl('', Validators.required);
-    this.location = new FormControl({ value: '' }, Validators.required);
-    this.startDate = new FormControl({value:'',disabled:true}, Validators.required);
-    this.endDate = new FormControl({value:'',disabled:true}, Validators.required);
-    this.purposeDetails = new FormControl({value:'',disabled:true}, [
+    this.purposeCategory = new UntypedFormControl('', Validators.required);
+    this.location = new UntypedFormControl({ value: '' }, Validators.required);
+    this.startDate = new UntypedFormControl({value:'',disabled:true}, Validators.required);
+    this.endDate = new UntypedFormControl({value:'',disabled:true}, Validators.required);
+    this.purposeDetails = new UntypedFormControl({value:'',disabled:true}, [
       Validators.required,
       Validators.minLength(120)
     ]);
-    this.notificationTo = new FormControl('');
-    this.requisitionType = new FormControl({ value: '' }, Validators.required);
-    this.requisitionDate = new FormControl('');
+    this.notificationTo = new UntypedFormControl('');
+    this.requisitionType = new UntypedFormControl({ value: '' }, Validators.required);
+    this.requisitionDate = new UntypedFormControl('');
     this.requisitionDate.setValue(moment(new Date()).format('DD-MM-YYYY'));
     
-    this.requisitionLines = new FormArray([
-      new FormGroup({
-        product: new FormControl('', Validators.required),
-        quantity: new FormControl(1,Validators.required),
+    this.requisitionLines = new UntypedFormArray([
+      new UntypedFormGroup({
+        product: new UntypedFormControl('', Validators.required),
+        quantity: new UntypedFormControl(1,Validators.required),
         // cardExpiry: new FormControl('', Validators.required),
       })]);
   }
 
   createForm() {
-    this.newScRequisitionForm = new FormGroup({
+    this.newScRequisitionForm = new UntypedFormGroup({
       requisitionDate: this.requisitionDate,
       requisitionType: this.requisitionType,
       purposeCategory: this.purposeCategory,
@@ -432,18 +432,18 @@ export class NewscrequisitioninitiateComponent implements OnInit {
   }
 
 
-  get RequisitionLines(): FormArray {
-    return this.newScRequisitionForm.get('requisitionLines') as FormArray;
+  get RequisitionLines(): UntypedFormArray {
+    return this.newScRequisitionForm.get('requisitionLines') as UntypedFormArray;
   }
 
 
   addLine() {
     const startDate = moment(this.todayDate);
     var futureMonth = moment(startDate,"DD-MM-YYYY").add(3, 'M');
-    this.RequisitionLines.push(new FormGroup(
+    this.RequisitionLines.push(new UntypedFormGroup(
       {
-        product: new FormControl('', Validators.required),
-        quantity: new FormControl(1,Validators.required),
+        product: new UntypedFormControl('', Validators.required),
+        quantity: new UntypedFormControl(1,Validators.required),
         // cardExpiry: new FormControl('', Validators.required),
       }
     ));

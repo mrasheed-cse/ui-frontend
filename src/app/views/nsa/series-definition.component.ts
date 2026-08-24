@@ -4,7 +4,7 @@ import {
   Pipe,
   OnInit
 } from '@angular/core';
-import {ReactiveFormsModule, FormsModule, FormGroup, FormControl, Validators} from '@angular/forms';
+import {ReactiveFormsModule, FormsModule, UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import { DataTableResource } from 'angular4-smart-table';
@@ -41,11 +41,11 @@ export class SeriesDefinitionComponent implements OnInit {
 	isDataFound: boolean = false;
 	isCollapsed: boolean = true;
 	
-	mySearchForm: FormGroup;  
-  wrname: FormControl;
-  wrstatus: FormControl;
-  startDate: FormControl;
-  endDate: FormControl;
+	mySearchForm: UntypedFormGroup;  
+  wrname: UntypedFormControl;
+  wrstatus: UntypedFormControl;
+  startDate: UntypedFormControl;
+  endDate: UntypedFormControl;
 
   wrstatuses: string[] = [
     'In Progress',
@@ -169,14 +169,14 @@ onSearchSubmit() {
 
   createFormControls() {
     
-  this.wrname = new FormControl('',Validators.pattern(this.wrNamePattern));
-  this.wrstatus = new FormControl('');
-	this.startDate = new FormControl('');
-	this.endDate = new FormControl('');
+  this.wrname = new UntypedFormControl('',Validators.pattern(this.wrNamePattern));
+  this.wrstatus = new UntypedFormControl('');
+	this.startDate = new UntypedFormControl('');
+	this.endDate = new UntypedFormControl('');
   }
 
   createForm() {
-    this.mySearchForm = new FormGroup({
+    this.mySearchForm = new UntypedFormGroup({
       wrname: this.wrname,
       wrstatus: this.wrstatus,
       startDate: this.startDate,

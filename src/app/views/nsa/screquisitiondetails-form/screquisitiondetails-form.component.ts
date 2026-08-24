@@ -8,7 +8,7 @@ import { IsmsworkflowsService } from '../services/ismsworkflows.service';
 import { LoginService } from '../../pages/LoginService';
 import { LoggedInUser } from '../../pages/loggedInUser';
 import { FileoperationService } from '../services/fileoperation.service';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 
 
 @Component({
@@ -31,7 +31,7 @@ export class SCRequisitiondetailsFormComponent implements OnInit {
   requisition_comments: string;
   public isLoading: boolean = false;
   selectedFile: File = null;
-  reFilename: FormControl;
+  reFilename: UntypedFormControl;
   fileName: string = "";
   public isFileLoaded: boolean = false;
   constructor(private route: ActivatedRoute, private router: Router, private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private ismsworkflowsService: IsmsworkflowsService, private fileoperationService: FileoperationService) {

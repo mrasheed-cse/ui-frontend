@@ -4,7 +4,7 @@ import {
   Pipe,
   OnInit
 } from '@angular/core';
-import {ReactiveFormsModule, FormGroup, FormControl, Validators} from '@angular/forms';
+import {ReactiveFormsModule, UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import {BsDatepickerConfig} from 'ngx-bootstrap/datepicker';
@@ -48,13 +48,13 @@ export class MnpreprovsearchComponent implements OnInit {
 	public isLoading:boolean = false;
 
 
-	myMnpReProvisionSearchForm: FormGroup;
+	myMnpReProvisionSearchForm: UntypedFormGroup;
 
-	productType: FormControl;
-	productName: FormControl;
-	HLR: FormControl;
-	IMSI: FormControl;
-	batchID: FormControl;
+	productType: UntypedFormControl;
+	productName: UntypedFormControl;
+	HLR: UntypedFormControl;
+	IMSI: UntypedFormControl;
+	batchID: UntypedFormControl;
 
 	formFieldData: string;
 
@@ -136,15 +136,15 @@ export class MnpreprovsearchComponent implements OnInit {
 
   createFormControls() {
 
-	this.productType = new FormControl('');
-	this.productName= new FormControl('');
-	this.HLR= new FormControl('');
-	this.IMSI= new FormControl('');
-	this.batchID = new FormControl('');
+	this.productType = new UntypedFormControl('');
+	this.productName= new UntypedFormControl('');
+	this.HLR= new UntypedFormControl('');
+	this.IMSI= new UntypedFormControl('');
+	this.batchID = new UntypedFormControl('');
   }
 
   createForm() {
-    this.myMnpReProvisionSearchForm = new FormGroup({
+    this.myMnpReProvisionSearchForm = new UntypedFormGroup({
 		productType: this.productType,
 		productName: this.productName,
 		HLR: this.HLR,

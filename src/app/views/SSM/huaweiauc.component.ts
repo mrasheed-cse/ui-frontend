@@ -3,7 +3,7 @@ import {  NgModule,
     Pipe,
     OnInit,
     ViewChild} from '@angular/core';
-    import {ReactiveFormsModule, FormGroup, FormControl, Validators} from '@angular/forms';
+    import {ReactiveFormsModule, FormGroup, UntypedFormControl, Validators} from '@angular/forms';
   import {DatePipe} from '@angular/common';
   import {HttpClient, HttpErrorResponse} from '@angular/common/http';
   import {environment} from '../../../environments/environment';
@@ -44,7 +44,7 @@ import {  NgModule,
               readonly environment = environment;
               fileDownloadUrl = this.environment.apiUrl+"/huawei_auc_conversion/download";
               selectedSimType: string;
-              simType: FormControl;
+              simType: UntypedFormControl;
                 
       constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private ssmService: SSMService ) {
       this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
@@ -63,7 +63,7 @@ import {  NgModule,
       }
 
     createFormControls() {
-        this.simType = new FormControl('', Validators.required);
+        this.simType = new UntypedFormControl('', Validators.required);
     }
   
      ngOnInit() { 

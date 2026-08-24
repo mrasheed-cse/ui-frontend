@@ -11,7 +11,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {LoginService} from '../pages/LoginService';
 import {LoggedInUser} from '../pages/loggedInUser';
 import {DatePipe} from '@angular/common';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {FileoperationService} from './services/fileoperation.service';
 import {MfsRecyclingReportService} from './services/mfs-recycling-report.service';
 
@@ -22,8 +22,8 @@ import {MfsRecyclingReportService} from './services/mfs-recycling-report.service
     providers: [AppGlobals, LoginService, DatePipe, FileoperationService, MfsRecyclingReportService],
 })
 export class MfsRecyclingDetailsReportComponent implements OnInit {
-    recycleForm: FormGroup;
-    recycleFile: FormControl;
+    recycleForm: UntypedFormGroup;
+    recycleFile: UntypedFormControl;
 
     currentLoggedInUser: LoggedInUser;
     userName: string;
@@ -56,11 +56,11 @@ export class MfsRecyclingDetailsReportComponent implements OnInit {
     }
 
     createFormControls() {
-        this.recycleFile = new FormControl('', Validators.required);
+        this.recycleFile = new UntypedFormControl('', Validators.required);
     }
 
     createForm() {
-        this.recycleForm = new FormGroup({
+        this.recycleForm = new UntypedFormGroup({
             recycleFile: this.recycleFile
         });
     }

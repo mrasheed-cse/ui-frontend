@@ -4,7 +4,7 @@ import {
   Pipe,
   OnInit
 } from '@angular/core';
-import {ReactiveFormsModule, FormGroup, FormControl, Validators} from '@angular/forms';
+import {ReactiveFormsModule, UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import { DefinitionDataService } from './services/definitiondata.service';
@@ -45,14 +45,14 @@ export class ReprovisionsearchComponent implements OnInit {
 	public isLoading:boolean = false;
 
 
-	myReProvisionSearchForm: FormGroup;
+	myReProvisionSearchForm: UntypedFormGroup;
 
-	productType: FormControl;
-	productName: FormControl;
-	HLR: FormControl;
-	IMSI: FormControl;
-	batchID: FormControl;
-	deProvWrname: FormControl
+	productType: UntypedFormControl;
+	productName: UntypedFormControl;
+	HLR: UntypedFormControl;
+	IMSI: UntypedFormControl;
+	batchID: UntypedFormControl;
+	deProvWrname: UntypedFormControl
 	formFieldData: string;
 
 
@@ -168,16 +168,16 @@ export class ReprovisionsearchComponent implements OnInit {
 
   createFormControls() {
 
-	this.productType = new FormControl('');
-	this.productName= new FormControl('');
-	this.HLR= new FormControl('');
-	this.IMSI= new FormControl('');
-	this.batchID = new FormControl('');
-	this.deProvWrname = new FormControl('')
+	this.productType = new UntypedFormControl('');
+	this.productName= new UntypedFormControl('');
+	this.HLR= new UntypedFormControl('');
+	this.IMSI= new UntypedFormControl('');
+	this.batchID = new UntypedFormControl('');
+	this.deProvWrname = new UntypedFormControl('')
   }
 
   createForm() {
-    this.myReProvisionSearchForm = new FormGroup({
+    this.myReProvisionSearchForm = new UntypedFormGroup({
 		productType: this.productType,
 		productName: this.productName,
 		HLR: this.HLR,

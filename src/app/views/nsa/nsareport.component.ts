@@ -4,7 +4,7 @@ import {
   Pipe,
   OnInit
 } from '@angular/core';
-import {ReactiveFormsModule, FormsModule, FormGroup, FormControl, Validators} from '@angular/forms';
+import {ReactiveFormsModule, FormsModule, UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import { DataTableResource } from 'angular4-smart-table';
@@ -80,12 +80,12 @@ export class NsareportComponent implements OnInit {
 
   bulkReportsList: BulkReports;
 
-  mySingleReportForm: FormGroup;
-  msisdn: FormControl;
+  mySingleReportForm: UntypedFormGroup;
+  msisdn: UntypedFormControl;
 
-  myBulkReportForm: FormGroup;
-  startMSISDN: FormControl;
-  endMSISDN: FormControl;
+  myBulkReportForm: UntypedFormGroup;
+  startMSISDN: UntypedFormControl;
+  endMSISDN: UntypedFormControl;
   
   public dangerAlertShow:boolean = false;
 	public dangerAlertMessage:string = "";
@@ -115,17 +115,17 @@ export class NsareportComponent implements OnInit {
   }
 
   createFormControls() {
-    this.msisdn = new FormControl('', [
+    this.msisdn = new UntypedFormControl('', [
       Validators.required,
       Validators.minLength(11) ,
       Validators.maxLength(11)
     ]);
-    this.startMSISDN = new FormControl('', [
+    this.startMSISDN = new UntypedFormControl('', [
       Validators.required,
       Validators.minLength(11) ,
       Validators.maxLength(11)
     ]);
-    this.endMSISDN = new FormControl('', [
+    this.endMSISDN = new UntypedFormControl('', [
       Validators.required,
       Validators.minLength(11) ,
       Validators.maxLength(11)
@@ -133,10 +133,10 @@ export class NsareportComponent implements OnInit {
   }
 
   createForm() {
-    this.mySingleReportForm = new FormGroup({
+    this.mySingleReportForm = new UntypedFormGroup({
       msisdn: this.msisdn
     });
-    this.myBulkReportForm = new FormGroup({
+    this.myBulkReportForm = new UntypedFormGroup({
       startMSISDN: this.startMSISDN,
       endMSISDN: this.endMSISDN
     });

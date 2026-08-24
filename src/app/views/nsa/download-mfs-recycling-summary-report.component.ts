@@ -7,7 +7,7 @@ import {
 
 import {DatePipe} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AppGlobals} from 'app/app.global';
 import {LoggedInUser} from '../pages/loggedInUser';
@@ -25,9 +25,9 @@ import {SharedMessageService} from './services/shared-message.service';
     providers: [AppGlobals, LoginService, DatePipe, MfsRecyclingSummaryReportService, SharedMessageService],
 })
 export class DownloadsMfsRecyclingSummaryReportComponent implements OnInit {
-    myDownloadForm: FormGroup;
-    selectedTaggingType: FormControl;
-    selectedMfs: FormControl;
+    myDownloadForm: UntypedFormGroup;
+    selectedTaggingType: UntypedFormControl;
+    selectedMfs: UntypedFormControl;
 
     currentLoggedInUser: LoggedInUser;
     userName: string;
@@ -72,12 +72,12 @@ export class DownloadsMfsRecyclingSummaryReportComponent implements OnInit {
     }
 
     createFormControls() {
-        this.selectedTaggingType = new FormControl('', Validators.required);
-        this.selectedMfs = new FormControl('', Validators.required);
+        this.selectedTaggingType = new UntypedFormControl('', Validators.required);
+        this.selectedMfs = new UntypedFormControl('', Validators.required);
     }
 
     createForm() {
-        this.myDownloadForm = new FormGroup({
+        this.myDownloadForm = new UntypedFormGroup({
             selectedTaggingType: this.selectedTaggingType,
             selectedMfs: this.selectedMfs
         });

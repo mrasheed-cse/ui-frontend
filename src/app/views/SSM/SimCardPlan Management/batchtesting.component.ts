@@ -3,7 +3,7 @@ import {  NgModule,
   Pipe,
   OnInit,
   } from '@angular/core';
-  import {ReactiveFormsModule, FormGroup, FormControl, Validators} from '@angular/forms';
+  import {ReactiveFormsModule, UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
@@ -34,7 +34,7 @@ export class BatchTesting implements OnInit {
 			username: string;
 			groupID: number;
   			userID: string;
-  			batchTesting:FormGroup;
+  			batchTesting:UntypedFormGroup;
 			
 			public isDisableBtn:boolean = false;
   			fileToUpload: File = null;
@@ -116,13 +116,13 @@ export class BatchTesting implements OnInit {
 	}
 	
 	createForm(){	
-	this.batchTesting= new FormGroup({
-		testFor:new FormControl(''),	
-		msisdnType:new FormControl({value: ''}),
-		testMSISDN:new FormControl(''),
-		handsetUsed:new FormControl(''),		
-		testStatus:new FormControl({value: ''}),
-		testedBy: new FormControl('')			
+	this.batchTesting= new UntypedFormGroup({
+		testFor:new UntypedFormControl(''),	
+		msisdnType:new UntypedFormControl({value: ''}),
+		testMSISDN:new UntypedFormControl(''),
+		handsetUsed:new UntypedFormControl(''),		
+		testStatus:new UntypedFormControl({value: ''}),
+		testedBy: new UntypedFormControl('')			
 	});
 	
 }

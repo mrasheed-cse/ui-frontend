@@ -4,7 +4,7 @@ import {
   Pipe,
   OnInit
 } from '@angular/core';
-import {ReactiveFormsModule, FormGroup, FormControl, Validators} from '@angular/forms';
+import {ReactiveFormsModule, UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import { DefinitionDataService } from './services/definitiondata.service';
@@ -44,17 +44,17 @@ export class SdpmigrationComponent implements OnInit {
 	isCollapsedRange: boolean = true;
 	public isLoading:boolean = false;
 
-	mySdpMigrationFileForm: FormGroup;
-	sdpMigrationFile: FormControl;
-	serviceClassName: FormControl;
+	mySdpMigrationFileForm: UntypedFormGroup;
+	sdpMigrationFile: UntypedFormControl;
+	serviceClassName: UntypedFormControl;
 	formFieldData: string;	
 	selectedFile: File = null;
 	fileName: string = "";
 
-	mySdpMigrationRangeForm: FormGroup;
-	startMSISDN: FormControl;
-	endMSISDN: FormControl;	
-	SDP: FormControl;
+	mySdpMigrationRangeForm: UntypedFormGroup;
+	startMSISDN: UntypedFormControl;
+	endMSISDN: UntypedFormControl;	
+	SDP: UntypedFormControl;
 	
   public listSDP = []; 
   
@@ -106,30 +106,30 @@ constructor(private router: Router,private loginService: LoginService, private h
 	}
 
   createFormControls() {
-    this.sdpMigrationFile = new FormControl('', Validators.required);
+    this.sdpMigrationFile = new UntypedFormControl('', Validators.required);
 
 
-	this.startMSISDN = new FormControl('', [
+	this.startMSISDN = new UntypedFormControl('', [
 		Validators.required,
 		Validators.minLength(11) ,
 		Validators.maxLength(11)
 	]);
-	this.endMSISDN = new FormControl('', [
+	this.endMSISDN = new UntypedFormControl('', [
 		Validators.required,
 		Validators.minLength(11) ,
 		Validators.maxLength(11)
 	]);
 
-	this.SDP= new FormControl('', Validators.required);
+	this.SDP= new UntypedFormControl('', Validators.required);
 
   }
 
   createForm() {
-    this.mySdpMigrationFileForm = new FormGroup({
+    this.mySdpMigrationFileForm = new UntypedFormGroup({
 			sdpMigrationFile: this.sdpMigrationFile	
 		});
 		
-		this.mySdpMigrationRangeForm = new FormGroup({
+		this.mySdpMigrationRangeForm = new UntypedFormGroup({
 			startMSISDN: this.startMSISDN,
 			endMSISDN: this.endMSISDN,
 			SDP: this.SDP
@@ -238,7 +238,7 @@ constructor(private router: Router,private loginService: LoginService, private h
 
 }
  }
-LogKeyValuePairs(group: FormGroup): void {
+LogKeyValuePairs(group: UntypedFormGroup): void {
 	
   // Loop through each control key in the FormGroup
   Object.keys(group.controls).forEach((key: string) => {
@@ -247,7 +247,7 @@ LogKeyValuePairs(group: FormGroup): void {
     // If the control is nested form group, recursively call
     // this same method (logKeyValuePairs) passing it
     // the FormGroup so we can get to the form controls in it
-    if (abstractControl instanceof FormGroup) {
+    if (abstractControl instanceof UntypedFormGroup) {
       this.LogKeyValuePairs(abstractControl);
       // If the control is a FormControl
     } else {

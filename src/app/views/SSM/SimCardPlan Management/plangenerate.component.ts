@@ -3,7 +3,7 @@ import {  NgModule,
   Pipe,
   OnInit,
   } from '@angular/core';
-  import {ReactiveFormsModule, FormGroup, FormControl, Validators} from '@angular/forms';
+  import {ReactiveFormsModule, UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
@@ -33,7 +33,7 @@ export class PlanGenerate implements OnInit {
 			userName: string;
 			groupID: number;
   			userID: string;
-  			planGenrationForm:FormGroup;
+  			planGenrationForm:UntypedFormGroup;
   			listitemDropDown=[];
   			listDropDownProductCode=[];
   			listDropDownProductName=[];
@@ -96,18 +96,18 @@ export class PlanGenerate implements OnInit {
 }
     
    createForm(){	
-	this.planGenrationForm= new FormGroup({
-		ItemCode:new FormControl({value: ''}),
-		ProductName:new FormControl({value: ''}),
-		ProductCode:new FormControl({value: ''}),
-		SharerName:new FormControl({value: ''}),
-		PlanCircle:new FormControl({value: ''}),
-		inputFile:new FormControl({value: ''}),
-		requestDate:new FormControl(''),
-		wrname:new FormControl(''),
-		CustomerCategory:new FormControl({value: ''}),
-		CategoryName:new FormControl({value: ''}),
-		Requester:new FormControl({value: ''}),
+	this.planGenrationForm= new UntypedFormGroup({
+		ItemCode:new UntypedFormControl({value: ''}),
+		ProductName:new UntypedFormControl({value: ''}),
+		ProductCode:new UntypedFormControl({value: ''}),
+		SharerName:new UntypedFormControl({value: ''}),
+		PlanCircle:new UntypedFormControl({value: ''}),
+		inputFile:new UntypedFormControl({value: ''}),
+		requestDate:new UntypedFormControl(''),
+		wrname:new UntypedFormControl(''),
+		CustomerCategory:new UntypedFormControl({value: ''}),
+		CategoryName:new UntypedFormControl({value: ''}),
+		Requester:new UntypedFormControl({value: ''}),
 		
 	});
 	

@@ -4,7 +4,7 @@ import {
   Pipe,
   OnInit
 } from '@angular/core';
-import {ReactiveFormsModule, FormsModule, FormGroup, FormControl, Validators} from '@angular/forms';
+import {ReactiveFormsModule, FormsModule, UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import { DataTableResource } from 'angular4-smart-table';
@@ -42,8 +42,8 @@ export class ApnComponent implements OnInit {
 	isCollapsed: boolean = true;
 	
 	
-	mySearchForm: FormGroup;  
-   apnName: FormControl;
+	mySearchForm: UntypedFormGroup;  
+   apnName: UntypedFormControl;
    searchWrID: string;
    searchWrName: string;
    searchApnName: string;
@@ -161,11 +161,11 @@ datepickerConfig: Partial<BsDatepickerConfig>;
 
   createFormControls() {
     
-    this.apnName = new FormControl('');
+    this.apnName = new UntypedFormControl('');
   }
 
   createForm() {
-    this.mySearchForm = new FormGroup({
+    this.mySearchForm = new UntypedFormGroup({
       apnName: this.apnName
     });
   }

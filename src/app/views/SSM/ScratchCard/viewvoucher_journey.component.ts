@@ -3,7 +3,7 @@ import {  NgModule,
   Pipe,
   OnInit,
   } from '@angular/core';
-  import {ReactiveFormsModule, FormGroup, FormControl,FormBuilder, Validators} from '@angular/forms';
+  import {ReactiveFormsModule, FormGroup, FormControl,UntypedFormBuilder, Validators} from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
@@ -47,7 +47,7 @@ export class VoucherJourney implements OnInit {
   			  private offset: number;
   public currPage: number;
 	public totalPages: number;
-  			constructor(private datePipe: DatePipe,private router: Router,private fb:FormBuilder,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private viewService: ViewJourney ) {
+  			constructor(private datePipe: DatePipe,private router: Router,private fb:UntypedFormBuilder,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private viewService: ViewJourney ) {
     
  
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();

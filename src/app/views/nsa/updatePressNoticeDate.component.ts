@@ -6,7 +6,7 @@ import {
     Pipe,
     OnInit,
 } from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AppGlobals} from 'app/app.global';
 import {LoggedInUser} from '../pages/loggedInUser';
@@ -23,9 +23,9 @@ import {BsDatepickerConfig} from 'ngx-bootstrap/datepicker';
     providers: [AppGlobals, LoginService, DatePipe, UpdatePressNoticeDateService],
 })
 export class UpdatePressNoticeDate implements OnInit {
-    updatePressNoticeForm: FormGroup;
-    selectedListId: FormControl;
-    pressNoticeDate: FormControl;
+    updatePressNoticeForm: UntypedFormGroup;
+    selectedListId: UntypedFormControl;
+    pressNoticeDate: UntypedFormControl;
 
     currentLoggedInUser: LoggedInUser;
     userName: string;
@@ -61,12 +61,12 @@ export class UpdatePressNoticeDate implements OnInit {
     }
 
     createFormControls() {
-        this.selectedListId = new FormControl('', Validators.required);
-        this.pressNoticeDate = new FormControl('', Validators.required);
+        this.selectedListId = new UntypedFormControl('', Validators.required);
+        this.pressNoticeDate = new UntypedFormControl('', Validators.required);
     }
 
     createForm() {
-        this.updatePressNoticeForm = new FormGroup({
+        this.updatePressNoticeForm = new UntypedFormGroup({
             selectedListId: this.selectedListId,
             pressNoticeDate: this.pressNoticeDate
         });

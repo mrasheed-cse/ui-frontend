@@ -4,7 +4,7 @@ import {
   Pipe,
   OnInit
 } from '@angular/core';
-import {FormGroup, FormControl, Validators} from '@angular/forms';
+import {UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import { DefinitionDataService } from './services/definitiondata.service';
@@ -48,10 +48,10 @@ export class ApnformComponent implements OnInit {
 	public isValidApn:boolean = false;
 
 
-	myApnCreationForm: FormGroup;
-	apnName: FormControl;
-	apnID: FormControl;
-	productType: FormControl;
+	myApnCreationForm: UntypedFormGroup;
+	apnName: UntypedFormControl;
+	apnID: UntypedFormControl;
+	productType: UntypedFormControl;
 	formFieldData: string;
 
 
@@ -121,13 +121,13 @@ export class ApnformComponent implements OnInit {
   }
 
   createFormControls() {
-   this.apnName = new FormControl('', [Validators.required]);
-   this.apnID = new FormControl('', [Validators.required]);
-	this.productType = new FormControl('', [Validators.required]);
+   this.apnName = new UntypedFormControl('', [Validators.required]);
+   this.apnID = new UntypedFormControl('', [Validators.required]);
+	this.productType = new UntypedFormControl('', [Validators.required]);
   }
 
   createForm() {
-    this.myApnCreationForm = new FormGroup({
+    this.myApnCreationForm = new UntypedFormGroup({
 		apnName: this.apnName,
 		apnID: this.apnID,
 		productType: this.productType
@@ -208,7 +208,7 @@ this.isLoading = true;
 	}
 }
 
-LogKeyValuePairs(group: FormGroup): void {
+LogKeyValuePairs(group: UntypedFormGroup): void {
 
   // Loop through each control key in the FormGroup
   Object.keys(group.controls).forEach((key: string) => {
@@ -217,7 +217,7 @@ LogKeyValuePairs(group: FormGroup): void {
     // If the control is nested form group, recursively call
     // this same method (logKeyValuePairs) passing it
     // the FormGroup so we can get to the form controls in it
-    if (abstractControl instanceof FormGroup) {
+    if (abstractControl instanceof UntypedFormGroup) {
       this.LogKeyValuePairs(abstractControl);
       // If the control is a FormControl
     } else {

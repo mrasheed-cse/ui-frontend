@@ -4,7 +4,7 @@ import {
   Pipe,
   OnInit
 } from '@angular/core';
-import {FormGroup, FormControl, Validators} from '@angular/forms';
+import {UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import { DefinitionDataService } from './services/definitiondata.service';
@@ -49,10 +49,10 @@ WR_Name: string;
   public isDisableBtn:boolean = false;
 
 
-	myDeProvisionForm: FormGroup;
-	batchID: FormControl;
-	deProvisionFile: FormControl;
-	cnpComment: FormControl;
+	myDeProvisionForm: UntypedFormGroup;
+	batchID: UntypedFormControl;
+	deProvisionFile: UntypedFormControl;
+	cnpComment: UntypedFormControl;
 	//simType: FormControl;
 
 	public listSimType = [];
@@ -125,14 +125,14 @@ WR_Name: string;
 
   createFormControls() {
 
-	this.batchID = new FormControl('');
-	this.deProvisionFile = new FormControl('', Validators.required);
-	this.cnpComment = new FormControl('');
+	this.batchID = new UntypedFormControl('');
+	this.deProvisionFile = new UntypedFormControl('', Validators.required);
+	this.cnpComment = new UntypedFormControl('');
 	//this.simType = new  FormControl('');
   }
 
   createForm() {
-    this.myDeProvisionForm = new FormGroup({
+    this.myDeProvisionForm = new UntypedFormGroup({
 		batchID: this.batchID,
 		//simType: this.simType,
 		deProvisionFile: this.deProvisionFile,
@@ -230,7 +230,7 @@ alert("FILE NAME DOES NOT Match")}
 	}
 }
 
-LogKeyValuePairs(group: FormGroup): void {
+LogKeyValuePairs(group: UntypedFormGroup): void {
 
   // Loop through each control key in the FormGroup
   Object.keys(group.controls).forEach((key: string) => {
@@ -239,7 +239,7 @@ LogKeyValuePairs(group: FormGroup): void {
     // If the control is nested form group, recursively call
     // this same method (logKeyValuePairs) passing it
     // the FormGroup so we can get to the form controls in it
-    if (abstractControl instanceof FormGroup) {
+    if (abstractControl instanceof UntypedFormGroup) {
       this.LogKeyValuePairs(abstractControl);
       // If the control is a FormControl
     } else {

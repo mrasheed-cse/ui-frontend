@@ -3,7 +3,7 @@ import {  NgModule,
   Pipe,
   OnInit,
   } from '@angular/core';
-  import {ReactiveFormsModule, FormGroup, FormControl, Validators} from '@angular/forms';
+  import {ReactiveFormsModule, UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
@@ -35,7 +35,7 @@ export class UnplannedSimManagement implements OnInit {
 			groupID: number;
               userID: string;
               
-              unpairedPlanGenrationForm:FormGroup;
+              unpairedPlanGenrationForm:UntypedFormGroup;
   			listitemDropDown=[];
   			listDropDownProductCode=[];
   			listDropDownProductName=[];
@@ -82,13 +82,13 @@ constructor(private datePipe: DatePipe,private router: Router,private loginServi
         
     }
     createForm(){	
-        this.unpairedPlanGenrationForm= new FormGroup({
-            ItemCode:new FormControl({value: ''}),
-            ProductName:new FormControl({value: ''}),
-            ProductCode:new FormControl({value: ''}),
-            requestDate:new FormControl(''),
-            wrname:new FormControl(''),            
-            Requester:new FormControl({value: ''}),            
+        this.unpairedPlanGenrationForm= new UntypedFormGroup({
+            ItemCode:new UntypedFormControl({value: ''}),
+            ProductName:new UntypedFormControl({value: ''}),
+            ProductCode:new UntypedFormControl({value: ''}),
+            requestDate:new UntypedFormControl(''),
+            wrname:new UntypedFormControl(''),            
+            Requester:new UntypedFormControl({value: ''}),            
         });        
     }   
      

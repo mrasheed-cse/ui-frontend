@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {BsDatepickerConfig} from 'ngx-bootstrap/datepicker';
 import {HttpClient} from '@angular/common/http';
 import {WorkflowsService} from './services/workflows.service';
@@ -31,11 +31,11 @@ export class NewscrequisitionComponent implements OnInit {
     isDataFound: boolean = true;
     isCollapsed: boolean = true;
 
-    mySearchForm: FormGroup;
-    wrname: FormControl;
-    wrstatus: FormControl;
-    startDate: FormControl;
-    endDate: FormControl;
+    mySearchForm: UntypedFormGroup;
+    wrname: UntypedFormControl;
+    wrstatus: UntypedFormControl;
+    startDate: UntypedFormControl;
+    endDate: UntypedFormControl;
 
     wrNamePattern: string = "(RQN).\*";
     searchWR: string;
@@ -165,14 +165,14 @@ export class NewscrequisitionComponent implements OnInit {
     }
 
     createFormControls() {
-        this.wrname = new FormControl('', Validators.pattern(this.wrNamePattern));
-        this.wrstatus = new FormControl('');
-        this.startDate = new FormControl('');
-        this.endDate = new FormControl('');
+        this.wrname = new UntypedFormControl('', Validators.pattern(this.wrNamePattern));
+        this.wrstatus = new UntypedFormControl('');
+        this.startDate = new UntypedFormControl('');
+        this.endDate = new UntypedFormControl('');
     }
 
     createForm() {
-        this.mySearchForm = new FormGroup({
+        this.mySearchForm = new UntypedFormGroup({
             wrname: this.wrname,
             wrstatus: this.wrstatus,
             startDate: this.startDate,

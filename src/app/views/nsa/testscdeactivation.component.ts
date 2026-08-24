@@ -4,7 +4,7 @@ import {
     Pipe,
     OnInit
   } from '@angular/core';
-  import {ReactiveFormsModule, FormsModule, FormGroup, FormControl, Validators} from '@angular/forms';
+  import {ReactiveFormsModule, FormsModule, UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms';
   import {BrowserModule} from '@angular/platform-browser';
   import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
   import { DataTableResource } from 'angular4-smart-table';
@@ -54,11 +54,11 @@ import { trigger, transition, style, animate } from '@angular/animations';
       public isLoadedData: number=-1;
       newArray: any[] = [];
   
-      mySearchForm: FormGroup;
-     wrname: FormControl;
-     wrstatus: FormControl;
-     startDate: FormControl;
-     endDate: FormControl;
+      mySearchForm: UntypedFormGroup;
+     wrname: UntypedFormControl;
+     wrstatus: UntypedFormControl;
+     startDate: UntypedFormControl;
+     endDate: UntypedFormControl;
   
       wrNamePattern:string = "(RQN).\*";
       searchWR: string;
@@ -79,11 +79,11 @@ import { trigger, transition, style, animate } from '@angular/animations';
 
     public listSuppilerName = [];
 
-    prePlanGenerationForm: FormGroup;
-	NGVS: FormControl;
-    vendor: FormControl;
-    IMSI: FormControl;
-    isRep:FormControl;
+    prePlanGenerationForm: UntypedFormGroup;
+	NGVS: UntypedFormControl;
+    vendor: UntypedFormControl;
+    IMSI: UntypedFormControl;
+    isRep:UntypedFormControl;
 
     headerDateData: any;
     checkButtonEnable:boolean=false;
@@ -333,14 +333,14 @@ import { trigger, transition, style, animate } from '@angular/animations';
   
     createFormControls() {
       
-    this.NGVS = new  FormControl('', Validators.required);
+    this.NGVS = new  UntypedFormControl('', Validators.required);
       // this.vendor = new FormControl('', Validators.required);
       // this.IMSI = new FormControl('');
       // this.isRep=  new FormControl('');
     }
   
     createForm() {
-      this.prePlanGenerationForm = new FormGroup({
+      this.prePlanGenerationForm = new UntypedFormGroup({
         NGVS: this.NGVS
           // vendor: this.vendor,
           // IMSI: this.IMSI,

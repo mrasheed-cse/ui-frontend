@@ -3,7 +3,7 @@ import {  NgModule,
   Pipe,
   OnInit,
   } from '@angular/core';
-  import {ReactiveFormsModule, FormGroup, FormControl, Validators} from '@angular/forms';
+  import {ReactiveFormsModule, UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
@@ -44,7 +44,7 @@ export class VoucherGeneration implements OnInit {
   			isDataFound: boolean=false ;
   			isDataFoundOther: boolean ;
   			 public isDisableBtn:boolean = false;
-			voucherGenrationForm:FormGroup;
+			voucherGenrationForm:UntypedFormGroup;
 			batchNo:string;
 			listVendorwiseSFTP=[];
 			listvoucherserialdigitshidden=[];
@@ -57,7 +57,7 @@ export class VoucherGeneration implements OnInit {
 			private rowData: any[];
 			itemName:string;
 			isLoading:boolean=false;
-			Po: FormControl;
+			Po: UntypedFormControl;
 			
 			
 	constructor(private datePipe: DatePipe,private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private ssmService: SSMService ) {
@@ -95,20 +95,20 @@ export class VoucherGeneration implements OnInit {
     
    createForm(){	
 	   
-	this.voucherGenrationForm= new FormGroup({
-		StartSerial:new  FormControl(''),
-		Quantity:new FormControl(''),
-		Vendor:new FormControl({value: ''}),
-		requestDate:new FormControl(''),
-		Pr:new FormControl(''),
-		Po:new FormControl({value: ''}, Validators.required),
-		nwExpireDate:new FormControl(''),
-		ExpireDate:new FormControl(''),
-		CardGroup:new FormControl({value: ''}),
-		voucherserialdigits:new FormControl({value: ''}),
-		voucherserialdigitshidden:new FormControl({value: ''}),
-		VendorwiseSFTP:new FormControl({value: ''}),
-		Denomination:new  FormControl({value: ''}),
+	this.voucherGenrationForm= new UntypedFormGroup({
+		StartSerial:new  UntypedFormControl(''),
+		Quantity:new UntypedFormControl(''),
+		Vendor:new UntypedFormControl({value: ''}),
+		requestDate:new UntypedFormControl(''),
+		Pr:new UntypedFormControl(''),
+		Po:new UntypedFormControl({value: ''}, Validators.required),
+		nwExpireDate:new UntypedFormControl(''),
+		ExpireDate:new UntypedFormControl(''),
+		CardGroup:new UntypedFormControl({value: ''}),
+		voucherserialdigits:new UntypedFormControl({value: ''}),
+		voucherserialdigitshidden:new UntypedFormControl({value: ''}),
+		VendorwiseSFTP:new UntypedFormControl({value: ''}),
+		Denomination:new  UntypedFormControl({value: ''}),
 	});
 	
 }

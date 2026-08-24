@@ -5,7 +5,7 @@ import {
 	OnInit,
 	ViewChild
 } from '@angular/core';
-import {FormGroup, FormControl, Validators} from '@angular/forms';
+import {UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import { HttpEventType, HttpResponse  } from '@angular/common/http';
@@ -59,10 +59,10 @@ export class UploadfileswithBatchIdComponent implements OnInit {
 
 
 
-	myDeProvisionListForm: FormGroup;
+	myDeProvisionListForm: UntypedFormGroup;
 
 
-	deProvisionListFile: FormControl;
+	deProvisionListFile: UntypedFormControl;
 
 
 	selectedListFile: File = null;
@@ -101,12 +101,12 @@ ngOnInit() {
 createFormControls() {
 
 
-this.deProvisionListFile = new FormControl('', Validators.required);
+this.deProvisionListFile = new UntypedFormControl('', Validators.required);
 
 }
 
 createForm() {
-	this.myDeProvisionListForm = new FormGroup({
+	this.myDeProvisionListForm = new UntypedFormGroup({
 
 		deProvisionListFile: this.deProvisionListFile
 	});

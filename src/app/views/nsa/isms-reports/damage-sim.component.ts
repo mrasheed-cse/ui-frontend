@@ -5,7 +5,7 @@ import {
   Pipe,
   OnInit
 } from '@angular/core';
-import {ReactiveFormsModule, FormsModule, FormGroup, FormControl, Validators} from '@angular/forms';
+import {ReactiveFormsModule, FormsModule, UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { IsmsreportService } from './../services/ismsreport.service';
 import { WorkflowsService } from './../services/workflows.service';
@@ -39,14 +39,14 @@ export class DamageSimComponent implements OnInit {
 
   activationReportList: IsmsReportResponse;
 
-  mySearchForm: FormGroup;
-  reqname: FormControl;
-  msisdnStatus: FormControl;
-   startDate: FormControl;
-   endDate: FormControl;
-   startMSISDN: FormControl;
-   endMSISDN: FormControl;
-   simOwner: FormControl;
+  mySearchForm: UntypedFormGroup;
+  reqname: UntypedFormControl;
+  msisdnStatus: UntypedFormControl;
+   startDate: UntypedFormControl;
+   endDate: UntypedFormControl;
+   startMSISDN: UntypedFormControl;
+   endMSISDN: UntypedFormControl;
+   simOwner: UntypedFormControl;
 
 	reqNamePattern:string = "(RQN).\*";
 
@@ -166,23 +166,23 @@ export class DamageSimComponent implements OnInit {
   }
 
   createFormControls() {
-		this.reqname = new FormControl('',Validators.pattern(this.reqNamePattern));
-		this.msisdnStatus = new FormControl('');
-		this.startDate = new FormControl('');
-    this.endDate = new FormControl('');
-    this.startMSISDN = new FormControl('', [
+		this.reqname = new UntypedFormControl('',Validators.pattern(this.reqNamePattern));
+		this.msisdnStatus = new UntypedFormControl('');
+		this.startDate = new UntypedFormControl('');
+    this.endDate = new UntypedFormControl('');
+    this.startMSISDN = new UntypedFormControl('', [
       Validators.minLength(11) ,
       Validators.maxLength(11)
     ]);
-    this.endMSISDN = new FormControl('', [
+    this.endMSISDN = new UntypedFormControl('', [
       Validators.minLength(11) ,
       Validators.maxLength(11)
     ]);
-    this.simOwner = new FormControl('');
+    this.simOwner = new UntypedFormControl('');
   }
 
   createForm() {
-    this.mySearchForm = new FormGroup({
+    this.mySearchForm = new UntypedFormGroup({
       reqname: this.reqname,
       startMSISDN: this.startMSISDN,
       endMSISDN: this.endMSISDN,

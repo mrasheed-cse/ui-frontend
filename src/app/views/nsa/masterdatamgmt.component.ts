@@ -4,7 +4,7 @@ import {
   Pipe,
   OnInit
 } from '@angular/core';
-import {ReactiveFormsModule, FormGroup, FormControl, Validators} from '@angular/forms';
+import {ReactiveFormsModule, UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import { DefinitionDataService } from './services/definitiondata.service';
@@ -35,8 +35,8 @@ export class MasterdatamgmtComponent implements OnInit {
   isCollapsedNewItem: boolean = true;
   isCollapseddetailItem: boolean = true;
   
-  createNewMasterDataForm: FormGroup;
-  newmasterdata: FormControl;
+  createNewMasterDataForm: UntypedFormGroup;
+  newmasterdata: UntypedFormControl;
   responseData: string;
   listMasterDataItem = [];
   currentLoggedInUser: LoggedInUser;
@@ -44,9 +44,9 @@ export class MasterdatamgmtComponent implements OnInit {
   groupName: string;
   groupId: number;
   
-  masterDataDetailForm: FormGroup;
-  newDetailItem: FormControl;
-  selectMasterDataItem: FormControl;
+  masterDataDetailForm: UntypedFormGroup;
+  newDetailItem: UntypedFormControl;
+  selectMasterDataItem: UntypedFormControl;
   constructor(private router: Router,private loginService: LoginService,private _global: AppGlobals, private http: HttpClient, private definitionDataService: DefinitionDataService) {
    
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
@@ -82,31 +82,31 @@ export class MasterdatamgmtComponent implements OnInit {
   }
 
   createForm(){
-  this.createNewMasterDataForm = new FormGroup({
+  this.createNewMasterDataForm = new UntypedFormGroup({
    newmasterdata: this.newmasterdata
   });
 
-  this.masterDataDetailForm = new FormGroup({
+  this.masterDataDetailForm = new UntypedFormGroup({
     selectMasterDataItem: this.selectMasterDataItem,
     newDetailItem: this.newDetailItem
   });
 }
   
   createFormControls() {
-    this.newmasterdata = new FormControl('', [
+    this.newmasterdata = new UntypedFormControl('', [
       Validators.required,
       Validators.minLength(11) ,
       Validators.maxLength(11)
     ]);
 
-    this.selectMasterDataItem = new FormControl('',[
+    this.selectMasterDataItem = new UntypedFormControl('',[
       Validators.required,
       Validators.minLength(11) ,
       Validators.maxLength(11)
     ]);
 
 
-    this.newDetailItem = new FormControl('',[
+    this.newDetailItem = new UntypedFormControl('',[
       Validators.required,
       Validators.minLength(11) ,
       Validators.maxLength(11)

@@ -3,7 +3,7 @@ import {  NgModule,
   Pipe,
   OnInit,
   } from '@angular/core';
-  import {ReactiveFormsModule, FormGroup, FormControl,FormBuilder, Validators} from '@angular/forms';
+  import {ReactiveFormsModule, UntypedFormGroup, FormControl,UntypedFormBuilder, Validators} from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
@@ -42,7 +42,7 @@ export class VoucherManagementExsisting implements OnInit {
   			Id:number;
   			hop:number;
   			isButton:boolean=false;
-  			radioTest:FormGroup;
+  			radioTest:UntypedFormGroup;
   			batch;
 			  isLoading:boolean = false;
 			  public masterSelected:boolean = false;
@@ -50,7 +50,7 @@ export class VoucherManagementExsisting implements OnInit {
 			public isDataFound:boolean = false;
 
   				
-  	constructor(private datePipe: DatePipe,private router: Router,private fb:FormBuilder,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private ssmService: SSMService ) {
+  	constructor(private datePipe: DatePipe,private router: Router,private fb:UntypedFormBuilder,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private ssmService: SSMService ) {
     
      this.radioTest = fb.group({
     batch: ['', Validators.required]

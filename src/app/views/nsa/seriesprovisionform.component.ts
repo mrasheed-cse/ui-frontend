@@ -4,7 +4,7 @@ import {
   Pipe,
   OnInit
 } from '@angular/core';
-import {ReactiveFormsModule, FormGroup, FormControl, Validators} from '@angular/forms';
+import {ReactiveFormsModule, UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { DefinitionDataService } from './services/definitiondata.service';
@@ -51,24 +51,24 @@ export class SeriesprovisionformComponent implements OnInit {
   public isDisableBtn:boolean = false;
 
 
-	mySeriesProvisionForm: FormGroup;
-	startMSISDN: FormControl;
-	endMSISDN: FormControl;
-	quantity: FormControl;
-	productType: FormControl;
-	productName: FormControl;
-	serviceClassName: FormControl;
-	communityID: FormControl;
-	hlr: FormControl;
-	sdp: FormControl;
-	startICCID: FormControl;
-	startICCID19: FormControl;
-	endICCID: FormControl;
-	startIMSI: FormControl;
-	endIMSI: FormControl;
-	simType: FormControl;
-	needByDate: FormControl;
-	srcComment: FormControl;
+	mySeriesProvisionForm: UntypedFormGroup;
+	startMSISDN: UntypedFormControl;
+	endMSISDN: UntypedFormControl;
+	quantity: UntypedFormControl;
+	productType: UntypedFormControl;
+	productName: UntypedFormControl;
+	serviceClassName: UntypedFormControl;
+	communityID: UntypedFormControl;
+	hlr: UntypedFormControl;
+	sdp: UntypedFormControl;
+	startICCID: UntypedFormControl;
+	startICCID19: UntypedFormControl;
+	endICCID: UntypedFormControl;
+	startIMSI: UntypedFormControl;
+	endIMSI: UntypedFormControl;
+	simType: UntypedFormControl;
+	needByDate: UntypedFormControl;
+	srcComment: UntypedFormControl;
 	formFieldData: string;
 
 	public listSimType = [];
@@ -144,39 +144,39 @@ export class SeriesprovisionformComponent implements OnInit {
   }
 
   createFormControls() {
-    this.startMSISDN = new FormControl('', [
+    this.startMSISDN = new UntypedFormControl('', [
       Validators.required,
       Validators.minLength(11) ,
       Validators.maxLength(11)
     ]);
-    this.endMSISDN = new FormControl('', [
+    this.endMSISDN = new UntypedFormControl('', [
       Validators.required,
       Validators.minLength(11) ,
       Validators.maxLength(11)
     ]);
-	this.quantity =	new FormControl({value: 0, disabled: true}, Validators.required);
-	this.productType = new FormControl({value: '', disabled: true}, Validators.required);
-	this.productName = new FormControl({value: '', disabled: true}, Validators.required);
-	this.serviceClassName =	new FormControl({value: '', disabled: true}, Validators.required);
-	this.communityID = 	new FormControl({value: '', disabled: true}, Validators.required);
-	this.hlr =	new FormControl({value: '', disabled: true}, Validators.required);
-	this.sdp = 	new FormControl({value: '', disabled: true}, Validators.required);
-	this.startICCID = new FormControl('', [
+	this.quantity =	new UntypedFormControl({value: 0, disabled: true}, Validators.required);
+	this.productType = new UntypedFormControl({value: '', disabled: true}, Validators.required);
+	this.productName = new UntypedFormControl({value: '', disabled: true}, Validators.required);
+	this.serviceClassName =	new UntypedFormControl({value: '', disabled: true}, Validators.required);
+	this.communityID = 	new UntypedFormControl({value: '', disabled: true}, Validators.required);
+	this.hlr =	new UntypedFormControl({value: '', disabled: true}, Validators.required);
+	this.sdp = 	new UntypedFormControl({value: '', disabled: true}, Validators.required);
+	this.startICCID = new UntypedFormControl('', [
 		Validators.required,
 		Validators.minLength(18) ,
 		Validators.maxLength(18)
 	]);
-	this.startICCID19 = 	new FormControl({value: '', disabled: true}, Validators.required);
-	this.endICCID = 	new FormControl({value: '', disabled: true}, Validators.required);
-	this.startIMSI = 	new FormControl({value: '', disabled: true}, Validators.required);
-	this.endIMSI = 	new FormControl({value: '', disabled: true}, Validators.required);
-	this.simType = new  FormControl('');
-	this.needByDate = new FormControl('');
-	this.srcComment = new FormControl('');
+	this.startICCID19 = 	new UntypedFormControl({value: '', disabled: true}, Validators.required);
+	this.endICCID = 	new UntypedFormControl({value: '', disabled: true}, Validators.required);
+	this.startIMSI = 	new UntypedFormControl({value: '', disabled: true}, Validators.required);
+	this.endIMSI = 	new UntypedFormControl({value: '', disabled: true}, Validators.required);
+	this.simType = new  UntypedFormControl('');
+	this.needByDate = new UntypedFormControl('');
+	this.srcComment = new UntypedFormControl('');
   }
 
   createForm() {
-    this.mySeriesProvisionForm = new FormGroup({
+    this.mySeriesProvisionForm = new UntypedFormGroup({
 		startMSISDN: this.startMSISDN,
 		endMSISDN: this.endMSISDN,
 		quantity: this.quantity,
@@ -386,7 +386,7 @@ topFunction() {
 }
 
 
-LogKeyValuePairs(group: FormGroup): void {
+LogKeyValuePairs(group: UntypedFormGroup): void {
 
   // Loop through each control key in the FormGroup
   Object.keys(group.controls).forEach((key: string) => {
@@ -395,7 +395,7 @@ LogKeyValuePairs(group: FormGroup): void {
     // If the control is nested form group, recursively call
     // this same method (logKeyValuePairs) passing it
     // the FormGroup so we can get to the form controls in it
-    if (abstractControl instanceof FormGroup) {
+    if (abstractControl instanceof UntypedFormGroup) {
       this.LogKeyValuePairs(abstractControl);
       // If the control is a FormControl
     } else {

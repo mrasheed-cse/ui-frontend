@@ -13,7 +13,7 @@ import {
   Pipe,
   OnInit
 } from '@angular/core';
-import { ReactiveFormsModule, FormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule, UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { IsmsreportService } from './services/ismsreport.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -44,9 +44,9 @@ export class NewscreportComponent implements OnInit {
 
   //   requisitionReportList: IsmsReportResponse;
 
-  mySearchForm: FormGroup;
-  startDate: FormControl;
-  endDate: FormControl;
+  mySearchForm: UntypedFormGroup;
+  startDate: UntypedFormControl;
+  endDate: UntypedFormControl;
 
   reqNamePattern: string = "(RQN).\*";
 
@@ -147,12 +147,12 @@ export class NewscreportComponent implements OnInit {
   }
 
   createFormControls() {
-    this.startDate = new FormControl('');
-    this.endDate = new FormControl('');
+    this.startDate = new UntypedFormControl('');
+    this.endDate = new UntypedFormControl('');
   }
 
   createForm() {
-    this.mySearchForm = new FormGroup({
+    this.mySearchForm = new UntypedFormGroup({
       startDate: this.startDate,
       endDate: this.endDate,
     });

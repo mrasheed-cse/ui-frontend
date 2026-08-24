@@ -4,7 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import { LoginService } from '../../pages/LoginService';
 import { SSMService } from '../../SSM/SSM.service';
 import { LoggedInUser } from '../../pages/loggedInUser';
-import {ReactiveFormsModule, FormGroup, FormControl, Validators} from '@angular/forms';
+import {ReactiveFormsModule, UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms';
 import { AppGlobals } from './../../../app.global';
 import{PlanManagementService } from '../../SSM/SimCardPlan Management/plan_management.service';
 @Component({
@@ -36,10 +36,10 @@ export class RepPrePlanGenerate implements OnInit {
     private ifids: string="";
 
 
-  repprePlanGenerationForm: FormGroup;
-	artWork: FormControl;
-    vendor: FormControl;
-    IMSI: FormControl;
+  repprePlanGenerationForm: UntypedFormGroup;
+	artWork: UntypedFormControl;
+    vendor: UntypedFormControl;
+    IMSI: UntypedFormControl;
    
 
 
@@ -135,14 +135,14 @@ export class RepPrePlanGenerate implements OnInit {
 
   createFormControls() {
     
-	this.artWork = new  FormControl('', Validators.required);
-    this.vendor = new FormControl('', Validators.required);
-    this.IMSI = new FormControl('');
+	this.artWork = new  UntypedFormControl('', Validators.required);
+    this.vendor = new UntypedFormControl('', Validators.required);
+    this.IMSI = new UntypedFormControl('');
   
   }
 
   createForm() {
-    this.repprePlanGenerationForm = new FormGroup({
+    this.repprePlanGenerationForm = new UntypedFormGroup({
 		artWork: this.artWork,
         vendor: this.vendor,
         IMSI: this.IMSI

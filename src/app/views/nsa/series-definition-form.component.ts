@@ -4,7 +4,7 @@ import {
 	Pipe,
 	OnInit
 } from '@angular/core';
-import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
+import { ReactiveFormsModule, UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { DefinitionDataService } from './services/definitiondata.service';
@@ -57,20 +57,20 @@ export class SeriesDefinitionFormComponent implements OnInit {
 	searchFile: any;
 
 
-	mySeriesDefinitionForm: FormGroup;
-	startMSISDN: FormControl;
-	endMSISDN: FormControl;
-	discDefFile: FormControl;  // disc num CR -- file upload
-	quantity: FormControl;
-	IMSI: FormControl;
-	productType: FormControl;
-	productName: FormControl;
-	serviceClassName: FormControl;
-	communityID: FormControl;
-	zone: FormControl;
-	srcComment: FormControl;
+	mySeriesDefinitionForm: UntypedFormGroup;
+	startMSISDN: UntypedFormControl;
+	endMSISDN: UntypedFormControl;
+	discDefFile: UntypedFormControl;  // disc num CR -- file upload
+	quantity: UntypedFormControl;
+	IMSI: UntypedFormControl;
+	productType: UntypedFormControl;
+	productName: UntypedFormControl;
+	serviceClassName: UntypedFormControl;
+	communityID: UntypedFormControl;
+	zone: UntypedFormControl;
+	srcComment: UntypedFormControl;
 	formFieldData: string;
-	searchType: FormControl;
+	searchType: UntypedFormControl;
 
 
 	selectedFile: File = null;  // disc num CR -- file upload
@@ -195,30 +195,30 @@ export class SeriesDefinitionFormComponent implements OnInit {
 	}
 
 	createFormControls() {
-		this.startMSISDN = new FormControl('', [
+		this.startMSISDN = new UntypedFormControl('', [
 			//Validators.required,
 			Validators.minLength(11),
 			Validators.maxLength(11)
 		]);
-		this.endMSISDN = new FormControl('', [
+		this.endMSISDN = new UntypedFormControl('', [
 			//Validators.required,
 			Validators.minLength(11),
 			Validators.maxLength(11)
 		]);
-		this.discDefFile = new FormControl('');
-		this.productType = new FormControl('', [Validators.required]);
-		this.quantity = new FormControl({ value: 0, disabled: true }, Validators.required);
-		this.IMSI = new FormControl('', Validators.required);
-		this.productName = new FormControl('', Validators.required);
-		this.serviceClassName = new FormControl({ value: '', disabled: true }, Validators.required);
-		this.communityID = new FormControl({ value: '', disabled: true }, Validators.required);
-		this.zone = new FormControl('');
-		this.srcComment = new FormControl('');
-		this.searchType = new FormControl('', Validators.required);
+		this.discDefFile = new UntypedFormControl('');
+		this.productType = new UntypedFormControl('', [Validators.required]);
+		this.quantity = new UntypedFormControl({ value: 0, disabled: true }, Validators.required);
+		this.IMSI = new UntypedFormControl('', Validators.required);
+		this.productName = new UntypedFormControl('', Validators.required);
+		this.serviceClassName = new UntypedFormControl({ value: '', disabled: true }, Validators.required);
+		this.communityID = new UntypedFormControl({ value: '', disabled: true }, Validators.required);
+		this.zone = new UntypedFormControl('');
+		this.srcComment = new UntypedFormControl('');
+		this.searchType = new UntypedFormControl('', Validators.required);
 	}
 
 	createForm() {
-		this.mySeriesDefinitionForm = new FormGroup({
+		this.mySeriesDefinitionForm = new UntypedFormGroup({
 			startMSISDN: this.startMSISDN,
 			endMSISDN: this.endMSISDN,
 			discDefFile: this.discDefFile,
@@ -410,7 +410,7 @@ export class SeriesDefinitionFormComponent implements OnInit {
 		);
 	}
 
-	LogKeyValuePairs(group: FormGroup): void {
+	LogKeyValuePairs(group: UntypedFormGroup): void {
 
 		// Loop through each control key in the FormGroup
 		Object.keys(group.controls).forEach((key: string) => {
@@ -419,7 +419,7 @@ export class SeriesDefinitionFormComponent implements OnInit {
 			// If the control is nested form group, recursively call
 			// this same method (logKeyValuePairs) passing it
 			// the FormGroup so we can get to the form controls in it
-			if (abstractControl instanceof FormGroup) {
+			if (abstractControl instanceof UntypedFormGroup) {
 				this.LogKeyValuePairs(abstractControl);
 				// If the control is a FormControl
 			} else {

@@ -6,7 +6,7 @@ import {
     Pipe,
     OnInit,
 } from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AppGlobals} from 'app/app.global';
 import {LoggedInUser} from '../pages/loggedInUser';
@@ -25,9 +25,9 @@ import {UploadCsvMFSTaggingService} from './services/uploadCsvMFSTagging.service
     providers: [AppGlobals, LoginService, DatePipe, UploadCsvMFSTaggingService, FileoperationService],
 })
 export class UploadMFSTaggingCsvFile implements OnInit {
-    myRecycledSmsForm: FormGroup;
-    recycledSmsFile: FormControl;
-    selectedMfs: FormControl;
+    myRecycledSmsForm: UntypedFormGroup;
+    recycledSmsFile: UntypedFormControl;
+    selectedMfs: UntypedFormControl;
 
     currentLoggedInUser: LoggedInUser;
     userName: string;
@@ -63,12 +63,12 @@ export class UploadMFSTaggingCsvFile implements OnInit {
     }
 
     createFormControls() {
-        this.recycledSmsFile = new FormControl('', Validators.required);
-        this.selectedMfs = new FormControl('', Validators.required);
+        this.recycledSmsFile = new UntypedFormControl('', Validators.required);
+        this.selectedMfs = new UntypedFormControl('', Validators.required);
     }
 
     createForm() {
-        this.myRecycledSmsForm = new FormGroup({
+        this.myRecycledSmsForm = new UntypedFormGroup({
             selectedMfs: this.selectedMfs,
             recycledSmsFile: this.recycledSmsFile
         });

@@ -4,7 +4,7 @@ import {
   Pipe,
   OnInit
 } from '@angular/core';
-import {ReactiveFormsModule, FormGroup, FormControl, Validators} from '@angular/forms';
+import {ReactiveFormsModule, UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
 import { DefinitionDataService } from './services/definitiondata.service';
 import { WorkflowsService } from './services/workflows.service';
@@ -40,17 +40,17 @@ export class SeriesDefinitionDetailsComponent implements OnInit {
 	groupID: number;
 		
 	
-	mySeriesDefinitionForm: FormGroup;
-	HLR: FormControl;
-	SAPC: FormControl;	
+	mySeriesDefinitionForm: UntypedFormGroup;
+	HLR: UntypedFormControl;
+	SAPC: UntypedFormControl;	
 	
-	cnpComment: FormControl;	
-	SDP: FormControl;
-	CSP: FormControl;
-	EOICK: FormControl;
-	emaPort: FormControl;
-	SK: FormControl;
-	bssComment: FormControl;
+	cnpComment: UntypedFormControl;	
+	SDP: UntypedFormControl;
+	CSP: UntypedFormControl;
+	EOICK: UntypedFormControl;
+	emaPort: UntypedFormControl;
+	SK: UntypedFormControl;
+	bssComment: UntypedFormControl;
 	
 	formFieldData: string;
 	
@@ -249,18 +249,18 @@ LoadPreviousHopsData(){
   createFormControls() {
 
 	if(this.hop_sequence == 2){
-		this.HLR = new FormControl('', [Validators.required]);	
-		this.SAPC= new FormControl('', Validators.required);
-		this.cnpComment= new FormControl('');		
+		this.HLR = new UntypedFormControl('', [Validators.required]);	
+		this.SAPC= new UntypedFormControl('', Validators.required);
+		this.cnpComment= new UntypedFormControl('');		
 	}
 
 	else if(this.hop_sequence == 3){
-		this.SDP= new FormControl('', Validators.required);
-		this.CSP =	new FormControl({value: 0, disabled: true}, Validators.required);
-		this.EOICK =	new FormControl({value: 0, disabled: true}, Validators.required);
-		this.emaPort= new FormControl('', Validators.required);
-		this.SK =	new FormControl({value: 0, disabled: true}, Validators.required);
-		this.bssComment= new FormControl('');	
+		this.SDP= new UntypedFormControl('', Validators.required);
+		this.CSP =	new UntypedFormControl({value: 0, disabled: true}, Validators.required);
+		this.EOICK =	new UntypedFormControl({value: 0, disabled: true}, Validators.required);
+		this.emaPort= new UntypedFormControl('', Validators.required);
+		this.SK =	new UntypedFormControl({value: 0, disabled: true}, Validators.required);
+		this.bssComment= new UntypedFormControl('');	
 	}
 
   }
@@ -268,7 +268,7 @@ LoadPreviousHopsData(){
   createForm() {
 	
 	if(this.hop_sequence == 2){
-		this.mySeriesDefinitionForm = new FormGroup({		
+		this.mySeriesDefinitionForm = new UntypedFormGroup({		
 			HLR: this.HLR,
 			SAPC: this.SAPC,
 			cnpComment: this.cnpComment
@@ -276,7 +276,7 @@ LoadPreviousHopsData(){
 	}
 
 	else if(this.hop_sequence == 3){
-		this.mySeriesDefinitionForm = new FormGroup({
+		this.mySeriesDefinitionForm = new UntypedFormGroup({
 			SDP: this.SDP,
 			CSP: this.CSP,
 			EOICK: this.EOICK,
@@ -345,7 +345,7 @@ if (this.mySeriesDefinitionForm.valid) {
       );
   }
   }
-LogKeyValuePairs(group: FormGroup): void {
+LogKeyValuePairs(group: UntypedFormGroup): void {
 	
   // Loop through each control key in the FormGroup
   Object.keys(group.controls).forEach((key: string) => {
@@ -354,7 +354,7 @@ LogKeyValuePairs(group: FormGroup): void {
     // If the control is nested form group, recursively call
     // this same method (logKeyValuePairs) passing it
     // the FormGroup so we can get to the form controls in it
-    if (abstractControl instanceof FormGroup) {
+    if (abstractControl instanceof UntypedFormGroup) {
       this.LogKeyValuePairs(abstractControl);
       // If the control is a FormControl
     } else {

@@ -11,7 +11,7 @@ import {DatePipe} from '@angular/common';
 
 
 import {ReportService} from'./report.service';
-import {ReactiveFormsModule, FormGroup, FormControl, Validators} from '@angular/forms';
+import {ReactiveFormsModule, UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms';
 import{PlanManagementService } from '../../SSM/SimCardPlan Management/plan_management.service';
 
 import { SSMService } from '../../SSM/SSM.service';
@@ -44,10 +44,10 @@ export class StockReport implements OnInit {
     private ifids: string="";
 
 
-  prePlanGenerationForm: FormGroup;
-	artWork: FormControl;
-    vendor: FormControl;
-    IMSI: FormControl;
+  prePlanGenerationForm: UntypedFormGroup;
+	artWork: UntypedFormControl;
+    vendor: UntypedFormControl;
+    IMSI: UntypedFormControl;
 
 
   public listArtWorks = [];
@@ -143,13 +143,13 @@ export class StockReport implements OnInit {
 
   createFormControls() {
     
-	this.artWork = new  FormControl('', Validators.required);
-    this.vendor = new FormControl('', Validators.required);
-    this.IMSI = new FormControl('');
+	this.artWork = new  UntypedFormControl('', Validators.required);
+    this.vendor = new UntypedFormControl('', Validators.required);
+    this.IMSI = new UntypedFormControl('');
   }
 
   createForm() {
-    this.prePlanGenerationForm = new FormGroup({
+    this.prePlanGenerationForm = new UntypedFormGroup({
 		artWork: this.artWork,
         vendor: this.vendor,
         IMSI: this.IMSI

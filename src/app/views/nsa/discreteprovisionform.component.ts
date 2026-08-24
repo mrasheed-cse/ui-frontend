@@ -4,7 +4,7 @@ import {
   Pipe,
   OnInit
 } from '@angular/core';
-import {FormGroup, FormControl, Validators} from '@angular/forms';
+import {UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import { DefinitionDataService } from './services/definitiondata.service';
@@ -44,20 +44,20 @@ export class DiscreteprovisionformComponent implements OnInit {
 	public isLoading:boolean = false;
   public isDisableBtn:boolean = false;
 
-	myDiscProvisionForm: FormGroup;
-	productType: FormControl;
-	productName: FormControl;
-	quantity: FormControl;
-	discProvisionFile: FormControl;
-	startICCID: FormControl;
-	startICCID19: FormControl;
-	endICCID: FormControl;
-	startIMSI: FormControl;
-	endIMSI: FormControl;
-	simType: FormControl;
-	zone: FormControl;
-	needByDate: FormControl;
-	srcComment: FormControl;
+	myDiscProvisionForm: UntypedFormGroup;
+	productType: UntypedFormControl;
+	productName: UntypedFormControl;
+	quantity: UntypedFormControl;
+	discProvisionFile: UntypedFormControl;
+	startICCID: UntypedFormControl;
+	startICCID19: UntypedFormControl;
+	endICCID: UntypedFormControl;
+	startIMSI: UntypedFormControl;
+	endIMSI: UntypedFormControl;
+	simType: UntypedFormControl;
+	zone: UntypedFormControl;
+	needByDate: UntypedFormControl;
+	srcComment: UntypedFormControl;
 	formFieldData: string;
 
 	selectedFile: File = null;
@@ -180,28 +180,28 @@ constructor(private router: Router,private loginService: LoginService, private h
   }
 
   createFormControls() {
-    this.discProvisionFile = new FormControl('', Validators.required);
-		this.quantity =	new FormControl('');
-		this.startICCID = new FormControl('', [
+    this.discProvisionFile = new UntypedFormControl('', Validators.required);
+		this.quantity =	new UntypedFormControl('');
+		this.startICCID = new UntypedFormControl('', [
 			Validators.required,
 			Validators.minLength(18) ,
 			Validators.maxLength(18)
 		]);
-		this.startICCID19 = 	new FormControl({value: '', disabled: true});
-		this.endICCID = 	new FormControl({value: '', disabled: true});
-		this.startIMSI = 	new FormControl({value: '', disabled: true});
-		this.endIMSI = 	new FormControl({value: '', disabled: true});
-		this.productType = new FormControl('', [Validators.required]);
-		this.productName= new FormControl('', Validators.required);
-		this.zone= new FormControl('');
-		this.simType = new  FormControl('');
-		this.needByDate = new FormControl('');
-		this.srcComment= new FormControl('');
+		this.startICCID19 = 	new UntypedFormControl({value: '', disabled: true});
+		this.endICCID = 	new UntypedFormControl({value: '', disabled: true});
+		this.startIMSI = 	new UntypedFormControl({value: '', disabled: true});
+		this.endIMSI = 	new UntypedFormControl({value: '', disabled: true});
+		this.productType = new UntypedFormControl('', [Validators.required]);
+		this.productName= new UntypedFormControl('', Validators.required);
+		this.zone= new UntypedFormControl('');
+		this.simType = new  UntypedFormControl('');
+		this.needByDate = new UntypedFormControl('');
+		this.srcComment= new UntypedFormControl('');
   }
 
   createForm() {
 
-		this.myDiscProvisionForm = new FormGroup({
+		this.myDiscProvisionForm = new UntypedFormGroup({
 			productType: this.productType,
 			productName: this.productName,
 			quantity: this.quantity,
@@ -358,7 +358,7 @@ topFunction() {
 
 
 
-LogKeyValuePairs(group: FormGroup): void {
+LogKeyValuePairs(group: UntypedFormGroup): void {
 
   // Loop through each control key in the FormGroup
   Object.keys(group.controls).forEach((key: string) => {
@@ -367,7 +367,7 @@ LogKeyValuePairs(group: FormGroup): void {
     // If the control is nested form group, recursively call
     // this same method (logKeyValuePairs) passing it
     // the FormGroup so we can get to the form controls in it
-    if (abstractControl instanceof FormGroup) {
+    if (abstractControl instanceof UntypedFormGroup) {
       this.LogKeyValuePairs(abstractControl);
       // If the control is a FormControl
     } else {

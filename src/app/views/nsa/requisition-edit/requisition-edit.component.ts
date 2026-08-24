@@ -4,7 +4,7 @@ import {
     Pipe,
     OnInit
 } from '@angular/core';
-import {ReactiveFormsModule, FormGroup, FormControl, Validators, FormArray} from '@angular/forms';
+import {ReactiveFormsModule, UntypedFormGroup, UntypedFormControl, Validators, UntypedFormArray} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../../environments/environment';
@@ -83,33 +83,33 @@ export class RequisitionEditNewComponent implements OnInit {
     public infoAlertMessage: string = '';
     public isLoading: boolean = false;
 
-    newSimRequisitionForm: FormGroup;
-    purposeCategory: FormControl;
-    location: FormControl;
-    usageCategory: FormControl;
-    amsId: FormControl;
-    imei: FormControl;
-    cardNo: FormControl;
-    anyAMS: FormControl;
-    startDate: FormControl;
-    dateRange: FormControl;
-    endDate: FormControl;
-    empType: FormControl;
-    otherEmpType: FormControl;
-    usageEnv: FormControl;
-    cmpEnv: FormControl;
-    IDCardType: FormControl;
-    otherIDCardType: FormControl;
+    newSimRequisitionForm: UntypedFormGroup;
+    purposeCategory: UntypedFormControl;
+    location: UntypedFormControl;
+    usageCategory: UntypedFormControl;
+    amsId: UntypedFormControl;
+    imei: UntypedFormControl;
+    cardNo: UntypedFormControl;
+    anyAMS: UntypedFormControl;
+    startDate: UntypedFormControl;
+    dateRange: UntypedFormControl;
+    endDate: UntypedFormControl;
+    empType: UntypedFormControl;
+    otherEmpType: UntypedFormControl;
+    usageEnv: UntypedFormControl;
+    cmpEnv: UntypedFormControl;
+    IDCardType: UntypedFormControl;
+    otherIDCardType: UntypedFormControl;
 
-    purposeDetails: FormControl;
-    question1: FormControl;
-    question2: FormControl;
-    question3: FormControl;
-    question4: FormControl;
-    notificationTo: FormControl;
-    requisitionType: FormControl;
-    requisitionDate: FormControl;
-    requisitionLines: FormArray;
+    purposeDetails: UntypedFormControl;
+    question1: UntypedFormControl;
+    question2: UntypedFormControl;
+    question3: UntypedFormControl;
+    question4: UntypedFormControl;
+    notificationTo: UntypedFormControl;
+    requisitionType: UntypedFormControl;
+    requisitionDate: UntypedFormControl;
+    requisitionLines: UntypedFormArray;
 
     public listRequisitionType = [];
     public listPurposeCategory = [];
@@ -665,7 +665,7 @@ export class RequisitionEditNewComponent implements OnInit {
         this.requisitionLinesDetails.forEach(item => {
             this.addLine();
             const index = this.requisitionLines.length - 1;
-            const group = this.requisitionLines.at(index) as FormGroup;
+            const group = this.requisitionLines.at(index) as UntypedFormGroup;
 
             group.get('creditLimit').setValue(item.creditLimit);
             group.get('quantity').setValue(item.quantity);
@@ -776,36 +776,36 @@ export class RequisitionEditNewComponent implements OnInit {
     }
 
     createFormControls() {
-        this.purposeCategory = new FormControl('', Validators.required);
-        this.location = new FormControl('', Validators.required);
-        this.usageCategory = new FormControl('', Validators.required);
-        this.amsId = new FormControl('', [Validators.maxLength(20)]);
-        this.imei = new FormControl('', [Validators.required, Validators.minLength(15), Validators.maxLength(500)]);
-        this.cardNo = new FormControl('', [Validators.required, Validators.maxLength(500)]);
-        this.startDate = new FormControl('', Validators.required);
-        this.dateRange = new FormControl('', Validators.required);
-        this.anyAMS = new FormControl('', Validators.required);
-        this.endDate = new FormControl({value: '', disabled: false}, Validators.required);
-        this.empType = new FormControl({value: ''}, Validators.required);
-        this.otherEmpType = new FormControl('', [Validators.maxLength(120)]);
-        this.usageEnv = new FormControl({value: ''}, Validators.required);
-        this.cmpEnv = new FormControl({value: ''}, Validators.required);
-        this.IDCardType = new FormControl({value: ''}, Validators.required);
-        this.otherIDCardType = new FormControl('', [Validators.maxLength(120)]);
-        this.purposeDetails = new FormControl('', [Validators.required, Validators.minLength(50), Validators.maxLength(280)]);
-        this.question1 = new FormControl('', [Validators.required, Validators.minLength(50), Validators.maxLength(280)]);
-        this.question2 = new FormControl('', [Validators.required, Validators.minLength(20), Validators.maxLength(280)]);
-        this.question3 = new FormControl('', [Validators.required, Validators.minLength(50), Validators.maxLength(280)]);
-        this.question4 = new FormControl('', [Validators.required, Validators.minLength(50), Validators.maxLength(280)]);
-        this.notificationTo = new FormControl('');
+        this.purposeCategory = new UntypedFormControl('', Validators.required);
+        this.location = new UntypedFormControl('', Validators.required);
+        this.usageCategory = new UntypedFormControl('', Validators.required);
+        this.amsId = new UntypedFormControl('', [Validators.maxLength(20)]);
+        this.imei = new UntypedFormControl('', [Validators.required, Validators.minLength(15), Validators.maxLength(500)]);
+        this.cardNo = new UntypedFormControl('', [Validators.required, Validators.maxLength(500)]);
+        this.startDate = new UntypedFormControl('', Validators.required);
+        this.dateRange = new UntypedFormControl('', Validators.required);
+        this.anyAMS = new UntypedFormControl('', Validators.required);
+        this.endDate = new UntypedFormControl({value: '', disabled: false}, Validators.required);
+        this.empType = new UntypedFormControl({value: ''}, Validators.required);
+        this.otherEmpType = new UntypedFormControl('', [Validators.maxLength(120)]);
+        this.usageEnv = new UntypedFormControl({value: ''}, Validators.required);
+        this.cmpEnv = new UntypedFormControl({value: ''}, Validators.required);
+        this.IDCardType = new UntypedFormControl({value: ''}, Validators.required);
+        this.otherIDCardType = new UntypedFormControl('', [Validators.maxLength(120)]);
+        this.purposeDetails = new UntypedFormControl('', [Validators.required, Validators.minLength(50), Validators.maxLength(280)]);
+        this.question1 = new UntypedFormControl('', [Validators.required, Validators.minLength(50), Validators.maxLength(280)]);
+        this.question2 = new UntypedFormControl('', [Validators.required, Validators.minLength(20), Validators.maxLength(280)]);
+        this.question3 = new UntypedFormControl('', [Validators.required, Validators.minLength(50), Validators.maxLength(280)]);
+        this.question4 = new UntypedFormControl('', [Validators.required, Validators.minLength(50), Validators.maxLength(280)]);
+        this.notificationTo = new UntypedFormControl('');
 
-        this.requisitionType = new FormControl('', Validators.required);
-        this.requisitionDate = new FormControl('', Validators.required);
-        this.requisitionLines = new FormArray([]);
+        this.requisitionType = new UntypedFormControl('', Validators.required);
+        this.requisitionDate = new UntypedFormControl('', Validators.required);
+        this.requisitionLines = new UntypedFormArray([]);
     }
 
     createForm() {
-        this.newSimRequisitionForm = new FormGroup({
+        this.newSimRequisitionForm = new UntypedFormGroup({
             requisitionDate: this.requisitionDate,
             requisitionType: this.requisitionType,
             purposeCategory: this.purposeCategory,
@@ -840,22 +840,22 @@ export class RequisitionEditNewComponent implements OnInit {
     }
 
 
-    get RequisitionLines(): FormArray {
-        return this.newSimRequisitionForm.get('requisitionLines') as FormArray;
+    get RequisitionLines(): UntypedFormArray {
+        return this.newSimRequisitionForm.get('requisitionLines') as UntypedFormArray;
     }
 
 
     addLine() {
         //this.RequisitionLines.push(new FormControl());
 
-        this.RequisitionLines.push(new FormGroup(
+        this.RequisitionLines.push(new UntypedFormGroup(
             {
-                product: new FormControl('', Validators.required),
-                creditLimit: new FormControl('', [Validators.required, Validators.min(0)]),
-                quantity: new FormControl('', [Validators.required, Validators.min(1)]),
-                imsiType: new FormControl('', Validators.required),
-                specialRequirement: new FormControl('', Validators.required),
-                specialRequirementOther: new FormControl('')
+                product: new UntypedFormControl('', Validators.required),
+                creditLimit: new UntypedFormControl('', [Validators.required, Validators.min(0)]),
+                quantity: new UntypedFormControl('', [Validators.required, Validators.min(1)]),
+                imsiType: new UntypedFormControl('', Validators.required),
+                specialRequirement: new UntypedFormControl('', Validators.required),
+                specialRequirementOther: new UntypedFormControl('')
             }
         ));
     }
