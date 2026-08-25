@@ -4,8 +4,11 @@ import { LoginService } from '../../pages/LoginService';
 import { LoggedInUser } from '../../pages/loggedInUser';
 import { ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 
-import { isNumeric } from 'rxjs/util/isNumeric';
 import { Observable } from 'rxjs';
+
+function isNumeric(value: unknown): boolean {
+	return value != null && value !== '' && !isNaN(Number(value));
+}
 
 
 @Injectable()
