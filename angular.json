@@ -29,9 +29,7 @@
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/bootstrap/dist/js/bootstrap.min.js",
-              "node_modules/chart.js/dist/Chart.bundle.min.js",
-              "node_modules/chart.js/dist/Chart.min.js"
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
             ],
               "vendorChunk": true,
               "extractLicenses": false,
@@ -109,9 +107,7 @@
             "tsConfig": "src/tsconfig.spec.json",
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/bootstrap/dist/js/bootstrap.min.js",
-              "node_modules/chart.js/dist/Chart.bundle.min.js",
-              "node_modules/chart.js/dist/Chart.min.js"
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
             ],
             "styles": [
               "node_modules/flag-icon-css/css/flag-icon.css",

@@ -11,7 +11,7 @@
         <div class="card-header">
           <!-- TODO hardcode -->
           <i class="fa fa-align-justify"></i> Test SIM Surrender -  Approval
-          <button type="button" style="float: right;" class="btn btn-link" ><i class="fa fa-link"></i><a [routerLink]="[ '/nsa/testsim-surrender-new' ]"> Create New SIM Surrender Request</a></button>
+          <a style="float: right;" class="btn btn-link" (click)="router.navigate([ '/nsa/testsim-surrender-new' ])"><i class="fa fa-link"></i> Create New SIM Surrender Request</a>
         </div>
         <div class="card-body" *ngIf="isDataFound && !showDetail">
           <table class="table table-bordered table-striped table-sm">

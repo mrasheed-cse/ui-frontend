@@ -11,7 +11,7 @@
         <div class="card-header">
           <!-- TODO hardcode -->
           <i class="fa fa-align-justify"></i> Recharge -  Approval
-          <button type="button" style="float: right;" class="btn btn-link" ><i class="fa fa-link"></i><a [routerLink]="[ '/nsa/testsim-recharge-new' ]"> Create New SIM Recharge Request</a></button>
+          <a style="float: right;" class="btn btn-link" (click)="router.navigate([ '/nsa/testsim-recharge-new' ])"><i class="fa fa-link"></i> Create New SIM Recharge Request</a>
         </div>
         <div class="card-body" *ngIf="isDataFound && !showDetail">
           <table class="table table-bordered table-striped table-sm">

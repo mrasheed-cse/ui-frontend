@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { LoginService } from '../../pages/LoginService';
 
 import { LoggedInUser } from '../../pages/loggedInUser';
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 
 import { isNumeric } from 'rxjs/util/isNumeric';
 import { Observable } from 'rxjs';
 
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+export class AuthGuard  {
 
 	currentLoggedInUser: LoggedInUser;
 	userName: string;

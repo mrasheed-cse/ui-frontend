@@ -30,21 +30,19 @@ export class ViewProductReport implements OnInit {
 		productName: any;
 		Forecast=[];
 		actual=[];
-		public barChartOptions = {
+		public barChartOptions: any = {
     scaleShowVerticalLines: false,
     responsive: true,
     scales: {
-      yAxes: [
-        {
-          ticks: {
-            beginAtZero: true
-          }
+      y: {
+        ticks: {
+          beginAtZero: true
         }
-      ]
+      }
     }
   };
   public barChartLabels :any;
-  public barChartType = 'bar';
+  public barChartType: any = 'bar';
   public barChartLegend = true;
   public barChartData = [ ]
 		

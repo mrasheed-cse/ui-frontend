@@ -10,7 +10,7 @@
       <div class="card">
         <div class="card-header">
           <i class="fa fa-align-justify"></i> Lost / Damaged SIM - Request Log
-          <button type="button" style="float: right;" class="btn btn-link" ><i class="fa fa-link"></i><a [routerLink]="[ '/nsa/testsim-lostdamaged-new' ]"> Create New New SIM Lost / Damaged Request</a></button>
+          <a style="float: right;" class="btn btn-link" (click)="router.navigate([ '/nsa/testsim-lostdamaged-new' ])"><i class="fa fa-link"></i> Create New New SIM Lost / Damaged Request</a>
         </div>
         <div class="card-body" *ngIf="isDataFound && !showDetail">
 

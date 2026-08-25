@@ -34,7 +34,7 @@ export class TestsimCreditlimitextSsmComponent implements OnInit {
   showDetail: boolean = false;
   selectedSimActionId: number;
 
-  constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService, public datePipe:DatePipe) {
+  constructor(public router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService, public datePipe:DatePipe) {
 
     this.isLoading = false;
     this.showDetail = false;

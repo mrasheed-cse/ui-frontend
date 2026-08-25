@@ -36,7 +36,7 @@ export class ActivationPendingregistrationsComponent implements OnInit {
   isDataFound: boolean = true;
   isCurrentUserSSMRole: boolean = false;
 
-  constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workflowsService: WorkflowsService, private ismsworkflowsService: IsmsworkflowsService) {
+  constructor(public router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workflowsService: WorkflowsService, private ismsworkflowsService: IsmsworkflowsService) {
 
     this.isLoading = false;
     let isValid = true;

@@ -63,7 +63,7 @@ export class NewscrequisitiondetailsComponent implements OnInit {
   requestedSimAtatus: string;
 
 
-  constructor(private route:ActivatedRoute, private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {
+  constructor(private route:ActivatedRoute, public router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {
 
     let isValid = true;
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();

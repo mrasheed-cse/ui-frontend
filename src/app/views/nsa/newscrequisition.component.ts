@@ -51,7 +51,7 @@ export class NewscrequisitionComponent implements OnInit {
     routerUrlAndParams: string;
     public isLoading: boolean = false;
 
-    constructor(private router: Router, private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {
+    constructor(public router: Router, private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {
 
         this.isLoading = false;
         let isValid = true;

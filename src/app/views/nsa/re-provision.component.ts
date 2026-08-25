@@ -66,7 +66,7 @@ export class ReProvisionComponent implements OnInit {
 	
 	todayDate: Date;
 	
-	constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {	
+	constructor(public router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {	
 
 	// Get Current User Profile
 	

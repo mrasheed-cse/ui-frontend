@@ -17,7 +17,7 @@
           <div class="card">
             <div class="card-header">
               <i class="fa fa-align-justify"></i> Biometric registration of new activation requests
-              <button style="float: right;" type="button" class="btn btn-link" ><i class="fa fa-link"></i><a [routerLink]="[ '/nsa/newsimactivationreq' ]"> Create New Activation </a></button>                
+              <a style="float: right;" class="btn btn-link" (click)="router.navigate([ '/nsa/newsimactivationreq' ])"><i class="fa fa-link"></i> Create New Activation </a>
             </div>
             <div class="card-body" *ngIf="isDataFound">
               <table class="table table-bordered table-striped table-sm">
@@ -44,8 +44,8 @@
                                 <td>{{aTask.requestedForActivation}}</td>
                                 <td>{{aTask.activatedSims}}</td>
                                 <td>{{aTask.deactiveSims}}</td>
-                                <td> <button type="button" class="btn btn-link" ><i class="fa fa-link"></i>
-                                <a [routerLink]="[detailsAction(aTask),aTask.id]">Details</a></button> </td>
+                                <td> <a class="btn btn-link" (click)="router.navigate([detailsAction(aTask),aTask.id])"><i class="fa fa-link"></i>
+                                Details</a> </td>
                             </tr>
                 </tbody>
               </table>

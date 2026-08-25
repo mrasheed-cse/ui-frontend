@@ -67,7 +67,7 @@ export class MnpreProvisionComponent implements OnInit {
 	todayDate: Date;
 	maxEndDate: Date;
 	
-	constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {	
+	constructor(public router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {	
 
 	// Get Current User Profile
 	

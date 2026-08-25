@@ -24,32 +24,32 @@ export class DashboardComponent implements OnInit {
   public lineChart1Data: Array<any> = [
     {
       data: [65, 59, 84, 84, 51, 55, 40],
-      label: 'Series A'
+      label: 'Series A',
+      backgroundColor: this.brandPrimary,
+      borderColor: 'rgba(255,255,255,.55)'
     }
   ];
   public lineChart1Labels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
   public lineChart1Options: any = {
     maintainAspectRatio: false,
     scales: {
-      xAxes: [{
-        gridLines: {
-          color: 'transparent',
-          zeroLineColor: 'transparent'
+      x: {
+        grid: {
+          color: 'transparent'
         },
         ticks: {
-          fontSize: 2,
-          fontColor: 'transparent',
+          font: { size: 2 },
+          color: 'transparent',
         }
-
-      }],
-      yAxes: [{
+      },
+      y: {
         display: false,
         ticks: {
           display: false,
           min: 40 - 5,
           max: 84 + 5,
         }
-      }],
+      },
     },
     elements: {
       line: {
@@ -60,50 +60,41 @@ export class DashboardComponent implements OnInit {
         hitRadius: 10,
         hoverRadius: 4,
       },
-    },
-    legend: {
-      display: false
     }
   };
-  public lineChart1Colours: Array<any> = [
-    { // grey
-      backgroundColor: this.brandPrimary,
-      borderColor: 'rgba(255,255,255,.55)'
-    }
-  ];
   public lineChart1Legend = false;
-  public lineChart1Type = 'line';
+  public lineChart1Type: any = 'line';
 
   // lineChart2
   public lineChart2Data: Array<any> = [
     {
       data: [1, 18, 9, 17, 34, 22, 11],
-      label: 'Series A'
+      label: 'Series A',
+      backgroundColor: this.brandInfo,
+      borderColor: 'rgba(255,255,255,.55)'
     }
   ];
   public lineChart2Labels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
   public lineChart2Options: any = {
     maintainAspectRatio: false,
     scales: {
-      xAxes: [{
-        gridLines: {
-          color: 'transparent',
-          zeroLineColor: 'transparent'
+      x: {
+        grid: {
+          color: 'transparent'
         },
         ticks: {
-          fontSize: 2,
-          fontColor: 'transparent',
+          font: { size: 2 },
+          color: 'transparent',
         }
-
-      }],
-      yAxes: [{
+      },
+      y: {
         display: false,
         ticks: {
           display: false,
           min: 1 - 5,
           max: 34 + 5,
         }
-      }],
+      },
     },
     elements: {
       line: {
@@ -115,38 +106,31 @@ export class DashboardComponent implements OnInit {
         hitRadius: 10,
         hoverRadius: 4,
       },
-    },
-    legend: {
-      display: false
     }
   };
-  public lineChart2Colours: Array<any> = [
-    { // grey
-      backgroundColor: this.brandInfo,
-      borderColor: 'rgba(255,255,255,.55)'
-    }
-  ];
   public lineChart2Legend = false;
-  public lineChart2Type = 'line';
+  public lineChart2Type: any = 'line';
 
 
   // lineChart3
   public lineChart3Data: Array<any> = [
     {
       data: [78, 81, 80, 45, 34, 12, 40],
-      label: 'Series A'
+      label: 'Series A',
+      backgroundColor: 'rgba(255,255,255,.2)',
+      borderColor: 'rgba(255,255,255,.55)',
     }
   ];
   public lineChart3Labels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
   public lineChart3Options: any = {
     maintainAspectRatio: false,
     scales: {
-      xAxes: [{
+      x: {
         display: false
-      }],
-      yAxes: [{
+      },
+      y: {
         display: false
-      }]
+      }
     },
     elements: {
       line: {
@@ -157,52 +141,36 @@ export class DashboardComponent implements OnInit {
         hitRadius: 10,
         hoverRadius: 4,
       },
-    },
-    legend: {
-      display: false
     }
   };
-  public lineChart3Colours: Array<any> = [
-    {
-      backgroundColor: 'rgba(255,255,255,.2)',
-      borderColor: 'rgba(255,255,255,.55)',
-    }
-  ];
   public lineChart3Legend = false;
-  public lineChart3Type = 'line';
+  public lineChart3Type: any = 'line';
 
 
   // barChart1
   public barChart1Data: Array<any> = [
     {
       data: [78, 81, 80, 45, 34, 12, 40, 78, 81, 80, 45, 34, 12, 40, 12, 40],
-      label: 'Series A'
+      label: 'Series A',
+      backgroundColor: 'rgba(255,255,255,.3)',
+      borderWidth: 0
     }
   ];
   public barChart1Labels: Array<any> = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16'];
   public barChart1Options: any = {
     maintainAspectRatio: false,
     scales: {
-      xAxes: [{
+      x: {
         display: false,
         barPercentage: 0.6,
-      }],
-      yAxes: [{
+      },
+      y: {
         display: false
-      }]
-    },
-    legend: {
-      display: false
+      }
     }
   };
-  public barChart1Colours: Array<any> = [
-    {
-      backgroundColor: 'rgba(255,255,255,.3)',
-      borderWidth: 0
-    }
-  ];
   public barChart1Legend = false;
-  public barChart1Type = 'bar';
+  public barChart1Type: any = 'bar';
 
   // mainChart
 
@@ -214,15 +182,26 @@ export class DashboardComponent implements OnInit {
   public mainChartData: Array<any> = [
     {
       data: this.mainChartData1,
-      label: 'Current'
+      label: 'Current',
+      backgroundColor: this.convertHex(this.brandInfo, 10),
+      borderColor: this.brandInfo,
+      pointHoverBackgroundColor: '#fff'
     },
     {
       data: this.mainChartData2,
-      label: 'Previous'
+      label: 'Previous',
+      backgroundColor: 'transparent',
+      borderColor: this.brandSuccess,
+      pointHoverBackgroundColor: '#fff'
     },
     {
       data: this.mainChartData3,
-      label: 'BEP'
+      label: 'BEP',
+      backgroundColor: 'transparent',
+      borderColor: this.brandDanger,
+      pointHoverBackgroundColor: '#fff',
+      borderWidth: 1,
+      borderDash: [8, 5]
     }
   ];
   /* tslint:disable:max-line-length */
@@ -232,24 +211,25 @@ export class DashboardComponent implements OnInit {
     responsive: true,
     maintainAspectRatio: false,
     scales: {
-      xAxes: [{
-        gridLines: {
+      x: {
+        grid: {
           drawOnChartArea: false,
         },
         ticks: {
-          callback: function(value: any) {
-            return value.charAt(0);
+          callback: function(value: any, index: number, ticks: any[]) {
+            const label = this.getLabelForValue(value);
+            return typeof label === 'string' ? label.charAt(0) : label;
           }
         }
-      }],
-      yAxes: [{
+      },
+      y: {
         ticks: {
           beginAtZero: true,
           maxTicksLimit: 5,
           stepSize: Math.ceil(250 / 5),
           max: 250
         }
-      }]
+      }
     },
     elements: {
       line: {
@@ -261,32 +241,10 @@ export class DashboardComponent implements OnInit {
         hoverRadius: 4,
         hoverBorderWidth: 3,
       }
-    },
-    legend: {
-      display: false
     }
   };
-  public mainChartColours: Array<any> = [
-    { // brandInfo
-      backgroundColor: this.convertHex(this.brandInfo, 10),
-      borderColor: this.brandInfo,
-      pointHoverBackgroundColor: '#fff'
-    },
-    { // brandSuccess
-      backgroundColor: 'transparent',
-      borderColor: this.brandSuccess,
-      pointHoverBackgroundColor: '#fff'
-    },
-    { // brandDanger
-      backgroundColor: 'transparent',
-      borderColor: this.brandDanger,
-      pointHoverBackgroundColor: '#fff',
-      borderWidth: 1,
-      borderDash: [8, 5]
-    }
-  ];
   public mainChartLegend = false;
-  public mainChartType = 'line';
+  public mainChartType: any = 'line';
 
   // social box charts
 

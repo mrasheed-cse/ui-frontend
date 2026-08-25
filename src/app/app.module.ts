@@ -20,7 +20,6 @@ import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import {HttpClient, HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {JwtInterceptor} from './interceptors/jwt.interceptor';
 import { CommonModule } from '@angular/common';
-import { DataTableModule } from 'angular4-smart-table';
 
 // Import containers
 import {
@@ -84,7 +83,7 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { ChartsModule } from 'ng2-charts';
+import { NgChartsModule } from 'ng2-charts';
 
 
 //import { NgxGaugeModule } from 'ngx-gauge';
@@ -97,7 +96,6 @@ import { ChartsModule } from 'ng2-charts';
 @NgModule({
   imports: [
 	CommonModule,
-	DataTableModule,
     BrowserModule,
     AppRoutingModule,
 	FormsModule,
@@ -108,7 +106,7 @@ import { ChartsModule } from 'ng2-charts';
 	BsDatepickerModule.forRoot(),
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
-    ChartsModule,
+    NgChartsModule,
   ],
   declarations: [
     AppComponent,

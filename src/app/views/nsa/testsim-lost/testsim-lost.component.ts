@@ -40,7 +40,7 @@ export class TestsimLostComponent implements OnInit {
 		  searchOptions_msisdn: String;
 		  searchOptions_rqnNo: String;
 
-  constructor(private route:ActivatedRoute, private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService, private fileoperationService: FileoperationService) {
+  constructor(private route:ActivatedRoute, public router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService, private fileoperationService: FileoperationService) {
 
     this.allRequisitionLineMsisdnIds = "";
     this.isLoading = false;

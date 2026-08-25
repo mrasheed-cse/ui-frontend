@@ -10,7 +10,7 @@
       <div class="card">
         <div class="card-header">
           <i class="fa fa-align-justify"></i> Credit & Time Limit Extension -  Approval
-          <button type="button" style="float: right;" class="btn btn-link" ><i class="fa fa-link"></i><a [routerLink]="[ '/nsa/testsim-creditlimitext-new' ]"> Create New Credit & Time Limit Extension </a></button>
+          <a style="float: right;" class="btn btn-link" (click)="router.navigate([ '/nsa/testsim-creditlimitext-new' ])"><i class="fa fa-link"></i> Create New Credit & Time Limit Extension </a>
         </div>
         <div class="card-body" *ngIf="isDataFound && !showDetail">
           <table class="table table-bordered table-striped table-sm">

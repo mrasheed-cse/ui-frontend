@@ -10,7 +10,7 @@
           {{isCollapsed === true ? 'Search for Work Request' : 'Hide Searching'}}
           </button>
 
-          <button style="float: right;" type="button" class="btn btn-link" ><i class="fa fa-link"></i><a [routerLink]="[ '/nsa/newscrequisitioninitiation' ]"> Create New Requisition </a></button>                </div>
+          <a style="float: right;" class="btn btn-link" (click)="router.navigate([ '/nsa/newscrequisitioninitiation' ])"><i class="fa fa-link"></i> Create New Requisition </a>                </div>
     </div>
 
 
@@ -131,8 +131,8 @@
                             <td>{{aTask.testCompletionDt}}</td>
                             <td>{{aTask.initiator}}</td>
                             <td>{{aTask.hop}}</td>
-                           <td> <button type="button" class="btn btn-link" ><i class="fa fa-link"></i>
-                            <a [routerLink]="[detailsAction(aTask),aTask.id]">Details</a></button> </td>
+                           <td> <a class="btn btn-link" (click)="router.navigate([detailsAction(aTask),aTask.id])"><i class="fa fa-link"></i>
+                            Details</a> </td>
                         </tr>
             </tbody>
           </table>

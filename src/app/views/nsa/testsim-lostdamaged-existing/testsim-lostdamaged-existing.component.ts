@@ -48,7 +48,7 @@ export class TestsimLostdamagedExistingComponent implements OnInit {
   showDetail: boolean = false;
   selectedSimActionId: number;
 
-  constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService, private fileoperationService: FileoperationService) {
+  constructor(public router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService, private fileoperationService: FileoperationService) {
 
     this.isLoading = false;
     this.showDetail = false;

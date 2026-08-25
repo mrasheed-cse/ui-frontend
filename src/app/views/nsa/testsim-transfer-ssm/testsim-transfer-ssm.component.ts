@@ -33,7 +33,7 @@ export class TestsimTransferSsmComponent implements OnInit {
   showDetail: boolean = false;
   selectedSimActionId: number;
 
-  constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {
+  constructor(public router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private workFlowsService: WorkflowsService) {
 
     this.isLoading = false;
     this.showDetail = false;
