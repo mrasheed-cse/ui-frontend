@@ -31,6 +31,11 @@
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js"
             ],
+              "stylePreprocessorOptions": {
+                "includePaths": [
+                  "."
+                ]
+              },
               "vendorChunk": true,
               "extractLicenses": false,
               "buildOptimizer": false,
@@ -80,22 +85,22 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "@coreui/angular:build",
-            "port": 4215
+            "port": 4215,
+            "buildTarget": "@coreui/angular:build"
           },
           "configurations": {
             "dev": {
-              "browserTarget": "@coreui/angular:build:dev"
+              "buildTarget": "@coreui/angular:build:dev"
             },
             "production": {
-              "browserTarget": "@coreui/angular:build:production"
+              "buildTarget": "@coreui/angular:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "@coreui/angular:build"
+            "buildTarget": "@coreui/angular:build"
           }
         },
         "test": {
@@ -117,6 +122,11 @@
               "node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
               "src/scss/style.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "."
+              ]
+            },
             "assets": [
               "src/assets"
             ]
