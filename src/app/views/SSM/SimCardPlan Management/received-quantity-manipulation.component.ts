@@ -9,10 +9,11 @@ import { AppGlobals } from './../../../app.global';
 import{PlanManagementService } from '../../SSM/SimCardPlan Management/plan_management.service';
 
 @Component({
-  selector: 'app-received-quantity-manipulation',
-  templateUrl: './received-quantity-manipulation.component.html',
-  styleUrls: ['../../nsa/nsa_styles.css'],
-  providers: [SSMService,LoginService,AppGlobals,PlanManagementService]
+    selector: 'app-received-quantity-manipulation',
+    templateUrl: './received-quantity-manipulation.component.html',
+    styleUrls: ['../../nsa/nsa_styles.css'],
+    providers: [SSMService, LoginService, AppGlobals, PlanManagementService],
+    standalone: false
 })
 export class ReceivedQuantityManipulation implements OnInit {
 

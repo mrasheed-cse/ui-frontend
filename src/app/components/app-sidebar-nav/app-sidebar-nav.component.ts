@@ -25,7 +25,8 @@ import {Router} from '@angular/router';
 
             </ul>
         </nav>`,
-    providers: [LoginService, AppGlobals]
+    providers: [LoginService, AppGlobals],
+    standalone: false
 })
 export class AppSidebarNavComponent {
 
@@ -86,7 +87,8 @@ export class AppSidebarNavComponent {
                 <app-sidebar-nav-dropdown [link]='item'></app-sidebar-nav-dropdown>
             </li>
         </ng-template>
-    `
+    `,
+    standalone: false
 })
 export class AppSidebarNavItemComponent {
     @Input() item: any;
@@ -130,7 +132,8 @@ export class AppSidebarNavItemComponent {
                 <span *ngIf="isBadge()" [ngClass]="'badge badge-' + link.badge.variant">{{ link.badge.text }}</span>
             </a>
         </ng-template>
-    `
+    `,
+    standalone: false
 })
 export class AppSidebarNavLinkComponent {
     @Input() link: any;
@@ -174,7 +177,8 @@ export class AppSidebarNavLinkComponent {
                 <app-sidebar-nav-item [item]='child'></app-sidebar-nav-item>
             </ng-template>
         </ul>
-    `
+    `,
+    standalone: false
 })
 export class AppSidebarNavDropdownComponent {
     @Input() link: any;
@@ -193,7 +197,8 @@ export class AppSidebarNavDropdownComponent {
 
 @Component({
     selector: 'app-sidebar-nav-title',
-    template: ''
+    template: '',
+    standalone: false
 })
 export class AppSidebarNavTitleComponent implements OnInit {
     @Input() title: any;

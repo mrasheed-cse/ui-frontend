@@ -18,6 +18,7 @@ import {LoggedInUser} from '../../pages/loggedInUser';
     templateUrl: './activation-pendingapprovals.component.html',
     styleUrls: ['./activation-pendingapprovals.component.scss'],
     providers: [WorkflowsService, AppGlobals, LoginService, IsmsworkflowsService],
+    standalone: false
 })
 export class ActivationPendingapprovalsComponent implements OnInit {
 

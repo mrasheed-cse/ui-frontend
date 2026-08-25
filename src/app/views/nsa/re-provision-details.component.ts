@@ -18,11 +18,12 @@ import {
   import { LoggedInUser } from '../pages/loggedInUser';
   
   @Component({
-	selector: 'app-re-provision-details',
-	templateUrl: './re-provision-details.component.html',
-	  styles: [],
-	providers: [WorkflowsService,AppGlobals,LoginService,FileoperationService]
-  })
+    selector: 'app-re-provision-details',
+    templateUrl: './re-provision-details.component.html',
+    styles: [],
+    providers: [WorkflowsService, AppGlobals, LoginService, FileoperationService],
+    standalone: false
+})
   export class ReProvisionDetailsComponent implements OnInit {
 	  wr_BriefId : number;
 	  hop_sequence : number;

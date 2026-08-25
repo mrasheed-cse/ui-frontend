@@ -13,10 +13,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
   import { LoggedInUser } from '../../pages/loggedInUser';
   import {DefinitionDataService} from '../services/definitiondata.service';
 @Component({
-  selector: 'app-lostdamagedetailsdelivery',
-  templateUrl: './lostdamagedetailsdelivery.component.html',
-  styleUrls: ['./lostdamagedetailsdelivery.component.scss'],
-  providers: [IsmsworkflowsService,WorkflowsService,AppGlobals,LoginService,FileoperationService, DefinitionDataService]
+    selector: 'app-lostdamagedetailsdelivery',
+    templateUrl: './lostdamagedetailsdelivery.component.html',
+    styleUrls: ['./lostdamagedetailsdelivery.component.scss'],
+    providers: [IsmsworkflowsService, WorkflowsService, AppGlobals, LoginService, FileoperationService, DefinitionDataService],
+    standalone: false
 })
 export class LostdamagedetailsdeliveryComponent implements OnInit {
 

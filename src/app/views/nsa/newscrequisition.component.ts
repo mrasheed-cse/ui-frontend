@@ -15,6 +15,7 @@ import {LoggedInUser} from '../pages/loggedInUser';
     templateUrl: './newscrequisition.component.html',
     styleUrls: ['./demo.component.css'],
     providers: [WorkflowsService, AppGlobals, LoginService],
+    standalone: false
 })
 export class NewscrequisitionComponent implements OnInit {
     requisitionList: Array<Object>;

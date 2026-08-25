@@ -18,11 +18,12 @@ import {
   import { LoggedInUser } from '../pages/loggedInUser';
   
   @Component({
-	selector: 'app-discreteprovisiondetails',
-	templateUrl: './discreteprovisiondetails.component.html',
-	  styles: [],
-	providers: [WorkflowsService,AppGlobals,LoginService,FileoperationService]
-  })
+    selector: 'app-discreteprovisiondetails',
+    templateUrl: './discreteprovisiondetails.component.html',
+    styles: [],
+    providers: [WorkflowsService, AppGlobals, LoginService, FileoperationService],
+    standalone: false
+})
   export class DiscreteprovisiondetailsComponent implements OnInit {
 	  wr_BriefId : number;
 	  hop_sequence : number;

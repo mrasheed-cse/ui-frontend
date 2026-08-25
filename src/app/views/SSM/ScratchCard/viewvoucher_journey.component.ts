@@ -24,8 +24,9 @@ import {DatePipe} from '@angular/common';
 @Component({
     selector: 'app-voucherGen',
     templateUrl: './viewvoucher_journey.component.html',
-      styleUrls: ['../search_po.component.scss'],
-      providers: [AppGlobals,LoginService,ViewJourney,DatePipe],
+    styleUrls: ['../search_po.component.scss'],
+    providers: [AppGlobals, LoginService, ViewJourney, DatePipe],
+    standalone: false
 })
 export class VoucherJourney implements OnInit {
 	

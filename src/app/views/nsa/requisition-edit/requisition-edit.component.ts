@@ -31,7 +31,8 @@ import {DateTimeUtils, DurationInfo} from '../../../utils/date-time-utils';
     selector: 'app-requisition-edit',
     templateUrl: './requisition-edit.component.html',
     styleUrls: ['../nsa_styles.css'],
-    providers: [WorkflowsService, DefinitionDataService, IsmsworkflowsService, AppGlobals, LoginService, FileoperationService]
+    providers: [WorkflowsService, DefinitionDataService, IsmsworkflowsService, AppGlobals, LoginService, FileoperationService],
+    standalone: false
 })
 export class RequisitionEditNewComponent implements OnInit {
 

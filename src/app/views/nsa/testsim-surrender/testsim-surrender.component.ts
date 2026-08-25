@@ -13,10 +13,11 @@ import { LoginService } from '../../pages/LoginService';
 import { LoggedInUser } from '../../pages/loggedInUser';
 
 @Component({
-  selector: 'app-testsim-surrender',
-  templateUrl: './testsim-surrender.component.html',
-  styleUrls: ['./testsim-surrender.component.scss'],
-  providers: [WorkflowsService,AppGlobals,LoginService],
+    selector: 'app-testsim-surrender',
+    templateUrl: './testsim-surrender.component.html',
+    styleUrls: ['./testsim-surrender.component.scss'],
+    providers: [WorkflowsService, AppGlobals, LoginService],
+    standalone: false
 })
 export class TestsimSurrenderComponent implements OnInit {
 

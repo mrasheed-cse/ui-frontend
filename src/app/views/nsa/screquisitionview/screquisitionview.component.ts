@@ -10,9 +10,10 @@ import { environment } from '../../../../environments/environment';
 // import { error } from 'console';
 
 @Component({
-  selector: 'app-screquisitionview',
-  templateUrl: './screquisitionview.component.html',
-  providers: [AppGlobals,LoginService,DefinitionDataService,IsmsworkflowsService]
+    selector: 'app-screquisitionview',
+    templateUrl: './screquisitionview.component.html',
+    providers: [AppGlobals, LoginService, DefinitionDataService, IsmsworkflowsService],
+    standalone: false
 })
 export class SCRequisitionviewComponent implements OnInit {
 

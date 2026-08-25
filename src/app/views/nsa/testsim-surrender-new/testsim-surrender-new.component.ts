@@ -15,10 +15,11 @@ import { LoggedInUser } from '../../pages/loggedInUser';
 import { AgGridAngular } from 'ag-grid-angular';
 
 @Component({
-  selector: 'app-testsim-surrender-new',
-  templateUrl: './testsim-surrender-new.component.html',
-  styleUrls: ['./testsim-surrender-new.component.scss'],
-	providers: [WorkflowsService,AppGlobals,LoginService],
+    selector: 'app-testsim-surrender-new',
+    templateUrl: './testsim-surrender-new.component.html',
+    styleUrls: ['./testsim-surrender-new.component.scss'],
+    providers: [WorkflowsService, AppGlobals, LoginService],
+    standalone: false
 })
 export class TestsimSurrenderNewComponent implements OnInit {
 

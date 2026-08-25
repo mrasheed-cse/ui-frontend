@@ -22,10 +22,11 @@ import { LoggedInUser } from '../pages/loggedInUser';
 import { AppGlobals } from './../../app.global';
 
 @Component({
-  selector: 'app-apnform',
-  templateUrl: './apnform.component.html',
-  styles: [],
-  providers: [DefinitionDataService,WorkflowsService,AppGlobals,LoginService]
+    selector: 'app-apnform',
+    templateUrl: './apnform.component.html',
+    styles: [],
+    providers: [DefinitionDataService, WorkflowsService, AppGlobals, LoginService],
+    standalone: false
 })
 export class ApnformComponent implements OnInit {
 	WR_Name: string;

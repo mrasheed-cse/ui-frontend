@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { CarouselConfig } from 'ngx-bootstrap/carousel';
 
 @Component({
-  templateUrl: 'carousels.component.html',   providers: [
-    { provide: CarouselConfig, useValue: { interval: 1500, noPause: true } }
-  ]
+    templateUrl: 'carousels.component.html', providers: [
+        { provide: CarouselConfig, useValue: { interval: 1500, noPause: true } }
+    ],
+    standalone: false
 })
 export class CarouselsComponent {
 

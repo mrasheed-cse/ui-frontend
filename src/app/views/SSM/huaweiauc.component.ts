@@ -20,11 +20,12 @@ import {  NgModule,
   }
 
   @Component({
-      selector: 'app-searchPO',
-      templateUrl: './huaweiauc.component.html',
-        styleUrls: ['./search_po.component.scss'],
-        providers: [AppGlobals,LoginService,SSMService],
-  })
+    selector: 'app-searchPO',
+    templateUrl: './huaweiauc.component.html',
+    styleUrls: ['./search_po.component.scss'],
+    providers: [AppGlobals, LoginService, SSMService],
+    standalone: false
+})
   export class HuaweiAucProcessor implements OnInit {
               currentLoggedInUser: LoggedInUser;
               userName: string;

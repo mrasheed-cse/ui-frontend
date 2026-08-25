@@ -14,10 +14,11 @@ import { LoggedInUser } from '../../pages/loggedInUser';
 import {FileoperationService} from '../services/fileoperation.service';
 
 @Component({
-  selector: 'app-testsim-lost-ssm',
-  templateUrl: './testsim-lost-ssm.component.html',
-  styleUrls: ['./testsim-lost-ssm.component.scss'],
-  providers: [WorkflowsService,AppGlobals,LoginService, FileoperationService],
+    selector: 'app-testsim-lost-ssm',
+    templateUrl: './testsim-lost-ssm.component.html',
+    styleUrls: ['./testsim-lost-ssm.component.scss'],
+    providers: [WorkflowsService, AppGlobals, LoginService, FileoperationService],
+    standalone: false
 })
 export class TestsimLostSsmComponent implements OnInit {
 

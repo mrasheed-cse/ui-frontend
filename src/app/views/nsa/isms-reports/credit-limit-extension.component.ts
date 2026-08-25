@@ -16,10 +16,11 @@ import { LoginService } from '../../pages/LoginService';
 import { LoggedInUser } from '../../pages/loggedInUser';
 
 @Component({
-  selector: 'app-credit-limit-extension',
-  templateUrl: './credit-limit-extension.component.html',
-  styleUrls: ['./credit-limit-extension.component.scss'],
-  providers: [WorkflowsService,IsmsreportService,AppGlobals,LoginService]
+    selector: 'app-credit-limit-extension',
+    templateUrl: './credit-limit-extension.component.html',
+    styleUrls: ['./credit-limit-extension.component.scss'],
+    providers: [WorkflowsService, IsmsreportService, AppGlobals, LoginService],
+    standalone: false
 })
 export class CreditLimitExtensionComponent implements OnInit {
 

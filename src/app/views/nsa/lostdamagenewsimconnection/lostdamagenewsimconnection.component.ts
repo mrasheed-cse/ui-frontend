@@ -13,10 +13,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import {FileoperationService} from '../services/fileoperation.service';
 
 @Component({
-  selector: 'app-lostdamagenewsimconnection',
-  templateUrl: './lostdamagenewsimconnection.component.html',
-  styles: [],
-	providers: [IsmsworkflowsService,WorkflowsService,AppGlobals,LoginService, FileoperationService]
+    selector: 'app-lostdamagenewsimconnection',
+    templateUrl: './lostdamagenewsimconnection.component.html',
+    styles: [],
+    providers: [IsmsworkflowsService, WorkflowsService, AppGlobals, LoginService, FileoperationService],
+    standalone: false
 })
 export class LostdamagenewsimconnectionComponent implements OnInit {
 

@@ -17,6 +17,7 @@ import {DatePipe} from '@angular/common';
     templateUrl: './showdatawarehouse.component.html',
     styleUrls: ['../search_po.component.scss'],
     providers: [AppGlobals, LoginService, DatePipe, DatawarehouseService],
+    standalone: false
 })
 export class ViewDatawarehouse implements OnInit {
     currentLoggedInUser: LoggedInUser;

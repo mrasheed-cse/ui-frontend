@@ -12,6 +12,7 @@ import {AppGlobals} from './../../app.global';
 @Component({
     templateUrl: 'mfa.component.html',
     providers: [AppGlobals, LoginService],
+    standalone: false
 })
 
 export class MfaComponent implements OnInit {

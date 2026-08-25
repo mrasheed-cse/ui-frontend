@@ -15,10 +15,11 @@ import { LoggedInUser } from '../../pages/loggedInUser';
 import { AgGridAngular } from 'ag-grid-angular';
 
 @Component({
-  selector: 'app-test-sim-action-list-limit-ext',
-  templateUrl: './test-sim-action-list-limit-ext.component.html',
-  styleUrls: ['./test-sim-action-list-limit-ext.component.scss'],
-	providers: [WorkflowsService,AppGlobals,LoginService],
+    selector: 'app-test-sim-action-list-limit-ext',
+    templateUrl: './test-sim-action-list-limit-ext.component.html',
+    styleUrls: ['./test-sim-action-list-limit-ext.component.scss'],
+    providers: [WorkflowsService, AppGlobals, LoginService],
+    standalone: false
 })
 export class TestSimActionListLimitExtComponent implements OnInit {
 

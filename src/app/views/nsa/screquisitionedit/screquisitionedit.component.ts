@@ -9,10 +9,11 @@ import { LoggedInUser } from '../../pages/loggedInUser';
 import { environment } from '../../../../environments/environment';
 
 @Component({
-  selector: 'app-screquisitionedit',
-  templateUrl: './screquisitionedit.component.html',
-//   styleUrls: ['./requisitionedit.component.scss'],
-  providers: [AppGlobals,LoginService,DefinitionDataService,IsmsworkflowsService]
+    selector: 'app-screquisitionedit',
+    templateUrl: './screquisitionedit.component.html',
+    //   styleUrls: ['./requisitionedit.component.scss'],
+    providers: [AppGlobals, LoginService, DefinitionDataService, IsmsworkflowsService],
+    standalone: false
 })
 export class SCRequisitioneditComponent implements OnInit {
 

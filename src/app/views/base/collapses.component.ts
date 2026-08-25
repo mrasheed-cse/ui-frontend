@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 
 @Component({
-  templateUrl: 'collapses.component.html'
+    templateUrl: 'collapses.component.html',
+    standalone: false
 })
 export class CollapsesComponent {
 

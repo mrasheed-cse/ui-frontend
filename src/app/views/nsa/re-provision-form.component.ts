@@ -23,10 +23,11 @@ import { LoggedInUser } from '../pages/loggedInUser';
 import { AppGlobals } from './../../app.global';
 
 @Component({
-  selector: 'app-re-provision-form',
-  templateUrl: './re-provision-form.component.html',
-  styles: [],
-  providers: [DefinitionDataService,WorkflowsService,AppGlobals,LoginService,FileoperationService]
+    selector: 'app-re-provision-form',
+    templateUrl: './re-provision-form.component.html',
+    styles: [],
+    providers: [DefinitionDataService, WorkflowsService, AppGlobals, LoginService, FileoperationService],
+    standalone: false
 })
 export class ReProvisionFormComponent implements OnInit {
 

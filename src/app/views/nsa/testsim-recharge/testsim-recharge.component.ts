@@ -13,10 +13,11 @@ import { LoginService } from '../../pages/LoginService';
 import { LoggedInUser } from '../../pages/loggedInUser';
 
 @Component({
-  selector: 'app-testsim-recharge',
-  templateUrl: './testsim-recharge.component.html',
-  styleUrls: ['./testsim-recharge.component.scss'],
-  providers: [WorkflowsService,AppGlobals,LoginService],
+    selector: 'app-testsim-recharge',
+    templateUrl: './testsim-recharge.component.html',
+    styleUrls: ['./testsim-recharge.component.scss'],
+    providers: [WorkflowsService, AppGlobals, LoginService],
+    standalone: false
 })
 export class TestsimRechargeComponent implements OnInit {
 

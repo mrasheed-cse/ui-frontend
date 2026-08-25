@@ -24,8 +24,10 @@ import {DatePipe} from '@angular/common';
 @Component({
     selector: 'app-voucherGen',
     templateUrl: 'voucher_generation_forward_technology.component.html',
-      styleUrls: ['../search_po.component.scss'],
-      providers: [AppGlobals,LoginService,SSMService,DatePipe],})
+    styleUrls: ['../search_po.component.scss'],
+    providers: [AppGlobals, LoginService, SSMService, DatePipe],
+    standalone: false
+})
 
 export class VoucherGenerationForward implements OnInit {
 	

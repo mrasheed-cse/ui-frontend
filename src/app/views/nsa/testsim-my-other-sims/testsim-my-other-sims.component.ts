@@ -15,10 +15,11 @@ import { LoggedInUser } from '../../pages/loggedInUser';
 import { AgGridAngular } from 'ag-grid-angular';
 
 @Component({
-  selector: 'app-testsim-my-other-sims',
-  templateUrl: './testsim-my-other-sims.component.html',
-  styleUrls: ['./testsim-my-other-sims.component.scss'],
-	providers: [WorkflowsService,AppGlobals,LoginService],
+    selector: 'app-testsim-my-other-sims',
+    templateUrl: './testsim-my-other-sims.component.html',
+    styleUrls: ['./testsim-my-other-sims.component.scss'],
+    providers: [WorkflowsService, AppGlobals, LoginService],
+    standalone: false
 })
 export class TestsimMyOtherSimsComponent implements OnInit {
 

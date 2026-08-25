@@ -14,7 +14,8 @@ import {WorkflowsService} from '../services/workflows.service';
     selector: 'app-requisitiondetails-form',
     templateUrl: './requisitiondetails-form.component.html',
     styleUrls: ['./requisitiondetails-form.component.scss'],
-    providers: [AppGlobals, LoginService, IsmsworkflowsService, FileoperationService, WorkflowsService]
+    providers: [AppGlobals, LoginService, IsmsworkflowsService, FileoperationService, WorkflowsService],
+    standalone: false
 })
 export class RequisitiondetailsFormComponent implements OnInit {
 

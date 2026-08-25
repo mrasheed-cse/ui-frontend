@@ -23,10 +23,11 @@ import { LoggedInUser } from '../pages/loggedInUser';
 import { AppGlobals } from './../../app.global';
 
 @Component({
-  selector: 'app-sdpmigration',
-  templateUrl: './sdpmigration.component.html',
-  styles: [],
-  providers: [DefinitionDataService,WorkflowsService,AppGlobals,LoginService,FileoperationService]
+    selector: 'app-sdpmigration',
+    templateUrl: './sdpmigration.component.html',
+    styles: [],
+    providers: [DefinitionDataService, WorkflowsService, AppGlobals, LoginService, FileoperationService],
+    standalone: false
 })
 export class SdpmigrationComponent implements OnInit {
 	

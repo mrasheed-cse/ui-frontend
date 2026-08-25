@@ -10,7 +10,8 @@ import { AppGlobals } from './../../../app.global';
     selector: 'app-uploadforcast',
     templateUrl: './uploadforcast.component.html',
     styleUrls: ['./uploadforcast.component.css'],
-      providers: [AppGlobals,LoginService,ReportService]
+    providers: [AppGlobals, LoginService, ReportService],
+    standalone: false
 })
 export class UploadForcast implements OnInit {
 	currentLoggedInUser: LoggedInUser;

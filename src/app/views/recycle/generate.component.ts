@@ -11,7 +11,8 @@ import {GeneratedInPage} from "../nsa/models/recycle/GeneratedInPage";
 @Component({
     selector: 'app-generate',
     templateUrl: './generate.component.html',
-    styleUrls: ['./generate.component.scss']
+    styleUrls: ['./generate.component.scss'],
+    standalone: false
 })
 export class GenerateComponent implements OnInit {
     misisdnList: RecycleCandidateMsisdn[] = [];

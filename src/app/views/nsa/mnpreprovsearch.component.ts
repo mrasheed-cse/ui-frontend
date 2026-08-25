@@ -27,10 +27,11 @@ import { AppGlobals } from './../../app.global';
 
 
 @Component({
-  selector: 'app-mnpreprovsearch',
-  templateUrl: './mnpreprovsearch.component.html',
-  styles: [],
-  providers: [DefinitionDataService,WorkflowsService,AppGlobals,LoginService,FileoperationService]
+    selector: 'app-mnpreprovsearch',
+    templateUrl: './mnpreprovsearch.component.html',
+    styles: [],
+    providers: [DefinitionDataService, WorkflowsService, AppGlobals, LoginService, FileoperationService],
+    standalone: false
 })
 export class MnpreprovsearchComponent implements OnInit {
 

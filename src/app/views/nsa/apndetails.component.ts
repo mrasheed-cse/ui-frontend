@@ -17,10 +17,11 @@ import PreviousHopFieldNameValue from './models/PreviousHopFieldNameValue';
 import { LoginService } from '../pages/LoginService';
 import { LoggedInUser } from '../pages/loggedInUser'; 
 @Component({
-  selector: 'app-apndetails',
-  templateUrl: './apndetails.component.html',
-  styles: [],
-  providers: [WorkflowsService,AppGlobals,LoginService,FileoperationService]
+    selector: 'app-apndetails',
+    templateUrl: './apndetails.component.html',
+    styles: [],
+    providers: [WorkflowsService, AppGlobals, LoginService, FileoperationService],
+    standalone: false
 })
 export class ApndetailsComponent implements OnInit {
 	wr_BriefId : number;

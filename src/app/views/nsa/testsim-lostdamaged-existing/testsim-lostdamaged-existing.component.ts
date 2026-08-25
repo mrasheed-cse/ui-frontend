@@ -16,10 +16,11 @@ import { AgGridAngular } from 'ag-grid-angular';
 import {FileoperationService} from '../services/fileoperation.service';
 
 @Component({
-  selector: 'app-testsim-lostdamaged-existing',
-  templateUrl: './testsim-lostdamaged-existing.component.html',
-  styleUrls: ['./testsim-lostdamaged-existing.component.scss'],
-  providers: [WorkflowsService,AppGlobals,LoginService, FileoperationService],
+    selector: 'app-testsim-lostdamaged-existing',
+    templateUrl: './testsim-lostdamaged-existing.component.html',
+    styleUrls: ['./testsim-lostdamaged-existing.component.scss'],
+    providers: [WorkflowsService, AppGlobals, LoginService, FileoperationService],
+    standalone: false
 })
 export class TestsimLostdamagedExistingComponent implements OnInit {
 

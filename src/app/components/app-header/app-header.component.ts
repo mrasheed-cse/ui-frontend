@@ -4,9 +4,10 @@ import { LoginService } from '../../views/pages/LoginService';
 import { LoggedInUser } from '../../views/pages/loggedInUser'; 
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './app-header.component.html',
-  providers: [LoginService]
+    selector: 'app-header',
+    templateUrl: './app-header.component.html',
+    providers: [LoginService],
+    standalone: false
 })
 export class AppHeaderComponent { 
 	

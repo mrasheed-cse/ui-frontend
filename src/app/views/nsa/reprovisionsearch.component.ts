@@ -24,10 +24,11 @@ import { AppGlobals } from './../../app.global';
 
 
 @Component({
-  selector: 'app-reprovisionsearch',
-  templateUrl: './reprovisionsearch.component.html',
-  styles: [],
-  providers: [DefinitionDataService,WorkflowsService,AppGlobals,LoginService,FileoperationService]
+    selector: 'app-reprovisionsearch',
+    templateUrl: './reprovisionsearch.component.html',
+    styles: [],
+    providers: [DefinitionDataService, WorkflowsService, AppGlobals, LoginService, FileoperationService],
+    standalone: false
 })
 export class ReprovisionsearchComponent implements OnInit {
 

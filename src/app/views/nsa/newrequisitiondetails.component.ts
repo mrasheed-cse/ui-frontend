@@ -20,10 +20,11 @@ import { LoginService } from '../pages/LoginService';
 import { LoggedInUser } from '../pages/loggedInUser';
 
 @Component({
-  selector: 'app-newrequisitiondetails',
-  templateUrl: './newrequisitiondetails.component.html',
-  styles: [],
-  providers: [WorkflowsService,AppGlobals,LoginService],
+    selector: 'app-newrequisitiondetails',
+    templateUrl: './newrequisitiondetails.component.html',
+    styles: [],
+    providers: [WorkflowsService, AppGlobals, LoginService],
+    standalone: false
 })
 export class NewrequisitiondetailsComponent implements OnInit {
 

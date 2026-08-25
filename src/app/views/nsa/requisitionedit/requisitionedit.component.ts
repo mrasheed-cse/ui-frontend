@@ -12,7 +12,8 @@ import {environment} from '../../../../environments/environment';
     selector: 'app-requisitionedit',
     templateUrl: './requisitionedit.component.html',
     styleUrls: ['./requisitionedit.component.scss'],
-    providers: [AppGlobals, LoginService, DefinitionDataService, IsmsworkflowsService]
+    providers: [AppGlobals, LoginService, DefinitionDataService, IsmsworkflowsService],
+    standalone: false
 })
 export class RequisitioneditComponent implements OnInit {
 

@@ -21,11 +21,12 @@ import {
   import { saveAs } from 'file-saver';
   
   @Component({
-	selector: 'app-de-provision-details',
-	templateUrl: './de-provision-details.component.html',
-	  styles: [],
-	providers: [WorkflowsService,AppGlobals,LoginService,FileoperationService]
-  })
+    selector: 'app-de-provision-details',
+    templateUrl: './de-provision-details.component.html',
+    styles: [],
+    providers: [WorkflowsService, AppGlobals, LoginService, FileoperationService],
+    standalone: false
+})
   export class DeProvisionDetailsComponent implements OnInit {
 	  wr_BriefId : number;
 	  hop_sequence : number;

@@ -24,10 +24,11 @@ import { AppGlobals } from './../../app.global';
 
 
 @Component({
-  selector: 'app-de-provision-form',
-  templateUrl: './de-provision-form.component.html',
-  styles: [],
-  providers: [DefinitionDataService,WorkflowsService,AppGlobals,LoginService,FileoperationService]
+    selector: 'app-de-provision-form',
+    templateUrl: './de-provision-form.component.html',
+    styles: [],
+    providers: [DefinitionDataService, WorkflowsService, AppGlobals, LoginService, FileoperationService],
+    standalone: false
 })
 export class DeProvisionFormComponent implements OnInit {
 

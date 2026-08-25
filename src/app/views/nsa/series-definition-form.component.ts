@@ -22,10 +22,11 @@ import { LoggedInUser } from '../pages/loggedInUser';
 
 import { AppGlobals } from './../../app.global';
 @Component({
-	selector: 'app-series-definition-form',
-	templateUrl: './series-definition-form.component.html',
-	styles: [],
-	providers: [DefinitionDataService, WorkflowsService, AppGlobals, LoginService, FileoperationService]
+    selector: 'app-series-definition-form',
+    templateUrl: './series-definition-form.component.html',
+    styles: [],
+    providers: [DefinitionDataService, WorkflowsService, AppGlobals, LoginService, FileoperationService],
+    standalone: false
 })
 export class SeriesDefinitionFormComponent implements OnInit {
 

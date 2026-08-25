@@ -13,10 +13,11 @@ import { LoginService } from '../../pages/LoginService';
 import { LoggedInUser } from '../../pages/loggedInUser';
 
 @Component({
-  selector: 'app-testsim-timeext-ssm',
-  templateUrl: './testsim-timeext-ssm.component.html',
-  styleUrls: ['./testsim-timeext-ssm.component.scss'],
-	providers: [WorkflowsService,AppGlobals,LoginService],
+    selector: 'app-testsim-timeext-ssm',
+    templateUrl: './testsim-timeext-ssm.component.html',
+    styleUrls: ['./testsim-timeext-ssm.component.scss'],
+    providers: [WorkflowsService, AppGlobals, LoginService],
+    standalone: false
 })
 export class TestsimTimeextSsmComponent implements OnInit {
 

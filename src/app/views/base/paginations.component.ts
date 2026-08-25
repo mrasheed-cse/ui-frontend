@@ -1,9 +1,10 @@
 import { Component, Input, ViewEncapsulation  } from '@angular/core';
 
 @Component({
-  templateUrl: 'paginations.component.html',
-  styles: ['.pager li.btn:active { box-shadow: none; }'],
-  encapsulation: ViewEncapsulation.None
+    templateUrl: 'paginations.component.html',
+    styles: ['.pager li.btn:active { box-shadow: none; }'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class PaginationsComponent {
 

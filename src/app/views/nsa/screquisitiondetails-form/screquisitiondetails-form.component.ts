@@ -12,9 +12,10 @@ import { UntypedFormControl } from '@angular/forms';
 
 
 @Component({
-  selector: 'app-screquisitiondetails-form',
-  templateUrl: './screquisitiondetails-form.component.html',
-  providers: [AppGlobals, LoginService, IsmsworkflowsService, FileoperationService]
+    selector: 'app-screquisitiondetails-form',
+    templateUrl: './screquisitiondetails-form.component.html',
+    providers: [AppGlobals, LoginService, IsmsworkflowsService, FileoperationService],
+    standalone: false
 })
 export class SCRequisitiondetailsFormComponent implements OnInit {
  

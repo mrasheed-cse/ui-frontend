@@ -24,8 +24,9 @@ import {DatePipe} from '@angular/common';
 @Component({
     selector: 'app-voucherGen',
     templateUrl: './voucher_admin.component.html',
-      styleUrls: ['../search_po.component.scss'],
-      providers: [AppGlobals,LoginService,SSMService,DatePipe],
+    styleUrls: ['../search_po.component.scss'],
+    providers: [AppGlobals, LoginService, SSMService, DatePipe],
+    standalone: false
 })
 export class VoucherAdmin implements OnInit {
 		  	currentLoggedInUser: LoggedInUser;

@@ -21,6 +21,7 @@ import {UploadCSVMFSDeTaggingService} from './services/uploadCsvMFSDeTagging.ser
     styleUrls: ['./nsa_styles.css'],
     // styleUrls: ['./search_po.component.scss'],
     providers: [AppGlobals, LoginService, DatePipe, UploadCSVMFSDeTaggingService, FileoperationService],
+    standalone: false
 })
 export class UploadMFSDeTaggingCsvFile implements OnInit {
     myRecycledSmsForm: UntypedFormGroup;

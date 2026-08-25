@@ -20,11 +20,12 @@ import {
   import { LoggedInUser } from '../pages/loggedInUser'; 
   
   @Component({
-	selector: 'app-de-provision',
-	templateUrl: './de-provision.component.html',
-	 styleUrls: ['./demo.component.css'],
-	providers: [WorkflowsService,AppGlobals,LoginService]
-  })
+    selector: 'app-de-provision',
+    templateUrl: './de-provision.component.html',
+    styleUrls: ['./demo.component.css'],
+    providers: [WorkflowsService, AppGlobals, LoginService],
+    standalone: false
+})
   
   export class DeProvisionComponent implements OnInit {
   

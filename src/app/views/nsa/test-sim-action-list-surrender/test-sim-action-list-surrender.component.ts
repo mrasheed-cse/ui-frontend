@@ -15,10 +15,11 @@ import { LoggedInUser } from '../../pages/loggedInUser';
 import { AgGridAngular } from 'ag-grid-angular';
 
 @Component({
-  selector: 'app-test-sim-action-list-surrender',
-  templateUrl: './test-sim-action-list-surrender.component.html',
-  styleUrls: ['./test-sim-action-list-surrender.component.scss'],
-	providers: [WorkflowsService,AppGlobals,LoginService],
+    selector: 'app-test-sim-action-list-surrender',
+    templateUrl: './test-sim-action-list-surrender.component.html',
+    styleUrls: ['./test-sim-action-list-surrender.component.scss'],
+    providers: [WorkflowsService, AppGlobals, LoginService],
+    standalone: false
 })
 export class TestSimActionListSurrenderComponent implements OnInit {
 

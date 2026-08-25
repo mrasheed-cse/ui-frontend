@@ -14,10 +14,11 @@ import { LoginService } from '../../pages/LoginService';
 import { LoggedInUser } from '../../pages/loggedInUser';
 
 @Component({
-  selector: 'app-activation-pendingregistrations',
-  templateUrl: './activation-pendingregistrations.component.html',
-  styleUrls: ['./activation-pendingregistrations.component.scss'],
-	providers: [WorkflowsService,AppGlobals,LoginService,IsmsworkflowsService],
+    selector: 'app-activation-pendingregistrations',
+    templateUrl: './activation-pendingregistrations.component.html',
+    styleUrls: ['./activation-pendingregistrations.component.scss'],
+    providers: [WorkflowsService, AppGlobals, LoginService, IsmsworkflowsService],
+    standalone: false
 })
 export class ActivationPendingregistrationsComponent implements OnInit {
 

@@ -13,10 +13,11 @@ import { LoginService } from '../../pages/LoginService';
 import { LoggedInUser } from '../../pages/loggedInUser';
 
 @Component({
-  selector: 'app-activationrequeststatus',
-  templateUrl: './activationrequeststatus.component.html',
-  styleUrls: ['./activationrequeststatus.component.scss'],
-	providers: [WorkflowsService,AppGlobals,LoginService],
+    selector: 'app-activationrequeststatus',
+    templateUrl: './activationrequeststatus.component.html',
+    styleUrls: ['./activationrequeststatus.component.scss'],
+    providers: [WorkflowsService, AppGlobals, LoginService],
+    standalone: false
 })
 export class ActivationrequeststatusComponent implements OnInit {
 

@@ -16,10 +16,11 @@ import { LoginService } from '../../pages/LoginService';
 import { LoggedInUser } from '../../pages/loggedInUser';
 
 @Component({
-  selector: 'app-time-limit-change',
-  templateUrl: './time-limit-change.component.html',
-  styleUrls: ['./time-limit-change.component.scss'],
-  providers: [WorkflowsService,IsmsreportService,AppGlobals,LoginService]
+    selector: 'app-time-limit-change',
+    templateUrl: './time-limit-change.component.html',
+    styleUrls: ['./time-limit-change.component.scss'],
+    providers: [WorkflowsService, IsmsreportService, AppGlobals, LoginService],
+    standalone: false
 })
 export class TimeLimitChangeComponent implements OnInit {
 

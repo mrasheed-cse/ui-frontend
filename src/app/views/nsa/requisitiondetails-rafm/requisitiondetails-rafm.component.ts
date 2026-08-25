@@ -14,7 +14,8 @@ import {WorkflowsService} from '../services/workflows.service';
     selector: 'app-requisitiondetails-rafm',
     templateUrl: './requisitiondetails-rafm.component.html',
     styleUrls: ['./requisitiondetails-rafm.component.scss'],
-    providers: [AppGlobals, LoginService, IsmsworkflowsService, FileoperationService, WorkflowsService]
+    providers: [AppGlobals, LoginService, IsmsworkflowsService, FileoperationService, WorkflowsService],
+    standalone: false
 })
 export class RequisitiondetailsRAFMComponent implements OnInit {
 

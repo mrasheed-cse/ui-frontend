@@ -15,10 +15,11 @@ import * as moment from 'moment';
 import {FileoperationService} from '../services/fileoperation.service';
 
 @Component({
-  selector: 'app-testsim-lost',
-  templateUrl: './testsim-lost.component.html',
-  styleUrls: ['./testsim-lost.component.scss'],
-  providers: [WorkflowsService,AppGlobals,LoginService, FileoperationService],
+    selector: 'app-testsim-lost',
+    templateUrl: './testsim-lost.component.html',
+    styleUrls: ['./testsim-lost.component.scss'],
+    providers: [WorkflowsService, AppGlobals, LoginService, FileoperationService],
+    standalone: false
 })
 export class TestsimLostComponent implements OnInit {
 

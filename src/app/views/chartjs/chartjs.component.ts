@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 
 @Component({
-  templateUrl: 'chartjs.component.html'
+    templateUrl: 'chartjs.component.html',
+    standalone: false
 })
 export class ChartJSComponent {
 

@@ -20,10 +20,11 @@ import { LoginService } from '../pages/LoginService';
 import { LoggedInUser } from '../pages/loggedInUser'; 
 
 @Component({
-  selector: 'app-re-provision',
-  templateUrl: './re-provision.component.html',
-   styleUrls: ['./demo.component.css'],
-  providers: [WorkflowsService,AppGlobals,LoginService]
+    selector: 'app-re-provision',
+    templateUrl: './re-provision.component.html',
+    styleUrls: ['./demo.component.css'],
+    providers: [WorkflowsService, AppGlobals, LoginService],
+    standalone: false
 })
 export class ReProvisionComponent implements OnInit {
 	pendingTasksList: PendingTasks;

@@ -15,10 +15,11 @@ import { LoggedInUser } from '../../pages/loggedInUser';
 import { AgGridAngular } from 'ag-grid-angular';
 
 @Component({
-  selector: 'app-testsim-deactivation',
-  templateUrl: './testsim-deactivation.component.html',
-  styleUrls: ['./testsim-deactivation.component.scss'],
-	providers: [WorkflowsService,AppGlobals,LoginService],
+    selector: 'app-testsim-deactivation',
+    templateUrl: './testsim-deactivation.component.html',
+    styleUrls: ['./testsim-deactivation.component.scss'],
+    providers: [WorkflowsService, AppGlobals, LoginService],
+    standalone: false
 })
 export class TestsimDeactivationComponent implements OnInit {
 

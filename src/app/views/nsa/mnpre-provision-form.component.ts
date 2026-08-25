@@ -26,10 +26,11 @@ import { LoggedInUser } from '../pages/loggedInUser';
 import { AppGlobals } from './../../app.global';
 
 @Component({
-  selector: 'app-mnpre-provision-form',
-  templateUrl: './mnpre-provision-form.component.html',
-  styleUrls: ['./demo.component.css'],
-  providers: [DefinitionDataService,WorkflowsService,AppGlobals,LoginService,FileoperationService]
+    selector: 'app-mnpre-provision-form',
+    templateUrl: './mnpre-provision-form.component.html',
+    styleUrls: ['./demo.component.css'],
+    providers: [DefinitionDataService, WorkflowsService, AppGlobals, LoginService, FileoperationService],
+    standalone: false
 })
 export class MnpreProvisionFormComponent implements OnInit {
 

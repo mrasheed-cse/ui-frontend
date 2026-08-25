@@ -21,10 +21,11 @@ import { LoginService } from '../pages/LoginService';
 import { LoggedInUser } from '../pages/loggedInUser'; 
 
 @Component({
-  selector: 'app-nsareport',
-  templateUrl: './nsareport.component.html',
-  styleUrls: ['./demo.component.css'],
-  providers: [ReportService,AppGlobals,LoginService]
+    selector: 'app-nsareport',
+    templateUrl: './nsareport.component.html',
+    styleUrls: ['./demo.component.css'],
+    providers: [ReportService, AppGlobals, LoginService],
+    standalone: false
 })
 export class NsareportComponent implements OnInit {
 

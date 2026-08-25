@@ -8,10 +8,11 @@ import {ReactiveFormsModule, UntypedFormGroup, UntypedFormControl, Validators} f
 import { AppGlobals } from './../../../app.global';
 import{PlanManagementService } from '../../SSM/SimCardPlan Management/plan_management.service';
 @Component({
-  selector: 'app-pre-PlanGenerate',
-  templateUrl: './pre-plangenerate.component.html',
-  styleUrls: ['../../nsa/nsa_styles.css'],
-  providers: [SSMService,LoginService,AppGlobals,PlanManagementService]
+    selector: 'app-pre-PlanGenerate',
+    templateUrl: './pre-plangenerate.component.html',
+    styleUrls: ['../../nsa/nsa_styles.css'],
+    providers: [SSMService, LoginService, AppGlobals, PlanManagementService],
+    standalone: false
 })
 export class PrePlanGenerate implements OnInit {
 

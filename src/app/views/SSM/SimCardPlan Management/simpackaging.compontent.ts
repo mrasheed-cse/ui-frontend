@@ -24,8 +24,9 @@ import {DatePipe} from '@angular/common';
 @Component({
     selector: 'app-voucherGen',
     templateUrl: './simpackaging.component.html',
-      styleUrls: ['../search_po.component.scss'],
-      providers: [AppGlobals,LoginService,PlanManagementService,DatePipe],
+    styleUrls: ['../search_po.component.scss'],
+    providers: [AppGlobals, LoginService, PlanManagementService, DatePipe],
+    standalone: false
 })
 
 export class SimPackaging implements OnInit {

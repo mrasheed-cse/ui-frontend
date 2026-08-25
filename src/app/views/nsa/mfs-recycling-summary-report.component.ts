@@ -19,6 +19,7 @@ import {SharedMessageService} from './services/shared-message.service';
     templateUrl: './mfs-recycling-summary-report.component.html',
     styles: [],
     providers: [AppGlobals, LoginService, DatePipe, MfsRecyclingSummaryReportService, SharedMessageService],
+    standalone: false
 })
 export class MfsRecyclingSummaryReportComponent implements OnInit {
 

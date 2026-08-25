@@ -19,11 +19,12 @@ import {
   import { saveAs } from 'file-saver';
   
   @Component({
-	selector: 'app-mnpre-provision-details',
-	templateUrl: './mnpre-provision-details.component.html',
-	  styles: [],
-	providers: [WorkflowsService,AppGlobals,LoginService,FileoperationService]
-	})
+    selector: 'app-mnpre-provision-details',
+    templateUrl: './mnpre-provision-details.component.html',
+    styles: [],
+    providers: [WorkflowsService, AppGlobals, LoginService, FileoperationService],
+    standalone: false
+})
 	
   export class MnpreProvisionDetailsComponent implements OnInit {
 	  wr_BriefId : number;

@@ -15,10 +15,11 @@ import { LoggedInUser } from '../../pages/loggedInUser';
 import { AgGridAngular } from 'ag-grid-angular';
 
 @Component({
-  selector: 'app-testsim-transfer-existing',
-  templateUrl: './testsim-transfer-existing.component.html',
-  styleUrls: ['./testsim-transfer-existing.component.scss'],
-  providers: [WorkflowsService,AppGlobals,LoginService],
+    selector: 'app-testsim-transfer-existing',
+    templateUrl: './testsim-transfer-existing.component.html',
+    styleUrls: ['./testsim-transfer-existing.component.scss'],
+    providers: [WorkflowsService, AppGlobals, LoginService],
+    standalone: false
 })
 export class TestsimTransferExistingComponent implements OnInit {
 

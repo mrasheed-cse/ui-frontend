@@ -7,7 +7,8 @@ import {environment} from '../../../environments/environment';
 @Component({
     selector: 'app-generateanalyze',
     templateUrl: './generateanalyze.component.html',
-    styleUrls: ['./generateanalyze.component.scss']
+    styleUrls: ['./generateanalyze.component.scss'],
+    standalone: false
 })
 export class GenerateanalyzeComponent implements OnInit {
     startdate: Date

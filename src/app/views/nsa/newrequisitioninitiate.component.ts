@@ -29,7 +29,8 @@ import * as moment from 'moment';
     selector: 'app-newrequisitioninitiate',
     templateUrl: './newrequisitioninitiate.component.html',
     styleUrls: ['./nsa_styles.css'],
-    providers: [WorkflowsService, DefinitionDataService, IsmsworkflowsService, AppGlobals, LoginService, FileoperationService]
+    providers: [WorkflowsService, DefinitionDataService, IsmsworkflowsService, AppGlobals, LoginService, FileoperationService],
+    standalone: false
 })
 export class NewrequisitioninitiateComponent implements OnInit {
 

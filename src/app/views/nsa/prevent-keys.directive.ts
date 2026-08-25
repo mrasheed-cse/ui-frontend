@@ -12,10 +12,11 @@ export class PreventKeysDirective {
 
 
 @Directive( {
-  selector : '[prevent-keys]',
-  host : {
-      '(keydown)' : 'onKeyUp($event)'
-  }
+    selector: '[prevent-keys]',
+    host: {
+        '(keydown)': 'onKeyUp($event)'
+    },
+    standalone: false
 } )
 export class PreventKeysDirective {
   @Input( 'prevent-keys' ) preventKeys;

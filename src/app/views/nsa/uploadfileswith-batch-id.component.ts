@@ -26,10 +26,11 @@ import { AppGlobals } from './../../app.global';
 
 
 @Component({
-  selector: 'app-uploadfileswith-batch-id',
-  templateUrl: './uploadfileswith-batch-id.component.html',
-  styles: [],
-  providers: [DefinitionDataService,WorkflowsService,AppGlobals,LoginService,FileoperationService]
+    selector: 'app-uploadfileswith-batch-id',
+    templateUrl: './uploadfileswith-batch-id.component.html',
+    styles: [],
+    providers: [DefinitionDataService, WorkflowsService, AppGlobals, LoginService, FileoperationService],
+    standalone: false
 })
 
 

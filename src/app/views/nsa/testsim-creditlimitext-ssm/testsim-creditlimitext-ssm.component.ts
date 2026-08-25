@@ -14,10 +14,11 @@ import { LoggedInUser } from '../../pages/loggedInUser';
 import { DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-testsim-creditlimitext-ssm',
-  templateUrl: './testsim-creditlimitext-ssm.component.html',
-  styleUrls: ['./testsim-creditlimitext-ssm.component.scss'],
-  providers: [WorkflowsService,AppGlobals,LoginService],
+    selector: 'app-testsim-creditlimitext-ssm',
+    templateUrl: './testsim-creditlimitext-ssm.component.html',
+    styleUrls: ['./testsim-creditlimitext-ssm.component.scss'],
+    providers: [WorkflowsService, AppGlobals, LoginService],
+    standalone: false
 })
 export class TestsimCreditlimitextSsmComponent implements OnInit {
 

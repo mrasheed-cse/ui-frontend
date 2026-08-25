@@ -21,6 +21,7 @@ import {UploadCSVRecycleSMSService} from './services/uploadCsvRecycleSms.service
     styleUrls: ['./nsa_styles.css'],
     // styleUrls: ['./search_po.component.scss'],
     providers: [AppGlobals, LoginService, DatePipe, UploadCSVRecycleSMSService, FileoperationService],
+    standalone: false
 })
 export class UploadRecycleCsvFile implements OnInit {
     myRecycledSmsForm: UntypedFormGroup;

@@ -2,7 +2,8 @@ import {Component, SecurityContext} from '@angular/core';
 import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
-  templateUrl: 'tooltips.component.html'
+    templateUrl: 'tooltips.component.html',
+    standalone: false
 })
 export class TooltipsComponent {
 

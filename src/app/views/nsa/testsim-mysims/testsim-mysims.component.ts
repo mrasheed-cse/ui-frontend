@@ -15,10 +15,11 @@ import { LoggedInUser } from '../../pages/loggedInUser';
 import { AgGridAngular } from 'ag-grid-angular';
 
 @Component({
-  selector: 'app-testsim-mysims',
-  templateUrl: './testsim-mysims.component.html',
-  styleUrls: ['./testsim-mysims.component.scss'],
-	providers: [WorkflowsService,AppGlobals,LoginService],
+    selector: 'app-testsim-mysims',
+    templateUrl: './testsim-mysims.component.html',
+    styleUrls: ['./testsim-mysims.component.scss'],
+    providers: [WorkflowsService, AppGlobals, LoginService],
+    standalone: false
 })
 export class TestsimMysimsComponent implements OnInit {
   @ViewChild('agGrid') agGrid: AgGridAngular;

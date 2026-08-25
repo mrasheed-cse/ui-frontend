@@ -14,10 +14,11 @@ import { LoggedInUser } from '../../pages/loggedInUser';
 import * as moment from 'moment';
 
 @Component({
-  selector: 'app-testsim-damaged',
-  templateUrl: './testsim-damaged.component.html',
-  styleUrls: ['./testsim-damaged.component.scss'],
-	providers: [WorkflowsService,AppGlobals,LoginService],
+    selector: 'app-testsim-damaged',
+    templateUrl: './testsim-damaged.component.html',
+    styleUrls: ['./testsim-damaged.component.scss'],
+    providers: [WorkflowsService, AppGlobals, LoginService],
+    standalone: false
 })
 export class TestsimDamagedComponent implements OnInit {
 

@@ -23,10 +23,11 @@ import { LoggedInUser } from '../pages/loggedInUser';
 import { AppGlobals } from './../../app.global';
 
 @Component({
-  selector: 'app-discreteprovisionform',
-  templateUrl: './discreteprovisionform.component.html',
-  styles: [],
-  providers: [DefinitionDataService,WorkflowsService,AppGlobals,LoginService,FileoperationService]
+    selector: 'app-discreteprovisionform',
+    templateUrl: './discreteprovisionform.component.html',
+    styles: [],
+    providers: [DefinitionDataService, WorkflowsService, AppGlobals, LoginService, FileoperationService],
+    standalone: false
 })
 export class DiscreteprovisionformComponent implements OnInit {
 

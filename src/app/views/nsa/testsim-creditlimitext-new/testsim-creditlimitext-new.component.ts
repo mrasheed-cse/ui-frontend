@@ -15,10 +15,11 @@ import { LoggedInUser } from '../../pages/loggedInUser';
 import { AgGridAngular } from 'ag-grid-angular';
 
 @Component({
-  selector: 'app-testsim-creditlimitext-new',
-  templateUrl: './testsim-creditlimitext-new.component.html',
-  styleUrls: ['./testsim-creditlimitext-new.component.scss'],
-	providers: [WorkflowsService,AppGlobals,LoginService],
+    selector: 'app-testsim-creditlimitext-new',
+    templateUrl: './testsim-creditlimitext-new.component.html',
+    styleUrls: ['./testsim-creditlimitext-new.component.scss'],
+    providers: [WorkflowsService, AppGlobals, LoginService],
+    standalone: false
 })
 export class TestsimCreditlimitextNewComponent implements OnInit {
 

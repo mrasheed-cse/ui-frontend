@@ -16,10 +16,11 @@ import { LoginService } from '../../pages/LoginService';
 import { LoggedInUser } from '../../pages/loggedInUser';
 
 @Component({
-  selector: 'app-test-sim-deactivation',
-  templateUrl: './test-sim-deactivation.component.html',
-  styleUrls: ['./test-sim-deactivation.component.scss'],
-  providers: [WorkflowsService,IsmsreportService,AppGlobals,LoginService]
+    selector: 'app-test-sim-deactivation',
+    templateUrl: './test-sim-deactivation.component.html',
+    styleUrls: ['./test-sim-deactivation.component.scss'],
+    providers: [WorkflowsService, IsmsreportService, AppGlobals, LoginService],
+    standalone: false
 })
 export class TestSimDeactivationComponent implements OnInit {
 

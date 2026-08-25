@@ -21,6 +21,7 @@ import {BsDatepickerConfig} from 'ngx-bootstrap/datepicker';
     styleUrls: ['./nsa_styles.css'],
     // styleUrls: ['./search_po.component.scss'],
     providers: [AppGlobals, LoginService, DatePipe, UpdatePressNoticeDateService],
+    standalone: false
 })
 export class UpdatePressNoticeDate implements OnInit {
     updatePressNoticeForm: UntypedFormGroup;

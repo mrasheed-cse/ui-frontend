@@ -28,9 +28,9 @@ import { trigger, transition, style, animate } from '@angular/animations';
     selector: 'app-testscdeactivation',
     templateUrl: './testscdeactivation.component.html',
     styles: [],
-    providers: [WorkflowsService,AppGlobals,LoginService],
-    
-  })
+    providers: [WorkflowsService, AppGlobals, LoginService],
+    standalone: false
+})
   export class TestscDeactivationComponent implements OnInit {
   
     requisitionList: Array<Object>;

@@ -16,8 +16,9 @@ import{SSMService } from './SSM.service';
 @Component({
     selector: 'app-searchPO',
     templateUrl: './auc.component.html',
-      styleUrls: ['./search_po.component.scss'],
-      providers: [AppGlobals,LoginService,SSMService],
+    styleUrls: ['./search_po.component.scss'],
+    providers: [AppGlobals, LoginService, SSMService],
+    standalone: false
 })
 export class AucProcessor implements OnInit {
 		  	currentLoggedInUser: LoggedInUser;

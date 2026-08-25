@@ -26,10 +26,11 @@ import * as moment from 'moment';
 // import { parse } from 'querystring';
 
 @Component({
-  selector: 'app-newscrequisitioninitiate',
-  templateUrl: './newscrequisitioninitiate.component.html',
-  styleUrls: ['./nsa_styles.css'],
-  providers: [WorkflowsService, DefinitionDataService, IsmsworkflowsService, AppGlobals, LoginService]
+    selector: 'app-newscrequisitioninitiate',
+    templateUrl: './newscrequisitioninitiate.component.html',
+    styleUrls: ['./nsa_styles.css'],
+    providers: [WorkflowsService, DefinitionDataService, IsmsworkflowsService, AppGlobals, LoginService],
+    standalone: false
 })
 export class NewscrequisitioninitiateComponent implements OnInit {
 

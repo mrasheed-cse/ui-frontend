@@ -13,10 +13,11 @@ import { LoginService } from '../../pages/LoginService';
 import { LoggedInUser } from '../../pages/loggedInUser';
 
 @Component({
-  selector: 'app-testsim-lost-hod',
-  templateUrl: './testsim-lost-hod.component.html',
-  styleUrls: ['./testsim-lost-hod.component.scss'],
-  providers: [WorkflowsService,AppGlobals,LoginService],
+    selector: 'app-testsim-lost-hod',
+    templateUrl: './testsim-lost-hod.component.html',
+    styleUrls: ['./testsim-lost-hod.component.scss'],
+    providers: [WorkflowsService, AppGlobals, LoginService],
+    standalone: false
 })
 export class TestsimLostHodComponent implements OnInit {
 

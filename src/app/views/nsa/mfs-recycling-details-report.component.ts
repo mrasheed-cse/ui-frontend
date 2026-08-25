@@ -20,6 +20,7 @@ import {MfsRecyclingReportService} from './services/mfs-recycling-report.service
     templateUrl: './mfs-recycling-details-report.html',
     styles: [],
     providers: [AppGlobals, LoginService, DatePipe, FileoperationService, MfsRecyclingReportService],
+    standalone: false
 })
 export class MfsRecyclingDetailsReportComponent implements OnInit {
     recycleForm: UntypedFormGroup;

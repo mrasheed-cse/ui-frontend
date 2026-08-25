@@ -19,6 +19,7 @@ import {MfsStatusOfMsisdnReportService} from './services/mfs-status-of-msisdn-re
     templateUrl: './mfs-status-of-msisdn.component.html',
     styleUrls: ['./nsa_styles.css'],
     providers: [AppGlobals, LoginService, DatePipe, MfsStatusOfMsisdnReportService],
+    standalone: false
 })
 export class MfsStatusOfMsisdnComponent implements OnInit {
 

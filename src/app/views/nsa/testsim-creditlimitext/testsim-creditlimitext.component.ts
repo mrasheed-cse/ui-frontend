@@ -13,10 +13,11 @@ import { LoginService } from '../../pages/LoginService';
 import { LoggedInUser } from '../../pages/loggedInUser';
 
 @Component({
-  selector: 'app-testsim-creditlimitext',
-  templateUrl: './testsim-creditlimitext.component.html',
-  styleUrls: ['./testsim-creditlimitext.component.scss'],
-  providers: [WorkflowsService,AppGlobals,LoginService],
+    selector: 'app-testsim-creditlimitext',
+    templateUrl: './testsim-creditlimitext.component.html',
+    styleUrls: ['./testsim-creditlimitext.component.scss'],
+    providers: [WorkflowsService, AppGlobals, LoginService],
+    standalone: false
 })
 export class TestsimCreditlimitextComponent implements OnInit {
 

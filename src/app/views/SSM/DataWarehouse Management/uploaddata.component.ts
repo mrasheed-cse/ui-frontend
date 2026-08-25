@@ -24,8 +24,9 @@ import {DatePipe} from '@angular/common';
 @Component({
     selector: 'app-voucherGen',
     templateUrl: './uploaddata.component.html',
-      styleUrls: ['../search_po.component.scss'],
-      providers: [AppGlobals,LoginService,DatePipe,DatawarehouseService],
+    styleUrls: ['../search_po.component.scss'],
+    providers: [AppGlobals, LoginService, DatePipe, DatawarehouseService],
+    standalone: false
 })
 export class UploadDataWh implements OnInit {
 	currentLoggedInUser: LoggedInUser;

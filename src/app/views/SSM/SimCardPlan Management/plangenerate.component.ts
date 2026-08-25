@@ -25,8 +25,9 @@ import {DatePipe} from '@angular/common';
 @Component({
     selector: 'app-voucherGen',
     templateUrl: './plangenerate.component.html',
-      styleUrls: ['../search_po.component.scss'],
-      providers: [AppGlobals,LoginService,PlanManagementService,DatePipe,FileoperationService],
+    styleUrls: ['../search_po.component.scss'],
+    providers: [AppGlobals, LoginService, PlanManagementService, DatePipe, FileoperationService],
+    standalone: false
 })
 export class PlanGenerate implements OnInit {
 		  	currentLoggedInUser: LoggedInUser;

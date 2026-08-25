@@ -13,10 +13,11 @@ import { LoginService } from '../../pages/LoginService';
 import { LoggedInUser } from '../../pages/loggedInUser';
 
 @Component({
-  selector: 'app-testsimdashboard',
-  templateUrl: './testsimdashboard.component.html',
-  styleUrls: ['./testsimdashboard.component.scss'],
-  providers: [WorkflowsService,AppGlobals,LoginService],
+    selector: 'app-testsimdashboard',
+    templateUrl: './testsimdashboard.component.html',
+    styleUrls: ['./testsimdashboard.component.scss'],
+    providers: [WorkflowsService, AppGlobals, LoginService],
+    standalone: false
 })
 export class TestsimdashboardComponent implements OnInit {
 

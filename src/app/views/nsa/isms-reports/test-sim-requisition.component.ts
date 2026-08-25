@@ -16,10 +16,11 @@ import { LoginService } from '../../pages/LoginService';
 import { LoggedInUser } from '../../pages/loggedInUser';
 
 @Component({
-  selector: 'app-test-sim-requisition',
-  templateUrl: './test-sim-requisition.component.html',
-  styleUrls: ['./test-sim-requisition.component.scss'],
-  providers: [WorkflowsService,IsmsreportService,AppGlobals,LoginService]
+    selector: 'app-test-sim-requisition',
+    templateUrl: './test-sim-requisition.component.html',
+    styleUrls: ['./test-sim-requisition.component.scss'],
+    providers: [WorkflowsService, IsmsreportService, AppGlobals, LoginService],
+    standalone: false
 })
 export class TestSimRequisitionComponent implements OnInit {
 

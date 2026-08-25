@@ -17,8 +17,9 @@ import{PlanManagementService } from '../SSM/SimCardPlan Management/plan_manageme
 @Component({
     selector: 'app-searchPO',
     templateUrl: './inputfileprocessing.component.html',
-      styleUrls: ['./search_po.component.scss'],
-      providers: [AppGlobals,LoginService,SSMService,DatePipe,PlanManagementService],
+    styleUrls: ['./search_po.component.scss'],
+    providers: [AppGlobals, LoginService, SSMService, DatePipe, PlanManagementService],
+    standalone: false
 })
 export class InputFileProcessing implements OnInit {
 	 private rowData: any[];

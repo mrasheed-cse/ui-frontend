@@ -9,18 +9,19 @@ export function getAlertConfig(): AlertConfig {
 }
 
 @Component({
-  templateUrl: 'alerts.component.html',
-  encapsulation: ViewEncapsulation.None,
-  styles: [
-    `
+    templateUrl: 'alerts.component.html',
+    encapsulation: ViewEncapsulation.None,
+    styles: [
+        `
   .alert-md-local {
     background-color: #009688;
     border-color: #00695C;
     color: #fff;
   }
   `
-  ],
-  providers: [{ provide: AlertConfig, useFactory: getAlertConfig }]
+    ],
+    providers: [{ provide: AlertConfig, useFactory: getAlertConfig }],
+    standalone: false
 })
 export class AlertsComponent {
 

@@ -20,10 +20,11 @@ import { LoginService } from '../pages/LoginService';
 import { LoggedInUser } from '../pages/loggedInUser'; 
 
 @Component({
-  selector: 'app-mnpre-provision',
-  templateUrl: './mnpre-provision.component.html',
-   styleUrls: ['./demo.component.css'],
-  providers: [WorkflowsService,AppGlobals,LoginService]
+    selector: 'app-mnpre-provision',
+    templateUrl: './mnpre-provision.component.html',
+    styleUrls: ['./demo.component.css'],
+    providers: [WorkflowsService, AppGlobals, LoginService],
+    standalone: false
 })
 export class MnpreProvisionComponent implements OnInit {
 	pendingTasksList: PendingTasks;

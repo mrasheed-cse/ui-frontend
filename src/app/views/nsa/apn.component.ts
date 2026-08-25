@@ -20,10 +20,11 @@ import { LoginService } from '../pages/LoginService';
 import { LoggedInUser } from '../pages/loggedInUser'; 
 
 @Component({
-  selector: 'app-apn',
-  templateUrl: './apn.component.html',
-  styles: [],
-  providers: [WorkflowsService,AppGlobals,LoginService]
+    selector: 'app-apn',
+    templateUrl: './apn.component.html',
+    styles: [],
+    providers: [WorkflowsService, AppGlobals, LoginService],
+    standalone: false
 })
 export class ApnComponent implements OnInit {
 	pendingTasksList: PendingTasks;

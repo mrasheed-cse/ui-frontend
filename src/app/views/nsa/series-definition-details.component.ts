@@ -19,10 +19,11 @@ import { LoginService } from '../pages/LoginService';
 import { LoggedInUser } from '../pages/loggedInUser'; 
 
 @Component({
-  selector: 'app-series-definition-details',
-  templateUrl: './series-definition-details.component.html',
-  styles: [],
-  providers: [DefinitionDataService,WorkflowsService,AppGlobals,LoginService]
+    selector: 'app-series-definition-details',
+    templateUrl: './series-definition-details.component.html',
+    styles: [],
+    providers: [DefinitionDataService, WorkflowsService, AppGlobals, LoginService],
+    standalone: false
 })
 export class SeriesDefinitionDetailsComponent implements OnInit {
 	wr_BriefId : number;

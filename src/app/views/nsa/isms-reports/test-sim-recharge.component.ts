@@ -16,10 +16,11 @@ import { LoginService } from '../../pages/LoginService';
 import { LoggedInUser } from '../../pages/loggedInUser';
 
 @Component({
-  selector: 'app-test-sim-recharge',
-  templateUrl: './test-sim-recharge.component.html',
-  styleUrls: ['./test-sim-recharge.component.scss'],
-  providers: [WorkflowsService,IsmsreportService,AppGlobals,LoginService]
+    selector: 'app-test-sim-recharge',
+    templateUrl: './test-sim-recharge.component.html',
+    styleUrls: ['./test-sim-recharge.component.scss'],
+    providers: [WorkflowsService, IsmsreportService, AppGlobals, LoginService],
+    standalone: false
 })
 export class TestSimRechargeComponent implements OnInit {
 

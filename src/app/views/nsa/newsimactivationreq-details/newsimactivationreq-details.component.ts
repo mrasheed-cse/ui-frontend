@@ -15,10 +15,11 @@ import { LoginService } from '../../pages/LoginService';
 import { LoggedInUser } from '../../pages/loggedInUser';
 
 @Component({
-  selector: 'app-newsimactivationreq-details',
-  templateUrl: './newsimactivationreq-details.component.html',
-  styleUrls: ['./newsimactivationreq-details.component.scss'],
-	providers: [WorkflowsService,DefinitionDataService,AppGlobals,LoginService,IsmsworkflowsService],
+    selector: 'app-newsimactivationreq-details',
+    templateUrl: './newsimactivationreq-details.component.html',
+    styleUrls: ['./newsimactivationreq-details.component.scss'],
+    providers: [WorkflowsService, DefinitionDataService, AppGlobals, LoginService, IsmsworkflowsService],
+    standalone: false
 })
 export class NewsimactivationreqDetailsComponent implements OnInit {
 

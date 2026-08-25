@@ -19,7 +19,8 @@ import { SSMService } from '../../SSM/SSM.service';
     selector: 'app-voucherGen',
     templateUrl: './stockreport.component.html',
     styleUrls: ['../search_po.component.scss'],
-    providers: [AppGlobals,SSMService, LoginService, DatePipe, ReportService,PlanManagementService],
+    providers: [AppGlobals, SSMService, LoginService, DatePipe, ReportService, PlanManagementService],
+    standalone: false
 })
 export class StockReport implements OnInit {
 

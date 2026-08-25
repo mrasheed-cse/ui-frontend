@@ -4,7 +4,8 @@ import {MsisdnService} from '../nsa/msisdn.service';
 @Component({
     selector: 'app-uploadrecycle',
     templateUrl: './uploadrecycle.component.html',
-    styleUrls: ['./uploadrecycle.component.css']
+    styleUrls: ['./uploadrecycle.component.css'],
+    standalone: false
 })
 export class UploadRecycleComponent implements OnInit {
     fileToUpload: File = null;

@@ -20,10 +20,11 @@ import { LoginService } from '../pages/LoginService';
 import { LoggedInUser } from '../pages/loggedInUser';
 
 @Component({
-  selector: 'app-newscrequisitiondetails',
-  templateUrl: './newscrequisitiondetails.component.html',
-  styles: [],
-  providers: [WorkflowsService,AppGlobals,LoginService],
+    selector: 'app-newscrequisitiondetails',
+    templateUrl: './newscrequisitiondetails.component.html',
+    styles: [],
+    providers: [WorkflowsService, AppGlobals, LoginService],
+    standalone: false
 })
 export class NewscrequisitiondetailsComponent implements OnInit {
 

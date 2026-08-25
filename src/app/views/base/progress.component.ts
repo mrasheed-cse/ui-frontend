@@ -1,7 +1,8 @@
 import {Component, OnDestroy} from '@angular/core';
 
 @Component({
-  templateUrl: 'progress.component.html'
+    templateUrl: 'progress.component.html',
+    standalone: false
 })
 export class ProgressComponent implements OnDestroy {
 

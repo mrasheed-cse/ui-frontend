@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 
 @Component({
-  templateUrl: 'dropdowns.component.html',
+    templateUrl: 'dropdowns.component.html',
+    standalone: false
 })
 export class DropdownsComponent {
 

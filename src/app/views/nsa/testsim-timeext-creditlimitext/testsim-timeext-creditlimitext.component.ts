@@ -11,10 +11,11 @@ import { AppGlobals } from './../../../app.global';
 import { LoginService } from '../../pages/LoginService';
 
 @Component({
-  selector: 'app-testsim-timeext-creditlimitext',
-  templateUrl: './testsim-timeext-creditlimitext.component.html',
-  styleUrls: ['./testsim-timeext-creditlimitext.component.scss'],
-  providers: [WorkflowsService,AppGlobals,LoginService],
+    selector: 'app-testsim-timeext-creditlimitext',
+    templateUrl: './testsim-timeext-creditlimitext.component.html',
+    styleUrls: ['./testsim-timeext-creditlimitext.component.scss'],
+    providers: [WorkflowsService, AppGlobals, LoginService],
+    standalone: false
 })
 export class TestsimTimeextCreditlimitextComponent implements OnInit {
 

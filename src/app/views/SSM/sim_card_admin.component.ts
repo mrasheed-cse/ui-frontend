@@ -25,8 +25,9 @@ import {DatePipe} from '@angular/common';
 @Component({
     selector: 'app-voucherGen',
     templateUrl: './sim_card_admin.component.html',
-      styleUrls: ['./search_po.component.scss'],
-      providers: [AppGlobals,LoginService,SSMService,DatePipe,PlanManagementService],
+    styleUrls: ['./search_po.component.scss'],
+    providers: [AppGlobals, LoginService, SSMService, DatePipe, PlanManagementService],
+    standalone: false
 })
 export class SimAdmin implements OnInit {
 	 	currentLoggedInUser: LoggedInUser;

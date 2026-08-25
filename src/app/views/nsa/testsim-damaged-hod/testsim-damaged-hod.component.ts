@@ -13,10 +13,11 @@ import { LoginService } from '../../pages/LoginService';
 import { LoggedInUser } from '../../pages/loggedInUser';
 
 @Component({
-  selector: 'app-testsim-damaged-hod',
-  templateUrl: './testsim-damaged-hod.component.html',
-  styleUrls: ['./testsim-damaged-hod.component.scss'],
-	providers: [WorkflowsService,AppGlobals,LoginService],
+    selector: 'app-testsim-damaged-hod',
+    templateUrl: './testsim-damaged-hod.component.html',
+    styleUrls: ['./testsim-damaged-hod.component.scss'],
+    providers: [WorkflowsService, AppGlobals, LoginService],
+    standalone: false
 })
 export class TestsimDamagedHodComponent implements OnInit {
 

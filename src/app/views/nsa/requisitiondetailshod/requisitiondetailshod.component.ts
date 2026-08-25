@@ -13,7 +13,8 @@ import {WorkflowsService} from '../services/workflows.service';
     selector: 'app-requisitiondetailshod',
     templateUrl: './requisitiondetailshod.component.html',
     styleUrls: ['./requisitiondetailshod.component.scss'],
-    providers: [AppGlobals, LoginService, IsmsworkflowsService, FileoperationService, WorkflowsService]
+    providers: [AppGlobals, LoginService, IsmsworkflowsService, FileoperationService, WorkflowsService],
+    standalone: false
 })
 export class RequisitiondetailshodComponent implements OnInit {
 

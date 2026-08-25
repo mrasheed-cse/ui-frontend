@@ -14,6 +14,7 @@ import {DatePipe} from '@angular/common';
     selector: 'bar-chart',
     templateUrl: './viewProductReport.component.html',
     providers: [AppGlobals, LoginService, DatePipe, ReportService],
+    standalone: false
 })
 export class ViewProductReport implements OnInit {
 	currentLoggedInUser: LoggedInUser;

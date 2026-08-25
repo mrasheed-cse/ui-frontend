@@ -16,10 +16,10 @@ import { LoginService } from '../../pages/LoginService';
 import { LoggedInUser } from '../../pages/loggedInUser';
 
 @Component({
-  selector: 'app-lost-sim',
-  templateUrl: './lost-sim.component.html',
-  providers: [WorkflowsService,IsmsreportService,AppGlobals,LoginService]
-
+    selector: 'app-lost-sim',
+    templateUrl: './lost-sim.component.html',
+    providers: [WorkflowsService, IsmsreportService, AppGlobals, LoginService],
+    standalone: false
 })
 export class LostSimComponent implements OnInit {
   userData: any[] = [];

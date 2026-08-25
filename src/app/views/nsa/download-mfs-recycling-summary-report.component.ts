@@ -23,6 +23,7 @@ import {SharedMessageService} from './services/shared-message.service';
     styleUrls: ['./nsa_styles.css'],
     // styleUrls: ['./search_po.component.scss'],
     providers: [AppGlobals, LoginService, DatePipe, MfsRecyclingSummaryReportService, SharedMessageService],
+    standalone: false
 })
 export class DownloadsMfsRecyclingSummaryReportComponent implements OnInit {
     myDownloadForm: UntypedFormGroup;

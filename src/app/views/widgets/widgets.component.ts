@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 
 @Component({
-  templateUrl: 'widgets.component.html'
+    templateUrl: 'widgets.component.html',
+    standalone: false
 })
 export class WidgetsComponent {
 

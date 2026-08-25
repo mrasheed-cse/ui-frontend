@@ -17,7 +17,8 @@ import{SSMService } from './SSM.service';
     selector: 'app-searchPO',
     templateUrl: './search_po.component.html',
     styleUrls: ['./search_po.component.scss'],
-    providers: [AppGlobals,LoginService,SSMService,DatePipe],
+    providers: [AppGlobals, LoginService, SSMService, DatePipe],
+    standalone: false
 })
 export class SearchPO implements OnInit {
 	

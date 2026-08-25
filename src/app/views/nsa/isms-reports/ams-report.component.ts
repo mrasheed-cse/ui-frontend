@@ -21,10 +21,11 @@ import { LoginService } from '../../pages/LoginService';
 import { LoggedInUser } from '../../pages/loggedInUser';
 
 @Component({
-  selector: 'app-ams-report',
-  templateUrl: './ams-report.component.html',
-  styles: [],
-  providers: [WorkflowsService,AppGlobals,LoginService,FileoperationService],
+    selector: 'app-ams-report',
+    templateUrl: './ams-report.component.html',
+    styles: [],
+    providers: [WorkflowsService, AppGlobals, LoginService, FileoperationService],
+    standalone: false
 })
 export class AMSReportComponent implements OnInit {
 

@@ -20,10 +20,11 @@ import { LoggedInUser } from '../pages/loggedInUser';
 
 import { AppGlobals } from './../../app.global';
 @Component({
-  selector: 'app-masterdatamgmt',
-  templateUrl: './masterdatamgmt.component.html',
-  styles: [],
-  providers: [DefinitionDataService,LoginService, AppGlobals]
+    selector: 'app-masterdatamgmt',
+    templateUrl: './masterdatamgmt.component.html',
+    styles: [],
+    providers: [DefinitionDataService, LoginService, AppGlobals],
+    standalone: false
 })
 export class MasterdatamgmtComponent implements OnInit {
 

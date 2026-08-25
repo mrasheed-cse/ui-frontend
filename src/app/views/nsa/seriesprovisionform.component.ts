@@ -22,10 +22,11 @@ import { LoggedInUser } from '../pages/loggedInUser';
 import { AppGlobals } from './../../app.global';
 
 @Component({
-  selector: 'app-seriesprovisionform',
-  templateUrl: './seriesprovisionform.component.html',
-  styleUrls: ['./nsa_styles.css'],
-  providers: [DefinitionDataService,WorkflowsService,AppGlobals,LoginService]
+    selector: 'app-seriesprovisionform',
+    templateUrl: './seriesprovisionform.component.html',
+    styleUrls: ['./nsa_styles.css'],
+    providers: [DefinitionDataService, WorkflowsService, AppGlobals, LoginService],
+    standalone: false
 })
 export class SeriesprovisionformComponent implements OnInit {
 

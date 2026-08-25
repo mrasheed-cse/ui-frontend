@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-testsim-msisdnreport-ssm',
-  templateUrl: './testsim-msisdnreport-ssm.component.html',
-  styleUrls: ['./testsim-msisdnreport-ssm.component.scss']
+    selector: 'app-testsim-msisdnreport-ssm',
+    templateUrl: './testsim-msisdnreport-ssm.component.html',
+    styleUrls: ['./testsim-msisdnreport-ssm.component.scss'],
+    standalone: false
 })
 export class TestsimMsisdnreportSsmComponent implements OnInit {
 

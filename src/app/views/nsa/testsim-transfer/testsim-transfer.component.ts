@@ -13,10 +13,11 @@ import { LoginService } from '../../pages/LoginService';
 import { LoggedInUser } from '../../pages/loggedInUser';
 
 @Component({
-  selector: 'app-testsim-transfer',
-  templateUrl: './testsim-transfer.component.html',
-  styleUrls: ['./testsim-transfer.component.scss'],
-  providers: [WorkflowsService,AppGlobals,LoginService],
+    selector: 'app-testsim-transfer',
+    templateUrl: './testsim-transfer.component.html',
+    styleUrls: ['./testsim-transfer.component.scss'],
+    providers: [WorkflowsService, AppGlobals, LoginService],
+    standalone: false
 })
 export class TestsimTransferComponent implements OnInit {
 

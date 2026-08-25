@@ -14,10 +14,11 @@ import { LoggedInUser } from '../../pages/loggedInUser';
 import * as moment from 'moment';
 
 @Component({
-  selector: 'app-testsim-timeext',
-  templateUrl: './testsim-timeext.component.html',
-  styleUrls: ['./testsim-timeext.component.scss'],
-	providers: [WorkflowsService,AppGlobals,LoginService],
+    selector: 'app-testsim-timeext',
+    templateUrl: './testsim-timeext.component.html',
+    styleUrls: ['./testsim-timeext.component.scss'],
+    providers: [WorkflowsService, AppGlobals, LoginService],
+    standalone: false
 })
 export class TestsimTimeextComponent implements OnInit {
 

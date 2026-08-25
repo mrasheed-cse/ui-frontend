@@ -19,10 +19,11 @@ import { IsmsreportService } from './services/ismsreport.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 @Component({
-  selector: 'app-newscreport',
-  templateUrl: './newscreport.component.html',
-  styleUrls: ['./demo.component.css'],
-  providers: [IsmsreportService, WorkflowsService, AppGlobals, LoginService],
+    selector: 'app-newscreport',
+    templateUrl: './newscreport.component.html',
+    styleUrls: ['./demo.component.css'],
+    providers: [IsmsreportService, WorkflowsService, AppGlobals, LoginService],
+    standalone: false
 })
 export class NewscreportComponent implements OnInit {
 

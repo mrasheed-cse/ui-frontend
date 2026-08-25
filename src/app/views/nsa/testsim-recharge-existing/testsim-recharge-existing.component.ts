@@ -15,10 +15,11 @@ import { LoggedInUser } from '../../pages/loggedInUser';
 import { AgGridAngular } from 'ag-grid-angular';
 
 @Component({
-  selector: 'app-testsim-recharge-existing',
-  templateUrl: './testsim-recharge-existing.component.html',
-  styleUrls: ['./testsim-recharge-existing.component.scss'],
-  providers: [WorkflowsService,AppGlobals,LoginService],
+    selector: 'app-testsim-recharge-existing',
+    templateUrl: './testsim-recharge-existing.component.html',
+    styleUrls: ['./testsim-recharge-existing.component.scss'],
+    providers: [WorkflowsService, AppGlobals, LoginService],
+    standalone: false
 })
 export class TestsimRechargeExistingComponent implements OnInit {
 

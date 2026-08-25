@@ -15,10 +15,11 @@ import { LoggedInUser } from '../../pages/loggedInUser';
 import { AgGridAngular } from 'ag-grid-angular';
 
 @Component({
-  selector: 'app-test-sim-action-list-lost',
-  templateUrl: './test-sim-action-list-lost.component.html',
-  styleUrls: ['./test-sim-action-list-lost.component.scss'],
-	providers: [WorkflowsService,AppGlobals,LoginService],
+    selector: 'app-test-sim-action-list-lost',
+    templateUrl: './test-sim-action-list-lost.component.html',
+    styleUrls: ['./test-sim-action-list-lost.component.scss'],
+    providers: [WorkflowsService, AppGlobals, LoginService],
+    standalone: false
 })
 export class TestSimActionListLostComponent implements OnInit {
 

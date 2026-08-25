@@ -13,6 +13,7 @@ import {AppGlobals} from './../../app.global';
 @Component({
     templateUrl: 'login.component.html',
     providers: [AppGlobals, LoginService],
+    standalone: false
 })
 
 export class LoginComponent {

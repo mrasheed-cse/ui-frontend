@@ -20,10 +20,11 @@ import { LoginService } from '../pages/LoginService';
 import { LoggedInUser } from '../pages/loggedInUser'; 
 
 @Component({
-  selector: 'app-series-definition',
-  templateUrl: './series-definition.component.html',
-   styleUrls: ['./demo.component.css'],
-  providers: [WorkflowsService,AppGlobals,LoginService]
+    selector: 'app-series-definition',
+    templateUrl: './series-definition.component.html',
+    styleUrls: ['./demo.component.css'],
+    providers: [WorkflowsService, AppGlobals, LoginService],
+    standalone: false
 })
 
 export class SeriesDefinitionComponent implements OnInit {

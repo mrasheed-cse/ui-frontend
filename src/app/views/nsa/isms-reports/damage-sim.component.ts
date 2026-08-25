@@ -17,10 +17,10 @@ import { LoginService } from '../../pages/LoginService';
 import { LoggedInUser } from '../../pages/loggedInUser';
 
 @Component({
-  selector: 'app-damage-sim',
-  templateUrl: './damage-sim.component.html',
-  providers: [WorkflowsService,IsmsreportService,AppGlobals,LoginService]
-
+    selector: 'app-damage-sim',
+    templateUrl: './damage-sim.component.html',
+    providers: [WorkflowsService, IsmsreportService, AppGlobals, LoginService],
+    standalone: false
 })
 export class DamageSimComponent implements OnInit {
   userData: any[] = [];

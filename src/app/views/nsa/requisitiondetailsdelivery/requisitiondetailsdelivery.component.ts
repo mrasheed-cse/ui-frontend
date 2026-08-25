@@ -18,7 +18,8 @@ import {WorkflowsService} from '../services/workflows.service';
     selector: 'app-requisitiondetailsdelivery',
     templateUrl: './requisitiondetailsdelivery.component.html',
     styleUrls: ['./requisitiondetailsdelivery.component.scss'],
-    providers: [AppGlobals, LoginService, IsmsworkflowsService, FileoperationService, WorkflowsService]
+    providers: [AppGlobals, LoginService, IsmsworkflowsService, FileoperationService, WorkflowsService],
+    standalone: false
 })
 export class RequisitiondetailsdeliveryComponent implements OnInit {
 
