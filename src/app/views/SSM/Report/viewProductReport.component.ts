@@ -1,5 +1,5 @@
 import {Component, OnInit,} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import {Router} from '@angular/router';
 import {AppGlobals} from './../../../app.global';
 import {LoginService} from '../../pages/LoginService';

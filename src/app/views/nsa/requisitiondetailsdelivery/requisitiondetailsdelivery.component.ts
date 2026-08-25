@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {AppGlobals} from './../../../app.global';
 import {LoginService} from '../../pages/LoginService';
 import {Router, ActivatedRoute, Params} from '@angular/router';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import {DefinitionDataService} from '../services/definitiondata.service';
 import {IsmsworkflowsService} from '../services/ismsworkflows.service';
 import {LoggedInUser} from '../../pages/loggedInUser';

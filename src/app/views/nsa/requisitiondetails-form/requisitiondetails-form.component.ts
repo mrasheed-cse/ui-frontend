@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AppGlobals} from './../../../app.global';
 import {Router, ActivatedRoute, Params} from '@angular/router';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import {DefinitionDataService} from '../services/definitiondata.service';
 import {IsmsworkflowsService} from '../services/ismsworkflows.service';
 import {FileoperationService} from '../../nsa/services/fileoperation.service';

@@ -17,7 +17,7 @@ import {
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { AppComponent } from './app.component';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
-import {HttpClient, HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import { HttpClient, HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import {JwtInterceptor} from './interceptors/jwt.interceptor';
 import { CommonModule } from '@angular/common';
 
@@ -93,33 +93,26 @@ import { NgChartsModule } from 'ng2-charts';
 
 
 
-@NgModule({
-  imports: [
-	CommonModule,
-    BrowserModule,
-    AppRoutingModule,
-	FormsModule,
-	ReactiveFormsModule,
-	HttpClientModule,
-	ReactiveFormsModule,
-	CollapseModule.forRoot(),
-	BsDatepickerModule.forRoot(),
-    BsDropdownModule.forRoot(),
-    TabsModule.forRoot(),
-    NgChartsModule,
-  ],
-  declarations: [
-    AppComponent,
-    ...APP_CONTAINERS,
-    ...APP_COMPONENTS,
-    ...APP_DIRECTIVES
-  
-  ],
-  providers: [
-    MsisdnService,
-    {provide: LocationStrategy, useClass: HashLocationStrategy},
-    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
-  ],
-  bootstrap: [ AppComponent ]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        ...APP_CONTAINERS,
+        ...APP_COMPONENTS,
+        ...APP_DIRECTIVES
+    ],
+    bootstrap: [AppComponent], imports: [CommonModule,
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        ReactiveFormsModule,
+        CollapseModule.forRoot(),
+        BsDatepickerModule.forRoot(),
+        BsDropdownModule.forRoot(),
+        TabsModule.forRoot(),
+        NgChartsModule], providers: [
+        MsisdnService,
+        { provide: LocationStrategy, useClass: HashLocationStrategy },
+        { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class AppModule { }

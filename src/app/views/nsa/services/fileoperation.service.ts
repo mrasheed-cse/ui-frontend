@@ -2,7 +2,7 @@
 import {throwError as observableThrowError,  Observable, Subscription } from 'rxjs';
 import { Injectable } from '@angular/core';
 import {ReactiveFormsModule, FormGroup, FormControl, Validators} from '@angular/forms';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { HttpResponse, HttpEvent, HttpRequest  } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { P404Component } from './404.component';
 import { P500Component } from './500.component';
@@ -61,8 +61,5 @@ const routes: Routes = [
   }
 ];
 
-@NgModule({
-  imports: [RouterModule.forChild(routes), FormsModule, HttpClientModule, CommonModule],
-  exports: [RouterModule]
-})
+@NgModule({ exports: [RouterModule], imports: [RouterModule.forChild(routes), FormsModule, CommonModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class PagesRoutingModule {}

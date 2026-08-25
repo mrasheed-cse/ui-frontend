@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import {ReactiveFormsModule, UntypedFormGroup, UntypedFormControl, Validators, UntypedFormArray} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import {environment} from '../../../../environments/environment';
 import {DefinitionDataService} from '../services/definitiondata.service';
 import {IsmsworkflowsService} from '../services/ismsworkflows.service';

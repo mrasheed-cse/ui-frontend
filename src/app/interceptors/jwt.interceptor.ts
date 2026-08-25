@@ -3,14 +3,7 @@ import {throwError as observableThrowError, Observable, Subject} from 'rxjs';
 
 import {take, catchError, filter, switchMap} from 'rxjs/operators';
 import {Injectable, Injector} from '@angular/core';
-import {
-    HttpRequest,
-    HttpHandler,
-    HttpEvent,
-    HttpInterceptor,
-    HttpErrorResponse,
-    HttpClient
-} from '@angular/common/http';
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse, HttpClient } from '@angular/common/http';
 import {Router} from '@angular/router';
 import {environment} from '../../environments/environment';
 

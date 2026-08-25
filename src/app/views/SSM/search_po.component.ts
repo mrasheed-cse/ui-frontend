@@ -4,7 +4,7 @@ import {  NgModule,
   OnInit,
   ViewChild} from '@angular/core';
 import {DatePipe} from '@angular/common';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {Router} from '@angular/router';
 import {throwError as _throw} from 'rxjs';

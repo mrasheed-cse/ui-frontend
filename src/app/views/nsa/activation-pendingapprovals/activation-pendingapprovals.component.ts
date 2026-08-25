@@ -4,7 +4,7 @@ import {
     Pipe,
     OnInit
 } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import {WorkflowsService} from './../services/workflows.service';
 import {IsmsworkflowsService} from '../services/ismsworkflows.service';
 import {AppGlobals} from './../../../app.global';

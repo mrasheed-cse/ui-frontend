@@ -14,7 +14,7 @@ import { NsaTestSimModule } from './nsa-testsim.module';
 import { NsaTestSimStraysModule } from './nsa-testsim-strays.module';
 import { LandingpageComponent } from './landingpage.component';
 import { DiscreteprovisionComponent } from './discreteprovision.component';
-import { HttpClientModule } from '@angular/common/http';
+import {} from '@angular/common/http';
 
 import { AgGridModule } from 'ag-grid-angular';
 import {UploadRecycleComponent} from "../recycle/uploadrecycle.component";

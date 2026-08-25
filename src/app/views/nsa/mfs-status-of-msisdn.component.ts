@@ -5,7 +5,7 @@ import {
     OnInit
 } from '@angular/core';
 
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import {AppGlobals} from '../../app.global';
 import {ActivatedRoute, Router} from '@angular/router';
 import {LoginService} from '../pages/LoginService';
