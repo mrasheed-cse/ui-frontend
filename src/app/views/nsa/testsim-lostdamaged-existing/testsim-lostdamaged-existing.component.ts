@@ -239,16 +239,31 @@ export class TestsimLostdamagedExistingComponent implements OnInit {
   }
 
   downloadGdFile(gdFileName) {
-    this.fileoperationService.downloadLostSimGd(gdFileName).subscribe((data) => {
-      const blob = new Blob([data as any], {type: 'application/pdf'});
+    this.fileoperationService.downloadLostSimGd(gdFileName).subscribe(
+      (data: Blob) => {
+        if (!data || data.size === 0 || data.type.indexOf('pdf') === -1) {
+          const reader = new FileReader();
+          reader.onload = () => {
+            console.error('Failed to download GD file:', reader.result);
+            alert('Failed to download file. It may be missing or corrupted on the server.');
+          };
+          reader.readAsText(data);
+          return;
+        }
 
-      var downloadURL = window.URL.createObjectURL(data as any);
-      var link = document.createElement('a');
-      link.href = downloadURL;
-      link.download = gdFileName;
-      link.click();
+        const blob = new Blob([data], {type: 'application/pdf'});
 
-    });
+        var downloadURL = window.URL.createObjectURL(blob);
+        var link = document.createElement('a');
+        link.href = downloadURL;
+        link.download = gdFileName;
+        link.click();
+      },
+      err => {
+        console.error(err);
+        alert('Failed to download file.');
+      }
+    );
   }
 
 }

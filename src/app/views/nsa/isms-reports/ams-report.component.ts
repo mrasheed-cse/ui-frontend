@@ -233,14 +233,29 @@ createForm() {
 
 downloadAMS(fileNameToDownload: string){
   console.log(fileNameToDownload);
-  this.fileoperationService.DownloadFile(fileNameToDownload).subscribe((res) => {
-    console.log(res);
-    var downloadURL = window.URL.createObjectURL(res as any);
-    var link = document.createElement('a');
-    link.href = downloadURL;
-    link.download = fileNameToDownload;
-    link.click();
-  });
+  this.fileoperationService.DownloadFile(fileNameToDownload).subscribe(
+    (res: Blob) => {
+      console.log(res);
+      if (!res || res.size === 0 || res.type.indexOf('pdf') === -1) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          console.error('Failed to download file:', reader.result);
+          alert('Failed to download file. It may be missing or corrupted on the server.');
+        };
+        reader.readAsText(res);
+        return;
+      }
+      var downloadURL = window.URL.createObjectURL(res as any);
+      var link = document.createElement('a');
+      link.href = downloadURL;
+      link.download = fileNameToDownload;
+      link.click();
+    },
+    err => {
+      console.error(err);
+      alert('Failed to download file.');
+    }
+  );
 }
 
 prevPage(){
