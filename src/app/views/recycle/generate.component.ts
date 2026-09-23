@@ -1,30 +1,32 @@
 import {Component, OnInit} from '@angular/core';
 import {DatePipe} from '@angular/common';
 import {RecycleCandidateMsisdn} from '../nsa/recycleCandidateMsisdn';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {ActivatedRoute} from '@angular/router';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {catchError,} from 'rxjs/operators';
-import {_throw} from 'rxjs/observable/throw';
+import {throwError as _throw} from 'rxjs';
 import {GeneratedInPage} from "../nsa/models/recycle/GeneratedInPage";
+import { FileoperationService } from '../nsa/services/fileoperation.service';
 
 @Component({
     selector: 'app-generate',
     templateUrl: './generate.component.html',
-    styleUrls: ['./generate.component.scss']
+    styleUrls: ['./generate.component.scss'],
+    providers: [FileoperationService]
 })
 export class GenerateComponent implements OnInit {
     misisdnList: RecycleCandidateMsisdn[] = [];
-    genalert: string;
+    genalert: string = '';
     genenable: boolean = false;
-    isForAnalyze: boolean
+    isForAnalyze: boolean;
     sortDir: string = "desc"
     totalPage: number = 1
     currentPage: number = 1
     readonly environment = environment
 
-    constructor(private httpClient: HttpClient, private datePipe: DatePipe, private activeRoute: ActivatedRoute) {
+    constructor(private httpClient: HttpClient, private datePipe: DatePipe, private activeRoute: ActivatedRoute, private fileoperationService: FileoperationService) {
         this.isForAnalyze = "analyze" == activeRoute.snapshot.data.list
     }
 
@@ -83,13 +85,13 @@ export class GenerateComponent implements OnInit {
         });
     }
 
-    downloadCSVFile(fileName){
+    downloadCSVFile(fileName: string) {
         const url = environment.apiUrl + "msisdn_recycle_list/download/" + fileName;
         console.log(url);
 
         this.httpClient.get(url, { observe: 'response', responseType: 'blob' })
             .subscribe(
-                response => {
+                (response: HttpResponse<Blob>) => {
                     this.downloadFile(response, fileName);
                 },
                 error => {
@@ -99,39 +101,7 @@ export class GenerateComponent implements OnInit {
             );
     }
 
-    downloadFile(response : any, fileName) :void {
-        console.log(response);
-        console.log(response.headers);
-        let filename = fileName;
-
-        // Get filename from content-disposition header
-        const contentDisposition = response.headers.get('content-disposition');
-
-        if (contentDisposition) {
-            let arr = contentDisposition.split(';');
-            if (arr.length > 1) {
-                arr.forEach(element => {
-                    if (element.trim().startsWith('filename=')) {
-                        let arr2 = element.split('=');
-                        if (arr2.length > 1) {
-                            filename = arr2[1].trim().replace(/"/g, '');
-                        }
-                    }
-                })
-            }
-        }
-
-        // Create blob and download
-        const blob = new Blob([response.body],
-            { type: response.headers.get('content-type') });
-
-        const url = window.URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = filename;
-        link.click();
-
-        // Cleanup
-        window.URL.revokeObjectURL(url);
+    downloadFile(response: HttpResponse<Blob>, fileName: string): void {
+        this.fileoperationService.downloadBlobFile(response, fileName);
     }
 }

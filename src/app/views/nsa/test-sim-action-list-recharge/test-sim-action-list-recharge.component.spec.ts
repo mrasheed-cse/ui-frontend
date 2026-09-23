@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { TestSimActionListRechargeComponent } from './test-sim-action-list-recharge.component';
 
@@ -6,7 +6,7 @@ describe('TestSimActionListRechargeComponent', () => {
   let component: TestSimActionListRechargeComponent;
   let fixture: ComponentFixture<TestSimActionListRechargeComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ TestSimActionListRechargeComponent ]
     })

@@ -5,14 +5,14 @@ import {  NgModule,
     ViewChild} from '@angular/core';
     import {ReactiveFormsModule, FormGroup, FormControl, Validators} from '@angular/forms';
   import {DatePipe} from '@angular/common';
-  import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+  import {HttpClient, HttpErrorResponse, HttpResponse} from '@angular/common/http';
   import {environment} from '../../../environments/environment';
   import {Router} from '@angular/router';
-  import {_throw} from 'rxjs/observable/throw';
+  import {throwError as _throw} from 'rxjs';
   import { AppGlobals } from './../../app.global';
   import { LoginService } from '../pages/LoginService';
   import { LoggedInUser } from '../pages/loggedInUser';
-  import{SSMService } from './SSM.service';
+  import{SSMService, AucConversionResponse } from './SSM.service';
 
   interface simType {
     value: string;
@@ -27,15 +27,15 @@ import {  NgModule,
   })
   export class HuaweiAucProcessor implements OnInit {
               currentLoggedInUser: LoggedInUser;
-              userName: string;
-              groupID: number;
-              userID: string;
-              todayDate: Date;
-              routerUrlAndParams: string;
-              isDataFound: boolean ;
-              fileToUpload: File = null;
-              fileuploadstatus: string;
-              fileName: string;
+              userName!: string;
+              groupID!: number;
+              userID!: string;
+              todayDate!: Date;
+              routerUrlAndParams!: string;
+              isDataFound = false;
+              fileToUpload: File | null = null;
+              fileuploadstatus = '';
+              fileName = '';
               fileerror: boolean = false;
               filesuccess: boolean = false;
               uploading: boolean = false;
@@ -43,8 +43,8 @@ import {  NgModule,
               isLoading:boolean=false;
               readonly environment = environment;
               fileDownloadUrl = this.environment.apiUrl+"/huawei_auc_conversion/download";
-              selectedSimType: string;
-              simType: FormControl;
+              selectedSimType = '';
+              simType!: FormControl;
                 
       constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private ssmService: SSMService ) {
       this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
@@ -85,21 +85,22 @@ import {  NgModule,
      dndUpload() {
         this.fileerror = false;
         this.filesuccess = false;
-        console.log(this.fileToUpload.name);
+        const file = this.fileToUpload;
+        console.log(file ? file.name : '');
           
-        if (this.fileToUpload == undefined || !(this.fileToUpload.name.toUpperCase().endsWith(".TXT"))) {
+        if (!file || !(file.name.toUpperCase().endsWith(".TXT"))) {
             this.fileuploadstatus = 'Please select a .txt file';
             this.fileerror = true;
         } else {
                 this.uploading = true
                 this.isLoading=true
-                this.ssmService.huaweiAucFileConversion(this.fileToUpload,this.selectedSimType).subscribe((res => {
+                this.ssmService.huaweiAucFileConversion(file,this.selectedSimType).subscribe((res: AucConversionResponse | null) => {
                   this.uploading = false
                   if (res == null) {
                       this.fileuploadstatus = 'File Upload Fail';
                       this.fileerror = true;
                       this.isLoading=false;
-                  } else if(res['message']==="2"){
+                  } else if(res.message === "2"){
                         console.log(res['message']+"  111")
                         this.fileuploadstatus = 'File data row is Greater Than 100000';
                         this.fileerror = true;
@@ -110,30 +111,32 @@ import {  NgModule,
                         this.filesuccess = true;
                         this.isLoading=false;
                     }
-                }), err => {
+                }, (err: HttpErrorResponse) => {
                     this.uploading = false
-                    this.fileuploadstatus = err.error.message;
+                    this.fileuploadstatus = err.error && err.error.message ? err.error.message : 'File Upload Fail';
                     this.fileerror = true;
                     this.isLoading=false;
                 })
-                console.log(this.fileToUpload.size);
+                console.log(file.size);
             }
         }
       handleFileInput(files: FileList) {
         
-        if (this.selectedSimType == undefined || this.selectedSimType == null)
+        if (this.selectedSimType == undefined || this.selectedSimType == null) {
             alert('Please select SIM Type');
-        else
-            this.fileerror = false;
-            this.filesuccess = false;
-            this.fileToUpload = files.item(0);
-            this.fileName = this.fileToUpload.name;
+            return;
+        }
+
+        this.fileerror = false;
+        this.filesuccess = false;
+        this.fileToUpload = files.item(0);
+        this.fileName = this.fileToUpload ? this.fileToUpload.name : '';
       }
 
       downloadHuaweiAucConvertedFile(){
           this.ssmService.downloadHuaweiAucConvertedFile()
               .subscribe(
-                  response => {
+                  (response: HttpResponse<Blob>) => {
                       this.isLoading = false;
                       this.downloadFile(response);
                   },
@@ -145,39 +148,7 @@ import {  NgModule,
               );
       }
 
-      downloadFile(response : any) :void {
-          console.log(response);
-          console.log(response.headers);
-          let filename = "HuaweiHlr.txt";
-
-          // Get filename from content-disposition header
-          const contentDisposition = response.headers.get('content-disposition');
-
-          if (contentDisposition) {
-              let arr = contentDisposition.split(';');
-              if (arr.length > 1) {
-                  arr.forEach(element => {
-                      if (element.trim().startsWith('filename=')) {
-                          let arr2 = element.split('=');
-                          if (arr2.length > 1) {
-                              filename = arr2[1].trim().replace(/"/g, '');
-                          }
-                      }
-                  })
-              }
-          }
-
-          // Create blob and download
-          const blob = new Blob([response.body],
-              { type: response.headers.get('content-type') });
-
-          const url = window.URL.createObjectURL(blob);
-          const link = document.createElement('a');
-          link.href = url;
-          link.download = filename;
-          link.click();
-
-          // Cleanup
-          window.URL.revokeObjectURL(url);
+      downloadFile(response: HttpResponse<Blob>) :void {
+          this.ssmService.downloadBlobFile(response, 'HuaweiHlr.txt');
       }
   }

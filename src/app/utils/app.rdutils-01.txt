@@ -1,0 +1,87 @@
+# nsa-ui-frontend — Angular 5.2.3 → 20.3.17 migration checklist
+
+**Target versions:** Angular 20.3.17 · Node.js 24.14.0 · TypeScript 5.8 or 5.9
+**Current state:** Angular 5.2.3 · Angular CLI 1.6.7 · TypeScript ^2.6.2 (target `es5`) · 365 `.ts` files
+**Source zip:** `nsa-ui-frontend_v28072026.zip`
+
+---
+
+## Version staircase (official Angular compatibility matrix)
+
+`ng update` only supports one major version at a time, so this is the required sequence. Node must be switched with `nvm`/Volta alongside each Angular hop — you cannot stay on Node 24 for the early stops.
+
+| Angular | Node.js required | TypeScript required | Node to use (nvm) |
+|---|---|---|---|
+| 5.2.x (current) | ^6.9.0 \|\| ^8.9.0 | >=2.4.2 <2.7.0 | 8.9.x |
+| 6.1.x | ^8.9.0 | >=2.7.2 <3.0.0 | 8.9.x |
+| 7.2.x | ^8.9.0 \|\| ^10.9.0 | >=3.1.3 <3.3.0 | 10.9.x |
+| 8.2.x | ^10.9.0 | >=3.4.2 <3.6.0 | 10.9.x |
+| 9.1.x | ^10.13.0 \|\| ^12.11.0 | >=3.6.0 <3.9.0 | 12.11.x |
+| 10.2.x | ^10.13.0 \|\| ^12.11.0 | >=3.9.0 <4.1.0 | 12.11.x |
+| 11.2.x | ^10.13.0 \|\| ^12.11.0 | >=4.0.0 <4.2.0 | 12.11.x |
+| 12.2.x | ^12.14.0 \|\| ^14.15.0 | >=4.2.3 <4.4.0 | 14.15.x |
+| 13.3.x | ^12.20.0 \|\| ^14.15.0 \|\| ^16.10.0 | >=4.4.3 <4.7.0 | 16.10.x |
+| 14.2.x | ^14.15.0 \|\| ^16.10.0 | >=4.6.2 <4.9.0 | 16.10.x |
+| 15.1.x | ^14.20.0 \|\| ^16.13.0 \|\| ^18.10.0 | >=4.8.2 <5.0.0 | 18.10.x |
+| 16.1.x | ^16.14.0 \|\| ^18.10.0 | >=4.9.3 <5.2.0 | 18.10.x |
+| 17.3.x | ^18.13.0 \|\| ^20.9.0 | >=5.2.0 <5.5.0 | 20.9.x |
+| 18.2.x | ^18.19.1 \|\| ^20.11.1 \|\| ^22.0.0 | >=5.4.0 <5.6.0 | 20.11.x |
+| 19.2.x | ^18.19.1 \|\| ^20.11.1 \|\| ^22.0.0 | >=5.5.0 <5.9.0 | 22.x |
+| **20.3.17 (target)** | ^20.19.0 \|\| ^22.12.0 \|\| ^24.0.0 | >=5.8.0 <6.0.0 | **24.14.0** |
+
+---
+
+## Phase 0 — Stabilize the Angular 5 baseline
+
+- [ ] Resolve the split config: both `.angular-cli.json` (legacy) and `angular.json` (workspace format) currently exist — pick `angular.json`, delete the legacy file once confirmed unused
+- [ ] Get `npm install` + `ng build` / `ng serve` working cleanly on current 5.2.3 with Node 8.9.x
+- [ ] Confirm which git branch is the real "current prod" baseline before starting migration branches
+- [ ] Commit a clean, green, bisectable baseline
+- [ ] Remove stale `npm-debug.log` and other leftover artifacts
+- [ ] Get a minimal Karma/Jasmine test run green as a regression baseline
+
+## Phase 1 — Incremental `ng update`, one major at a time (5 → 12)
+
+- [ ] **5 → 6**: `RouterModule.forRoot` config changes, `<template>` → `<ng-template>` rename, animations import changes
+- [ ] **6 → 7**: low risk — CLI prompts, `budgets` in `angular.json`
+- [ ] **7 → 8**: audit all 24 `@ViewChild`/`@ContentChild` usages for the required `static` flag; differential loading introduced
+- [ ] **8 → 9**: **Ivy becomes default** — highest-risk single step pre-13. Check ag-grid 21.x and ngx-bootstrap 2.0 for Ivy compatibility; verify no code depends on ViewEngine internals
+- [ ] **9 → 10 → 11 → 12**: incremental TypeScript bumps each step; by 12 you're on TS ~4.2–4.4 and can drop `es5` target
+- [ ] Convert all 60 files using `rxjs/add/operator/...` patchable imports to pipeable operators (`from 'rxjs/operators'`) — do this before/during the 6→7 RxJS 6 bump
+- [ ] Migrate the one legacy `Renderer` (v1) usage to `Renderer2`
+- [ ] Re-evaluate `angular4-smart-table` (unmaintained) for replacement rather than upgrade
+- [ ] Flag `moment.js` (13 files) for later replacement (Phase 3 cleanup)
+
+## Phase 2 — Ivy maturity, standalone APIs, signals (13 → 17)
+
+- [ ] **13**: View Engine fully removed — confirm all third-party libs are Ivy-only
+- [ ] **14**: standalone components/directives/pipes available (optional adoption)
+- [ ] **15**: standalone APIs stabilize; directive composition API
+- [ ] **16**: signals introduced; `inject()`-based DI becomes idiomatic
+- [ ] **17**: new control-flow syntax (`@if`/`@for`/`@switch`) replaces `*ngIf`/`*ngFor` — decide whether to do the template rewrite across all 365 files now or defer
+- [ ] Decision point: full standalone conversion (drop NgModules) vs. keep NgModules — separate effort from the version bump itself
+- [ ] Replace TSLint → ESLint via `@angular-eslint` schematics
+- [ ] Replace Protractor → Cypress or Playwright for e2e
+
+## Phase 3 — Land on 18 → 20.3.17
+
+- [ ] **18**: zoneless change detection available as experimental (evaluate later, not required)
+- [ ] **19**: continued signal API maturity
+- [ ] **20.3.17**: final target — confirm TypeScript pinned to 5.8 or 5.9, Node 24.14.0
+- [ ] Full regression pass: build, all views/forms, ag-grid tables, chart.js graphs, file-saver upload/download, ngx-bootstrap datepicker
+
+## Parallel-track library migrations (thread through the phases above)
+
+- [ ] `ag-grid-community` / `ag-grid-angular` 21.x → latest — check each major's own migration guide
+- [ ] `ngx-bootstrap` 2.0 → latest, or evaluate `ng-bootstrap` as a replacement
+- [ ] `chart.js` / `ng2-charts` 1.6 → latest (chart.js 2→3→4 each have breaking changes)
+- [ ] `bootstrap` 4-beta → 5 (drops jQuery dependency — no jQuery usage currently, so this is clean)
+- [ ] `zone.js` — version tracks Angular automatically via `ng update`
+- [ ] `moment` → `date-fns` or native `Intl`/`Temporal` (optional cleanup)
+
+## Process / tooling
+
+- [ ] One branch per Angular major (`migration/angular-6`, `migration/angular-7`, …) — review individually, not as one diff
+- [ ] CI: build + lint + test gate on every migration branch before merge
+- [ ] Keep current prod branch deployable throughout — don't block production hotfixes on migration work
+- [ ] Use `nvm`/Volta to switch Node per the table above at each phase transition

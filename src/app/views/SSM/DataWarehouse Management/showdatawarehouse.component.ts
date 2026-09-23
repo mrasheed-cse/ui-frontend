@@ -6,10 +6,10 @@ import {AppGlobals} from './../../../app.global';
 import {LoginService} from '../../pages/LoginService';
 import {LoggedInUser} from '../../pages/loggedInUser';
 import {DatePipe} from '@angular/common';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/retry';
-import 'rxjs/add/observable/of';
+
+
+
+
 
 
 @Component({

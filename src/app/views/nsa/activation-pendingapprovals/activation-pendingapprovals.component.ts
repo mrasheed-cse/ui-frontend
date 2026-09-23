@@ -4,11 +4,12 @@ import {
     Pipe,
     OnInit
 } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpResponse} from '@angular/common/http';
 import {WorkflowsService} from './../services/workflows.service';
 import {IsmsworkflowsService} from '../services/ismsworkflows.service';
 import {AppGlobals} from './../../../app.global';
 import {Router, ActivatedRoute} from '@angular/router';
+import {FileoperationService} from '../services/fileoperation.service';
 
 import {LoginService} from '../../pages/LoginService';
 import {LoggedInUser} from '../../pages/loggedInUser';
@@ -17,7 +18,7 @@ import {LoggedInUser} from '../../pages/loggedInUser';
     selector: 'app-activation-pendingapprovals',
     templateUrl: './activation-pendingapprovals.component.html',
     styleUrls: ['./activation-pendingapprovals.component.scss'],
-    providers: [WorkflowsService, AppGlobals, LoginService, IsmsworkflowsService],
+    providers: [WorkflowsService, AppGlobals, LoginService, IsmsworkflowsService, FileoperationService],
 })
 export class ActivationPendingapprovalsComponent implements OnInit {
 
@@ -55,7 +56,7 @@ export class ActivationPendingapprovalsComponent implements OnInit {
         }
     }
 
-    constructor(private route: ActivatedRoute, private router: Router, private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private workflowsService: WorkflowsService, private ismsworkflowsService: IsmsworkflowsService) {
+    constructor(private route: ActivatedRoute, private router: Router, private loginService: LoginService, private http: HttpClient, private _global: AppGlobals, private workflowsService: WorkflowsService, private ismsworkflowsService: IsmsworkflowsService, private fileoperationService: FileoperationService) {
 
         this.isLoading = false;
         let isValid = true;
@@ -203,39 +204,8 @@ export class ActivationPendingapprovalsComponent implements OnInit {
         );
     }
 
-    downloadFile(response: any): void {
-        console.log(response);
-        console.log(response.headers);
-        let filename = 'download.csv';
-
-        // Get filename from content-disposition header
-        const contentDisposition = response.headers.get('content-disposition');
-
-        if (contentDisposition) {
-            let arr = contentDisposition.split(';');
-            if (arr.length > 1) {
-                arr.forEach(element => {
-                    if (element.trim().startsWith('filename=')) {
-                        let arr2 = element.split('=');
-                        if (arr2.length > 1) {
-                            filename = arr2[1].trim().replace(/"/g, '');
-                        }
-                    }
-                })
-            }
-        }
-
-        // Create blob and download
-        const blob = new Blob([response.body], {type: response.headers.get('content-type')});
-
-        const url = window.URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = filename;
-        link.click();
-
-        // Cleanup
-        window.URL.revokeObjectURL(url);
+    downloadFile(response: HttpResponse<Blob>): void {
+        this.fileoperationService.downloadBlobFile(response, 'download.csv');
     }
 }
 

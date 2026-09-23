@@ -4,8 +4,11 @@ import { LoginService } from '../../pages/LoginService';
 import { LoggedInUser } from '../../pages/loggedInUser';
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, Router } from '@angular/router';
 
-import { isNumeric } from 'rxjs/util/isNumeric';
-import { Observable } from 'rxjs/Observable';
+// RxJS removed `isNumeric` utility; add a small local helper instead
+function isNumeric(value: any): boolean {
+	return !isNaN(parseFloat(value)) && isFinite(value);
+}
+import { Observable } from 'rxjs';
 
 
 @Injectable()

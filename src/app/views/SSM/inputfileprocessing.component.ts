@@ -8,7 +8,7 @@ import {DatePipe} from '@angular/common';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {Router} from '@angular/router';
-import {_throw} from 'rxjs/observable/throw';
+import {throwError as _throw} from 'rxjs';
 import { AppGlobals } from './../../app.global';
 import { LoginService } from '../pages/LoginService';
 import { LoggedInUser } from '../pages/loggedInUser';
@@ -21,11 +21,11 @@ import{PlanManagementService } from '../SSM/SimCardPlan Management/plan_manageme
       providers: [AppGlobals,LoginService,SSMService,DatePipe,PlanManagementService],
 })
 export class InputFileProcessing implements OnInit {
-	 private rowData: any[];
-	 private insertRowData: any[];
-  private offset: number;
-  private rawDataFromBackend :Array<Object>;
-  private rawDataFromBackendImsi :  any[];
+	private rowData: any[];
+	private insertRowData: any[];
+	private offset: number;
+	private rawDataFromBackend :Array<Object>;
+	private rawDataFromBackendImsi :  any[];
 		  	currentLoggedInUser: LoggedInUser;
 			userName: string;
 			groupID: number;
@@ -50,7 +50,7 @@ export class InputFileProcessing implements OnInit {
 			listno:string;
 	constructor(private router: Router, private planManagemetService: PlanManagementService ,private loginService: LoginService,private datePipe: DatePipe,private http: HttpClient, private _global: AppGlobals, private ssmService: SSMService ) {
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
-
+		
     if (this.currentLoggedInUser) {
       this.userName = this.currentLoggedInUser.userName
       this.groupID = this.currentLoggedInUser.groupID
@@ -64,7 +64,7 @@ export class InputFileProcessing implements OnInit {
 
    
     this.rowData = [];    
-this.insertRowData=[];
+	this.insertRowData=[];
 		
     }
 	
@@ -130,7 +130,7 @@ submit(){
                   objToInsert1['description'] = this.rowData[0].itemDescription;
                   objToInsert1['startImsi'] = this.rawDataFromBackendImsi['startImsi'];
                   objToInsert1['endImsi'] = this.rawDataFromBackendImsi['endImsi'];
-                   objToInsert1['startIccid'] = this.rawDataFromBackendImsi['startIccid'];
+                  objToInsert1['startIccid'] = this.rawDataFromBackendImsi['startIccid'];
                   objToInsert1['endIccid'] = this.rawDataFromBackendImsi['EndIccid'];
                   objToInsert1['quantity'] = this.Quantity;
                   objToInsert1['stk'] = this.STK;

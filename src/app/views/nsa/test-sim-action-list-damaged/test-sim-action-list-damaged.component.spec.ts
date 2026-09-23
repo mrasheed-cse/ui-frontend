@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { TestSimActionListDamagedComponent } from './test-sim-action-list-damaged.component';
 
@@ -6,7 +6,7 @@ describe('TestSimActionListDamagedComponent', () => {
   let component: TestSimActionListDamagedComponent;
   let fixture: ComponentFixture<TestSimActionListDamagedComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ TestSimActionListDamagedComponent ]
     })

@@ -1,3 +1,7 @@
+
+import {throwError as observableThrowError} from 'rxjs';
+
+import { take, catchError, filter, switchMap } from 'rxjs/operators';
 import {Injectable, Injector} from '@angular/core';
 import {
     HttpRequest,
@@ -7,16 +11,11 @@ import {
     HttpErrorResponse,
     HttpClient
 } from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
-import {Subject} from 'rxjs/Subject';
+import {Observable} from 'rxjs';
+import {Subject} from 'rxjs';
 import {Router} from '@angular/router';
 import {environment} from '../../environments/environment';
 
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/take';
-import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
@@ -33,12 +32,12 @@ export class JwtInterceptor implements HttpInterceptor {
             request = this.addToken(request, accessToken);
         }
 
-        return next.handle(request).catch((error: any) => {
+        return next.handle(request).pipe(catchError((error: any) => {
             if (error instanceof HttpErrorResponse && error.status === 401 && !this.isAuthEndpoint(request.url)) {
                 return this.handle401Error(request, next);
             }
-            return Observable.throw(error);
-        });
+            return observableThrowError(error);
+        }));
     }
 
     private addToken(request: HttpRequest<any>, token: string): HttpRequest<any> {
@@ -62,18 +61,18 @@ export class JwtInterceptor implements HttpInterceptor {
 
     private handle401Error(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         if (this.isRefreshing) {
-            return this.refreshTokenSubject
-                .filter(token => token !== null)
-                .take(1)
-                .switchMap(token => {
+            return this.refreshTokenSubject.pipe(
+                filter(token => token !== null),
+                take(1),
+                switchMap(token => {
                     return next.handle(this.addToken(request, token!));
-                });
+                }),);
         }
 
         const refreshToken = localStorage.getItem('refreshToken');
         if (!refreshToken) {
             this.clearAndRedirect();
-            return Observable.throw('Session expired. Please login again.');
+            return observableThrowError('Session expired. Please login again.');
         }
 
         this.isRefreshing = true;
@@ -81,8 +80,8 @@ export class JwtInterceptor implements HttpInterceptor {
 
         const http = this.injector.get(HttpClient);
 
-        return http.post<any>(environment.apiUrl + 'refresh', {refreshToken})
-            .switchMap((response: any) => {
+        return http.post<any>(environment.apiUrl + 'refresh', {refreshToken}).pipe(
+            switchMap((response: any) => {
                 this.isRefreshing = false;
 
                 if (response && response.success && response.accessToken) {
@@ -94,14 +93,14 @@ export class JwtInterceptor implements HttpInterceptor {
                 }
 
                 this.clearAndRedirect();
-                return Observable.throw('Token refresh failed.');
-            })
-            .catch((error: any) => {
+                return observableThrowError('Token refresh failed.');
+            }),
+            catchError((error: any) => {
                 this.isRefreshing = false;
                 this.refreshTokenSubject.next(null);
                 this.clearAndRedirect();
-                return Observable.throw('Session expired. Please login again.');
-            });
+                return observableThrowError('Session expired. Please login again.');
+            }),);
     }
 
     private updateStoredUser(response: any) {

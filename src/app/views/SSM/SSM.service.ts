@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
 import {catchError,} from 'rxjs/operators';
-import {_throw} from 'rxjs/observable/throw';
+import {throwError as _throw} from 'rxjs';
 
+export interface AucConversionResponse {
+    message?: string;
+}
 
 //import { AppGlobals } from './../../app.global';
 
@@ -291,19 +294,19 @@ deleteSimdropdown(id:number) :Observable<any> {
         return this.http.get(environment.apiUrl + "simAdmin/addDropdown/" + value +"/"+type).pipe(catchError(this.handleError));
     }
     
-    aucFileConersion(fileToUpload: File) {
+    aucFileConersion(fileToUpload: File): Observable<AucConversionResponse> {
         const url = environment.apiUrl + "auc_conversion/start";
         const formData: FormData = new FormData();
         formData.append('file', fileToUpload, fileToUpload.name);
-        return this.http.post(url, formData);
+        return this.http.post<AucConversionResponse>(url, formData);
     }
 
-	huaweiAucFileConversion(fileToUpload: File, selectedSimType: string) {
+	huaweiAucFileConversion(fileToUpload: File, selectedSimType: string): Observable<AucConversionResponse> {
         const url = environment.apiUrl + "huawei_auc_conversion/start";
         const formData: FormData = new FormData();
         formData.append('file', fileToUpload, fileToUpload.name);
 		formData.append('selectedSimType', selectedSimType);
-        return this.http.post(url, formData);
+        return this.http.post<AucConversionResponse>(url, formData);
     }
 
 	
@@ -320,20 +323,51 @@ deleteSimdropdown(id:number) :Observable<any> {
         return this.http.get(environment.apiUrl + 'huawei_auc_conversion/download',this.options2);
 	}
 
-	downloadNokiaAucConvertedFile() {
+	downloadNokiaAucConvertedFile(): Observable<HttpResponse<Blob>> {
 		const url = environment.apiUrl + "auc_conversion/download";
 		console.log(environment.apiUrl + "auc_conversion/download");
-		//return this.http.get(environment.apiUrl + 'auc_conversion/download',this.options2);
-
 		return this.http.get(url, { observe: 'response', responseType: 'blob' });
 
 	}
 
-	downloadHuaweiAucConvertedFile() {
+	downloadHuaweiAucConvertedFile(): Observable<HttpResponse<Blob>> {
 		const url = environment.apiUrl + "huawei_auc_conversion/download";
 		console.log(environment.apiUrl + "huawei_auc_conversion/download");
-		//return this.http.get(environment.apiUrl + 'huawei_auc_conversion/download',this.options2);
 		return this.http.get(url, { observe: 'response', responseType: 'blob' });
+	}
+
+	downloadBlobFile(response: HttpResponse<Blob>, defaultFilename: string): void {
+		const headers = response.headers;
+		let filename = defaultFilename;
+
+		const contentDisposition = headers.get('content-disposition');
+		if (contentDisposition) {
+			const parts = contentDisposition.split(';');
+			for (const part of parts) {
+				const trimmed = part.trim();
+				if (trimmed.startsWith('filename=')) {
+					const filenamePart = trimmed.split('=')[1];
+					if (filenamePart) {
+						filename = filenamePart.trim().replace(/"/g, '');
+					}
+				}
+			}
+		}
+
+		const body = response.body;
+		if (!body) {
+			console.error('Download response is empty');
+			return;
+		}
+
+		const contentType = headers.get('content-type') || 'application/octet-stream';
+		const blob = new Blob([body], { type: contentType });
+		const url = window.URL.createObjectURL(blob);
+		const link = document.createElement('a');
+		link.href = url;
+		link.download = filename;
+		link.click();
+		window.URL.revokeObjectURL(url);
 	}
 	
 

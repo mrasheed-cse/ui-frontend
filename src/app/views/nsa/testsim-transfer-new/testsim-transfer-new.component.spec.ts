@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { TestsimTransferNewComponent } from './testsim-transfer-new.component';
 
@@ -6,7 +6,7 @@ describe('TestsimTransferNewComponent', () => {
   let component: TestsimTransferNewComponent;
   let fixture: ComponentFixture<TestsimTransferNewComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ TestsimTransferNewComponent ]
     })

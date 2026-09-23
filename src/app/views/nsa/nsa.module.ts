@@ -184,7 +184,7 @@ import {MfsRecyclingDetailsReportComponent} from './mfs-recycling-details-report
 import {MfsStatusOfMsisdnComponent} from './mfs-status-of-msisdn.component';
 import {RequisitiondetailsRAFMComponent} from './requisitiondetails-rafm/requisitiondetails-rafm.component';
 import {RequisitionEditNewComponent} from './requisition-edit/requisition-edit.component';
-import {TooltipModule} from 'ngx-bootstrap';
+import {TooltipModule} from 'ngx-bootstrap/tooltip';
 import {ViewDatawarehouseCopc} from '../SSM/DataWarehouse Management/Copc/showdatawarehouse-copc.component';
 
 

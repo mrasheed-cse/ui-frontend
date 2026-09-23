@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { DefinitiondataService } from './definitiondata.service';
+import { DefinitionDataService } from './definitiondata.service';
 
-describe('DefinitiondataService', () => {
+describe('DefinitionDataService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [DefinitiondataService]
+      providers: [DefinitionDataService]
     });
   });
 
-  it('should be created', inject([DefinitiondataService], (service: DefinitiondataService) => {
+  it('should be created', inject([DefinitionDataService], (service: DefinitionDataService) => {
     expect(service).toBeTruthy();
   }));
 });

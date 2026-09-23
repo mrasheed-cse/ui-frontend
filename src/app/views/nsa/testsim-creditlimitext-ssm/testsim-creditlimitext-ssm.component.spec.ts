@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { TestsimCreditlimitextSsmComponent } from './testsim-creditlimitext-ssm.component';
 
@@ -6,7 +6,7 @@ describe('TestsimCreditlimitextSsmComponent', () => {
   let component: TestsimCreditlimitextSsmComponent;
   let fixture: ComponentFixture<TestsimCreditlimitextSsmComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ TestsimCreditlimitextSsmComponent ]
     })

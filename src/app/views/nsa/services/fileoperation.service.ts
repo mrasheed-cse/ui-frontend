@@ -1,14 +1,16 @@
+
+import {throwError as observableThrowError} from 'rxjs';
 import { Injectable } from '@angular/core';
 import {ReactiveFormsModule, FormGroup, FormControl, Validators} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { HttpResponse, HttpEvent, HttpRequest  } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/retry';
-import 'rxjs/add/observable/of';
-import { Observable, Subscription } from 'rxjs/Rx';
+
+
+
+
+import { Observable, Subscription } from 'rxjs';
 
 @Injectable()
 export class FileoperationService {
@@ -80,9 +82,43 @@ export class FileoperationService {
 		return this.http.post(this.serverUrl +"NsaFileDownload/downloadFile", fileNameToDownload, httpOptions);
 	}
 
+	downloadBlobFile(response: HttpResponse<Blob>, defaultFilename: string): void {
+		const headers = response.headers;
+		let filename = defaultFilename;
+
+		const contentDisposition = headers.get('content-disposition');
+		if (contentDisposition) {
+			const parts = contentDisposition.split(';');
+			for (const part of parts) {
+				const trimmed = part.trim();
+				if (trimmed.startsWith('filename=')) {
+					const filenamePart = trimmed.split('=')[1];
+					if (filenamePart) {
+						filename = filenamePart.trim().replace(/"/g, '');
+					}
+				}
+			}
+		}
+
+		const body = response.body;
+		if (!body) {
+			console.error('Download response body is empty');
+			return;
+		}
+
+		const contentType = headers.get('content-type') || 'application/octet-stream';
+		const blob = new Blob([body], { type: contentType });
+		const url = window.URL.createObjectURL(blob);
+		const link = document.createElement('a');
+		link.href = url;
+		link.download = filename;
+		link.click();
+		window.URL.revokeObjectURL(url);
+	}
+
     handleError(error) {
 		console.log(error);
-        return Observable.throw(error || 'Server error');
+        return observableThrowError(error || 'Server error');
     }
 	
 	uploadRecycledCSV(fd: FormData):any{

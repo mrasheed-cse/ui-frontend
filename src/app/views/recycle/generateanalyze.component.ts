@@ -32,7 +32,7 @@ export class GenerateanalyzeComponent implements OnInit {
 
     changeEndDate() {
     }
-
+    
     generate(analyze) {
         let st = this.datePipe.transform(this.startdate, "dd-MM-yyyy");
         let dt = this.datePipe.transform(this.enddate, "dd-MM-yyyy");

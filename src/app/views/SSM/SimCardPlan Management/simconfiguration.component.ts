@@ -10,17 +10,17 @@ import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {environment} from '../../../../environments/environment';
 import {Router} from '@angular/router';
-import {_throw} from 'rxjs/observable/throw';
+import {throwError as _throw} from 'rxjs';
 import { AppGlobals } from './../../../app.global';
 import { LoginService } from '../../pages/LoginService';
 import { LoggedInUser } from '../../pages/loggedInUser';
 import{PlanManagementService } from './plan_management.service';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import {DatePipe} from '@angular/common';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/retry';
-import 'rxjs/add/observable/of';
+
+
+
+
 
 @Component({
     selector: 'app-voucherGen',
@@ -82,7 +82,7 @@ export class SimConfiguration implements OnInit {
 				console.log("ToTOOO");
 				//console.log(data);
 
-				var blob = new Blob([data], { type: 'text/csv' });
+				var blob = new Blob([data as any], { type: 'text/csv' });
 
                 if (window.navigator && window.navigator.msSaveOrOpenBlob) {
 		console.log("ggg")

@@ -28,19 +28,19 @@ $teal:                            #20c997 !default;
 $cyan:                            #63c2de;
 
 $colors: (
-  blue:                           $blue,
-  indigo:                         $indigo,
-  purple:                         $purple,
-  pink:                           $pink,
-  red:                            $red,
-  orange:                         $orange,
-  yellow:                         $yellow,
-  green:                          $green,
-  teal:                           $teal,
-  cyan:                           $cyan,
-  white:                          $white,
-  gray:                           $gray-600,
-  gray-dark:                      $gray-800
+  "blue":                         $blue,
+  "indigo":                       $indigo,
+  "purple":                       $purple,
+  "pink":                         $pink,
+  "red":                          $red,
+  "orange":                       $orange,
+  "yellow":                       $yellow,
+  "green":                        $green,
+  "teal":                         $teal,
+  "cyan":                         $cyan,
+  "white":                        $white,
+  "gray":                         $gray-600,
+  "gray-dark":                    $gray-800
 );
 
 $theme-colors: (
@@ -53,16 +53,16 @@ $theme-colors: (
   light:                          $gray-100,
   dark:                           $gray-800,
 
-  blue:                           $blue,
-  indigo:                         $indigo,
-  purple:                         $purple,
-  pink:                           $pink,
-  red:                            $red,
-  orange:                         $orange,
-  yellow:                         $yellow,
-  green:                          $green,
-  teal:                           $teal,
-  cyan:                           $cyan,
+  "blue":                         $blue,
+  "indigo":                       $indigo,
+  "purple":                       $purple,
+  "pink":                         $pink,
+  "red":                          $red,
+  "orange":                       $orange,
+  "yellow":                       $yellow,
+  "green":                        $green,
+  "teal":                         $teal,
+  "cyan":                         $cyan,
 
   gray-100:                       $gray-100,
   gray-200:                       $gray-200,

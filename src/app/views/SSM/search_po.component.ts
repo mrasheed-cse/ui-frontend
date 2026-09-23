@@ -7,7 +7,7 @@ import {DatePipe} from '@angular/common';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {Router} from '@angular/router';
-import {_throw} from 'rxjs/observable/throw';
+import {throwError as _throw} from 'rxjs';
 import { AppGlobals } from './../../app.global';
 import { LoginService } from '../pages/LoginService';
 import { LoggedInUser } from '../pages/loggedInUser';
@@ -21,10 +21,10 @@ import{SSMService } from './SSM.service';
 })
 export class SearchPO implements OnInit {
 	
- serverUrl: string;
-  private rowData: any[];
-  private offset: number;
-  private rawDataFromBackend : any[];
+    serverUrl: string;
+    private rowData: any[];
+    private offset: number;
+    private rawDataFromBackend : any[];
 		  	currentLoggedInUser: LoggedInUser;
 			userName: string;
 			groupID: number;
@@ -38,7 +38,7 @@ export class SearchPO implements OnInit {
   			 isLoading:boolean = false;
 			PoNumber: string;
 	constructor(private router: Router,private loginService: LoginService,private http: HttpClient, private _global: AppGlobals, private ssmService: SSMService ,private datepipe:DatePipe) {
-		this.serverUrl = environment.apiUrl; 
+	this.serverUrl = environment.apiUrl; 
     this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
 
     if (this.currentLoggedInUser) {
@@ -62,16 +62,15 @@ export class SearchPO implements OnInit {
 search(){
 	this.isDataFound = true;
 	this.isInitial=false;
-	 this.isLoading = true;
+	this.isLoading = true;
 	this.rowData = [];    
 	this.ssmService.getPoInformation(this.PoNumber,"PO").subscribe(
-		 data => {
+	data => {
           if(data !=null){         
-	console.log("DATA= ",data)   
-           this.isDataFound = true;
-           
-           this.nodataFound=false;
-          this.rawDataFromBackend=data;
+	        console.log("DATA= ",data)   
+            this.isDataFound = true;
+            this.nodataFound=false;
+            this.rawDataFromBackend=data;
          
           for (let index in data) {
 					this.rowData.push(
@@ -91,11 +90,6 @@ search(){
 					);
 				}
           
-          
-	       
-	       
-          
-          
 			 this.isLoading = false;
           }
           else{
@@ -105,14 +99,13 @@ search(){
             this.nodataFound=true;
           }
         },
-      err =>{ console.error(err)
-     	alert("Please Enter Valid PO Number ")
-     	this.isLoading=false;
-     	this.isDataFound = false;
-            this.isInitial = true;
-     	
-      
-      }
+        err =>{ console.error(err)
+            alert("Please Enter Valid PO Number ")
+            this.isLoading=false;
+            this.isDataFound = false;
+            this.isInitial = true;     	
+        
+        }
      	);
 }
 
@@ -125,11 +118,8 @@ search(){
 		console.log(result);
         result.subscribe(
             data => {
-				
 
-				
-
-				var blob = new Blob([data], { type: 'text/csv' });
+				var blob = new Blob([data as any], { type: 'text/csv' });
 
                 if (window.navigator && window.navigator.msSaveOrOpenBlob) {
 		
@@ -149,16 +139,16 @@ search(){
         );
     }
  
- Back(){
+Back(){
 	
 	this.isInitial=true;
 	this.isDataFound=false;
 	this.nodataFound=false;
 }
 
-    ngOnInit() {
+ngOnInit() {
     this.offset = 0; 
    
-    }
+}
 
 }

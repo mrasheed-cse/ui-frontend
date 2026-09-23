@@ -10,18 +10,18 @@ import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {Router} from '@angular/router';
-import {_throw} from 'rxjs/observable/throw';
+import {throwError as _throw} from 'rxjs';
 import { AppGlobals } from './../../app.global';
 import { LoginService } from '../pages/LoginService';
 import { LoggedInUser } from '../pages/loggedInUser';
 import{SSMService } from './SSM.service';
 import{PlanManagementService} from'./SimCardPlan Management/plan_management.service'
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import {DatePipe} from '@angular/common';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/retry';
-import 'rxjs/add/observable/of';
+
+
+
+
 
 @Component({
     selector: 'app-voucherGen',
@@ -124,8 +124,8 @@ getArtwork(){
     }
      
     addArtwork(){
-	this.isaddArtwork=true;
-	this.isArtworkFound=false;
+		this.isaddArtwork=true;
+		this.isArtworkFound=false;
 	}   
     
     submitArtwork(){
@@ -143,7 +143,7 @@ getArtwork(){
          err => { console.error(err)
             
         });
-        }
+    }
      
      
  getStk(){ 
@@ -207,7 +207,7 @@ vendorName(){
 	this.listVendor=[];
 	this.newVendor=null;
 	this.listno="7";
-this.planManagemetService.getDropdown(this.listno).subscribe(
+	this.planManagemetService.getDropdown(this.listno).subscribe(
 	data => {
 				//console.log(data);
 				for (let index in data) {
@@ -251,8 +251,7 @@ submitVendor(){
         }), err => { console.error(err)
             
         });
-	
-	
+		
 }
 
 getitemCode(){
@@ -263,18 +262,18 @@ getitemCode(){
 	this.listno="1";
 	this.listDropDownitemCode=[];
 	this.planManagemetService.getDropdown(this.listno).subscribe(
-		data=>
-			{
-				//console.log(data);
-				for (let index in data) {
-					this.listDropDownitemCode.push(
-					{
-						id:data[index].id,
-						groupName: data[index].groupName,
-					}
-					);
+	data=>
+		{
+			//console.log(data);
+			for (let index in data) {
+				this.listDropDownitemCode.push(
+				{
+					id:data[index].id,
+					groupName: data[index].groupName,
 				}
-			},
+				);
+			}
+		},
     err => console.error(err));
 			
 	
@@ -284,6 +283,7 @@ addItemCode(){
 	this.isAddItemcode=true;
 	this.isItemcodeFound=false;
 }
+
 submitItemCode(){
 	if(this.ItemCode==null)
 		{alert("Input cannot be blank"); return;}
@@ -297,14 +297,11 @@ submitItemCode(){
             }
         }), err => { console.error(err)
             
-        });
-	
-	
+        });	
 	
 }
 
 clearItemid(linkno: number){
-	
 	
         this.ssmService.deleteSimdropdown(linkno).subscribe((res => {
             if (res == false) {
@@ -316,6 +313,7 @@ clearItemid(linkno: number){
             
         });
 }
+
 cancel(){
 			this.noDropdownSelected=true;
   			this.isArtworkFound=false;
@@ -434,16 +432,15 @@ submitProductname(){
 
 clearproductCode(linkno:number){
 	
-	
-        this.ssmService.deleteSimdropdown(linkno).subscribe((res => {
-            if (res == false) {
-              alert("Failed to delete")
-            } else {
-                this.getProductCode()
-            }
-        }), err => { console.error(err)
-            
-        });
+	this.ssmService.deleteSimdropdown(linkno).subscribe((res => {
+		if (res == false) {
+			alert("Failed to delete")
+		} else {
+			this.getProductCode()
+		}
+	}), err => { console.error(err)
+		
+	});
 }
 
 addProductCode(){
@@ -484,57 +481,56 @@ getSharerCode(){
 	this.listDropDownSharerName=[];
 	this.listno="4";
 	this.planManagemetService.getDropdown(this.listno).subscribe(
-		data=>
-			{
-				//console.log(data);
-				for (let index in data) {
-					this.listDropDownSharerName.push(
-					{
-						id:data[index].id,
-						groupName: data[index].groupName,
-					}
-					);
+	data=>
+		{
+			//console.log(data);
+			for (let index in data) {
+				this.listDropDownSharerName.push(
+				{
+					id:data[index].id,
+					groupName: data[index].groupName,
 				}
-			},
+				);
+			}
+		},
     err => console.error(err));
+
 }
 
 addSharerName(){
-	
 	this.isAddSharerName=true;
 	this.isSharerNameFound=false;
 }
-	clearSharerName(linkno:number){
-		
-        this.ssmService.deleteSimdropdown(linkno).subscribe((res => {
-            if (res == false) {
-              alert("Failed to delete")
-            } else {
-                this.getSharerCode()
-            }
-        }), err => { console.error(err)
-            
-        });
-	}
+
+clearSharerName(linkno:number){
 	
-	submitSharerName(){
-		if(this.SharerName==null)
+	this.ssmService.deleteSimdropdown(linkno).subscribe((res => {
+		if (res == false) {
+			alert("Failed to delete")
+		} else {
+			this.getSharerCode()
+		}
+	}), err => { console.error(err)
+		
+	});
+}
+	
+submitSharerName(){
+	if(this.SharerName==null)
 		{alert("Input cannot be blank"); return;}
 	var type="4"
 	this.ssmService.addSimdropdown(this.SharerName,type).subscribe((res => {
-            if (res == false) {
-              alert("Failed to add")
-            } else {
-				alert("Data Saved")
-                this.getSharerCode()
-            }
-        }), err => { console.error(err)
-            
-        });
-	
-	
+		if (res == false) {
+			alert("Failed to add")
+		} else {
+			alert("Data Saved")
+			this.getSharerCode()
+		}
+	}), err => { console.error(err)
 		
-	}
+	});
+			
+}
 	
 	getCircle(){
 	this.noDropdownSelected=false;
@@ -596,7 +592,7 @@ submitPlanCircle(){
 	
 }
 
-	getRequester(){
+getRequester(){
 	this.noDropdownSelected=false;
 	this.isrequesterFound=true;
 	this.isAddrequester=false;
@@ -604,25 +600,26 @@ submitPlanCircle(){
 	this.listDropDownrequester=[];
 	this.listno="6";
 	this.planManagemetService.getDropdown(this.listno).subscribe(
-		data=>
-			{
-				//console.log(data);
-				for (let index in data) {
-					this.listDropDownrequester.push(
-					{
-						id:data[index].id,
-						groupName: data[index].groupName,
-					}
-					);
+	data=>
+		{
+			//console.log(data);
+			for (let index in data) {
+				this.listDropDownrequester.push(
+				{
+					id:data[index].id,
+					groupName: data[index].groupName,
 				}
-			},
+				);
+			}
+		},
     err => console.error(err));
 }
 
 addRequester(){
 	this.isAddrequester=true;
 	this.isrequesterFound=false;
-	}
+}
+
 submitRequester(){
 	if(this.requester==null)
 		{alert("Input cannot be blank"); return;}
@@ -639,11 +636,9 @@ submitRequester(){
         });
 	
 	
-	
 }
 
 clearRequester(linkno:number){
-	
 	
         this.ssmService.deleteSimdropdown(linkno).subscribe((res => {
             if (res == false) {

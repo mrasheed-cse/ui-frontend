@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { TestsimDeactivationSsmComponent } from './testsim-deactivation-ssm.component';
 
@@ -6,7 +6,7 @@ describe('TestsimDeactivationSsmComponent', () => {
   let component: TestsimDeactivationSsmComponent;
   let fixture: ComponentFixture<TestsimDeactivationSsmComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ TestsimDeactivationSsmComponent ]
     })

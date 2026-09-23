@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { TestSimActionListLostComponent } from './test-sim-action-list-lost.component';
 
@@ -6,7 +6,7 @@ describe('TestSimActionListLostComponent', () => {
   let component: TestSimActionListLostComponent;
   let fixture: ComponentFixture<TestSimActionListLostComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ TestSimActionListLostComponent ]
     })

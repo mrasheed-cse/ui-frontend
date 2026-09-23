@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 
 import {DatePipe} from '@angular/common';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpResponse} from '@angular/common/http';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AppGlobals} from 'app/app.global';
@@ -22,7 +22,7 @@ import {SharedMessageService} from './services/shared-message.service';
     templateUrl: './download-mfs-recycling-summary-report.html',
     styles: ['./nsa_styles.css'],
     // styleUrls: ['./search_po.component.scss'],
-    providers: [AppGlobals, LoginService, DatePipe, MfsRecyclingSummaryReportService, SharedMessageService],
+    providers: [AppGlobals, LoginService, DatePipe, FileoperationService, MfsRecyclingSummaryReportService, SharedMessageService],
 })
 export class DownloadsMfsRecyclingSummaryReportComponent implements OnInit {
     myDownloadForm: FormGroup;
@@ -57,7 +57,7 @@ export class DownloadsMfsRecyclingSummaryReportComponent implements OnInit {
 
     constructor(private datePipe: DatePipe, private router: Router, private loginService: LoginService, private http: HttpClient,
                 private _global: AppGlobals, private summaryService: MfsRecyclingSummaryReportService,
-                private sharedMessageService: SharedMessageService) {
+                private sharedMessageService: SharedMessageService, private fileoperationService: FileoperationService) {
         this.currentLoggedInUser = this.loginService.GetCurrentLoggedInUser();
 
         if (this.currentLoggedInUser) {
@@ -118,40 +118,8 @@ export class DownloadsMfsRecyclingSummaryReportComponent implements OnInit {
         return ret;
     }
 
-    downloadFile(response : any) :void {
-        console.log(response);
-        console.log(response.headers);
-        let filename = "attachment.csv";
-
-        // Get filename from content-disposition header
-        const contentDisposition = response.headers.get('content-disposition');
-
-        if (contentDisposition) {
-            let arr = contentDisposition.split(';');
-            if (arr.length > 1) {
-                arr.forEach(element => {
-                    if (element.trim().startsWith('filename=')) {
-                        let arr2 = element.split('=');
-                        if (arr2.length > 1) {
-                            filename = arr2[1].trim().replace(/"/g, '');
-                        }
-                    }
-                })
-            }
-        }
-
-        // Create blob and download
-        const blob = new Blob([response.body],
-            { type: response.headers.get('content-type') });
-
-        const url = window.URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = filename;
-        link.click();
-
-        // Cleanup
-        window.URL.revokeObjectURL(url);
+    downloadFile(response: HttpResponse<Blob>): void {
+        this.fileoperationService.downloadBlobFile(response, 'attachment.csv');
     }
 
     onTaggingTypeChange() : void {

@@ -19,7 +19,7 @@ export class UploadRecycleComponent implements OnInit {
 
     ngOnInit(): void {
     }
-
+    
     dndUpload() {
         this.fileerror = false;
         this.filesuccess = false;

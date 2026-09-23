@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { TestSimActionListSurrenderComponent } from './test-sim-action-list-surrender.component';
 
@@ -6,7 +6,7 @@ describe('TestSimActionListSurrenderComponent', () => {
   let component: TestSimActionListSurrenderComponent;
   let fixture: ComponentFixture<TestSimActionListSurrenderComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ TestSimActionListSurrenderComponent ]
     })

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { TestsimSurrenderSsmComponent } from './testsim-surrender-ssm.component';
 
@@ -6,7 +6,7 @@ describe('TestsimSurrenderSsmComponent', () => {
   let component: TestsimSurrenderSsmComponent;
   let fixture: ComponentFixture<TestsimSurrenderSsmComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ TestsimSurrenderSsmComponent ]
     })

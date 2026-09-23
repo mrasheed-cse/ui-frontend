@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { TestsimCreditlimitextHodComponent } from './testsim-creditlimitext-hod.component';
 
@@ -6,7 +6,7 @@ describe('TestsimCreditlimitextHodComponent', () => {
   let component: TestsimCreditlimitextHodComponent;
   let fixture: ComponentFixture<TestsimCreditlimitextHodComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ TestsimCreditlimitextHodComponent ]
     })

@@ -48,6 +48,7 @@ import {
   APP_SIDEBAR_NAV
 } from './components';
 
+
 const APP_COMPONENTS = [
   AppAsideComponent,
   AppBreadcrumbsComponent,
@@ -69,6 +70,7 @@ import {
   SIDEBAR_TOGGLE_DIRECTIVES
 } from './directives';
 
+// Import containers
 const APP_DIRECTIVES = [
   AsideToggleDirective,
   NAV_DROPDOWN_DIRECTIVES,
@@ -88,11 +90,6 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 
 //import { NgxGaugeModule } from 'ngx-gauge';
-
-
-
-
-
 
 @NgModule({
   imports: [
